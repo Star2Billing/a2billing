@@ -52,7 +52,7 @@ class Realtime {
 		$this -> instance_table = new Table();
 		
 		$this -> FG_QUERY_ADITION_SIP = 'name, accountcode, regexten, amaflags, callgroup, callerid, canreinvite, context, DEFAULTip, dtmfmode, fromuser, fromdomain, host, insecure, language, ' .
-				'mailbox, md5secret, nat, permit, deny, mask, pickupgroup, port, qualify, restrictcid, rtptimeout, rtpholdtimeout, secret, type, username, disallow, allow, musiconhold, regseconds, ' .
+				'mailbox, md5secret, nat, deny, permit, mask, pickupgroup, port, qualify, restrictcid, rtptimeout, rtpholdtimeout, secret, type, username, disallow, allow, musiconhold, regseconds, ' .
 				'ipaddr, cancallforward, fullcontact, setvar, lastms, regserver, defaultuser, auth, subscribemwi, vmexten, cid_number, callingpres, usereqphone, incominglimit, subscribecontext, ' .
 				'musicclass, mohsuggest, allowtransfer, autoframing, maxcallbitrate, outboundproxy, rtpkeepalive';
 

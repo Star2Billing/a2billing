@@ -67,6 +67,9 @@ INSERT INTO cc_config (id, config_title, config_key, config_value, config_descri
 
 
 
+-- fix Realtime Bug, Permit have to be after Deny
+ALTER TABLE cc_sip_buddies MODIFY COLUMN permit varchar(95) AFTER deny;
+ALTER TABLE cc_iax_buddies MODIFY COLUMN permit varchar(95) AFTER deny;
 
 UPDATE cc_version SET version = '1.7.0';
 

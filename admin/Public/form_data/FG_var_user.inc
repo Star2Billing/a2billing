@@ -118,6 +118,7 @@ if (!$popup_select) {
 	$HD_Form -> FG_INFO = true;
 	$HD_Form -> FG_INFO_LINK = "A2B_admin_info.php?groupID=$groupID&id=";
 }
+
 if (has_rights (ACX_MODIFY_ADMINS) && !($popup_select)) {
 	$HD_Form -> FG_DELETION = true;
 	$HD_Form -> FG_EDITION = true;

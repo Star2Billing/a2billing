@@ -346,19 +346,6 @@ $HD_Form -> AddEditElement (gettext("TYPE"),
                            "",
                            gettext("Insert the type"),
                            "" , "", "", "", "" , "", "", gettext("type = friend | peer | user ( default : friend )"));
-                           
-                           
-	
-$HD_Form -> AddEditElement (gettext("PERMIT"),
-						   "permit",		
-						   '',	
-						   "INPUT",	
-						   "size=60 maxlength=50",	
-						   "",	
-						   gettext("Insert the permit"),
-						   "" , "", "",	"", "", "",	"", "" );
-
-
 
 $HD_Form -> AddEditElement (gettext("DENY"),
 						   "deny",		
@@ -369,7 +356,14 @@ $HD_Form -> AddEditElement (gettext("DENY"),
 						   gettext("Insert the deny"),
 						   "" , "", "",	"", "", "",	"", "" );
 
-
+$HD_Form -> AddEditElement (gettext("PERMIT"),
+						   "permit",
+						   '',
+						   "INPUT",
+						   "size=60 maxlength=50",
+						   "",
+						   gettext("Insert the permit"),
+						   "" , "", "",	"", "", "",	"", "" );
 
 if ($atmenu=='sip') {
 
@@ -942,7 +936,7 @@ if ($atmenu=='sip') {
 
 
 $field_list_edit = 'id_cc_card, name, accountcode, regexten, callerid, cid_number, amaflags, secret, qualify, disallow, allow, host, context, defaultip, language, port, regseconds, ipaddr, mohsuggest, ' .
-		'auth, setvar, type, permit, deny';
+		'auth, setvar, type, deny, permit';
 
 if ($atmenu=='sip') {
 	$field_list_edit .= ', username, md5secret, nat, dtmfmode, canreinvite, callgroup, fromuser, fromdomain, insecure, mailbox, mask, pickupgroup, restrictcid, rtptimeout, rtpholdtimeout, ' .
