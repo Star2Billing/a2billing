@@ -7,19 +7,18 @@ REQUIREMENTS :
     
     * Asterisk 1.x
     
-    * PostgreSQL 8.x or MySQL 5.x
+    * MySQL 5.x or PostgreSQL 8.x
     
     * PHP 5 >= 5.2.0
     
-    * PHP-PGSQL or PHP-MYSQLi
+    * PHP MODULES :
 
-    * PHP-MCRYPT
-	
-	* PHP-GD
-    
-    * PHP-PCNTL
-    
-    * PHP-GETTEXT
+        - PHP-PGSQL or PHP-MYSQLi
+        - PHP-MCRYPT
+        - PHP_POSIX
+        - PHP-GD
+        - PHP-PCNTL
+        - PHP-GETTEXT
     
     * PEAR SOAP class
     
