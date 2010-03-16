@@ -80,7 +80,7 @@ $HD_Form -> AddViewElement(gettext("IAX/SIP"), "sipiax", "6%", "center", "SORT",
 $HD_Form -> AddViewElement(gettext("InitialRate"), "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
 $HD_Form -> AddViewElement(gettext("Cost"), "sessionbill", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
-$FG_COL_QUERY='id, starttime, calledstation, destination, sessiontime, username, terminatecauseid, sipiax, calledrate, sessionbill';
+$FG_COL_QUERY='id, starttime, calledstation, destination, real_sessiontime, card_id, terminatecauseid, sipiax, buycost, sessionbill';
 
 $HD_Form -> FieldViewElement ($FG_COL_QUERY);
 

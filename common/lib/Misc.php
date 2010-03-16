@@ -1035,8 +1035,8 @@ function archive_data($condition, $entity = "")
 			$result = $instance_table->Delete_table($handle, $condition, $fun_table);
 		} else
 			if ($entity == "call") {
-				$value = "SELECT id, sessionid,uniqueid,card_id,nasipaddress,starttime,stoptime,sessiontime,calledstation,terminatecauseid,calledrate,sessionbill,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime FROM cc_call $condition";
-				$func_fields = "id, sessionid,uniqueid,card_id,nasipaddress,starttime,stoptime,sessiontime,calledstation,terminatecauseid,calledrate,sessionbill,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime";
+				$value = "SELECT id, sessionid,uniqueid,card_id,nasipaddress,starttime,stoptime,sessiontime,calledstation,sessionbill,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,id_card_package_offer,real_sessiontime FROM cc_call $condition";
+				$func_fields = "id, sessionid,uniqueid,card_id,nasipaddress,starttime,stoptime,sessiontime,calledstation,sessionbill,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,id_card_package_offer,real_sessiontime";
 				$func_table = 'cc_call_archive';
 				$id_name = "";
 				$subquery = true;
