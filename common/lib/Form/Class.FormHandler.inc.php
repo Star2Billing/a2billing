@@ -452,6 +452,7 @@ class FormHandler
 	var $FG_ADDITIONAL_FUNCTION_AFTER_ADD = '';
 	var $FG_ADDITIONAL_FUNCTION_BEFORE_DELETE = '';
 	var $FG_ADDITIONAL_FUNCTION_AFTER_DELETE = '';
+	var $FG_ADDITIONAL_FUNCTION_BEFORE_EDITION = '';
 	var $FG_ADDITIONAL_FUNCTION_AFTER_EDITION = '';
 	
 	var $FG_TABLE_ALTERNATE_ROW_COLOR = array();
@@ -1672,6 +1673,9 @@ class FormHandler
 			}				
 		}
 		
+		if (strlen($this->FG_ADDITIONAL_FUNCTION_BEFORE_EDITION)>0 && ($this->VALID_SQL_REG_EXP))
+				$res_funct = call_user_func(array('FormBO', $this->FG_ADDITIONAL_FUNCTION_BEFORE_EDITION)); 
+
 		if ($this->FG_DEBUG == 1)
 			echo "<br><hr> PARAM_UPDATE: $param_update<br>".$this->FG_EDITION_CLAUSE;
 		

@@ -38,7 +38,7 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse',
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
 'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list',
-'status', 'template_invoice', 'template_outstanding', 'description', 'voicemail_activated', 
+'status',  'block', 'lock_pin', 'template_invoice', 'template_outstanding', 'description', 'voicemail_activated', 
 'voicemail_permitted','email_notification','credit_notification','notify_email', 'id_seria',
 'company_name' , 'company_website' , 'vat_rn' , 'traffic' , 'traffic_target','discount','restriction' ));
 
@@ -586,6 +586,27 @@ $HD_Form -> AddEditElement (gettext("STATUS"),
 			   "",
 			   "list" , "", "",	"", $cardstatus_list, "%1", "", "" );
 
+	$HD_Form -> AddEditElement (gettext("LOCK"),
+				   "block",
+				   '0',
+				   "RADIOBUTTON",
+				   "",
+				   "",
+				   gettext("Choose if you want to enable the lock on this account"),
+				   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable lock for this account."));
+
+	if ($form_action =="ask-add" || $form_action=="add") {
+		$lockpin_default = "value = '0'";
+	}
+
+	$HD_Form -> AddEditElement (gettext("LOCK PIN"),
+				   "lock_pin",
+				   '$value',
+				   "INPUT",
+				   "size=20 maxlength=10 $lockpin_default",
+				   "4",
+				   "",
+				   "" , "", "",	"", "", "", "NO", gettext("Code required to make the call if the lock is active."));
 
 $HD_Form -> AddEditElement (gettext("SIMULTANEOUS ACCESS"),
 			   "simultaccess",
@@ -932,7 +953,7 @@ $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONTINUE button.");
 
-
+$HD_Form -> FG_ADDITIONAL_FUNCTION_BEFORE_EDITION = 'change_card_lock';
 
 $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'processing_card_add_agent';
 $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_EDITION = 'create_status_log';

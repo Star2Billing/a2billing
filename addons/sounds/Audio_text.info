@@ -72,6 +72,31 @@ prepaid-no-dialcode								Please, Enter your dial code
 prepaid-enter-dialcode							This dial code does not exist
 
 
+------ Locking & Information ----------
+prepaid-press4-info                             Press 4 to get information about your account
+prepaid-press5-lock                             Press 5 to lock your account
+
+prepaid-enter-pin-lock                          Please enter your locking code
+prepaid-no-pin-lock                             Your locking Code is incorrect
+prepaid-enter-code-lock-account                 Please, Enter the code you want to use to lock your account
+prepaid-your-locking-is                         Your locking code is
+
+prepaid-press1-listen-lastcall                  Press 1 to listen the time and duration of the last call
+prepaid-press2-listen-accountlocked             Press 2 to time and date when the account last has been locked
+prepaid-press3-listen-firstuse                  Press 3 to date of when the account was first in use
+prepaid-pressdisconnect                         Press * to disconnect
+
+prepaid-lastcall                                Your last call was made
+prepaid-no-call                                 No call has been made
+prepaid-call-duration                           The duration of the call was
+prepaid-account-has-locked                      Your Account has been locked the
+prepaid-account-nolocked                        Your account is not locked
+prepaid-account-firstused                       Your Account has been used for the first time the
+
+prepaid-press9-listen-exit-infomenu             Press 9 to exit information menu
+prepaid-press9-listen-exit-lockmenu             Press 9 to exit lock menu
+
+
 
 ===========================================  FRENCH ===========================================
 

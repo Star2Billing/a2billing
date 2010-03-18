@@ -189,7 +189,31 @@ echo Display_Login_Button ($DBHandle, $id);
 					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
 						<?php echo $card['callback']?> 
 					</td>
-				</tr>							
+				</tr>
+	  			<tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("LOCK") ?> :
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php echo ($card['block'] ? gettext("LOCK") : gettext("UNLOCK")) ?> 
+					</td>
+				</tr>
+	  			<tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("LOCK PIN") ?> :
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php echo $card['lock_pin']?> 
+					</td>
+				</tr>
+	  			<tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("LOCK DATE") ?> :
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php echo $card['lock_date']?> 
+					</td>
+				</tr>
 			 </table>
 		</td>
 	

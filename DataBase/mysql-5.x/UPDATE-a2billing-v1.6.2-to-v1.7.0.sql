@@ -71,6 +71,20 @@ INSERT INTO cc_config (id, config_title, config_key, config_value, config_descri
 ALTER TABLE cc_sip_buddies MODIFY COLUMN permit varchar(95) AFTER deny;
 ALTER TABLE cc_iax_buddies MODIFY COLUMN permit varchar(95) AFTER deny;
 
+
+-- Locking features
+ALTER TABLE cc_card ADD block TINYINT NOT NULL DEFAULT '0';
+ALTER TABLE cc_card ADD lock_pin VARCHAR( 15 ) NULL DEFAULT NULL;
+ALTER TABLE cc_card ADD lock_date timestamp NULL;
+
+
+INSERT INTO cc_config ( config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title)
+VALUES( 'IVR Locking option', 'ivr_enable_locking_option', '0', 'Enable the IVR which allow the users to lock their account with an extra lock code.', 1, 'yes,no', 'agi-conf1');
+
+INSERT INTO cc_config ( config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title)
+VALUES( 'IVR Account Information', 'ivr_enable_account_information', '0', 'Enable the IVR which allow the users to retrieve different information about their account.', 1, 'yes,no', 'agi-conf1');
+
+
 UPDATE cc_version SET version = '1.7.0';
 
 

@@ -495,7 +495,8 @@ class FormBO {
 	static public function processing_card_add()
 	{
 		self::create_sipiax_friends();
-		self::creation_card_refill();	
+		self::creation_card_refill();
+		self::create_lock_card();
 	}
 	
 	static public function processing_card_del_agent()
@@ -506,6 +507,7 @@ class FormBO {
 	static public function processing_card_add_agent()
 	{
 		self::create_sipiax_friends();
+		self::create_lock_card();
 	}
 	
 	static public function processing_refill_add()
@@ -1081,6 +1083,41 @@ class FormBO {
 		}
 	}
 
+	static public function create_lock_card()
+	{
+		global $A2B;
+		$FormHandler = FormHandler::GetInstance();
+		$processed = $FormHandler->getProcessed();
+		$id = $FormHandler -> RESULT_QUERY;
+		print_r($processed);
+		if($processed['block'] == 1) {
+			$instance_sub_table = new Table("cc_card");
+			$param_update_card = "lock_date = NOW()";
+			$clause_update_card = "id = $id";
+			$instance_sub_table -> Update_table ($FormHandler->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
+			echo "<br>UPDATE cc_card SET $param_update_card WHERE $clause_update_card";
+//			die();
+		}
+	}
+	
+	static public function change_card_lock()
+	{
+		global $A2B;
+		$FormHandler = FormHandler::GetInstance();
+		$processed = $FormHandler->getProcessed();
+		$instance_sub_table = new Table("cc_card", "block");
+		$FG_TABLE_CLAUSE_CARD = "id = ".$processed['id'];
+		$card_info = $instance_sub_table -> Get_list ($FormHandler -> DBHandle, $FG_TABLE_CLAUSE_CARD, null, null, null, null, null, null);
+		if (is_array($result) && !empty($result[0][0])) {
+			$card_lock_info = $card_info[0][0];
+		
+			if ($card_lock_info != $processed['block'] && $processed['block'] == 1) {
+				$param_update_card = "lock_date = NOW()";
+				$clause_update_card = "id = ".$processed['id'];
+				$instance_sub_table -> Update_table ($FormHandler->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
+			}
+		}
+	}
 }
 
 ?>
