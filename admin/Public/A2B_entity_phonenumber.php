@@ -46,7 +46,9 @@ if (!has_rights(ACX_PREDICTIVE_DIALER)) {
 
 getpost_ifset(array (
 	'action',
-	'campaign'
+	'campaign',
+	'check', 'type', 'mode', 'batchupdate',
+	'upd_id_phonebook', 'upd_number', 'upd_name', 'upd_amount', 'upd_status'
 ));
 
 if (!empty ($action) && !empty ($campaign) && is_numeric($campaign) && ($action == "run" || $action == "hold" || $action == "stop")) {
@@ -67,6 +69,66 @@ $HD_Form->setDBHandler(DbConnect());
 
 $HD_Form->init();
 
+/********************************* BATCH UPDATE ***********************************/
+
+// CHECK IF REQUEST OF BATCH UPDATE
+if ($batchupdate == 1 && is_array($check)) {
+	$SQL_REFILL="";
+	$HD_Form->prepare_list_subselection('list');
+	
+	// Array ( [upd_simultaccess] => on [upd_currency] => on )	
+	$loop_pass=0;
+	$SQL_UPDATE = '';
+	foreach ($check as $ind_field => $ind_val) {
+		//echo "<br>::> $ind_field -";
+		$myfield = substr($ind_field,4);
+		if ($loop_pass!=0) $SQL_UPDATE.=',';
+		
+		// Standard update mode
+		if (!isset($mode["$ind_field"]) || $mode["$ind_field"]==1) {		
+			if (!isset($type["$ind_field"])) {		
+				$SQL_UPDATE .= " $myfield='".$$ind_field."'";
+			} else {
+				$SQL_UPDATE .= " $myfield='".$type["$ind_field"]."'";
+			}
+		// Mode 2 - Equal - Add - Subtract
+		} elseif($mode["$ind_field"]==2) {
+			if (!isset($type["$ind_field"])) {		
+				$SQL_UPDATE .= " $myfield='".$$ind_field."'";
+			} else {
+				if ($type["$ind_field"] == 1) {
+					$SQL_UPDATE .= " $myfield='".$$ind_field."'";					
+				} elseif ($type["$ind_field"] == 2) {
+					$SQL_UPDATE .= " $myfield = $myfield +'".$$ind_field."'";
+				} else {
+					$SQL_UPDATE .= " $myfield = $myfield -'".$$ind_field."'";
+				}				
+			}
+		}
+		$loop_pass++;
+	}
+	
+	$SQL_UPDATE = "UPDATE $HD_Form->FG_TABLE_NAME SET $SQL_UPDATE";
+	if (strlen($HD_Form->FG_TABLE_CLAUSE)>1) {
+		$SQL_UPDATE .= ' WHERE ';
+		$SQL_UPDATE .= $HD_Form->FG_TABLE_CLAUSE;
+	}
+	$update_msg_error = '<center><font color="red"><b>'.gettext('Could not perform the batch update!').'</b></font></center>';
+	
+	if (!$HD_Form -> DBHandle -> Execute("begin")){
+		$update_msg = $update_msg_error;
+	} else {
+		if(!$HD_Form -> DBHandle -> Execute($SQL_UPDATE)){
+			$update_msg = $update_msg_error;
+		}
+		if (! $res = $HD_Form -> DBHandle -> Execute("commit")) {
+			$update_msg = '<center><font color="green"><b>'.gettext('The batch update has been successfully perform!').'</b></font></center>';
+		}
+	
+	};
+}
+
+
 if ($id != "" || !is_null($id)) {
 	$HD_Form->FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form->FG_EDITION_CLAUSE);
 }
@@ -83,6 +145,124 @@ $smarty->display('main.tpl');
 
 // #### HELP SECTION
 echo $CC_help_phonelist;
+
+?>
+<script language="JavaScript" src="javascript/card.js"></script>
+<div class="toggle_hide2show">
+<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH PHONENUMBER");?> </font></a><?php if(!empty($_SESSION['entity_phonenumber_selection'])){ ?>&nbsp;(<font style="color:#EE6564;" > <?php echo gettext("search activated"); ?> </font> ) <?php } ?> </center>
+	<div class="tohide" style="display:none;">
+<?php
+// #### CREATE SEARCH FORM
+if ($form_action == "list") {
+	$HD_Form -> create_search_form();
+}
+?>
+	</div>
+</div>
+
+<?php
+/********************************* BATCH UPDATE ***********************************/
+if ( $form_action == "list" && (!($popup_select>=1)) ) {
+		
+	$instance_table_tariff = new Table("cc_phonebook", "id, name");
+	$FG_TABLE_CLAUSE = "";
+	$list_phonebook = $instance_table_tariff -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
+	$nb_phonebook = count($list_phonebook);
+	
+	$actived_list = Constants::getActivationList();
+	
+?>
+<!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
+<div class="toggle_hide2show">
+<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("BATCH UPDATE");?> </font></a></center>
+	<div class="tohide" style="display:none;">
+
+<center>
+<b>&nbsp;<?php echo $HD_Form -> FG_NB_RECORD ?> <?php echo gettext("phonenumbers selected!"); ?>&nbsp;<?php echo gettext("Use the options below to batch update the selected phonenumbers.");?></b>
+	   <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
+        <tbody>
+		<form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+		<INPUT type="hidden" name="batchupdate" value="1">
+		<tr>		
+          <td align="left"  class="bgcolor_001">
+		  	<input name="check[upd_id_phonebook]" type="checkbox" <?php if ($check["upd_id_phonebook"]=="on") echo "checked"?> >
+		  </td>
+		  <td align="left" class="bgcolor_001">
+			  	1)&nbsp;<?php echo gettext("Phonebook");?>&nbsp;:
+				<select NAME="upd_id_phonebook" size="1" class="form_input_select">
+				<?php foreach ($list_phonebook as $key => $cur_value) { ?>
+					<option value='<?php echo $cur_value[0] ?>' <?php if ($upd_status==$cur_value[0]) echo 'selected="selected"'?>><?php echo $cur_value[1] ?></option>                        
+				<?php } ?>
+				</select><br/>
+		  </td>
+		</tr>
+		<tr>		
+          <td align="left" class="bgcolor_001" >
+		  		<input name="check[upd_number]" type="checkbox" <?php if ($check["upd_number"]=="on") echo "checked"?>>
+		  </td>
+		  <td align="left"  class="bgcolor_001">
+				2)&nbsp;<?php echo gettext("Phonenumber"); ?>&nbsp;: 
+				<input class="form_input_text"  name="upd_number" size="15" maxlength="15">
+				<br/>
+		  </td>
+		</tr>
+		<tr>		
+          <td align="left" class="bgcolor_001" >
+		  		<input name="check[upd_name]" type="checkbox" <?php if ($check["upd_name"]=="on") echo "checked"?>>
+		  </td>
+		  <td align="left"  class="bgcolor_001">
+				3)&nbsp;<?php echo gettext("Name"); ?>&nbsp;: 
+				<input class="form_input_text"  name="upd_name" size="15" maxlength="15">
+				<br/>
+		  </td>
+		</tr>
+		<tr>		
+          <td align="left" class="bgcolor_001">
+		  		<input name="check[upd_amount]" type="checkbox" <?php if ($check["upd_amount"]=="on") echo "checked"?>>
+				<input name="mode[upd_amount]" type="hidden" value="2">
+		  </td>
+		  <td align="left"  class="bgcolor_001">
+				4)&nbsp;<?php echo gettext("Amount");?>&nbsp;:
+				 	<input class="form_input_text" name="upd_amount" size="10" maxlength="10"  value="<?php if (isset($upd_amount)) echo $upd_amount; else echo '0';?>" >
+				<font class="version">
+				<input type="radio" NAME="type[upd_amount]" value="1" <?php if((!isset($type[upd_amount]))|| ($type[upd_amount]==1) ){?>checked<?php }?>> <?php echo gettext("Equals");?>
+				<input type="radio" NAME="type[upd_amount]" value="2" <?php if($type[upd_amount]==2){?>checked<?php }?>><?php echo gettext("Add");?>
+				<input type="radio" NAME="type[upd_amount]" value="3" <?php if($type[upd_amount]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
+				</font>
+		  </td>
+		</tr>
+		<tr>		
+          <td align="left"  class="bgcolor_001">
+		  	<input name="check[upd_status]" type="checkbox" <?php if ($check["upd_status"]=="on") echo "checked"?> >
+		  </td>
+		  <td align="left" class="bgcolor_001">
+			  5)&nbsp;<?php echo gettext("Status");?>&nbsp;:
+				<select NAME="upd_status" size="1" class="form_input_select">
+				<?php foreach ($actived_list as $key => $cur_value) { ?>
+					<option value='<?php echo $cur_value[1] ?>' <?php if ($upd_status==$cur_value[1]) echo 'selected="selected"'?>><?php echo $cur_value[0] ?></option>                        
+				<?php } ?>
+				</select><br/>
+		  </td>
+		</tr>
+		
+		<tr>		
+			<td align="right" class="bgcolor_001"></td>
+		 	<td align="right"  class="bgcolor_001">
+				<input class="form_input_button"  value=" <?php echo gettext("BATCH UPDATE CARD");?>  " type="submit">
+        	</td>
+		</tr>
+		</form>
+		</table>
+</center>
+	</div>
+</div>
+<!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
+<?php
+
+}elseif (!($popup_select>=1)) echo $CC_help_create_customer;
+
+
+if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg; 
 
 // #### TOP SECTION PAGE
 $HD_Form->create_toppage($form_action);

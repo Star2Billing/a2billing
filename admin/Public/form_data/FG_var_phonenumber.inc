@@ -39,6 +39,7 @@ getpost_ifset(array('id', 'number', 'id_phonebook', 'name', 'status',  'info'));
 $HD_Form = new FormHandler("cc_phonenumber","phonenumber");
 
 $HD_Form -> FG_DEBUG = 0;
+$HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_phonenumber_selection';
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "number";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
@@ -52,6 +53,7 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/telephone_add.png" ;
 
 // TODO Integrate a generic LIST to Framework
 $actived_list = Constants::getActivationList();
+$actived_list_r = Constants::getActivation_Revert_List();
 
 $HD_Form -> AddViewElement(gettext("PHONEBOOK"), "id_phonebook", "15%", "center", "sort", "15", "lie", "cc_phonebook", "name", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("PHONENUMBER"), "number", "10%", "center", "sort", "26");
@@ -69,6 +71,18 @@ $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
+if (!($popup_select>=1))	 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
+
+$HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for phonenumbers created.');
+$HD_Form -> FG_FILTER_SEARCH_1_TIME = true;
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('CREATION DATE');
+
+$HD_Form -> AddSearchElement_C1(gettext("PHONENUMBER"), 'number','phonenumbertype');
+$HD_Form -> AddSearchElement_C1(gettext("NAME"),'name','nametype');
+$HD_Form -> AddSearchElement_C2(gettext("AMOUNT"),'amount1','amount1type','amount2','amount2type','amount');
+
+$HD_Form -> AddSearchElement_Select(gettext("SELECT PHONEBOOK"), "cc_phonebook", "id, name", "", "name", "ASC", "id_phonebook");
+$HD_Form -> AddSearchElement_Select(gettext("SELECT STATUS"), null, null, null, null,null , "status", 0, $actived_list_r);
 
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;

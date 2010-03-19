@@ -90,6 +90,10 @@ class Constants
 		return $actived_list;
 	}
 
+	public static function getActivation_Revert_List(){
+		return Constants::reverse_array(Constants::getActivationList());
+	}
+
 	public static function getActivationTrueFalseList(){
 		$actived_list = array();
 		$actived_list["t"] = array( "Active", "t");
