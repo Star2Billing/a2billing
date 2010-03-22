@@ -377,6 +377,7 @@ class FormBO {
 		}
 		
 		self::create_subscriptions();
+		self::create_notification_signup();
 	}
 	
 	static public function create_subscriptions()
@@ -1095,8 +1096,6 @@ class FormBO {
 			$param_update_card = "lock_date = NOW()";
 			$clause_update_card = "id = $id";
 			$instance_sub_table -> Update_table ($FormHandler->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
-			echo "<br>UPDATE cc_card SET $param_update_card WHERE $clause_update_card";
-//			die();
 		}
 	}
 	
@@ -1117,6 +1116,18 @@ class FormBO {
 				$instance_sub_table -> Update_table ($FormHandler->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
 			}
 		}
+	}
+	
+	/**
+	 * Function to added new sign-ups in the notification
+	 * @public
+	 */
+	static public function create_notification_signup()
+	{
+		global $A2B;
+		$FormHandler = FormHandler::GetInstance();
+		$id_card = $FormHandler -> RESULT_QUERY;
+		NotificationsDAO::AddNotification("added_new_signup",Notification::$MEDIUM,Notification::$CUST,$id_card,Notification::$LINK_CARD,$id_card);
 	}
 }
 

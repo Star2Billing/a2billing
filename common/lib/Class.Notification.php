@@ -48,6 +48,7 @@ Class Notification {
 	static public $LINK_TICKET_CUST = "ticket_cust";
 	static public $LINK_TICKET_AGENT = "ticket_agent";
 	static public $LINK_REMITTANCE = "remittance";
+	static public $LINK_CARD = "card";
 	
 	private $id;
 	private $date;
@@ -77,7 +78,8 @@ Class Notification {
 					  "iax_changed"			=> gettext("New IAX added : IAX Friends conf have to be generated"),
 					  "ticket_added_agent" 	=> gettext("New Ticket added by agent"),
 					  "ticket_added_cust" 	=> gettext("New Ticket added by customer"),
-                      "remittance_added_agent"	=> gettext("New Remittance request added"));
+                      "remittance_added_agent"	=> gettext("New Remittance request added"),
+                      "added_new_signup"	=> gettext("Added new sign-up"));
 	}
 	function getId() {
 		return $this->id;
@@ -157,10 +159,11 @@ Class Notification {
 		$link = "";
 		if(!empty($this->link_id) && !empty($this->link_type) && $this->link_type != Notification::$LINK_NONE ){
 			switch ($this->link_type) {
-				case Notification::$LINK_REMITTANCE:$link .= "A2B_remittance_info.php?id="; ;
+				case Notification::$LINK_REMITTANCE:$link .= "A2B_remittance_info.php?id=";
 				break;
 				case Notification::$LINK_TICKET_CUST:
 				case Notification::$LINK_TICKET_AGENT:$link .= "CC_ticket_view.php?id=";
+				case Notification::$LINK_CARD:$link .= "A2B_entity_card.php?form_action=ask-edit&id=";
                 break;
 			}
 			$link .= $this->link_id;
