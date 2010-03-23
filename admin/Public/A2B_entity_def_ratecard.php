@@ -260,7 +260,6 @@ $HD_Form-> CV_FOLLOWPARAMETERS .= "&package=".$package;
 function sendValue(selvalue){
 	 // redirect browser to the grabbed value (hopefully a URL)
 	window.opener.location.href= <?php echo '"A2B_package_manage_rates.php?id='.$package.'&addrate="'; ?>+selvalue;
-	//self.location.href = "<?php echo $_SERVER['PHP_SELF']."?popup_select=1&package=$package?>"; ?>";
 }
 // End -->
 </script>
@@ -572,7 +571,6 @@ if ($popup_select) {
 <script language="javascript">
 function sendOpener()
 {
-	var send;
 	if (document.assignForm.check[0].checked==true){
 		var id_trunk = document.assignForm.assign_id_trunk.options[document.assignForm.assign_id_trunk.selectedIndex].value;
 	}

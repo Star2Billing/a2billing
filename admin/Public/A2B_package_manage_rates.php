@@ -62,16 +62,16 @@ if(isset($addbatchrate) && ($addbatchrate)) {
 	$rates_clauses = "";
 	$table_rates = new Table("cc_ratecard"," DISTINCT COUNT(destination)");
 	if (isset($id_trunk)){
-		$rates_clauses .= " id_trunk = '{$id_trunk}'";
+		$rates_clauses = " id_trunk = '{$id_trunk}'";
 	}
 	if (isset($id_tariffplan)){
 		$rates_clauses .= (isset($id_trunk)? 'AND':'') . " idtariffplan = '{$id_tariffplan}'";
 	}
 	if(isset($tag)){
-		$rates_clauses .= (((isset($id_trunk)) || (isset($id_tariffplan)))? 'AND':'') . " rc.tag = '{$tag}'";
+		$rates_clauses .= (!empty($rates_clauses)? 'AND':'') . " rc.tag = '{$tag}'";
 	}
 	if(isset($prefix)){
-		$rates_clauses .= (((isset($tag)) || (isset($id_trunk)) || (isset($id_tariffplan)) || (isset($id_destination))) ? 'AND':'');
+		$rates_clauses .= (!empty($rates_clauses)? 'AND':'');
 		switch( $rbPrefix )
 		{
 			case 1 : $rates_clauses .= " destination = '{$prefix}'"; break;
@@ -79,7 +79,6 @@ if(isset($addbatchrate) && ($addbatchrate)) {
 			case 3 : $rates_clauses .= " destination LIKE '%{$prefix}%'"; break;
 			case 4 : $rates_clauses .= " destination LIKE '%{$prefix}'"; break;
 			case 5 :
-					$OPL = (((isset($tag)) || (isset($id_trunk)) || (isset($id_tariffplan)) || (isset($id_destination))) ? 'AND':'');
 					$arr_prefix = array();
 					if( strpos($prefix,',') ){
 						$single = explode(',', $prefix);
@@ -106,7 +105,7 @@ if(isset($addbatchrate) && ($addbatchrate)) {
 							$OPL = ($key == $last_key)? '':' OR ';
 							if( is_array( $value ) )
 							{
-								$rates_clauses .= " (destination BETWEEN  '$value[0]' AND '$value[1]') $OPL";
+								$rates_clauses .= " (destination BETWEEN '$value[0]' AND '$value[1]') $OPL";
 							} else {
 								$rates_clauses .= " destination = '$value' $OPL";
 							}
@@ -116,8 +115,8 @@ if(isset($addbatchrate) && ($addbatchrate)) {
 			default : $rates_clauses .= " destination = '{$prefix}'"; break;
 		}
 	}
-	$query = "SELECT {$id},id FROM cc_ratecard WHERE {$rates_clauses} GROUP BY destination";
-	$table_rates -> SQLExec( $DBHandle, "INSERT IGNORE INTO cc_package_rate(package_id , rate_id) ({$query})" );
+	$QUERY = "SELECT {$id},id FROM cc_ratecard rc WHERE {$rates_clauses} GROUP BY destination";
+	$table_rates -> SQLExec( $DBHandle, "INSERT IGNORE INTO cc_package_rate(package_id , rate_id) ({$QUERY})" );
 	Header ("Location: A2B_package_manage_rates.php?id=$id");
 }
 

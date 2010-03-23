@@ -12,7 +12,7 @@
 ***************************************************************************************************
 
 
-http://domain/webservice/SOAP/callback-exec.php?wsdl
+http://domain/webservice/SOAP/soap-callback-server?wsdl
 
 
 <?xml version="1.0"?>
