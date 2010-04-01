@@ -108,7 +108,7 @@ Step 2: Prepare the Database
    We will now create a MySQL database (mya2billing) for the billing software. The file a2billing-MYSQL-createdb-user.sql includes a script that creates the database with
    the correct access control users and permissions.
      #cd /usr/local/src/a2billing
-     #mysql -u root -p < DataBase/mysql/Mysql-5.x/a2billing-MYSQL-createdb-user.sql
+     #mysql -u root -p < DataBase/mysql-5.x/a2billing-createdb-user.sql
 
    The script with create a database, username and password with the following default values
 Database name is: mya2billing
@@ -116,20 +116,21 @@ Database user is: a2billinguser
 User password is: a2billing
 
    After creating the database structure, we will create a set of tables and insert some initial basic configuration data
-     #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/a2billing-schema-MYSQL.5.X-v1.4.0.sql
-     #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.0-to-v1.4.1.sql
-     #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.1-to-v1.4.2.sql
-     #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.2-to-v1.4.3.sql
-     #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.3-to-v1.4.4.sql
-     #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.4-to-v1.4.4.1.sql
-     #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.4.1-to-v1.4.5.sql
-     #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.5-to-v1.5.0.sql
-     #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.5.0-to-v1.5.1.sql
-     #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.5.1-to-v1.6.0.sql
-     #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.6.0-to-v1.6.1.sql
-     #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.6.1-to-v1.6.2.sql
+     #mysql -u root -p mya2billing < DataBase/mysql-5.x/a2billing-schema-v1.4.0.sql
+     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.4.0-to-v1.4.1.sql
+     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.4.1-to-v1.4.2.sql
+     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.4.2-to-v1.4.3.sql
+     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.4.3-to-v1.4.4.sql
+     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.4.4-to-v1.4.4.1.sql
+     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.4.4.1-to-v1.4.5.sql
+     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.4.5-to-v1.5.0.sql
+     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.5.0-to-v1.5.1.sql
+     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.5.1-to-v1.6.0.sql
+     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.6.0-to-v1.6.1.sql
+     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.6.1-to-v1.6.2.sql
+     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.6.2-to-v1.7.0.sql
      
-   Checkpoint 1: Check that the database (my2billing) and that (93) tables have been created.
+   Checkpoint 1: Check that the database (my2billing) and that (97) tables have been created.
      #mysql -u root -p mya2billing
      mysql>show tables
      mysql>exit
@@ -207,14 +208,16 @@ Step 6: Install The AGI components
    Option 1
      #cd /usr/local/src/a2billing/AGI
      #cp a2billing.php /usr/share/asterisk/agi-bin/
+     #cp a2billing-monitoring.php /usr/share/asterisk/agi-bin/
      #cp -Rf lib /usr/share/asterisk/agi-bin/
 
    Option 2
      #ln -s /usr/local/src/a2billing/AGI/a2billing.php /usr/share/asterisk/agi-bin/a2billing.php
      #ln -s /usr/local/src/a2billing/AGI/lib /usr/share/asterisk/agi-bin/lib
 
-   Make sure the script is executable
+   Make sure the scripts are executable
      #chmod +x /usr/share/asterisk/agi-bin/a2billing.php
+     #chmod +x /usr/share/asterisk/agi-bin/a2billing_monitoring.php
 
 Step 5: Install web-based Graphical interfaces
 
