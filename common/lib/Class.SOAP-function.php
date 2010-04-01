@@ -665,9 +665,9 @@ class SOAP_A2Billing
     /*
 	 *      Create a set of accounts
 	 */
-    //Default values ($activated = true, $status = 1, $simultaccess = 0, $typepaid =0, $sip_buddy=1, $iax_buddy=1, $voicemail_enabled = true)
+    //Default values ($activated = true, $status = 1, $simultaccess = 0, $typepaid =0, $sip=1, $iax=1, $voicemail_enabled = true)
     //$status : 1 Active
-    function Create_Customer($security_key, $instance, $id_callplan, $id_didgroup, $units, $accountnumber_len, $balance, $activated, $status,  $simultaccess, $currency, $typepaid, $sip_buddy, $iax_buddy,  $language, $voicemail_enabled, $country)
+    function Create_Customer($security_key, $instance, $id_callplan, $id_didgroup, $units, $accountnumber_len, $balance, $activated, $status,  $simultaccess, $currency, $typepaid, $sip, $iax,  $language, $voicemail_enabled, $country)
     {
         $arr_check = $this->Check_KeyInstance($security_key, $instance);
 		if ($arr_check[0] == 'ERROR') {
@@ -749,7 +749,7 @@ class SOAP_A2Billing
 			    $instance_refill_table->Add_table($this->DBHandle, $value_insert_refill, null, null);
 		    }
 
-		    $instance_realtime -> insert_voip_config ($sip, $iax, $id_cc_card, $accountnumber, $passui_secret);
+		    $instance_realtime -> insert_voip_config ($sip_buddy, $iax_buddy, $id_cc_card, $accountnumber, $passui_secret);
 	    }
 	
 	    // Save Sip accounts to file
