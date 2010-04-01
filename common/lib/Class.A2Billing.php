@@ -728,7 +728,7 @@ class A2Billing {
 			$this->CallerID = substr($this->CallerID,$pos_lt+1,$len_gt);
 		}
 		
-		$this->CallerID = str_replace("+", '', $this->CallerID);
+		//$this->CallerID = str_replace("+", '', $this->CallerID);
 	}
 
 

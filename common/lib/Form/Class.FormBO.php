@@ -1090,7 +1090,6 @@ class FormBO {
 		$FormHandler = FormHandler::GetInstance();
 		$processed = $FormHandler->getProcessed();
 		$id = $FormHandler -> RESULT_QUERY;
-		print_r($processed);
 		if($processed['block'] == 1) {
 			$instance_sub_table = new Table("cc_card");
 			$param_update_card = "lock_date = NOW()";
