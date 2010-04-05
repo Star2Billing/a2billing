@@ -2473,6 +2473,18 @@ class A2Billing {
 				$this->restriction			= $result[0][31];
 				$this->countryprefix		= $result[0][32];
 				
+				if (strlen($language)==2 && !($this->languageselected>=1)) {
+
+					if ($this->agiconfig['asterisk_version'] == "1_2") {
+						$lg_var_set = 'LANGUAGE()';
+					} else {
+						$lg_var_set = 'CHANNEL(language)';
+					}
+					$agi -> set_variable($lg_var_set, $language);
+					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[SET $lg_var_set $language]");
+					$this -> current_language = $language;
+				}
+				
 				if ($this->typepaid==1)
 					$this->credit = $this->credit + $this->creditlimit;
 				

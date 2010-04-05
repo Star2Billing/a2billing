@@ -85,6 +85,8 @@ INSERT INTO cc_config ( config_title, config_key, config_value, config_descripti
 VALUES( 'IVR Account Information', 'ivr_enable_account_information', '0', 'Enable the IVR which allow the users to retrieve different information about their account.', 1, 'yes,no', 'agi-conf1');
 
 
+
+
 UPDATE cc_version SET version = '1.7.0';
 
 
