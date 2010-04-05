@@ -120,7 +120,7 @@ class SOAP_A2Billing
                        );
 
          $this->__dispatch_map['Create_Customer'] =
-                 array('in' => array('security_key' => 'string', 'instance' => 'string', 'id_callplan' => 'integer', 'id_didgroup' => 'integer', 'units' => 'integer', 'accountnumber_len' => 'integer', 'balance' => 'float', 'activated' => 'boolean', 'status' => 'integer', 'simultaccess' => 'integer', 'currency' => 'string', 'typepaid' => 'integer', 'sip_buddy' => 'integer', 'iax_buddy' => 'integer', 'language' => 'string', 'voicemail_enabled' => 'boolean', 'country' => 'string'),
+                 array('in' => array('security_key' => 'string', 'instance' => 'string', 'id_callplan' => 'integer', 'id_didgroup' => 'integer', 'units' => 'integer', 'accountnumber_len' => 'integer', 'balance' => 'float', 'activated' => 'boolean', 'status' => 'integer', 'simultaccess' => 'integer', 'currency' => 'string', 'typepaid' => 'integer', 'sip' => 'integer', 'iax' => 'integer', 'language' => 'string', 'voicemail_enabled' => 'boolean', 'country' => 'string'),
                        'out' => array('result' => 'array', 'message' => 'string')
                        );
 
