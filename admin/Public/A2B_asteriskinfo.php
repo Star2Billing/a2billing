@@ -87,9 +87,11 @@ $modes = array(
 	"conferences" => "Conferences",
 	"subscriptions" => "Subscriptions",
 	"voicemail" => "Voicemail Users",
+	"codecs" => "Codecs",
 	"all" => "Full Report"
 );
 $arr_all = array(
+	"Version" => "core show version",
 	"Uptime" => "core show uptime",
 	"Active Channel(s)" => "core show channels",
 	"Sip Channel(s)" => "sip show channels",
@@ -98,6 +100,7 @@ $arr_all = array(
 	"Sip Peers" => "sip show peers",
 	"IAX2 Registry" => "iax2 show registry",
 	"IAX2 Peers" => "iax2 show peers",
+	"Codecs" => "core show translation",
 	"Subscribe/Notify" => "core show hints",
 	"Zaptel driver info" => "zap show channels",
 	"Conference Info" => "meetme list",
@@ -111,6 +114,9 @@ $arr_channels = array(
 	"Active Channel(s)" => "core show channels",
 	"Sip Channel(s)" => "sip show channels",
 	"IAX2 Channel(s)" => "iax2 show channels",
+);
+$arr_codecs = array(
+        "Codecs" => "show translation",
 );
 $arr_peers = array(
 	"Sip Peers" => "sip show peers",
@@ -135,11 +141,13 @@ $arr_voicemail = array(
 );
 
 
-if (ASTERISK_VERSION == '1_4') {
+if (ASTERISK_VERSION == '1_4'|| ASTERISK_VERSION == '1_6') {
 	$arr_all["Uptime"]="core show uptime";
 	$arr_all["Active Channel(s)"]="core show channels";
 	$arr_all["Subscribe/Notify"]="core show hints";
 	$arr_all["Voicemail users"]="voicemail show users";
+	$arr_all["Codecs"]="core show translation";
+	$arr_codecs["Codecs"]="core show translation";
 	$arr_channels["Active Channel(s)"]="core show channels";
 	$arr_subscriptions["Subscribe/Notify"]="core show hints";
 	$arr_voicemail["Voicemail users"]="voicemail show users";
@@ -160,7 +168,7 @@ foreach ($modes as $mode => $value) {
 </ul></div>
 
 <div class="content">
-<h2><span class="headerHostInfo"><?php echo _("Asterisk (Ver. ").$astver."): "._($modes[$extdisplay])?></span></h2>
+<h2><span class="headerHostInfo"><?php echo "Asterisk : ".$modes[$extdisplay]; ?></span></h2>
 
 <form name="asteriskinfo" action="<?php  $_SERVER['PHP_SELF'] ?>" method="post">
 <input type="hidden" name="display" value="asteriskinfo"/>
@@ -345,7 +353,7 @@ function buildAsteriskInfo(){
 		"IAX2 Peers" => "iax2 show peers",
 	);
 	
-	if (ASTERISK_VERSION == '1_4') {
+	if (ASTERISK_VERSION == '1_4'|| ASTERISK_VERSION == '1_6') {
 		$arr['Uptime'] = 'core show uptime';
 	}
 	
