@@ -71,7 +71,6 @@ prepaid-enter-cid								Please, enter your CallerID
 prepaid-no-dialcode								Please, Enter your dial code
 prepaid-enter-dialcode							This dial code does not exist
 
-
 ------ Locking & Information ----------
 prepaid-press4-info                             Press 4 to get information about your account
 prepaid-press5-lock                             Press 5 to lock your account
@@ -96,7 +95,16 @@ prepaid-account-firstused                       Your Account has been used for t
 prepaid-press9-listen-exit-infomenu             Press 9 to exit information menu
 prepaid-press9-listen-exit-lockmenu             Press 9 to exit lock menu
 
-
+-------- Speed Dial --------
+prepaid-press9-new-speeddial   					Press 9 to add a new speed dial
+prepaid-enter-speeddial   						Please enter the speed dial number
+prepaid-press1-change-speeddial					If you want to change it press 1 or an other key to enter an other speed dial number.
+prepaid-phonenumber-to-speeddial				Please enter the phone number followed by the pound key
+prepaid-the-phonenumber							The phone number
+prepaid-assigned-speeddial						Will be assigned to the speed dial number
+prepaid-press1-add-speeddial					If you want to proceed please  press 1 or press an other key to cancel ?
+prepaid-speeddial-saved							The speed dial number has been successfully saved.
+prepaid-is-used-for.wav                         is used for
 
 ===========================================  FRENCH ===========================================
 

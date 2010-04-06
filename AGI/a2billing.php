@@ -435,6 +435,88 @@ if ($mode == 'standard') {
 					$vou_res = $A2B->refill_card_with_voucher($agi, $i);
 				}
 			}
+
+			if ($A2B->agiconfig['ivr_enable_ivr_speeddial']==1) {
+				$A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[IVR SPEED DIAL]");
+				do {
+					$return_mainmenu = FALSE;
+					
+					$res_dtmf = $agi -> get_data("prepaid-press9-new-speeddial", 5000, 1); //Press 9 to add a new Speed Dial
+
+                    if ($res_dtmf ["result"] == 9) {
+						$try_enter_speeddial = 0;
+						do {
+							$try_enter_speeddial++;
+							$return_enter_speeddial = FALSE;
+							$res_dtmf = $agi -> get_data("prepaid-enter-speeddial", 3000, 1); //Please enter the speeddial number
+							$speeddial_number = $res_dtmf['result'];
+							$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "SPEEDDIAL DTMF : ".$speeddial_number);
+
+                            if (!empty($speeddial_number) && is_numeric($speeddial_number) && $speeddial_number>0) {
+								$action = 'insert';
+								$QUERY = "SELECT cc_speeddial.phone, cc_speeddial.id
+											FROM cc_speeddial, cc_card WHERE cc_speeddial.id_cc_card = cc_card.id
+											AND cc_card.id = ".$A2B->id_card." AND cc_speeddial.speeddial = ".$speeddial_number."";
+								$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, $QUERY);
+								$result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY);
+								$id_speeddial = $result[0][1];
+								if (is_array($result)) {
+                                    $agi -> say_number($speeddial_number);
+									$agi -> stream_file("prepaid-is-used-for", "#");
+									$agi -> say_digits($result[0][0]);
+										$res_dtmf = $agi -> get_data("prepaid-press1-change-speeddial", 3000, 1); //if you want to change it press 1 or an other key to enter an other speed dial number.
+									if ($res_dtmf['result'] != 1) {
+										$return_mainmenu = TRUE;
+										break;
+									} else {
+										$action = 'update';
+									}
+								}
+                                $try_phonenumber = 0;
+                                do {
+                                    $try_phonenumber++;
+                                    $return_phonenumber = FALSE;
+                                    $res_dtmf = $agi -> get_data("prepaid-phonenumber-to-speeddial", 5000, 30, "#"); //Please enter the phone number followed by the pound key
+                                    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "PHONENUMBER TO SPEEDDIAL DTMF : ".$res_dtmf['result']);
+
+                                    if (!empty($res_dtmf["result"]) && is_numeric($res_dtmf["result"]) && $res_dtmf["result"]>0) break;
+
+                                    if ($try_phonenumber < 3) $return_phonenumber = TRUE;
+                                    else $return_mainmenu;
+
+                                } while($return_phonenumber);
+
+                                if (!empty($res_dtmf["result"]) && is_numeric($res_dtmf["result"]) && $res_dtmf["result"]>0) {
+                                    $assigned_number = $res_dtmf["result"];
+                                    $agi -> stream_file("prepaid-the-phonenumber", "#"); //The phone number
+                                    $agi -> say_digits($assigned_number, "#");
+                                    $agi -> stream_file("prepaid-assigned-speeddial", "#"); //will be assigned to the speed dial number
+                                    $agi -> say_number($speeddial_number, "#");
+
+                                    $res_dtmf = $agi -> get_data("prepaid-press1-add-speeddial", 3000, 1); //If you want to proceed please  press 1 or press an other key to cancel ?
+                                    if ($res_dtmf['result'] == 1) {
+                                        $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "ACTION : ".$action);
+                                        if ($action == 'insert')
+                                            $QUERY = "INSERT INTO cc_speeddial (id_cc_card, phone, speeddial) VALUES (".$A2B->id_card.", ".$assigned_number.", '".$speeddial_number."')";
+                                        elseif ($action == 'update')
+                                            $QUERY = "UPDATE cc_speeddial SET phone='".$assigned_number."' WHERE id = ".$id_speeddial;
+                                        
+                                        $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, $QUERY);
+                                        $result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY);
+                                        $agi -> stream_file("prepaid-speeddial-saved"); //The speed dial number has been successfully saved.
+                                        $return_mainmenu = TRUE;
+                                        break;
+                                    }
+                                }
+							}
+
+							if ($try_enter_speeddial < 3) $return_enter_speeddial = TRUE;
+							else $return_mainmenu = TRUE;
+						} while ($return_enter_speeddial);
+					}
+				} while ($return_mainmenu);
+			}
+
 			
 			if ($A2B->agiconfig['sip_iax_friends']==1) {
 
