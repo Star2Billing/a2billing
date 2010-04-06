@@ -86,7 +86,8 @@ if ($form_action == "list") {
     
 	if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg;
 	
-	if(sizeof($list)<$A2B->config["webcustomerui"]['limit_callerid']){
+    $count_cid = is_array($list) ? sizeof($list) : 0;
+    if ($count_cid < $A2B->config["webcustomerui"]['limit_callerid']) {
 
 ?>
 	   <table align="center"  border="0" width="55%" class="bgcolor_006">
