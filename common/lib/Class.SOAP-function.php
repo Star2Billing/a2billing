@@ -163,7 +163,12 @@ class SOAP_A2Billing
                  array('in' => array('security_key' => 'string'),
                        'out' => array('result' => 'array', 'message' => 'string')
                        );
-	
+
+        $this->__dispatch_map['Add_CID'] =
+                 array('in' => array('security_key' => 'string', 'callerid' => 'integer', 'id_cc_card' => 'integer', 'accountnumber' => 'integer'),
+                       'out' => array('result' => 'array', 'message' => 'string')
+                       );
+					   
     }
     
     /*
@@ -1305,6 +1310,47 @@ class SOAP_A2Billing
 
 		return array(true, 'Account_Status_Update SUCCESS');
     }
+
+	/*
+     *  Add CallerID to a specific card_id or accountnumber
+     */
+    // array(bool $result, string $message)
+    function Add_CallerID($security_key, $callerid, $card_id, $accountnumber)
+    {	
+        if (!$this->Check_SecurityKey ($security_key)) {
+		    return array("ERROR", "INVALID KEY");
+		}
+		
+		if (is_numeric($card_id) && $card_id > 0 ) {
+			
+			$id_cc_card = $card_id;
+			
+			} else {
+			
+			$QUERY = "SELECT id FROM cc_card WHERE username='$accountnumber'";
+			$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
+			if (!is_array($result) || $result[0][0] <= 0 )
+			{
+				return array('ERROR', "ACCOUNTNUMBER DOES NOT EXIST");
+			}
+			$card_id = $result[0][0];
+		
+		}
+		
+		$func_table  = "cc_callerid";
+		$func_fields = "id_cc_card, cid, activated";
+		$id_name = "id";
+		$activated = "t";
+		$value = "'$id_cc_card', '$callerid', '$activated'";
+		
+		$inserted = $this->instance_table->Add_table($this->DBHandle, $value, $func_fields, $func_table, $id_name);
+		
+		if (!$inserted) {
+			return array(false, "ERROR ADDING CID");
+		}
+			
+		return array(serialize($arr_cid), "Add_CallerID SUCCESS");
+	}
 
 
 // end Class
