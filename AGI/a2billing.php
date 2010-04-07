@@ -368,6 +368,7 @@ if ($mode == 'standard') {
                                     $QUERY = "UPDATE cc_card SET block = 1, lock_pin = '{$lock_pin}', lock_date = NOW() WHERE username = '{$A2B->username}'";
                                     $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY);
                                     $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[QUERY]:[$QUERY]" );
+                                    $agi -> stream_file('prepaid-locking-accepted', '#'); // Your locking code has been accepted
                                     $return = TRUE;
                                 break;
 

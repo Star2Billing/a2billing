@@ -79,6 +79,7 @@ prepaid-enter-pin-lock                          Please enter your locking code
 prepaid-no-pin-lock                             Your locking Code is incorrect
 prepaid-enter-code-lock-account                 Please, Enter the code you want to use to lock your account
 prepaid-your-locking-is                         Your locking code is
+prepaid-locking-accepted                        Your locking code has been accepted
 
 prepaid-press1-listen-lastcall                  Press 1 to listen the time and duration of the last call
 prepaid-press2-listen-accountlocked             Press 2 to time and date when the account last has been locked
