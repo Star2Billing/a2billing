@@ -83,7 +83,7 @@ if($exporttype != "" && $exporttype != "html") {
 
 getpost_ifset(array('section'));
 
-if(!empty($section)) {	
+if(!empty($section)) {
 	$_SESSION["menu_section"] = $section;
 } else {
 	$section = $_SESSION["menu_section"];

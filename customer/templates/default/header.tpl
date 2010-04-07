@@ -6,11 +6,16 @@
 	<title>..:: {$CCMAINTITLE} ::..</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-	<link href="templates/{$SKIN_NAME}/css/main.css" rel="stylesheet" type="text/css">
+    <link href="templates/{$SKIN_NAME}/css/main.css" rel="stylesheet" type="text/css">
+    <link href="templates/{$SKIN_NAME}/css/menu.css" rel="stylesheet" type="text/css">
+    
+    {if LANGUAGE == "farsi" }
+        <link href="templates/{$SKIN_NAME}/css/right2left.css" rel="stylesheet" type="text/css">
+    {/if}
+    
 	<!--[if lt IE 7]>
 		<link rel="stylesheet" type="text/css" href="templates/{$SKIN_NAME}/css/style-ie.css" />
 	<![endif]-->
-	<link href="templates/{$SKIN_NAME}/css/menu.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/style-def.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/invoice.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/receipt.css" rel="stylesheet" type="text/css">

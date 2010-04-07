@@ -112,6 +112,11 @@ function SetLocalLanguage()
 			$slectedLanguage = "uk_UA";
 			$charEncoding = "UTF8";
 			break;
+        case "farsi":
+            $languageEncoding = "fa_IR.UTF-8";
+            $slectedLanguage = "fa_IR";
+            $charEncoding = "UTF-8";
+            break;
 		default:
 			$languageEncoding = "en_US.iso88591";
 			$slectedLanguage = "en_US";
