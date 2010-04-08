@@ -1,6 +1,6 @@
      ___________________________________________________________________________________________________________________________________________________________________
 
-A2Billing INSTALLATION GUIDE
+A2Billing INSTALLATION GUIDE (1.7.0 release)
 
     1. A2Billing INSTALLATION GUIDE
          1. Important note about distributions
@@ -61,6 +61,17 @@ Pre-required software packages
    Asterisk is of course also needed.
      #apt-get install asterisk
 
+Support for monitoring via IVR features
+
+   The new monitoring feature (version 1.7.0) requires text-to-speech TTS support, the default TTS engine is Cepstral
+   http://www.cepstral.com/. Install Cepstral (default path: /opt/swift) and make a symbolic link:
+     #ln -s /opt/swift/bin/swift /usr/bin/swift
+
+   Make sure that the dynamic libraries are linked, create a file called cepstral.conf under /etc/ld.so.conf.d/ including
+   /opt/swift/lib
+
+   Do not forget to register your voice!
+
 Installation
 
    In a nutshell installing A2Billing requires seven steps:
@@ -73,6 +84,8 @@ Installation
     7. Prepare your dialplan
     8. Add your cronjobs
     9. Configure your callback daemon (only for callback)
+   10. Enable monitoring (only for IVR monitoring)
+   11. Enable card locking (only for card PIN locking)
 
 Step 1: Download and unpack source code
 
@@ -102,10 +115,9 @@ Step 1: Download and unpack source code
 |-- webservice
 
 
-
 Step 2: Prepare the Database
 
-   We will now create a MySQL database (mya2billing) for the billing software. The file a2billing-MYSQL-createdb-user.sql includes a script that creates the database with
+   We will now create a MySQL database (mya2billing) for the billing software. The file a2billing-createdb-user.sql includes a script that creates the database with
    the correct access control users and permissions.
      #cd /usr/local/src/a2billing
      #mysql -u root -p < DataBase/mysql-5.x/a2billing-createdb-user.sql
@@ -116,19 +128,7 @@ Database user is: a2billinguser
 User password is: a2billing
 
    After creating the database structure, we will create a set of tables and insert some initial basic configuration data
-     #mysql -u root -p mya2billing < DataBase/mysql-5.x/a2billing-schema-v1.4.0.sql
-     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.4.0-to-v1.4.1.sql
-     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.4.1-to-v1.4.2.sql
-     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.4.2-to-v1.4.3.sql
-     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.4.3-to-v1.4.4.sql
-     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.4.4-to-v1.4.4.1.sql
-     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.4.4.1-to-v1.4.5.sql
-     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.4.5-to-v1.5.0.sql
-     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.5.0-to-v1.5.1.sql
-     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.5.1-to-v1.6.0.sql
-     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.6.0-to-v1.6.1.sql
-     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.6.1-to-v1.6.2.sql
-     #mysql -u root -p mya2billing < DataBase/mysql-5.x/UPDATE-a2billing-v1.6.2-to-v1.7.0.sql
+     #mysql -u root -p mya2billing < DataBase/mysql-5.x/a2billing-schema-v1.7.0.sql
      
    Checkpoint 1: Check that the database (my2billing) and that (97) tables have been created.
      #mysql -u root -p mya2billing
@@ -217,6 +217,7 @@ Step 6: Install The AGI components
 
    Make sure the scripts are executable
      #chmod +x /usr/share/asterisk/agi-bin/a2billing.php
+   (if you are going to run the monitoring AGI script)
      #chmod +x /usr/share/asterisk/agi-bin/a2billing_monitoring.php
 
 Step 5: Install web-based Graphical interfaces
@@ -276,16 +277,37 @@ Step 7: Create a dialplan for A2Billing
      #vi /etc/asterisk/extensions.conf
 
    and the following contexts
-[a2billing]
-; CallingCard application
-exten => _X.,1,Answer
-exten => _X.,2,Wait,2
-exten => _X.,3,DeadAGI,a2billing.php
-exten => _X.,4,Wait,2
-exten => _X.,5,Hangup
 
-[did]
+[a2billing]
+include => a2billing_callingcard
+include => a2billing_monitoring
+include => a2billing_voucher
+
+[a2billing_callingcard]
 ; CallingCard application
+exten => _XXXX.,1,Answer
+exten => _XXXX.,2,Wait,2
+exten => _XXXX.,3,DeadAGI,a2billing.php
+exten => _XXXX.,4,Wait,2
+exten => _XXXX.,5,Hangup
+
+[a2billing_monitoring]
+; Monitoring IVR application
+exten => 100,1,Answer
+exten => 100,2,Wait,2
+exten => 100,3,DeadAGI,a2billing_monitoring.php
+exten => 100,4,Wait,2
+exten => 100,5,Hangup
+
+[a2billing_voucher]
+exten => 101,1,Answer
+exten => 101,2,Wait,2
+exten => 101,3,DeadAGI(a2billing.php|1|voucher)
+exten => 101,4,Wait,2
+exten => 101,5,Hangup
+
+[a2billing_did]
+; CallingCard DID application
 exten => _X.,1,DeadAGI(a2billing.php|1|did)
 
 
@@ -343,4 +365,22 @@ Step 9: Call back daemon (only for Call backs)
      #update-rc.d -f a2b-callback-daemon remove
 
 
+Step 10: Enable Monitoring
+   General system monitoring via IVR is available from version 1.7.0, the new AGI
+   a2billing_monitoring.php provides access to an IVR where monitoring tasks can be
+   configured via the new Monitoring Menu under Maintenance.
 
+   SQL queries can be performed and shell scripts can be invoked. Place your scripts under
+   /var/lib/a2billing/script/
+
+Step 11: Security features via IVR (Monitor account and locking calling card)
+
+   Two new IVR menus are now available via the main a2billing.php AGI. The menus 
+   needs to be enabled setting the variables in the agi-conf menu (GUI system settings)
+
+   Locking Options IVR menu
+   ivr_enable_locking_option = true (default: false)
+ 
+
+   Monitoring your Calling Card IVR menu
+   ivr_enable_account_information = true (default: false)
