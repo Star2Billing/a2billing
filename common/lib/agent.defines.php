@@ -212,7 +212,7 @@ if (isset($ui_language)) {
 }
 
 define ("LANGUAGE", $_SESSION["ui_language"]);
-define ("BINDTEXTDOMAIN", '../../common/agent_ui_local');
+define ("BINDTEXTDOMAIN", '../../common/agent_ui_locale');
 require("languageSettings.php");
 SetLocalLanguage();
 
