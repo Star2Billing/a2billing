@@ -1,11 +1,13 @@
      ___________________________________________________________________________________________________________________________________________________________________
 
-A2Billing INSTALLATION GUIDE (1.7.0 release)
+A2Billing INSTALLATION GUIDE 
+Release: 1.7.0 - April 2010
 
     1. A2Billing INSTALLATION GUIDE
          1. Important note about distributions
          2. Default passwords and access info (READ THIS!)
          3. Pre-required software packages
+		1.3.1 Extra software to support text-to-speech IVR monitoring
     2. Installation
          1. Step 1: Download and unpack source code
          2. Step 2: Prepare the Database
@@ -27,7 +29,7 @@ A2Billing INSTALLATION GUIDE (1.7.0 release)
 
    This documentation has been tested using Debian etch, Debian etch and half, Ubuntu 8.04 and Ubuntu 8.10 and A2Billing.
 
-Important note about distributions
+1.1 Important note about distributions
 
    This documentation assumes that you are using a .deb based distro that has used the folder /usr/share/asterisk during packaging. Other distributions use the alternate
    folder /var/lib/asterisk. If you compile from source the path by default is /var/lib/asterisk.
@@ -40,7 +42,7 @@ Important note about distributions
      * you asterisk runs as asterisk (uid)
      * those using subversion to check out the code, can use symbolic links instead of copying the files to the right directories
 
-Default passwords and access info (READ THIS!)
+1.2 Default passwords and access info (READ THIS!)
 
    This are the default passwords that you should know about
      * mysql root password (in default system normally is <ENTER>)
@@ -48,7 +50,7 @@ Default passwords and access info (READ THIS!)
      * asterisk manager default information is: [myasterisk] and secret=mycode
      * A2Billing admin default password is: user: root password: changepassword
 
-Pre-required software packages
+1.3 Pre-required software packages
 
    A2billing requires the packages of a LAMP (PHP5) installation. To install the necessary packages, run the following commands:
      #apt-get install libapache2-mod-php5 php5 php5-common
@@ -61,20 +63,27 @@ Pre-required software packages
    Asterisk is of course also needed.
      #apt-get install asterisk
 
-Support for monitoring via IVR features
+	1.3.1 Extra software to support text-to-speech IVR monitoring
 
-   The new monitoring feature (version 1.7.0) requires text-to-speech TTS support, the default TTS engine is Cepstral
-   http://www.cepstral.com/. Install Cepstral (default path: /opt/swift) and make a symbolic link:
+   Version 1.7.0 includes a new AGI mode that allows the monitoring of the a2billing system via an IVR.
+
+   The new monitoring feature requires text-to-speech TTS support, the default TTS engine is Cepstral
+   http://www.cepstral.com/ although a2billing can support Festival too. 
+
+   Install Cepstral (default path: /opt/swift) and make a symbolic link:
      #ln -s /opt/swift/bin/swift /usr/bin/swift
 
    Make sure that the dynamic libraries are linked, create a file called cepstral.conf under /etc/ld.so.conf.d/ including
+   the path:
    /opt/swift/lib
 
    Do not forget to register your voice!
+     ___________________________________________________________________________________________________________________________________________________________________
 
 Installation
 
-   In a nutshell installing A2Billing requires seven steps:
+   In a nutshell installing A2Billing requires a minimum of seven steps (1-7)
+   
     1. Download and unpack source code
     2. Setup the database
     3. Edit a2billing.conf file. Setting up the database parameters
@@ -82,7 +91,7 @@ Installation
     5. Installing the web based graphical user interfaces (Customer and Admin)
     6. Place the AGI files
     7. Prepare your dialplan
-    8. Add your cronjobs
+    8. Add your cronjobs (only for notifcations, alarms and recurring services)
     9. Configure your callback daemon (only for callback)
    10. Enable monitoring (only for IVR monitoring)
    11. Enable card locking (only for card PIN locking)
