@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Admin : 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-16 17:32+0100\n"
+"POT-Creation-Date: 2010-04-08 16:57+0200\n"
 "PO-Revision-Date: 2009-08-26 22:23+0800\n"
 "Last-Translator: Anton H <antosxz@freemail.ru>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/interface/constants.php:15 Public/A2B_entity_phonenumber.php:113
+#: lib/interface/constants.php:15 Public/A2B_entity_phonenumber.php:293
 msgid "INFO"
 msgstr "ИНФОРМАЦИЯ"
 
@@ -70,7 +70,7 @@ msgid "CAN ONLY CALL RESTRICTED NUMBERS"
 msgstr "МОЖНО ЗВОНИТЬ ТОЛЬКО НА ЗАПРЕЩЕННЫЕ НОМЕРА"
 
 #: lib/interface/constants.php:55 Public/A2B_entity_log_viewer.php:81
-#: Public/call-last-month.php:59 Public/A2B_call_archiving.php:209
+#: Public/call-last-month.php:59 Public/A2B_call_archiving.php:205
 #: Public/A2B_detail_package.php:223 Public/call-dnid.php:345
 #: Public/A2B_entity_statuslog.php:83 Public/call-daily-load.php:215
 #: Public/call-log-customers.php:377 Public/templates/default/main.tpl:65
@@ -107,119 +107,121 @@ msgstr ""
 msgid "SENT"
 msgstr "ОТПРАВЛЕНО"
 
-#: lib/interface/constants.php:88 Public/form_data/FG_var_trunk.inc:55
+#: lib/interface/constants.php:88 Public/form_data/FG_var_trunk.inc:58
+#: Public/form_data/FG_var_trunk.inc:62
 msgid "Inactive"
 msgstr "Неактивно"
 
-#: lib/interface/constants.php:89 Public/form_data/FG_var_trunk.inc:54
+#: lib/interface/constants.php:89 Public/form_data/FG_var_trunk.inc:57
+#: Public/form_data/FG_var_trunk.inc:61
 msgid "Active"
 msgstr "Активно"
 
-#: lib/interface/constants.php:106
+#: lib/interface/constants.php:110
 msgid "Fix per month + dialoutrate"
 msgstr ""
 
-#: lib/interface/constants.php:107
+#: lib/interface/constants.php:111
 msgid "Fix per month"
 msgstr ""
 
-#: lib/interface/constants.php:108
+#: lib/interface/constants.php:112
 msgid "Only dialout rate"
 msgstr ""
 
-#: lib/interface/constants.php:109 lib/interface/constants.php:118
+#: lib/interface/constants.php:113 lib/interface/constants.php:122
 #: Public/form_data/FG_var_diduse.inc:76
 msgid "Free"
 msgstr ""
 
-#: lib/interface/constants.php:115
+#: lib/interface/constants.php:119
 msgid "Fix+Dial"
 msgstr ""
 
-#: lib/interface/constants.php:116
+#: lib/interface/constants.php:120
 msgid "Fix"
 msgstr ""
 
-#: lib/interface/constants.php:117
+#: lib/interface/constants.php:121
 msgid "Dial"
 msgstr ""
 
-#: lib/interface/constants.php:124 lib/interface/constants.php:370
+#: lib/interface/constants.php:128 lib/interface/constants.php:375
 #: Public/A2B_entity_card_multi.php:283 Public/A2B_data_archiving.php:68
 #: Public/A2B_data_archiving.php:72 Public/A2B_mass_mail.php:70
 #: Public/A2B_entity_card.php:312
 msgid "INDIVIDUAL ACCESS"
 msgstr "ИНДИВИДУАЛЬНЫЙ ДОСТУП"
 
-#: lib/interface/constants.php:125 lib/interface/constants.php:369
+#: lib/interface/constants.php:129 lib/interface/constants.php:374
 #: Public/A2B_entity_card_multi.php:284 Public/A2B_data_archiving.php:69
 #: Public/A2B_data_archiving.php:73 Public/A2B_mass_mail.php:71
-#: Public/A2B_entity_card.php:313 Public/form_data/FG_var_card.inc:593
+#: Public/A2B_entity_card.php:313 Public/form_data/FG_var_card.inc:619
 msgid "SIMULTANEOUS ACCESS"
 msgstr ""
 
-#: lib/interface/constants.php:131 Public/A2B_entity_card_multi.php:300
+#: lib/interface/constants.php:135 Public/A2B_entity_card_multi.php:300
 #: Public/A2B_data_archiving.php:115
 msgid "PREPAID CARD"
 msgstr "ПРЕДОПЛАЧЕННАЯ КАРТА"
 
-#: lib/interface/constants.php:132
+#: lib/interface/constants.php:136
 msgid "POSTPAID CARD"
 msgstr "ПОСТОПЛАЧЕННАЯ КАРТА"
 
-#: lib/interface/constants.php:142 Public/A2B_entity_card_multi.php:312
+#: lib/interface/constants.php:146 Public/A2B_entity_card_multi.php:312
 msgid "NO EXPIRATION"
 msgstr "НЕОГРАНИЧЕННЫЙ СРОК"
 
-#: lib/interface/constants.php:143 lib/interface/constants.php:381
+#: lib/interface/constants.php:147 lib/interface/constants.php:386
 #: Public/A2B_entity_card_multi.php:313 Public/A2B_data_archiving.php:120
 #: Public/A2B_entity_card.php:355
 msgid "EXPIRE DATE"
 msgstr "СРОК ДЕЙСТВИЯ"
 
-#: lib/interface/constants.php:144 lib/interface/constants.php:382
+#: lib/interface/constants.php:148 lib/interface/constants.php:387
 #: Public/A2B_entity_card_multi.php:314 Public/A2B_data_archiving.php:121
 #: Public/A2B_entity_card.php:356
 msgid "EXPIRE DAYS SINCE FIRST USE"
 msgstr ""
 
-#: lib/interface/constants.php:145 lib/interface/constants.php:383
+#: lib/interface/constants.php:149 lib/interface/constants.php:388
 #: Public/A2B_entity_card_multi.php:315 Public/A2B_data_archiving.php:122
 #: Public/A2B_entity_card.php:357
 msgid "EXPIRE DAYS SINCE CREATION"
 msgstr ""
 
-#: lib/interface/constants.php:152 lib/interface/constants.php:163
+#: lib/interface/constants.php:156 lib/interface/constants.php:167
 msgid "OPEN"
 msgstr "ОТКРЫТО"
 
-#: lib/interface/constants.php:153 lib/interface/constants.php:164
+#: lib/interface/constants.php:157 lib/interface/constants.php:168
 msgid "CLOSE"
 msgstr "ЗАКРЫТО"
 
-#: lib/interface/constants.php:171 lib/interface/constants.php:184
-#: lib/interface/constants.php:207
+#: lib/interface/constants.php:175 lib/interface/constants.php:189
+#: lib/interface/constants.php:212
 msgid "UNPAID"
 msgstr "НЕОПЛАЧЕНО"
 
-#: lib/interface/constants.php:172 lib/interface/constants.php:183
-#: lib/interface/constants.php:210
+#: lib/interface/constants.php:176 lib/interface/constants.php:188
+#: lib/interface/constants.php:215
 msgid "PAID"
 msgstr "ОПЛАЧЕНО"
 
-#: lib/interface/constants.php:181
+#: lib/interface/constants.php:186
 #, fuzzy
 msgid "FIRSTUSE"
 msgstr "ИМЯ"
 
-#: lib/interface/constants.php:182
+#: lib/interface/constants.php:187
 #, fuzzy
 msgid "BILLED"
 msgstr "ЗАНЯТ"
 
-#: lib/interface/constants.php:190 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:195 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/A2B_entity_log_viewer.php:104 Public/call-last-month.php:97
-#: Public/A2B_call_archiving.php:250 Public/A2B_detail_package.php:264
+#: Public/A2B_call_archiving.php:246 Public/A2B_detail_package.php:264
 #: Public/A2B_entity_paymentlog.php:90 Public/call-dnid.php:412
 #: Public/A2B_entity_statuslog.php:106 Public/call-count-reporting.php:177
 #: Public/call-pnl-report.php:191 Public/call-daily-load.php:260
@@ -228,9 +230,9 @@ msgstr "ЗАНЯТ"
 msgid "January"
 msgstr "Январь"
 
-#: lib/interface/constants.php:191 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:196 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/A2B_entity_log_viewer.php:104 Public/call-last-month.php:97
-#: Public/A2B_call_archiving.php:250 Public/A2B_detail_package.php:264
+#: Public/A2B_call_archiving.php:246 Public/A2B_detail_package.php:264
 #: Public/A2B_entity_paymentlog.php:90 Public/call-dnid.php:412
 #: Public/A2B_entity_statuslog.php:106 Public/call-count-reporting.php:177
 #: Public/call-pnl-report.php:191 Public/call-daily-load.php:260
@@ -239,9 +241,9 @@ msgstr "Январь"
 msgid "February"
 msgstr "Февраль"
 
-#: lib/interface/constants.php:192 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:197 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/A2B_entity_log_viewer.php:104 Public/call-last-month.php:97
-#: Public/A2B_call_archiving.php:250 Public/A2B_detail_package.php:264
+#: Public/A2B_call_archiving.php:246 Public/A2B_detail_package.php:264
 #: Public/A2B_entity_paymentlog.php:90 Public/call-dnid.php:412
 #: Public/A2B_entity_statuslog.php:106 Public/call-count-reporting.php:177
 #: Public/call-pnl-report.php:191 Public/call-daily-load.php:260
@@ -250,9 +252,9 @@ msgstr "Февраль"
 msgid "March"
 msgstr "Март"
 
-#: lib/interface/constants.php:193 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:198 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/A2B_entity_log_viewer.php:104 Public/call-last-month.php:97
-#: Public/A2B_call_archiving.php:250 Public/A2B_detail_package.php:264
+#: Public/A2B_call_archiving.php:246 Public/A2B_detail_package.php:264
 #: Public/A2B_entity_paymentlog.php:90 Public/call-dnid.php:412
 #: Public/A2B_entity_statuslog.php:106 Public/call-count-reporting.php:177
 #: Public/call-pnl-report.php:191 Public/call-daily-load.php:260
@@ -261,9 +263,9 @@ msgstr "Март"
 msgid "April"
 msgstr "Апрель"
 
-#: lib/interface/constants.php:194 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:199 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/A2B_entity_log_viewer.php:104 Public/call-last-month.php:97
-#: Public/A2B_call_archiving.php:250 Public/A2B_detail_package.php:264
+#: Public/A2B_call_archiving.php:246 Public/A2B_detail_package.php:264
 #: Public/A2B_entity_paymentlog.php:90 Public/call-dnid.php:412
 #: Public/A2B_entity_statuslog.php:106 Public/call-count-reporting.php:177
 #: Public/call-pnl-report.php:191 Public/call-daily-load.php:260
@@ -272,9 +274,9 @@ msgstr "Апрель"
 msgid "May"
 msgstr "Май"
 
-#: lib/interface/constants.php:195 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:200 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/A2B_entity_log_viewer.php:104 Public/call-last-month.php:97
-#: Public/A2B_call_archiving.php:250 Public/A2B_detail_package.php:264
+#: Public/A2B_call_archiving.php:246 Public/A2B_detail_package.php:264
 #: Public/A2B_entity_paymentlog.php:90 Public/call-dnid.php:412
 #: Public/A2B_entity_statuslog.php:106 Public/call-count-reporting.php:177
 #: Public/call-pnl-report.php:191 Public/call-daily-load.php:260
@@ -283,9 +285,9 @@ msgstr "Май"
 msgid "June"
 msgstr "Июнь"
 
-#: lib/interface/constants.php:196 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:201 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/A2B_entity_log_viewer.php:104 Public/call-last-month.php:97
-#: Public/A2B_call_archiving.php:250 Public/A2B_detail_package.php:264
+#: Public/A2B_call_archiving.php:246 Public/A2B_detail_package.php:264
 #: Public/A2B_entity_paymentlog.php:90 Public/call-dnid.php:412
 #: Public/A2B_entity_statuslog.php:106 Public/call-count-reporting.php:177
 #: Public/call-pnl-report.php:191 Public/call-daily-load.php:260
@@ -294,9 +296,9 @@ msgstr "Июнь"
 msgid "July"
 msgstr "Июль"
 
-#: lib/interface/constants.php:197 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:202 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/A2B_entity_log_viewer.php:104 Public/call-last-month.php:97
-#: Public/A2B_call_archiving.php:250 Public/A2B_detail_package.php:264
+#: Public/A2B_call_archiving.php:246 Public/A2B_detail_package.php:264
 #: Public/A2B_entity_paymentlog.php:90 Public/call-dnid.php:412
 #: Public/A2B_entity_statuslog.php:106 Public/call-count-reporting.php:177
 #: Public/call-pnl-report.php:191 Public/call-daily-load.php:260
@@ -305,9 +307,9 @@ msgstr "Июль"
 msgid "August"
 msgstr "Август"
 
-#: lib/interface/constants.php:198 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:203 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/A2B_entity_log_viewer.php:104 Public/call-last-month.php:97
-#: Public/A2B_call_archiving.php:250 Public/A2B_detail_package.php:264
+#: Public/A2B_call_archiving.php:246 Public/A2B_detail_package.php:264
 #: Public/A2B_entity_paymentlog.php:90 Public/call-dnid.php:412
 #: Public/A2B_entity_statuslog.php:106 Public/call-count-reporting.php:177
 #: Public/call-pnl-report.php:191 Public/call-daily-load.php:260
@@ -316,9 +318,9 @@ msgstr "Август"
 msgid "September"
 msgstr "Сентябрь"
 
-#: lib/interface/constants.php:199 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:204 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/A2B_entity_log_viewer.php:104 Public/call-last-month.php:97
-#: Public/A2B_call_archiving.php:250 Public/A2B_detail_package.php:264
+#: Public/A2B_call_archiving.php:246 Public/A2B_detail_package.php:264
 #: Public/A2B_entity_paymentlog.php:90 Public/call-dnid.php:412
 #: Public/A2B_entity_statuslog.php:106 Public/call-count-reporting.php:177
 #: Public/call-pnl-report.php:191 Public/call-daily-load.php:260
@@ -327,9 +329,9 @@ msgstr "Сентябрь"
 msgid "October"
 msgstr "Октябрь"
 
-#: lib/interface/constants.php:200 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:205 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/A2B_entity_log_viewer.php:104 Public/call-last-month.php:97
-#: Public/A2B_call_archiving.php:250 Public/A2B_detail_package.php:264
+#: Public/A2B_call_archiving.php:246 Public/A2B_detail_package.php:264
 #: Public/A2B_entity_paymentlog.php:90 Public/call-dnid.php:412
 #: Public/A2B_entity_statuslog.php:106 Public/call-count-reporting.php:177
 #: Public/call-pnl-report.php:191 Public/call-daily-load.php:260
@@ -338,9 +340,9 @@ msgstr "Октябрь"
 msgid "November"
 msgstr "Ноябрь"
 
-#: lib/interface/constants.php:201 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:206 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/A2B_entity_log_viewer.php:104 Public/call-last-month.php:97
-#: Public/A2B_call_archiving.php:250 Public/A2B_detail_package.php:264
+#: Public/A2B_call_archiving.php:246 Public/A2B_detail_package.php:264
 #: Public/A2B_entity_paymentlog.php:90 Public/call-dnid.php:412
 #: Public/A2B_entity_statuslog.php:106 Public/call-count-reporting.php:177
 #: Public/call-pnl-report.php:191 Public/call-daily-load.php:260
@@ -349,151 +351,151 @@ msgstr "Ноябрь"
 msgid "December"
 msgstr "Декабрь"
 
-#: lib/interface/constants.php:208
+#: lib/interface/constants.php:213
 msgid "SENT-UNPAID"
 msgstr ""
 
-#: lib/interface/constants.php:209
+#: lib/interface/constants.php:214
 msgid "SENT-PAID"
 msgstr ""
 
-#: lib/interface/constants.php:217
+#: lib/interface/constants.php:222
 msgid "New"
 msgstr "Новый"
 
-#: lib/interface/constants.php:218
+#: lib/interface/constants.php:223
 msgid "Proceed"
 msgstr "Продолжить"
 
-#: lib/interface/constants.php:219
+#: lib/interface/constants.php:224
 msgid "In Process"
 msgstr "В процессе"
 
-#: lib/interface/constants.php:225
+#: lib/interface/constants.php:230
 msgid "Failed"
 msgstr "Неуспешно"
 
-#: lib/interface/constants.php:226
+#: lib/interface/constants.php:231
 msgid "Successful"
 msgstr "Успешно"
 
-#: lib/interface/constants.php:227
+#: lib/interface/constants.php:232
 msgid "Not Sent"
 msgstr "Не отправлено"
 
-#: lib/interface/constants.php:233
+#: lib/interface/constants.php:238
 msgid "Unlimited calls"
 msgstr "Безлимитные звонки"
 
-#: lib/interface/constants.php:234
+#: lib/interface/constants.php:239
 msgid "Number of Free calls"
 msgstr "Количество бесплатных звонков"
 
-#: lib/interface/constants.php:235
+#: lib/interface/constants.php:240
 msgid "Free seconds"
 msgstr "Бесплатные секунды"
 
-#: lib/interface/constants.php:241
+#: lib/interface/constants.php:246
 msgid "Monthly"
 msgstr "Помесячно"
 
-#: lib/interface/constants.php:242
+#: lib/interface/constants.php:247
 msgid "Weekly"
 msgstr "Понедельно"
 
-#: lib/interface/constants.php:248
+#: lib/interface/constants.php:253
 msgid "LCR : According to the buyer price"
 msgstr ""
 
-#: lib/interface/constants.php:249
+#: lib/interface/constants.php:254
 msgid "LCD : According to the seller price"
 msgstr ""
 
-#: lib/interface/constants.php:255
+#: lib/interface/constants.php:260
 msgid "LCR : buyer price"
 msgstr ""
 
-#: lib/interface/constants.php:256
+#: lib/interface/constants.php:261
 msgid "LCD : seller price"
 msgstr ""
 
-#: lib/interface/constants.php:262
+#: lib/interface/constants.php:267
 #: Public/form_data/FG_var_subscription_signup.inc:100
 #: Public/form_data/FG_var_card_group.inc:130
 msgid "NONE"
 msgstr ""
 
-#: lib/interface/constants.php:263 lib/Class.Notification.php:105
+#: lib/interface/constants.php:268 lib/Class.Notification.php:107
 msgid "LOW"
 msgstr "НИЗКИЙ"
 
-#: lib/interface/constants.php:264 lib/Class.Notification.php:102
+#: lib/interface/constants.php:269 lib/Class.Notification.php:104
 msgid "MEDIUM"
 msgstr "СРЕДНИЙ"
 
-#: lib/interface/constants.php:265 lib/Class.Notification.php:100
+#: lib/interface/constants.php:270 lib/Class.Notification.php:102
 msgid "HIGH"
 msgstr "ВЫСОКИЙ"
 
-#: lib/interface/constants.php:271 Public/form_data/FG_var_ticket_agent.inc:74
+#: lib/interface/constants.php:276 Public/form_data/FG_var_ticket_agent.inc:74
 #: Public/form_data/FG_var_ticket.inc:81
 msgid "VIEWED"
 msgstr ""
 
-#: lib/interface/constants.php:272 lib/interface/constants.php:320
-#: lib/interface/constants.php:338 lib/support/classes/ticket.php:370
+#: lib/interface/constants.php:277 lib/interface/constants.php:325
+#: lib/interface/constants.php:343 lib/support/classes/ticket.php:370
 #: Public/A2B_data_archiving.php:91 Public/A2B_data_archiving.php:99
 #: Public/A2B_data_archiving.php:108 Public/A2B_mass_mail.php:58
 msgid "NEW"
 msgstr ""
 
-#: lib/interface/constants.php:279
+#: lib/interface/constants.php:284
 msgid "NOT USED"
 msgstr "НЕ ИСПОЛЬЗОВАНО"
 
-#: lib/interface/constants.php:280 Public/A2B_entity_voucher.php:188
+#: lib/interface/constants.php:285 Public/A2B_entity_voucher.php:188
 #: Public/form_data/FG_var_voucher.inc:83
 msgid "USED"
 msgstr "ИСПОЛЬЗОВАНО"
 
-#: lib/interface/constants.php:290
+#: lib/interface/constants.php:295
 msgid "ANSWER"
 msgstr ""
 
-#: lib/interface/constants.php:291
+#: lib/interface/constants.php:296
 msgid "BUSY"
 msgstr "ЗАНЯТО"
 
-#: lib/interface/constants.php:292
+#: lib/interface/constants.php:297
 msgid "NOANSWER"
 msgstr "БЕЗОТВЕТА"
 
-#: lib/interface/constants.php:293 lib/interface/constants.php:336
-#: lib/interface/constants.php:361 Public/A2B_data_archiving.php:106
+#: lib/interface/constants.php:298 lib/interface/constants.php:341
+#: lib/interface/constants.php:366 Public/A2B_data_archiving.php:106
 msgid "CANCEL"
 msgstr "ОТМЕНА"
 
-#: lib/interface/constants.php:294
+#: lib/interface/constants.php:299
 msgid "CONGESTION"
 msgstr ""
 
-#: lib/interface/constants.php:295
+#: lib/interface/constants.php:300
 msgid "CHANUNAVAIL"
 msgstr ""
 
-#: lib/interface/constants.php:296
+#: lib/interface/constants.php:301
 msgid "DONTCALL"
 msgstr ""
 
-#: lib/interface/constants.php:297
+#: lib/interface/constants.php:302
 msgid "TORTURE"
 msgstr ""
 
-#: lib/interface/constants.php:298
+#: lib/interface/constants.php:303
 msgid "INVALIDARGS"
 msgstr ""
 
-#: lib/interface/constants.php:318 lib/interface/constants.php:350
+#: lib/interface/constants.php:323 lib/interface/constants.php:355
 #: Public/A2B_data_archiving.php:90 Public/A2B_data_archiving.php:98
 #: Public/A2B_mass_mail.php:57 Public/form_data/FG_var_did_destination.inc:71
 #: Public/form_data/FG_var_agent.inc:100 Public/form_data/FG_var_agent.inc:113
@@ -501,46 +503,47 @@ msgstr ""
 msgid "ACTIVE"
 msgstr "АКТИВНЫЙ"
 
-#: lib/interface/constants.php:319 lib/interface/constants.php:336
-#: lib/interface/constants.php:351 lib/interface/constants.php:361
-#: lib/interface/constants.php:428 Public/A2B_data_archiving.php:89
+#: lib/interface/constants.php:324 lib/interface/constants.php:341
+#: lib/interface/constants.php:356 lib/interface/constants.php:366
+#: lib/interface/constants.php:433 Public/A2B_data_archiving.php:89
 #: Public/A2B_data_archiving.php:97 Public/A2B_mass_mail.php:56
 msgid "CANCELLED"
 msgstr "ОТМЕНЕН"
 
-#: lib/interface/constants.php:321 lib/interface/constants.php:339
+#: lib/interface/constants.php:326 lib/interface/constants.php:344
 #: Public/A2B_data_archiving.php:92 Public/A2B_data_archiving.php:100
 #: Public/A2B_mass_mail.php:59
 msgid "WAITING-MAILCONFIRMATION"
 msgstr ""
 
-#: lib/interface/constants.php:322 lib/interface/constants.php:340
+#: lib/interface/constants.php:327 lib/interface/constants.php:345
 #: Public/A2B_data_archiving.php:93 Public/A2B_data_archiving.php:101
 #: Public/A2B_mass_mail.php:60 Public/form_data/FG_var_did.inc:67
 msgid "RESERVED"
 msgstr "РЕЗЕРВ"
 
-#: lib/interface/constants.php:323 lib/interface/constants.php:341
+#: lib/interface/constants.php:328 lib/interface/constants.php:346
 #: Public/A2B_data_archiving.php:94 Public/A2B_data_archiving.php:102
-#: Public/A2B_mass_mail.php:61 Public/A2B_entity_phonenumber.php:134
+#: Public/A2B_mass_mail.php:61 Public/A2B_entity_phonenumber.php:314
 msgid "EXPIRED"
 msgstr ""
 
-#: lib/interface/constants.php:324 lib/interface/constants.php:342
+#: lib/interface/constants.php:329 lib/interface/constants.php:347
 msgid "SUSPENDED FOR UNDERPAYMENT"
 msgstr ""
 
-#: lib/interface/constants.php:325 lib/interface/constants.php:343
+#: lib/interface/constants.php:330 lib/interface/constants.php:348
 msgid "SUSPENDED FOR LITIGATION"
 msgstr ""
 
-#: lib/interface/constants.php:326
+#: lib/interface/constants.php:331
 #, fuzzy
 msgid "WAITING SUBSCRIPTION PAYMENT"
 msgstr "ОПИСАНИЕ"
 
-#: lib/interface/constants.php:337 lib/interface/constants.php:362
-#: Public/A2B_entity_voucher.php:203 Public/form_data/FG_var_callerid.inc:58
+#: lib/interface/constants.php:342 lib/interface/constants.php:367
+#: Public/A2B_entity_voucher.php:203 Public/A2B_card_info.php:454
+#: Public/A2B_card_info.php:967 Public/form_data/FG_var_callerid.inc:58
 #: Public/form_data/FG_var_callerid.inc:83
 #: Public/form_data/FG_var_outbound_cid.php:69
 #: Public/form_data/FG_var_support_component.inc:69
@@ -553,70 +556,71 @@ msgstr "ОПИСАНИЕ"
 msgid "ACTIVATED"
 msgstr ""
 
-#: lib/interface/constants.php:339 lib/interface/constants.php:425
+#: lib/interface/constants.php:344 lib/interface/constants.php:430
 msgid "WAITING"
 msgstr ""
 
-#: lib/interface/constants.php:340 Public/A2B_data_archiving.php:110
+#: lib/interface/constants.php:345 Public/A2B_data_archiving.php:110
 msgid "RESERV"
 msgstr ""
 
-#: lib/interface/constants.php:342
+#: lib/interface/constants.php:347
 msgid "SUS-PAY"
 msgstr ""
 
-#: lib/interface/constants.php:343
+#: lib/interface/constants.php:348
 msgid "SUS-LIT"
 msgstr ""
 
-#: lib/interface/constants.php:344
+#: lib/interface/constants.php:349
 #, fuzzy
 msgid "WAITING-SUBSCRIPTION-PAYMENT"
 msgstr "ОПИСАНИЕ"
 
-#: lib/interface/constants.php:344
+#: lib/interface/constants.php:349
 #, fuzzy
 msgid "WAIT-PAY"
 msgstr "ОЖИДАТЬ"
 
-#: lib/interface/constants.php:380 Public/A2B_data_archiving.php:119
+#: lib/interface/constants.php:385 Public/A2B_data_archiving.php:119
 #: Public/A2B_entity_card.php:354
 msgid "NO EXPIRY"
 msgstr ""
 
-#: lib/interface/constants.php:389
+#: lib/interface/constants.php:394
 msgid "SQL"
 msgstr ""
 
-#: lib/interface/constants.php:390
+#: lib/interface/constants.php:395
 #, fuzzy
 msgid "SHELL SCRIPT"
 msgstr "ОПИСАНИЕ"
 
-#: lib/interface/constants.php:396
+#: lib/interface/constants.php:401
 msgid "TEXT2SPEECH"
 msgstr ""
 
-#: lib/interface/constants.php:397
+#: lib/interface/constants.php:402
 #, fuzzy
 msgid "UNIXTIME"
 msgstr "ВРЕМЯ ЗАВЕРШЕНИЯ"
 
-#: lib/interface/constants.php:398 Public/A2B_package_manage_rates.php:201
+#: lib/interface/constants.php:403 Public/A2B_package_manage_rates.php:191
 msgid "NUMBER"
 msgstr "НОМЕР"
 
-#: lib/interface/constants.php:399
+#: lib/interface/constants.php:404
 msgid "DIGIT"
 msgstr ""
 
-#: lib/interface/constants.php:405 Public/A2B_refill_info_agent.php:91
+#: lib/interface/constants.php:410 Public/A2B_refill_info_agent.php:91
 #: Public/A2B_refill_info.php:91 Public/A2B_payment_info_agent.php:91
 #: Public/A2B_remittance_info.php:91 Public/A2B_payment_info.php:91
 #: Public/form_data/FG_var_commission.inc:53
 #: Public/form_data/FG_var_remittance_request.inc:70
-#: Public/form_data/FG_var_phonenumber.inc:59
-#: Public/form_data/FG_var_phonenumber.inc:110
+#: Public/form_data/FG_var_phonenumber.inc:61
+#: Public/form_data/FG_var_phonenumber.inc:82
+#: Public/form_data/FG_var_phonenumber.inc:124
 #: Public/form_data/FG_var_charge.inc:74
 #: Public/form_data/FG_var_charge.inc:131
 #: Public/form_data/FG_var_transactions.inc:54
@@ -629,40 +633,40 @@ msgstr ""
 msgid "AMOUNT"
 msgstr "КОЛИЧЕСТВО"
 
-#: lib/interface/constants.php:406
+#: lib/interface/constants.php:411
 msgid "CORRECTION"
 msgstr "КОРРЕККЦИЯ"
 
-#: lib/interface/constants.php:407
+#: lib/interface/constants.php:412
 msgid "EXTRA FEE"
 msgstr ""
 
-#: lib/interface/constants.php:408
+#: lib/interface/constants.php:413
 #, fuzzy
 msgid "AGENT REFUND"
 msgstr "ИФОРМАЦИЯ ОБ АГЕНТЕ"
 
-#: lib/interface/constants.php:414
+#: lib/interface/constants.php:419
 #, fuzzy
 msgid "TO BALANCE"
 msgstr "БАЛАНС"
 
-#: lib/interface/constants.php:415
+#: lib/interface/constants.php:420
 #, fuzzy
 msgid "TO BANK"
 msgstr "ОПЛАТИТЬ"
 
-#: lib/interface/constants.php:426
+#: lib/interface/constants.php:431
 #, fuzzy
 msgid "ACCEPTED"
 msgstr "СБРОШЕН"
 
-#: lib/interface/constants.php:427
+#: lib/interface/constants.php:432
 #, fuzzy
 msgid "REFUSED"
 msgstr "ИСПОЛЬЗОВАНО"
 
-#: lib/interface/constants.php:445 Public/A2B_entity_card_multi.php:368
+#: lib/interface/constants.php:450 Public/A2B_entity_card_multi.php:368
 #: Public/A2B_entity_card.php:424
 msgid "NO DISCOUNT"
 msgstr ""
@@ -671,28 +675,28 @@ msgstr ""
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Неверный номер карты указан в конфигурации."
 
-#: lib/Class.A2Billing.php:3125
+#: lib/Class.A2Billing.php:3137
 msgid "Error : Authentication Failed !!!"
 msgstr "Ошибка : Ошибка аутентификации !!!"
 
-#: lib/Class.A2Billing.php:3165
+#: lib/Class.A2Billing.php:3177
 msgid "Error : Not enough credit to call !!!"
 msgstr "Ошибка : Недостаточно кредита для звонков !!!"
 
-#: lib/Class.A2Billing.php:3171
+#: lib/Class.A2Billing.php:3183
 msgid "Error : Card is not active!!!"
 msgstr "Ошибка : Карта не активна !!!"
 
-#: lib/Class.A2Billing.php:3177
+#: lib/Class.A2Billing.php:3189
 msgid "Error : Card is actually in use!!!"
 msgstr "Ошибка : Карта уже используется !!!"
 
-#: lib/Class.A2Billing.php:3186 lib/Class.A2Billing.php:3194
-#: lib/Class.A2Billing.php:3202
+#: lib/Class.A2Billing.php:3198 lib/Class.A2Billing.php:3206
+#: lib/Class.A2Billing.php:3214
 msgid "Error : Card have expired!!!"
 msgstr "Ошибка : Истек срок действия карты !!!"
 
-#: lib/Class.SOAP-function.php:719 lib/Form/Class.FormBO.php:287
+#: lib/Class.SOAP-function.php:724 lib/Form/Class.FormBO.php:287
 #: Public/A2B_entity_card_multi.php:145
 msgid "CREATION CARD REFILL"
 msgstr ""
@@ -701,68 +705,68 @@ msgstr ""
 msgid "This option is not available on the Demo!"
 msgstr "Эта опция недоступна в Демо!"
 
-#: lib/Misc.php:514 lib/Class.Notification.php:136
+#: lib/Misc.php:515 lib/Class.Notification.php:138
 msgid "UNKNOWN"
 msgstr "НЕИЗВЕСТНО"
 
-#: lib/Misc.php:722
+#: lib/Misc.php:723
 msgid "First"
 msgstr "Первый"
 
-#: lib/Misc.php:723
+#: lib/Misc.php:724
 msgid "Prev"
 msgstr "Предыдущий"
 
-#: lib/Misc.php:724 Public/A2B_detail_package.php:533
+#: lib/Misc.php:725 Public/A2B_detail_package.php:533
 #: Public/call-log-customers.php:1139
 msgid "Next"
 msgstr "Следующий"
 
-#: lib/Misc.php:725
+#: lib/Misc.php:726
 msgid "Last"
 msgstr "Последний"
 
-#: lib/Misc.php:815
+#: lib/Misc.php:816
 msgid "File size is greater than allowed limit."
 msgstr "Размер файла больше чем доступный лимит."
 
-#: lib/Misc.php:818
+#: lib/Misc.php:819
 msgid "You did not upload anything!"
 msgstr "Вы ничего не загрузили!"
 
-#: lib/Misc.php:821
+#: lib/Misc.php:822
 msgid "Failed to upload the file, The file you uploaded may not exist on disk."
 msgstr "Ошибка загрузки файла, файла может и не быть на диске."
 
-#: lib/Misc.php:824
+#: lib/Misc.php:825
 msgid "file type is not allowed"
 msgstr "Недопустимый тип файла"
 
-#: lib/Misc.php:1133
+#: lib/Misc.php:1131
 msgid "Can't find our base_currency in cc_currencies."
 msgstr ""
 
-#: lib/Misc.php:1133 lib/Misc.php:1155 lib/Misc.php:1159 lib/Misc.php:1169
+#: lib/Misc.php:1131 lib/Misc.php:1153 lib/Misc.php:1157 lib/Misc.php:1167
 msgid "Currency update ABORTED."
 msgstr "Обновление валюты ОТМЕНЕНО."
 
-#: lib/Misc.php:1155
+#: lib/Misc.php:1153
 msgid "The CSV file doesn't contain all the currencies we requested."
 msgstr "CSV файл не содержит всех запрашиваемых валют."
 
-#: lib/Misc.php:1159
+#: lib/Misc.php:1157
 msgid "At least one of the entries in the CSV file isn't a number."
 msgstr "По крайней мере одна из записей в CSV файле не явлется номером."
 
-#: lib/Misc.php:1169
+#: lib/Misc.php:1167
 msgid "Our base_currency seems to be worthless."
 msgstr ""
 
-#: lib/Misc.php:1207
+#: lib/Misc.php:1205
 msgid "Success! All currencies are now updated."
 msgstr "Успешно! Все валюты теперь обновлены."
 
-#: lib/Misc.php:1473
+#: lib/Misc.php:1496
 msgid "GO TO CUSTOMER ACCOUNT"
 msgstr ""
 
@@ -803,35 +807,39 @@ msgstr ""
 msgid "A2Billing Portal"
 msgstr "Портал A2Billing"
 
-#: lib/Class.Notification.php:75
+#: lib/Class.Notification.php:76
 msgid "New SIP & IAX added : Friends conf have to be generated"
 msgstr ""
 
-#: lib/Class.Notification.php:76
+#: lib/Class.Notification.php:77
 msgid "New SIP added : Sip Friends conf have to be generated"
 msgstr ""
 
-#: lib/Class.Notification.php:77
+#: lib/Class.Notification.php:78
 msgid "New IAX added : IAX Friends conf have to be generated"
 msgstr ""
 
-#: lib/Class.Notification.php:78
+#: lib/Class.Notification.php:79
 msgid "New Ticket added by agent"
 msgstr "Новый билет добавлен агентом"
 
-#: lib/Class.Notification.php:79
+#: lib/Class.Notification.php:80
 msgid "New Ticket added by customer"
 msgstr "Новый билет добавлен клиентом"
 
-#: lib/Class.Notification.php:80
+#: lib/Class.Notification.php:81
 msgid "New Remittance request added"
 msgstr ""
 
-#: lib/Class.Notification.php:132
+#: lib/Class.Notification.php:82
+msgid "Added new sign-up"
+msgstr ""
+
+#: lib/Class.Notification.php:134
 msgid "BATCH"
 msgstr "ПАКЕТНО"
 
-#: lib/Class.Notification.php:134
+#: lib/Class.Notification.php:136
 #, fuzzy
 msgid "SOAP-SERVER"
 msgstr "СЕРВЕР"
@@ -1488,59 +1496,59 @@ msgstr ""
 msgid "CREATION AGENT REFILL"
 msgstr ""
 
-#: lib/Form/Class.FormBO.php:432
+#: lib/Form/Class.FormBO.php:433
 #, fuzzy
 msgid "SUBSCRIPTION INVOICE REMINDER"
 msgstr "ОПИСАНИЕ"
 
-#: lib/Form/Class.FormBO.php:692
+#: lib/Form/Class.FormBO.php:695
 msgid "SUMMARY OF CALLS"
 msgstr "СУММА ЗВОНКОВ"
 
-#: lib/Form/Class.FormBO.php:693
+#: lib/Form/Class.FormBO.php:696
 msgid "Summary of the calls charged since the last billing"
 msgstr ""
 
-#: lib/Form/Class.FormBO.php:710
+#: lib/Form/Class.FormBO.php:713
 msgid "SUMMARY OF CHARGE"
 msgstr ""
 
-#: lib/Form/Class.FormBO.php:712
+#: lib/Form/Class.FormBO.php:715
 msgid "Summary of the charge charged since the last billing."
 msgstr ""
 
-#: lib/Form/Class.FormBO.php:718 lib/Form/Class.FormBO.php:748
+#: lib/Form/Class.FormBO.php:721 lib/Form/Class.FormBO.php:751
 msgid "CHARGE :"
 msgstr ""
 
-#: lib/Form/Class.FormBO.php:737
+#: lib/Form/Class.FormBO.php:740
 msgid "BILLING CHARGES"
 msgstr ""
 
-#: lib/Form/Class.FormBO.php:738
+#: lib/Form/Class.FormBO.php:741
 msgid "This invoice is for some charges unpaid since the last billing."
 msgstr ""
 
-#: lib/Form/Class.FormBO.php:770
+#: lib/Form/Class.FormBO.php:773
 msgid "BILLING POSTPAID"
 msgstr ""
 
-#: lib/Form/Class.FormBO.php:771
+#: lib/Form/Class.FormBO.php:774
 msgid "Invoice for POSTPAID"
 msgstr ""
 
-#: lib/Form/Class.FormBO.php:833 lib/Form/Class.FormBO.php:835
-#: lib/Form/Class.FormBO.php:942 lib/Form/Class.FormBO.php:944
+#: lib/Form/Class.FormBO.php:836 lib/Form/Class.FormBO.php:838
+#: lib/Form/Class.FormBO.php:945 lib/Form/Class.FormBO.php:947
 #: Public/form_data/FG_var_payment_agent.inc:65
 #: Public/form_data/FG_var_payment.inc:63
 msgid "REFILL"
 msgstr "ЗАПОЛНИТЬ"
 
-#: lib/Form/Class.FormBO.php:837 lib/Form/Class.FormBO.php:946
+#: lib/Form/Class.FormBO.php:840 lib/Form/Class.FormBO.php:949
 msgid "Invoice for refill"
 msgstr ""
 
-#: lib/Form/Class.FormBO.php:993
+#: lib/Form/Class.FormBO.php:996
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr ""
 
@@ -1569,25 +1577,25 @@ msgid "APPLY FILTER "
 msgstr "ПРИМЕНИТЬ ФИЛЬТР"
 
 #: lib/Form/Class.ViewHandler.inc.php:196
-#: Public/A2B_entity_phonenumber.php:119 Public/A2B_log_activity_info.php:101
+#: Public/A2B_entity_phonenumber.php:299 Public/A2B_log_activity_info.php:101
 #: Public/form_data/FG_var_log_viewer.inc:82
 msgid "ACTION"
 msgstr "ДЕЙСТВИЕ"
 
-#: lib/Form/Class.ViewHandler.inc.php:712
+#: lib/Form/Class.ViewHandler.inc.php:796
 msgid "DISPLAY"
 msgstr "ОТОБРАЖЕНИЕ"
 
-#: lib/Form/Class.ViewHandler.inc.php:741
+#: lib/Form/Class.ViewHandler.inc.php:825
 msgid "GO"
 msgstr "ОК"
 
-#: lib/Form/Class.ViewHandler.inc.php:745 Public/call-dnid.php:951
+#: lib/Form/Class.ViewHandler.inc.php:829 Public/call-dnid.php:951
 #: Public/call-log-customers.php:1372
 msgid "Export CSV"
 msgstr "Экспорт CSV"
 
-#: lib/Form/Class.ViewHandler.inc.php:749 Public/call-dnid.php:953
+#: lib/Form/Class.ViewHandler.inc.php:833 Public/call-dnid.php:953
 #: Public/call-log-customers.php:1374
 msgid "Export XML"
 msgstr "Экспорт XML"
@@ -1603,45 +1611,45 @@ msgid "To :"
 msgstr "Кому :"
 
 #: lib/Form/Class.SearchHandler.inc.php:213 Public/call-last-month.php:136
-#: Public/A2B_call_archiving.php:387 Public/A2B_call_archiving.php:401
+#: Public/A2B_call_archiving.php:383 Public/A2B_call_archiving.php:397
 #: Public/call-dnid.php:509 Public/call-dnid.php:523 Public/call-dnid.php:537
 #: Public/call-daily-load.php:289 Public/call-log-customers.php:617
 #: Public/call-log-customers.php:669 Public/call-log-customers.php:722
 #: Public/A2B_entity_config.php:124 Public/A2B_entity_config.php:162
-#: Public/A2B_entity_config.php:199 Public/A2B_entity_def_ratecard.php:549
+#: Public/A2B_entity_config.php:199 Public/A2B_entity_def_ratecard.php:548
 #: Public/call-comp.php:303 Public/call-comp.php:316
 msgid "Exact"
 msgstr "Соответствует"
 
 #: lib/Form/Class.SearchHandler.inc.php:214 Public/call-last-month.php:137
-#: Public/A2B_call_archiving.php:388 Public/A2B_call_archiving.php:402
+#: Public/A2B_call_archiving.php:384 Public/A2B_call_archiving.php:398
 #: Public/call-dnid.php:510 Public/call-dnid.php:524 Public/call-dnid.php:538
 #: Public/call-daily-load.php:290 Public/call-log-customers.php:626
 #: Public/call-log-customers.php:678 Public/call-log-customers.php:731
 #: Public/A2B_entity_config.php:129 Public/A2B_entity_config.php:167
-#: Public/A2B_entity_config.php:204 Public/A2B_entity_def_ratecard.php:550
+#: Public/A2B_entity_config.php:204 Public/A2B_entity_def_ratecard.php:549
 #: Public/call-comp.php:304 Public/call-comp.php:317
 msgid "Begins with"
 msgstr "Начинается с"
 
 #: lib/Form/Class.SearchHandler.inc.php:215 Public/call-last-month.php:138
-#: Public/A2B_call_archiving.php:389 Public/A2B_call_archiving.php:403
+#: Public/A2B_call_archiving.php:385 Public/A2B_call_archiving.php:399
 #: Public/call-dnid.php:511 Public/call-dnid.php:525 Public/call-dnid.php:539
 #: Public/call-daily-load.php:291 Public/call-log-customers.php:635
 #: Public/call-log-customers.php:687 Public/call-log-customers.php:740
 #: Public/A2B_entity_config.php:134 Public/A2B_entity_config.php:172
-#: Public/A2B_entity_config.php:209 Public/A2B_entity_def_ratecard.php:551
+#: Public/A2B_entity_config.php:209 Public/A2B_entity_def_ratecard.php:550
 #: Public/call-comp.php:305 Public/call-comp.php:318
 msgid "Contains"
 msgstr "Содержит"
 
 #: lib/Form/Class.SearchHandler.inc.php:216 Public/call-last-month.php:139
-#: Public/A2B_call_archiving.php:390 Public/A2B_call_archiving.php:404
+#: Public/A2B_call_archiving.php:386 Public/A2B_call_archiving.php:400
 #: Public/call-dnid.php:512 Public/call-dnid.php:526 Public/call-dnid.php:540
 #: Public/call-daily-load.php:292 Public/call-log-customers.php:644
 #: Public/call-log-customers.php:696 Public/call-log-customers.php:749
 #: Public/A2B_entity_config.php:139 Public/A2B_entity_config.php:177
-#: Public/A2B_entity_config.php:214 Public/A2B_entity_def_ratecard.php:552
+#: Public/A2B_entity_config.php:214 Public/A2B_entity_def_ratecard.php:551
 #: Public/call-comp.php:306 Public/call-comp.php:319
 msgid "Ends with"
 msgstr "Заканчивается на"
@@ -1655,8 +1663,8 @@ msgid "selected, use the option below if you are willing to make a batch updated
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:356
-#: Public/A2B_entity_def_ratecard.php:341
-#: Public/A2B_entity_def_ratecard.php:515 Public/form_data/FG_var_user.inc:77
+#: Public/A2B_entity_def_ratecard.php:340
+#: Public/A2B_entity_def_ratecard.php:514 Public/form_data/FG_var_user.inc:77
 #: Public/form_data/FG_var_tariffgroup.inc:159
 #: Public/form_data/FG_var_def_ratecard.inc:186
 #: Public/form_data/FG_var_card_group.inc:90
@@ -1678,8 +1686,8 @@ msgstr ""
 #: lib/Form/Class.SearchHandler.inc.php:473
 #: lib/Form/Class.SearchHandler.inc.php:489
 #: lib/Form/Class.SearchHandler.inc.php:505
-#: Public/A2B_entity_def_ratecard.php:388
-#: Public/A2B_entity_def_ratecard.php:422
+#: Public/A2B_entity_def_ratecard.php:387
+#: Public/A2B_entity_def_ratecard.php:421
 msgid "Equal"
 msgstr "Равно"
 
@@ -1694,9 +1702,9 @@ msgstr "Равно"
 #: lib/Form/Class.SearchHandler.inc.php:507 Public/A2B_entity_voucher.php:223
 #: Public/templates/default/main.tpl:286 Public/templates/default/main.tpl:375
 #: Public/templates/default/main.tpl:426 Public/templates/default/main.tpl:450
-#: Public/A2B_entity_card.php:294 Public/A2B_entity_card.php:342
-#: Public/A2B_entity_def_ratecard.php:389
-#: Public/A2B_entity_def_ratecard.php:423
+#: Public/A2B_entity_phonenumber.php:229 Public/A2B_entity_card.php:294
+#: Public/A2B_entity_card.php:342 Public/A2B_entity_def_ratecard.php:388
+#: Public/A2B_entity_def_ratecard.php:422
 msgid "Add"
 msgstr "Добавить"
 
@@ -1750,47 +1758,47 @@ msgstr ""
 msgid " BATCH UPDATE RATECARD "
 msgstr " ПАКЕТНОЕ ОБНОВЛЕНИЕ ТАРИФНЫХ КАРТ"
 
-#: lib/Form/Class.FormHandler.inc.php:535
+#: lib/Form/Class.FormHandler.inc.php:545
 msgid "No data found!"
 msgstr "Данные не найдены!"
 
-#: lib/Form/Class.FormHandler.inc.php:536
+#: lib/Form/Class.FormHandler.inc.php:546
 msgid "DIRECTORY"
 msgstr "ДИРЕКТОРИЯ"
 
-#: lib/Form/Class.FormHandler.inc.php:537
+#: lib/Form/Class.FormHandler.inc.php:547
 msgid "list"
 msgstr "список"
 
-#: lib/Form/Class.FormHandler.inc.php:538
-#: lib/Form/Class.FormHandler.inc.php:620
+#: lib/Form/Class.FormHandler.inc.php:548
+#: lib/Form/Class.FormHandler.inc.php:630
 msgid "Define criteria to make a precise search"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:539
+#: lib/Form/Class.FormHandler.inc.php:549
 msgid "You can browse through our"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:539
+#: lib/Form/Class.FormHandler.inc.php:549
 msgid "and modify their different properties"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:540
+#: lib/Form/Class.FormHandler.inc.php:550
 msgid "Delete this record"
 msgstr "Удалить эту запись"
 
-#: lib/Form/Class.FormHandler.inc.php:541
+#: lib/Form/Class.FormHandler.inc.php:551
 msgid "Edit this record"
 msgstr "Редактировать запись"
 
-#: lib/Form/Class.FormHandler.inc.php:542
+#: lib/Form/Class.FormHandler.inc.php:552
 msgid "The document has been created correctly. Now, you can define the different tariff that you want to associate."
 msgstr "Документ был создан правильно. Теперь вы можете указать другой тариф который хотите ассоциировать."
 
-#: lib/Form/Class.FormHandler.inc.php:543
+#: lib/Form/Class.FormHandler.inc.php:553
 #: Public/form_data/FG_var_provider.inc:105
 #: Public/form_data/FG_var_campaign.inc:318
-#: Public/form_data/FG_var_phonenumber.inc:145
+#: Public/form_data/FG_var_phonenumber.inc:159
 #: Public/form_data/FG_var_moneysituation.inc:76
 #: Public/form_data/FG_var_agentsituation.inc:75
 #: Public/form_data/FG_var_speeddial.inc:136
@@ -1803,17 +1811,17 @@ msgstr "Документ был создан правильно. Теперь в
 #: Public/form_data/FG_var_card_group.inc:147
 #: Public/form_data/FG_var_backup.inc:112
 #: Public/form_data/FG_var_did_billing.inc:101
-#: Public/form_data/FG_var_card.inc:949
+#: Public/form_data/FG_var_card.inc:975
 #: Public/form_data/FG_var_phonebook.inc:121
 #: Public/form_data/FG_var_service_details.inc:70
 msgid "You can modify, through the following form, the different properties of your"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:544
+#: lib/Form/Class.FormHandler.inc.php:554
 #: Public/form_data/FG_var_provider.inc:106
 #: Public/form_data/FG_var_campaign.inc:319
-#: Public/form_data/FG_var_phonenumber.inc:146
-#: Public/form_data/FG_var_user.inc:317
+#: Public/form_data/FG_var_phonenumber.inc:160
+#: Public/form_data/FG_var_user.inc:318
 #: Public/form_data/FG_var_tariffplan.inc:166
 #: Public/form_data/FG_var_moneysituation.inc:77
 #: Public/form_data/FG_var_callerid.inc:120
@@ -1826,7 +1834,7 @@ msgstr ""
 #: Public/form_data/FG_var_mailtemplate.inc:198
 #: Public/form_data/FG_var_alarm.inc:182
 #: Public/form_data/FG_var_charge.inc:178
-#: Public/form_data/FG_var_trunk.inc:240
+#: Public/form_data/FG_var_trunk.inc:263
 #: Public/form_data/FG_var_didgroup.inc:91
 #: Public/form_data/FG_var_speeddial.inc:137
 #: Public/form_data/FG_var_transactions.inc:84
@@ -1848,36 +1856,36 @@ msgstr ""
 #: Public/form_data/FG_var_ticket.inc:193
 #: Public/form_data/FG_var_config_group.inc:89
 #: Public/form_data/FG_var_restore.inc:100
-#: Public/form_data/FG_var_friend.inc:971
+#: Public/form_data/FG_var_friend.inc:965
 #: Public/form_data/FG_var_outbound_cidgroup.php:64
 #: Public/form_data/FG_var_subscriber.inc:134
 #: Public/form_data/FG_var_card_group.inc:148
 #: Public/form_data/FG_var_backup.inc:113
 #: Public/form_data/FG_var_did_destination.inc:187
 #: Public/form_data/FG_var_did_billing.inc:102
-#: Public/form_data/FG_var_agent.inc:392 Public/form_data/FG_var_card.inc:950
+#: Public/form_data/FG_var_agent.inc:392 Public/form_data/FG_var_card.inc:976
 #: Public/form_data/FG_var_phonebook.inc:122
 #: Public/form_data/FG_var_service_details.inc:71
 msgid "If you really want remove this"
 msgstr "Если вы действительно хотите удалить эту"
 
-#: lib/Form/Class.FormHandler.inc.php:544
+#: lib/Form/Class.FormHandler.inc.php:554
 msgid "Click on the delete button."
 msgstr "Щелкните на кнопке удаления."
 
-#: lib/Form/Class.FormHandler.inc.php:545
+#: lib/Form/Class.FormHandler.inc.php:555
 msgid "One"
 msgstr "Один"
 
-#: lib/Form/Class.FormHandler.inc.php:545
+#: lib/Form/Class.FormHandler.inc.php:555
 msgid "has been deleted!"
 msgstr "был удале!"
 
-#: lib/Form/Class.FormHandler.inc.php:547
+#: lib/Form/Class.FormHandler.inc.php:557
 #: Public/form_data/FG_var_provider.inc:107
 #: Public/form_data/FG_var_campaign.inc:320
-#: Public/form_data/FG_var_phonenumber.inc:147
-#: Public/form_data/FG_var_user.inc:318
+#: Public/form_data/FG_var_phonenumber.inc:161
+#: Public/form_data/FG_var_user.inc:319
 #: Public/form_data/FG_var_tariffplan.inc:167
 #: Public/form_data/FG_var_moneysituation.inc:78
 #: Public/form_data/FG_var_callerid.inc:121
@@ -1890,7 +1898,7 @@ msgstr "был удале!"
 #: Public/form_data/FG_var_mailtemplate.inc:199
 #: Public/form_data/FG_var_alarm.inc:183
 #: Public/form_data/FG_var_charge.inc:179
-#: Public/form_data/FG_var_trunk.inc:241
+#: Public/form_data/FG_var_trunk.inc:264
 #: Public/form_data/FG_var_speeddial.inc:138
 #: Public/form_data/FG_var_subscription.inc:167
 #: Public/form_data/FG_var_callback.inc:316
@@ -1908,24 +1916,24 @@ msgstr "был удале!"
 #: Public/form_data/FG_var_ticket.inc:194
 #: Public/form_data/FG_var_config_group.inc:90
 #: Public/form_data/FG_var_restore.inc:101
-#: Public/form_data/FG_var_friend.inc:972
+#: Public/form_data/FG_var_friend.inc:966
 #: Public/form_data/FG_var_outbound_cidgroup.php:65
 #: Public/form_data/FG_var_subscriber.inc:135
 #: Public/form_data/FG_var_card_group.inc:149
 #: Public/form_data/FG_var_backup.inc:114
 #: Public/form_data/FG_var_did_destination.inc:188
 #: Public/form_data/FG_var_did_billing.inc:103
-#: Public/form_data/FG_var_agent.inc:393 Public/form_data/FG_var_card.inc:951
+#: Public/form_data/FG_var_agent.inc:393 Public/form_data/FG_var_card.inc:977
 #: Public/form_data/FG_var_phonebook.inc:123
 #: Public/form_data/FG_var_service_details.inc:72
 msgid "you can add easily a new"
 msgstr "вы легко можете добавить новый"
 
-#: lib/Form/Class.FormHandler.inc.php:547
+#: lib/Form/Class.FormHandler.inc.php:557
 #: Public/form_data/FG_var_provider.inc:107
 #: Public/form_data/FG_var_campaign.inc:320
-#: Public/form_data/FG_var_phonenumber.inc:147
-#: Public/form_data/FG_var_user.inc:318
+#: Public/form_data/FG_var_phonenumber.inc:161
+#: Public/form_data/FG_var_user.inc:319
 #: Public/form_data/FG_var_tariffplan.inc:167
 #: Public/form_data/FG_var_moneysituation.inc:78
 #: Public/form_data/FG_var_callerid.inc:121
@@ -1938,7 +1946,7 @@ msgstr "вы легко можете добавить новый"
 #: Public/form_data/FG_var_mailtemplate.inc:199
 #: Public/form_data/FG_var_call.inc:136 Public/form_data/FG_var_alarm.inc:183
 #: Public/form_data/FG_var_charge.inc:179
-#: Public/form_data/FG_var_trunk.inc:241
+#: Public/form_data/FG_var_trunk.inc:264
 #: Public/form_data/FG_var_speeddial.inc:138
 #: Public/form_data/FG_var_subscription.inc:167
 #: Public/form_data/FG_var_callback.inc:316
@@ -1956,37 +1964,37 @@ msgstr "вы легко можете добавить новый"
 #: Public/form_data/FG_var_ticket.inc:194
 #: Public/form_data/FG_var_config_group.inc:90
 #: Public/form_data/FG_var_restore.inc:101
-#: Public/form_data/FG_var_friend.inc:972
+#: Public/form_data/FG_var_friend.inc:966
 #: Public/form_data/FG_var_outbound_cidgroup.php:65
 #: Public/form_data/FG_var_subscriber.inc:135
 #: Public/form_data/FG_var_card_group.inc:149
 #: Public/form_data/FG_var_backup.inc:114
 #: Public/form_data/FG_var_did_destination.inc:188
 #: Public/form_data/FG_var_did_billing.inc:103
-#: Public/form_data/FG_var_agent.inc:393 Public/form_data/FG_var_card.inc:951
+#: Public/form_data/FG_var_agent.inc:393 Public/form_data/FG_var_card.inc:977
 #: Public/form_data/FG_var_phonebook.inc:123
 #: Public/form_data/FG_var_service_details.inc:72
 msgid "Fill the following fields and confirm by clicking on the button add."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:548
+#: lib/Form/Class.FormHandler.inc.php:558
 #: Public/form_data/FG_var_restore.inc:112
 #: Public/form_data/FG_var_service_details.inc:75
 msgid "Add a"
 msgstr "добавить"
 
-#: lib/Form/Class.FormHandler.inc.php:548
+#: lib/Form/Class.FormHandler.inc.php:558
 #: Public/form_data/FG_var_restore.inc:112
 #: Public/form_data/FG_var_service_details.inc:75
 msgid "now."
 msgstr "сейчас."
 
-#: lib/Form/Class.FormHandler.inc.php:549
-#: lib/Form/Class.FormHandler.inc.php:550
+#: lib/Form/Class.FormHandler.inc.php:559
+#: lib/Form/Class.FormHandler.inc.php:560
 #: Public/form_data/FG_var_provider.inc:110
 #: Public/form_data/FG_var_campaign.inc:324
-#: Public/form_data/FG_var_phonenumber.inc:151
-#: Public/form_data/FG_var_user.inc:322
+#: Public/form_data/FG_var_phonenumber.inc:165
+#: Public/form_data/FG_var_user.inc:323
 #: Public/form_data/FG_var_tariffplan.inc:170
 #: Public/form_data/FG_var_callerid.inc:132
 #: Public/form_data/FG_var_monitor.inc:165
@@ -1997,7 +2005,7 @@ msgstr "сейчас."
 #: Public/form_data/FG_var_mailtemplate.inc:202
 #: Public/form_data/FG_var_call.inc:139 Public/form_data/FG_var_alarm.inc:187
 #: Public/form_data/FG_var_charge.inc:183
-#: Public/form_data/FG_var_trunk.inc:244
+#: Public/form_data/FG_var_trunk.inc:267
 #: Public/form_data/FG_var_didgroup.inc:96
 #: Public/form_data/FG_var_speeddial.inc:141
 #: Public/form_data/FG_var_subscription.inc:171
@@ -2016,172 +2024,172 @@ msgstr "сейчас."
 #: Public/form_data/FG_var_ticket.inc:198
 #: Public/form_data/FG_var_config_group.inc:94
 #: Public/form_data/FG_var_restore.inc:113
-#: Public/form_data/FG_var_friend.inc:976
+#: Public/form_data/FG_var_friend.inc:970
 #: Public/form_data/FG_var_outbound_cidgroup.php:69
 #: Public/form_data/FG_var_subscriber.inc:139
 #: Public/form_data/FG_var_card_group.inc:153
 #: Public/form_data/FG_var_did_destination.inc:192
 #: Public/form_data/FG_var_did_billing.inc:107
-#: Public/form_data/FG_var_agent.inc:397 Public/form_data/FG_var_card.inc:955
+#: Public/form_data/FG_var_agent.inc:397 Public/form_data/FG_var_card.inc:981
 #: Public/form_data/FG_var_phonebook.inc:127
 #: Public/form_data/FG_var_service_details.inc:76
 msgid "Your new"
 msgstr "Ваш новый"
 
-#: lib/Form/Class.FormHandler.inc.php:549
+#: lib/Form/Class.FormHandler.inc.php:559
 msgid "has been inserted.<br>"
 msgstr "был добавлен.<br>"
 
-#: lib/Form/Class.FormHandler.inc.php:550
+#: lib/Form/Class.FormHandler.inc.php:560
 msgid "hasn't been inserted."
 msgstr "не был добавлен."
 
-#: lib/Form/Class.FormHandler.inc.php:551
+#: lib/Form/Class.FormHandler.inc.php:561
 msgid "You cannot choose more than one !"
 msgstr "Вы не можете выбрать больше одного !"
 
-#: lib/Form/Class.FormHandler.inc.php:553
+#: lib/Form/Class.FormHandler.inc.php:563
 msgid "Are you sure to delete all records connected to this instance."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:555
-#: lib/Form/Class.FormHandler.inc.php:557
+#: lib/Form/Class.FormHandler.inc.php:565
+#: lib/Form/Class.FormHandler.inc.php:567
 msgid "CONFIRM DATA"
 msgstr "ПОДТВЕРДИТЬ ДАННЫЕ"
 
-#: lib/Form/Class.FormHandler.inc.php:556
+#: lib/Form/Class.FormHandler.inc.php:566
 msgid "DELETE"
 msgstr "УДАЛИТЬ"
 
-#: lib/Form/Class.FormHandler.inc.php:609
-#: lib/Form/Class.FormHandler.inc.php:827
+#: lib/Form/Class.FormHandler.inc.php:619
+#: lib/Form/Class.FormHandler.inc.php:837
 msgid "Delete this "
 msgstr "Удалить эту"
 
-#: lib/Form/Class.FormHandler.inc.php:610
-#: lib/Form/Class.FormHandler.inc.php:821
+#: lib/Form/Class.FormHandler.inc.php:620
+#: lib/Form/Class.FormHandler.inc.php:831
 msgid "Edit this "
 msgstr "Редактировать эту"
 
-#: lib/Form/Class.FormHandler.inc.php:641
+#: lib/Form/Class.FormHandler.inc.php:651
 msgid "INSERTED"
 msgstr "ДОБАВЛЕНО"
 
-#: lib/Form/Class.FormHandler.inc.php:642
+#: lib/Form/Class.FormHandler.inc.php:652
 #: Public/form_data/FG_var_monitor.inc:63
 #: Public/form_data/FG_var_monitor.inc:145
 msgid "ENABLE"
 msgstr "ВКЛЮЧЕНО"
 
-#: lib/Form/Class.FormHandler.inc.php:643
+#: lib/Form/Class.FormHandler.inc.php:653
 msgid "DISABLE"
 msgstr "ВЫКЛЮЧЕНО"
 
-#: lib/Form/Class.FormHandler.inc.php:644
+#: lib/Form/Class.FormHandler.inc.php:654
 #: Public/form_data/FG_var_package.inc:68
 msgid "FREE"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:796
-#: lib/Form/Class.FormHandler.inc.php:798
+#: lib/Form/Class.FormHandler.inc.php:806
+#: lib/Form/Class.FormHandler.inc.php:808
 msgid "You can browse through our "
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:796
-#: lib/Form/Class.FormHandler.inc.php:798
+#: lib/Form/Class.FormHandler.inc.php:806
+#: lib/Form/Class.FormHandler.inc.php:808
 msgid " and modify their different properties<br>"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:966
+#: lib/Form/Class.FormHandler.inc.php:976
 msgid "(at least 3 characters)"
 msgstr "(минимум 3 символа)"
 
-#: lib/Form/Class.FormHandler.inc.php:970
+#: lib/Form/Class.FormHandler.inc.php:980
 msgid "(must match email structure. Example : name@domain.com)"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:974
+#: lib/Form/Class.FormHandler.inc.php:984
 msgid "(at least 5 successive characters appear at the end of this string)"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:978
+#: lib/Form/Class.FormHandler.inc.php:988
 msgid "(at least 4 characters)"
 msgstr "(минимум 4 символа)"
 
-#: lib/Form/Class.FormHandler.inc.php:982
+#: lib/Form/Class.FormHandler.inc.php:992
 msgid "(number format)"
 msgstr "(числовой формат)"
 
-#: lib/Form/Class.FormHandler.inc.php:990
+#: lib/Form/Class.FormHandler.inc.php:1000
 msgid "(only number with more that 8 digits)"
 msgstr "(только число больше 8 цифр)"
 
-#: lib/Form/Class.FormHandler.inc.php:994
+#: lib/Form/Class.FormHandler.inc.php:1004
 msgid "(at least 8 digits using . or - or the space key)"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:998
+#: lib/Form/Class.FormHandler.inc.php:1008
 msgid "network adress format"
 msgstr "формат сетевого адреса"
 
-#: lib/Form/Class.FormHandler.inc.php:1002
+#: lib/Form/Class.FormHandler.inc.php:1012
 msgid "at least 1 character"
 msgstr "минимум 1 символ"
 
-#: lib/Form/Class.FormHandler.inc.php:1010
+#: lib/Form/Class.FormHandler.inc.php:1020
 msgid "(AT LEAST 2 CARACTERS)"
 msgstr "(МИНИМУМ 2 СИМВОЛА)"
 
-#: lib/Form/Class.FormHandler.inc.php:1014
+#: lib/Form/Class.FormHandler.inc.php:1024
 msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1030
+#: lib/Form/Class.FormHandler.inc.php:1040
 msgid "You must write something."
 msgstr "Вы должны что-нибудь написать"
 
-#: lib/Form/Class.FormHandler.inc.php:1034
+#: lib/Form/Class.FormHandler.inc.php:1044
 msgid "8 characters alphanumeric"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1041
+#: lib/Form/Class.FormHandler.inc.php:1051
 msgid "(at least 6 Alphanumeric characters)"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1049
+#: lib/Form/Class.FormHandler.inc.php:1059
 #, php-format
 msgid "(PERCENT FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal and don't use '%' character. e.g.: 12.4 )"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1724
+#: lib/Form/Class.FormHandler.inc.php:1737
 msgid "error deletion"
 msgstr "ошибка удаления"
 
-#: lib/Form/Class.FormHandler.inc.php:1851
+#: lib/Form/Class.FormHandler.inc.php:1864
 msgid "ERROR_DUPLICATION"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1937
+#: lib/Form/Class.FormHandler.inc.php:1950
 msgid "Done"
 msgstr "Завершено"
 
-#: lib/Form/Class.FormHandler.inc.php:1977
+#: lib/Form/Class.FormHandler.inc.php:1990
 msgid "Export Call Plan with LCR"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1983
+#: lib/Form/Class.FormHandler.inc.php:1996
 msgid "Choose a call plan"
 msgstr "Выберите кол-план"
 
-#: lib/Form/Class.FormHandler.inc.php:2029
+#: lib/Form/Class.FormHandler.inc.php:2042
 msgid "THE CURRENT RATECARD"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2040
+#: lib/Form/Class.FormHandler.inc.php:2053
 msgid "R A T E C A R D"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2046 Public/CC_ratecard_import.php:229
+#: lib/Form/Class.FormHandler.inc.php:2059 Public/CC_ratecard_import.php:229
 msgid "Choose a ratecard"
 msgstr ""
 
@@ -2219,11 +2227,11 @@ msgstr ""
 #: Public/card-history.php:161 Public/CC_entity_alarm_details.php:54
 #: Public/CC_entity_service_details.php:56 Public/A2B_detail_package.php:610
 #: Public/call-dnid.php:395 Public/call-dnid.php:847
-#: Public/A2B_card_info.php:442 Public/call-count-reporting.php:160
+#: Public/A2B_card_info.php:666 Public/call-count-reporting.php:160
 #: Public/call-daily-load.php:375 Public/call-log-customers.php:445
 #: Public/call-log-customers.php:1217 Public/A2B_notification.php:161
 #: Public/form_data/FG_var_remittance_request.inc:69
-#: Public/form_data/FG_var_phonenumber.inc:60
+#: Public/form_data/FG_var_phonenumber.inc:62
 #: Public/form_data/FG_var_user.inc:105 Public/form_data/FG_var_receipt.inc:88
 #: Public/form_data/FG_var_invoice.inc:102
 #: Public/form_data/FG_var_charge.inc:73
@@ -2305,11 +2313,11 @@ msgstr "НОЯБРЬ"
 msgid "DECEMBER"
 msgstr "ДЕКАБРЬ"
 
-#: Public/card-history.php:196 Public/A2B_mass_mail.php:252
+#: Public/card-history.php:196 Public/A2B_mass_mail.php:275
 msgid "TO"
 msgstr "КОМУ"
 
-#: Public/card-history.php:229
+#: Public/card-history.php:229 Public/form_data/FG_var_trunk.inc:109
 msgid "Search"
 msgstr "Поиск"
 
@@ -2720,7 +2728,7 @@ msgstr "Сохранить"
 #: Public/form_data/FG_var_subscriber.inc:51
 #: Public/form_data/FG_var_did_destination.inc:70
 #: Public/form_data/FG_var_payment.inc:92 Public/form_data/FG_var_card.inc:232
-#: Public/form_data/FG_var_card.inc:320
+#: Public/form_data/FG_var_card.inc:324
 msgid "ACCOUNT NUMBER"
 msgstr "НОМЕР УЧ.ЗАПИСИ"
 
@@ -2753,8 +2761,8 @@ msgid "Start Date / Day"
 msgstr "Начальная Дата / День"
 
 #: Public/CC_ratecard_merging.php:143 Public/A2B_entity_voucher.php:248
-#: Public/A2B_entity_def_ratecard.php:403
-#: Public/A2B_entity_def_ratecard.php:535
+#: Public/A2B_entity_def_ratecard.php:402
+#: Public/A2B_entity_def_ratecard.php:534
 #: Public/form_data/FG_var_voucher.inc:81
 #: Public/form_data/FG_var_voucher.inc:100
 #: Public/form_data/FG_var_voucher.inc:148
@@ -2763,21 +2771,22 @@ msgstr "Начальная Дата / День"
 msgid "TAG"
 msgstr "ТЭГ"
 
-#: Public/CC_ratecard_merging.php:144 Public/A2B_call_archiving.php:382
-#: Public/A2B_card_info.php:652 Public/form_data/FG_var_prefix.inc:96
+#: Public/CC_ratecard_merging.php:144 Public/A2B_call_archiving.php:378
+#: Public/A2B_card_info.php:876 Public/A2B_card_info.php:964
+#: Public/form_data/FG_var_prefix.inc:96
 #: Public/form_data/FG_var_def_ratecard.inc:117
 #: Public/form_data/FG_var_did_destination.inc:67
 #: Public/form_data/FG_var_did_destination.inc:107
 msgid "DESTINATION"
 msgstr "НАПРАВЛЕНИЕ"
 
-#: Public/CC_ratecard_merging.php:145 Public/A2B_entity_def_ratecard.php:546
+#: Public/CC_ratecard_merging.php:145 Public/A2B_entity_def_ratecard.php:545
 #: Public/form_data/FG_var_prefix.inc:87
 #: Public/form_data/FG_var_def_ratecard.inc:118
 msgid "PREFIX"
 msgstr "ПРЕФИКС"
 
-#: Public/CC_ratecard_merging.php:232 Public/A2B_mass_mail.php:246
+#: Public/CC_ratecard_merging.php:232 Public/A2B_mass_mail.php:269
 msgid "Record(s)"
 msgstr "Запись(и)"
 
@@ -2999,8 +3008,8 @@ msgid "Off"
 msgstr "Выкл"
 
 #: Public/A2B_data_archiving.php:140 Public/A2B_call_archiving.php:72
-#: Public/A2B_card_info.php:439 Public/A2B_card_info.php:512
-#: Public/A2B_card_info.php:582 Public/A2B_log_activity_info.php:77
+#: Public/A2B_card_info.php:663 Public/A2B_card_info.php:736
+#: Public/A2B_card_info.php:806 Public/A2B_log_activity_info.php:77
 #: Public/form_data/FG_var_provider.inc:50
 #: Public/form_data/FG_var_payment_agent.inc:56
 #: Public/form_data/FG_var_commission.inc:49
@@ -3013,7 +3022,7 @@ msgstr "Выкл"
 #: Public/form_data/FG_var_support_component.inc:67
 #: Public/form_data/FG_var_invoice.inc:99
 #: Public/form_data/FG_var_tariffgroup.inc:70
-#: Public/form_data/FG_var_call.inc:42 Public/form_data/FG_var_trunk.inc:73
+#: Public/form_data/FG_var_call.inc:42 Public/form_data/FG_var_trunk.inc:89
 #: Public/form_data/FG_var_didgroup.inc:61
 #: Public/form_data/FG_var_transactions.inc:45
 #: Public/form_data/FG_var_callback.inc:59
@@ -3038,9 +3047,9 @@ msgstr "Выкл"
 msgid "ID"
 msgstr "ID"
 
-#: Public/A2B_data_archiving.php:142 Public/A2B_card_info.php:309
+#: Public/A2B_data_archiving.php:142 Public/A2B_card_info.php:333
 #: Public/A2B_agent_info.php:186 Public/form_data/FG_var_agent.inc:193
-#: Public/form_data/FG_var_card.inc:137 Public/form_data/FG_var_card.inc:358
+#: Public/form_data/FG_var_card.inc:137 Public/form_data/FG_var_card.inc:362
 msgid "BALANCE"
 msgstr "БАЛАНС"
 
@@ -3065,16 +3074,16 @@ msgstr "ФАМИЛИЯ"
 
 #: Public/A2B_data_archiving.php:144 Public/A2B_entity_paymentlog.php:202
 #: Public/A2B_card_info.php:83 Public/A2B_card_info.php:133
-#: Public/A2B_entity_phonenumber.php:116
+#: Public/A2B_entity_phonenumber.php:296
 #: Public/A2B_entity_paymentlog_agent.php:204
 #: Public/form_data/FG_var_campaign.inc:74
 #: Public/form_data/FG_var_remittance_request.inc:72
-#: Public/form_data/FG_var_phonenumber.inc:61
+#: Public/form_data/FG_var_phonenumber.inc:63
 #: Public/form_data/FG_var_receipt.inc:90
 #: Public/form_data/FG_var_outbound_cid.php:22
 #: Public/form_data/FG_var_invoice.inc:105
 #: Public/form_data/FG_var_alarm.inc:74 Public/form_data/FG_var_alarm.inc:158
-#: Public/form_data/FG_var_trunk.inc:86
+#: Public/form_data/FG_var_trunk.inc:102
 #: Public/form_data/FG_var_transactions.inc:53
 #: Public/form_data/FG_var_subscription.inc:62
 #: Public/form_data/FG_var_callback.inc:62
@@ -3086,7 +3095,7 @@ msgstr "ФАМИЛИЯ"
 #: Public/form_data/FG_var_statuslog.inc:96
 #: Public/form_data/FG_var_ticket_agent.inc:75
 #: Public/form_data/FG_var_ticket.inc:82 Public/form_data/FG_var_card.inc:145
-#: Public/form_data/FG_var_card.inc:583
+#: Public/form_data/FG_var_card.inc:587
 #: Public/form_data/FG_var_paymentlog_agent.inc:149
 msgid "STATUS"
 msgstr "СТАТУС"
@@ -3099,9 +3108,9 @@ msgstr ""
 msgid "USE"
 msgstr ""
 
-#: Public/A2B_data_archiving.php:147 Public/A2B_call_archiving.php:436
+#: Public/A2B_data_archiving.php:147 Public/A2B_call_archiving.php:432
 #: Public/A2B_entity_voucher.php:233 Public/call-dnid.php:616
-#: Public/A2B_card_info.php:317 Public/call-count-reporting.php:303
+#: Public/A2B_card_info.php:341 Public/call-count-reporting.php:303
 #: Public/call-log-customers.php:916 Public/A2B_agent_info.php:194
 #: Public/form_data/FG_var_transactions.inc:55
 #: Public/form_data/FG_var_transactions_agent.inc:55
@@ -3110,7 +3119,7 @@ msgstr ""
 #: Public/form_data/FG_var_currencies.inc:48
 #: Public/form_data/FG_var_agent.inc:99 Public/form_data/FG_var_agent.inc:112
 #: Public/form_data/FG_var_agent.inc:211 Public/form_data/FG_var_card.inc:148
-#: Public/form_data/FG_var_card.inc:574
+#: Public/form_data/FG_var_card.inc:578
 msgid "CURRENCY"
 msgstr "ВАЛЮТА"
 
@@ -3139,7 +3148,7 @@ msgid "Creation date"
 msgstr ""
 
 #: Public/A2B_data_archiving.php:166 Public/A2B_card_info.php:159
-#: Public/form_data/FG_var_card.inc:686
+#: Public/form_data/FG_var_card.inc:712
 msgid "FIRST USE DATE"
 msgstr ""
 
@@ -3151,7 +3160,7 @@ msgstr ""
 #: Public/A2B_agent_info.php:77 Public/A2B_admin_info.php:79
 #: Public/form_data/FG_var_payment_agent.inc:86
 #: Public/form_data/FG_var_remittance_request.inc:83
-#: Public/form_data/FG_var_user.inc:106 Public/form_data/FG_var_user.inc:136
+#: Public/form_data/FG_var_user.inc:106 Public/form_data/FG_var_user.inc:137
 #: Public/form_data/FG_var_logrefill_agent.inc:87
 #: Public/form_data/FG_var_agentsituation.inc:56
 #: Public/form_data/FG_var_ticket_agent.inc:69
@@ -3169,12 +3178,12 @@ msgid "MACADDRESS"
 msgstr ""
 
 #: Public/A2B_data_archiving.php:178 Public/A2B_mass_mail.php:87
-#: Public/A2B_mass_mail.php:307 Public/A2B_card_info.php:266
+#: Public/A2B_mass_mail.php:333 Public/A2B_card_info.php:290
 #: Public/A2B_agent_info.php:161 Public/A2B_admin_info.php:144
-#: Public/form_data/FG_var_user.inc:235 Public/form_data/FG_var_support.inc:71
+#: Public/form_data/FG_var_user.inc:236 Public/form_data/FG_var_support.inc:71
 #: Public/form_data/FG_var_support.inc:101
 #: Public/form_data/FG_var_agent.inc:326 Public/form_data/FG_var_card.inc:153
-#: Public/form_data/FG_var_card.inc:233 Public/form_data/FG_var_card.inc:408
+#: Public/form_data/FG_var_card.inc:233 Public/form_data/FG_var_card.inc:412
 msgid "EMAIL"
 msgstr ""
 
@@ -3209,7 +3218,10 @@ msgid "SELECT TARIFF"
 msgstr "ВЫБЕРИТЕ ТАРИФ"
 
 #: Public/A2B_data_archiving.php:186 Public/A2B_mass_mail.php:95
-#: Public/A2B_entity_statuslog.php:225 Public/form_data/FG_var_voucher.inc:104
+#: Public/A2B_entity_statuslog.php:225
+#: Public/form_data/FG_var_phonenumber.inc:85
+#: Public/form_data/FG_var_trunk.inc:113
+#: Public/form_data/FG_var_voucher.inc:104
 #: Public/form_data/FG_var_card.inc:246
 msgid "SELECT STATUS"
 msgstr "ВЫБЕРИТЕ СТАТУС"
@@ -3230,25 +3242,25 @@ msgstr "ВЫБЕРИТЕ ГРУППУ"
 msgid "SELECT CURRENCY"
 msgstr "ВЫБЕРИТЕ ВАЛЮТУ"
 
-#: Public/A2B_data_archiving.php:223 Public/A2B_mass_mail.php:199
+#: Public/A2B_data_archiving.php:224 Public/A2B_mass_mail.php:211
 #: Public/A2B_entity_card.php:186
 msgid "SEARCH CUSTOMERS"
 msgstr "ПОИСК КЛИЕНТОВ"
 
-#: Public/A2B_data_archiving.php:223 Public/A2B_entity_card.php:186
-#: Public/A2B_entity_invoice.php:87
+#: Public/A2B_data_archiving.php:224 Public/A2B_entity_phonenumber.php:152
+#: Public/A2B_entity_card.php:186 Public/A2B_entity_invoice.php:87
 msgid "search activated"
 msgstr "поиск активирован"
 
-#: Public/A2B_data_archiving.php:243 Public/A2B_call_archiving.php:473
+#: Public/A2B_data_archiving.php:243 Public/A2B_call_archiving.php:469
 msgid "ARCHIVING OPTIONS"
 msgstr "ОПЦИИ АРХИВИРОВАНИЯ"
 
-#: Public/A2B_data_archiving.php:249 Public/A2B_call_archiving.php:480
+#: Public/A2B_data_archiving.php:249 Public/A2B_call_archiving.php:476
 msgid "Customer Archiving"
 msgstr "Архивирование клиента"
 
-#: Public/A2B_data_archiving.php:250 Public/A2B_call_archiving.php:479
+#: Public/A2B_data_archiving.php:250 Public/A2B_call_archiving.php:475
 msgid "Calls Archiving"
 msgstr "Архивирование звонков"
 
@@ -3340,15 +3352,15 @@ msgid "ADMIN USER"
 msgstr ""
 
 #: Public/A2B_entity_log_viewer.php:96 Public/call-last-month.php:89
-#: Public/A2B_call_archiving.php:242 Public/A2B_entity_paymentlog.php:82
+#: Public/A2B_call_archiving.php:238 Public/A2B_entity_paymentlog.php:82
 #: Public/A2B_entity_statuslog.php:98
 #: Public/A2B_entity_paymentlog_agent.php:84
 msgid "SELECT MONTH"
 msgstr "ВЫБЕРИТЕ МЕСЯЦ"
 
 #: Public/A2B_entity_log_viewer.php:102 Public/A2B_entity_log_viewer.php:154
-#: Public/call-last-month.php:94 Public/A2B_call_archiving.php:248
-#: Public/A2B_call_archiving.php:300 Public/A2B_detail_package.php:262
+#: Public/call-last-month.php:94 Public/A2B_call_archiving.php:244
+#: Public/A2B_call_archiving.php:296 Public/A2B_detail_package.php:262
 #: Public/A2B_detail_package.php:313 Public/A2B_entity_paymentlog.php:88
 #: Public/A2B_entity_paymentlog.php:140 Public/call-dnid.php:400
 #: Public/A2B_entity_statuslog.php:104 Public/A2B_entity_statuslog.php:156
@@ -3360,7 +3372,7 @@ msgid "From"
 msgstr "От"
 
 #: Public/A2B_entity_log_viewer.php:124 Public/A2B_entity_log_viewer.php:184
-#: Public/A2B_call_archiving.php:270 Public/A2B_call_archiving.php:330
+#: Public/A2B_call_archiving.php:266 Public/A2B_call_archiving.php:326
 #: Public/A2B_detail_package.php:342 Public/A2B_entity_paymentlog.php:110
 #: Public/A2B_entity_paymentlog.php:170 Public/call-dnid.php:452
 #: Public/A2B_entity_statuslog.php:126 Public/A2B_entity_statuslog.php:186
@@ -3371,7 +3383,7 @@ msgstr "От"
 msgid "To"
 msgstr "Кому"
 
-#: Public/A2B_entity_log_viewer.php:149 Public/A2B_call_archiving.php:295
+#: Public/A2B_entity_log_viewer.php:149 Public/A2B_call_archiving.php:291
 #: Public/A2B_entity_paymentlog.php:135 Public/A2B_entity_statuslog.php:151
 #: Public/call-daily-load.php:245 Public/A2B_entity_paymentlog_agent.php:137
 #: Public/call-comp.php:251
@@ -3504,97 +3516,97 @@ msgstr "Дата создания / Месяц"
 msgid "Creation date / Day"
 msgstr "Дата создания / День"
 
-#: Public/A2B_mass_mail.php:170 Public/form_data/FG_var_mailtemplate.inc:205
+#: Public/A2B_mass_mail.php:178 Public/form_data/FG_var_mailtemplate.inc:205
 msgid "The followings tags will be replaced in the message by the value in the database."
 msgstr ""
 
-#: Public/A2B_mass_mail.php:171
+#: Public/A2B_mass_mail.php:179
 msgid "email of the customer"
 msgstr "email клиента"
 
-#: Public/A2B_mass_mail.php:172
+#: Public/A2B_mass_mail.php:180
 msgid "firstname of the customer"
 msgstr "Имя клиента"
 
-#: Public/A2B_mass_mail.php:173
+#: Public/A2B_mass_mail.php:181
 msgid "lastname of the customer"
 msgstr "Фамилия клиента"
 
-#: Public/A2B_mass_mail.php:174
+#: Public/A2B_mass_mail.php:182
 msgid "credit of the customer in the system currency"
 msgstr "Кредит клиента в валюте системы"
 
-#: Public/A2B_mass_mail.php:175
+#: Public/A2B_mass_mail.php:183
 msgid "credit of the customer in the own currency"
 msgstr "Кредит клиента в его валюте"
 
-#: Public/A2B_mass_mail.php:176
+#: Public/A2B_mass_mail.php:184
 msgid "currency of the customer"
 msgstr "валюта клиента"
 
-#: Public/A2B_mass_mail.php:177
+#: Public/A2B_mass_mail.php:185
 msgid "card number of the customer"
 msgstr "номер карты клиента"
 
-#: Public/A2B_mass_mail.php:178
+#: Public/A2B_mass_mail.php:186
 msgid "password of the customer"
 msgstr "пароль клиента"
 
-#: Public/A2B_mass_mail.php:179
+#: Public/A2B_mass_mail.php:187
 msgid "login of the customer"
 msgstr "логин клиента"
 
-#: Public/A2B_mass_mail.php:180
+#: Public/A2B_mass_mail.php:188
 msgid "credit notification of the customer"
 msgstr ""
 
-#: Public/A2B_mass_mail.php:181
+#: Public/A2B_mass_mail.php:189
 msgid "base currency of system"
 msgstr "основная валюта системы"
 
-#: Public/A2B_mass_mail.php:220
+#: Public/A2B_mass_mail.php:237
 msgid "The e-mail has been sent to "
 msgstr ""
 
-#: Public/A2B_mass_mail.php:220
+#: Public/A2B_mass_mail.php:237
 msgid " customer(s)!"
 msgstr " клиент(ы)!"
 
-#: Public/A2B_mass_mail.php:224
+#: Public/A2B_mass_mail.php:241
 msgid "There is some error sending e-mail :"
 msgstr ""
 
-#: Public/A2B_mass_mail.php:242
+#: Public/A2B_mass_mail.php:262
 msgid "The mass mail tool is limited to 2000 mails. You can use the search module to send on different group of customer and overpass this limit."
 msgstr ""
 
-#: Public/A2B_mass_mail.php:263
+#: Public/A2B_mass_mail.php:289
 msgid "Click on list customer to see them all"
 msgstr ""
 
-#: Public/A2B_mass_mail.php:275
+#: Public/A2B_mass_mail.php:301
 msgid ">LOAD TEMPLATE<"
 msgstr ""
 
-#: Public/A2B_mass_mail.php:279
+#: Public/A2B_mass_mail.php:305
 msgid "EMAIL FROM"
 msgstr "EMAIL ОТ"
 
-#: Public/A2B_mass_mail.php:285 Public/form_data/FG_var_mailtemplate.inc:156
+#: Public/A2B_mass_mail.php:311 Public/form_data/FG_var_mailtemplate.inc:156
 msgid "FROM NAME"
 msgstr "ОТ ИМЕНИ"
 
-#: Public/A2B_mass_mail.php:291 Public/A2B_notification.php:167
+#: Public/A2B_mass_mail.php:317 Public/A2B_notification.php:167
 #: Public/form_data/FG_var_mailtemplate.inc:98
 #: Public/form_data/FG_var_mailtemplate.inc:165
 msgid "SUBJECT"
 msgstr "ТЕМА"
 
-#: Public/A2B_mass_mail.php:297
+#: Public/A2B_mass_mail.php:323
 msgid "MESSAGE"
 msgstr "СООБЩЕНИЕ"
 
-#: Public/A2B_mass_mail.php:314
+#: Public/A2B_mass_mail.php:340
 msgid "No Record Found!"
 msgstr "Запись не найдена!"
 
@@ -3653,7 +3665,7 @@ msgstr "ИНФОРМАЦИЯ О ПЛАТЕЖЕ"
 #: Public/form_data/FG_var_payment.inc:62
 #: Public/form_data/FG_var_payment.inc:187
 #: Public/form_data/FG_var_payment_invoice.inc:52
-#: Public/form_data/FG_var_card.inc:513
+#: Public/form_data/FG_var_card.inc:517
 msgid "PAYMENT TYPE"
 msgstr "ТИП ПЛАТЕЖА"
 
@@ -3669,19 +3681,19 @@ msgstr ""
 msgid "PAYMENTS AGENT LIST"
 msgstr "СПИСОК ПЛАТЕЖЕЙ АГЕНТА"
 
-#: Public/call-last-month.php:71 Public/A2B_call_archiving.php:221
+#: Public/call-last-month.php:71 Public/A2B_call_archiving.php:217
 #: Public/call-dnid.php:357 Public/call-daily-load.php:227
 #: Public/call-log-customers.php:400 Public/call-comp.php:233
 msgid "CallPlan"
 msgstr ""
 
-#: Public/call-last-month.php:73 Public/A2B_call_archiving.php:223
+#: Public/call-last-month.php:73 Public/A2B_call_archiving.php:219
 #: Public/call-dnid.php:359 Public/call-daily-load.php:229
 #: Public/call-log-customers.php:403 Public/call-comp.php:235
 msgid "Provider"
 msgstr "Провайдер"
 
-#: Public/call-last-month.php:77 Public/A2B_call_archiving.php:227
+#: Public/call-last-month.php:77 Public/A2B_call_archiving.php:223
 #: Public/call-dnid.php:363 Public/call-daily-load.php:233
 #: Public/call-log-customers.php:121 Public/call-log-customers.php:412
 #: Public/templates/default/main.tpl:179 Public/call-comp.php:239
@@ -3724,7 +3736,7 @@ msgid "PROFIT"
 msgstr "ПРИБЫЛЬ"
 
 #: Public/call-last-month.php:175 Public/call-dnid.php:853
-#: Public/A2B_card_info.php:664 Public/call-log-customers.php:1226
+#: Public/A2B_card_info.php:888 Public/call-log-customers.php:1226
 msgid "SELL"
 msgstr "ПРДАНО"
 
@@ -3843,68 +3855,64 @@ msgstr ""
 msgid "InitialRate"
 msgstr ""
 
-#: Public/A2B_call_archiving.php:215
+#: Public/A2B_call_archiving.php:211
 msgid "Enter the cardnumber"
 msgstr "Введите номер карты"
 
-#: Public/A2B_call_archiving.php:229
+#: Public/A2B_call_archiving.php:225
 msgid "Ratecard ID"
 msgstr ""
 
-#: Public/A2B_call_archiving.php:364
+#: Public/A2B_call_archiving.php:360
 msgid "Select card older than"
 msgstr "Выберите карту старше чем"
 
-#: Public/A2B_call_archiving.php:396 Public/call-dnid.php:518
+#: Public/A2B_call_archiving.php:392 Public/call-dnid.php:518
 #: Public/call-comp.php:311
 msgid "SOURCE"
 msgstr "ИСТОЧНИК"
 
-#: Public/A2B_call_archiving.php:411 Public/call-dnid.php:569
+#: Public/A2B_call_archiving.php:407 Public/call-dnid.php:569
 #: Public/call-count-reporting.php:251 Public/call-log-customers.php:799
 msgid "OPTIONS"
 msgstr "ОПЦИИ"
 
-#: Public/A2B_call_archiving.php:417 Public/call-count-reporting.php:270
+#: Public/A2B_call_archiving.php:413 Public/call-count-reporting.php:270
 msgid "SHOW"
 msgstr "ПОКАЗАТЬ"
 
-#: Public/A2B_call_archiving.php:420 Public/call-count-reporting.php:273
+#: Public/A2B_call_archiving.php:416 Public/call-count-reporting.php:273
 msgid "Answered Calls"
 msgstr "Отвеченные звонки"
 
-#: Public/A2B_call_archiving.php:422 Public/call-count-reporting.php:275
+#: Public/A2B_call_archiving.php:418 Public/call-count-reporting.php:275
 msgid "All Calls"
 msgstr "Все звонки"
 
-#: Public/A2B_call_archiving.php:428 Public/call-dnid.php:608
+#: Public/A2B_call_archiving.php:424 Public/call-dnid.php:608
 #: Public/call-count-reporting.php:292 Public/call-log-customers.php:891
 msgid "RESULT"
 msgstr "РЕЗУЛЬТАТ"
 
-#: Public/A2B_call_archiving.php:431 Public/call-dnid.php:611
+#: Public/A2B_call_archiving.php:427 Public/call-dnid.php:611
 #: Public/call-log-customers.php:896
 msgid "mins"
 msgstr "минут"
 
-#: Public/A2B_call_archiving.php:431 Public/call-dnid.php:611
+#: Public/A2B_call_archiving.php:427 Public/call-dnid.php:611
 #: Public/call-log-customers.php:905
 msgid "secs"
 msgstr "секунд"
 
-#: Public/A2B_asteriskinfo.php:163
-msgid "Asterisk (Ver. "
-msgstr "Астериск (вер."
-
-#: Public/A2B_asteriskinfo.php:175
+#: Public/A2B_asteriskinfo.php:183
 msgid "ASTERISK MANAGER ERROR"
 msgstr ""
 
-#: Public/A2B_asteriskinfo.php:221
+#: Public/A2B_asteriskinfo.php:229
 msgid "Summary"
 msgstr "Сумма"
 
-#: Public/A2B_asteriskinfo.php:240
+#: Public/A2B_asteriskinfo.php:248
 msgid "Refresh"
 msgstr "Обновить"
 
@@ -3912,13 +3920,13 @@ msgstr "Обновить"
 msgid "REFILL BY REMITTANCE REQUEST"
 msgstr ""
 
-#: Public/A2B_entity_voucher.php:113 Public/A2B_entity_card.php:121
-#: Public/A2B_entity_friend.php:98
+#: Public/A2B_entity_voucher.php:113 Public/A2B_entity_phonenumber.php:116
+#: Public/A2B_entity_card.php:121 Public/A2B_entity_friend.php:98
 msgid "Could not perform the batch update!"
 msgstr "Невозможно выполнить пакетное обновление!"
 
-#: Public/A2B_entity_voucher.php:115 Public/A2B_entity_card.php:136
-#: Public/A2B_entity_friend.php:108
+#: Public/A2B_entity_voucher.php:115 Public/A2B_entity_phonenumber.php:125
+#: Public/A2B_entity_card.php:136 Public/A2B_entity_friend.php:108
 msgid "The batch update has been successfully perform!"
 msgstr "Пакетное обновление успешно выполнено!"
 
@@ -3926,8 +3934,9 @@ msgstr "Пакетное обновление успешно выполнено!
 msgid "SEARCH VOUCHERS"
 msgstr "ПОИСК КУПОНОВ"
 
-#: Public/A2B_entity_voucher.php:174 Public/A2B_entity_card.php:225
-#: Public/A2B_entity_friend.php:269 Public/A2B_entity_def_ratecard.php:305
+#: Public/A2B_entity_voucher.php:174 Public/A2B_entity_phonenumber.php:177
+#: Public/A2B_entity_card.php:225 Public/A2B_entity_friend.php:269
+#: Public/A2B_entity_def_ratecard.php:304
 msgid "BATCH UPDATE"
 msgstr "ПАКЕТНО ОБНОВЛЕНИЕ"
 
@@ -3939,14 +3948,15 @@ msgstr "выбранные купоны!"
 msgid "Use the options below to batch update the selected vouchers."
 msgstr "Используйте эту опцию для пакетного обновления выбранных купонов."
 
-#: Public/A2B_entity_voucher.php:222 Public/A2B_entity_card.php:293
-#: Public/A2B_entity_card.php:341
+#: Public/A2B_entity_voucher.php:222 Public/A2B_entity_phonenumber.php:228
+#: Public/A2B_entity_card.php:293 Public/A2B_entity_card.php:341
 msgid "Equals"
 msgstr "Равно"
 
-#: Public/A2B_entity_voucher.php:224 Public/A2B_entity_card.php:295
-#: Public/A2B_entity_card.php:343 Public/A2B_entity_def_ratecard.php:390
-#: Public/A2B_entity_def_ratecard.php:424
+#: Public/A2B_entity_voucher.php:224 Public/A2B_entity_phonenumber.php:230
+#: Public/A2B_entity_card.php:295 Public/A2B_entity_card.php:343
+#: Public/A2B_entity_def_ratecard.php:389
+#: Public/A2B_entity_def_ratecard.php:423
 msgid "Subtract"
 msgstr ""
 
@@ -4021,48 +4031,48 @@ msgstr "Простой пример"
 msgid "The maximum file size is "
 msgstr ""
 
-#: Public/A2B_package_manage_rates.php:191
+#: Public/A2B_package_manage_rates.php:181
 msgid "PACKAGE: "
 msgstr "ПАКЕТ:"
 
-#: Public/A2B_package_manage_rates.php:192
+#: Public/A2B_package_manage_rates.php:182
 msgid "DATE: "
 msgstr "ДАТА:"
 
-#: Public/A2B_package_manage_rates.php:196
+#: Public/A2B_package_manage_rates.php:186
 #: Public/form_data/FG_var_package.inc:65
 #: Public/form_data/FG_var_package.inc:94
 msgid "PACKAGE TYPE"
 msgstr "ТИП ПАКЕТА"
 
-#: Public/A2B_package_manage_rates.php:201
+#: Public/A2B_package_manage_rates.php:191
 msgid "per"
 msgstr "в"
 
-#: Public/A2B_package_manage_rates.php:202
+#: Public/A2B_package_manage_rates.php:192
 msgid "month"
 msgstr "месяц"
 
-#: Public/A2B_package_manage_rates.php:202
+#: Public/A2B_package_manage_rates.php:192
 msgid "week"
 msgstr "неделю"
 
-#: Public/A2B_package_manage_rates.php:211
+#: Public/A2B_package_manage_rates.php:201
 msgid "RATES ASSIGNED"
 msgstr ""
 
-#: Public/A2B_package_manage_rates.php:225
+#: Public/A2B_package_manage_rates.php:215
 #: Public/form_data/FG_var_currencies.inc:44
 #: Public/form_data/FG_var_def_ratecard.inc:107
 msgid "Add Rate"
 msgstr ""
 
-#: Public/A2B_package_manage_rates.php:226
+#: Public/A2B_package_manage_rates.php:216
 #, fuzzy
 msgid "Del Rate"
 msgstr "Дата"
 
-#: Public/A2B_package_manage_rates.php:227
+#: Public/A2B_package_manage_rates.php:217
 msgid "Del All Rate"
 msgstr ""
 
@@ -4177,7 +4187,7 @@ msgid "PACKAGE CARD : SUMMARY"
 msgstr ""
 
 #: Public/A2B_detail_package.php:611 Public/call-dnid.php:848
-#: Public/A2B_card_info.php:655 Public/call-daily-load.php:376
+#: Public/A2B_card_info.php:879 Public/call-daily-load.php:376
 #: Public/call-log-customers.php:1219 Public/call-comp.php:445
 msgid "DURATION"
 msgstr "ДЛИТЕЛЬНОСТЬ"
@@ -4345,7 +4355,7 @@ msgstr ""
 
 #: Public/A2B_invoice_edit.php:187 Public/A2B_invoice_view.php:220
 #: Public/A2B_agent_info.php:202 Public/form_data/FG_var_agent.inc:236
-#: Public/form_data/FG_var_agent.inc:243 Public/form_data/FG_var_card.inc:812
+#: Public/form_data/FG_var_agent.inc:243 Public/form_data/FG_var_card.inc:838
 msgid "VAT"
 msgstr ""
 
@@ -4522,7 +4532,7 @@ msgstr ""
 msgid "ASR"
 msgstr ""
 
-#: Public/call-dnid.php:854 Public/A2B_card_info.php:661
+#: Public/call-dnid.php:854 Public/A2B_card_info.php:885
 #: Public/call-log-customers.php:1227
 msgid "BUY"
 msgstr ""
@@ -4555,7 +4565,7 @@ msgstr ""
 #: Public/form_data/FG_var_support.inc:72
 #: Public/form_data/FG_var_support.inc:93
 #: Public/form_data/FG_var_friend.inc:273
-#: Public/form_data/FG_var_agent.inc:245 Public/form_data/FG_var_card.inc:564
+#: Public/form_data/FG_var_agent.inc:245 Public/form_data/FG_var_card.inc:568
 msgid "LANGUAGE"
 msgstr "ЯЗЫК"
 
@@ -4571,146 +4581,242 @@ msgstr ""
 msgid "CALLBACK"
 msgstr ""
 
-#: Public/A2B_card_info.php:188
+#: Public/A2B_card_info.php:183 Public/A2B_card_info.php:186
+#: Public/form_data/FG_var_card.inc:596
+msgid "LOCK"
+msgstr ""
+
+#: Public/A2B_card_info.php:186
+msgid "UNLOCK"
+msgstr ""
+
+#: Public/A2B_card_info.php:191 Public/form_data/FG_var_card.inc:609
+#, fuzzy
+msgid "LOCK PIN"
+msgstr "ЛОГИН"
+
+#: Public/A2B_card_info.php:199
+#, fuzzy
+msgid "LOCK DATE"
+msgstr "ДАТА ЗВОНКА"
+
+#: Public/A2B_card_info.php:212
 msgid "CUSTOMER INFO"
 msgstr "ИНФОРМАЦИЯ О КЛИЕНТЕ"
 
-#: Public/A2B_card_info.php:194 Public/A2B_agent_info.php:93
+#: Public/A2B_card_info.php:218 Public/A2B_agent_info.php:93
 #: Public/form_data/FG_var_statuslog.inc:95
-#: Public/form_data/FG_var_agent.inc:263 Public/form_data/FG_var_card.inc:389
+#: Public/form_data/FG_var_agent.inc:263 Public/form_data/FG_var_card.inc:393
 msgid "LAST NAME"
 msgstr "ФАМИЛИЯ"
 
-#: Public/A2B_card_info.php:204 Public/A2B_agent_info.php:101
-#: Public/form_data/FG_var_agent.inc:272 Public/form_data/FG_var_card.inc:398
+#: Public/A2B_card_info.php:228 Public/A2B_agent_info.php:101
+#: Public/form_data/FG_var_agent.inc:272 Public/form_data/FG_var_card.inc:402
 msgid "FIRST NAME"
 msgstr "ИМЯ"
 
-#: Public/A2B_card_info.php:216 Public/A2B_agent_info.php:111
-#: Public/A2B_admin_info.php:96 Public/form_data/FG_var_user.inc:175
-#: Public/form_data/FG_var_agent.inc:281 Public/form_data/FG_var_card.inc:418
+#: Public/A2B_card_info.php:240 Public/A2B_agent_info.php:111
+#: Public/A2B_admin_info.php:96 Public/form_data/FG_var_user.inc:176
+#: Public/form_data/FG_var_agent.inc:281 Public/form_data/FG_var_card.inc:422
 msgid "ADDRESS"
 msgstr "АДРЕС"
 
-#: Public/A2B_card_info.php:227 Public/A2B_agent_info.php:122
+#: Public/A2B_card_info.php:251 Public/A2B_agent_info.php:122
 #: Public/A2B_admin_info.php:106
 msgid "ZIP CODE"
 msgstr "ПОЧТОВЫЙ ИНДЕКС"
 
-#: Public/A2B_card_info.php:236 Public/A2B_agent_info.php:131
-#: Public/A2B_admin_info.php:115 Public/form_data/FG_var_user.inc:183
-#: Public/form_data/FG_var_agent.inc:290 Public/form_data/FG_var_card.inc:428
+#: Public/A2B_card_info.php:260 Public/A2B_agent_info.php:131
+#: Public/A2B_admin_info.php:115 Public/form_data/FG_var_user.inc:184
+#: Public/form_data/FG_var_agent.inc:290 Public/form_data/FG_var_card.inc:432
 msgid "CITY"
 msgstr "ГОРОД"
 
-#: Public/A2B_card_info.php:246 Public/A2B_agent_info.php:141
-#: Public/A2B_admin_info.php:125 Public/form_data/FG_var_user.inc:201
+#: Public/A2B_card_info.php:270 Public/A2B_agent_info.php:141
+#: Public/A2B_admin_info.php:125 Public/form_data/FG_var_user.inc:202
 #: Public/form_data/FG_var_agent.inc:299
 msgid "STATE"
 msgstr "ОБЛАСТЬ"
 
-#: Public/A2B_card_info.php:257 Public/A2B_agent_info.php:152
-#: Public/A2B_admin_info.php:135 Public/form_data/FG_var_user.inc:209
+#: Public/A2B_card_info.php:281 Public/A2B_agent_info.php:152
+#: Public/A2B_admin_info.php:135 Public/form_data/FG_var_user.inc:210
 #: Public/form_data/FG_var_did.inc:64 Public/form_data/FG_var_did.inc:157
-#: Public/form_data/FG_var_agent.inc:308 Public/form_data/FG_var_card.inc:451
+#: Public/form_data/FG_var_agent.inc:308 Public/form_data/FG_var_card.inc:455
 msgid "COUNTRY"
 msgstr "СТРАНА"
 
-#: Public/A2B_card_info.php:275 Public/A2B_agent_info.php:170
-#: Public/A2B_admin_info.php:153 Public/form_data/FG_var_user.inc:218
+#: Public/A2B_card_info.php:299 Public/A2B_card_info.php:498
+#: Public/A2B_agent_info.php:170 Public/A2B_admin_info.php:153
+#: Public/form_data/FG_var_user.inc:219
 #: Public/form_data/FG_var_speeddial.inc:62
 #: Public/form_data/FG_var_speeddial.inc:99
 #: Public/form_data/FG_var_agent.inc:335
 msgid "PHONE"
 msgstr "НОМЕР ТЕЛЕФОНА"
 
-#: Public/A2B_card_info.php:283 Public/A2B_agent_info.php:178
-#: Public/A2B_admin_info.php:161 Public/form_data/FG_var_user.inc:227
+#: Public/A2B_card_info.php:307 Public/A2B_agent_info.php:178
+#: Public/A2B_admin_info.php:161 Public/form_data/FG_var_user.inc:228
 #: Public/form_data/FG_var_agent.inc:344
 msgid "FAX"
 msgstr "НОМЕР ФАКСА"
 
-#: Public/A2B_card_info.php:304
+#: Public/A2B_card_info.php:328
 msgid "ACCOUNT STATUS"
 msgstr "СТАТУС УЧ.ЗАПИСИ"
 
-#: Public/A2B_card_info.php:325 Public/form_data/FG_var_card.inc:613
+#: Public/A2B_card_info.php:349 Public/form_data/FG_var_card.inc:639
 msgid "CREDIT LIMIT"
 msgstr "ЛИМИТ КРЕДИТА"
 
-#: Public/A2B_card_info.php:333 Public/form_data/FG_var_card.inc:775
-#: Public/form_data/FG_var_card.inc:783
+#: Public/A2B_card_info.php:357 Public/form_data/FG_var_card.inc:801
+#: Public/form_data/FG_var_card.inc:809
 msgid "AUTOREFILL"
 msgstr ""
 
-#: Public/A2B_card_info.php:341 Public/form_data/FG_var_invoice.inc:131
-#: Public/form_data/FG_var_card.inc:796
+#: Public/A2B_card_info.php:365 Public/form_data/FG_var_invoice.inc:131
+#: Public/form_data/FG_var_card.inc:822
 msgid "INVOICE DAY"
 msgstr ""
 
-#: Public/A2B_card_info.php:354
+#: Public/A2B_card_info.php:378
 msgid "COMPANY INFO"
 msgstr "ИНФОРМАЦИЯ О КОМПАНИИ"
 
-#: Public/A2B_card_info.php:360 Public/form_data/FG_var_card.inc:490
+#: Public/A2B_card_info.php:384 Public/form_data/FG_var_card.inc:494
 msgid "COMPANY NAME"
 msgstr "НАЗВАНИЕ КОМПАНИИ"
 
-#: Public/A2B_card_info.php:368 Public/form_data/FG_var_card.inc:500
+#: Public/A2B_card_info.php:392 Public/form_data/FG_var_card.inc:504
 msgid "COMPANY WEBSITE"
 msgstr ""
 
-#: Public/A2B_card_info.php:378
+#: Public/A2B_card_info.php:402
 msgid "VAT REGISTRATION NUMBER"
 msgstr ""
 
-#: Public/A2B_card_info.php:388 Public/form_data/FG_var_card.inc:842
+#: Public/A2B_card_info.php:412 Public/form_data/FG_var_card.inc:868
 msgid "TRAFFIC PER MONTH"
 msgstr "ТРАФИК ЗА МЕСЯЦ"
 
-#: Public/A2B_card_info.php:397
+#: Public/A2B_card_info.php:421
 msgid "TARGET TRAFIC"
 msgstr ""
 
-#: Public/A2B_card_info.php:413 Public/A2B_card_info.php:725
+#: Public/A2B_card_info.php:446
+msgid "CALLER-ID LIST "
+msgstr ""
+
+#: Public/A2B_card_info.php:451 Public/form_data/FG_var_outbound_cid.php:20
+#: Public/form_data/FG_var_outbound_cid.php:48
+#: Public/form_data/FG_var_card.inc:155
+msgid "CID"
+msgstr ""
+
+#: Public/A2B_card_info.php:493
+msgid "SPEED-DIAL LIST "
+msgstr ""
+
+#: Public/A2B_card_info.php:501 Public/A2B_admin_info.php:87
+#: Public/form_data/FG_var_campaign.inc:70
+#: Public/form_data/FG_var_phonenumber.inc:60
+#: Public/form_data/FG_var_phonenumber.inc:81
+#: Public/form_data/FG_var_phonenumber.inc:114
+#: Public/form_data/FG_var_user.inc:167
+#: Public/form_data/FG_var_support_component.inc:68
+#: Public/form_data/FG_var_support_component.inc:85
+#: Public/form_data/FG_var_tariffgroup.inc:71
+#: Public/form_data/FG_var_tariffgroup.inc:110
+#: Public/form_data/FG_var_alarm.inc:69 Public/form_data/FG_var_alarm.inc:105
+#: Public/form_data/FG_var_didgroup.inc:62
+#: Public/form_data/FG_var_didgroup.inc:78
+#: Public/form_data/FG_var_speeddial.inc:61
+#: Public/form_data/FG_var_speeddial.inc:89
+#: Public/form_data/FG_var_transactions.inc:48
+#: Public/form_data/FG_var_transactions_agent.inc:48
+#: Public/form_data/FG_var_service.inc:84
+#: Public/form_data/FG_var_service.inc:116
+#: Public/form_data/FG_var_card_seria.inc:63
+#: Public/form_data/FG_var_card_seria.inc:79
+#: Public/form_data/FG_var_campaign_config.inc:66
+#: Public/form_data/FG_var_campaign_config.inc:86
+#: Public/form_data/FG_var_support.inc:70
+#: Public/form_data/FG_var_support.inc:85
+#: Public/form_data/FG_var_restore.inc:47
+#: Public/form_data/FG_var_friend.inc:143
+#: Public/form_data/FG_var_card_group.inc:65
+#: Public/form_data/FG_var_card_group.inc:104
+#: Public/form_data/FG_var_phonebook.inc:68
+#: Public/form_data/FG_var_phonebook.inc:86
+#: Public/form_data/FG_var_service_details.inc:48
+msgid "NAME"
+msgstr "ИМЯ"
+
+#: Public/A2B_card_info.php:504
+#, fuzzy
+msgid "SPEEDDIAL"
+msgstr "СЕРИЙНЫЙ"
+
+#: Public/A2B_card_info.php:549
+#, fuzzy
+msgid "SIP-CONFIG"
+msgstr "СОЗДАТЬ КОНФИГ SIP"
+
+#: Public/A2B_card_info.php:554 Public/A2B_card_info.php:600
+#: Public/form_data/FG_var_friend.inc:62
+#: Public/form_data/FG_var_friend.inc:371
+msgid "USERNAME"
+msgstr ""
+
+#: Public/A2B_card_info.php:557 Public/A2B_card_info.php:603
+#: Public/form_data/FG_var_friend.inc:64
+#: Public/form_data/FG_var_friend.inc:203
+msgid "SECRET"
+msgstr "ПАРОЛЬ"
+
+#: Public/A2B_card_info.php:595
+#, fuzzy
+msgid "IAX-CONFIG"
+msgstr "СОЗДАТЬ КОНФИГ IAX"
+
+#: Public/A2B_card_info.php:637 Public/A2B_card_info.php:1011
 msgid "CUSTOMERS LIST"
 msgstr "СПИСОК КЛИЕНТОВ"
 
-#: Public/A2B_card_info.php:429
+#: Public/A2B_card_info.php:653
 #, fuzzy
 msgid "Current Subscriptions"
 msgstr "Описание"
 
-#: Public/A2B_card_info.php:445
+#: Public/A2B_card_info.php:669
 #, fuzzy
 msgid "SUBSCRIPTION"
 msgstr "ОПИСАНИЕ"
 
-#: Public/A2B_card_info.php:448 Public/form_data/FG_var_subscription.inc:61
+#: Public/A2B_card_info.php:672 Public/form_data/FG_var_subscription.inc:61
 #: Public/form_data/FG_var_subscription.inc:113
 msgid "FEE"
 msgstr ""
 
-#: Public/A2B_card_info.php:451
+#: Public/A2B_card_info.php:675
 #, fuzzy
 msgid "LINKS"
 msgstr "СПИСОК"
 
-#: Public/A2B_card_info.php:478
+#: Public/A2B_card_info.php:702
 #, fuzzy
 msgid "Link to subscription"
 msgstr "Введите описание"
 
-#: Public/A2B_card_info.php:479
+#: Public/A2B_card_info.php:703
 #, fuzzy
 msgid "Delete subscription"
 msgstr "Описание"
 
-#: Public/A2B_card_info.php:502
+#: Public/A2B_card_info.php:726
 msgid "Recent Payments"
 msgstr ""
 
-#: Public/A2B_card_info.php:515 Public/form_data/FG_var_payment_agent.inc:62
+#: Public/A2B_card_info.php:739 Public/form_data/FG_var_payment_agent.inc:62
 #: Public/form_data/FG_var_payment_agent.inc:117
 #: Public/form_data/FG_var_commission.inc:52
 #: Public/form_data/FG_var_commission.inc:105
@@ -4720,7 +4826,7 @@ msgstr ""
 msgid "PAYMENT DATE"
 msgstr "ДАТА ПЛАТЕЖА"
 
-#: Public/A2B_card_info.php:518 Public/form_data/FG_var_payment_agent.inc:63
+#: Public/A2B_card_info.php:742 Public/form_data/FG_var_payment_agent.inc:63
 #: Public/form_data/FG_var_payment_agent.inc:126
 #: Public/form_data/FG_var_payment.inc:61
 #: Public/form_data/FG_var_payment.inc:146
@@ -4728,7 +4834,7 @@ msgstr "ДАТА ПЛАТЕЖА"
 msgid "PAYMENT AMOUNT"
 msgstr "СУММА ПЛАТЕЖА"
 
-#: Public/A2B_card_info.php:521 Public/A2B_card_info.php:591
+#: Public/A2B_card_info.php:745 Public/A2B_card_info.php:815
 #: Public/A2B_entity_config.php:187 Public/A2B_log_activity_info.php:109
 #: Public/form_data/FG_var_config.inc:155
 #: Public/form_data/FG_var_config.inc:232
@@ -4766,52 +4872,71 @@ msgstr "СУММА ПЛАТЕЖА"
 msgid "DESCRIPTION"
 msgstr "ОПИСАНИЕ"
 
-#: Public/A2B_card_info.php:524
+#: Public/A2B_card_info.php:748
 msgid "ID REFILL"
 msgstr ""
 
-#: Public/A2B_card_info.php:572
+#: Public/A2B_card_info.php:796
 msgid "Recent Refills"
 msgstr ""
 
-#: Public/A2B_card_info.php:585 Public/form_data/FG_var_logrefill_agent.inc:64
+#: Public/A2B_card_info.php:809 Public/form_data/FG_var_logrefill_agent.inc:64
 #: Public/form_data/FG_var_logrefill_agent.inc:111
 #: Public/form_data/FG_var_logrefill.inc:60
 #: Public/form_data/FG_var_logrefill.inc:120
 msgid "REFILL DATE"
 msgstr ""
 
-#: Public/A2B_card_info.php:588 Public/form_data/FG_var_logrefill_agent.inc:66
+#: Public/A2B_card_info.php:812 Public/form_data/FG_var_logrefill_agent.inc:66
 #: Public/form_data/FG_var_logrefill_agent.inc:120
 #: Public/form_data/FG_var_logrefill.inc:61
 #: Public/form_data/FG_var_logrefill.inc:129
 msgid "REFILL AMOUNT"
 msgstr ""
 
-#: Public/A2B_card_info.php:636
+#: Public/A2B_card_info.php:860
 msgid "Recent Calls"
 msgstr "Последние звонки"
 
-#: Public/A2B_card_info.php:646
+#: Public/A2B_card_info.php:870
 msgid "CALL DATE"
 msgstr "ДАТА ЗВОНКА"
 
-#: Public/A2B_card_info.php:649 Public/form_data/FG_var_call.inc:81
+#: Public/A2B_card_info.php:873 Public/form_data/FG_var_call.inc:81
 msgid "CALLED NUMBER"
 msgstr "НАБРАННЫЙ НОМЕР"
 
-#: Public/A2B_card_info.php:658
+#: Public/A2B_card_info.php:882
 msgid "TERMINATE CAUSE"
 msgstr ""
 
-#: Public/A2B_card_info.php:667
+#: Public/A2B_card_info.php:891
 #, fuzzy
 msgid "RATE"
 msgstr "СОЗДАТЬ"
 
-#: Public/A2B_card_info.php:705
+#: Public/A2B_card_info.php:929
 msgid "Link to the used rate"
 msgstr ""
+
+#: Public/A2B_card_info.php:951
+#, fuzzy
+msgid "DIDs & DID Destination"
+msgstr "Направление"
+
+#: Public/A2B_card_info.php:961 Public/A2B_entity_did_import.php:272
+#: Public/form_data/FG_var_user.inc:84 Public/form_data/FG_var_did.inc:60
+#: Public/form_data/FG_var_did.inc:110 Public/form_data/FG_var_diduse.inc:79
+#: Public/form_data/FG_var_card_group.inc:88
+#: Public/form_data/FG_var_did_destination.inc:69
+#: Public/form_data/FG_var_did_destination.inc:131
+#: Public/form_data/FG_var_did_billing.inc:48
+msgid "DID"
+msgstr ""
+
+#: Public/A2B_card_info.php:970 Public/form_data/FG_var_did_destination.inc:72
+msgid "VOIP"
+msgstr "VOIP"
 
 #: Public/A2B_entity_did_import.php:77 Public/CC_card_import.php:62
 msgid "Insert emails on the Field!"
@@ -4836,16 +4961,6 @@ msgstr "Выберите страну"
 #: Public/A2B_entity_did_import.php:257
 msgid "Choose a Country"
 msgstr "Выберите страну"
-
-#: Public/A2B_entity_did_import.php:272 Public/form_data/FG_var_user.inc:84
-#: Public/form_data/FG_var_did.inc:60 Public/form_data/FG_var_did.inc:110
-#: Public/form_data/FG_var_diduse.inc:79
-#: Public/form_data/FG_var_card_group.inc:88
-#: Public/form_data/FG_var_did_destination.inc:69
-#: Public/form_data/FG_var_did_destination.inc:131
-#: Public/form_data/FG_var_did_billing.inc:48
-msgid "DID"
-msgstr ""
 
 #: Public/A2B_entity_did_import.php:273
 msgid "FIXRATE"
@@ -5340,13 +5455,13 @@ msgstr ""
 msgid "Choose the trunk to use"
 msgstr "Выберите транк для использования"
 
-#: Public/CC_ratecard_import.php:240 Public/A2B_entity_def_ratecard.php:327
-#: Public/A2B_entity_def_ratecard.php:360
+#: Public/CC_ratecard_import.php:240 Public/A2B_entity_def_ratecard.php:326
+#: Public/A2B_entity_def_ratecard.php:359
 #: Public/form_data/FG_var_def_ratecard.inc:578
 #: Public/form_data/FG_var_def_ratecard.inc:589
 #: Public/form_data/FG_var_subscriber.inc:102
-#: Public/form_data/FG_var_card.inc:386 Public/form_data/FG_var_card.inc:542
-#: Public/form_data/FG_var_card.inc:633 Public/form_data/FG_var_card.inc:683
+#: Public/form_data/FG_var_card.inc:390 Public/form_data/FG_var_card.inc:546
+#: Public/form_data/FG_var_card.inc:659 Public/form_data/FG_var_card.inc:709
 msgid "NOT DEFINED"
 msgstr "НЕ ОПРЕДЕЛЕНО"
 
@@ -5549,7 +5664,7 @@ msgid "CallerID"
 msgstr "ID Карты"
 
 #: Public/call-log-customers.php:115
-#: Public/form_data/FG_var_phonenumber.inc:79
+#: Public/form_data/FG_var_phonenumber.inc:93
 msgid "Phone Number"
 msgstr "Номер телефона"
 
@@ -5580,7 +5695,8 @@ msgid "Enter the customer number"
 msgstr "Введите номер клиента"
 
 #: Public/call-log-customers.php:601
-#: Public/form_data/FG_var_phonenumber.inc:57
+#: Public/form_data/FG_var_phonenumber.inc:59
+#: Public/form_data/FG_var_phonenumber.inc:80
 msgid "PHONENUMBER"
 msgstr ""
 
@@ -5588,7 +5704,7 @@ msgstr ""
 #: Public/form_data/FG_var_callerid.inc:74
 #: Public/form_data/FG_var_callback.inc:249
 #: Public/form_data/FG_var_friend.inc:65
-#: Public/form_data/FG_var_friend.inc:173 Public/form_data/FG_var_card.inc:886
+#: Public/form_data/FG_var_friend.inc:173 Public/form_data/FG_var_card.inc:912
 msgid "CALLERID"
 msgstr ""
 
@@ -5664,8 +5780,8 @@ msgstr "Скоростной набор"
 msgid "History"
 msgstr "История"
 
-#: Public/templates/default/main.tpl:83 Public/A2B_entity_card.php:249
-#: Public/form_data/FG_var_paymentlog.inc:99
+#: Public/templates/default/main.tpl:83 Public/A2B_entity_phonenumber.php:239
+#: Public/A2B_entity_card.php:249 Public/form_data/FG_var_paymentlog.inc:99
 #: Public/form_data/FG_var_paymentlog_agent.inc:99
 msgid "Status"
 msgstr "Статус"
@@ -5924,7 +6040,7 @@ msgid "Config"
 msgstr "Конфигурация"
 
 #: Public/templates/default/main.tpl:452
-#: Public/form_data/FG_var_phonenumber.inc:89
+#: Public/form_data/FG_var_phonenumber.inc:103
 msgid "Phone Book"
 msgstr "Телефонная книга"
 
@@ -6032,35 +6148,76 @@ msgstr "НЕАКТИВНАЯ УЧ.ЗАПИСЬ, Пожалуйста свяжи�
 msgid "BLOCKED ACCOUNT, Please contact the administrator!"
 msgstr "ЗАБЛОКИРОВАННАЯ УЧ.ЗАПИСЬ, Пожалуйста свяжитесь с администратором!"
 
-#: Public/A2B_entity_phonenumber.php:110 Public/form_data/FG_var_card.inc:675
+#: Public/A2B_entity_phonenumber.php:152
+#, fuzzy
+msgid "SEARCH PHONENUMBER"
+msgstr "НОМЕР ТЕЛЕФОНА"
+
+#: Public/A2B_entity_phonenumber.php:181
+#, fuzzy
+msgid "phonenumbers selected!"
+msgstr "выбранные купоны!"
+
+#: Public/A2B_entity_phonenumber.php:181
+#, fuzzy
+msgid "Use the options below to batch update the selected phonenumbers."
+msgstr "Используйте эту опцию для пакетного обновления выбранных купонов."
+
+#: Public/A2B_entity_phonenumber.php:191
+#, fuzzy
+msgid "Phonebook"
+msgstr "Телефонная книга"
+
+#: Public/A2B_entity_phonenumber.php:204
+#, fuzzy
+msgid "Phonenumber"
+msgstr "Номер телефона"
+
+#: Public/A2B_entity_phonenumber.php:214
+#: Public/form_data/FG_var_currencies.inc:65
+#: Public/form_data/FG_var_backup.inc:90
+msgid "Name"
+msgstr "Имя"
+
+#: Public/A2B_entity_phonenumber.php:225
+#: Public/form_data/FG_var_paymentlog.inc:101
+#: Public/form_data/FG_var_paymentlog_agent.inc:101
+msgid "Amount"
+msgstr "Количество"
+
+#: Public/A2B_entity_phonenumber.php:251 Public/A2B_entity_card.php:450
+msgid "BATCH UPDATE CARD"
+msgstr "ПАКЕТНОЕ ОБНОВЛЕНИЕ КАРТ"
+
+#: Public/A2B_entity_phonenumber.php:290 Public/form_data/FG_var_card.inc:701
 msgid "CAMPAIGN"
 msgstr ""
 
-#: Public/A2B_entity_phonenumber.php:136
+#: Public/A2B_entity_phonenumber.php:316
 msgid "STARTED AND IN PROCESS"
 msgstr "ЗАПУЩЕН И В ПРОЦЕССЕ"
 
-#: Public/A2B_entity_phonenumber.php:137
+#: Public/A2B_entity_phonenumber.php:317
 msgid "STARTED BUT NOT IN PROCESS : check the batch"
 msgstr "ЗАПУЩЕН, НО НЕ В ПРОЦЕССЕ : проверьте пакет"
 
-#: Public/A2B_entity_phonenumber.php:138
+#: Public/A2B_entity_phonenumber.php:318
 msgid "NOT STARTED"
 msgstr "НЕ ЗАПУЩЕН"
 
-#: Public/A2B_entity_phonenumber.php:145
+#: Public/A2B_entity_phonenumber.php:325
 msgid "RUN"
 msgstr "ЗАПУЩЕН"
 
-#: Public/A2B_entity_phonenumber.php:146
+#: Public/A2B_entity_phonenumber.php:326
 msgid "HOLD"
 msgstr "УДЕРЖАНИЕ"
 
-#: Public/A2B_entity_phonenumber.php:147
+#: Public/A2B_entity_phonenumber.php:327
 msgid "STOP"
 msgstr "ОСТАНОВЛЕН"
 
-#: Public/A2B_entity_phonenumber.php:148
+#: Public/A2B_entity_phonenumber.php:328
 msgid "NO STATUS"
 msgstr "БЕЗ СТАТУСА"
 
@@ -6309,7 +6466,7 @@ msgstr "ЗАПОЛНИТЬ СПИСОК АГЕНТОВ"
 msgid "AGENT INFO"
 msgstr "ИФОРМАЦИЯ ОБ АГЕНТЕ"
 
-#: Public/A2B_agent_info.php:85 Public/form_data/FG_var_user.inc:145
+#: Public/A2B_agent_info.php:85 Public/form_data/FG_var_user.inc:146
 #: Public/form_data/FG_var_card_group.inc:82
 #: Public/form_data/FG_var_agent.inc:107 Public/form_data/FG_var_agent.inc:159
 msgid "PASSWORD"
@@ -6326,39 +6483,6 @@ msgstr "СПИСОК ПЛАТЕЖЕЙ"
 #: Public/A2B_admin_info.php:74
 msgid "ADMIN INFO"
 msgstr ""
-
-#: Public/A2B_admin_info.php:87 Public/form_data/FG_var_campaign.inc:70
-#: Public/form_data/FG_var_phonenumber.inc:58
-#: Public/form_data/FG_var_phonenumber.inc:100
-#: Public/form_data/FG_var_user.inc:166
-#: Public/form_data/FG_var_support_component.inc:68
-#: Public/form_data/FG_var_support_component.inc:85
-#: Public/form_data/FG_var_tariffgroup.inc:71
-#: Public/form_data/FG_var_tariffgroup.inc:110
-#: Public/form_data/FG_var_alarm.inc:69 Public/form_data/FG_var_alarm.inc:105
-#: Public/form_data/FG_var_didgroup.inc:62
-#: Public/form_data/FG_var_didgroup.inc:78
-#: Public/form_data/FG_var_speeddial.inc:61
-#: Public/form_data/FG_var_speeddial.inc:89
-#: Public/form_data/FG_var_transactions.inc:48
-#: Public/form_data/FG_var_transactions_agent.inc:48
-#: Public/form_data/FG_var_service.inc:84
-#: Public/form_data/FG_var_service.inc:116
-#: Public/form_data/FG_var_card_seria.inc:63
-#: Public/form_data/FG_var_card_seria.inc:79
-#: Public/form_data/FG_var_campaign_config.inc:66
-#: Public/form_data/FG_var_campaign_config.inc:86
-#: Public/form_data/FG_var_support.inc:70
-#: Public/form_data/FG_var_support.inc:85
-#: Public/form_data/FG_var_restore.inc:47
-#: Public/form_data/FG_var_friend.inc:143
-#: Public/form_data/FG_var_card_group.inc:65
-#: Public/form_data/FG_var_card_group.inc:104
-#: Public/form_data/FG_var_phonebook.inc:68
-#: Public/form_data/FG_var_phonebook.inc:86
-#: Public/form_data/FG_var_service_details.inc:48
-msgid "NAME"
-msgstr "ИМЯ"
 
 #: Public/A2B_log_activity_info.php:72
 msgid "LOG ACTIVITY INFO"
@@ -6463,10 +6587,6 @@ msgstr ""
 msgid "Move to Seria"
 msgstr "Перемистить в серию"
 
-#: Public/A2B_entity_card.php:450
-msgid "BATCH UPDATE CARD"
-msgstr "ПАКЕТНОЕ ОБНОВЛЕНИЕ КАРТ"
-
 #: Public/A2B_entity_card.php:466
 msgid "Changes detected on SIP/IAX Friends"
 msgstr ""
@@ -6545,47 +6665,47 @@ msgstr ""
 msgid "The batch update has been successfully perform"
 msgstr ""
 
-#: Public/A2B_entity_def_ratecard.php:309
-#: Public/A2B_entity_def_ratecard.php:482
+#: Public/A2B_entity_def_ratecard.php:308
+#: Public/A2B_entity_def_ratecard.php:481
 msgid "rates selected!"
 msgstr ""
 
-#: Public/A2B_entity_def_ratecard.php:309
-#: Public/A2B_entity_def_ratecard.php:482
+#: Public/A2B_entity_def_ratecard.php:308
+#: Public/A2B_entity_def_ratecard.php:481
 msgid "Use the options below to batch update the selected rates."
 msgstr ""
 
-#: Public/A2B_entity_def_ratecard.php:325
-#: Public/A2B_entity_def_ratecard.php:500 Public/form_data/FG_var_user.inc:78
+#: Public/A2B_entity_def_ratecard.php:324
+#: Public/A2B_entity_def_ratecard.php:499 Public/form_data/FG_var_user.inc:78
 #: Public/form_data/FG_var_tariffplan.inc:64
 #: Public/form_data/FG_var_tariffplan.inc:118
 #: Public/form_data/FG_var_alarm.inc:75 Public/form_data/FG_var_alarm.inc:149
 #: Public/form_data/FG_var_def_ratecard.inc:125
 #: Public/form_data/FG_var_def_ratecard.inc:570
-#: Public/form_data/FG_var_friend.inc:706
+#: Public/form_data/FG_var_friend.inc:700
 msgid "TRUNK"
 msgstr "ТРАНК"
 
-#: Public/A2B_entity_def_ratecard.php:358
+#: Public/A2B_entity_def_ratecard.php:357
 #: Public/form_data/FG_var_def_ratecard.inc:581
 msgid "CIDGroup"
 msgstr ""
 
-#: Public/A2B_entity_def_ratecard.php:434
+#: Public/A2B_entity_def_ratecard.php:433
 msgid "BATCH UPDATE RATECARD"
 msgstr ""
 
-#: Public/A2B_entity_def_ratecard.php:478
-#: Public/A2B_entity_def_ratecard.php:565
+#: Public/A2B_entity_def_ratecard.php:477
+#: Public/A2B_entity_def_ratecard.php:564
 #, fuzzy
 msgid "BATCH ASSIGNED"
 msgstr "ПАКЕТНО ОБНОВЛЕНИЕ"
 
-#: Public/A2B_entity_def_ratecard.php:553
+#: Public/A2B_entity_def_ratecard.php:552
 msgid "Expression"
 msgstr ""
 
-#: Public/A2B_entity_def_ratecard.php:557
+#: Public/A2B_entity_def_ratecard.php:556
 msgid "With 'Expression' you can define a range of prefixes. '32484-32487' adds all prefixes between 32484 and 32487. '32484,32386,32488' would add only the individual prefixes listed."
 msgstr ""
 
@@ -6813,8 +6933,8 @@ msgstr "Введите описание"
 
 #: Public/form_data/FG_var_config.inc:251
 #: Public/form_data/FG_var_provider.inc:113
-#: Public/form_data/FG_var_phonenumber.inc:155
-#: Public/form_data/FG_var_user.inc:326
+#: Public/form_data/FG_var_phonenumber.inc:169
+#: Public/form_data/FG_var_user.inc:327
 #: Public/form_data/FG_var_monitor.inc:169
 #: Public/form_data/FG_var_outbound_cid.php:93
 #: Public/form_data/FG_var_support_component.inc:135
@@ -6833,7 +6953,7 @@ msgstr "Введите описание"
 #: Public/form_data/FG_var_ticket_agent.inc:178
 #: Public/form_data/FG_var_ticket.inc:201
 #: Public/form_data/FG_var_config_group.inc:98
-#: Public/form_data/FG_var_friend.inc:980
+#: Public/form_data/FG_var_friend.inc:974
 #: Public/form_data/FG_var_outbound_cidgroup.php:73
 #: Public/form_data/FG_var_card_group.inc:157
 #: Public/form_data/FG_var_did_destination.inc:196
@@ -6898,8 +7018,8 @@ msgstr ""
 
 #: Public/form_data/FG_var_provider.inc:106
 #: Public/form_data/FG_var_campaign.inc:319
-#: Public/form_data/FG_var_phonenumber.inc:146
-#: Public/form_data/FG_var_user.inc:317
+#: Public/form_data/FG_var_phonenumber.inc:160
+#: Public/form_data/FG_var_user.inc:318
 #: Public/form_data/FG_var_tariffplan.inc:166
 #: Public/form_data/FG_var_moneysituation.inc:77
 #: Public/form_data/FG_var_callerid.inc:120
@@ -6912,7 +7032,7 @@ msgstr ""
 #: Public/form_data/FG_var_mailtemplate.inc:198
 #: Public/form_data/FG_var_alarm.inc:182
 #: Public/form_data/FG_var_charge.inc:178
-#: Public/form_data/FG_var_trunk.inc:240
+#: Public/form_data/FG_var_trunk.inc:263
 #: Public/form_data/FG_var_didgroup.inc:91
 #: Public/form_data/FG_var_speeddial.inc:137
 #: Public/form_data/FG_var_transactions.inc:84
@@ -6934,14 +7054,14 @@ msgstr ""
 #: Public/form_data/FG_var_ticket.inc:193
 #: Public/form_data/FG_var_config_group.inc:89
 #: Public/form_data/FG_var_restore.inc:100
-#: Public/form_data/FG_var_friend.inc:971
+#: Public/form_data/FG_var_friend.inc:965
 #: Public/form_data/FG_var_outbound_cidgroup.php:64
 #: Public/form_data/FG_var_subscriber.inc:134
 #: Public/form_data/FG_var_card_group.inc:148
 #: Public/form_data/FG_var_backup.inc:113
 #: Public/form_data/FG_var_did_destination.inc:187
 #: Public/form_data/FG_var_did_billing.inc:102
-#: Public/form_data/FG_var_agent.inc:392 Public/form_data/FG_var_card.inc:950
+#: Public/form_data/FG_var_agent.inc:392 Public/form_data/FG_var_card.inc:976
 #: Public/form_data/FG_var_phonebook.inc:122
 #: Public/form_data/FG_var_service_details.inc:71
 msgid "click on the delete button."
@@ -6958,8 +7078,8 @@ msgstr ""
 
 #: Public/form_data/FG_var_provider.inc:110
 #: Public/form_data/FG_var_campaign.inc:324
-#: Public/form_data/FG_var_phonenumber.inc:151
-#: Public/form_data/FG_var_user.inc:322
+#: Public/form_data/FG_var_phonenumber.inc:165
+#: Public/form_data/FG_var_user.inc:323
 #: Public/form_data/FG_var_tariffplan.inc:170
 #: Public/form_data/FG_var_callerid.inc:132
 #: Public/form_data/FG_var_support_component.inc:132
@@ -6967,7 +7087,7 @@ msgstr ""
 #: Public/form_data/FG_var_tariffgroup.inc:184
 #: Public/form_data/FG_var_mailtemplate.inc:202
 #: Public/form_data/FG_var_call.inc:139 Public/form_data/FG_var_charge.inc:183
-#: Public/form_data/FG_var_trunk.inc:244
+#: Public/form_data/FG_var_trunk.inc:267
 #: Public/form_data/FG_var_didgroup.inc:96
 #: Public/form_data/FG_var_speeddial.inc:141
 #: Public/form_data/FG_var_subscription.inc:171
@@ -6988,7 +7108,7 @@ msgstr ""
 #: Public/form_data/FG_var_subscriber.inc:139
 #: Public/form_data/FG_var_card_group.inc:153
 #: Public/form_data/FG_var_did_billing.inc:107
-#: Public/form_data/FG_var_agent.inc:397 Public/form_data/FG_var_card.inc:955
+#: Public/form_data/FG_var_agent.inc:397 Public/form_data/FG_var_card.inc:981
 #: Public/form_data/FG_var_phonebook.inc:127
 #: Public/form_data/FG_var_service_details.inc:76
 msgid "has been inserted."
@@ -7236,7 +7356,7 @@ msgstr ""
 #: Public/form_data/FG_var_campaign.inc:186
 #: Public/form_data/FG_var_tariffplan.inc:115
 #: Public/form_data/FG_var_did.inc:144 Public/form_data/FG_var_voucher.inc:192
-#: Public/form_data/FG_var_card.inc:722
+#: Public/form_data/FG_var_card.inc:748
 msgid "Insert the expiration date"
 msgstr ""
 
@@ -7448,47 +7568,52 @@ msgstr "ВЫБЕРИТЕ СТАТУС"
 msgid "THERE ARE NO REMITTANCE REQUEST CREATED!"
 msgstr ""
 
-#: Public/form_data/FG_var_phonenumber.inc:49
+#: Public/form_data/FG_var_phonenumber.inc:50
 msgid "Add PHONE NUMBER"
 msgstr ""
 
-#: Public/form_data/FG_var_phonenumber.inc:56
+#: Public/form_data/FG_var_phonenumber.inc:58
 msgid "PHONEBOOK"
 msgstr ""
 
-#: Public/form_data/FG_var_phonenumber.inc:67
+#: Public/form_data/FG_var_phonenumber.inc:69
 msgid "No phone number has been created."
 msgstr ""
 
-#: Public/form_data/FG_var_phonenumber.inc:85
+#: Public/form_data/FG_var_phonenumber.inc:84
+#, fuzzy
+msgid "SELECT PHONEBOOK"
+msgstr "ТЕЛЕФОННАЯ КНИГА"
+
+#: Public/form_data/FG_var_phonenumber.inc:99
 msgid "Insert the phonenumber"
 msgstr ""
 
-#: Public/form_data/FG_var_phonenumber.inc:86
+#: Public/form_data/FG_var_phonenumber.inc:100
 msgid "Enter here the phonenumber to call"
 msgstr ""
 
-#: Public/form_data/FG_var_phonenumber.inc:106
+#: Public/form_data/FG_var_phonenumber.inc:120
 msgid "Insert the name "
 msgstr "Введите имя"
 
-#: Public/form_data/FG_var_phonenumber.inc:116
+#: Public/form_data/FG_var_phonenumber.inc:130
 msgid "Insert the amount "
 msgstr "Введите количество"
 
-#: Public/form_data/FG_var_phonenumber.inc:127
+#: Public/form_data/FG_var_phonenumber.inc:141
 msgid "Define if this phone number is active or not"
 msgstr ""
 
-#: Public/form_data/FG_var_phonenumber.inc:130
+#: Public/form_data/FG_var_phonenumber.inc:144
 msgid "ADDITIONALINFO"
 msgstr ""
 
-#: Public/form_data/FG_var_phonenumber.inc:136
+#: Public/form_data/FG_var_phonenumber.inc:150
 msgid "Insert additional information"
 msgstr ""
 
-#: Public/form_data/FG_var_phonenumber.inc:150
+#: Public/form_data/FG_var_phonenumber.inc:164
 msgid "Add a $HD_Form->FG_INSTANCE_NAME now."
 msgstr ""
 
@@ -7549,7 +7674,7 @@ msgstr ""
 msgid "EDIT/DELETE AGENT"
 msgstr ""
 
-#: Public/form_data/FG_var_user.inc:104 Public/form_data/FG_var_user.inc:126
+#: Public/form_data/FG_var_user.inc:104 Public/form_data/FG_var_user.inc:127
 msgid "USERID"
 msgstr ""
 
@@ -7557,72 +7682,72 @@ msgstr ""
 msgid "HAVE BEEN CREATED!"
 msgstr ""
 
-#: Public/form_data/FG_var_user.inc:132
+#: Public/form_data/FG_var_user.inc:133
 msgid "Insert the userid"
 msgstr ""
 
-#: Public/form_data/FG_var_user.inc:142 Public/form_data/FG_var_friend.inc:383
+#: Public/form_data/FG_var_user.inc:143 Public/form_data/FG_var_friend.inc:377
 msgid "Insert the username"
 msgstr ""
 
-#: Public/form_data/FG_var_user.inc:151
+#: Public/form_data/FG_var_user.inc:152
 msgid "Insert the Reseller password"
 msgstr ""
 
-#: Public/form_data/FG_var_user.inc:155 Public/form_data/FG_var_agent.inc:168
+#: Public/form_data/FG_var_user.inc:156 Public/form_data/FG_var_agent.inc:168
 msgid "PERMISSION"
 msgstr ""
 
-#: Public/form_data/FG_var_user.inc:162
+#: Public/form_data/FG_var_user.inc:163
 #: Public/form_data/FG_var_card_group.inc:139
 #: Public/form_data/FG_var_agent.inc:175
 msgid "To select several rights in the above ListBox, hold the CTRL key down while clicking the items"
 msgstr ""
 
-#: Public/form_data/FG_var_user.inc:172
+#: Public/form_data/FG_var_user.inc:173
 #: Public/form_data/FG_var_speeddial.inc:95
 #: Public/form_data/FG_var_server_group.inc:75
 #: Public/form_data/FG_var_friend.inc:149
 msgid "Insert the name"
 msgstr ""
 
-#: Public/form_data/FG_var_user.inc:181
+#: Public/form_data/FG_var_user.inc:182
 msgid "Insert the direction"
 msgstr ""
 
-#: Public/form_data/FG_var_user.inc:189 Public/form_data/FG_var_user.inc:215
+#: Public/form_data/FG_var_user.inc:190 Public/form_data/FG_var_user.inc:216
 #: Public/form_data/FG_var_agent.inc:314
 msgid "Insert the country"
 msgstr ""
 
-#: Public/form_data/FG_var_user.inc:192 Public/form_data/FG_var_agent.inc:317
+#: Public/form_data/FG_var_user.inc:193 Public/form_data/FG_var_agent.inc:317
 msgid "ZIPCODE"
 msgstr "ПОЧТОВЫЙ ИНДЕКС"
 
-#: Public/form_data/FG_var_user.inc:198 Public/form_data/FG_var_agent.inc:323
+#: Public/form_data/FG_var_user.inc:199 Public/form_data/FG_var_agent.inc:323
 msgid "Insert the zip code"
 msgstr "Введите почтовый индекс"
 
-#: Public/form_data/FG_var_user.inc:207 Public/form_data/FG_var_agent.inc:305
-#: Public/form_data/FG_var_card.inc:444
+#: Public/form_data/FG_var_user.inc:208 Public/form_data/FG_var_agent.inc:305
+#: Public/form_data/FG_var_card.inc:448
 msgid "Insert the state"
 msgstr "Введите область"
 
-#: Public/form_data/FG_var_user.inc:224 Public/form_data/FG_var_agent.inc:341
+#: Public/form_data/FG_var_user.inc:225 Public/form_data/FG_var_agent.inc:341
 msgid "Insert the telephone number"
 msgstr "Введите номер телефона"
 
-#: Public/form_data/FG_var_user.inc:233 Public/form_data/FG_var_agent.inc:350
+#: Public/form_data/FG_var_user.inc:234 Public/form_data/FG_var_agent.inc:350
 msgid "Insert the fax number"
 msgstr "Введите номер факса"
 
-#: Public/form_data/FG_var_user.inc:241
+#: Public/form_data/FG_var_user.inc:242
 #: Public/form_data/FG_var_support.inc:107
-#: Public/form_data/FG_var_agent.inc:332 Public/form_data/FG_var_card.inc:414
+#: Public/form_data/FG_var_agent.inc:332 Public/form_data/FG_var_card.inc:418
 msgid "Insert the email"
 msgstr "Введите email"
 
-#: Public/form_data/FG_var_user.inc:316
+#: Public/form_data/FG_var_user.inc:317
 #: Public/form_data/FG_var_package.inc:141
 #: Public/form_data/FG_var_callback.inc:314
 #: Public/form_data/FG_var_server_group.inc:105
@@ -7657,12 +7782,12 @@ msgstr "ДАТА НАЧАЛА"
 #: Public/form_data/FG_var_tariffplan.inc:63
 #: Public/form_data/FG_var_tariffplan.inc:109
 #: Public/form_data/FG_var_did.inc:138 Public/form_data/FG_var_voucher.inc:186
-#: Public/form_data/FG_var_card.inc:716
+#: Public/form_data/FG_var_card.inc:742
 msgid "EXPIRY DATE"
 msgstr "ДАТА ОКОНЧАНИЯ"
 
 #: Public/form_data/FG_var_tariffplan.inc:65
-#: Public/form_data/FG_var_trunk.inc:85 Public/form_data/FG_var_did.inc:66
+#: Public/form_data/FG_var_trunk.inc:101 Public/form_data/FG_var_did.inc:66
 #: Public/form_data/FG_var_did_destination.inc:74
 msgid "MINUTES USED"
 msgstr "ИСПОЛЬЗОВАНО МИНУТ"
@@ -7776,7 +7901,7 @@ msgstr ""
 #: Public/form_data/FG_var_callerid.inc:63
 #: Public/form_data/FG_var_invoice.inc:110
 #: Public/form_data/FG_var_mailtemplate.inc:108
-#: Public/form_data/FG_var_charge.inc:82 Public/form_data/FG_var_trunk.inc:93
+#: Public/form_data/FG_var_charge.inc:82 Public/form_data/FG_var_trunk.inc:116
 #: Public/form_data/FG_var_currencies.inc:55
 #: Public/form_data/FG_var_signup_agent.inc:62
 #: Public/form_data/FG_var_billing_customer.inc:61
@@ -7914,8 +8039,8 @@ msgstr ""
 #: Public/form_data/FG_var_monitor.inc:59
 #: Public/form_data/FG_var_monitor.inc:80
 #: Public/form_data/FG_var_package.inc:63
-#: Public/form_data/FG_var_package.inc:85 Public/form_data/FG_var_trunk.inc:74
-#: Public/form_data/FG_var_trunk.inc:79 Public/form_data/FG_var_trunk.inc:135
+#: Public/form_data/FG_var_package.inc:85 Public/form_data/FG_var_trunk.inc:90
+#: Public/form_data/FG_var_trunk.inc:95 Public/form_data/FG_var_trunk.inc:158
 #: Public/form_data/FG_var_subscription.inc:60
 #: Public/form_data/FG_var_subscription.inc:104
 #: Public/form_data/FG_var_currencies.inc:74
@@ -7997,16 +8122,10 @@ msgstr ""
 #: Public/form_data/FG_var_outbound_cid.php:89
 #: Public/form_data/FG_var_alarm.inc:187 Public/form_data/FG_var_did.inc:225
 #: Public/form_data/FG_var_config_group.inc:94
-#: Public/form_data/FG_var_friend.inc:976
+#: Public/form_data/FG_var_friend.inc:970
 #: Public/form_data/FG_var_did_destination.inc:192
 msgid "has been inserted. <br>"
 msgstr "был добавлен. <br>"
-
-#: Public/form_data/FG_var_outbound_cid.php:20
-#: Public/form_data/FG_var_outbound_cid.php:48
-#: Public/form_data/FG_var_card.inc:155
-msgid "CID"
-msgstr ""
 
 #: Public/form_data/FG_var_outbound_cid.php:21
 #: Public/form_data/FG_var_outbound_cid.php:59
@@ -8123,7 +8242,7 @@ msgstr ""
 #: Public/form_data/FG_var_subscription_signup.inc:60
 #: Public/form_data/FG_var_subscription_signup.inc:113
 #: Public/form_data/FG_var_signup_agent.inc:54
-#: Public/form_data/FG_var_card.inc:143 Public/form_data/FG_var_card.inc:523
+#: Public/form_data/FG_var_card.inc:143 Public/form_data/FG_var_card.inc:527
 msgid "CALL PLAN"
 msgstr "КОЛ-ПЛАН"
 
@@ -8539,159 +8658,172 @@ msgstr "Введите количество"
 msgid "Modify the properties of the charge"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:43
+#: Public/form_data/FG_var_trunk.inc:46
 msgid "Add Trunk"
 msgstr "Добавить транк"
 
-#: Public/form_data/FG_var_trunk.inc:59
+#: Public/form_data/FG_var_trunk.inc:65
+msgid "0"
+msgstr ""
+
+#: Public/form_data/FG_var_trunk.inc:66
+msgid "1"
+msgstr ""
+
+#: Public/form_data/FG_var_trunk.inc:75
 msgid "Use failover trunk"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:60
+#: Public/form_data/FG_var_trunk.inc:76
 msgid "Use next trunk"
 msgstr "Использовать следующий транк"
 
-#: Public/form_data/FG_var_trunk.inc:69
+#: Public/form_data/FG_var_trunk.inc:85
 msgid "You have some rates attached to this Trunk! Please comfirm that you really want to remove this Trunk? "
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:75 Public/form_data/FG_var_trunk.inc:84
+#: Public/form_data/FG_var_trunk.inc:91 Public/form_data/FG_var_trunk.inc:100
 msgid "PROVIDER"
 msgstr "ПРОВАЙДЕР"
 
-#: Public/form_data/FG_var_trunk.inc:80
+#: Public/form_data/FG_var_trunk.inc:96
 msgid "ADD_PREFIX"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:81
+#: Public/form_data/FG_var_trunk.inc:97
 msgid "REMOVE_PREFIX"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:82
+#: Public/form_data/FG_var_trunk.inc:98
 msgid "TECH"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:83
+#: Public/form_data/FG_var_trunk.inc:99 Public/form_data/FG_var_trunk.inc:110
 msgid "IP/HOST"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:87
+#: Public/form_data/FG_var_trunk.inc:103
 msgid "MAXUSE"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:125
+#: Public/form_data/FG_var_trunk.inc:112
+#, fuzzy
+msgid "SELECT PROVIDER"
+msgstr "ВЫБЕРИТЕ СЕРИЮ"
+
+#: Public/form_data/FG_var_trunk.inc:148
 msgid "VOIP-PROVIDER"
 msgstr "ПРОВАЙДЕР VOIP"
 
-#: Public/form_data/FG_var_trunk.inc:141
+#: Public/form_data/FG_var_trunk.inc:164
 msgid "Insert the trunkcode"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:142
+#: Public/form_data/FG_var_trunk.inc:165
 msgid "Unique and friendly name for the trunk"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:144
+#: Public/form_data/FG_var_trunk.inc:167
 msgid "ADD PREFIX"
 msgstr "ДОБАВИТЬ ПРЕФИКС"
 
-#: Public/form_data/FG_var_trunk.inc:150
+#: Public/form_data/FG_var_trunk.inc:173
 msgid "Insert the trunkprefix"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:151
+#: Public/form_data/FG_var_trunk.inc:174
 msgid "Add a prefix to the dialled digits."
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:153
+#: Public/form_data/FG_var_trunk.inc:176
 msgid "REMOVE PREFIX"
 msgstr "УДАЛИТЬ ПРЕФИКС"
 
-#: Public/form_data/FG_var_trunk.inc:159
+#: Public/form_data/FG_var_trunk.inc:182
 msgid "Insert the removeprefix"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:160
+#: Public/form_data/FG_var_trunk.inc:183
 msgid "Remove prefix from the dialed digits."
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:162
+#: Public/form_data/FG_var_trunk.inc:185
 msgid "PROVIDER TECH"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:168
+#: Public/form_data/FG_var_trunk.inc:191
 msgid "Insert the providertech"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:169
+#: Public/form_data/FG_var_trunk.inc:192
 msgid "Technology used on the trunk (SIP,IAX2,ZAP,H323)"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:171
+#: Public/form_data/FG_var_trunk.inc:194
 msgid "PROVIDER IP"
 msgstr "IP ПРОВАЙДЕРА"
 
-#: Public/form_data/FG_var_trunk.inc:177
+#: Public/form_data/FG_var_trunk.inc:200
 msgid "Insert the providerip"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:178
+#: Public/form_data/FG_var_trunk.inc:201
 msgid "Set the IP or URL of the VoIP provider. Alternatively, put in the name of a previously defined trunk in Asterisk or FreePBX. (MyVoiPTrunk, ZAP4G etc.) You can use the following tags to as variables: %dialingnumber%, %cardnumber%. ie g2/1644787890wwwwwwwwww%dialingnumber%"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:180
+#: Public/form_data/FG_var_trunk.inc:203
 msgid "ADDITIONAL PARAMETER"
 msgstr "ДОПОЛНИТЕЛЬНЫЕ ПАРАМЕТРЫ"
 
-#: Public/form_data/FG_var_trunk.inc:186
+#: Public/form_data/FG_var_trunk.inc:209
 msgid "Insert Additional parameters"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:187
+#: Public/form_data/FG_var_trunk.inc:210
 msgid "Define any additional parameters that will be used when running the Dial Command in Asterisk. Use the following tags as variables  %dialingnumber%, %cardnumber%. ie 'D(ww%cardnumber%wwwwwwwwww%dialingnumber%)'"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:189
+#: Public/form_data/FG_var_trunk.inc:212
 msgid "FAILOVER TRUNK"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:197
+#: Public/form_data/FG_var_trunk.inc:220
 msgid "You can define another trunk in case of failover!"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:199
+#: Public/form_data/FG_var_trunk.inc:222
 msgid "CURRENT CONNECTIONS"
 msgstr "ТЕКУЩИЕ СОЕДИНЕНИЯ"
 
-#: Public/form_data/FG_var_trunk.inc:205
+#: Public/form_data/FG_var_trunk.inc:228
 msgid "Number of current connections"
 msgstr "Количество текущих соединений"
 
-#: Public/form_data/FG_var_trunk.inc:206
+#: Public/form_data/FG_var_trunk.inc:229
 msgid "Updated to show the number of channels currently in use on this trunk.If there are no channels in use, and the system shows that there are, manually reset this field back to zero."
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:208
+#: Public/form_data/FG_var_trunk.inc:231
 msgid "MAXIMUM CONNECTIONS"
 msgstr "МАКСИМАЛЬНО ЧИСЛО СОЕДИНЕНИЙ"
 
-#: Public/form_data/FG_var_trunk.inc:214
+#: Public/form_data/FG_var_trunk.inc:237
 msgid "Number of maximum simultaneous connections"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:215
+#: Public/form_data/FG_var_trunk.inc:238
 msgid "The maximum number of channels available to this trunk. Set to -1 to have an unlimited number of channels"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:224
+#: Public/form_data/FG_var_trunk.inc:247
 msgid "Specifies which trunk to use when the maximum number of connections is reached"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:233
+#: Public/form_data/FG_var_trunk.inc:256
 msgid "Define if this trunk is active or not"
 msgstr ""
 
-#: Public/form_data/FG_var_trunk.inc:239
+#: Public/form_data/FG_var_trunk.inc:262
 msgid "Modify the properties of the trunk below."
 msgstr ""
 
@@ -8829,7 +8961,7 @@ msgstr "Введите дату начала"
 #: Public/form_data/FG_var_callback.inc:177
 #: Public/form_data/FG_var_subscriber.inc:111
 #: Public/form_data/FG_var_subscriber.inc:120
-#: Public/form_data/FG_var_card.inc:723
+#: Public/form_data/FG_var_card.inc:749
 msgid "please use the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"
 msgstr ""
 
@@ -9099,7 +9231,7 @@ msgid "Add DID"
 msgstr ""
 
 #: Public/form_data/FG_var_did.inc:63 Public/form_data/FG_var_did.inc:147
-#: Public/form_data/FG_var_card.inc:534
+#: Public/form_data/FG_var_card.inc:538
 msgid "DIDGROUP"
 msgstr ""
 
@@ -9144,7 +9276,7 @@ msgstr ""
 
 #: Public/form_data/FG_var_did.inc:184 Public/form_data/FG_var_agent.inc:200
 #: Public/form_data/FG_var_agent.inc:209 Public/form_data/FG_var_agent.inc:234
-#: Public/form_data/FG_var_card.inc:365 Public/form_data/FG_var_card.inc:632
+#: Public/form_data/FG_var_card.inc:369 Public/form_data/FG_var_card.inc:658
 msgid "currency : "
 msgstr "валюта :"
 
@@ -9392,11 +9524,6 @@ msgstr ""
 msgid "Owner"
 msgstr "Владелец"
 
-#: Public/form_data/FG_var_paymentlog.inc:101
-#: Public/form_data/FG_var_paymentlog_agent.inc:101
-msgid "Amount"
-msgstr "Количество"
-
 #: Public/form_data/FG_var_paymentlog.inc:102
 msgid "CardID"
 msgstr ""
@@ -9509,7 +9636,7 @@ msgid "Insert the voucher"
 msgstr ""
 
 #: Public/form_data/FG_var_voucher.inc:144
-#: Public/form_data/FG_var_card.inc:364
+#: Public/form_data/FG_var_card.inc:368
 msgid "Insert the number of credit"
 msgstr ""
 
@@ -9618,11 +9745,6 @@ msgstr ""
 #: Public/form_data/FG_var_currencies.inc:49
 msgid "DETAIL"
 msgstr "ДЕТАЛИ"
-
-#: Public/form_data/FG_var_currencies.inc:65
-#: Public/form_data/FG_var_backup.inc:90
-msgid "Name"
-msgstr "Имя"
 
 #: Public/form_data/FG_var_currencies.inc:71
 msgid "Insert the currency name"
@@ -10078,7 +10200,7 @@ msgid "Set a tag on this rate"
 msgstr ""
 
 #: Public/form_data/FG_var_def_ratecard.inc:603
-#: Public/form_data/FG_var_friend.inc:534
+#: Public/form_data/FG_var_friend.inc:528
 msgid "MUSICONHOLD"
 msgstr "МУЗЫКА НА УДЕРЖАНИИ"
 
@@ -10216,20 +10338,10 @@ msgstr ""
 msgid "CARDHOLDER"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:62
-#: Public/form_data/FG_var_friend.inc:377
-msgid "USERNAME"
-msgstr ""
-
 #: Public/form_data/FG_var_friend.inc:63
 #: Public/form_data/FG_var_friend.inc:153
 msgid "ACCOUNTCODE"
 msgstr ""
-
-#: Public/form_data/FG_var_friend.inc:64
-#: Public/form_data/FG_var_friend.inc:203
-msgid "SECRET"
-msgstr "ПАРОЛЬ"
 
 #: Public/form_data/FG_var_friend.inc:67
 #: Public/form_data/FG_var_friend.inc:263
@@ -10363,8 +10475,8 @@ msgid "Insert the ipaddr"
 msgstr ""
 
 #: Public/form_data/FG_var_friend.inc:312
-#: Public/form_data/FG_var_friend.inc:634
-#: Public/form_data/FG_var_friend.inc:755
+#: Public/form_data/FG_var_friend.inc:628
+#: Public/form_data/FG_var_friend.inc:749
 msgid "MOHSUGGEST"
 msgstr ""
 
@@ -10401,339 +10513,339 @@ msgstr ""
 msgid "type = friend | peer | user ( default : friend )"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:352
-msgid "PERMIT"
-msgstr ""
-
-#: Public/form_data/FG_var_friend.inc:358
-msgid "Insert the permit"
-msgstr ""
-
-#: Public/form_data/FG_var_friend.inc:363
+#: Public/form_data/FG_var_friend.inc:350
 msgid "DENY"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:369
+#: Public/form_data/FG_var_friend.inc:356
 msgid "Insert the deny"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:388
+#: Public/form_data/FG_var_friend.inc:359
+msgid "PERMIT"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:365
+msgid "Insert the permit"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:382
 msgid "MD5SECRET"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:394
+#: Public/form_data/FG_var_friend.inc:388
 msgid "Insert the md5secret"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:398
+#: Public/form_data/FG_var_friend.inc:392
 msgid "NAT"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:404
+#: Public/form_data/FG_var_friend.inc:398
 msgid "Insert the nat"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:405
+#: Public/form_data/FG_var_friend.inc:399
 msgid "nat = yes | no | never | route ( default : yes )"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:408
+#: Public/form_data/FG_var_friend.inc:402
 msgid "DTMFMODE"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:414
+#: Public/form_data/FG_var_friend.inc:408
 msgid "Insert the dtmfmode"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:415
+#: Public/form_data/FG_var_friend.inc:409
 msgid "dtmfmode = RFC2833 | INFO | INBAND | AUTO ( default : RFC2833 )"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:419
+#: Public/form_data/FG_var_friend.inc:413
 msgid "CANREINVITE"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:425
+#: Public/form_data/FG_var_friend.inc:419
 msgid "Insert the canreinvite"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:426
+#: Public/form_data/FG_var_friend.inc:420
 msgid "canreinvite : yes | no ( default : yes )"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:431
+#: Public/form_data/FG_var_friend.inc:425
 msgid "CALLGROUP"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:437
+#: Public/form_data/FG_var_friend.inc:431
 msgid "Insert the callgroup"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:443
+#: Public/form_data/FG_var_friend.inc:437
 msgid "FROMUSER"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:449
+#: Public/form_data/FG_var_friend.inc:443
 msgid "Insert the fromuser"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:453
+#: Public/form_data/FG_var_friend.inc:447
 msgid "FROMDOMAIN"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:459
+#: Public/form_data/FG_var_friend.inc:453
 msgid "Insert the fromdomain"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:463
+#: Public/form_data/FG_var_friend.inc:457
 msgid "INSECURE"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:469
+#: Public/form_data/FG_var_friend.inc:463
 msgid "Insert the insecure"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:473
+#: Public/form_data/FG_var_friend.inc:467
 msgid "MAILBOX"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:479
+#: Public/form_data/FG_var_friend.inc:473
 msgid "Insert the mailbox"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:484
+#: Public/form_data/FG_var_friend.inc:478
 msgid "MASK"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:490
+#: Public/form_data/FG_var_friend.inc:484
 msgid "Insert the mask"
 msgstr "Введите маску"
 
-#: Public/form_data/FG_var_friend.inc:494
+#: Public/form_data/FG_var_friend.inc:488
 msgid "PICKUPGROUP"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:500
+#: Public/form_data/FG_var_friend.inc:494
 msgid "Insert the pickupgroup"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:504
+#: Public/form_data/FG_var_friend.inc:498
 msgid "RESTRICTCID"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:510
+#: Public/form_data/FG_var_friend.inc:504
 msgid "Insert the restrictcid"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:514
+#: Public/form_data/FG_var_friend.inc:508
 msgid "RTPTIMEOUT"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:520
+#: Public/form_data/FG_var_friend.inc:514
 msgid "Insert the rtptimeout"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:524
+#: Public/form_data/FG_var_friend.inc:518
 msgid "RTPHOLDTIMEOUT"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:530
+#: Public/form_data/FG_var_friend.inc:524
 msgid "Insert the rtpholdtimeout"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:540
+#: Public/form_data/FG_var_friend.inc:534
 msgid "Insert the musiconhold"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:544
+#: Public/form_data/FG_var_friend.inc:538
 msgid "CANCALLFORWARD"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:550
+#: Public/form_data/FG_var_friend.inc:544
 msgid "Insert the cancallforward"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:551
+#: Public/form_data/FG_var_friend.inc:545
 msgid "cancallforward = yes | no ( default : yes )"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:554
+#: Public/form_data/FG_var_friend.inc:548
 #, fuzzy
 msgid "DEFAULTUSER"
 msgstr "УДАЛИТЬ КЛИЕНТА"
 
-#: Public/form_data/FG_var_friend.inc:564
+#: Public/form_data/FG_var_friend.inc:558
 #, fuzzy
 msgid "SUBSCRIBEMWI"
 msgstr "ДОБАВИТЬ ПОДПИСЧИКА"
 
-#: Public/form_data/FG_var_friend.inc:574
+#: Public/form_data/FG_var_friend.inc:568
 msgid "VMEXTEN"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:584
+#: Public/form_data/FG_var_friend.inc:578
 #, fuzzy
 msgid "CALLINGPRES"
 msgstr "ЗВОНКИ"
 
-#: Public/form_data/FG_var_friend.inc:594
+#: Public/form_data/FG_var_friend.inc:588
 #, fuzzy
 msgid "USEREQPHONE"
 msgstr "НОМЕР ТЕЛЕФОНА"
 
-#: Public/form_data/FG_var_friend.inc:604
+#: Public/form_data/FG_var_friend.inc:598
 msgid "INCOMINGLIMIT"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:614
+#: Public/form_data/FG_var_friend.inc:608
 #, fuzzy
 msgid "SUBSCRIBECONTEXT"
 msgstr "ОПИСАНИЕ"
 
-#: Public/form_data/FG_var_friend.inc:624
+#: Public/form_data/FG_var_friend.inc:618
 msgid "MUSICCLASS"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:645
+#: Public/form_data/FG_var_friend.inc:639
 msgid "ALLOWTRANSFER"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:655
+#: Public/form_data/FG_var_friend.inc:649
 msgid "AUTOFRAMING"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:665
+#: Public/form_data/FG_var_friend.inc:659
 #, fuzzy
 msgid "MAXCALLBITRATE"
 msgstr "ДАТА ЗВОНКА"
 
-#: Public/form_data/FG_var_friend.inc:675
+#: Public/form_data/FG_var_friend.inc:669
 #, fuzzy
 msgid "OUTBOUNDPROXY"
 msgstr "ИСХОДЯЩИЙ CID"
 
-#: Public/form_data/FG_var_friend.inc:685
+#: Public/form_data/FG_var_friend.inc:679
 #, fuzzy
 msgid "REGSERVER"
 msgstr "РЕЗЕРВ"
 
-#: Public/form_data/FG_var_friend.inc:695
+#: Public/form_data/FG_var_friend.inc:689
 msgid "RTPKEEPALIVE"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:712
+#: Public/form_data/FG_var_friend.inc:706
 msgid "Define the iax trunking"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:713
+#: Public/form_data/FG_var_friend.inc:707
 msgid "iax trunking = yes | no ( default : yes )"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:716
+#: Public/form_data/FG_var_friend.inc:710
 #, fuzzy
 msgid "DBSECRET"
 msgstr "ПАРОЛЬ"
 
-#: Public/form_data/FG_var_friend.inc:726
+#: Public/form_data/FG_var_friend.inc:720
 #, fuzzy
 msgid "REGCONTEXT"
 msgstr "КОНТЕКСТ"
 
-#: Public/form_data/FG_var_friend.inc:736
+#: Public/form_data/FG_var_friend.inc:730
 #, fuzzy
 msgid "SOURCEADDRESS"
 msgstr "АДРЕС"
 
-#: Public/form_data/FG_var_friend.inc:745
+#: Public/form_data/FG_var_friend.inc:739
 #, fuzzy
 msgid "MOHINTERPRET"
 msgstr "ВНУТРЕННИЙ ПРЕФИКС"
 
-#: Public/form_data/FG_var_friend.inc:765
+#: Public/form_data/FG_var_friend.inc:759
 #, fuzzy
 msgid "INKEYS"
 msgstr "СПИСОК"
 
-#: Public/form_data/FG_var_friend.inc:775
+#: Public/form_data/FG_var_friend.inc:769
 #, fuzzy
 msgid "OUTKEY"
 msgstr "Ключ"
 
-#: Public/form_data/FG_var_friend.inc:784
+#: Public/form_data/FG_var_friend.inc:778
 #, fuzzy
 msgid "SENDANI"
 msgstr "ВОСКРЕСЕНЬЕ"
 
-#: Public/form_data/FG_var_friend.inc:793
+#: Public/form_data/FG_var_friend.inc:787
 #, fuzzy
 msgid "FULLNAME"
 msgstr "ИМЯ ФАЙЛА"
 
-#: Public/form_data/FG_var_friend.inc:803
+#: Public/form_data/FG_var_friend.inc:797
 #, fuzzy
 msgid "MAXAUTHREQ"
 msgstr "МАКСИМАЛЬНЫЙ ОБЪЕМ"
 
-#: Public/form_data/FG_var_friend.inc:813
+#: Public/form_data/FG_var_friend.inc:807
 #, fuzzy
 msgid "ENCRYPTION"
 msgstr "ОПИСАНИЕ"
 
-#: Public/form_data/FG_var_friend.inc:823
+#: Public/form_data/FG_var_friend.inc:817
 #, fuzzy
 msgid "TRANSFER"
 msgstr "БЕЗОТВЕТА"
 
-#: Public/form_data/FG_var_friend.inc:833
+#: Public/form_data/FG_var_friend.inc:827
 msgid "JITTERBUFFER"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:843
+#: Public/form_data/FG_var_friend.inc:837
 msgid "FORCEJITTERBUFFER"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:853
+#: Public/form_data/FG_var_friend.inc:847
 #, fuzzy
 msgid "CODECPRIORITY"
 msgstr "ПРИОРИТЕТ"
 
-#: Public/form_data/FG_var_friend.inc:863
+#: Public/form_data/FG_var_friend.inc:857
 msgid "QUALIFYSMOOTHING"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:873
+#: Public/form_data/FG_var_friend.inc:867
 msgid "QUALIFYFREQOK"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:883
+#: Public/form_data/FG_var_friend.inc:877
 msgid "QUALIFYFREQNOTOK"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:893 Public/form_data/FG_var_card.inc:556
+#: Public/form_data/FG_var_friend.inc:887 Public/form_data/FG_var_card.inc:560
 msgid "TIMEZONE"
 msgstr "ВРЕМЕННАЯ ЗОНА"
 
-#: Public/form_data/FG_var_friend.inc:903
+#: Public/form_data/FG_var_friend.inc:897
 #, fuzzy
 msgid "ADSI"
 msgstr "АДМИНИСТРАТОРЫ"
 
-#: Public/form_data/FG_var_friend.inc:913
+#: Public/form_data/FG_var_friend.inc:907
 msgid "REQUITE CALL TOKEN"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:920
-#: Public/form_data/FG_var_friend.inc:930
-#: Public/form_data/FG_var_friend.inc:940
+#: Public/form_data/FG_var_friend.inc:914
+#: Public/form_data/FG_var_friend.inc:924
+#: Public/form_data/FG_var_friend.inc:934
 msgid "No supported by Realtime"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:923
+#: Public/form_data/FG_var_friend.inc:917
 #, fuzzy
 msgid "MAX CALL NUMBERS"
 msgstr "НАБРАННЫЙ НОМЕР"
 
-#: Public/form_data/FG_var_friend.inc:933
+#: Public/form_data/FG_var_friend.inc:927
 msgid "MAX CALL NUMBERS NON VALIDATED"
 msgstr ""
 
@@ -10794,7 +10906,7 @@ msgid "Apply subscription to account"
 msgstr ""
 
 #: Public/form_data/FG_var_subscriber.inc:143
-#: Public/form_data/FG_var_card.inc:959
+#: Public/form_data/FG_var_card.inc:985
 msgid "Once you have completed the form above, click on Confirm Data"
 msgstr ""
 
@@ -10873,10 +10985,6 @@ msgstr ""
 #: Public/form_data/FG_var_did_destination.inc:52
 msgid "Add DESTINATION"
 msgstr "Добавить место назначения"
-
-#: Public/form_data/FG_var_did_destination.inc:72
-msgid "VOIP"
-msgstr "VOIP"
 
 #: Public/form_data/FG_var_did_destination.inc:73
 msgid "PRIOR"
@@ -10971,7 +11079,7 @@ msgstr "КОММИССИЯ"
 msgid "Insert the login"
 msgstr "Введите логин"
 
-#: Public/form_data/FG_var_agent.inc:165 Public/form_data/FG_var_card.inc:346
+#: Public/form_data/FG_var_agent.inc:165 Public/form_data/FG_var_card.inc:350
 msgid "Insert the password"
 msgstr "Введите пароль"
 
@@ -10998,7 +11106,7 @@ msgstr "КОММИССИЯ"
 msgid "amount of commission"
 msgstr "Введите коммиссию"
 
-#: Public/form_data/FG_var_agent.inc:216 Public/form_data/FG_var_card.inc:579
+#: Public/form_data/FG_var_agent.inc:216 Public/form_data/FG_var_card.inc:583
 msgid "Currency used at the customer end."
 msgstr "Валюта используемая клиентом."
 
@@ -11024,7 +11132,7 @@ msgstr ""
 msgid "treshold remittance"
 msgstr ""
 
-#: Public/form_data/FG_var_agent.inc:242 Public/form_data/FG_var_card.inc:818
+#: Public/form_data/FG_var_agent.inc:242 Public/form_data/FG_var_card.inc:844
 msgid "Insert the VAT"
 msgstr ""
 
@@ -11048,7 +11156,7 @@ msgstr "Введите имя"
 msgid "Insert the address"
 msgstr "Введите адрес"
 
-#: Public/form_data/FG_var_agent.inc:296 Public/form_data/FG_var_card.inc:434
+#: Public/form_data/FG_var_agent.inc:296 Public/form_data/FG_var_card.inc:438
 msgid "Insert the city"
 msgstr "Введите город"
 
@@ -11126,7 +11234,7 @@ msgstr "ДИСК"
 msgid "NO CARDS HAVE BEEN CREATED!"
 msgstr "КАРТЫ НЕ БЫЛИ СОЗДАНЫ!"
 
-#: Public/form_data/FG_var_card.inc:238 Public/form_data/FG_var_card.inc:378
+#: Public/form_data/FG_var_card.inc:238 Public/form_data/FG_var_card.inc:382
 msgid "SERIAL"
 msgstr "СЕРИЙНЫЙ"
 
@@ -11139,312 +11247,326 @@ msgstr "ВЫБЕРИТЕ СЕРИЮ"
 msgid "SELECT PAYMENT TYPE"
 msgstr "ТИП ПЛАТЕЖА"
 
-#: Public/form_data/FG_var_card.inc:283
+#: Public/form_data/FG_var_card.inc:286
 msgid "Auto Create SIP Config"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:284
+#: Public/form_data/FG_var_card.inc:287
 msgid "Auto Create IAX Config"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:326
+#: Public/form_data/FG_var_card.inc:330
 msgid "Insert the account number"
 msgstr "Введите номер учетной записи"
 
-#: Public/form_data/FG_var_card.inc:327
+#: Public/form_data/FG_var_card.inc:331
 msgid "Customer Information"
 msgstr "Информация о клиенте"
 
-#: Public/form_data/FG_var_card.inc:330
+#: Public/form_data/FG_var_card.inc:334
 msgid "WEBUI LOGIN"
 msgstr "ЛОГИН WEBUI"
 
-#: Public/form_data/FG_var_card.inc:336
+#: Public/form_data/FG_var_card.inc:340
 msgid "Insert the webui login"
 msgstr "Введите логин для WEBUI"
 
-#: Public/form_data/FG_var_card.inc:340
+#: Public/form_data/FG_var_card.inc:344
 msgid "WEBUI PASSWORD"
 msgstr "ПАРОЛЬ WEBUI"
 
-#: Public/form_data/FG_var_card.inc:347
+#: Public/form_data/FG_var_card.inc:351
 msgid "Password for customer to access to the web interface and view the balance."
 msgstr "Пароль клиента для просмотра баланса через веб-интерфейс."
 
-#: Public/form_data/FG_var_card.inc:368
+#: Public/form_data/FG_var_card.inc:372
 msgid "CUSTOMER GROUP"
 msgstr "ГРУППА КЛИЕНЕТА"
 
-#: Public/form_data/FG_var_card.inc:395
+#: Public/form_data/FG_var_card.inc:399
 msgid "Insert the lastname of the customers"
 msgstr "Введите Фамилию"
 
-#: Public/form_data/FG_var_card.inc:396
+#: Public/form_data/FG_var_card.inc:400
 msgid "Personal Information"
 msgstr "Персональная информация"
 
-#: Public/form_data/FG_var_card.inc:404
+#: Public/form_data/FG_var_card.inc:408
 msgid "Insert the firstname of the customers"
 msgstr "Введите имя клиентов"
 
-#: Public/form_data/FG_var_card.inc:424
+#: Public/form_data/FG_var_card.inc:428
 msgid "Insert the address of the customers"
 msgstr "Введите адрес клиентов"
 
-#: Public/form_data/FG_var_card.inc:438
+#: Public/form_data/FG_var_card.inc:442
 msgid "STATE/PROVINCE"
 msgstr "ОБЛАСТЬ"
 
-#: Public/form_data/FG_var_card.inc:461
+#: Public/form_data/FG_var_card.inc:465
 msgid "ZIP/POSTAL CODE"
 msgstr "ИНДЕКС"
 
-#: Public/form_data/FG_var_card.inc:467
+#: Public/form_data/FG_var_card.inc:471
 msgid "Insert the zipcode"
 msgstr "Введите индекс"
 
-#: Public/form_data/FG_var_card.inc:471
+#: Public/form_data/FG_var_card.inc:475
 msgid "PHONE NUMBER"
 msgstr "НОМЕР ТЕЛЕФОНА"
 
-#: Public/form_data/FG_var_card.inc:477
+#: Public/form_data/FG_var_card.inc:481
 msgid "Insert the phone number of the customers"
 msgstr "Введите номер телефона клиентов"
 
-#: Public/form_data/FG_var_card.inc:481
+#: Public/form_data/FG_var_card.inc:485
 msgid "FAX NUMBER"
 msgstr "НОМЕР ФАКСА"
 
-#: Public/form_data/FG_var_card.inc:487
+#: Public/form_data/FG_var_card.inc:491
 msgid "Insert the fax number of the customers"
 msgstr "Введите номер факса клиентов"
 
-#: Public/form_data/FG_var_card.inc:496
+#: Public/form_data/FG_var_card.inc:500
 msgid "Insert Company name of this customer"
 msgstr "Введите название компании клиента"
 
-#: Public/form_data/FG_var_card.inc:506
+#: Public/form_data/FG_var_card.inc:510
 msgid "Insert the company website of this customer"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:520
+#: Public/form_data/FG_var_card.inc:524
 msgid "Customer Status"
 msgstr "Статус клиента"
 
-#: Public/form_data/FG_var_card.inc:531
+#: Public/form_data/FG_var_card.inc:535
 msgid "Changing the call plan will result in the free minutes or free calls package being reset."
 msgstr ""
 
+#: Public/form_data/FG_var_card.inc:602
+#, fuzzy
+msgid "Choose if you want to enable the lock on this account"
+msgstr "Выберите если хотите активировать учетную запись SIP"
+
 #: Public/form_data/FG_var_card.inc:603
+#, fuzzy
+msgid "Enable lock for this account."
+msgstr "Включить уведомление по email для этой уч.записи"
+
+#: Public/form_data/FG_var_card.inc:616
+msgid "Code required to make the call if the lock is active."
+msgstr ""
+
+#: Public/form_data/FG_var_card.inc:629
 msgid "RUN SERVICE"
 msgstr "ВКЛЮЧИТЬ УСЛУГУ"
 
-#: Public/form_data/FG_var_card.inc:609
+#: Public/form_data/FG_var_card.inc:635
 msgid "Choose if you want to enable the service recurring on this account"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:610
+#: Public/form_data/FG_var_card.inc:636
 msgid "Apply recurring service to this account."
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:619
+#: Public/form_data/FG_var_card.inc:645
 msgid "Insert the credit limit"
 msgstr "Введите лимит кредита"
 
-#: Public/form_data/FG_var_card.inc:620
+#: Public/form_data/FG_var_card.inc:646
 msgid "Credit limit is only used for the postpaid account."
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:624
+#: Public/form_data/FG_var_card.inc:650
 msgid "CREDIT LIMIT NOTIFICATION"
 msgstr "ПРЕДУПРЕЖДЕНИЕ О КРЕДИТНОМ ЛИМИТЕ"
 
-#: Public/form_data/FG_var_card.inc:632
+#: Public/form_data/FG_var_card.inc:658
 msgid "Low credit limit to alert the customer"
 msgstr "Нижний предел кредита для предупреждения клиента"
 
-#: Public/form_data/FG_var_card.inc:636
+#: Public/form_data/FG_var_card.inc:662
 msgid "PERMITTED NOTIFICATIONS BY MAIL"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:642
+#: Public/form_data/FG_var_card.inc:668
 msgid "Choose if you want to enable the notification by email for this account"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:643
+#: Public/form_data/FG_var_card.inc:669
 msgid "Enable the notification by mail for this account."
 msgstr "Включить уведомление по email для этой уч.записи"
 
-#: Public/form_data/FG_var_card.inc:646
+#: Public/form_data/FG_var_card.inc:672
 msgid "EMAIL NOTIFICATION"
 msgstr "УВЕДОМЛЕНИЕ ПО EMAIL"
 
-#: Public/form_data/FG_var_card.inc:652
+#: Public/form_data/FG_var_card.inc:678
 msgid "Insert the email to notify this customer"
 msgstr "Введите email для уведомления этого клинта"
 
-#: Public/form_data/FG_var_card.inc:656
+#: Public/form_data/FG_var_card.inc:682
 msgid "PERMITTED VOICEMAIL"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:662
+#: Public/form_data/FG_var_card.inc:688
 msgid "Choose if you want to enable the voicemail functionality for this account"
 msgstr "Выберите если вы хотите включить голосовую почту для этой уч.записи"
 
-#: Public/form_data/FG_var_card.inc:663
+#: Public/form_data/FG_var_card.inc:689
 msgid "Enable the voicemail functionality for this account."
 msgstr "Включить голосовую почту для этой уч.записи."
 
-#: Public/form_data/FG_var_card.inc:665
+#: Public/form_data/FG_var_card.inc:691
 msgid "ACTIVE VOICEMAIL SERVICE"
 msgstr "АКТИВИРОВАТЬ УСЛУГУ ГОЛОСОВОЙ ПОЧТЫ"
 
-#: Public/form_data/FG_var_card.inc:671
+#: Public/form_data/FG_var_card.inc:697
 msgid "Customer can choose to enable the voicemail for this account"
 msgstr "Клиент может выбрать включение голосовой почты для этой уч.записи"
 
-#: Public/form_data/FG_var_card.inc:672
+#: Public/form_data/FG_var_card.inc:698
 msgid "Customer can enable the voicemail for this account."
 msgstr "Клиент может включить голосовую почту для этой уч.записи."
 
-#: Public/form_data/FG_var_card.inc:696
+#: Public/form_data/FG_var_card.inc:722
 msgid "ENABLE EXPIRY"
 msgstr "ВКЛЮЧИТЬ СРОК ДЕЙСТВИЯ"
 
-#: Public/form_data/FG_var_card.inc:703
+#: Public/form_data/FG_var_card.inc:729
 msgid "Select method of expiry for the account."
 msgstr "Выберите метод срока действия для уч.записи."
 
-#: Public/form_data/FG_var_card.inc:727
+#: Public/form_data/FG_var_card.inc:753
 msgid "EXPIRY DAYS"
 msgstr "СРОК ДЕЙСТВИЯ"
 
-#: Public/form_data/FG_var_card.inc:733
+#: Public/form_data/FG_var_card.inc:759
 msgid "Insert the number of days after which the account will expire"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:734
+#: Public/form_data/FG_var_card.inc:760
 msgid "The number of days after which the account will expire."
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:737
+#: Public/form_data/FG_var_card.inc:763
 msgid "CREATE SIP CONFIG"
 msgstr "СОЗДАТЬ КОНФИГ SIP"
 
-#: Public/form_data/FG_var_card.inc:743
+#: Public/form_data/FG_var_card.inc:769
 msgid "Choose if you want to enable the sip account"
 msgstr "Выберите если хотите активировать учетную запись SIP"
 
-#: Public/form_data/FG_var_card.inc:744
+#: Public/form_data/FG_var_card.inc:770
 msgid "Create the SIP config automatically"
 msgstr "Создать конфиг SIP автоматически"
 
-#: Public/form_data/FG_var_card.inc:747
+#: Public/form_data/FG_var_card.inc:773
 msgid "CREATE IAX CONFIG"
 msgstr "СОЗДАТЬ КОНФИГ IAX"
 
-#: Public/form_data/FG_var_card.inc:753
+#: Public/form_data/FG_var_card.inc:779
 msgid "Choose if you want to enable the iax account"
 msgstr "Выберите если хотите активировать учетную запись IAX"
 
-#: Public/form_data/FG_var_card.inc:754
+#: Public/form_data/FG_var_card.inc:780
 msgid "Create the IAX config automatically"
 msgstr "Создать конфиг IAX автоматически"
 
-#: Public/form_data/FG_var_card.inc:756
+#: Public/form_data/FG_var_card.inc:782
 msgid "MAC ADDRESS"
 msgstr "МАК АДРЕС"
 
-#: Public/form_data/FG_var_card.inc:762
+#: Public/form_data/FG_var_card.inc:788
 msgid "Insert the MAC address customers' device"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:763
+#: Public/form_data/FG_var_card.inc:789
 msgid "FORMAT: 00-08-74-4C-7F-1D"
 msgstr "ФОРМАТ: 00-00-74-4C-4F-10"
 
-#: Public/form_data/FG_var_card.inc:766
+#: Public/form_data/FG_var_card.inc:792
 msgid "IN USE"
 msgstr "ИСПОЛЬЗУЕТСЯ"
 
-#: Public/form_data/FG_var_card.inc:773
+#: Public/form_data/FG_var_card.inc:799
 msgid "Updated to show the number of concurrent calls in use by this customer. If there are no currently no calls, and the system shows that there are, manually reset this field back to zero."
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:781
+#: Public/form_data/FG_var_card.inc:807
 msgid "Choose if you want to enable the autorefill on this account"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:782
+#: Public/form_data/FG_var_card.inc:808
 msgid "Define if you want to authorize the autorefill to apply on this accout"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:785
+#: Public/form_data/FG_var_card.inc:811
 msgid "INITIAL BALANCE"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:791
+#: Public/form_data/FG_var_card.inc:817
 msgid "Insert the amount of the initial balance"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:792
+#: Public/form_data/FG_var_card.inc:818
 msgid "The initial balance is used by autorefill to reset the current balance to this amount"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:803
+#: Public/form_data/FG_var_card.inc:829
 msgid "Define the day of the month when the system will generate the customer invoice."
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:804
+#: Public/form_data/FG_var_card.inc:830
 msgid "Invoice Status"
 msgstr "Статус фактуры"
 
-#: Public/form_data/FG_var_card.inc:819
+#: Public/form_data/FG_var_card.inc:845
 #, c-format
 msgid "VAT to add on the invoice of this customer. it should be a decimal value '21' this will be for 21% of VAT!"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:822
+#: Public/form_data/FG_var_card.inc:848
 msgid "VAT REGISTRATION NUMBER "
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:828
+#: Public/form_data/FG_var_card.inc:854
 msgid "Insert the VAT registration number of this customer"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:832
+#: Public/form_data/FG_var_card.inc:858
 msgid "DISCOUNT"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:848
+#: Public/form_data/FG_var_card.inc:874
 msgid "Insert the traffic per month for this customer"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:850 Public/form_data/FG_var_card.inc:852
+#: Public/form_data/FG_var_card.inc:876 Public/form_data/FG_var_card.inc:878
 msgid "TARGET TRAFFIC"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:858
+#: Public/form_data/FG_var_card.inc:884
 msgid "Insert the target traffic description"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:862
+#: Public/form_data/FG_var_card.inc:888
 msgid "RESTRICTION"
 msgstr "ОГРАНИЧЕНИЕ"
 
-#: Public/form_data/FG_var_card.inc:870 Public/form_data/FG_var_card.inc:872
+#: Public/form_data/FG_var_card.inc:896 Public/form_data/FG_var_card.inc:898
 msgid "RESTRICTED NUMBERS"
 msgstr "ОГРАНИЧЕННЫЕ НОМЕРА"
 
-#: Public/form_data/FG_var_card.inc:878
+#: Public/form_data/FG_var_card.inc:904
 msgid "Insert numbers that restrict the customer"
 msgstr "Введите номера для запрета клиента"
 
-#: Public/form_data/FG_var_card.inc:897
+#: Public/form_data/FG_var_card.inc:923
 msgid "CALLERID / CUSTOMER HISTORY"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:903
+#: Public/form_data/FG_var_card.inc:929
 msgid "CUSTOMER HISTORY"
 msgstr "ИСТОРИЯ КЛИЕНТА"
 
@@ -11634,6 +11756,9 @@ msgstr ""
 #: Public/A2B_currencies.php:91
 msgid "CLICK HERE TO UPDATE NOW"
 msgstr "Щелкните ЗДЕСЬ ОБНОВЛЕНИЯ СЕЙЧАС "
+
+#~ msgid "Asterisk (Ver. "
+#~ msgstr "Астериск (вер."
 
 #~ msgid "Agents Commissions"
 #~ msgstr "Коммиссии агентов"
