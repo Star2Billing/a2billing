@@ -681,16 +681,19 @@ if ($mode == 'standard') {
 	$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
 	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[TRY : callingcard_ivr_authenticate]");
 
-	for ($k=0;$k<3;$k++){
-		$vou_res = $A2B -> refill_card_with_voucher($agi, null);
-		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "VOUCHER RESULT = $vou_res");
-		if ($vou_res==1){
-			break;
-		} else {
-			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher fail] ");
-		}
-	}
-
+    // CALL AUTHENTICATE AND WE HAVE ENOUGH CREDIT TO GO AHEAD
+	if ($A2B->id_card > 0) {
+	    for ($k=0;$k<3;$k++) {
+		    $vou_res = $A2B -> refill_card_with_voucher($agi, null);
+		    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "VOUCHER RESULT = $vou_res");
+		    if ($vou_res==1){
+			    break;
+		    } else {
+			    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher fail] ");
+		    }
+	    }
+    }
+    
 	// SAY GOODBYE
 	if ($A2B->agiconfig['say_goodbye']==1) $agi-> stream_file('prepaid-final', '#');
 
