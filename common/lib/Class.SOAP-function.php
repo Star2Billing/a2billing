@@ -1085,13 +1085,15 @@ class SOAP_A2Billing
     
     /*
      *  CHECK RATES VALIDITY - function check_rates_validity
-     */ 
-    function check_rates_validity ($arr_rates) {
+     */
+    // array(string $prefix, string $destination, float $buyrate, float $sellrate)
+    function check_rates_validity ($arr_rates)
+    {
         $valid_rate = true;
         foreach ($arr_rates as $arr_rates_val) {
 		    
-		    $destination = trim($arr_rates_val[0]);
-		    $dialprefix = trim($arr_rates_val[1]);
+		    $dialprefix = trim($arr_rates_val[0]);
+		    $destination = trim($arr_rates_val[1]);
 		    $buyrate = trim($arr_rates_val[2]);
 		    $sellrate = trim($arr_rates_val[3]);
 		    
@@ -1156,11 +1158,10 @@ class SOAP_A2Billing
 		// START RATES IMPORT
 		foreach ($arr_rates as $arr_rates_val) {
 		    
-		    $destination = trim($arr_rates_val[0]);
-		    $dialprefix = trim($arr_rates_val[1]);
+		    $dialprefix = trim($arr_rates_val[0]);
+		    $destination = trim($arr_rates_val[1]);
 		    $buyrate = trim($arr_rates_val[2]);
 		    $sellrate = trim($arr_rates_val[3]);
-		    
 		    
 		    // ADD PREFIX
 		    $instance_table_prefix = new Table("cc_prefix");
@@ -1242,11 +1243,10 @@ class SOAP_A2Billing
 		// REIMPORT RATES
 		foreach ($arr_rates as $arr_rates_val) {
 		    
-		    $destination = trim($arr_rates_val[0]);
-		    $dialprefix = trim($arr_rates_val[1]);
+		    $dialprefix = trim($arr_rates_val[0]);
+		    $destination = trim($arr_rates_val[1]);
 		    $buyrate = trim($arr_rates_val[2]);
 		    $sellrate = trim($arr_rates_val[3]);
-		    
 		    
 		    // ADD PREFIX
 		    $instance_table_prefix = new Table("cc_prefix");
