@@ -164,7 +164,7 @@ class SOAP_A2Billing
                        'out' => array('result' => 'array', 'message' => 'string')
                        );
 
-        $this->__dispatch_map['Add_CID'] =
+        $this->__dispatch_map['Add_CallerID'] =
                  array('in' => array('security_key' => 'string', 'callerid' => 'integer', 'id_cc_card' => 'integer', 'accountnumber' => 'integer'),
                        'out' => array('result' => 'array', 'message' => 'string')
                        );

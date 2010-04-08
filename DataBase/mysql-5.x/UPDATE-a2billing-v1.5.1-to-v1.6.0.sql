@@ -101,9 +101,9 @@ CREATE TABLE cc_monitor (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 INSERT INTO cc_monitor (label, dial_code, description, text_intro, query_type, query, result_type, enable) VALUES
-('TotalCall', 2, 'To say the total amount of calls', 'The total amount of call on your system is', 1, 'select count(*) from cc_call;', 3, 1),
+('TotalCall', 2, 'To say the total amount of calls', 'The total amount of calls on your system is', 1, 'select count(*) from cc_call;', 3, 1),
 ('Say Time', 1, 'just saying the current date and time', 'The current date and time is', 1, 'SELECT UNIX_TIMESTAMP( );', 2, 1),
-('Test Connectivity', 3, 'Test Connectivity with Google', 'you connectivity is', 2, 'check_connectivity.sh', 1, 1);
+('Test Connectivity', 3, 'Test Connectivity with Google', 'your Internet connection is', 2, 'check_connectivity.sh', 1, 1);
 
 
 INSERT INTO cc_config ( config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES
