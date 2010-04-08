@@ -88,7 +88,15 @@ INSERT INTO cc_config ( config_title, config_key, config_value, config_descripti
 VALUES( 'IVR Speed Dial', 'ivr_enable_ivr_speeddial', '0', 'Enable the IVR which allow the users add speed dial.', 1, 'yes,no', 'agi-conf1');
 
 
+ALTER TABLE cc_templatemail CHANGE messagetext messagetext VARCHAR( 3000 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
+ALTER TABLE cc_templatemail CHANGE messagehtml messagehtml VARCHAR( 3000 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
 
+ALTER TABLE cc_card_group CHANGE description description VARCHAR( 400 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
+
+ALTER TABLE cc_config CHANGE config_description config_description VARCHAR( 500 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
+
+  
+  
 UPDATE cc_version SET version = '1.7.0';
 
 
