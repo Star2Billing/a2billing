@@ -919,18 +919,18 @@ class A2Billing {
 				
 				        //TO MANAGE BY PACKAGE TYPE IT -> only for freetime
 				        if (($packagetype == 0) || ($packagetype == 1)) {
-				                $minutes=intval(($freetime-$freetimetocall_used)/60);
-				                $seconds=($freetime-$freetimetocall_used) % 60;
+			                $minutes = intval(($freetime-$freetimetocall_used)/60);
+			                $seconds = ($freetime-$freetimetocall_used) % 60;
 				        } else {
-				                $minutes=intval($freetimetocall_used/60);
-				                $seconds=$freetimetocall_used % 60;
+			                $minutes = intval($freetimetocall_used/60);
+			                $seconds = $freetimetocall_used % 60;
 				        }
 				        // Now say either "You have X minutes and Y seconds of free package calls remaining this week/month"
 				        // or "You have dialed X minutes and Y seconds of free package calls this week/month"
 				        if (($packagetype == 0) || ($packagetype == 1)) {
-				                $agi-> stream_file('prepaid-you-have', '#');
+			                $agi-> stream_file('prepaid-you-have', '#');
 				        } else {
-				                $agi-> stream_file('prepaid-you-have-dialed', '#');
+			                $agi-> stream_file('prepaid-you-have-dialed', '#');
 				        }
 				        if (($minutes > 0) || ($seconds == 0)) {
 							if ($minutes==1) {
@@ -2130,7 +2130,7 @@ class A2Billing {
 			else
 				$year_month = date('Y-m');
 
-			$yearmonth = sprintf("%s-%02d",$year_month,$startday);
+			$yearmonth = sprintf("%s-%02d",$year_month, $startday);
 			$CLAUSE_DATE=" TIMESTAMP(date_consumption) >= TIMESTAMP('$yearmonth')";
 		} else {
 			// PROCESSING FOR WEEKLY
@@ -2141,7 +2141,7 @@ class A2Billing {
 			$diffday = $dayofweek - $startday;
 			$CLAUSE_DATE = "date_consumption >= DATE_SUB(CURRENT_DATE, INTERVAL $diffday DAY) ";
 		}
-		$QUERY = "SELECT  sum(used_secondes) AS used_secondes FROM cc_card_package_offer ".
+		$QUERY = "SELECT sum(used_secondes) AS used_secondes FROM cc_card_package_offer ".
 				 "WHERE $CLAUSE_DATE AND id_cc_card = '$id_cc_card' AND id_cc_package_offer = '$id_cc_package_offer' ";
 
 		$this->instance_table = new Table();

@@ -65,10 +65,12 @@ $trunk_actived_list = array();
 $trunk_actived_list["0"] = array( gettext("0"), "Inactive");
 $trunk_actived_list["1"] = array( gettext("1"), "Active");
 
-$provider_list_query="select * from cc_provider";
+$provider_list_query = "select * from cc_provider";
 $res_provider_list  = $instance_table->SQLExec ($DBHandle, $provider_list_query);
-foreach($res_provider_list as $val){
-	$provider_list_result[] = array(gettext($val['id']),$val['provider_name']);
+if (is_array($res_provider_list)) {
+    foreach($res_provider_list as $val){
+	    $provider_list_result[] = array(gettext($val['id']),$val['provider_name']);
+    }
 }
 
 $maxuse_behaviour_list = array();
