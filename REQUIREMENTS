@@ -28,4 +28,6 @@ REQUIREMENTS :
 		python-psycopg2
 		python-sqlalchemy
 
+For Monitoring 
 
+     * Cepstral Text to speech
