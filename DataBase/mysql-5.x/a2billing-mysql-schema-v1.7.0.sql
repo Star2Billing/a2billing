@@ -7,7 +7,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,   
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  * 
- * @copyright   Copyright (C) 2004-2009 - Star2billing S.L. 
+ * @copyright   Copyright (C) 2004-2010 - Star2billing S.L. 
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -35,7 +35,7 @@
 --
 
 -- Usage:
--- mysql -u root -p"root password" < a2billing-schema-mysql-v1.4.0.sql  
+-- mysql -u root -p"root password" < a2billing-schema-mysql-v1.7.0.sql 
 
 
 --
@@ -44,6 +44,7 @@
 
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
 
 
 -- --------------------------------------------------------
@@ -80,6 +81,9 @@ CREATE TABLE IF NOT EXISTS `cc_agent` (
   `email` char(70) collate utf8_bin default NULL,
   `fax` char(20) collate utf8_bin default NULL,
   `company` varchar(50) collate utf8_bin default NULL,
+  `com_balance` decimal(15,5) NOT NULL,
+  `threshold_remittance` decimal(15,5) NOT NULL,
+  `bank_info` mediumtext collate utf8_bin,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `login` (`login`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
@@ -101,9 +105,10 @@ CREATE TABLE IF NOT EXISTS `cc_agent_commission` (
   `id_card` bigint(20) NOT NULL,
   `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `amount` decimal(15,5) NOT NULL,
-  `paid_status` tinyint(4) NOT NULL default '0',
   `description` mediumtext collate utf8_bin,
   `id_agent` int(11) NOT NULL,
+  `commission_type` tinyint(4) NOT NULL,
+  `commission_percent` decimal(10,4) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
@@ -247,6 +252,7 @@ CREATE TABLE IF NOT EXISTS `cc_billing_customer` (
   `id_card` bigint(20) NOT NULL,
   `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `id_invoice` bigint(20) NOT NULL,
+  `start_date` timestamp NULL default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
@@ -364,40 +370,32 @@ CREATE TABLE IF NOT EXISTS `cc_callerid` (
 
 CREATE TABLE IF NOT EXISTS `cc_call_archive` (
   `id` bigint(20) NOT NULL auto_increment,
-  `sessionid` char(40) collate utf8_bin NOT NULL,
-  `uniqueid` char(30) collate utf8_bin NOT NULL,
-  `username` char(40) collate utf8_bin NOT NULL,
-  `nasipaddress` char(30) collate utf8_bin default NULL,
+  `sessionid` varchar(40) collate utf8_bin NOT NULL,
+  `uniqueid` varchar(30) collate utf8_bin NOT NULL,
+  `card_id` bigint(20) NOT NULL,
+  `nasipaddress` varchar(30) collate utf8_bin NOT NULL,
   `starttime` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `stoptime` timestamp NOT NULL default '0000-00-00 00:00:00',
   `sessiontime` int(11) default NULL,
-  `calledstation` char(30) collate utf8_bin default NULL,
-  `startdelay` int(11) default NULL,
-  `stopdelay` int(11) default NULL,
-  `terminatecause` char(20) collate utf8_bin default NULL,
-  `usertariff` char(20) collate utf8_bin default NULL,
-  `calledprovider` char(20) collate utf8_bin default NULL,
-  `calledcountry` char(30) collate utf8_bin default NULL,
-  `calledsub` char(20) collate utf8_bin default NULL,
-  `calledrate` float default NULL,
+  `calledstation` varchar(30) collate utf8_bin NOT NULL,
   `sessionbill` float default NULL,
-  `destination` char(40) collate utf8_bin default NULL,
   `id_tariffgroup` int(11) default NULL,
   `id_tariffplan` int(11) default NULL,
   `id_ratecard` int(11) default NULL,
   `id_trunk` int(11) default NULL,
   `sipiax` int(11) default '0',
-  `src` char(40) collate utf8_bin default NULL,
+  `src` varchar(40) collate utf8_bin NOT NULL,
   `id_did` int(11) default NULL,
-  `buyrate` decimal(15,5) default '0.00000',
   `buycost` decimal(15,5) default '0.00000',
   `id_card_package_offer` int(11) default '0',
   `real_sessiontime` int(11) default NULL,
+  `dnid` varchar(40) collate utf8_bin NOT NULL,
+  `terminatecauseid` int(1) default '1',
+  `destination` int(11) default '0',
   PRIMARY KEY  (`id`),
-  KEY `username` (`username`),
   KEY `starttime` (`starttime`),
-  KEY `terminatecause` (`terminatecause`),
-  KEY `calledstation` (`calledstation`)
+  KEY `calledstation` (`calledstation`),
+  KEY `terminatecauseid` (`terminatecauseid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 --
@@ -590,12 +588,20 @@ CREATE TABLE IF NOT EXISTS `cc_card` (
   `restriction` tinyint(4) NOT NULL default '0',
   `id_seria` int(11) default NULL,
   `serial` bigint(20) default NULL,
+  `block` tinyint(4) NOT NULL default '0',
+  `lock_pin` varchar(15) collate utf8_bin default NULL,
+  `lock_date` timestamp NULL default NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `cons_cc_card_username` (`username`),
   UNIQUE KEY `cons_cc_card_useralias` (`useralias`),
   KEY `creationdate` (`creationdate`),
   KEY `username` (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `cc_card`
+--
+
 
 --
 -- Triggers `cc_card`
@@ -622,11 +628,6 @@ CREATE TRIGGER `cc_card_serial_update` BEFORE UPDATE ON `cc_card`
 END
 //
 DELIMITER ;
-
---
--- Dumping data for table `cc_card`
---
-
 
 -- --------------------------------------------------------
 
@@ -734,10 +735,11 @@ CREATE TABLE IF NOT EXISTS `cc_card_archive` (
 
 CREATE TABLE IF NOT EXISTS `cc_card_group` (
   `id` int(11) NOT NULL auto_increment,
-  `name` char(30) collate utf8_bin NOT NULL,
-  `description` mediumtext collate utf8_bin,
+  `name` varchar(50) collate utf8_bin default NULL,
+  `description` varchar(400) collate utf8_bin default NULL,
   `users_perms` int(11) NOT NULL default '0',
   `id_agent` int(11) default NULL,
+  `provisioning` varchar(200) collate utf8_bin default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
 
@@ -745,7 +747,7 @@ CREATE TABLE IF NOT EXISTS `cc_card_group` (
 -- Dumping data for table `cc_card_group`
 --
 
-INSERT INTO `cc_card_group` (`id`, `name`, `description`, `users_perms`, `id_agent`) VALUES(1, 'DEFAULT', 'This group is the default group used when you create a customer. It''s forbidden to delete it because you need at least one group but you can edit it.', 129022, NULL);
+INSERT INTO `cc_card_group` (`id`, `name`, `description`, `users_perms`, `id_agent`, `provisioning`) VALUES(1, 'DEFAULT', 'This group is the default group used when you create a customer. It''s forbidden to delete it because you need at least one group but you can edit it.', 262142, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -822,6 +824,10 @@ CREATE TABLE IF NOT EXISTS `cc_card_subscription` (
   `stopdate` timestamp NOT NULL default '0000-00-00 00:00:00',
   `product_id` varchar(100) collate utf8_bin default NULL,
   `product_name` varchar(100) collate utf8_bin default NULL,
+  `paid_status` tinyint(4) NOT NULL default '0',
+  `last_run` timestamp NOT NULL default '0000-00-00 00:00:00',
+  `next_billing_date` timestamp NOT NULL default '0000-00-00 00:00:00',
+  `limit_pay_date` timestamp NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
@@ -842,7 +848,6 @@ CREATE TABLE IF NOT EXISTS `cc_charge` (
   `iduser` int(11) NOT NULL default '0',
   `creationdate` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `amount` float NOT NULL default '0',
-  `currency` char(3) collate utf8_bin default 'USD',
   `chargetype` int(11) default '0',
   `description` mediumtext collate utf8_bin,
   `id_cc_did` bigint(20) default '0',
@@ -869,15 +874,15 @@ CREATE TABLE IF NOT EXISTS `cc_charge` (
 
 CREATE TABLE IF NOT EXISTS `cc_config` (
   `id` int(11) NOT NULL auto_increment,
-  `config_title` varchar(100) collate utf8_bin NOT NULL,
-  `config_key` varchar(100) collate utf8_bin NOT NULL,
-  `config_value` varchar(300) collate utf8_bin default NULL,
-  `config_description` text collate utf8_bin NOT NULL,
+  `config_title` varchar(100) collate utf8_bin default NULL,
+  `config_key` varchar(100) collate utf8_bin default NULL,
+  `config_value` varchar(200) collate utf8_bin default NULL,
+  `config_description` varchar(500) collate utf8_bin default NULL,
   `config_valuetype` int(11) NOT NULL default '0',
   `config_listvalues` varchar(100) collate utf8_bin default NULL,
   `config_group_title` varchar(64) collate utf8_bin NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=257 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=303 ;
 
 --
 -- Dumping data for table `cc_config`
@@ -889,7 +894,7 @@ INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `co
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(4, 'Base Currency', 'base_currency', 'usd', 'Base Currency to use for application.', 0, NULL, 'global');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(5, 'Invoice Image', 'invoice_image', 'asterisk01.jpg', 'Image to Display on the Top of Invoice', 0, NULL, 'global');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(6, 'Admin Email', 'admin_email', 'root@localhost', 'Web Administrator Email Address.', 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(7, 'DID Bill Payment Day', 'didbilling_daytopay', '5', 'DID Bill Payment Day of Month', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(7, 'DID Billing Days to pay', 'didbilling_daytopay', '5', 'Define the amount of days you want to give to the user before releasing its DIDs', 0, NULL, 'global');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(8, 'Manager Host', 'manager_host', 'localhost', 'Manager Host Address', 0, NULL, 'global');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(9, 'Manager User ID', 'manager_username', 'myasterisk', 'Manger Host User Name', 0, NULL, 'global');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(10, 'Manager Password', 'manager_secret', 'mycode', 'Manager Host Password', 0, NULL, 'global');
@@ -913,15 +918,10 @@ INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `co
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(28, 'Callback CallPlan ID', 'all_callback_tariff', '1', 'ID Call Plan to use when you use the all-callback mode, check the ID in the "list Call Plan" - WebUI.', 0, NULL, 'callback');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(29, 'Server Group ID', 'id_server_group', '1', 'Define the group of servers that are going to be used by the callback.', 0, NULL, 'callback');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(30, 'Audio Intro', 'callback_audio_intro', 'prepaid-callback_intro', 'Audio intro message when the callback is initiate.', 0, NULL, 'callback');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(31, 'Signup URL', 'signup_page_url', '', 'url of the signup page to show up on the sign in page (if empty no link will show up).', 0, NULL, 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(32, 'Payment Method', 'paymentmethod', '1', 'Enable or disable the payment methods; yes for multi-payment or no for single payment method option.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(33, 'Personal Info', 'personalinfo', '1', 'Enable or disable the page which allow customer to modify its personal information.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(34, 'Payment Info', 'customerinfo', '1', 'Enable display of the payment interface - yes or no.', 1, 'yes,no', 'webcustomerui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(256, 'SMTP Secure', 'smtp_secure', '', 'sets the prefix to the SMTP server : tls ; ssl', 0, NULL, 'global');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(255, 'SMTP Port', 'smtp_port', '25', 'Port to connect on the SMTP server', 0, NULL, 'global');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(254, 'Return URL distant Forget Password', 'return_url_distant_forgetpassword', '', 'URL for specific return if an error occur after forgetpassword', 0, NULL, 'webcustomerui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(47, 'WebPhone Server', 'webphoneserver', 'localhost', 'IP address or domain name of asterisk server that would be used by the web-phone.', 0, NULL, 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(49, 'Password', 'password', '1', 'Let the user change the webui password.', 1, 'yes,no', 'webcustomerui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(50, 'CallerID Limit', 'limit_callerid', '5', 'The total number of callerIDs for CLI Recognition that can be add by the customer.', 0, NULL, 'webcustomerui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(51, 'Trunk Name', 'sip_iax_info_trunkname', 'call-labs', 'Trunk Name to show in sip/iax info.', 0, NULL, 'sip-iax-info');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(52, 'Codecs Allowed', 'sip_iax_info_allowcodec', 'g729', 'Allowed Codec, ulaw, gsm, g729.', 0, NULL, 'sip-iax-info');
@@ -943,7 +943,7 @@ INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `co
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(68, 'Payment Amount', 'purchase_amount', '1:2:5:10:20', 'define the different amount of purchase that would be available - 5 amount maximum (5:10:15).', 0, NULL, 'epayment_method');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(69, 'Item Name', 'item_name', 'Credit Purchase', 'Item name that would be display to the user when he will buy credit.', 0, NULL, 'epayment_method');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(70, 'Currency Code', 'currency_code', 'USD', 'Currency for the Credit purchase, only one can be define here.', 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(71, 'Paypal Payment URL', 'paypal_payment_url', 'https://secure.paypal.com/cgi-bin/webscr', 'Define here the URL of paypal gateway the payment (to test with paypal sandbox).', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(71, 'Paypal Payment URL', 'paypal_payment_url', 'https://www.paypal.com/cgi-bin/webscr', 'Define here the URL of paypal gateway the payment (to test with paypal sandbox).', 0, NULL, 'epayment_method');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(72, 'Paypal Verify URL', 'paypal_verify_url', 'ssl://www.paypal.com', 'paypal transaction verification url.', 0, NULL, 'epayment_method');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(73, 'Authorize.NET Payment URL', 'authorize_payment_url', 'https://secure.authorize.net/gateway/transact.dll', 'Define here the URL of Authorize gateway.', 0, NULL, 'epayment_method');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(74, 'PayPal Store Name', 'store_name', 'Asterisk2Billing', 'paypal store name to show in the paypal site when customer will go to pay.', 0, NULL, 'epayment_method');
@@ -989,8 +989,7 @@ INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `co
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(114, 'Link Audio', 'link_audio_file', '0', 'Enable link on the CDR viewer to the recordings. (YES - NO).', 1, 'yes,no', 'webui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(115, 'Monitor Path', 'monitor_path', '/var/spool/asterisk/monitor', 'Path to link the recorded monitor files.', 0, NULL, 'webui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(116, 'Monitor Format', 'monitor_formatfile', 'gsm', 'FORMAT OF THE RECORDED MONITOR FILE.', 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(117, 'Invoice Icon', 'show_icon_invoice', '1', 'Display the icon in the invoice.', 1, 'yes,no', 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(118, 'Show Top Frame', 'show_top_frame', '0', 'Display the top frame (useful if you want to save space on your little tiny screen ) .', 1, 'yes,no', 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(260, 'Call to free DID Dial Command Params', 'dialcommand_param_call_2did', '|60|HiL(%timeout%:61000:30000)', '%timeout% is the value of the paramater : ''Max time to Call a DID no billed''', 0, NULL, 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(119, 'Currency', 'currency_choose', 'usd, eur, cad, hkd', 'Allow the customer to chose the most appropriate currency ("all" can be used).', 0, NULL, 'webui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(120, 'Card Export Fields', 'card_export_field_list', 'id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy', 'Fields to export in csv format from cc_card table.', 0, NULL, 'webui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(121, 'Vouvher Export Fields', 'voucher_export_field_list', 'voucher, credit, tag, activated, usedcardnumber, usedate, currency', 'Field to export in csv format from cc_voucher table.', 0, NULL, 'webui');
@@ -1001,7 +1000,7 @@ INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `co
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(126, 'Context', 'context', 'a2billing', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(127, 'Nat', 'nat', 'yes', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(128, 'AMA Flag', 'amaflag', 'billing', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(129, 'Qualify', 'qualify', 'yes', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(129, 'Qualify', 'qualify', 'no', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(130, 'Host', 'host', 'dynamic', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(131, 'DTMF Mode', 'dtmfmode', 'RFC2833', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(132, 'Alarm Log File', 'cront_alarm', '/var/log/a2billing/cront_a2b_alarm.log', 'To disable application logging, remove/comment the log file name aside service.', 0, NULL, 'log-files');
@@ -1024,7 +1023,7 @@ INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `co
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(149, 'Answer Call', 'answer_call', '1', 'Manage the answer on the call. Disabling this for callback trigger numbers makes it ring not hang up.', 1, 'yes,no', 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(150, 'Play Audio', 'play_audio', '1', 'Play audio - this will disable all stream file but not the Get Data , for wholesale ensure that the authentication works and than number_try = 1.', 1, 'yes,no', 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(151, 'Say GoodBye', 'say_goodbye', '0', 'play the goodbye message when the user has finished.', 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(152, 'Play Language Menu', 'play_menulanguage', '0', 'enable the menu to choose the language, press 1 for English, pulsa 2 para el espaÃ±ol, Pressez 3 pour FranÃ§ais', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(152, 'Play Language Menu', 'play_menulanguage', '0', 'enable the menu to choose the language, press 1 for English, pulsa 2 para el espaÃƒÂ±ol, Pressez 3 pour FranÃƒÂ§ais', 1, 'yes,no', 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(153, 'Force Language', 'force_language', '', 'force the use of a language, if you dont want to use it leave the option empty, Values : ES, EN, FR, etc... (according to the audio you have installed).', 0, NULL, 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(154, 'Intro Prompt', 'intro_prompt', '', 'Introduction prompt : to specify an additional prompt to play at the beginning of the application .', 0, NULL, 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(155, 'Min Call Credit', 'min_credit_2call', '0', 'Minimum amount of credit to use the application .', 0, NULL, 'agi-conf1');
@@ -1046,12 +1045,6 @@ INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `co
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(171, 'Ask PIN', 'cid_askpincode_ifnot_callerid', '1', 'if the CID does not exist, then the caller will be prompt to enter his cardnumber .', 1, 'yes,no', 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(172, 'FailOver LCR/LCD Prefix', 'failover_lc_prefix', '0', 'if we will failover for LCR/LCD prefix. For instance if you have 346 and 34 for if 346 fail it will try to outbound with 34 route.', 1, 'yes,no', 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(173, 'Auto CLID', 'cid_auto_assign_card_to_cid', '1', 'if the callerID authentication is enable and the authentication fails then the user will be prompt to enter his cardnumber;this option will bound the cardnumber entered to the current callerID so that next call will be directly authenticate.', 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(174, 'Auto Create Card', 'cid_auto_create_card', '0', 'if the callerID is captured on a2billing, this option will create automatically a new card and add the callerID to it.', 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(175, 'Auto Create Card Length', 'cid_auto_create_card_len', '10', 'set the length of the card that will be auto create (ie, 10).', 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(176, 'Auto Create Card Type', 'cid_auto_create_card_typepaid', 'POSTPAY', 'billing type of the new card( value : POSTPAY or PREPAY) .', 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(177, 'Auto Create Card Credit', 'cid_auto_create_card_credit', '0', 'amount of credit of the new card.', 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(178, 'Auto Create Card Limit', 'cid_auto_create_card_credit_limit', '1000', 'if postpay, define the credit limit for the card.', 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(179, 'Auto Create Card TariffGroup', 'cid_auto_create_card_tariffgroup', '6', 'the tariffgroup to use for the new card (this is the ID that you can find on the admin web interface) .', 0, NULL, 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(180, 'Auto CLID Security', 'callerid_authentication_over_cardnumber', '0', 'to check callerID over the cardnumber authentication (to guard against spoofing).', 1, 'yes,no', 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(181, 'SIP Call', 'sip_iax_friends', '0', 'enable the option to call sip/iax friend for free (values : YES - NO).', 1, 'yes,no', 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(182, 'SIP Call Prefix', 'sip_iax_pstn_direct_call_prefix', '555', 'if SIP_IAX_FRIENDS is active, you can define a prefix for the dialed digits to call a pstn number .', 0, NULL, 'agi-conf1');
@@ -1059,7 +1052,7 @@ INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `co
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(184, 'IVR Voucher Refill', 'ivr_voucher', '0', 'enable the option to refill card with voucher in IVR (values : YES - NO) .', 1, 'yes,no', 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(185, 'IVR Voucher Prefix', 'ivr_voucher_prefix', '8', 'if ivr_voucher is active, you can define a prefix for the voucher number to refill your card, values : number - don''t forget to change prepaid-refill_card_with_voucher audio accordingly .', 0, NULL, 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(186, 'IVR Low Credit', 'jump_voucher_if_min_credit', '0', 'When the user credit are below the minimum credit to call min_credit jump directly to the voucher IVR menu  (values: YES - NO) .', 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(187, 'Dial Command Params', 'dialcommand_param', '|60|HRrL(%timeout%:61000:30000)', 'More information about the Dial : http://voip-info.org/wiki-Asterisk+cmd+dial<br>30 :  The timeout parameter is optional. If not specifed, the Dial command will wait indefinitely, exiting only when the originating channel hangs up, or all the dialed channels return a busy or error condition. Otherwise it specifies a maximum time, in seconds, that the Dial command is to wait for a channel to answer.<br>H: Allow the caller to hang up by dialing * <br>r: Generate a ringing tone for the calling party<br>R: Indicate ringing to the calling party when the called party indicates ringing, pass no audio until answered.<br>g: When the called party hangs up, exit to execute more commands in the current context. (new in 1.4)<br>i: Asterisk will ignore any forwarding (302 Redirect) requests received. Essential for DID usage to prevent fraud. (new in 1.4)<br>m: Provide Music on Hold to the calling party until the called channel answers.<br>L(x[:y][:z]): Limit the call to ''x'' ms, warning when ''y'' ms are left, repeated every ''z'' ms)<br>%timeout% tag is replaced by the calculated timeout according the credit & destination rate!.', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(187, 'Dial Command Params', 'dialcommand_param', '|60|HRrL(%timeout%:61000:30000)', 'More information about the Dial : http://voip-info.org/wiki-Asterisk+cmd+dial<br>30 :  The timeout parameter is optional. If not specifed, the Dial command will wait indefinitely, exiting only when the originating channel hangs up, or all the dialed channels return a busy or error condition. Otherwise it specifies a maximum time, in seconds, that the Dial command is to wait for a channel to answer.<br>H: Allow the caller to hang up by dialing * <br>r: Generate a ringing tone for the calling part', 0, NULL, 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(188, 'SIP/IAX Dial Command Params', 'dialcommand_param_sipiax_friend', '|60|HiL(3600000:61000:30000)', 'by default (3600000  =  1HOUR MAX CALL).', 0, NULL, 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(189, 'Outbound Call', 'switchdialcommand', '0', 'Define the order to make the outbound call<br>YES -> SIP/dialedphonenumber@gateway_ip - NO  SIP/gateway_ip/dialedphonenumber<br>Both should work exactly the same but i experimented one case when gateway was supporting dialedphonenumber@gateway_ip, So in case of trouble, try it out.', 1, 'yes,no', 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(190, 'Failover Retry Limit', 'failover_recursive_limit', '2', 'failover recursive search - define how many time we want to authorize the research of the failover trunk when a call fails (value : 0 - 20) .', 0, NULL, 'agi-conf1');
@@ -1069,7 +1062,8 @@ INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `co
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(194, 'Monitor File Format', 'monitor_formatfile', 'gsm', 'format of the recorded monitor file.', 0, NULL, 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(195, 'AGI Force Currency', 'agi_force_currency', '', 'Force to play the balance to the caller in a predefined currency, to use the currency set for by the customer leave this field empty.', 0, NULL, 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(196, 'Currency Associated', 'currency_association', 'usd:dollars,mxn:pesos,eur:euros,all:credit', 'Define all the audio (without file extensions) that you want to play according to currency (use , to separate, ie "usd:prepaid-dollar,mxn:pesos,eur:Euro,all:credit").', 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(197, 'Minor Currency Associated', 'currency_association_minor', 'usd:prepaid-cents,eur:prepaid-cents,gbp:prepaid-pence,all:credit', 'Define all the audio (without file extensions) that you want to play according to minor currency (use , to separate, ie "usd:prepaid-cents,eur:prepaid-cents,gbp:prepaid-pence,all:credit").', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(259, 'Option Local Dialing', 'local_dialing_addcountryprefix', '0', 'Add the countryprefix of the user in front of the dialed number if this one have only 1 leading zero', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(261, 'Max time to Call a DID no billed', 'max_call_call_2_did', '3600', 'max time to call a did of the system and not billed . this max value is in seconde and by default (3600 = 1HOUR MAX CALL).', 0, NULL, 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(198, 'File Enter Destination', 'file_conf_enter_destination', 'prepaid-enter-dest', 'Please enter the file name you want to play when we prompt the calling party to enter the destination number, file_conf_enter_destination = prepaid-enter-number-u-calling-1-or-011.', 0, NULL, 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(219, 'Menu Language Order', 'conf_order_menulang', 'en:fr:es', 'Enter the list of languages authorized for the menu.Use the code language separate by a colon charactere e.g: en:es:fr', 0, NULL, 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(200, 'Bill Callback', 'callback_bill_1stleg_ifcall_notconnected', '1', 'Define if you want to bill the 1st leg on callback even if the call is not connected to the destination.', 1, 'yes,no', 'agi-conf1');
@@ -1089,14 +1083,14 @@ INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `co
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(214, 'Payment Amount', 'purchase_amount_agent', '100:200:500:1000', 'define the different amount of purchase that would be available.', 0, NULL, 'epayment_method');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(215, 'Max Time For Unlimited Calls', 'maxtime_tounlimited_calls', '5400', 'For unlimited calls, limit the duration: amount in seconds .', 0, NULL, 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(216, 'Max Time For Free Calls', 'maxtime_tofree_calls', '5400', 'For free calls, limit the duration: amount in seconds .', 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(217, 'CallPlan threshold Deck switch', 'callplan_deck_minute_threshold', '', 'CallPlan threshold Deck switch. <br/>This option will switch the user callplan from one call plan ID to and other Callplan ID\nThe parameters are as follow : <br/>\n-- ID of the first callplan : called seconds needed to switch to the next CallplanID <br/>\n-- ID of the second callplan : called seconds needed to switch to the next CallplanID <br/>\n-- if not needed seconds are defined it will automatically switch to the next one <br/>\n-- if defined we will sum the previous needed seconds and check if the caller had done at least the amount of calls necessary to go to the next step and have the amount of seconds needed<br/>\nvalue example for callplan_deck_minute_threshold = 1:300, 2:60, 3', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(217, 'CallPlan threshold Deck switch', 'callplan_deck_minute_threshold', '', 'CallPlan threshold Deck switch. <br/>This option will switch the user callplan from one call plan ID to and other Callplan ID\nThe parameters are as follow : <br/>\n-- ID of the first callplan : called seconds needed to switch to the next CallplanID <br/>\n-- ID of the second callplan : called seconds needed to switch to the next CallplanID <br/>\n-- if not needed seconds are defined it will automatically switch to the next one <br/>\n-- if defined we will sum the previous needed seconds and check if', 0, NULL, 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(252, 'Personal Info', 'personalinfo', '1', 'Enable or disable the page which allow agent to modify its personal information.', 0, 'yes,no', 'webagentui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(220, 'Disable annoucement the second of the times that the card can call', 'disable_announcement_seconds', '0', 'Desactived the annoucement of the seconds when there are more of one minutes (values : yes - no)', 1, 'yes,no', 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(221, 'Charge for the paypal extra fees', 'charge_paypal_fee', '0', 'Actived, if you want assum the fee of paypal and don''t apply it on the customer (values : yes - no)', 1, 'yes,no', 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(222, 'Cents Currency Associated', 'currency_cents_association', '', 'Define all the audio (without file extensions) that you want to play according to cents currency (use , to separate, ie "amd:lumas").By default the file used is "prepaid-cents" .Use plural to define the cents currency sound, but import two sounds but cents currency defined : ending by ''s'' and not ending by ''s'' (i.e. for lumas , add 2 files : ''lumas'' and ''luma'') ', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(258, 'Cents Currency Associated', 'currency_cents_association', 'usd:prepaid-cents,eur:prepaid-cents,gbp:prepaid-pence,all:credit', 'Define all the audio (without file extensions) that you want to play according to cents currency (use , to separate, ie "amd:lumas").By default the file used is "prepaid-cents" .Use plural to define the cents currency sound, but import two sounds but cents currency defined : ending by ''s'' and not ending by ''s'' (i.e. for lumas , add 2 files : ''lumas'' and ''luma'') ', 0, NULL, 'ivr_creditcard');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(223, 'Context Campaign''s Callback', 'context_campaign_callback', 'a2billing-campaign-callback', 'Context to use in Campaign of Callback', 0, NULL, 'callback');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(224, 'Default Context forward Campaign''s Callback ', 'default_context_campaign', 'campaign', 'Context to use by default to forward the call in Campaign of Callback', 0, NULL, 'callback');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(225, 'Card Show Fields', 'card_show_field_list', 'id:,username:, useralias:, lastname:,id_group:, id_agent:,  credit:, tariff:, status:, language:, inuse:, currency:, sip_buddy:, iax_buddy:, nbused:,', 'Fields to show in Customer. Order is important. You can setup size of field using "fieldname:10%" notation or "fieldname:" for harcoded size,"fieldname" for autosize. <br/>You can use:<br/> id,username, useralias, lastname, id_group, id_agent,  credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused, firstname, email, discount, callerid, id_seria, serial', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(225, 'Card Show Fields', 'card_show_field_list', 'id:,username:, useralias:, lastname:,id_group:, id_agent:,  credit:, tariff:, status:, language:, in', 'Fields to show in Customer. Order is important. You can setup size of field using "fieldname:10%" notation or "fieldname:" for harcoded size,"fieldname" for autosize. <br/>You can use:<br/> id,username, useralias, lastname, id_group, id_agent,  credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused, firstname, email, discount, callerid, id_seria, serial', 0, NULL, 'webui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(226, 'Enable CDR local cache', 'cache_enabled', '0', 'If you want enabled the local cache to save the CDR in a SQLite Database.', 1, 'yes,no', 'global');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(227, 'Path for the CDR cache file', 'cache_path', '/etc/asterisk/cache_a2billing', 'Defined the file that you want use for the CDR cache to save the CDR in a local SQLite database.', 0, NULL, 'global');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(228, 'PNL Pay Phones', 'report_pnl_pay_phones', '(8887798764,0.02,0.06)', 'Info for PNL report. Must be in form "(number1,buycost,sellcost),(number2,buycost,sellcost)", number can be prefix, i.e 1800', 0, NULL, 'webui');
@@ -1123,6 +1117,48 @@ INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `co
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(249, 'Secure Application Agent Path', 'https_cookie_path_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your Secure Server.', 0, NULL, 'epayment_method');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(250, 'Application Agent Physical Path', 'dir_ws_http_catalog_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your server.', 0, NULL, 'epayment_method');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(251, 'Secure Application Agent Physical Path', 'dir_ws_https_catalog_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your Secure server.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(257, 'Option CallerID update', 'callerid_update', '0', 'Prompt the caller to update his callerID', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(262, 'Auto Create Card', 'cid_auto_create_card', '0', 'if the callerID is captured on a2billing, this option will create automatically a new card and add the callerID to it.', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(263, 'Auto Create Card Length', 'cid_auto_create_card_len', '10', 'set the length of the card that will be auto create (ie, 10).', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(264, 'Auto Create Card Type', 'cid_auto_create_card_typepaid', 'PREPAID', 'billing type of the new card( value : POSTPAID or PREPAID) .', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(265, 'Auto Create Card Credit', 'cid_auto_create_card_credit', '0', 'amount of credit of the new card.', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(266, 'Auto Create Card Limit', 'cid_auto_create_card_credit_limit', '0', 'if postpay, define the credit limit for the card.', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(267, 'Auto Create Card TariffGroup', 'cid_auto_create_card_tariffgroup', '1', 'the tariffgroup to use for the new card (this is the ID that you can find on the admin web interface) .', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(268, 'Paypal Amount Subscription', 'paypal_subscription_amount', '10', 'amount to billed each recurrence of payment ', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(269, 'Paypal Subscription Time period number', 'paypal_subscription_period_number', '1', 'number of time periods between each recurrence', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(270, 'Paypal Subscription Time period', 'paypal_subscription_time_period', 'M', 'time period (D=days, W=weeks, M=months, Y=years)', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(271, 'Enable PayPal subscription', 'paypal_subscription_enabled', '0', 'Enable Paypal subscription on the User home page, you need a Premier or Business account.', 1, 'yes,no', 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(272, 'Paypal Subscription account', 'paypal_subscription_account', '', 'Your PayPal ID or an email address associated with your PayPal account. Email addresses must be confirmed and bound to a Premier or Business Verified Account.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(273, 'Base Country', 'base_country', 'USA', 'Define the country code in 3 letters where you are located (ISO 3166-1 : "USA" for United States)', 0, '', 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(274, 'Base Language', 'base_language', 'en', 'Define your language code in 2 letters (ISO 639 : "en" for English)', 0, '', 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(275, 'Authorize Remittance Request', 'remittance_request', '1', 'Enable or disable the link which allow agent to submit a remittance request', 0, 'yes,no', 'webagentui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(276, 'Asterisk Version Global', 'asterisk_version', '1_4', 'Asterisk Version Information, 1_1, 1_2, 1_4, 1_6. By Default the version is 1_4.', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(277, 'Archive Calls', 'archive_call_prior_x_month', '24', 'A cront can be enabled in order to archive your CDRs, this setting allow to define prior which month it will archive', 0, NULL, 'backup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(278, 'Days to bill before month anniversary', 'subscription_bill_days_before_anniversary', '3', 'Numbers of days to bill a subscription service before the month anniversary', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(279, 'Enable info module about system', 'system_info_enable', 'LEFT', 'Enabled this if you want to display the info module and place it somewhere on the Dashboard.', 0, 'NONE,LEFT,CENTER,RIGHT', 'dashboard');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(280, 'Enable news module', 'news_enabled', 'RIGHT', 'Enabled this if you want to display the news module and place it somewhere on the Dashboard.', 0, 'NONE,LEFT,CENTER,RIGHT', 'dashboard');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(281, 'Busy Timeout', 'busy_timeout', '1', 'Define the timeout in second when indicate the busy condition', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(282, 'Callback Reduce Balance', 'callback_reduce_balance', '1', 'Define the amount to reduce the balance on Callback in order to make sure that the B leg wont alter the account into a negative value.', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(283, 'Language field', 'field_language', '1', 'Enable The Language Field -  Yes 1 - No 0.', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(284, 'Currency field', 'field_currency', '1', 'Enable The Currency Field - Yes 1 - No 0. ', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(285, 'Last Name Field', 'field_lastname', '1', 'Enable The Last Name Field - Yes 1 - No 0. ', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(286, 'First Name Field', 'field_firstname', '1', 'Enable The First Name Field - Yes 1 - No 0. ', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(287, 'Address Field', 'field_address', '1', 'Enable The Address Field - Yes 1 - No 0. ', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(288, 'City Field', 'field_city', '1', 'Enable The City Field - Yes 1 - No 0. ', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(289, 'State Field', 'field_state', '1', 'Enable The State Field - Yes 1 - No 0. ', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(290, 'Country Field', 'field_country', '1', 'Enable The Country Field - Yes 1 - No 0. ', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(291, 'Zipcode Field', 'field_zipcode', '1', 'Enable The Zipcode Field - Yes 1 - No 0. ', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(292, 'Timezone Field', 'field_id_timezone', '1', 'Enable The Timezone Field - Yes 1 - No 0. ', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(293, 'Phone Field', 'field_phone', '1', 'Enable The Phone Field - Yes 1 - No 0. ', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(294, 'Fax Field', 'field_fax', '1', 'Enable The Fax Field - Yes 1 - No 0. ', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(295, 'Company Name Field', 'field_company', '1', 'Enable The Company Name Field - Yes 1 - No 0. ', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(296, 'Company Website Field', 'field_company_website', '1', 'Enable The Company Website Field - Yes 1 - No 0. ', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(297, 'VAT Registration Number Field', 'field_VAT_RN', '1', 'Enable The VAT Registration Number Field - Yes 1 - No 0. ', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(298, 'Traffic Field', 'field_traffic', '1', 'Enable The Traffic Field - Yes 1 - No 0. ', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(299, 'Traffic Target Field', 'field_traffic_target', '1', 'Enable The Traffic Target Field - Yes 1 - No 0. ', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(300, 'IVR Locking option', 'ivr_enable_locking_option', '0', 'Enable the IVR which allow the users to lock their account with an extra lock code.', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(301, 'IVR Account Information', 'ivr_enable_account_information', '0', 'Enable the IVR which allow the users to retrieve different information about their account.', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(302, 'IVR Speed Dial', 'ivr_enable_ivr_speeddial', '0', 'Enable the IVR which allow the users add speed dial.', 1, 'yes,no', 'agi-conf1');
 
 -- --------------------------------------------------------
 
@@ -1140,7 +1176,7 @@ CREATE TABLE IF NOT EXISTS `cc_configuration` (
   `use_function` varchar(255) collate utf8_bin default NULL,
   `set_function` varchar(255) collate utf8_bin default NULL,
   PRIMARY KEY  (`configuration_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=26 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=33 ;
 
 --
 -- Dumping data for table `cc_configuration`
@@ -1154,10 +1190,12 @@ INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `conf
 INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(6, 'Enable Authorize.net Module', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', 'False', 'Do you want to accept Authorize.net payments?', 0, NULL, 'tep_cfg_select_option(array(''True'', ''False''), ');
 INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(7, 'Enable PayPal Module', 'MODULE_PAYMENT_PAYPAL_STATUS', 'True', 'Do you want to accept PayPal payments?', 0, NULL, 'tep_cfg_select_option(array(''True'', ''False''), ');
 INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(8, 'E-Mail Address', 'MODULE_PAYMENT_PAYPAL_ID', 'you@yourbusiness.com', 'The e-mail address to use for the PayPal service', 0, NULL, NULL);
-INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(9, 'Alternative Transaction Currency', 'MODULE_PAYMENT_PAYPAL_CURRENCY', 'Selected Currency', 'The alternative currency to use for credit card transactions if the system currency is not usable', 0, NULL, 'tep_cfg_select_option(array(''USD'',''CAD'',''EUR'',''GBP'',''JPY''), ');
+INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(30, 'Transaction Currency', 'MODULE_PAYMENT_IRIDIUM_CURRENCY', 'Selected Currency', 'The default currency for the payment transactions', 0, NULL, 'tep_cfg_select_option(array(''Selected Currency'',''EUR'', ''USD'', ''GBP'', ''HKD'', ''SGD'', ''JPY'', ''CAD'', ''AUD'', ''CHF'', ''DKK'', ''SEK'', ''NOK'', ''ILS'', ''MYR'', ''NZD'', ''TWD'', ''THB'', ''CZK'', ''HUF'', ''SKK'', ''ISK'', ''INR''), ');
 INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(10, 'E-Mail Address', 'MODULE_PAYMENT_MONEYBOOKERS_ID', 'you@yourbusiness.com', 'The eMail address to use for the moneybookers service', 0, NULL, NULL);
 INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(11, 'Referral ID', 'MODULE_PAYMENT_MONEYBOOKERS_REFID', '989999', 'Your personal Referral ID from moneybookers.com', 0, NULL, NULL);
-INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(12, 'Alternative Transaction Currency', 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY', 'Selected Currency', 'The alternative currency to use for credit card transactions if the system currency is not usable', 0, NULL, 'tep_cfg_select_option(array(''EUR'', ''USD'', ''GBP'', ''HKD'', ''SGD'', ''JPY'', ''CAD'', ''AUD'', ''CHF'', ''DKK'', ''SEK'', ''NOK'', ''ILS'', ''MYR'', ''NZD'', ''TWD'', ''THB'', ''CZK'', ''HUF'', ''SKK'', ''ISK'', ''INR''), ');
+INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(26, 'MerchantID', 'MODULE_PAYMENT_IRIDIUM_MERCHANTID', 'yourMerchantId', 'Your Mechant Id provided by Iridium', 0, NULL, NULL);
+INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(27, 'Password', 'MODULE_PAYMENT_IRIDIUM_PASSWORD', 'Password', 'password for Iridium merchant', 0, NULL, NULL);
+INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(28, 'PaymentProcessor', 'MODULE_PAYMENT_IRIDIUM_GATEWAY', 'PaymentGateway URL ', 'Enter payment gateway URL', 0, NULL, NULL);
 INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(13, 'Transaction Language', 'MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE', 'Selected Language', 'The default language for the payment transactions', 0, NULL, 'tep_cfg_select_option(array(''Selected Language'',''EN'', ''DE'', ''ES'', ''FR''), ');
 INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(14, 'Enable moneybookers Module', 'MODULE_PAYMENT_MONEYBOOKERS_STATUS', 'True', 'Do you want to accept moneybookers payments?', 0, NULL, 'tep_cfg_select_option(array(''True'', ''False''), ');
 INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(15, 'Enable PlugnPay Module', 'MODULE_PAYMENT_PLUGNPAY_STATUS', 'True', 'Do you want to accept payments through PlugnPay?', 0, NULL, 'tep_cfg_select_option(array(''True'', ''False''), ');
@@ -1171,6 +1209,9 @@ INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `conf
 INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(23, 'Authorization Type', 'MODULE_PAYMENT_PLUGNPAY_CCMODE', 'authpostauth', 'Credit card processing mode', 0, NULL, 'tep_cfg_select_option(array(''authpostauth'', ''authonly''), ');
 INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(24, 'Customer Notifications', 'MODULE_PAYMENT_PLUGNPAY_DONTSNDMAIL', 'yes', 'Should PlugnPay not email a receipt to the customer?', 0, NULL, 'tep_cfg_select_option(array(''yes'', ''no''), ');
 INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(25, 'Accepted Credit Cards', 'MODULE_PAYMENT_PLUGNPAY_ACCEPTED_CC', 'Mastercard, Visa', 'The credit cards you currently accept', 0, NULL, '_selectOptions(array(''Amex'',''Discover'', ''Mastercard'', ''Visa''), ');
+INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(29, 'PaymentProcessorPort', 'MODULE_PAYMENT_IRIDIUM_GATEWAY_PORT', 'PaymentGateway Port ', 'Enter payment gateway port', 0, NULL, NULL);
+INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(31, 'Transaction Language', 'MODULE_PAYMENT_IRIDIUM_LANGUAGE', 'Selected Language', 'The default language for the payment transactions', 0, NULL, 'tep_cfg_select_option(array(''Selected Language'',''EN'', ''DE'', ''ES'', ''FR''), ');
+INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(32, 'Enable iridium Module', 'MODULE_PAYMENT_IRIDIUM_STATUS', 'False', 'Do you want to accept Iridium payments?', 0, NULL, 'tep_cfg_select_option(array(''True'', ''False''), ');
 
 -- --------------------------------------------------------
 
@@ -1407,7 +1448,7 @@ INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) V
 INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(183, 'VCT', '1784', 'SaINT Vincent And The Grenadines');
 INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(184, 'WSM', '685', 'Samoa');
 INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(185, 'SMR', '378', 'San Marino');
-INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(186, 'STP', '239', 'SÃ£o TomÃ© And Principe');
+INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(186, 'STP', '239', 'SÃƒÂ£o TomÃƒÂ© And Principe');
 INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(187, 'SAU', '966', 'Saudi Arabia');
 INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(188, 'SEN', '221', 'Senegal');
 INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(189, 'SYC', '248', 'Seychelles');
@@ -1467,7 +1508,7 @@ INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) V
 INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(243, 'TMP', '0', 'East timor');
 INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(244, 'AK', '0', 'Alaska');
 INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(245, 'HI', '0', 'Hawaii');
-INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(53, 'CIV', '225', 'CÃ´te d''Ivoire');
+INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(53, 'CIV', '225', 'CÃƒÂ´te d''Ivoire');
 INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(246, 'ALA', '35818', 'Aland Islands');
 INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(247, 'BLM', '0', 'Saint Barthelemy');
 INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(248, 'GGY', '441481', 'Guernsey');
@@ -1672,8 +1713,11 @@ CREATE TABLE IF NOT EXISTS `cc_did` (
   `secondusedreal` int(11) default '0',
   `billingtype` int(11) default '0',
   `fixrate` float NOT NULL default '0',
+  `connection_charge` decimal(15,5) NOT NULL default '0.00000',
+  `selling_rate` decimal(15,5) NOT NULL default '0.00000',
   PRIMARY KEY  (`id`),
-  UNIQUE KEY `cons_cc_did_did` (`did`)
+  UNIQUE KEY `cons_cc_did_did` (`did`),
+  UNIQUE KEY `did` (`did`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 --
@@ -1689,7 +1733,6 @@ CREATE TABLE IF NOT EXISTS `cc_did` (
 
 CREATE TABLE IF NOT EXISTS `cc_didgroup` (
   `id` bigint(20) NOT NULL auto_increment,
-  `iduser` int(11) NOT NULL default '0',
   `didgroupname` char(50) collate utf8_bin NOT NULL,
   `creationdate` timestamp NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`)
@@ -1708,7 +1751,7 @@ CREATE TABLE IF NOT EXISTS `cc_didgroup` (
 
 CREATE TABLE IF NOT EXISTS `cc_did_destination` (
   `id` bigint(20) NOT NULL auto_increment,
-  `destination` char(50) collate utf8_bin NOT NULL,
+  `destination` varchar(120) collate utf8_bin NOT NULL,
   `priority` int(11) NOT NULL default '0',
   `id_cc_card` bigint(20) NOT NULL,
   `id_cc_did` bigint(20) NOT NULL,
@@ -1744,41 +1787,6 @@ CREATE TABLE IF NOT EXISTS `cc_did_use` (
 
 --
 -- Dumping data for table `cc_did_use`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cc_ecommerce_product`
---
-
-CREATE TABLE IF NOT EXISTS `cc_ecommerce_product` (
-  `id` bigint(20) NOT NULL auto_increment,
-  `product_name` varchar(255) collate utf8_bin NOT NULL,
-  `creationdate` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `description` mediumtext collate utf8_bin,
-  `expirationdate` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `enableexpire` int(11) default '0',
-  `expiredays` int(11) default '0',
-  `mailtype` varchar(50) collate utf8_bin NOT NULL,
-  `credit` float NOT NULL default '0',
-  `tariff` int(11) default '0',
-  `id_didgroup` int(11) default '0',
-  `activated` char(1) collate utf8_bin NOT NULL default 'f',
-  `simultaccess` int(11) default '0',
-  `currency` char(3) collate utf8_bin default 'USD',
-  `typepaid` int(11) default '0',
-  `creditlimit` int(11) default '0',
-  `language` char(5) collate utf8_bin default 'en',
-  `runservice` int(11) default '0',
-  `sip_friend` int(11) default '0',
-  `iax_friend` int(11) default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `cc_ecommerce_product`
 --
 
 
@@ -1855,45 +1863,60 @@ CREATE TABLE IF NOT EXISTS `cc_iax_buddies` (
   `accountcode` varchar(20) collate utf8_bin NOT NULL,
   `regexten` varchar(20) collate utf8_bin NOT NULL,
   `amaflags` char(7) collate utf8_bin default NULL,
-  `callgroup` char(10) collate utf8_bin default NULL,
   `callerid` varchar(80) collate utf8_bin NOT NULL,
-  `canreinvite` varchar(20) collate utf8_bin NOT NULL,
   `context` varchar(80) collate utf8_bin NOT NULL,
   `DEFAULTip` char(15) collate utf8_bin default NULL,
-  `dtmfmode` char(7) collate utf8_bin NOT NULL default 'RFC2833',
-  `fromuser` varchar(80) collate utf8_bin NOT NULL,
-  `fromdomain` varchar(80) collate utf8_bin NOT NULL,
   `host` varchar(31) collate utf8_bin NOT NULL,
-  `insecure` varchar(20) collate utf8_bin NOT NULL,
   `language` char(2) collate utf8_bin default NULL,
-  `mailbox` varchar(50) collate utf8_bin NOT NULL,
-  `md5secret` varchar(80) collate utf8_bin NOT NULL,
-  `nat` char(3) collate utf8_bin default 'yes',
-  `permit` varchar(95) collate utf8_bin NOT NULL,
   `deny` varchar(95) collate utf8_bin NOT NULL,
+  `permit` varchar(95) collate utf8_bin default NULL,
   `mask` varchar(95) collate utf8_bin NOT NULL,
-  `pickupgroup` char(10) collate utf8_bin default NULL,
   `port` char(5) collate utf8_bin NOT NULL default '',
   `qualify` char(7) collate utf8_bin default 'yes',
-  `restrictcid` char(1) collate utf8_bin default NULL,
-  `rtptimeout` char(3) collate utf8_bin default NULL,
-  `rtpholdtimeout` char(3) collate utf8_bin default NULL,
   `secret` varchar(80) collate utf8_bin NOT NULL,
   `type` char(6) collate utf8_bin NOT NULL default 'friend',
   `username` varchar(80) collate utf8_bin NOT NULL,
   `disallow` varchar(100) collate utf8_bin NOT NULL,
   `allow` varchar(100) collate utf8_bin NOT NULL,
-  `musiconhold` varchar(100) collate utf8_bin NOT NULL,
   `regseconds` int(11) NOT NULL default '0',
   `ipaddr` char(15) collate utf8_bin NOT NULL default '',
-  `cancallforward` char(3) collate utf8_bin default 'yes',
   `trunk` char(3) collate utf8_bin default 'no',
+  `dbsecret` varchar(40) collate utf8_bin NOT NULL default '',
+  `regcontext` varchar(40) collate utf8_bin NOT NULL default '',
+  `sourceaddress` varchar(20) collate utf8_bin NOT NULL default '',
+  `mohinterpret` varchar(20) collate utf8_bin NOT NULL default '',
+  `mohsuggest` varchar(20) collate utf8_bin NOT NULL default '',
+  `inkeys` varchar(40) collate utf8_bin NOT NULL default '',
+  `outkey` varchar(40) collate utf8_bin NOT NULL default '',
+  `cid_number` varchar(40) collate utf8_bin NOT NULL default '',
+  `sendani` varchar(10) collate utf8_bin NOT NULL default '',
+  `fullname` varchar(40) collate utf8_bin NOT NULL default '',
+  `auth` varchar(20) collate utf8_bin NOT NULL default '',
+  `maxauthreq` varchar(15) collate utf8_bin NOT NULL default '',
+  `encryption` varchar(20) collate utf8_bin NOT NULL default '',
+  `transfer` varchar(10) collate utf8_bin NOT NULL default '',
+  `jitterbuffer` varchar(10) collate utf8_bin NOT NULL default '',
+  `forcejitterbuffer` varchar(10) collate utf8_bin NOT NULL default '',
+  `codecpriority` varchar(40) collate utf8_bin NOT NULL default '',
+  `qualifysmoothing` varchar(10) collate utf8_bin NOT NULL default '',
+  `qualifyfreqok` varchar(10) collate utf8_bin NOT NULL default '',
+  `qualifyfreqnotok` varchar(10) collate utf8_bin NOT NULL default '',
+  `timezone` varchar(20) collate utf8_bin NOT NULL default '',
+  `adsi` varchar(10) collate utf8_bin NOT NULL default '',
+  `setvar` varchar(200) collate utf8_bin NOT NULL default '',
+  `requirecalltoken` varchar(20) collate utf8_bin NOT NULL default '',
+  `maxcallnumbers` varchar(10) collate utf8_bin NOT NULL default '',
+  `maxcallnumbers_nonvalidated` varchar(10) collate utf8_bin NOT NULL default '',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `cons_cc_iax_buddies_name` (`name`),
   KEY `name` (`name`),
   KEY `host` (`host`),
   KEY `ipaddr` (`ipaddr`),
-  KEY `port` (`port`)
+  KEY `port` (`port`),
+  KEY `iax_friend_nh_index` (`name`,`host`),
+  KEY `iax_friend_nip_index` (`name`,`ipaddr`,`port`),
+  KEY `iax_friend_ip_index` (`ipaddr`,`port`),
+  KEY `iax_friend_hp_index` (`host`,`port`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 --
@@ -1937,7 +1960,7 @@ CREATE TABLE IF NOT EXISTS `cc_invoice_conf` (
   `value` varchar(50) collate utf8_bin NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `key_val` (`key_val`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `cc_invoice_conf`
@@ -1953,6 +1976,7 @@ INSERT INTO `cc_invoice_conf` (`id`, `key_val`, `value`) VALUES(7, 'fax', 'xxxxx
 INSERT INTO `cc_invoice_conf` (`id`, `key_val`, `value`) VALUES(8, 'email', 'xxxxxxx@xxxxxxx.xxx');
 INSERT INTO `cc_invoice_conf` (`id`, `key_val`, `value`) VALUES(9, 'vat', 'xxxxxxxxxx');
 INSERT INTO `cc_invoice_conf` (`id`, `key_val`, `value`) VALUES(10, 'web', 'www.xxxxxxx.xxx');
+INSERT INTO `cc_invoice_conf` (`id`, `key_val`, `value`) VALUES(11, 'display_account', '0');
 
 -- --------------------------------------------------------
 
@@ -2169,6 +2193,7 @@ CREATE TABLE IF NOT EXISTS `cc_logpayment` (
   `added_refill` smallint(6) NOT NULL default '0',
   `payment_type` tinyint(4) NOT NULL default '0',
   `added_commission` tinyint(4) NOT NULL default '0',
+  `agent_id` bigint(20) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
@@ -2214,6 +2239,7 @@ CREATE TABLE IF NOT EXISTS `cc_logrefill` (
   `description` mediumtext collate utf8_bin,
   `refill_type` tinyint(4) NOT NULL default '0',
   `added_invoice` tinyint(4) NOT NULL default '0',
+  `agent_id` bigint(20) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
@@ -2246,16 +2272,66 @@ CREATE TABLE IF NOT EXISTS `cc_logrefill_agent` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cc_message_agent`
+--
+
+CREATE TABLE IF NOT EXISTS `cc_message_agent` (
+  `id` bigint(20) NOT NULL auto_increment,
+  `id_agent` int(11) NOT NULL,
+  `message` longtext collate utf8_bin,
+  `type` tinyint(4) NOT NULL default '0',
+  `logo` tinyint(4) NOT NULL default '1',
+  `order_display` int(11) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `cc_message_agent`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cc_monitor`
+--
+
+CREATE TABLE IF NOT EXISTS `cc_monitor` (
+  `id` bigint(20) NOT NULL auto_increment,
+  `label` varchar(50) collate utf8_bin NOT NULL,
+  `dial_code` int(11) default NULL,
+  `description` varchar(250) collate utf8_bin default NULL,
+  `text_intro` varchar(250) collate utf8_bin default NULL,
+  `query_type` tinyint(4) NOT NULL default '1',
+  `query` varchar(1000) collate utf8_bin default NULL,
+  `result_type` tinyint(4) NOT NULL default '1',
+  `enable` tinyint(4) NOT NULL default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `cc_monitor`
+--
+
+INSERT INTO `cc_monitor` (`id`, `label`, `dial_code`, `description`, `text_intro`, `query_type`, `query`, `result_type`, `enable`) VALUES(1, 'TotalCall', 2, 'To say the total amount of calls', 'The total amount of calls on your system is', 1, 'select count(*) from cc_call;', 3, 1);
+INSERT INTO `cc_monitor` (`id`, `label`, `dial_code`, `description`, `text_intro`, `query_type`, `query`, `result_type`, `enable`) VALUES(2, 'Say Time', 1, 'just saying the current date and time', 'The current date and time is', 1, 'SELECT UNIX_TIMESTAMP( );', 2, 1);
+INSERT INTO `cc_monitor` (`id`, `label`, `dial_code`, `description`, `text_intro`, `query_type`, `query`, `result_type`, `enable`) VALUES(3, 'Test Connectivity', 3, 'Test Connectivity with Google', 'your Internet connection is', 2, 'check_connectivity.sh', 1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cc_notification`
 --
 
 CREATE TABLE IF NOT EXISTS `cc_notification` (
   `id` bigint(20) NOT NULL auto_increment,
-  `key_value` varchar(40) collate utf8_bin default NULL,
+  `key_value` varchar(255) collate utf8_bin default NULL,
   `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `priority` tinyint(4) NOT NULL default '0',
   `from_type` tinyint(4) NOT NULL,
   `from_id` bigint(20) default '0',
+  `link_id` bigint(20) default NULL,
+  `link_type` varchar(20) collate utf8_bin default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
@@ -2499,7 +2575,7 @@ CREATE TABLE IF NOT EXISTS `cc_payment_methods` (
   `payment_method` char(100) collate utf8_bin NOT NULL,
   `payment_filename` char(200) collate utf8_bin NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `cc_payment_methods`
@@ -2508,6 +2584,7 @@ CREATE TABLE IF NOT EXISTS `cc_payment_methods` (
 INSERT INTO `cc_payment_methods` (`id`, `payment_method`, `payment_filename`) VALUES(1, 'paypal', 'paypal.php');
 INSERT INTO `cc_payment_methods` (`id`, `payment_method`, `payment_filename`) VALUES(3, 'MoneyBookers', 'moneybookers.php');
 INSERT INTO `cc_payment_methods` (`id`, `payment_method`, `payment_filename`) VALUES(4, 'plugnpay', 'plugnpay.php');
+INSERT INTO `cc_payment_methods` (`id`, `payment_method`, `payment_filename`) VALUES(5, 'iridium', 'iridium.php');
 
 -- --------------------------------------------------------
 
@@ -7574,10 +7651,16 @@ CREATE TABLE IF NOT EXISTS `cc_ratecard` (
   `additional_grace` int(11) NOT NULL default '0',
   `minimal_cost` decimal(15,5) NOT NULL default '0.00000',
   `announce_time_correction` decimal(5,3) NOT NULL default '1.000',
-  `destination` int(11) default '0',
+  `destination` bigint(20) default '0',
   PRIMARY KEY  (`id`),
-  KEY `ind_cc_ratecard_dialprefix` (`dialprefix`)
+  KEY `ind_cc_ratecard_dialprefix` (`dialprefix`),
+  KEY `idtariffplan_index` (`idtariffplan`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `cc_ratecard`
+--
+
 
 --
 -- Triggers `cc_ratecard`
@@ -7600,11 +7683,6 @@ CREATE TRIGGER `cc_ratecard_validate_regex_upd` BEFORE UPDATE ON `cc_ratecard`
 END
 //
 DELIMITER ;
-
---
--- Dumping data for table `cc_ratecard`
---
-
 
 -- --------------------------------------------------------
 
@@ -7652,6 +7730,27 @@ CREATE TABLE IF NOT EXISTS `cc_receipt_item` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cc_remittance_request`
+--
+
+CREATE TABLE IF NOT EXISTS `cc_remittance_request` (
+  `id` bigint(20) NOT NULL auto_increment,
+  `id_agent` bigint(20) NOT NULL,
+  `amount` decimal(15,5) NOT NULL,
+  `type` tinyint(4) NOT NULL,
+  `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `status` tinyint(4) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `cc_remittance_request`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cc_restricted_phonenumber`
 --
 
@@ -7684,7 +7783,7 @@ CREATE TABLE IF NOT EXISTS `cc_server_group` (
 -- Dumping data for table `cc_server_group`
 --
 
-INSERT INTO `cc_server_group` (`id`, `name`, `description`) VALUES(1, 'default', 'default group of server');
+INSERT INTO `cc_server_group` (`id`, `name`, `description`) VALUES(1, 'default', 0x64656661756c742067726f7570206f6620736572766572);
 
 -- --------------------------------------------------------
 
@@ -7789,8 +7888,8 @@ CREATE TABLE IF NOT EXISTS `cc_sip_buddies` (
   `mailbox` varchar(50) collate utf8_bin NOT NULL,
   `md5secret` varchar(80) collate utf8_bin NOT NULL,
   `nat` char(3) collate utf8_bin default 'yes',
-  `permit` varchar(95) collate utf8_bin NOT NULL,
   `deny` varchar(95) collate utf8_bin NOT NULL,
+  `permit` varchar(95) collate utf8_bin default NULL,
   `mask` varchar(95) collate utf8_bin NOT NULL,
   `pickupgroup` char(10) collate utf8_bin default NULL,
   `port` char(5) collate utf8_bin NOT NULL default '',
@@ -7811,12 +7910,30 @@ CREATE TABLE IF NOT EXISTS `cc_sip_buddies` (
   `setvar` varchar(100) collate utf8_bin NOT NULL,
   `regserver` varchar(20) collate utf8_bin default NULL,
   `lastms` varchar(11) collate utf8_bin default NULL,
+  `defaultuser` varchar(40) collate utf8_bin NOT NULL default '',
+  `auth` varchar(10) collate utf8_bin NOT NULL default '',
+  `subscribemwi` varchar(10) collate utf8_bin NOT NULL default '',
+  `vmexten` varchar(20) collate utf8_bin NOT NULL default '',
+  `cid_number` varchar(40) collate utf8_bin NOT NULL default '',
+  `callingpres` varchar(20) collate utf8_bin NOT NULL default '',
+  `usereqphone` varchar(10) collate utf8_bin NOT NULL default '',
+  `incominglimit` varchar(10) collate utf8_bin NOT NULL default '',
+  `subscribecontext` varchar(40) collate utf8_bin NOT NULL default '',
+  `musicclass` varchar(20) collate utf8_bin NOT NULL default '',
+  `mohsuggest` varchar(20) collate utf8_bin NOT NULL default '',
+  `allowtransfer` varchar(20) collate utf8_bin NOT NULL default '',
+  `autoframing` varchar(10) collate utf8_bin NOT NULL default '',
+  `maxcallbitrate` varchar(15) collate utf8_bin NOT NULL default '',
+  `outboundproxy` varchar(40) collate utf8_bin NOT NULL default '',
+  `rtpkeepalive` varchar(15) collate utf8_bin NOT NULL default '',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `cons_cc_sip_buddies_name` (`name`),
   KEY `name` (`name`),
   KEY `host` (`host`),
   KEY `ipaddr` (`ipaddr`),
-  KEY `port` (`port`)
+  KEY `port` (`port`),
+  KEY `sip_friend_hp_index` (`host`,`port`),
+  KEY `sip_friend_ip_index` (`ipaddr`,`port`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 --
@@ -7824,53 +7941,6 @@ CREATE TABLE IF NOT EXISTS `cc_sip_buddies` (
 --
 
 
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `cc_sip_buddies_empty`
---
-CREATE TABLE IF NOT EXISTS `cc_sip_buddies_empty` (
-`id` int(11)
-,`id_cc_card` int(11)
-,`name` varchar(80)
-,`accountcode` varchar(20)
-,`regexten` varchar(20)
-,`amaflags` char(7)
-,`callgroup` char(10)
-,`callerid` varchar(80)
-,`canreinvite` varchar(20)
-,`context` varchar(80)
-,`DEFAULTip` char(15)
-,`dtmfmode` char(7)
-,`fromuser` varchar(80)
-,`fromdomain` varchar(80)
-,`host` varchar(31)
-,`insecure` varchar(20)
-,`language` char(2)
-,`mailbox` varchar(50)
-,`md5secret` varchar(80)
-,`nat` char(3)
-,`permit` varchar(95)
-,`deny` varchar(95)
-,`mask` varchar(95)
-,`pickupgroup` char(10)
-,`port` char(5)
-,`qualify` char(7)
-,`restrictcid` char(1)
-,`rtptimeout` char(3)
-,`rtpholdtimeout` char(3)
-,`secret` char(0)
-,`type` char(6)
-,`username` varchar(80)
-,`disallow` varchar(100)
-,`allow` varchar(100)
-,`musiconhold` varchar(100)
-,`regseconds` int(11)
-,`ipaddr` char(15)
-,`cancallforward` char(3)
-,`fullcontact` varchar(80)
-,`setvar` varchar(100)
-);
 -- --------------------------------------------------------
 
 --
@@ -7915,26 +7985,48 @@ CREATE TABLE IF NOT EXISTS `cc_status_log` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cc_subscription_fee`
+-- Table structure for table `cc_subscription_service`
 --
 
-CREATE TABLE IF NOT EXISTS `cc_subscription_fee` (
+CREATE TABLE IF NOT EXISTS `cc_subscription_service` (
   `id` bigint(20) NOT NULL auto_increment,
-  `label` text collate utf8_bin NOT NULL,
+  `label` varchar(200) collate utf8_bin NOT NULL,
   `fee` float NOT NULL default '0',
-  `currency` char(3) collate utf8_bin default 'USD',
   `status` int(11) NOT NULL default '0',
   `numberofrun` int(11) NOT NULL default '0',
   `datecreate` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `datelastrun` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `emailreport` text collate utf8_bin,
+  `emailreport` varchar(100) collate utf8_bin NOT NULL,
   `totalcredit` float NOT NULL default '0',
   `totalcardperform` int(11) NOT NULL default '0',
+  `startdate` timestamp NOT NULL default '0000-00-00 00:00:00',
+  `stopdate` timestamp NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `cc_subscription_fee`
+-- Dumping data for table `cc_subscription_service`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cc_subscription_signup`
+--
+
+CREATE TABLE IF NOT EXISTS `cc_subscription_signup` (
+  `id` bigint(20) NOT NULL auto_increment,
+  `label` varchar(50) collate utf8_bin NOT NULL,
+  `id_subscription` bigint(20) default NULL,
+  `description` varchar(500) collate utf8_bin default NULL,
+  `enable` tinyint(4) NOT NULL default '1',
+  `id_callplan` bigint(20) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `cc_subscription_signup`
 --
 
 
@@ -7947,6 +8039,8 @@ CREATE TABLE IF NOT EXISTS `cc_subscription_fee` (
 CREATE TABLE IF NOT EXISTS `cc_support` (
   `id` smallint(5) NOT NULL auto_increment,
   `name` varchar(50) collate utf8_bin NOT NULL,
+  `email` varchar(70) collate utf8_bin default NULL,
+  `language` char(5) collate utf8_bin NOT NULL default 'en',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
 
@@ -7954,7 +8048,7 @@ CREATE TABLE IF NOT EXISTS `cc_support` (
 -- Dumping data for table `cc_support`
 --
 
-INSERT INTO `cc_support` (`id`, `name`) VALUES(1, 'DEFAULT');
+INSERT INTO `cc_support` (`id`, `name`, `email`, `language`) VALUES(1, 'DEFAULT', NULL, 'en');
 
 -- --------------------------------------------------------
 
@@ -7967,6 +8061,7 @@ CREATE TABLE IF NOT EXISTS `cc_support_component` (
   `id_support` smallint(5) NOT NULL,
   `name` varchar(50) collate utf8_bin NOT NULL,
   `activated` smallint(6) NOT NULL default '1',
+  `type_user` tinyint(4) NOT NULL default '2',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
 
@@ -7974,7 +8069,7 @@ CREATE TABLE IF NOT EXISTS `cc_support_component` (
 -- Dumping data for table `cc_support_component`
 --
 
-INSERT INTO `cc_support_component` (`id`, `id_support`, `name`, `activated`) VALUES(1, 1, 'DEFAULT', 1);
+INSERT INTO `cc_support_component` (`id`, `id_support`, `name`, `activated`, `type_user`) VALUES(1, 1, 'DEFAULT', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -7993,8 +8088,14 @@ CREATE TABLE IF NOT EXISTS `cc_system_log` (
   `pagename` varchar(255) collate utf8_bin default NULL,
   `ipaddress` varchar(255) collate utf8_bin default NULL,
   `creationdate` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `agent` tinyint(4) default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `cc_system_log`
+--
+
 
 -- --------------------------------------------------------
 
@@ -8074,35 +8175,37 @@ CREATE TABLE IF NOT EXISTS `cc_tariffplan` (
 --
 
 CREATE TABLE IF NOT EXISTS `cc_templatemail` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
   `id_language` char(20) collate utf8_bin NOT NULL default 'en',
   `mailtype` char(50) collate utf8_bin default NULL,
   `fromemail` char(70) collate utf8_bin default NULL,
   `fromname` char(70) collate utf8_bin default NULL,
-  `subject` char(70) collate utf8_bin default NULL,
-  `messagetext` longtext collate utf8_bin,
-  `messagehtml` longtext collate utf8_bin,
+  `subject` varchar(130) collate utf8_bin default NULL,
+  `messagetext` varchar(3000) collate utf8_bin default NULL,
+  `messagehtml` varchar(3000) collate utf8_bin default NULL,
+  PRIMARY KEY  (`id`),
   UNIQUE KEY `cons_cc_templatemail_id_language` (`mailtype`,`id_language`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `cc_templatemail`
 --
 
-INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) 
-VALUES (1, 'en', 'signup', 'info@mydomainname.com', 'COMPANY NAME', 'SIGNUP CONFIRMATION', '\nThank you for registering with us\n\nPlease click on below link to activate your account.\n\nhttp://mydomainname.com/A2Billing_UI/signup/activate.php?key=$loginkey$\n\nPlease make sure you active your account by making payment to us either by\ncredit card, wire transfer, money order, cheque, and western union money\ntransfer, money Gram, and Pay pal.\n\n\nKind regards,\nCall Labs\n', '');
-INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) 
-VALUES (2, 'en', 'reminder', 'info@mydomainname.com', 'COMPANY NAME', 'Your COMPANY NAME account $cardnumber$ is low on credit ($currency$ $credit$', '\n\nYour COMPANY NAME Account number $cardnumber$ is running low on credit.\n\nThere is currently only $creditcurrency$ $currency$ left on your account which is lower than the warning level defined ($credit_notification$)\n\n\nPlease top up your account ASAP to ensure continued service\n\nIf you no longer wish to receive these notifications or would like to change the balance amount at which these warnings are generated,\nplease connect on your myaccount panel and change the appropriate parameters\n\n\nyour account information :\nYour account number for VOIP authentication : $cardnumber$\n\nhttp://myaccount.mydomainname.com/\nYour account login : $login$\nYour account password : $password$\n\n\nThanks,\n/COMPANY NAME Team\n-------------------------------------\nhttp://www.mydomainname.com\n ', '');
-INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) 
-VALUES (3, 'en', 'forgetpassword', 'info@mydomainname.com', 'COMPANY NAME', 'Login Information', 'Your login information is as below:\n\nYour account is $cardnumber$\n\nYour password is $password$\n\nYour login is $login$\n\nhttp://mydomainname.com/A2BCustomer_UI/\n\nKind regards,\nCall Labs\n', '');
-INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) 
-VALUES (4, 'en', 'signupconfirmed', 'info@mydomainname.com', 'COMPANY NAME', 'SIGNUP CONFIRMATION', 'Thank you for registering with us\n\nPlease make sure you active your account by making payment to us either by\ncredit card, wire transfer, money order, cheque, and western union money\ntransfer, money Gram, and Pay pal.\n\nYour account is $cardnumber$\n\nYour password is $password$\n\nTo go to your account :\nhttp://mydomainname.com/customer/\n\nKind regards,\nCall Labs\n', '');
-INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) 
-VALUES (5, 'en', 'epaymentverify', 'info@mydomainname.com', 'COMPANY NAME', 'Epayment Gateway Security Verification Failed', 'Dear Administrator\n\nPlease check the Epayment Log, System has logged a Epayment Security failure. that may be a possible attack on epayment processing.\n\nTime of Transaction: $time$\nPayment Gateway: $paymentgateway$\nAmount: $itemAmount$\n\n\n\nKind regards,\nCall Labs\n', '');
-INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) 
-VALUES (6, 'en', 'payment', 'info@mydomainname.com', 'COMPANY NAME', 'PAYMENT CONFIRMATION', 'Thank you for shopping at COMPANY NAME.\n\nShopping details is as below.\n\nItem Name = <b>$itemName$</b>\nItem ID = <b>$itemID$</b>\nAmount = <b>$itemAmount$</b>\nPayment Method = <b>$paymentMethod$</b>\nStatus = <b>$paymentStatus$</b>\n\n\nKind regards,\nCall Labs\n', '');
-INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) 
-VALUES (7, 'en', 'invoice', 'info@mydomainname.com', 'COMPANY NAME', 'A2BILLING INVOICE', 'Dear Customer.\n\nAttached is the invoice.\n\nKind regards,\nCall Labs\n', '');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(1, 'en', 'signup', 'info@mydomainname.com', 'COMPANY NAME', 'SIGNUP CONFIRMATION', '\nThank you for registering with us\n\nPlease click on below link to activate your account.\n\nhttp://mydomainname.com/A2Billing_UI/signup/activate.php?key=$loginkey$\n\nPlease make sure you active your account by making payment to us either by\ncredit card, wire transfer, money order, cheque, and western union money\ntransfer, money Gram, and Pay pal.\n\n\nKind regards,\nCall Labs\n', '');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(2, 'en', 'reminder', 'info@mydomainname.com', 'COMPANY NAME', 'Your COMPANY NAME account $cardnumber$ is low on credit ($currency$ $c', '\n\nYour COMPANY NAME Account number $cardnumber$ is running low on credit.\n\nThere is currently only $creditcurrency$ $currency$ left on your account which is lower than the warning level defined ($credit_notification$)\n\n\nPlease top up your account ASAP to ensure continued service\n\nIf you no longer wish to receive these notifications or would like to change the balance amount at which these warnings are generated,\nplease connect on your myaccount panel and change the appropriate parameters\n\n\nyour account information :\nYour account number for VOIP authentication : $cardnumber$\n\nhttp://myaccount.mydomainname.com/\nYour account login : $login$\nYour account password : $password$\n\n\nThanks,\n/COMPANY NAME Team\n-------------------------------------\nhttp://www.mydomainname.com\n ', '');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(3, 'en', 'forgetpassword', 'info@mydomainname.com', 'COMPANY NAME', 'Login Information', 'Your login information is as below:\n\nYour account is $cardnumber$\n\nYour password is $password$\n\nYour login is $login$\n\nhttp://mydomainname.com/A2BCustomer_UI/\n\nKind regards,\nCall Labs\n', '');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(4, 'en', 'signupconfirmed', 'info@mydomainname.com', 'COMPANY NAME', 'SIGNUP CONFIRMATION', 'Thank you for registering with us\n\nPlease make sure you active your account by making payment to us either by\ncredit card, wire transfer, money order, cheque, and western union money\ntransfer, money Gram, and Pay pal.\n\nYour account is $cardnumber$\n\nYour password is $password$\n\nTo go to your account :\nhttp://mydomainname.com/customer/\n\nKind regards,\nCall Labs\n', '');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(5, 'en', 'epaymentverify', 'info@mydomainname.com', 'COMPANY NAME', 'Epayment Gateway Security Verification Failed', 'Dear Administrator\n\nPlease check the Epayment Log, System has logged a Epayment Security failure. that may be a possible attack on epayment processing.\n\nTime of Transaction: $time$\nPayment Gateway: $paymentgateway$\nAmount: $itemAmount$\n\n\n\nKind regards,\nCall Labs\n', '');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(6, 'en', 'payment', 'info@mydomainname.com', 'COMPANY NAME', 'PAYMENT CONFIRMATION', 'Thank you for shopping at COMPANY NAME.\n\nShopping details is as below.\n\nItem Name = <b>$itemName$</b>\nItem ID = <b>$itemID$</b>\nAmount = <b>$itemAmount$</b>\nPayment Method = <b>$paymentMethod$</b>\nStatus = <b>$paymentStatus$</b>\n\n\nKind regards,\nCall Labs\n', '');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(13, 'en', 'invoice_to_pay', 'info@mydomainname.com', 'COMPANY NAME', 'Invoice to pay Ref: $invoice_reference$', 'New Invoice send with the reference : $invoice_reference$ .\n \n    Title : $invoice_title$ .\n Description : $invoice_description$\n \n    TOTAL (exclude VAT) : $invoice_total$  $base_currency$\n TOTAL (invclude VAT) : $invoice_total_vat$ $base_currency$ \n\n \n    TOTAL TO PAY : $invoice_total_vat$ $base_currency$\n\n \n    You can check and pay this invoice by your account on the web interface : http://mydomainname.com/customer/  ', NULL);
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(8, 'en', 'did_paid', 'info@mydomainname.com', 'COMPANY NAME', 'DID notification - ($did$)', 'BALANCE REMAINING $balance_remaining$ $base_currency$\n\nAn automatic taking away of : $did_cost$ $base_currency$ has been carry out of your account to pay your DID ($did$)\n\nMonthly cost for DID : $did_cost$ $base_currency$\n\n', NULL);
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(9, 'en', 'did_unpaid', 'info@mydomainname.com', 'COMPANY NAME', 'DID notification - ($did$)', 'BALANCE REMAINING $balance_remaining$ $base_currency$\n\nYour credit is not enough to pay your DID number ($did$), the monthly cost is : $did_cost$ $base_currency$\n\nYou have $days_remaining$ days to pay the invoice (REF: $invoice_ref$ ) or the DID will be automatically released \n\n', NULL);
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(10, 'en', 'did_released', 'info@mydomainname.com', 'COMPANY NAME', 'DID released - ($did$)', 'The DID $did$ has been automatically released!\n\n', NULL);
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(11, 'en', 'new_ticket', 'info@mydomainname.com', 'COMPANY NAME', 'Support Ticket #$ticket_id$', 'New Ticket Open (#$ticket_id$) From $ticket_owner$.\n Title : $ticket_title$\n Priority : $ticket_priority$ \n Status : $ticket_status$ \n Description : $ticket_description$ \n', NULL);
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(12, 'en', 'modify_ticket', 'info@mydomainname.com', 'COMPANY NAME', 'Support Ticket #$ticket_id$', 'Ticket modified (#$ticket_id$) By $comment_creator$.\n Ticket Status -> $ticket_status$\n Description : $comment_description$ \n', NULL);
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(14, 'en', 'subscription_paid', 'info@mydomainname.com', 'COMPANY NAME', 'Subscription notification - $subscription_label$ ($subscription_id$)', 'BALANCE  $credit$ $base_currency$\n\n\nA decrement of: $subscription_fee$ $base_currency$ has removed from your account to pay your service. ($subscription_label$)\n\n\nthe monthly cost is : $subscription_fee$\n\n', NULL);
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(15, 'en', 'subscription_unpaid', 'info@mydomainname.com', 'COMPANY NAME', 'Subscription notification - $subscription_label$ ($subscription_id$)', 'BALANCE $credit$ $base_currency$\n\n\nYou do not have enough credit to pay your subscription,($subscription_label$), the monthly cost is : $subscription_fee$ $base_currency$\n\n\nYou have $days_remaining$ days to pay the invoice (REF: $invoice_ref$ ) or your service may cease \n\n', NULL);
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(16, 'en', 'subscription_disable_card', 'info@mydomainname.com', 'COMPANY NAME', 'Service deactivated - unpaid service $subscription_label$ ($subscription_id$)', 'The account has been automatically deactivated until the invoice is settled.\n\n', NULL);
 
 -- --------------------------------------------------------
 
@@ -8257,7 +8360,7 @@ INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES(75, '
 
 CREATE TABLE IF NOT EXISTS `cc_trunk` (
   `id_trunk` int(11) NOT NULL auto_increment,
-  `trunkcode` char(20) collate utf8_bin NOT NULL,
+  `trunkcode` varchar(50) collate utf8_bin default NULL,
   `trunkprefix` char(20) collate utf8_bin default NULL,
   `providertech` char(20) collate utf8_bin NOT NULL,
   `providerip` char(80) collate utf8_bin NOT NULL,
@@ -8280,7 +8383,7 @@ CREATE TABLE IF NOT EXISTS `cc_trunk` (
 -- Dumping data for table `cc_trunk`
 --
 
-INSERT INTO `cc_trunk` (`id_trunk`, `trunkcode`, `trunkprefix`, `providertech`, `providerip`, `removeprefix`, `secondusedreal`, `secondusedcarrier`, `secondusedratecard`, `creationdate`, `failover_trunk`, `addparameter`, `id_provider`, `inuse`, `maxuse`, `status`, `if_max_use`) VALUES(1, 'DEFAULT', '011', 'IAX2', 'kiki@switch-2.kiki.net', '', 0, 0, 0, CURRENT_TIMESTAMP, 0, '', NULL, 0, -1, 1, 0);
+INSERT INTO `cc_trunk` (`id_trunk`, `trunkcode`, `trunkprefix`, `providertech`, `providerip`, `removeprefix`, `secondusedreal`, `secondusedcarrier`, `secondusedratecard`, `creationdate`, `failover_trunk`, `addparameter`, `id_provider`, `inuse`, `maxuse`, `status`, `if_max_use`) VALUES(1, 'DEFAULT', '011', 'IAX2', 'kiki@switch-2.kiki.net', '', 0, 0, 0, '2010-04-08 15:49:51', 0, '', NULL, 0, -1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -8303,6 +8406,8 @@ CREATE TABLE IF NOT EXISTS `cc_ui_authen` (
   `fax` char(30) collate utf8_bin default NULL,
   `datecreation` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `email` varchar(70) collate utf8_bin default NULL,
+  `country` varchar(40) collate utf8_bin default NULL,
+  `city` varchar(40) collate utf8_bin default NULL,
   PRIMARY KEY  (`userid`),
   UNIQUE KEY `cons_cc_ui_authen_login` (`login`),
   UNIQUE KEY `login` (`login`)
@@ -8312,7 +8417,23 @@ CREATE TABLE IF NOT EXISTS `cc_ui_authen` (
 -- Dumping data for table `cc_ui_authen`
 --
 
-INSERT INTO `cc_ui_authen` (`userid`, `login`, `pwd_encoded`, `groupid`, `perms`, `confaddcust`, `name`, `direction`, `zipcode`, `state`, `phone`, `fax`, `datecreation`, `email`) VALUES(1, 'root', '410fc6268dd3332226de95e42d9efa4046c5463769d7493b85e65cfa5c26362dc2455cc23c0bc5831deb008def4ab11a9eaa9b76ba3f377da134f39ec60dd758', 0, 5242879, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL);
+INSERT INTO `cc_ui_authen` (`userid`, `login`, `pwd_encoded`, `groupid`, `perms`, `confaddcust`, `name`, `direction`, `zipcode`, `state`, `phone`, `fax`, `datecreation`, `email`, `country`, `city`) VALUES(1, 'root', '410fc6268dd3332226de95e42d9efa4046c5463769d7493b85e65cfa5c26362dc2455cc23c0bc5831deb008def4ab11a9eaa9b76ba3f377da134f39ec60dd758', 0, 5242879, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2010-04-08 15:49:51', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cc_version`
+--
+
+CREATE TABLE IF NOT EXISTS `cc_version` (
+  `version` varchar(30) collate utf8_bin NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `cc_version`
+--
+
+INSERT INTO `cc_version` (`version`) VALUES('1.7.0');
 
 -- --------------------------------------------------------
 
@@ -8336,22 +8457,31 @@ CREATE TABLE IF NOT EXISTS `cc_voucher` (
   UNIQUE KEY `cons_cc_voucher_voucher` (`voucher`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `cc_voucher`
---
+
 
 
 -- --------------------------------------------------------
 
 --
--- Structure for view `cc_sip_buddies_empty`
+-- Table structure for table `cc_callplan_lcr`
 --
-DROP TABLE IF EXISTS `cc_sip_buddies_empty`;
 
-CREATE VIEW cc_sip_buddies_empty AS SELECT
-id, id_cc_card, name, accountcode, regexten, amaflags, callgroup, callerid, canreinvite, context, DEFAULTip, dtmfmode, fromuser, fromdomain, host, insecure, language, mailbox, md5secret, nat, permit, deny, mask, pickupgroup, port, qualify, restrictcid, rtptimeout, rtpholdtimeout, '' as secret, type, username, disallow, allow, musiconhold, regseconds, ipaddr, cancallforward, fullcontact, setvar
-FROM cc_sip_buddies;
+CREATE VIEW `cc_callplan_lcr` AS select `cc_ratecard`.`id` AS `id`,`cc_prefix`.`destination` AS `destination`,`cc_ratecard`.`dialprefix` AS `dialprefix`,`cc_ratecard`.`buyrate` AS `buyrate`,`cc_ratecard`.`rateinitial` AS `rateinitial`,`cc_ratecard`.`startdate` AS `startdate`,`cc_ratecard`.`stopdate` AS `stopdate`,`cc_ratecard`.`initblock` AS `initblock`,`cc_ratecard`.`connectcharge` AS `connectcharge`,`cc_ratecard`.`id_trunk` AS `id_trunk`,`cc_ratecard`.`idtariffplan` AS `idtariffplan`,`cc_ratecard`.`id` AS `ratecard_id`,`cc_tariffgroup`.`id` AS `tariffgroup_id` from ((((`cc_tariffgroup_plan` left join `cc_tariffgroup` on((`cc_tariffgroup_plan`.`idtariffgroup` = `cc_tariffgroup`.`id`))) join `cc_tariffplan` on((`cc_tariffplan`.`id` = `cc_tariffgroup_plan`.`idtariffplan`))) left join `cc_ratecard` on((`cc_ratecard`.`idtariffplan` = `cc_tariffplan`.`id`))) left join `cc_prefix` on((`cc_prefix`.`prefix` = `cc_ratecard`.`destination`))) where (`cc_ratecard`.`id` is not null);
+
+--
+-- Dumping data for table `cc_callplan_lcr`
+--
 
 
-ALTER TABLE cc_support_component ADD type_user TINYINT NOT NULL DEFAULT '2';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cc_sip_buddies_empty`
+--
+
+CREATE VIEW `cc_sip_buddies_empty` AS select `cc_sip_buddies`.`id` AS `id`,`cc_sip_buddies`.`id_cc_card` AS `id_cc_card`,`cc_sip_buddies`.`name` AS `name`,`cc_sip_buddies`.`accountcode` AS `accountcode`,`cc_sip_buddies`.`regexten` AS `regexten`,`cc_sip_buddies`.`amaflags` AS `amaflags`,`cc_sip_buddies`.`callgroup` AS `callgroup`,`cc_sip_buddies`.`callerid` AS `callerid`,`cc_sip_buddies`.`canreinvite` AS `canreinvite`,`cc_sip_buddies`.`context` AS `context`,`cc_sip_buddies`.`DEFAULTip` AS `DEFAULTip`,`cc_sip_buddies`.`dtmfmode` AS `dtmfmode`,`cc_sip_buddies`.`fromuser` AS `fromuser`,`cc_sip_buddies`.`fromdomain` AS `fromdomain`,`cc_sip_buddies`.`host` AS `host`,`cc_sip_buddies`.`insecure` AS `insecure`,`cc_sip_buddies`.`language` AS `language`,`cc_sip_buddies`.`mailbox` AS `mailbox`,`cc_sip_buddies`.`md5secret` AS `md5secret`,`cc_sip_buddies`.`nat` AS `nat`,`cc_sip_buddies`.`permit` AS `permit`,`cc_sip_buddies`.`deny` AS `deny`,`cc_sip_buddies`.`mask` AS `mask`,`cc_sip_buddies`.`pickupgroup` AS `pickupgroup`,`cc_sip_buddies`.`port` AS `port`,`cc_sip_buddies`.`qualify` AS `qualify`,`cc_sip_buddies`.`restrictcid` AS `restrictcid`,`cc_sip_buddies`.`rtptimeout` AS `rtptimeout`,`cc_sip_buddies`.`rtpholdtimeout` AS `rtpholdtimeout`,_latin1'' AS `secret`,`cc_sip_buddies`.`type` AS `type`,`cc_sip_buddies`.`username` AS `username`,`cc_sip_buddies`.`disallow` AS `disallow`,`cc_sip_buddies`.`allow` AS `allow`,`cc_sip_buddies`.`musiconhold` AS `musiconhold`,`cc_sip_buddies`.`regseconds` AS `regseconds`,`cc_sip_buddies`.`ipaddr` AS `ipaddr`,`cc_sip_buddies`.`cancallforward` AS `cancallforward`,`cc_sip_buddies`.`fullcontact` AS `fullcontact`,`cc_sip_buddies`.`setvar` AS `setvar` from `cc_sip_buddies`;
+
+
+
 
