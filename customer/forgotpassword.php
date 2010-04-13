@@ -80,12 +80,11 @@ if (isset ($pr_email) && isset ($action)) {
 					echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #</br>";
 				try {
 					$mail = new Mail(Mail :: $TYPE_FORGETPASSWORD, $id_card);
-					$mail->send();
+					$mail -> send();
 				} catch (A2bMailException $e) {
-					echo "<br>" . gettext("Error : No email Template Found");
+					echo "<br>" . gettext("Error : Mail sender");
 					exit ();
 				}
-
 			}
 		}
 	} else {
