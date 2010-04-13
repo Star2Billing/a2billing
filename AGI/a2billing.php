@@ -453,7 +453,7 @@ if ($mode == 'standard') {
 							$speeddial_number = $res_dtmf['result'];
 							$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "SPEEDDIAL DTMF : ".$speeddial_number);
 
-                            if (!empty($speeddial_number) && is_numeric($speeddial_number) && $speeddial_number>0) {
+                            if (!empty($speeddial_number) && is_numeric($speeddial_number) && $speeddial_number>=0) {
 								$action = 'insert';
 								$QUERY = "SELECT cc_speeddial.phone, cc_speeddial.id
 											FROM cc_speeddial, cc_card WHERE cc_speeddial.id_cc_card = cc_card.id
