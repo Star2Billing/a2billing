@@ -89,6 +89,16 @@ class SOAP_A2Billing
                        'out' => array('result' => 'array', 'message' => 'string')
                        );
 
+        $this->__dispatch_map['Get_Account_Attribute'] =
+                 array('in' => array('security_key' => 'string', 'attribute' => 'string', 'username' => 'string'),
+                       'out' => array('result' => 'array', 'message' => 'string')
+                       );
+
+        $this->__dispatch_map['Set_Account_Attribute'] =
+                 array('in' => array('security_key' => 'string', 'attribute' => 'string', 'username' => 'string', 'value' => 'string'),
+                       'out' => array('result' => 'array', 'message' => 'string')
+                       );
+
         $this->__dispatch_map['Get_Languages'] =
                  array('in' => array('security_key' => 'string'),
                        'out' => array('result' => 'array', 'message' => 'string')
@@ -169,6 +179,10 @@ class SOAP_A2Billing
                        'out' => array('result' => 'array', 'message' => 'string')
                        );
 					   
+        $this->__dispatch_map['Get_Calls_History'] =
+                 array('in' => array('security_key' => 'string', 'card_id' => 'integer', 'starttime_begin' => 'string', 'starttime_end' => 'string', 'offset' => 'integer', 'items_number' => 'integer', 'terminatecauseid' => 'integer'),
+                       'out' => array('result' => 'array', 'message' => 'string')
+                       );
     }
     
     /*
@@ -506,6 +520,48 @@ class SOAP_A2Billing
 		return array(true, 'Set_Setting SUCCESS');
     }
     
+    /*
+	 *      Get a cc_card attribute from A2Billing
+	 *
+	 *      Get_Account_Attribute($security_key, 'credit', '235412356')
+	 */
+    function Get_Account_Attribute($security_key, $attribute, $username)
+    {
+        if (!$this->Check_SecurityKey ($security_key)) {
+		    return array("ERROR", "INVALID KEY");
+		}
+
+		$QUERY = "SELECT $attribute FROM cc_card WHERE username = '$username' LIMIT 1";
+		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
+		if (!is_array($result))
+		{
+		    return array(false, "CANNOT LOAD THE SETTING");
+		}
+
+		return array($result[0][0], 'Get_Account_Attribute SUCCESS');
+    }
+
+     /*
+	 *      Set a cc_card attribute from A2Billing
+	 *
+	 *      Set_Account_Attribute($security_key, 'credit', '235412356', '26.00')
+	 */
+    function Set_Account_Attribute($security_key, $attribute, $username, $value)
+    {
+        if (!$this->Check_SecurityKey ($security_key)) {
+		    return array("ERROR", "INVALID KEY");
+		}
+
+		$QUERY = "UPDATE cc_card SET $attribute='$value' WHERE username = '$username' LIMIT 1";
+		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+		if (!$result)
+		{
+		    return array(false, "SQL ERROR UPDATING cc_card");
+		}
+
+		return array(true, 'Set_Account_Attribute SUCCESS');
+    }
+
     /*
 	 *      Get list of languages supported
 	 */
@@ -1352,6 +1408,28 @@ class SOAP_A2Billing
 		return array(serialize($arr_cid), "Add_CallerID SUCCESS");
 	}
 
+     /*
+	 *      Get calls history from a card id
+	 */
+    function Get_Calls_History($security_key, $card_id, $starttime_begin, $starttime_end, $offset, $items_number, $terminatecauseid = 1)
+    {
+        if (!$this->Check_SecurityKey ($security_key)) {
+		    return array("ERROR", "INVALID KEY");
+		}
+
+		$QUERY = "SELECT `cc_call`.`id`, `cc_call`.`sessionid`, `cc_call`.`uniqueid`, `cc_call`.`card_id`, `cc_call`.`nasipaddress`, `cc_call`.`starttime`, `cc_call`.`stoptime`, `cc_call`.`sessiontime`, `cc_call`.`calledstation`, `cc_call`.`sessionbill`, `cc_call`.`id_tariffgroup`, `cc_call`.`id_tariffplan`, `cc_call`.`id_ratecard`, `cc_call`.`id_trunk`, `cc_call`.`sipiax`, `cc_call`.`src`, `cc_call`.`id_did`, `cc_call`.`buycost`, `cc_call`.`id_card_package_offer`, `cc_call`.`real_sessiontime`, `cc_call`.`dnid`, `cc_call`.`terminatecauseid`, `cc_call`.`destination`, `cc_prefix`.`prefix`, `cc_prefix`.`destination`
+				  FROM `cc_call` LEFT OUTER JOIN `cc_prefix` ON (`cc_call`.`destination` = `cc_prefix`.`prefix`)
+				  WHERE (`cc_call`.`card_id` = $card_id AND `cc_call`.`starttime` >= '$starttime_begin' AND `cc_call`.`starttime` <= '$starttime_end' AND `cc_call`.`terminatecauseid` = $terminatecauseid )
+				  ORDER BY `cc_call`.`starttime` DESC
+				  LIMIT $offset, $items_number";
+		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
+		if (!is_array($result))
+		{
+		    return array(false, "SQL ERROR Get_Calls_History");
+		}
+
+		return array(serialize($result), 'Get_Calls_History SUCCESS');
+    }
 
 // end Class
 }
