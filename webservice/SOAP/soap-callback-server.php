@@ -160,7 +160,14 @@ class Callback {
 			sleep(2);
 			return array ( $insert_id_callback, 'result=Error', " ERROR - FORMAT PHONENUMBER AT LEAST 10 DIGITS " );
 		}
-
+		
+		// CHECK DESTINATION NUMBER
+		if (strlen($calling) < 2) {
+			write_log(LOG_CALLBACK, basename(__FILE__) . ' line:' . __LINE__ . "[" . date("Y/m/d G:i:s", mktime()) . "] " . " ERROR FORMAT PHONENUMBER AT LEAST 2 DIGITS ");
+			sleep(2);
+			return array ( $insert_id_callback, 'result=Error', " ERROR - FORMAT DESTINATION NUMBER AT LEAST 2 DIGITS " );
+		}
+		
 		// CHECK CALLBACK TIME
 		if (strlen($callback_time) > 1 && !(ereg($FG_regular[0][0], $callback_time))) {
 			write_log(LOG_CALLBACK, basename(__FILE__) . ' line:' . __LINE__ . "[" . date("Y/m/d G:i:s", mktime()) . "] " . " ERROR FORMAT CALLBACKTIME : " . $FG_regular[0][0]);
@@ -193,6 +200,35 @@ class Callback {
 			// IF WE HAVE AN ACCOUNT NUMBER DEFINED
 			$QUERY = "SELECT tariff, typepaid, credit, creditlimit FROM cc_card WHERE username='$accountnumber'";
 			$card_data = $instance_table->SQLExec($DBHandle, $QUERY);
+			if (is_array($card_data)) {
+				
+				$A2B->credit = $card_data[0]['credit'];
+				
+				if ($card_data[0]['typepaid']==1) {
+					$A2B->credit = $A2B->credit + $card_data[0]['creditlimit'];
+				}
+				
+				$A2B->tariff = $card_data[0]['tariff'];
+			}
+
+			//Else find accountnumber from caller's CallerID
+		} else {
+
+			$QUERY .=  "SELECT cc_card.tariff, cc_card.typepaid, cc_card.credit, cc_card.creditlimit, cc_card.username".
+			" FROM cc_card ".
+			" JOIN cc_callerid".
+			" ON cc_card.id=cc_callerid.id_cc_card ".
+			" WHERE cc_callerid.cid='".$phone_number."'";
+			$QUERY .= "ORDER BY 1";
+			$card_data = $instance_table->SQLExec($DBHandle, $QUERY);
+			
+			if (!is_array($card_data))
+			{
+				return array ( $insert_id_callback, 'result=Error', "CALLING'S PARTY CALLERID DOES NOT EXIST IN DATABASE" );
+			}
+
+			$accountnumber = $card_data[0]['username'];
+
 			if (is_array($card_data)) {
 				
 				$A2B->credit = $card_data[0]['credit'];
