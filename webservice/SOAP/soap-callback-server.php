@@ -163,7 +163,7 @@ class Callback {
 		
 		// CHECK DESTINATION NUMBER
 		if (strlen($calling) < 2) {
-			write_log(LOG_CALLBACK, basename(__FILE__) . ' line:' . __LINE__ . "[" . date("Y/m/d G:i:s", mktime()) . "] " . " ERROR FORMAT PHONENUMBER AT LEAST 2 DIGITS ");
+			write_log(LOG_CALLBACK, basename(__FILE__) . ' line:' . __LINE__ . "[" . date("Y/m/d G:i:s", mktime()) . "] " . " ERROR FORMAT DESTINATION NUMBER AT LEAST 2 DIGITS ");
 			sleep(2);
 			return array ( $insert_id_callback, 'result=Error', " ERROR - FORMAT DESTINATION NUMBER AT LEAST 2 DIGITS " );
 		}
