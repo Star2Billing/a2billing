@@ -1381,7 +1381,7 @@ class SOAP_A2Billing
 			
 			$id_cc_card = $card_id;
 			
-			} else {
+        } else {
 			
 			$QUERY = "SELECT id FROM cc_card WHERE username='$accountnumber'";
 			$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
@@ -1389,7 +1389,7 @@ class SOAP_A2Billing
 			{
 				return array('ERROR', "ACCOUNTNUMBER DOES NOT EXIST");
 			}
-			$card_id = $result[0][0];
+			$id_cc_card = $result[0][0];
 		
 		}
 		
