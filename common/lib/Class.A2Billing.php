@@ -1902,11 +1902,13 @@ class A2Billing {
 		$credit_cur = $rate / $mycur;
 		
 		list($units,$cents)=split('[.]', $credit_cur);
+		if (substr($cents,2) > 0) $point = substr($cents,2);
 		if (strlen($cents)>2) $cents=substr($cents,0,2);
 		if ($units=='') $units=0;
 		if ($cents=='') $cents=0;
+		if ($point=='') $point=0;
 		elseif (strlen($cents)==1) $cents.= '0';
-
+        
 		if (isset($this->agiconfig['currency_association_internal'][strtolower($this->currency)])) {
 			$units_audio = $this->agiconfig['currency_association_internal'][strtolower($this->currency)];
 			// leave the last character ex: dollars -> dollar
@@ -1917,11 +1919,11 @@ class A2Billing {
 		}
 		$cent_audio = 'prepaid-cent';
 		$cents_audio = 'prepaid-cents';
-		
+        
 		// say 'the cost of the call is '
 		$agi-> stream_file('prepaid-cost-call', '#');
 
-		if ($units==0 && $cents==0) {
+		if ($units==0 && $cents==0 && $this->agiconfig['play_rate_cents_if_lower_one']==0 && !($this->agiconfig['play_rate_cents_if_lower_one']==1 && $point==0)) {
 			$agi -> say_number(0);
 			$agi -> stream_file($unit_audio, '#');
 		} else {
@@ -1942,13 +1944,16 @@ class A2Billing {
 				$agi -> say_number($units);
 				$agi -> stream_file($unit_audio, '#');
 			}
-
+            
 			if ($units > 0 && $cents > 0) {
 				$agi -> stream_file('vm-and', '#');
 			}
-			if ($cents>0) {
+			if ($cents>0 || ($point>0 && $this->agiconfig['play_rate_cents_if_lower_one']==1)) {
 				$agi -> say_number($cents);
-				
+				if ($point>0 && $this->agiconfig['play_rate_cents_if_lower_one']==1) {
+    				$agi-> stream_file('prepaid-point', '#');
+				    $agi -> say_number($point);
+				}
 				if ($cents>1) {
 					if ((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&& ( ( $cents%10==2) || ($cents%10==3 )|| ($cents%10==4)) ) {
 						// test for the specific grammatical rules in RUssian

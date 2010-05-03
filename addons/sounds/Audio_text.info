@@ -106,6 +106,8 @@ prepaid-assigned-speeddial						Will be assigned to the speed dial number
 prepaid-press1-add-speeddial					If you want to proceed please  press 1 or press an other key to cancel ?
 prepaid-speeddial-saved							The speed dial number has been successfully saved.
 prepaid-is-used-for                             is used for
+prepaid-point                                   point
+
 
 ===========================================  FRENCH ===========================================
 

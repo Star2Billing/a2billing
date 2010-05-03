@@ -95,7 +95,7 @@ ALTER TABLE cc_card_group CHANGE description description VARCHAR( 400 ) CHARACTE
 
 ALTER TABLE cc_config CHANGE config_description config_description VARCHAR( 500 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
 
-  
+
   
 UPDATE cc_version SET version = '1.7.0';
 
