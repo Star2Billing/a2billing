@@ -19,6 +19,7 @@ REQUIREMENTS :
         - PHP-GD
         - PHP-PCNTL
         - PHP-GETTEXT
+        - PHP-SQLITE (only if you use the module to pool CDR)
     
     * PEAR SOAP class
     

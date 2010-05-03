@@ -102,8 +102,12 @@ if ($action_release == "confirm_release") {
 	$fromname = 'A2BILLING ALERT';
 	$subject = "[$date] Release-DID notification";
 	$messagetext = '';
-	
-	a2b_mail(ADMIN_EMAIL, $subject, $messagetext, $from, $fromname);
+	try {
+	    a2b_mail(ADMIN_EMAIL, $subject, $messagetext, $from, $fromname);
+	}catch (Exception $e) {
+	    echo "<br>" . gettext("Error : Sending mail");
+	    //exit ();
+    }
 }
 
 /***********************************************************/
