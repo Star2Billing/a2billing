@@ -332,8 +332,8 @@ for ($page = 0; $page < $nbpagemax; $page++) {
                 break;
 
             case "unpaid" :
-                // bloque the card
-                $QUERY = "UPDATE cc_card SET status = 8 WHERE id=" . $card['id'];
+                // block the card
+                $QUERY = "UPDATE cc_card SET status = 8 WHERE id=" . $subscription['card_id'];
                 $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
                 if ($verbose_level >= 1)
 					echo "==> UPDATE CARD QUERY: 	$QUERY\n";
