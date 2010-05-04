@@ -1,4 +1,3 @@
-
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -8,7 +7,7 @@
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  * 
  * @copyright   Copyright (C) 2004-2009 - Star2billing S.L. 
- * @author      Belaid Arezqui <areski@gmail.com>
+ * @author      Hironobu Suzuki <hironobu@interdb.jp> / Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
  *
@@ -53,7 +52,6 @@ DELETE FROM cc_config WHERE config_key = 'customerinfo' AND config_group_title =
 DELETE FROM cc_config WHERE config_key = 'password' AND config_group_title = 'webcustomerui';
 UPDATE cc_card_group SET users_perms = '262142' WHERE cc_card_group.id = 1;
 
--- DROP TABLE cc_subscription_signup;  -- does not exist
 CREATE TABLE cc_subscription_signup (
 	id 				BIGSERIAL,
 	label 			VARCHAR(50) NOT NULL,
@@ -63,41 +61,38 @@ CREATE TABLE cc_subscription_signup (
 	PRIMARY KEY ( id )
 );
 
-
 DELETE FROM cc_config WHERE config_key = 'currency_cents_association';
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title)
 	VALUES ('Cents Currency Associated', 'currency_cents_association', 'usd:prepaid-cents,eur:prepaid-cents,gbp:prepaid-pence,all:credit', 'Define all the audio (without file extensions) that you want to play according to cents currency (use , to separate, ie "amd:lumas").By default the file used is "prepaid-cents" .Use plural to define the cents currency sound, but import two sounds but cents currency defined : ending by ''s'' and not ending by ''s'' (i.e. for lumas , add 2 files : ''lumas'' and ''luma'') ', '0', NULL, 'ivr_creditcard');
 DELETE FROM cc_config WHERE config_key = 'currency_association_minor';
 
 
--- Dialled Digit Normalisation
-ALTER TABLE cc_card ADD add_dialing_prefix varchar(10);
+-- Local Dialing Normalisation
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES 
+	('Option Local Dialing', 'local_dialing_addcountryprefix', '0', 'Add the countryprefix of the user in front of the dialed number if this one have only 1 leading zero', 1, 'yes,no', 'agi-conf1');
 
 
 -- Remove E-Product from 1.4.1
 DROP TABLE cc_ecommerce_product;
 
-INSERT INTO cc_invoice_conf (key_val, value) VALUES ('display_account', '0');
+INSERT INTO cc_invoice_conf (key_val , value) VALUES ('display_account', '0');
 
 -- add missing agent field
 ALTER TABLE cc_system_log ADD agent SMALLINT DEFAULT 0;
-
 
 DELETE FROM cc_config WHERE config_key = 'show_icon_invoice';
 DELETE FROM cc_config WHERE config_key = 'show_top_frame';
 
 -- add MXN currency on Paypal
-UPDATE cc_configuration SET set_function = 'tep_cfg_select_option(array(''Selected Currency'',''USD'',''CAD'',''EUR'',''GBP'',''JPY'',''MXN''), ' WHERE configuration_key = 'MODULE_PAYMENT_PAYPAL_CURRENCY' ;
-
--- Was erroneously set to 'Not NULL' in PSQL version only
-ALTER TABLE cc_card_subscription ALTER COLUMN product_id DROP NOT NULL;
-ALTER TABLE cc_card_subscription ALTER COLUMN product_id SET DEFAULT NULL;
-ALTER TABLE cc_card_subscription ALTER COLUMN product_name DROP NOT NULL;
-ALTER TABLE cc_card_subscription ALTER COLUMN product_name SET DEFAULT NULL;
+UPDATE cc_configuration SET set_function = 'tep_cfg_select_option(array(''Selected Currency'',''USD'',''CAD'',''EUR'',''GBP'',''JPY'',''MXN''), ' WHERE configuration_key = 'MODULE_PAYMENT_PAYPAL_CURRENCY';
 
 
+-- DID CALL AND BILLING
 ALTER TABLE cc_didgroup DROP COLUMN iduser;
-ALTER TABLE ONLY cc_did ADD CONSTRAINT cc_did_did_key UNIQUE (did);
+ALTER TABLE cc_didgroup ADD COLUMN connection_charge DECIMAL( 15, 5 ) NOT NULL DEFAULT '0';
+ALTER TABLE cc_didgroup ADD COLUMN selling_rate DECIMAL( 15, 5 ) NOT NULL DEFAULT '0';
+
+ALTER TABLE cc_did ADD CONSTRAINT cc_did_uniq UNIQUE (did);
 
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_listvalues ,config_group_title)
 VALUES ('Call to free DID Dial Command Params', 'dialcommand_param_call_2did', '|60|HiL(%timeout%:61000:30000)',  '%timeout% is the value of the paramater : ''Max time to Call a DID no billed''', '0', NULL , 'agi-conf1');
@@ -116,24 +111,21 @@ Delete from cc_config where config_key='cid_auto_create_card_credit';
 Delete from cc_config where config_key='cid_auto_create_card_credit_limit';
 Delete from cc_config where config_key='cid_auto_create_card_tariffgroup';
 
-
 -- Set Qualify at No per default
 UPDATE cc_config SET config_value='no' WHERE config_key='qualify';
+
 
 -- Update Paypal URL API
 UPDATE cc_config SET config_value='https://www.paypal.com/cgi-bin/webscr' WHERE config_key='paypal_payment_url';
 
+ALTER TABLE cc_didgroup DROP COLUMN connection_charge;
+ALTER TABLE cc_didgroup DROP COLUMN selling_rate;
 
-ALTER TABLE cc_did ADD COLUMN connection_charge DECIMAL( 15, 5 ) NOT NULL DEFAULT 0;
+
+ALTER TABLE cc_did ADD COLUMN connection_charge DECIMAL( 15, 5 ) NOT NULL DEFAULT '0';
 ALTER TABLE cc_did ADD COLUMN selling_rate DECIMAL( 15, 5 ) NOT NULL DEFAULT '0';
 
-ALTER TABLE cc_billing_customer ADD COLUMN start_date TIMESTAMP WITHOUT TIME ZONE;
-
--- synched with MySQL up to r2240
+ALTER TABLE cc_billing_customer ADD COLUMN start_date TIMESTAMP NULL ;
 
 -- Commit the whole update;  psql will automatically rollback if we failed at any point
 COMMIT;
-
-
-
-

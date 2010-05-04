@@ -1,4 +1,3 @@
-
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -7,7 +6,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,   
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  * 
- * @copyright   Copyright (C) 2004-2009 - Star2billing S.L. 
+ * @copyright   Copyright (C) 2004-2010 - Star2billing S.L. 
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -68,15 +67,8 @@ SET default_with_oids = true;
 SET escape_string_warning = off;
 SET standard_conforming_strings = off;
 
--- If you have defined any custom functions you should comment this out:
-DROP LANGUAGE IF EXISTS plpgsql CASCADE;
-CREATE LANGUAGE plpgsql;
-
 -- Wrap the whole update in a transaction so everything is reverted upon failure
 BEGIN;
-
-
-
 
 
 CREATE TABLE cc_campaign (
@@ -1707,8 +1699,8 @@ CREATE TABLE cc_card_subscription (
 	id_subscription_fee 			INTEGER DEFAULT 0 NOT NULL,
 	startdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
 	stopdate 						TIMESTAMP WITHOUT TIME ZONE,
-	product_id						CHARACTER VARYING(100) NOT NULL,
-	product_name 					CHARACTER VARYING(100) NOT NULL,
+	product_id						CHARACTER VARYING(100) DEFAULT NULL,
+	product_name 					CHARACTER VARYING(100) DEFAULT NULL,
 	PRIMARY KEY (id)
 );
 

@@ -1,4 +1,3 @@
-
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -7,8 +6,8 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,   
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  * 
- * @copyright   Copyright (C) 2004-2009 - Star2billing S.L. 
- * @author      Belaid Arezqui <areski@gmail.com>
+ * @copyright   Copyright (C) 2010 - Star2billing S.L. 
+ * @author      Hironobu Suzuki <hironobu@interdb.jp>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
  *
@@ -30,6 +29,9 @@
  * 
 **/
 
-DROP USER a2billinguser;
-CREATE USER a2billinguser WITH PASSWORD 'a2billing' CREATEDB;
-CREATE DATABASE mya2billing OWNER a2billinguser;
+--     su - a2billinguser
+--     psql -f a2billing-createlang-v1.0.0.sql mya2billing
+--
+--     REMARK:
+--       If PostgreSQL is version 9.0 or upper version, it is not necessary to execute it. 
+CREATE TRUSTED LANGUAGE plpgsql;

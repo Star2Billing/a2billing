@@ -30,6 +30,19 @@
  * 
 **/
 
-DROP USER a2billinguser;
-CREATE USER a2billinguser WITH PASSWORD 'a2billing' CREATEDB;
-CREATE DATABASE mya2billing OWNER a2billinguser;
+--
+-- A2Billing database script - Update database for Postgres
+-- 
+--
+
+\set ON_ERROR_STOP ON;
+
+-- Wrap the whole update in a transaction so everything is reverted upon failure
+BEGIN;
+
+UPDATE cc_version SET version = '1.5.1';
+
+-- Commit the whole update;  psql will automatically rollback if we failed at any point
+COMMIT;
+
+

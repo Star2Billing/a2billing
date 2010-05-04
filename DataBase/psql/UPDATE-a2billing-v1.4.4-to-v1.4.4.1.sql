@@ -1,4 +1,3 @@
-
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -8,7 +7,7 @@
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  * 
  * @copyright   Copyright (C) 2004-2009 - Star2billing S.L. 
- * @author      Belaid Arezqui <areski@gmail.com>
+ * @author      Hironobu Suzuki <hironobu@interdb.jp> / Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
  *
@@ -30,6 +29,23 @@
  * 
 **/
 
-DROP USER a2billinguser;
-CREATE USER a2billinguser WITH PASSWORD 'a2billing' CREATEDB;
-CREATE DATABASE mya2billing OWNER a2billinguser;
+--
+-- A2Billing database script - Update database for Postgres
+-- 
+--
+
+\set ON_ERROR_STOP ON;
+
+-- Wrap the whole update in a transaction so everything is reverted upon failure
+BEGIN;
+
+UPDATE cc_version SET version = '1.4.4.1';
+
+-- Commit the whole update;  psql will automatically rollback if we failed at any point
+COMMIT;
+
+
+
+
+
+
