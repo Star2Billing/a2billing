@@ -188,6 +188,11 @@ class SOAP_A2Billing
                  array('in' => array('security_key' => 'string', 'card_id' => 'integer', 'offset' => 'integer', 'items_number' => 'integer'),
                        'out' => array('result' => 'array', 'message' => 'string')
                        );
+
+        $this->__dispatch_map['Add_Credit'] =
+                 array('in' => array('security_key' => 'string', 'card_id' => 'integer', 'value' => 'string', 'description' => 'string', 'refill_type' => 'integer'),
+                       'out' => array('result' => 'boolean', 'message' => 'string')
+                       );
     }
     
     /*
@@ -1457,6 +1462,35 @@ class SOAP_A2Billing
 		}
 
 		return array(serialize($result), 'Get_Log_Refill SUCCESS');
+    }
+
+     /*
+	 *      Add a credit amount on a cc_card
+	 */
+    function Add_Credit($security_key, $card_id, $value, $description,$refill_type)
+    {
+        if (!$this->Check_SecurityKey ($security_key)) {
+		    return array("ERROR", "INVALID KEY");
+		}
+
+		$QUERY = "INSERT INTO cc_logrefill (credit,card_id,description,refill_type) VALUES ($value,$card_id,'$description',$refill_type)";
+		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+
+		if (!$result)
+		{
+		    return array(false, "SQL ERROR UPDATING cc_logrefill");
+		}
+		else
+		{
+		    $QUERY = "UPDATE cc_card SET credit=credit+$value WHERE id = '$card_id' LIMIT 1";
+		    $result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+		    if (!$result)
+		    {
+			return array(false, "SQL ERROR UPDATING cc_card");
+		    }
+		}
+
+		return array(true, 'Add_Credit SUCCESS');
     }
 
 // end Class
