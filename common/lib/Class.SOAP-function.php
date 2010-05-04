@@ -183,6 +183,11 @@ class SOAP_A2Billing
                  array('in' => array('security_key' => 'string', 'card_id' => 'integer', 'starttime_begin' => 'string', 'starttime_end' => 'string', 'offset' => 'integer', 'items_number' => 'integer', 'terminatecauseid' => 'integer'),
                        'out' => array('result' => 'array', 'message' => 'string')
                        );
+
+        $this->__dispatch_map['Get_Log_Refill'] =
+                 array('in' => array('security_key' => 'string', 'card_id' => 'integer', 'offset' => 'integer', 'items_number' => 'integer'),
+                       'out' => array('result' => 'array', 'message' => 'string')
+                       );
     }
     
     /*
@@ -1429,6 +1434,29 @@ class SOAP_A2Billing
 		}
 
 		return array(serialize($result), 'Get_Calls_History SUCCESS');
+    }
+
+     /*
+      *      Get calls refill from a card id
+      */
+    function Get_Log_Refill($security_key, $card_id, $offset, $items_number)
+    {
+        if (!$this->Check_SecurityKey ($security_key)) {
+		    return array("ERROR", "INVALID KEY");
+		}
+
+		$QUERY = "SELECT *
+				  FROM `cc_logrefill`
+				  WHERE (`cc_logrefill`.`card_id` = $card_id)
+				  ORDER BY `cc_logrefill`.`date` DESC
+				  LIMIT $offset, $items_number";
+		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
+		if (!is_array($result))
+		{
+		    return array(false, "SQL ERROR Get_Log_Refill");
+		}
+
+		return array(serialize($result), 'Get_Log_Refill SUCCESS');
     }
 
 // end Class
