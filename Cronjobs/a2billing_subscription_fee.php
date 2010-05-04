@@ -245,7 +245,8 @@ for ($page = 0; $page < $nbpagemax; $page++) {
                     if ($verbose_level >= 1)
 						echo "==> UPDATE CARD QUERY: 	$QUERY\n";
 
-					$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_card_subscription, charged_status) VALUES ('" . $card['id'] . "', '" . $subscription['fee']  . "', '3','" . $subscription['card_subscription_id'] . "',1)";
+					$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_card_subscription, charged_status, description) VALUES ('" . 
+					            $card['id'] . "', '" . $subscription['fee']  . "', '3','" . $subscription['card_subscription_id'] . "',1, '" . $subscription['product_name'] . "')";
                     if ($verbose_level >= 1)
 						echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
 
@@ -306,7 +307,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
                     $mail -> replaceInEmail(Mail::$SUBSCRIPTION_ID, $subscription['id']);
                     $mail -> replaceInEmail(Mail::$SUBSCRIPTION_LABEL, $subscription['product_name']);
                     //insert charge
-                    $QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_card_subscription, invoiced_status) VALUES ('" . $card['id'] . "', '" . $subscription['fee']  . "', '3','" . $subscription['card_subscription_id'] . "',1)";
+                    $QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_card_subscription, invoiced_status, description) VALUES ('" . $card['id'] . "', '" . $subscription['fee']  . "', '3','" . $subscription['card_subscription_id'] . "',1, '" . $subscription['product_name'] . "')";
                     if ($verbose_level >= 1)
 						echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
                     $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
