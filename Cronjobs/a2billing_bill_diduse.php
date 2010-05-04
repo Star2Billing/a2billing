@@ -176,7 +176,8 @@ foreach ($result as $mydids) {
 						echo "==> UPDATE DID USE QUERY: 	$QUERY\n";
 					$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
 					
-					$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did, charged_status) VALUES ('" . $mydids[4] . "', '" . $mydids[3] . "', '2','" . $mydids[0] . "',1)";
+					$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, description, chargetype, id_cc_did, charged_status) VALUES ('" . 
+					            $mydids[4] . "', '" . $mydids[3] . "', '" . $mydids[7] . "', '2','" . $mydids[0] . "',1)";
 					
 					if ($verbose_level >= 1)
 						echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
@@ -231,7 +232,8 @@ foreach ($result as $mydids) {
 					$mail -> replaceInEmail(Mail::$BALANCE_REMAINING_KEY, $mydids[5]);
 					
 					//insert charge
-					$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did, invoiced_status) VALUES ('" . $mydids[4] . "', '" . $mydids[3] . "', '2','" . $mydids[0] . "','1')";
+					$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, description, chargetype, id_cc_did, invoiced_status) VALUES ('" . 
+					            $mydids[4] . "', '" . $mydids[3] . "', '" . $mydids[7] . "','2','" . $mydids[0] . "','1')";
 					if ($verbose_level >= 1)
 						echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
 					$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
