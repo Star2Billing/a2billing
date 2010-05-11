@@ -1940,7 +1940,7 @@ class A2Billing {
 					$agi-> stream_file($units_audio, '#');
 				}
 					
-			} else {
+			} elseif ($this->agiconfig['play_rate_cents_if_lower_one']==0) {
 				$agi -> say_number($units);
 				$agi -> stream_file($unit_audio, '#');
 			}
