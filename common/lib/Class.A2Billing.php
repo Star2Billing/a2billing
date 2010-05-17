@@ -1927,9 +1927,9 @@ class A2Billing {
 			$agi -> say_number(0);
 			$agi -> stream_file($unit_audio, '#');
 		} else {
-			if ($units > 1) {
+			if ($units >= 1) {
 				$agi -> say_number($units);
-					
+			    
 				if (($this ->current_language=='ru')&&(strtolower($this->currency)=='usd')&& ( ( $units%10==2) || ($units%10==3 )|| ($units%10==4)) ) {
 					// test for the specific grammatical rules in RUssian
 					$agi-> stream_file('dollar2', '#');
@@ -1951,6 +1951,7 @@ class A2Billing {
 			if ($cents>0 || ($point>0 && $this->agiconfig['play_rate_cents_if_lower_one']==1)) {
 				$agi -> say_number($cents);
 				if ($point>0 && $this->agiconfig['play_rate_cents_if_lower_one']==1) {
+					$this -> debug( INFO, $agi, __FILE__, __LINE__, "point");
     				$agi-> stream_file('prepaid-point', '#');
 				    $agi -> say_number($point);
 				}
