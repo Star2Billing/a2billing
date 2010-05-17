@@ -1191,20 +1191,16 @@ class A2Billing {
 				// The following section will send the caller to VoiceMail with the unavailable priority.
 				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL UNAVAILABLE - GOTO VOICEMAIL ($dest_username)");
 				
-				// $vm_parameters = $this -> format_parameters ($dest_username.'|u');
-				// $agi-> exec(VoiceMail, $vm_parameters);
-				
-				$agi-> exec(VoiceMail,$dest_username.'|u');
+				$vm_parameters = $this -> format_parameters ($dest_username.'|u');
+				$agi-> exec(VoiceMail, $vm_parameters);
 			}
 
 			if (($dialstatus =="BUSY")) {
 				// The following section will send the caller to VoiceMail with the busy priority.
 				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL BUSY - GOTO VOICEMAIL ($dest_username)");
 				
-				// $vm_parameters = $this -> format_parameters ($dest_username.'|n');
-				// $agi-> exec(VoiceMail, $vm_parameters);
-				
-				$agi-> exec(VoiceMail,$dest_username.'|b');
+				$vm_parameters = $this -> format_parameters ($dest_username.'|b');
+				$agi-> exec(VoiceMail, $vm_parameters);
 			}
 		}
 
@@ -1405,7 +1401,8 @@ class A2Billing {
 				$dest_username = $this->username;
 				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL ($dialstatus) - GOTO VOICEMAIL ($dest_username)");
 				
-				$agi-> exec(VoiceMail,$dest_username.'|s');
+				$vm_parameters = $this -> format_parameters ($dest_username.'|s');
+				$agi-> exec(VoiceMail, $vm_parameters);
 			}
 		}
 	}
@@ -1701,7 +1698,8 @@ class A2Billing {
 				$dest_username = $this->username;
 				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL ($dialstatus) - GOTO VOICEMAIL ($dest_username)");
 				
-				$agi-> exec(VoiceMail,$dest_username.'|s');
+				$vm_parameters = $this -> format_parameters ($dest_username.'|s');
+				$agi-> exec(VoiceMail, $vm_parameters);
 			}
 		}
 		$this->accountcode = $accountcode;
