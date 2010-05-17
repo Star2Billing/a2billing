@@ -1096,11 +1096,11 @@ function do_field($sql, $fld, $dbfld) {
 // we'll all be pretty much boned anyway,  wouldn't you say?
 function currencies_update_yahoo ($DBHandle, $instance_table)
 {
-	global $FG_DEBUG;
-	$strong_currency = 'XAG';
+	$FG_DEBUG = 0;
+	$strong_currency = 'EUR';
 	$url = "http://download.finance.yahoo.com/d/quotes.csv?s=";
 	$return = "";
-
+	
 	$QUERY = "SELECT id, currency, basecurrency FROM cc_currencies ORDER BY id";
 	$old_currencies = $instance_table->SQLExec($DBHandle, $QUERY);
 
@@ -1132,7 +1132,8 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
 		}
 
 		// Call wget to download the URL to the .CVS file
-		exec("wget '" . $url . "' -O /tmp/currencies.cvs  2>&1", $output);
+		$command = "wget '" . $url . "' -O /tmp/currencies.cvs  2>&1";
+		exec($command, $output);
 		if ($FG_DEBUG >= 1)
 			$return .= "wget '" . $url . "' -O /tmp/currencies.cvs\n" . $output;
 
@@ -1157,7 +1158,7 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
 				return gettext("At least one of the entries in the CSV file isn't a number.") . ' ' . gettext('Currency update ABORTED.');
 			}
 		}
-
+		
 		// Find base_currency's value in $strong_currency to help avoid Yahoo's
 		// early truncation,  and therefore win back a lot of accuracy
 		$base_value = $currencies[$index_base_currency];
