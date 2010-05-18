@@ -1,7 +1,7 @@
      ___________________________________________________________________________________________________________________________________________________________________
 
 A2Billing INSTALLATION GUIDE 
-Release: 1.7.0 - April 2010
+Release: 1.7.1 - April 2010
 
     1. A2Billing INSTALLATION GUIDE
          1. Important note about distributions
@@ -65,7 +65,7 @@ Release: 1.7.0 - April 2010
 
 	1.3.1 Extra software to support text-to-speech IVR monitoring
 
-   Version 1.7.0 includes a new AGI mode that allows the monitoring of the a2billing system via an IVR.
+   Version 1.7.1 includes a new AGI mode that allows the monitoring of the a2billing system via an IVR.
 
    The new monitoring feature requires text-to-speech TTS support, the default TTS engine is Cepstral
    http://www.cepstral.com/ although a2billing can support Festival too. 
@@ -138,6 +138,7 @@ User password is: a2billing
 
    After creating the database structure, we will create a set of tables and insert some initial basic configuration data
      #mysql -u root -p mya2billing < DataBase/mysql-5.x/a2billing-schema-v1.7.0.sql
+     #mysql -u root -p mya2billing < UPDATE-a2billing-v1.7.0-to-v1.7.1.sql
      
    Checkpoint 1: Check that the database (my2billing) and that (97) tables have been created.
      #mysql -u root -p mya2billing
@@ -375,7 +376,7 @@ Step 9: Call back daemon (only for Call backs)
 
 
 Step 10: Enable Monitoring
-   General system monitoring via IVR is available from version 1.7.0, the new AGI
+   General system monitoring via IVR is available from version 1.7, the new AGI
    a2billing_monitoring.php provides access to an IVR where monitoring tasks can be
    configured via the new Monitoring Menu under Maintenance.
 
@@ -393,3 +394,5 @@ Step 11: Security features via IVR (Monitor account and locking calling card)
 
    Monitoring your Calling Card IVR menu
    ivr_enable_account_information = true (default: false)
+   
+
