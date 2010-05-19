@@ -35,8 +35,6 @@ INSERT INTO cc_config ( config_title, config_key, config_value, config_descripti
 VALUES( 'Play rate lower one', 'play_rate_cents_if_lower_one', '0', 'Play the initial cost even if the cents are less than one. if cost is 0.075, we will play : 7 point 5 cents per minute. (values : yes - no)', 0, 'yes,no', 'agi-conf1');  
 
 
-ALTER TABLE cc_did CHANGE destination destination VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
-
   
 UPDATE cc_version SET version = '1.7.1';
 

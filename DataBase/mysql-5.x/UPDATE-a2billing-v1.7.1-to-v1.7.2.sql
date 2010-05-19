@@ -31,6 +31,7 @@
 **/
 
 
+ALTER TABLE cc_did_destination CHANGE destination destination VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
   
 UPDATE cc_version SET version = '1.7.2';
 
