@@ -48,20 +48,20 @@ check_demo_mode();
 
 getpost_ifset(array ('tariffplan', 'trunk', 'search_sources', 'task', 'status', 'currencytype', 'uploadedfile_name', 'uploadedfile_name'));
 
-$tariffplanval = split('-:-', $tariffplan);
+$tariffplanval = preg_split('/-:-/', $tariffplan);
 if (!is_numeric($tariffplanval[0])) {
 	echo gettext("No tariffplan defined !");
 	exit ();
 }
 
-$trunkval = split('-:-', $trunk);
+$trunkval = preg_split('/-:-/', $trunk);
 if (!is_numeric($trunkval[0])) {
 	echo gettext("No Trunk defined !");
 	exit ();
 }
 
 if ($search_sources != 'nochange') {
-	$fieldtoimport = split("\t", $search_sources);
+	$fieldtoimport = preg_split("/\t/", $search_sources);
 	$fieldtoimport_sql = str_replace("\t", ", ", $search_sources);
 	$fieldtoimport_sql = trim($fieldtoimport_sql);
 	if (strlen($fieldtoimport_sql) > 0)
@@ -133,7 +133,7 @@ if ($task == 'upload') {
 		// strip out ' and " and, with the exception of dialprefix field,
 		// substitute , for . to allow European style floats, eg: 0,1 == 0.1
 		$ligne = str_replace(array ( '"', "'" ), '', $ligneoriginal);
-		$val = split('[;,]', $ligne);
+		$val = preg_split('/[;,]/', $ligne);
 		
 		if ($status != "ok") {
 			if ($currencytype == "cent") {

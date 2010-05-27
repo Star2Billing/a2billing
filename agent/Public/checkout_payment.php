@@ -321,7 +321,7 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
       			}else{ ?>
 			    <select name="amount" class="form_input_select"  >
 				<?php
-				$arr_purchase_amount = split(":", EPAYMENT_PURCHASE_AMOUNT);
+				$arr_purchase_amount = preg_split("/:/", EPAYMENT_PURCHASE_AMOUNT);
 						if (!is_array($arr_purchase_amount)) $arr_purchase_amount[0]=10;
 			
 						foreach($arr_purchase_amount as $value){

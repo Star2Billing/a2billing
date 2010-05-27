@@ -42,15 +42,15 @@ if (!has_rights(ACX_DASHBOARD)) {
 exec("lsb_release -d 2> /dev/null", $output);
 
 $distro_info = $output[0];
-$info_tmp = split(':', $distro_info, 2);
+$info_tmp = preg_split('/:/', $distro_info, 2);
 $OS = trim($info_tmp[1]);
-$OS_img = split(' ', $OS);
+$OS_img = preg_split('/ /', $OS);
 
-$info_tmp = split(" - ", COPYRIGHT);
+$info_tmp = preg_split("/ - /", COPYRIGHT);
 $UI = $info_tmp[0].' '.$info_tmp[1];
 
 $UI_path = '';
-$info_tmp = split('/', $_SERVER["SCRIPT_FILENAME"]);
+$info_tmp = preg_split('#//#', $_SERVER["SCRIPT_FILENAME"]);
 foreach($info_tmp as $value){
 	if($value != 'admin')
 		$UI_path .= $value . '/';
@@ -61,7 +61,7 @@ foreach($info_tmp as $value){
 $DBHandle = DbConnect();
 $rs = $DBHandle -> Execute('SELECT VERSION();');
 $rs = $rs -> FetchRow();
-$info_tmp = split('-', $rs[0], 2);
+$info_tmp = preg_split('/-/', $rs[0], 2);
 $mysql = $info_tmp[0];
 
 $rs = $DBHandle -> Execute('SELECT * FROM cc_version;');

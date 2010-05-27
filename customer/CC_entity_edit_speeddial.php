@@ -80,7 +80,7 @@ if ($form_action == "edit"){
 				$regexp = $FG_TABLE_EDITION[$i][5];
 				
 				if (is_numeric($regexp) && !($FG_TABLE_ADITION[$i][12]=="no" && $$fields_name=="") ){									
-					$fit_expression[$i] = ereg( $regular[$regexp][0] , $$fields_name);
+					$fit_expression[$i] = preg_match( "/" . $regular[$regexp][0] . "/" , $$fields_name);
 					if ($FG_DEBUG == 1)  echo "<br>->  ".$regular[$regexp][0]." , ".$$fields_name;
 					if (!$fit_expression[$i]){
 						$VALID_SQL_REG_EXP = false;
@@ -191,8 +191,8 @@ function sendtolittle(direction){
 				  <?php
 						if (!is_null($FG_QUERY_ADITION_HIDDEN_FIELDS) && $FG_QUERY_ADITION_HIDDEN_FIELDS!=""){
 							
-							$split_hidden_fields = split(",",trim($FG_QUERY_ADITION_HIDDEN_FIELDS));
-							$split_hidden_fields_value = split(",",trim($FG_QUERY_ADITION_HIDDEN_VALUE));
+							$split_hidden_fields = preg_split("/,/",trim($FG_QUERY_ADITION_HIDDEN_FIELDS));
+							$split_hidden_fields_value = preg_split("/,/",trim($FG_QUERY_ADITION_HIDDEN_VALUE));
 
 							for ($cur_hidden=0;$cur_hidden<count($split_hidden_fields);$cur_hidden++){
 									echo "<INPUT class=\"form_enter\" type=\"hidden\" name=\"".trim($split_hidden_fields[$cur_hidden])."\" value=\"".trim($split_hidden_fields_value[$cur_hidden])."\">\n";
@@ -302,10 +302,10 @@ function sendtolittle(direction){
                         <?php     }elseif (strtoupper ($FG_TABLE_EDITION[$i][3])==strtoupper ("RADIOBUTTON")){
 								
 										 
-												$radio_table = split(",",trim($FG_TABLE_EDITION[$i][9]));
+												$radio_table = preg_split("/,/",trim($FG_TABLE_EDITION[$i][9]));
 												
 												foreach ($radio_table as $radio_instance){
-													$radio_composant = split(":",$radio_instance);																								
+													$radio_composant = preg_split("/:/",$radio_instance);																								
 													echo $radio_composant[0];
 													echo ' <input class="form_enter" type="radio" name="'.$FG_TABLE_EDITION[$i][1].'" value="'.$radio_composant[1].'" ';
 													
@@ -342,7 +342,7 @@ function sendtolittle(direction){
 								
 							  if (strtoupper ($FG_TABLE_EDITION[$i][3])==strtoupper ("SELECT"))
 							  {
-								$table_split = split(":",$FG_TABLE_EDITION[$i][1]);								
+								$table_split = preg_split("/:/",$FG_TABLE_EDITION[$i][1]);								
 						
 					?>
                     <TR> 
@@ -545,7 +545,7 @@ function sendtolittle(direction){
 					<?php } ?>
 					<?php  }elseif (strtoupper ($FG_TABLE_EDITION[$i][3])==strtoupper ("INSERT")){
 					
-								$table_split = split(":",$FG_TABLE_EDITION[$i][1]);
+								$table_split = preg_split("/:/",$FG_TABLE_EDITION[$i][1]);
 						
 					?>
                     <TR> 
@@ -697,7 +697,7 @@ function sendtolittle(direction){
 					
 					<?php  }elseif (strtoupper ($FG_TABLE_EDITION[$i][3])==strtoupper ("CHECKBOX")){
 							
-							$table_split = split(":",$FG_TABLE_EDITION[$i][1]);
+							$table_split = preg_split("/:/",$FG_TABLE_EDITION[$i][1]);
 					?>
 					<TR> 
 					 <!-- ******************** PARTIE EXTERN : CHECKBOX ***************** -->
@@ -834,8 +834,8 @@ function sendtolittle(direction){
 				  	<?php
 						if (!is_null($FG_QUERY_ADITION_HIDDEN_FIELDS) && $FG_QUERY_ADITION_HIDDEN_FIELDS!=""){
 							
-							$split_hidden_fields = split(",",trim($FG_QUERY_ADITION_HIDDEN_FIELDS));
-							$split_hidden_fields_value = split(",",trim($FG_QUERY_ADITION_HIDDEN_VALUE));
+							$split_hidden_fields = preg_split("/,/",trim($FG_QUERY_ADITION_HIDDEN_FIELDS));
+							$split_hidden_fields_value = preg_split("/,/",trim($FG_QUERY_ADITION_HIDDEN_VALUE));
 
 							for ($cur_hidden=0;$cur_hidden<count($split_hidden_fields);$cur_hidden++){
 									echo "<INPUT type=\"hidden\" name=\"".trim($split_hidden_fields[$cur_hidden])."\" value=\"".trim($split_hidden_fields_value[$cur_hidden])."\">\n";
@@ -921,10 +921,10 @@ function sendtolittle(direction){
                         <?php     }elseif (strtoupper ($FG_TABLE_ADITION[$i][3])==strtoupper ("RADIOBUTTON")){
 								
 										 
-												$radio_table = split(",",trim($FG_TABLE_EDITION[$i][9]));
+												$radio_table = preg_split("/,/",trim($FG_TABLE_EDITION[$i][9]));
 												
 												foreach ($radio_table as $radio_instance){
-													$radio_composant = split(":",$radio_instance);
+													$radio_composant = preg_split("/:/",$radio_instance);
 													echo $radio_composant[0];																								
 													echo ' <input type="radio" name="'.$FG_TABLE_ADITION[$i][1].'" value="'.$radio_composant[1].'" ';
 													if ($FG_TABLE_ADITION[$i][2]==$radio_composant[1]){

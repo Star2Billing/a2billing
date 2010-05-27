@@ -199,7 +199,7 @@ if(!empty($subscribe)){
 	
 			<?php
 
-$arr_purchase_amount = split(":", EPAYMENT_PURCHASE_AMOUNT);
+$arr_purchase_amount = preg_split("/:/", EPAYMENT_PURCHASE_AMOUNT);
 if (!is_array($arr_purchase_amount)) {
 	$to_echo = 10;
 } else {

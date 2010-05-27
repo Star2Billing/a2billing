@@ -533,7 +533,7 @@ if ( ($orderStatus == 0) && ($transaction_data[0][4]=='iridium')) {
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT ORDER STATUS  = ".$statusmessage);
 
 // CHECK IF THE EMAIL ADDRESS IS CORRECT
-if (eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+[.](([a-z]{2,3})|([a-z]{3}[.]{1}[a-z]{2}))$", $customer_info["email"])) {
+if (preg_match("/^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+[.](([a-z]{2,3})|([a-z]{3}[.]{1}[a-z]{2}))$/i", $customer_info["email"])) {
 	// FIND THE TEMPLATE APPROPRIATE
 	
     try {

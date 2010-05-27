@@ -161,7 +161,7 @@ class iridium {
   	$ccErrors [0] = "Credit card number has invalid format";
   	$ccErrors [1] = "Credit card number is invalid";
         
-	if (!eregi('^[0-9]{13,19}$',$cardNo))  {
+	if (!preg_match('/^[0-9]{13,19}$/i',$cardNo))  {
      		$errornumber = 0;     
      		$error = $ccErrors [$errornumber];
      		$result = false; 

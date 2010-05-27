@@ -155,23 +155,23 @@ class iam_csvdump
     {
         $USER_BROWSER_AGENT="";
 
-        if (ereg('OPERA(/| )([0-9].[0-9]{1,2})', strtoupper($_SERVER["HTTP_USER_AGENT"]), $log_version))
+        if (preg_match('/OPERA(/| )([0-9].[0-9]{1,2})/', strtoupper($_SERVER["HTTP_USER_AGENT"]), $log_version))
         {
             $USER_BROWSER_AGENT='OPERA';
         }
-        else if (ereg('MSIE ([0-9].[0-9]{1,2})',strtoupper($_SERVER["HTTP_USER_AGENT"]), $log_version))
+        else if (preg_match('/MSIE ([0-9].[0-9]{1,2})/',strtoupper($_SERVER["HTTP_USER_AGENT"]), $log_version))
         {
             $USER_BROWSER_AGENT='IE';
         }
-        else if (ereg('OMNIWEB/([0-9].[0-9]{1,2})', strtoupper($_SERVER["HTTP_USER_AGENT"]), $log_version))
+        else if (preg_match('/OMNIWEB/([0-9].[0-9]{1,2})/', strtoupper($_SERVER["HTTP_USER_AGENT"]), $log_version))
         {
             $USER_BROWSER_AGENT='OMNIWEB';
         }
-        else if (ereg('MOZILLA/([0-9].[0-9]{1,2})', strtoupper($_SERVER["HTTP_USER_AGENT"]), $log_version))
+        else if (preg_match('/MOZILLA/([0-9].[0-9]{1,2})/', strtoupper($_SERVER["HTTP_USER_AGENT"]), $log_version))
         {
             $USER_BROWSER_AGENT='MOZILLA';
         }
-        else if (ereg('KONQUEROR/([0-9].[0-9]{1,2})', strtoupper($_SERVER["HTTP_USER_AGENT"]), $log_version))
+        else if (preg_match('/KONQUEROR/([0-9].[0-9]{1,2})/', strtoupper($_SERVER["HTTP_USER_AGENT"]), $log_version))
         {
             $USER_BROWSER_AGENT='KONQUEROR';
         }

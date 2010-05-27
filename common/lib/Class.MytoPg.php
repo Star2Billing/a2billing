@@ -57,7 +57,7 @@ class MytoPg {
 			$pos = 0;
 			while ($pos < strlen($q)) {
 				$slices++;
-				$f = eregi($this->mytopg[$i], substr($q, $pos), $match);
+				$f = preg_match("/".$this->mytopg[$i]."/i", substr($q, $pos), $match);
 
 				// there are no matches; use the remainder of the input verbatim
 				if ($f === FALSE) {
@@ -104,9 +104,9 @@ class MytoPg {
 						$new = $match[1].'date_part(\'epoch\','.$match[3];
 						$pos = $matchpos + strlen($match[1].$match[3]) + 18;
 
-					} elseif (eregi('LIMIT([[:space:]])([[:digit:]]*)'
+					} elseif (preg_match('/LIMIT([[:space:]])([[:digit:]]*)'
 						.'([[:space:]]*),([[:space:]]*)'
-						.'([[:digit:]]*)', $match[2], $params)) {
+						.'([[:digit:]]*)/i', $match[2], $params)) {
 						// slightly more complex; we've got two parameters too
 						$new = "$match[1]LIMIT$params[1]$params[5]$params[3] "
 							."OFFSET $params[4]$params[2]$match[3]";
@@ -137,8 +137,8 @@ class MytoPg {
 						// first we need to add a little escaping
 						foreach ($rep as &$value) {
 							// if a string literal contains '.',  add escaping
-							if (ereg('^\'.*[.].*\'$', trim(ltrim($value)))) {
-								$value = ' E'.ereg_replace('([^\\])[.]', '\1\\\\.', trim(ltrim($value)));
+							if (preg_match('/^\'.*[.].*\'$/', trim(ltrim($value)))) {
+								$value = ' E'.preg_replace('/([^\\])[.]/', '\1\\\\.', trim(ltrim($value)));
 							}
 						}
 						unset($value);
@@ -146,7 +146,7 @@ class MytoPg {
 							.implode($rep, ',').", 'g')";
 						$pos = $matchpos + strlen($match[1].$match[3])+9;
 					
-					} elseif (ereg('(ADD|SUB)DATE|DATE_(ADD|SUB)', $matched, $tmp)) {
+					} elseif (preg_match('/(ADD|SUB)DATE|DATE_(ADD|SUB)/', $matched, $tmp)) {
 						// determine whether to add or subtract
 						if ($tmp[1] == 'SUB' || $tmp[2] == 'SUB') {
 							$sign = ' - ';
@@ -170,7 +170,7 @@ class MytoPg {
 					} elseif ('SUBSTRING' == $matched) {
 						if ($dbg > 3) $d.=">>>> $match[2] : \$exp>$exp< \$rep[0-2]>$rep[0]<>$rep[1]<>$rep[2]<";
 						// if it looks like a field name containing time or date
-						if (eregi('\s*(\w*time|date\w*)\s*', $rep[0])) {
+						if (preg_match('/\s*(\w*time|date\w*)\s/i*', $rep[0])) {
 							if ($rep[1] == 1 && $rep[2] == 10) {
 								// rewrite as cast to datestamp
 								$new = "$match[1]$match[3]("
@@ -211,10 +211,10 @@ class MytoPg {
 
 					} elseif ('DATETIME' == $matched) {
 						// if it looks like a field name containing time or date
-						if (eregi('(\s*\w*)(time|date)(\w*)(\s*)', $rep[0], $parms)) {
+						if (preg_match('/(\s*\w*)(time|date)(\w*)(\s*)/i', $rep[0], $parms)) {
 							// add a cast to timestamp
 							$rep[0] = "$parm[1]$parm[2]$parm[3]::timestamp$parm[4]";
-						} elseif (eregi('\'now\'', $rep[0], $parms)) {
+						} elseif (preg_match('/\'now\'/', $rep[0], $parms)) {
 							$rep[0] = "now()";
 						} else {
 							$rep[0] = $this -> Cast_date_part($rep[0]);
@@ -391,13 +391,13 @@ class MytoPg {
 	// If a date participle looks like an immediate constant, cast it appropriately
 	function Cast_date_part ($part) {
 
-		if (eregi('([[:space:]]*)[\'"]now[\'"]([[:space:]]*)', $part, $parm)) {
+		if (preg_match('/([[:space:]]*)[\'"]now[\'"]([[:space:]]*)/i', $part, $parm)) {
 			$part = "$parm[1]now()$parm[2]";
 //                                                 |      year         | month 0?1-1     | day 0?1-31           |      hours 0?0-24     | min/secs 0?0-59     |  Timezone? [-+]0-1459] or ABC        |
-		} elseif (ereg ('([[:space:]]*)([\'"][[:space:]]*[[:digit:]]{4}-[0-1]?[[:digit:]]-[0-3]?[[:digit:]][[:space:]][0-2]?[[:digit:]](:[0-5]?[[:digit:]]){2}([[:space:]]?([-+][[:digit:]]{1,4}|[[:alpha:]]{2,3}))?[[:space:]]*[\'"])([[:space:]]*)', $part, $parm)) {
+		} elseif (preg_match ('/([[:space:]]*)([\'"][[:space:]]*[[:digit:]]{4}-[0-1]?[[:digit:]]-[0-3]?[[:digit:]][[:space:]][0-2]?[[:digit:]](:[0-5]?[[:digit:]]){2}([[:space:]]?([-+][[:digit:]]{1,4}|[[:alpha:]]{2,3}))?[[:space:]]*[\'"])([[:space:]]*)/', $part, $parm)) {
 			$part = "$parm[1]$parm[2]::timestamp$parm[6]";
 //                                                 |      year         | month 0?1-12    | day 0?1-31           |
-		} elseif (ereg ('([[:space:]]*)([\'"][[:space:]]*[[:digit:]]{4}-[0-1]?[[:digit:]]-[0-3]?[[:digit:]][[:space:]]*[\'"])([[:space:]]*)', $part, $parm)) {
+		} elseif (preg_match ('/([[:space:]]*)([\'"][[:space:]]*[[:digit:]]{4}-[0-1]?[[:digit:]]-[0-3]?[[:digit:]][[:space:]]*[\'"])([[:space:]]*)/', $part, $parm)) {
 			$part = "$parm[1]$parm[2]::date$parm[3]";
 		}
 		return $part;

@@ -2054,7 +2054,7 @@ class A2Billing {
 		 while (strlen($pwd) < $chrs)
 		 {
 			$chr = chr(mt_rand (0,255));
-			if (eregi("^[0-9]$", $chr))
+			if (preg_match("/^[0-9]$/i", $chr))
 				$pwd = $pwd.$chr;
 		 };
 		 return $pwd;

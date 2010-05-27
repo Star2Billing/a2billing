@@ -49,14 +49,14 @@ check_demo_mode();
 getpost_ifset(array('phonebook', 'search_sources', 'task','status_import','uploadedfile_name','uploadedfile_name'));
  
 
-$phonebookval= split('-:-', $phonebook);
+$phonebookval= preg_split('/-:-/', $phonebook);
 if (!is_numeric($phonebookval[0])){ 
 	echo gettext("No Phonebook defined !"); 
 	exit();
 }
 
 if ($search_sources!='nochange') {
-	$fieldtoimport= split("\t", $search_sources);
+	$fieldtoimport= preg_split("/\t/", $search_sources);
 	$fieldtoimport_sql = str_replace("\t", ", ", $search_sources);
 	$fieldtoimport_sql = trim ($fieldtoimport_sql);
 	if (strlen($fieldtoimport_sql)>0) $fieldtoimport_sql = ', '.$fieldtoimport_sql;
@@ -139,7 +139,7 @@ if ($task=='upload'){
 		// strip out ' and " and, with the exception of dialprefix field,
 		// substitute , for . to allow European style floats, eg: 0,1 == 0.1
 		$ligne = str_replace(array('"',"'"), '', $ligneoriginal);
-		$val=split('[;:]', $ligne);
+		$val=preg_split('/[;:]/', $ligne);
 		for ($i = 1; $i < count($val); $i++)
 			 $val[$i]=str_replace(',', '.', $val[$i]);
 		if ($status_import!="ok") break;

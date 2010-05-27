@@ -92,7 +92,7 @@ function access_sanitize_data($data)
 }
 
 
-if ((!session_is_registered('pr_login') || !session_is_registered('pr_password') || !session_is_registered('cus_rights') || (isset($_POST["done"]) && $_POST["done"]=="submit_log") )){
+if ((!isset($_SESSION['pr_login']) || !isset($_SESSION['pr_password']) || !isset($_SESSION['cus_rights']) || (isset($_POST["done"]) && $_POST["done"]=="submit_log") )){
 
 	if ($FG_DEBUG == 1) echo "<br>0. HERE WE ARE";
 

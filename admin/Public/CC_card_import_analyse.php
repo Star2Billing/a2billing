@@ -50,7 +50,7 @@ check_demo_mode();
 getpost_ifset(array('search_sources', 'task', 'status','uploadedfile_name'));
 
 if ($search_sources!='nochange') {
-	$fieldtoimport= split("\t", $search_sources);
+	$fieldtoimport= preg_split("/\t/", $search_sources);
 	$fieldtoimport_sql = str_replace("\t", ", ", $search_sources);
 	$fieldtoimport_sql = trim ($fieldtoimport_sql);
 	if (strlen($fieldtoimport_sql)>0) $fieldtoimport_sql = ', '.$fieldtoimport_sql;
@@ -146,7 +146,7 @@ if ($task=='upload') {
 		for ($i = 0; $i < strlen($chaine1); $i++)
 			$ligne = str_replace($chaine1[$i], ' ', $ligneoriginal);
 		
-		$val = split('[;,]', $ligne);
+		$val = preg_split('/[;,]/', $ligne);
 		$val[0]=str_replace('"', '', $val[0]); //DH
 		$val[1]=str_replace('"', '', $val[1]); //DH
 		$val[2]=str_replace('"', '', $val[2]); //DH

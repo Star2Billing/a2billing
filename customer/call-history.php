@@ -467,7 +467,7 @@ echo $CC_help_balance_customer;
 									$select_list = $instance_sub_table -> Get_list ($DBHandle, $sub_clause, null, null, null, null, null, null);
 									
 									
-									$field_list_sun = split(',',$FG_TABLE_COL[$i][8]);
+									$field_list_sun = preg_split('/,/',$FG_TABLE_COL[$i][8]);
 									$record_display = $FG_TABLE_COL[$i][10];
 									
 									for ($l=1;$l<=count($field_list_sun);$l++){										

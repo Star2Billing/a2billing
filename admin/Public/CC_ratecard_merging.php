@@ -81,7 +81,7 @@ if($posted == 1) {
 	}
 	
 	if ($search_sources != 'nochange'){
-		$fieldtomerge= split("\t", $search_sources);
+		$fieldtomerge= preg_split("/\t/", $search_sources);
 		$fieldtomerge_sql = str_replace("\t", ", ", $search_sources);
 		$fieldtomerge_sql = trim ($fieldtomerge_sql);
 		//if (strlen($fieldtomerge_sql)>0) $fieldtomerge_sql = ', '.$fieldtomerge_sql;
@@ -91,7 +91,7 @@ if($posted == 1) {
 		$count = 0;
 		$fields = "dialprefix, ";
 		$fields .= $fieldtomerge_sql; 
-		$fields_array = split(',', $fields);
+		$fields_array = preg_split('/,/', $fields);
 	
 		if(!empty($_SESSION['search_ratecard'])){
 			$condition .= " AND ".$_SESSION['search_ratecard'];

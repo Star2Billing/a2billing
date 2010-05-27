@@ -171,7 +171,7 @@ if ($A2B->config["epayment_method"]['enable']){ ?>
 		</TD>
 		<td class="tableBodyRight" >	
 			<?php
-			$arr_purchase_amount = split(":", EPAYMENT_PURCHASE_AMOUNT);
+			$arr_purchase_amount = preg_split("/:/", EPAYMENT_PURCHASE_AMOUNT);
 			if (!is_array($arr_purchase_amount)){
 				$to_echo = 10;
 			}else{
