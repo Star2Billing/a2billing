@@ -200,7 +200,7 @@ $paymentTable->SQLExec ($DBHandle_max, $QUERY); */
 	$currCurrency = BASE_CURRENCY;
 
 	if(empty($transaction_data[0]['vat']) || !is_numeric($transaction_data[0]['vat'])) $VAT =0;
-	else $VAT = $transaction_data[0]['vat'];
+        else $VAT = $transaction_data[0]['vat'];
 
 	$amount_paid = convert_currency($currencies_list, $currAmount, $currCurrency, BASE_CURRENCY);
 	$amount_without_vat = $amount_paid / (1+$VAT/100);
@@ -468,13 +468,11 @@ $paymentTable->SQLExec ($DBHandle_max, $QUERY); */
 
 	if ( ($orderStatus != 2)) {
 
-		/*$url_forward = "checkout_payment.php?payment_error=iridium&error=The+payment+couldnt+be+proceed+correctly";
+		$url_forward = "checkout_payment.php?payment_error=iridium&error=The+payment+couldnt+be+proceed+correctly";
 
 		if(!empty($item_id) && !empty($item_type)) $url_forward .= "&item_id=".$item_id."&item_type=".$item_type;
 
-		Header ("Location: $url_forward"); */
-
-		echo "<br>Failed to process the payment request<br>";
+		Header ("Location: $url_forward");
 
 		die();
 
@@ -488,7 +486,7 @@ $paymentTable->SQLExec ($DBHandle_max, $QUERY); */
 
 	// CHECK IF THE EMAIL ADDRESS IS CORRECT
 
-	if (preg_match("/^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+[.](([a-z]{2,3})|([a-z]{3}[.]{1}[a-z]{2}))$/i", $customer_info["email"])) {
+	if (eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+[.](([a-z]{2,3})|([a-z]{3}[.]{1}[a-z]{2}))$", $customer_info["email"])) {
 
 	// FIND THE TEMPLATE APPROPRIATE
 
@@ -522,7 +520,7 @@ $paymentTable->SQLExec ($DBHandle_max, $QUERY); */
 
 			// Add Post information / useful to track down payment transaction without having to log
 
-			$mail->AddToMessage("\n\n\n\n"."-POST Var \n".print_r($_POST, true));
+			//$mail->AddToMessage("\n\n\n\n"."-POST Var \n".print_r($_POST, true));
 
 			$mail->setTitle("COPY FOR ADMIN : ".$mail->getTitle());
 
