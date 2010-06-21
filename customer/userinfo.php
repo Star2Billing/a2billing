@@ -136,7 +136,7 @@ $smarty->display('main.tpl');
 	<td align="center">
 		<table width="80%" align="center" class="tablebackgroundcamel">
 		<tr>
-			<td><img src="<?php echo KICON_PATH ?>/gnome-finance.gif" class="kikipic"/></td>
+			<td></td>
 			<td width="50%">
 			<br><font class="fontstyle_002"><?php echo gettext("CARD NUMBER");?> :</font><font class="fontstyle_007"> <?php echo $customer_info[0]; ?></font>
 			<br><br>
