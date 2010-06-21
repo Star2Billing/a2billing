@@ -111,8 +111,8 @@ var $_OC_HTML_colspan = "3";
     function OC_HTML_doHtmlHeading($heading)
     {
         ?>
-            <h2><?PHP echo $heading?></h2>
-        <?PHP
+            <h2><?php echo $heading?></h2>
+        <?php
     }
 
 //////////////////////////////////////////////////////////
@@ -131,8 +131,8 @@ var $_OC_HTML_colspan = "3";
     function OC_HTML_doHtmlUrl($url, $name)
     { // output URL as link and br
         ?>
-            <br><a href="<?PHP echo $url?>"><?PHP echo$name?></a><br>
-        <?PHP
+            <br><a href="<?php echo $url?>"><?php echo$name?></a><br>
+        <?php
     }
 
  //////////////////////////////////////////////////////////
@@ -156,7 +156,7 @@ var $_OC_HTML_colspan = "3";
         ?>
             <td valign="top">
             <table width="100%" cellpadding="2" cellspacing="2">
-        <?PHP
+        <?php
             foreach ($this->_OC_HTML_menu_list as $name => $value)
             {
                 echo "<tr><td><a href=\"" . $value . "\" class=\"menuSide\">" . $name . "</a></td></tr>\n";
@@ -165,7 +165,7 @@ var $_OC_HTML_colspan = "3";
             <tr><td>&nbsp;</td></tr>
             </table>
             </td><td>&nbsp;</td><td>
-        <?PHP
+        <?php
     }
 
   //////////////////////////////////////////////////////////
@@ -186,7 +186,7 @@ var $_OC_HTML_colspan = "3";
             </td><td>&nbsp;</td>
             <td valign="top">
             <table width="100%" cellpadding="2" cellspacing="2">
-        <?PHP
+        <?php
         foreach ($this->_OC_HTML_right_menu_list as $name => $value)
         {
             echo "<tr><td><a href=\"" . $value . "\" class=\"menuSide\">" . $name . "</a></td></tr>\n";
@@ -194,7 +194,7 @@ var $_OC_HTML_colspan = "3";
         ?>
             <tr><td>&nbsp;</td></tr>
             </table>
-        <?PHP
+        <?php
     }
 
 //////////////////////////////////////////////////////////
@@ -219,10 +219,10 @@ var $_OC_HTML_colspan = "3";
             <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
             <html>
             <head>
-            <title><?PHP echo $this->_OC_HTML_title ?></title>
+            <title><?php echo $this->_OC_HTML_title ?></title>
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-            <meta name="description" content="<?PHP echo $this->_OC_HTML_description ?>">
-            <meta name="keywords" content="<?PHP echo $this->_OC_HTML_keywords ?>">
+            <meta name="description" content="<?php echo $this->_OC_HTML_description ?>">
+            <meta name="keywords" content="<?php echo $this->_OC_HTML_keywords ?>">
             <style type="text/css">
             <!--
             body {
@@ -286,34 +286,34 @@ var $_OC_HTML_colspan = "3";
             -->
             </style>
             </head>
-            <body><img src="<?PHP echo  $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="10" height="17">
+            <body><img src="<?php echo  $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="10" height="17">
             <table width="100%" border="0" cellspacing="5" cellpadding="0">
                 <tr>
-                    <td colspan="<?PHP echo  $this->_OC_HTML_colspan ?>">
+                    <td colspan="<?php echo  $this->_OC_HTML_colspan ?>">
                     <table border="0" width="100%" cellpadding="0" cellspacing="0">
                 <tr>
-                    <td align="center"><span class="deptTitle"><?PHP echo  $this->_OC_HTML_page_title ?></span></td>
+                    <td align="center"><span class="deptTitle"><?php echo  $this->_OC_HTML_page_title ?></span></td>
                 </tr>
             </table>
             <table width="100%" border="0" cellpadding="0" cellspacing="0" class="menuTop">
                 <tr align="center">
-                <td width = "125"><img src="<?PHP echo  $this->_OC_HTML_images_dir ?>spacer.gif" width="125" height="22" alt="spacer"></td><?PHP $this->OC_HTML_doHeaderBar() ?><td></td>
+                <td width = "125"><img src="<?php echo  $this->_OC_HTML_images_dir ?>spacer.gif" width="125" height="22" alt="spacer"></td><?php $this->OC_HTML_doHeaderBar() ?><td></td>
                 </tr>
                 <tr>
                 <td></td>
-                <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
-                <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
-                <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
-                <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
-                <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
-                <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
-                <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
-                <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="80" height="1"></td>
+                <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
+                <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
+                <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
+                <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
+                <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
+                <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
+                <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
+                <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="80" height="1"></td>
                 </tr>
             </table></td>
             </tr>
             <tr>
-        <?PHP
+        <?php
     }
 //////////////////////////////////////////////////////////
 /**
@@ -401,31 +401,31 @@ var $_OC_HTML_colspan = "3";
 			
             <table width="100%" border="0" cellspacing="5" cellpadding="0">
                 <tr>
-                    <td colspan="<?PHP echo  $this->_OC_HTML_colspan ?>">
+                    <td colspan="<?php echo  $this->_OC_HTML_colspan ?>">
                     <table border="0" width="100%" cellpadding="0" cellspacing="0">
                 <tr>
-                    <td align="center"><span class="deptTitle"><?PHP echo  $this->_OC_HTML_page_title ?></span></td>
+                    <td align="center"><span class="deptTitle"><?php echo  $this->_OC_HTML_page_title ?></span></td>
                 </tr>
             </table>
             <table width="100%" border="0" cellpadding="0" cellspacing="0" class="menuTop">
                 <tr align="center">
-                <td width = "125"><img src="<?PHP echo  $this->_OC_HTML_images_dir ?>spacer.gif" width="125" height="22" alt="spacer"></td><?PHP $this->OC_HTML_doHeaderBar() ?><td></td>
+                <td width = "125"><img src="<?php echo  $this->_OC_HTML_images_dir ?>spacer.gif" width="125" height="22" alt="spacer"></td><?php $this->OC_HTML_doHeaderBar() ?><td></td>
                 </tr>
                 <tr>
                 <td></td>
-                <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
-                <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
-                <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
-                <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
-                <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
-                <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
-                <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
-                <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="80" height="1"></td>
+                <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
+                <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
+                <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
+                <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
+                <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
+                <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
+                <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="50" height="1"></td>
+                <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="80" height="1"></td>
                 </tr>
             </table></td>
             </tr>
             <tr>
-        <?PHP
+        <?php
     }
 
 
@@ -449,26 +449,26 @@ var $_OC_HTML_colspan = "3";
             </td>
             </tr>
             <tr>
-            <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="125" height="1"></td>
+            <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="125" height="1"></td>
             <td></td>
-            <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="540" height="1"></td>
-            <?PHP if($this->_OC_HTML_3pane) echo "<td></td><td><img src=\"$this->_OC_HTML_images_dir" . "spacer.gif\" alt=\"spacer\" width=\"125\" height=\"1\"></td>" ?>
+            <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="540" height="1"></td>
+            <?php if($this->_OC_HTML_3pane) echo "<td></td><td><img src=\"$this->_OC_HTML_images_dir" . "spacer.gif\" alt=\"spacer\" width=\"125\" height=\"1\"></td>" ?>
             </tr>
             <tr>
-            <td colspan="<?PHP echo $this->_OC_HTML_colspan ?>" align="center"><img src="<?PHP echo $this->_OC_HTML_images_dir ?>grey_block.gif" alt="Separator" width="600" height="1"></td>
+            <td colspan="<?php echo $this->_OC_HTML_colspan ?>" align="center"><img src="<?php echo $this->_OC_HTML_images_dir ?>grey_block.gif" alt="Separator" width="600" height="1"></td>
             </tr>
             <tr>
-            <td colspan="<?PHP echo $this->_OC_HTML_colspan ?>" align="center"><a href="<?PHP echo $this->_OC_HTML_webmaster ?>" class="menuSide">Webmaster</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?PHP echo $this->_OC_HTML_disclaimer ?>" class="menuSide">Disclaimer</a></td>
+            <td colspan="<?php echo $this->_OC_HTML_colspan ?>" align="center"><a href="<?php echo $this->_OC_HTML_webmaster ?>" class="menuSide">Webmaster</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo $this->_OC_HTML_disclaimer ?>" class="menuSide">Disclaimer</a></td>
             </tr>
             <tr>
-            <td colspan="<?PHP echo $this->_OC_HTML_colspan ?>" class="greyFooter"><?PHP echo $this->_OC_HTML_footer_text ?></td>
+            <td colspan="<?php echo $this->_OC_HTML_colspan ?>" class="greyFooter"><?php echo $this->_OC_HTML_footer_text ?></td>
             </tr>
         </table>
-        <div id="UDiv" class="StyleUDiv"><a href="<?PHP echo $this->_OC_HTML_logo_link ?>"><img src="<?PHP echo $this->_OC_HTML_images_dir . $this->_OC_HTML_logo ?>" width="70" height="64" border="0" alt="Logo"></a>
+        <div id="UDiv" class="StyleUDiv"><a href="<?php echo $this->_OC_HTML_logo_link ?>"><img src="<?php echo $this->_OC_HTML_images_dir . $this->_OC_HTML_logo ?>" width="70" height="64" border="0" alt="Logo"></a>
         </div>
         </body>
         </html>
-    <?PHP
+    <?php
     }
 	
 	
@@ -492,10 +492,10 @@ var $_OC_HTML_colspan = "3";
             </td>
             </tr>
             <tr>
-            <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="125" height="1"></td>
+            <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="125" height="1"></td>
             <td></td>
-            <td><img src="<?PHP echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="540" height="1"></td>
-            <?PHP if($this->_OC_HTML_3pane) echo "<td></td><td><img src=\"$this->_OC_HTML_images_dir" . "spacer.gif\" alt=\"spacer\" width=\"125\" height=\"1\"></td>" ?>
+            <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="540" height="1"></td>
+            <?php if($this->_OC_HTML_3pane) echo "<td></td><td><img src=\"$this->_OC_HTML_images_dir" . "spacer.gif\" alt=\"spacer\" width=\"125\" height=\"1\"></td>" ?>
             </tr>
             
         </table>
@@ -597,15 +597,15 @@ var $_OC_HTML_colspan = "3";
 	$action = $_SERVER['PHP_SELF']."?file=$file";
         ?>
 
-            <form  name="section_form" method="post" action="<?=$action?>">
+            <form  name="section_form" method="post" action="<?php echo $action ?>">
 
-            <input type=hidden name="themd5" value="<?PHP echo $md5 ?>">
+            <input type=hidden name="themd5" value="<?php echo $md5 ?>">
 
-            <input type=hidden name="updateSection" value="<?PHP echo $section ?>">
+            <input type=hidden name="updateSection" value="<?php echo $section ?>">
 
-            <h2><?PHP echo "Edit: $section" ?></h2>
+            <h2><?php echo "Edit: $section" ?></h2>
 
-            <textarea name="section_text" style="width: 100%" rows="<?PHP echo $this->_OC_HTML_textarea_rows ?>" wrap="off"><?PHP foreach($theItems as $item) print "$item";?></textarea> <br>
+            <textarea name="section_text" style="width: 100%" rows="<?php echo $this->_OC_HTML_textarea_rows ?>" wrap="off"><?php foreach($theItems as $item) print "$item";?></textarea> <br>
 
             <input type="Submit" class="form_input_button" name="tryUpdate" value="Update">
 
@@ -640,7 +640,7 @@ var $_OC_HTML_colspan = "3";
             //-->
             </script>
 
-        <?PHP
+        <?php
     }
 }
 
