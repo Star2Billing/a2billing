@@ -42,8 +42,8 @@ function sendtolittle(direction){
 		
 <?php
 	if (!empty($this->FG_QUERY_EDITION_HIDDEN_FIELDS)){
-		$split_hidden_fields = split(",",trim($this->FG_QUERY_EDITION_HIDDEN_FIELDS));
-		$split_hidden_fields_value = split(",",trim($this->FG_QUERY_EDITION_HIDDEN_VALUE));
+		$split_hidden_fields = preg_split("/,/",trim($this->FG_QUERY_EDITION_HIDDEN_FIELDS));
+		$split_hidden_fields_value = preg_split("/,/",trim($this->FG_QUERY_EDITION_HIDDEN_VALUE));
 		
 		for ($cur_hidden=0;$cur_hidden<count($split_hidden_fields);$cur_hidden++){
 			echo "<INPUT type=\"hidden\" name=\"".trim($split_hidden_fields[$cur_hidden])."\" value=\"".trim($split_hidden_fields_value[$cur_hidden])."\">\n";
@@ -51,8 +51,8 @@ function sendtolittle(direction){
 	}
 	
 	if (!empty($this->FG_EDITION_HIDDEN_PARAM)){
-		$split_hidden_fields = split(",",trim($this->FG_EDITION_HIDDEN_PARAM));
-		$split_hidden_fields_value = split(",",trim($this->FG_EDITION_HIDDEN_PARAM_VALUE));
+		$split_hidden_fields = preg_split("/,/",trim($this->FG_EDITION_HIDDEN_PARAM));
+		$split_hidden_fields_value = preg_split("/,/",trim($this->FG_EDITION_HIDDEN_PARAM_VALUE));
 		
 		for ($cur_hidden=0;$cur_hidden<count($split_hidden_fields);$cur_hidden++){
 			echo "<INPUT type=\"hidden\" name=\"".trim($split_hidden_fields[$cur_hidden])."\" value=\"".trim($split_hidden_fields_value[$cur_hidden])."\">\n";
@@ -226,9 +226,9 @@ function sendtolittle(direction){
                         </SELECT>
                         <?php   
 					}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="RADIOBUTTON"){
-						$radio_table = split(",",trim($this->FG_TABLE_EDITION[$i][10]));
+						$radio_table = preg_split("/,/",trim($this->FG_TABLE_EDITION[$i][10]));
 						foreach ($radio_table as $radio_instance){
-							$radio_composant = split(":",$radio_instance);
+							$radio_composant = preg_split("/:/",$radio_instance);
 							echo $radio_composant[0];
 							echo ' <input class="form_enter" type="radio" name="'.$this->FG_TABLE_EDITION[$i][1].'" value="'.$radio_composant[1].'" ';
 							if($this->VALID_SQL_REG_EXP){ 
@@ -265,7 +265,7 @@ function sendtolittle(direction){
 					} else {
 						
 						if (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="SELECT") {
-							$table_split = split(":",$this->FG_TABLE_EDITION[$i][14]);
+							$table_split = preg_split("/:/",$this->FG_TABLE_EDITION[$i][14]);
 					?>
                     <TR> 
 						<!-- ******************** PARTIE EXTERN : SELECT ***************** -->
@@ -423,7 +423,7 @@ function sendtolittle(direction){
                     </TR>
 					<?php 
 						} elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="INSERT") {
-							$table_split = split(":",$this->FG_TABLE_EDITION[$i][14]);
+							$table_split = preg_split("/:/",$this->FG_TABLE_EDITION[$i][14]);
 					?>
 					<TR>
 					  <!-- ******************** PARTIE EXTERN : INSERT ***************** -->
@@ -550,8 +550,8 @@ function sendtolittle(direction){
                         <br></TD>
                     </TR>					
 					<?php  } elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="HAS_MANY") {
-							$table_split = split(":",$this->FG_TABLE_EDITION[$i][14]);
-							$table_col = split(",", $table_split[2]);
+							$table_split = preg_split("/:/",$this->FG_TABLE_EDITION[$i][14]);
+							$table_col = preg_split("/,/", $table_split[2]);
 					?>
 					<TR>
 					  <!-- ******************** PARTIE EXTERN : HAS_MANY ***************** -->
@@ -674,7 +674,7 @@ function sendtolittle(direction){
                     </TR>					
 					<?php  } elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="CHECKBOX") {
 							
-							$table_split = split(":",$this->FG_TABLE_EDITION[$i][14]);
+							$table_split = preg_split("/:/",$this->FG_TABLE_EDITION[$i][14]);
 					?>
 					<TR> 
 					 <!-- ******************** PARTIE EXTERN : CHECKBOX ***************** -->

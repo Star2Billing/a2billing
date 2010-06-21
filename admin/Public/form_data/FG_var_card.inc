@@ -105,79 +105,79 @@ $invoiceday_list = Constants::getInvoiceDay_List();
 
 
 // Search for the field to display on the show list
-$show_list=array();
-$show_list_sizes=array();
-$show_list_temp=array();
+$show_list = array();
+$show_list_sizes = array();
+$show_list_temp = array();
 
-$show_list_temp=split(',', $A2B->config["webui"]['card_show_field_list']);
+$show_list_temp = preg_split('/,/', $A2B->config["webui"]['card_show_field_list']);
 foreach ($show_list_temp as $i => $value) {
-	$a=strtolower(trim($value));
+	$a = strtolower(trim($value));
 	$pos = strpos($a, ':');
-	if (!($pos===false)) {
-		$temp_ar=split(':',$a);
-		$b=$temp_ar[1];
-		$a=strtolower(trim($temp_ar[0]));	
+	if (!($pos === false)) {
+		$temp_ar = preg_split('/:/', $a);
+		$b = $temp_ar[1];
+		$a = strtolower(trim($temp_ar[0]));	
 		if (strlen($a)>1) {
-		$show_list_sizes[$a]=$b;
+		$show_list_sizes[$a] = $b;
 		}
 	}
 	if (strlen($a)>1) {
-		$show_list[$a]=$a;
+		$show_list[$a] = $a;
 	}
 }
-$show_fields=array();
-$show_fields['id']=array(gettext("ID"), "id", "3%", "center", "sort","", "", "", "", "", "", "");
+$show_fields = array();
+$show_fields['id'] = array(gettext("ID"), "id", "3%", "center", "sort","", "", "", "", "", "", "");
 
-$show_fields['username']=array(gettext("Account Number"), "username", "14%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$show_fields['username'] = array(gettext("Account Number"), "username", "14%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 if (!($popup_select>=1)) 
- $show_fields['useralias']=array("<acronym title=\"WEB UI LOGIN\">".gettext("LOGIN")."</acronym>", "useralias", "12%", "center", "sort","", "", "", "", "", "", "");
+ $show_fields['useralias'] = array("<acronym title=\"WEB UI LOGIN\">".gettext("LOGIN")."</acronym>", "useralias", "12%", "center", "sort","", "", "", "", "", "", "");
 
-$show_fields['lastname']=array(gettext("LASTNAME"), "lastname", "7%", "center", "sort", "20","", "", "", "", "", "");
-$show_fields['id_group']=array(gettext("GROUP"), "id_group", "6%", "center", "sort", "20", "lie", "cc_card_group", "name", "id='%id'", "%1","");
-$show_fields['credit']=array("<acronym title=\"".gettext("BALANCE")."\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "display_2bill");
+$show_fields['lastname'] = array(gettext("LASTNAME"), "lastname", "7%", "center", "sort", "20","", "", "", "", "", "");
+$show_fields['id_group'] = array(gettext("GROUP"), "id_group", "6%", "center", "sort", "20", "lie", "cc_card_group", "name", "id='%id'", "%1","");
+$show_fields['credit'] = array("<acronym title=\"".gettext("BALANCE")."\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "display_2bill");
 
 if (!($popup_select>=1)) {
-	$serial_pad_length=$A2B->config["webui"]['card_serial_length'];
-	$show_fields['id_seria']=array(gettext("SERIE"), "id_seria", "*", "center", "sort", "15", "lie", "cc_card_seria", "name","id='%id'", "%1","");
-	$show_fields['serial']=array("<acronym title=\"".gettext("SERIAL NUMBER")."\">SERIAL#</acronym>", "serial", "*","center", "sort","","eval",'str_pad("%C",'.$serial_pad_length.' , "0", STR_PAD_LEFT)');
-	$show_fields['tariff']=array("<acronym title=\"".gettext("CALL PLAN")."\">".gettext('PLAN')."</acronym>",
+	$serial_pad_length = $A2B->config["webui"]['card_serial_length'];
+	$show_fields['id_seria'] = array(gettext("SERIE"), "id_seria", "*", "center", "sort", "15", "lie", "cc_card_seria", "name","id='%id'", "%1","");
+	$show_fields['serial'] = array("<acronym title=\"".gettext("SERIAL NUMBER")."\">SERIAL#</acronym>", "serial", "*","center", "sort","","eval",'str_pad("%C",'.$serial_pad_length.' , "0", STR_PAD_LEFT)');
+	$show_fields['tariff'] = array("<acronym title=\"".gettext("CALL PLAN")."\">".gettext('PLAN')."</acronym>",
 	       "tariff", "8%", "center", "sort", "20", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
-	$show_fields['status']=array(gettext("STATUS"), "status", "4%", "center", "sort", "", "list", $cardstatus_list_acronym);
+	$show_fields['status'] = array(gettext("STATUS"), "status", "4%", "center", "sort", "", "list", $cardstatus_list_acronym);
 	$show_fields['language']=array(gettext("LG"), "language", "3%", "center", "sort");
-	$show_fields['inuse']=array(gettext("USE"), "inuse", "3%", "center", "sort");
-	$show_fields['currency']=array("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "4%", "center", "sort", "", "list", $currency_list_key);
-	$show_fields['sip_buddy']=array(gettext("SIP"), "sip_buddy", "2%", "center", "sort", "", "list", $yesno);
-	$show_fields['iax_buddy']=array(gettext("IAX"), "iax_buddy", "2%", "center", "sort", "", "list", $yesno);
-	$show_fields['nbused']=array("<acronym title=\"AMOUNT OF CALL DONE\">".gettext("ACD")."</acronym>", "nbused", "3%", "center", "sort");
-	$show_fields['firstname']=array(gettext("FIRSTNAME"), "firstname", "7%", "center", "sort", "15");
-	$show_fields['email']=array(gettext("EMAIL"), "email","","center", "sort", "15");
-	$show_fields['discount']=array("<acronym title=\"DISCOUNT\">".gettext("DISC")."</acronym>", "discount","","center", "sort", "15","30", "", "", "", "", "display_percentage");
-	$show_fields['callerid']=array("<acronym title=\"CALLER IDENTIFICATION NUMBER\">".gettext("CID")."</acronym>", "callerid","","center", "sort", "15");
+	$show_fields['inuse'] = array(gettext("USE"), "inuse", "3%", "center", "sort");
+	$show_fields['currency'] = array("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "4%", "center", "sort", "", "list", $currency_list_key);
+	$show_fields['sip_buddy'] = array(gettext("SIP"), "sip_buddy", "2%", "center", "sort", "", "list", $yesno);
+	$show_fields['iax_buddy'] = array(gettext("IAX"), "iax_buddy", "2%", "center", "sort", "", "list", $yesno);
+	$show_fields['nbused'] = array("<acronym title=\"AMOUNT OF CALL DONE\">".gettext("ACD")."</acronym>", "nbused", "3%", "center", "sort");
+	$show_fields['firstname'] = array(gettext("FIRSTNAME"), "firstname", "7%", "center", "sort", "15");
+	$show_fields['email'] = array(gettext("EMAIL"), "email","","center", "sort", "15");
+	$show_fields['discount'] = array("<acronym title=\"DISCOUNT\">".gettext("DISC")."</acronym>", "discount","","center", "sort", "15","30", "", "", "", "", "display_percentage");
+	$show_fields['callerid'] = array("<acronym title=\"CALLER IDENTIFICATION NUMBER\">".gettext("CID")."</acronym>", "callerid","","center", "sort", "15");
 	$FG_COL_QUERY = 'DISTINCT ';
 }else{
-	$show_list_temp=array('id', 'username', 'lastname', 'id_group',  'credit');
+	$show_list_temp = array('id', 'username', 'lastname', 'id_group',  'credit');
 	foreach ($show_list_temp as $i => $value) {
-                $show_list[$value]=$value;
+                $show_list[$value] = $value;
 	}
 	
-	$FG_COL_QUERY='DISTINCT ';
+	$FG_COL_QUERY = 'DISTINCT ';
 }
-$FG_COL_QUERY_FIELD='';
-$index=0;
+$FG_COL_QUERY_FIELD = '';
+$index = 0;
 foreach ($show_list as $i => $value) {
 	if (array_key_exists($i,$show_fields)) {
 		$param = $show_fields[$i];
 		$param = $param + array("","","","","","");#expand array to max length
 		$size = "*";
-		$param7=$param[7];
+		$param7 = $param[7];
 		if ($param[6]=="eval"){
 			$param7 = str_replace('%C', '%'.$index, $param7);//because of dynamic nature need set current field for eval
 		};
 		if (array_key_exists($i,$show_list_sizes)) {
 			if ((strlen(trim($show_list_sizes[$i])==0))&&(strlen(trim($param[2])>0))){
-				$size=$param[2];
+				$size = $param[2];
 			}else{
-				$size=$show_list_sizes[$i];
+				$size = $show_list_sizes[$i];
 			}
 		}
 		$HD_Form -> AddViewElement($param[0],$param[1],$size,$param[3],$param[4],$param[5],$param[6],$param7,$param[8],
@@ -191,10 +191,10 @@ foreach ($show_list as $i => $value) {
 	}
 }
 if (strlen($FG_COL_QUERY_FIELD)>2) {
-	$FG_COL_QUERY_FIELD=substr( $FG_COL_QUERY_FIELD,2);
+	$FG_COL_QUERY_FIELD = substr( $FG_COL_QUERY_FIELD,2);
 }
-$FG_COL_QUERY_COUNT=count(split(',',$FG_COL_QUERY_FIELD));
-$FG_COL_QUERY_FIELD=$FG_COL_QUERY_FIELD.', id as id_,username as username_,useralias as alias_ ';
+$FG_COL_QUERY_COUNT = count(preg_split('/,/',$FG_COL_QUERY_FIELD));
+$FG_COL_QUERY_FIELD = $FG_COL_QUERY_FIELD.', id as id_,username as username_,useralias as alias_ ';
 $HD_Form -> FieldViewElement ($FG_COL_QUERY.' '.$FG_COL_QUERY_FIELD);
 
 

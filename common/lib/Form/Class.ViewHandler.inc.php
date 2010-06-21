@@ -212,7 +212,7 @@ function openURLFilter(theLINK)
 						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);
 
 						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
-						$field_list_sun = split(',',$this->FG_TABLE_COL[$i][8]);
+						$field_list_sun = preg_split('/,/', $this->FG_TABLE_COL[$i][8]);
 						$record_display = $this->FG_TABLE_COL[$i][10];
 
 						for ($l=1;$l<=count($field_list_sun);$l++){
@@ -226,7 +226,7 @@ function openURLFilter(theLINK)
 						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
 						
 						if (is_array($select_list)) {
-							$field_list_sun = split(',',$this->FG_TABLE_COL[$i][8]);
+							$field_list_sun = preg_split('/,/',$this->FG_TABLE_COL[$i][8]);
 							$record_display = $this->FG_TABLE_COL[$i][10];
 							$link = $this->FG_TABLE_COL[$i][12];
 							if (stripos($this->FG_TABLE_COL[$i][12],'form_action')===false) $link .= "?form_action=ask-edit&";

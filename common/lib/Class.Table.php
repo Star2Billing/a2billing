@@ -146,7 +146,7 @@ class Table {
 			$this -> mytopg -> My_to_Pg($QUERY);
 		} else {
 			// the MySQL schema takes care of case-insensitivity
-			$QUERY = eregi_replace('([[:space:]]+)I(LIKE[[:space:]]+)', '\1\2', $QUERY);
+			$QUERY = preg_replace('/([[:space:]]+)I(LIKE[[:space:]]+)/i', '\1\2', $QUERY);
 		}
 		
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
@@ -218,7 +218,7 @@ class Table {
 		}
 
 		$sqlletters = "";
-		if (!is_null ($letters) && (ereg("^[A-Za-z]+$", $letters)) && !is_null ($field_order_letter) && ($field_order_letter!='')) {
+		if (!is_null ($letters) && (preg_match("/^[A-Za-z]+$/", $letters)) && !is_null ($field_order_letter) && ($field_order_letter!='')) {
 			$sql_letters= ' (".$field_order_letter." LIKE \''.strtolower($letters).'%\') ';
 
 			if ($sql_clause != "") {
@@ -287,7 +287,7 @@ class Table {
 
 		$QUERY = $sql.$sql_clause;
 		
-		if(eregi("[ ]+group[ ]+by[ ]+",$sql_clause)) $QUERY="SELECT count(*) FROM (".$QUERY.") as tmp";
+		if (preg_replace("/[ ]+group[ ]+by[ ]+/i",$sql_clause)) $QUERY="SELECT count(*) FROM (".$QUERY.") as tmp";
 		
 		$res = $this -> ExecuteQuery ($DBHandle, $QUERY, $cache);
 		if (!$res) return false;
