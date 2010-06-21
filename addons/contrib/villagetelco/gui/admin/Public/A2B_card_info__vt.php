@@ -476,7 +476,7 @@ echo Display_Login_Button ($DBHandle, $id);
 		   }
 		   ?>
 		</table>
-		<?
+		<?php
 		  }
 		?>
 		</td>
@@ -528,7 +528,7 @@ echo Display_Login_Button ($DBHandle, $id);
                 }
                 ?>
 		</table>
-        	<?
+        	<?php
           	}
         	?>
 		</td>
@@ -578,7 +578,7 @@ echo Display_Login_Button ($DBHandle, $id);
                 }
                 ?>
 		</table>
-        	<?
+        	<?php
           	}
         	?>
 		</td>
@@ -624,7 +624,7 @@ echo Display_Login_Button ($DBHandle, $id);
                 }
                 ?>
 		</table>
-        	<?
+        	<?php
           	}
         	?>
 		</td>
