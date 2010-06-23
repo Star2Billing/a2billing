@@ -33,7 +33,7 @@
 
 ALTER TABLE cc_did_destination CHANGE destination destination VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
 
-ALTER TABLE cc_sip_buddies ADD COLUMN useragent VARCHAR( 20 ) DEFAULT NULL;
+ALTER TABLE cc_sip_buddies ADD COLUMN useragent VARCHAR( 33 ) DEFAULT NULL;
 
 ALTER TABLE `cc_sip_buddies` ALTER `disallow` set DEFAULT 'ALL';
 ALTER TABLE `cc_sip_buddies` ALTER `rtpkeepalive` set DEFAULT 0;
