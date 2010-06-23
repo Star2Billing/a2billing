@@ -614,29 +614,19 @@ function MDP_STRING($chrs = LEN_CARDNUMBER)
  */
 function MDP_NUMERIC($chrs = LEN_CARDNUMBER)
 {
-	$pwd = "";
-	mt_srand((double) microtime() * 1000000);
-	while (strlen($pwd) < $chrs) {
-		$chr = mt_rand(0, 9);
-		if (eregi("^[0-9]$", $chr))
-			$pwd = $pwd . $chr;
-	};
-	return strtolower($pwd);
+    $max_rand = str_repeat("9", $chrs);
+    $myrand = mt_rand(1, $max_rand);
+    $myrand = sprintf("%0".$chrs."d", $myrand);
+    
+    return $myrand;
 }
 
 /*
- * function MDP_NUMERIC
+ * function MDP
  */
 function MDP($chrs = LEN_CARDNUMBER)
 {
-	$pwd = "";
-	mt_srand((double) microtime() * 1000000);
-	while (strlen($pwd) < $chrs) {
-		$chr = chr(mt_rand(0, 255));
-		if (eregi("^[0-9]$", $chr))
-			$pwd = $pwd . $chr;
-	};
-	return $pwd;
+	return MDP_NUMERIC ($chrs);
 }
 
 /*
@@ -1499,5 +1489,6 @@ function Display_Login_Button ($DBHandle, $id) {
 	</div>';
 	return $content;
 }
+
 
 
