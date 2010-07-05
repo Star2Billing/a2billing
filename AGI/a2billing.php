@@ -1012,7 +1012,9 @@ if ($mode == 'standard') {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[ANSWER CALL]');
 		$agi -> answer();
 		$status_channel = 6;
-
+        
+        $A2B -> play_menulanguage ($agi);
+        
 		// PLAY INTRO FOR CALLBACK
 		if (strlen($A2B -> config["callback"]['callback_audio_intro']) > 0) {
 			$agi-> stream_file($A2B -> config["callback"]['callback_audio_intro'], '#');
@@ -1021,6 +1023,8 @@ if ($mode == 'standard') {
 	} else {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[NO ANSWER CALL]');
 		$status_channel = 4;
+		
+		$A2B -> play_menulanguage ($agi);
 	}
 
 	$called_party = $agi->get_variable("CALLED", true);
