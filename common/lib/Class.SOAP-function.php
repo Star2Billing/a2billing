@@ -765,7 +765,9 @@ class SOAP_A2Billing
 			$language = 'en';
 		
 		if ($activated)
-			$v_activated = ($activated) ? 't' : 'f';
+			$activated = 't';
+	    else
+	        $activated = 'f';
 		
 		$instance_realtime = new Realtime();
 

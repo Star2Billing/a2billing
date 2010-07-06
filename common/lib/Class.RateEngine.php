@@ -1344,10 +1344,9 @@ class RateEngine
 					$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
 					$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
 					
-					if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) {
-						$destination= substr($destination, strlen($removeprefix));
-					}
-
+					if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0)
+				        $destination= substr($destination, strlen($removeprefix));
+				    
 					$dialparams = str_replace("%timeout%", min($timeout * 1000, $max_long), $A2B->agiconfig['dialcommand_param']);
 
 					if ($pos_dialingnumber !== false) {
