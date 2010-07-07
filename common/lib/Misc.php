@@ -614,9 +614,10 @@ function MDP_STRING($chrs = LEN_CARDNUMBER)
  */
 function MDP_NUMERIC($chrs = LEN_CARDNUMBER)
 {
-    $max_rand = str_repeat("9", $chrs);
-    $myrand = mt_rand(1, $max_rand);
-    $myrand = sprintf("%0".$chrs."d", $myrand);
+    $myrand = "";
+    for($i = 0; $i < $chrs; $i++){
+        $myrand .= mt_rand(0,9);
+    }
     
     return $myrand;
 }
@@ -1489,6 +1490,5 @@ function Display_Login_Button ($DBHandle, $id) {
 	</div>';
 	return $content;
 }
-
 
 
