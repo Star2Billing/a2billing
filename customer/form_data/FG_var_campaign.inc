@@ -276,7 +276,7 @@ if ($form_action!="ask-delete") {
 			"sql",		
 			"campaigns_phonebooks",	
 			"name, id",		
-			"", "", "%1 : (%2)", "", "", "cc_campaign_phonebook:id_phonebook:cc_phonebook LEFT JOIN cc_campaign_phonebook ON cc_phonebook.id=cc_campaign_phonebook.id_phonebook:DISTINCT cc_phonebook.name, cc_phonebook.id: cc_campaign_phonebook.id_campaign = %id:id_campaign:%2 - (%1)::::%1:id='%1'");		
+			"", "", "%1 : (%2)", "", "", "cc_campaign_phonebook:id_phonebook:cc_phonebook LEFT JOIN cc_campaign_phonebook ON cc_phonebook.id=cc_campaign_phonebook.id_phonebook :DISTINCT cc_phonebook.name, cc_phonebook.id: cc_campaign_phonebook.id_campaign = %id:id_campaign:%2 - (%1)::::%1:id='%1'::::id_card=".$_SESSION['card_id']);		
 		
 	}
 }

@@ -13,15 +13,15 @@ $processed = $this->getProcessed();
 		  <INPUT type="hidden" name="wh" value="<?php echo $wh?>">
 	<?php
 	if (!empty($this->FG_QUERY_ADITION_HIDDEN_FIELDS)){
-		$split_hidden_fields = split(",",trim($this->FG_QUERY_ADITION_HIDDEN_FIELDS));
-		$split_hidden_fields_value = split(",",trim($this->FG_QUERY_ADITION_HIDDEN_VALUE));
+		$split_hidden_fields = preg_split("/,/",trim($this->FG_QUERY_ADITION_HIDDEN_FIELDS));
+		$split_hidden_fields_value = preg_split("/,/",trim($this->FG_QUERY_ADITION_HIDDEN_VALUE));
 		for ($cur_hidden=0;$cur_hidden<count($split_hidden_fields);$cur_hidden++){
 			echo "<INPUT type=\"hidden\" name=\"".trim($split_hidden_fields[$cur_hidden])."\" value=\"".trim($split_hidden_fields_value[$cur_hidden])."\">\n";
 		}
 	}
 	if (!empty($this->FG_ADITION_HIDDEN_PARAM)){
-		$split_hidden_fields = split(",",trim($this->FG_ADITION_HIDDEN_PARAM));
-		$split_hidden_fields_value = split(",",trim($this->FG_ADITION_HIDDEN_PARAM_VALUE));
+		$split_hidden_fields = preg_split("/,/",trim($this->FG_ADITION_HIDDEN_PARAM));
+		$split_hidden_fields_value = preg_split("/,/",trim($this->FG_ADITION_HIDDEN_PARAM_VALUE));
 		for ($cur_hidden=0;$cur_hidden<count($split_hidden_fields);$cur_hidden++){
 			echo "<INPUT type=\"hidden\" name=\"".trim($split_hidden_fields[$cur_hidden])."\" value=\"".trim($split_hidden_fields_value[$cur_hidden])."\">\n";
 		}
@@ -161,18 +161,17 @@ $processed = $this->getProcessed();
         </SELECT>
 	<?php   
 			} elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="RADIOBUTTON") {
-				$radio_table = split(",",trim($this->FG_TABLE_ADITION[$i][10]));
+				$radio_table = preg_split("/,/",trim($this->FG_TABLE_ADITION[$i][10]));
 				foreach ($radio_table as $radio_instance){
-					$radio_composant = split(":",$radio_instance);
+					$radio_composant = preg_split("/:/",$radio_instance);
 					echo $radio_composant[0];
 					echo ' <input type="radio" name="'.$this->FG_TABLE_ADITION[$i][1].'" value="'.$radio_composant[1].'" ';
 					// TODO just a temporary and quick hack please review $VALID_SQL_REG_EXP
-					if ($processed[$this->FG_TABLE_ADITION[$i][1]]==$radio_composant[1]){
+					if ($processed[$this->FG_TABLE_ADITION[$i][1]]==$radio_composant[1]) {
 						echo "checked";
-					}
-					else if($VALID_SQL_REG_EXP){
+					} else if($VALID_SQL_REG_EXP) {
 						$know_is_checked = stripslashes($list[0][$i]);
-					}else{
+					} else {
 						$know_is_checked = $this -> FG_TABLE_ADITION[$i][2];
 					}
 					

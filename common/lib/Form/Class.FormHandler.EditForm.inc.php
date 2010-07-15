@@ -293,7 +293,7 @@ function sendtolittle(direction){
 								$split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, $SPLIT_CLAUSE, null, null, null, null, null, null);			
 				
 								if (!is_array($split_select_list)){	
-									$num=0;
+									$num = 0;
 								}else{	
 									$num = count($split_select_list);
 								}
@@ -302,15 +302,16 @@ function sendtolittle(direction){
 									for($j=0;$j<$num;$j++) {
 										if (is_numeric($table_split[7])) {
 																							
-										$instance_sub_sub_table = new Table($table_split[8], $table_split[9]);
+										    $instance_sub_sub_table = new Table($table_split[8], $table_split[9]);
 										
-										$SUB_TABLE_SPLIT_CLAUSE = str_replace("%1", $split_select_list[$j][$table_split[7]], $table_split[11] );
-										$sub_table_split_select_list = $instance_sub_sub_table -> Get_list ($this->DBHandle, $SUB_TABLE_SPLIT_CLAUSE, null, null, null, null, null, null);
-										$split_select_list[$j][$table_split[7]] = $sub_table_split_select_list[0][0];
-									} ?>
+										    $SUB_TABLE_SPLIT_CLAUSE = str_replace("%1", $split_select_list[$j][$table_split[7]], $table_split[11] );
+										    $sub_table_split_select_list = $instance_sub_sub_table -> Get_list ($this->DBHandle, $SUB_TABLE_SPLIT_CLAUSE, null, null, null, null, null, null);
+										    $split_select_list[$j][$table_split[7]] = $sub_table_split_select_list[0][0];
+									    } 
+								?>
 								
                                   <TR class="" bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>'"> 
-                                    <TD vAlign=top class=tableBody> 
+                                    <TD vAlign=top class=tableBody>
                                       <font face="Verdana" size="2">
                                       <?php if(!empty($split_select_list[$j][$table_split[7]])){?>
                                       <b><?php echo $split_select_list[$j][$table_split[7]]?></b> &nbsp; 
@@ -367,7 +368,7 @@ function sendtolittle(direction){
 							 				<input name="<?php echo $table_split[1]?>_hidden" type="hidden" value="" />
                                           <SELECT name="<?php echo $table_split[1]?>[]" <?php echo $this->FG_TABLE_EDITION[$i][4]?> class="form_input_select">
                                             <?php
-											 $split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, null, $table_split[13], $table_split[14], null, null, null, null);
+											 $split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, $table_split[15], $table_split[13], $table_split[14], null, null, null, null);
 						
 											 if (count($split_select_list)>0) {	
 												 $select_number=0;
@@ -375,7 +376,7 @@ function sendtolittle(direction){
 													 $select_number++;
 													 if ($table_split[6]!="" && !is_null($table_split[6])) {
 													 	if (is_numeric($table_split[7])) {
-															$instance_sub_sub_table = new Table($table_split[8], $table_split[9]);
+															$instance_sub_sub_table = new Table($table_split[8], $table_split[9]); 
 															$SUB_TABLE_SPLIT_CLAUSE = str_replace("%1", $select_recordset[$table_split[7]], $table_split[11] );
 															$sub_table_split_select_list = $instance_sub_sub_table -> Get_list ($this->DBHandle, $SUB_TABLE_SPLIT_CLAUSE, null,null, null, null, null, null);
 															$select_recordset[$table_split[7]] = $sub_table_split_select_list[0][0];

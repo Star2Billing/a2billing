@@ -1304,7 +1304,7 @@ class FormHandler
 
 			// RETRIEVE THE CONTENT OF THE SEARCH SESSION AND
 			if (strlen($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME])>5 && ($processed['posted_search'] != 1 )){
-				$element_arr = split("\|", $_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]);
+				$element_arr = preg_split("/\|/", $_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]);
 				foreach ($element_arr as $val_element_arr){
 					$pos = strpos($val_element_arr, '=');
 					if ($pos !== false) {
@@ -1316,9 +1316,9 @@ class FormHandler
 			}
 			
 			if (($processed['posted_search'] != 1 && isset($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]) && strlen($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME])>10 )){
-				$arr_session_var = split("\|", $_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]);
+				$arr_session_var = preg_split("/\|/", $_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]);
 				foreach ($arr_session_var as $arr_val){
-					list($namevar,$valuevar) = split("=", $arr_val);
+					list($namevar,$valuevar) = preg_split("/=/", $arr_val);
 					$this->_processed[$namevar]=$valuevar;
 					$processed[$namevar]=$valuevar;
 					$_POST[$namevar]=$valuevar;
@@ -1519,7 +1519,7 @@ class FormHandler
 			if ($i>0) $param_add_fields .= ", ";		
 			$param_add_fields .= $this->FG_QUERY_ADITION_HIDDEN_FIELDS;
 			if ($i>0) $param_add_value .= ", ";
-			$split_hidden_fields_value = split(",",trim($this->FG_QUERY_ADITION_HIDDEN_VALUE));
+			$split_hidden_fields_value = preg_split("/,/",trim($this->FG_QUERY_ADITION_HIDDEN_VALUE));
 			for ($cur_hidden=0;$cur_hidden<count($split_hidden_fields_value);$cur_hidden++){
 				$param_add_value .= "'".trim($split_hidden_fields_value[$cur_hidden])."'" ;
 				if($cur_hidden<count($split_hidden_fields_value)-1)$param_add_value.=",";
@@ -1627,7 +1627,7 @@ class FormHandler
 				
 			} else {
 				if (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("CHECKBOX")) {
-					$table_split = split(":",$this->FG_TABLE_EDITION[$i][1]);
+					$table_split = preg_split("/:/",$this->FG_TABLE_EDITION[$i][1]);
 					$checkbox_data = $table_split[0];	//doc_tariff			
 					$instance_sub_table = new Table($table_split[0], $table_split[1].", ".$table_split[5]);
 					$SPLIT_FG_DELETE_CLAUSE = $table_split[5]."='".trim($processed['id'])."'";	
@@ -1664,8 +1664,8 @@ class FormHandler
 		
 		if (!is_null($this->FG_QUERY_EDITION_HIDDEN_FIELDS) && $this->FG_QUERY_EDITION_HIDDEN_FIELDS!=""){
 			
-			$table_split_field = split(",",$this->FG_QUERY_EDITION_HIDDEN_FIELDS);
-			$table_split_value = split(",",$this->FG_QUERY_EDITION_HIDDEN_VALUE);
+			$table_split_field = preg_split("/,/",$this->FG_QUERY_EDITION_HIDDEN_FIELDS);
+			$table_split_value = preg_split("/,/",$this->FG_QUERY_EDITION_HIDDEN_VALUE);
 			
 			for($k=0;$k<count($table_split_field);$k++){
 				$param_update .= ", ";
@@ -1783,7 +1783,7 @@ class FormHandler
 	function perform_add_content($sub_action,$id)
 	{
 		$processed = $this->getProcessed();
-		$table_split = split(":",$this->FG_TABLE_EDITION[$sub_action][14]);
+		$table_split = preg_split("/:/",$this->FG_TABLE_EDITION[$sub_action][14]);
 		$instance_sub_table = new Table($table_split[0], $table_split[1].", ".$table_split[5]);		
 		
 		if (is_array($processed[$table_split[1]])) {
@@ -1834,7 +1834,7 @@ class FormHandler
 	function perform_del_content($sub_action,$id)
 	{
 		$processed = $this->getProcessed();
-		$table_split = split(":",$this->FG_TABLE_EDITION[$sub_action][14]);
+		$table_split = preg_split("/:/", $this->FG_TABLE_EDITION[$sub_action][14]);
 		if(array_key_exists($table_split[1].'_hidden', $processed)){
 			$value = trim($processed[$table_split[1].'_hidden']);
 		} else {
@@ -1843,7 +1843,7 @@ class FormHandler
 		$instance_sub_table = new Table($table_split[0], $table_split[1].", ".$table_split[5]);	
 		$SPLIT_FG_DELETE_CLAUSE = $table_split[1]."='".$value."' AND ".$table_split[5]."='".trim($id)."'";
 		$instance_sub_table -> Delete_table ($this->DBHandle, $SPLIT_FG_DELETE_CLAUSE, $func_table = null);
-	}	
+	}
 	
 	
 	/**
