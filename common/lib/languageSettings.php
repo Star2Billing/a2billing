@@ -117,6 +117,11 @@ function SetLocalLanguage()
             $slectedLanguage = "fa_IR";
             $charEncoding = "UTF-8";
             break;
+        case "greek":
+            $languageEncoding = "el_GR.UTF-8";
+            $slectedLanguage = "el_GR";
+            $charEncoding = "UTF-8";
+            break;
 		default:
 			$languageEncoding = "en_US.iso88591";
 			$slectedLanguage = "en_US";
