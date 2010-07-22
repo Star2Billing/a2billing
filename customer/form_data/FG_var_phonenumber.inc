@@ -96,7 +96,7 @@ $HD_Form -> AddEditElement (gettext("Phone Book"),
 	"sql",
 	"cc_phonebook",
 	"name, id",
-	"", "", "%1", "", "");
+	"id_card = ".$_SESSION['card_id'], "", "%1", "", "");
 
 $HD_Form -> AddEditElement (gettext("NAME"),
 	"name",
