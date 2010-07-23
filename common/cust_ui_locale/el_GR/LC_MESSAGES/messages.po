@@ -2367,7 +2367,7 @@ msgstr "(τουλάχιστον 6 αλφαριθμητική χαρακτήρε�
 #: lib/Form/Class.FormHandler.inc.php:1059
 #, php-format
 msgid "(PERCENT FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal and don't use '%' character. e.g.: 12.4 )"
-msgstr ""
+msgstr "(PERCENT FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal and don't use '%' character. e.g.: 12.4 )"
 
 #: lib/Form/Class.FormHandler.inc.php:1737
 #: CC_entity_edit_did_destination.php:233
