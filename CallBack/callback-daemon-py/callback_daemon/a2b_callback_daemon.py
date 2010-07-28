@@ -161,7 +161,7 @@ class CallBackAction(object):
         
         perform_amount_request = 0
         
-        request_list = self.inst_cb_db.find_callback_request('PENDING', 11124)
+        request_list = self.inst_cb_db.find_callback_request('PENDING', 24)
         
         if (len(request_list) > 0) :
             logging.info(request_list)
