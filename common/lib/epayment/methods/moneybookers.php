@@ -58,9 +58,12 @@ class moneybookers {
 		}
 		
 		$currencyObject = new currencies();
+		$amount_toprocess = number_format($order->info['total'] , $currencyObject->get_decimal_places($my_currency));
+		$amount_toprocess = str_replace(',', '.', $amount_toprocess);
+		
 		$process_button_string = tep_draw_hidden_field('pay_to_email', MODULE_PAYMENT_MONEYBOOKERS_ID) .
 								tep_draw_hidden_field('language', $my_language) .
-								tep_draw_hidden_field('amount', number_format($order->info['total'] , $currencyObject->get_decimal_places($my_currency))) .
+								tep_draw_hidden_field('amount', $amount_toprocess) .
 								tep_draw_hidden_field('currency', $my_currency) .
 								tep_draw_hidden_field('detail1_description', STORE_NAME) .
 								tep_draw_hidden_field('detail1_text', 'Order - ' . date('d. M Y - H:i')) .
@@ -71,8 +74,7 @@ class moneybookers {
 								tep_draw_hidden_field('city', $order->billing['city']) .
 								tep_draw_hidden_field('country', $order->billing['country']['moneybookers']) .
 								tep_draw_hidden_field('pay_from_email', $order->customer['email_address']); 
-								if($transactionID != 0)
-								{
+								if($transactionID != 0) {
 									$process_button_string .= tep_draw_hidden_field('transaction_id', $transactionID);
 								}
 								$process_button_string .= tep_draw_hidden_field('status_url', tep_href_link("checkout_process.php?sess_id=".session_id()."&transactionID=".$transactionID."&key=".$key, '', 'SSL')) .
