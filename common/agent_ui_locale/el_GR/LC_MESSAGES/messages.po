@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: A2Billing Agent UI : 1.1\n"
+"Project-Id-Version: A2Billing Agent UI : 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-08 16:57+0200\n"
-"PO-Revision-Date: 2010-07-28 01:35+0200\n"
+"PO-Revision-Date: 2010-07-29 17:48+0200\n"
 "Last-Translator: Polihronis Porfiris <pporfiris@hotmail.com>\n"
 "Language-Team: Polihronis Porfiris <pporfiris@hotmai.com>\n"
 "MIME-Version: 1.0\n"
@@ -809,7 +809,7 @@ msgstr "Αδύνατον να γίνει εγγραφή στο αρχείο"
 
 #: lib/agent.help.php:35
 msgid "For further information please consult"
-msgstr "Για περισσότερες παρακαλώ συμβουλευτείτε"
+msgstr "Για περισσότερες πληροφορίες παρακαλώ συμβουλευτείτε"
 
 #: lib/agent.help.php:35
 msgid "the online documention"
@@ -918,11 +918,11 @@ msgstr "(ΕΚΠΡΟΣΩΠΟΣ)"
 
 #: lib/support/classes/ticket.php:212
 msgid "(ADMINISTRATOR) "
-msgstr "(ΔΙΑΧΕΙΡΙΣΤΗΣ)"
+msgstr "(ΔΙΑΧΕΙΡΙΣΤΗΣ) "
 
 #: lib/support/classes/ticket.php:373
 msgid "FIXED"
-msgstr "ΣΤΑΘΕΡΗ "
+msgstr "ΣΤΑΘΕΡΗ"
 
 #: lib/support/classes/ticket.php:376
 msgid "REOPEN"
@@ -1034,13 +1034,13 @@ msgstr "Δεν βρέθηκαν δεδομένα!!!"
 
 #: lib/Form/Class.FormHandler.EditForm.inc.php:282
 msgid "LIST "
-msgstr "ΛΙΣΤΑ"
+msgstr "ΛΙΣΤΑ "
 
 #: lib/Form/Class.FormHandler.EditForm.inc.php:352
 #: lib/Form/Class.FormHandler.EditForm.inc.php:508
 #: lib/Form/Class.FormHandler.EditForm.inc.php:631
 msgid "Add a new"
-msgstr "Προσθήκη νέου "
+msgstr "Προσθήκη νέου"
 
 #: lib/Form/Class.FormHandler.EditForm.inc.php:439
 #: lib/Form/Class.FormHandler.EditForm.inc.php:566
@@ -1054,7 +1054,7 @@ msgstr "Μήνυμα"
 
 #: lib/Form/Class.FormHandler.DelForm.inc.php:53
 msgid "You have "
-msgstr "Εχετε"
+msgstr "Εχετε "
 
 #: lib/Form/Class.FormHandler.DelForm.inc.php:208
 msgid "Remove this "
@@ -1066,7 +1066,7 @@ msgstr "Δημιουργήστε ένα νέο "
 
 #: lib/Form/Class.FormBO.php:20
 msgid "This did is in use by customer id:"
-msgstr "Αυτό το DID χρησιμοποιείτε από τον πελάτη με ID: "
+msgstr "Αυτό το DID χρησιμοποιείτε από τον πελάτη με ID:"
 
 #: lib/Form/Class.FormBO.php:318
 msgid "DELETION CARD REFILL"
@@ -1141,11 +1141,11 @@ msgstr "ΑΥΤΟΜΑΤΟ ΔΗΜΙΟΥΡΓΗΜΕΝΗ ΠΡΟΜΗΘΕΙΑ!"
 
 #: lib/Form/Class.ViewHandler.inc.php:72
 msgid "Archiving All "
-msgstr "Αρχειοθέτηση Ολων"
+msgstr "Αρχειοθέτηση Ολων "
 
 #: lib/Form/Class.ViewHandler.inc.php:86
 msgid "Sort"
-msgstr "Ταξινόμηση "
+msgstr "Ταξινόμηση"
 
 #: lib/Form/Class.ViewHandler.inc.php:106
 msgid "Records"
@@ -1153,19 +1153,19 @@ msgstr "Εγγραφές"
 
 #: lib/Form/Class.ViewHandler.inc.php:136
 msgid "FILTER ON "
-msgstr "ΕΝΕΡΓΟ ΦΙΛΤΡΟ"
+msgstr "ΕΝΕΡΓΟ ΦΙΛΤΡΟ "
 
 #: lib/Form/Class.ViewHandler.inc.php:153
 msgid "FILTER ON"
-msgstr "ΕΝΕΡΓΟ ΦΙΛΤΡΟ "
+msgstr "ΕΝΕΡΓΟ ΦΙΛΤΡΟ"
 
 #: lib/Form/Class.ViewHandler.inc.php:166
 msgid "APPLY FILTER "
-msgstr "ΕΦΑΡΜΟΓΗ ΦΙΛΤΡΟΥ"
+msgstr "ΕΦΑΡΜΟΓΗ ΦΙΛΤΡΟΥ "
 
 #: lib/Form/Class.ViewHandler.inc.php:196
 msgid "ACTION"
-msgstr "ΕΝΕΡΓΕΙΑ "
+msgstr "ΕΝΕΡΓΕΙΑ"
 
 #: lib/Form/Class.ViewHandler.inc.php:796
 msgid "DISPLAY"
@@ -1315,11 +1315,11 @@ msgstr "ΟΡΙΟ ΚΟΣΤΟΥΣ ΑΠΟΣΥΝΔΕΣΗΣ"
 
 #: lib/Form/Class.SearchHandler.inc.php:520
 msgid " BATCH UPDATE RATECARD "
-msgstr "ΜΑΖΙΚΗ ΕΝΗΜΕΡΩΣΗ ΚΑΡΤΩΝ ΤΙΜΩΝ"
+msgstr "ΜΑΖΙΚΗ ΕΝΗΜΕΡΩΣΗ ΚΑΡΤΩΝ ΤΙΜΩΝ "
 
 #: lib/Form/Class.FormHandler.inc.php:545
 msgid "No data found!"
-msgstr "Δεν βρέθηκαν δεδομένα! "
+msgstr "Δεν βρέθηκαν δεδομένα!"
 
 #: lib/Form/Class.FormHandler.inc.php:546
 msgid "DIRECTORY"
@@ -1452,7 +1452,7 @@ msgstr "ΔΙΑΓΡΑΦΗ"
 #: lib/Form/Class.FormHandler.inc.php:619
 #: lib/Form/Class.FormHandler.inc.php:837
 msgid "Delete this "
-msgstr "Διαγράψτε αυτό το"
+msgstr "Διαγράψτε αυτό το "
 
 #: lib/Form/Class.FormHandler.inc.php:620
 #: lib/Form/Class.FormHandler.inc.php:831
@@ -1461,7 +1461,7 @@ msgstr "Επεξεργασία αυτό το "
 
 #: lib/Form/Class.FormHandler.inc.php:651
 msgid "INSERTED"
-msgstr "ΕΙΣΑΓΜΕΝΗ "
+msgstr "ΕΙΣΑΓΜΕΝΗ"
 
 #: lib/Form/Class.FormHandler.inc.php:652
 msgid "ENABLE"
@@ -1478,12 +1478,12 @@ msgstr "ΔΩΡΕΑΝ"
 #: lib/Form/Class.FormHandler.inc.php:806
 #: lib/Form/Class.FormHandler.inc.php:808
 msgid "You can browse through our "
-msgstr "Μπορείτε να περιηγηθείτε ανάμεσα στης"
+msgstr "Μπορείτε να περιηγηθείτε ανάμεσα στης "
 
 #: lib/Form/Class.FormHandler.inc.php:806
 #: lib/Form/Class.FormHandler.inc.php:808
 msgid " and modify their different properties<br>"
-msgstr "και να τροποποιήστε τις διάφορες ιδιότητες τους "
+msgstr "και να τροποποιήστε τις διάφορες ιδιότητες τους"
 
 #: lib/Form/Class.FormHandler.inc.php:976
 msgid "(at least 3 characters)"
@@ -1733,11 +1733,11 @@ msgstr "ΕΙΔΟΣ ΑΝΑΝΕΩΣΗΣ"
 #: Public/A2B_payment_info_agent.php:111
 #: Public/A2B_payment_info.php:117
 msgid "DESCRIPTION "
-msgstr "ΠΕΡΙΓΡΑΦΗ"
+msgstr "ΠΕΡΙΓΡΑΦΗ "
 
 #: Public/A2B_refill_info_agent.php:123
 msgid "REFILLS AGENT LIST"
-msgstr "ΛΙΣΤΑ ΑΝΑΝΕΩΣΕΩΝ ΕΚΠΡΟΣΩΠΟΥ "
+msgstr "ΛΙΣΤΑ ΑΝΑΝΕΩΣΕΩΝ ΕΚΠΡΟΣΩΠΟΥ"
 
 #: Public/A2B_signup_agent.php:102
 msgid "Create signup url for a specific agent, customer group and Call Plan."
@@ -2045,11 +2045,11 @@ msgstr "ΠΟΣΟ (στρογγυλοποιημένο για νόμισμα)"
 
 #: Public/A2B_agent_remittance_conf.php:188
 msgid "AMOUNT IN "
-msgstr "ΠΟΣΟ ΣΕ"
+msgstr "ΠΟΣΟ ΣΕ "
 
 #: Public/A2B_agent_remittance_conf.php:193
 msgid "TRANSACTION TYPE"
-msgstr "ΕΙΔΟΣ ΣΥΝΑΛΛΑΓΗΣ "
+msgstr "ΕΙΔΟΣ ΣΥΝΑΛΛΑΓΗΣ"
 
 #: Public/A2B_agent_remittance_conf.php:194
 msgid "withdraw to your bank account"
@@ -2123,11 +2123,11 @@ msgstr "Αδυναμία σύνδεθης στον διαχειριστή asteri
 
 #: Public/CC_generate_friend_file.php:106
 msgid "There is no "
-msgstr "Δεν υπάρχει"
+msgstr "Δεν υπάρχει "
 
 #: Public/CC_generate_friend_file.php:112
 msgid "Could not open the user configuration file :"
-msgstr "Αδυναμία ανοίγματος αρχείου ρυθμίσεων χρήστη : "
+msgstr "Αδυναμία ανοίγματος αρχείου ρυθμίσεων χρήστη :"
 
 #: Public/CC_generate_friend_file.php:163
 msgid "The sipfriend file has been generated : "
@@ -2139,7 +2139,7 @@ msgstr "Το αρχείο φίλων IAX δημιουργήθηκε : "
 
 #: Public/CC_generate_friend_file.php:173
 msgid "Click here to reload your asterisk server"
-msgstr "Πατήστε εδώ για να ξαναφορτώστε τον διακομιστή asterisk σας "
+msgstr "Πατήστε εδώ για να ξαναφορτώστε τον διακομιστή asterisk σας"
 
 #: Public/CC_generate_friend_file.php:179
 msgid "Asterisk has been reloaded."
@@ -2460,21 +2460,21 @@ msgstr "ΟΡΙΟ ΚΙΝΗΣΗΣ"
 
 #: Public/A2B_card_info.php:460
 msgid "CALLER-ID LIST "
-msgstr "ΛΙΣΤΑ ΑΝΑΓΝΩΡΙΣΤΙΚΩΝ ΚΛΗΣΗΣ"
+msgstr "ΛΙΣΤΑ ΑΝΑΓΝΩΡΙΣΤΙΚΩΝ ΚΛΗΣΗΣ "
 
 #: Public/A2B_card_info.php:465
 #: Public/form_data/FG_var_card.inc:161
 msgid "CID"
-msgstr "ΤΑΥΤΟΤΗΤΑ ΚΛΗΣΗΣ "
+msgstr "ΤΑΥΤΟΤΗΤΑ ΚΛΗΣΗΣ"
 
 #: Public/A2B_card_info.php:508
 msgid "SPEED-DIAL LIST "
-msgstr "ΛΙΣΤΑ ΤΑΧΕΙΑΣ ΚΛΗΣΗ"
+msgstr "ΛΙΣΤΑ ΤΑΧΕΙΑΣ ΚΛΗΣΗ "
 
 #: Public/A2B_card_info.php:516
 #: Public/form_data/FG_var_friend.inc:156
 msgid "NAME"
-msgstr "ΟΝΟΜΑ "
+msgstr "ΟΝΟΜΑ"
 
 #: Public/A2B_card_info.php:519
 msgid "SPEEDDIAL"
@@ -2496,7 +2496,7 @@ msgstr "ΟΝΟΜΑ ΧΡΗΣΤΗ"
 #: Public/form_data/FG_var_friend.inc:78
 #: Public/form_data/FG_var_friend.inc:216
 msgid "SECRET"
-msgstr "ΜΥΣΤΙΚΟΣ ΚΩΔΙΚΟΣ"
+msgstr "SECRET"
 
 #: Public/A2B_card_info.php:616
 msgid "IAX-BUDDIES"
@@ -2674,7 +2674,7 @@ msgstr "Το αναγνωριστικό του ερωτήματος δεν βρ�
 
 #: Public/A2B_ticket_view.php:93
 msgid "TICKET: "
-msgstr "ΕΡΩΤΗΜΑ :"
+msgstr "ΕΡΩΤΗΜΑ : "
 
 #: Public/A2B_ticket_view.php:103
 msgid "BY : "
@@ -2706,15 +2706,15 @@ msgstr "ΣΧΟΛΙΟ : "
 
 #: Public/export_csv.php:64
 msgid "ERROR CSV EXPORT"
-msgstr "ΣΦΑΛΜΑ ΕΞΑΓΩΓΗ ΣΕ CSV "
+msgstr "ΣΦΑΛΜΑ ΕΞΑΓΩΓΗ ΣΕ CSV"
 
 #: Public/call-log-customers.php:57
 msgid "ERROR: Cannot download file "
-msgstr "Σφάλμα : Αδυναμία κατεβάσματος του αρχείου"
+msgstr "Σφάλμα : Αδυναμία κατεβάσματος του αρχείου "
 
 #: Public/call-log-customers.php:115
 msgid "CallerID"
-msgstr "Αναγνωριστικό κλήσης "
+msgstr "Αναγνωριστικό κλήσης"
 
 #: Public/call-log-customers.php:117
 #: Public/call-log-customers.php:680
@@ -2763,11 +2763,11 @@ msgstr "Πώληση"
 
 #: Public/call-log-customers.php:148
 msgid " - Call Logs - "
-msgstr " - Αρχεία κλήσεων -"
+msgstr " - Αρχεία κλήσεων - "
 
 #: Public/call-log-customers.php:391
 msgid "CallPlan"
-msgstr "Σχέδιο κλήσεων "
+msgstr "Σχέδιο κλήσεων"
 
 #: Public/call-log-customers.php:420
 #: Public/call-log-customers.php:1210
@@ -2959,7 +2959,7 @@ msgstr "Λίστα URL εγγραφών"
 
 #: Public/templates/default/main.tpl:86
 msgid "Add New Signup Url"
-msgstr "Προστέθηκε νέο URL έγγραφης."
+msgstr "Προσθήκη νέου URL εγγραφής."
 
 #: Public/templates/default/main.tpl:100
 msgid "BILLING"
@@ -3055,7 +3055,7 @@ msgstr "NB ΤΙΜΟΛΟΓΙΟ ΜΕ ΑΡΚΕΤΗ ΠΛΗΡΩΜΗ "
 
 #: Public/A2B_entity_moneysituation.php:179
 msgid "NB INVOICE WITH PAID STATUS"
-msgstr "NB ΤΙΜΟΛΟΓΙΟ ΜΕ ΕΚΠΛΗΡΩΜΕΝΗ ΚΑΤΑΣΤΑΣΗ "
+msgstr "NB ΤΙΜΟΛΟΓΙΟ ΜΕ ΕΚΠΛΗΡΩΜΕΝΗ ΚΑΤΑΣΤΑΣΗ"
 
 #: Public/A2B_entity_moneysituation.php:180
 msgid "NB INVOICE WITH UNPAID STATUS"
@@ -3079,12 +3079,12 @@ msgstr "ΑΙΤΗΜΑ ΕΜΒΑΣΜΑΤΟΣ"
 
 #: Public/agentinfo.php:170
 msgid "Click below to buy credit : "
-msgstr "Πατήστε παρακάτω για να αγοράσετε μονάδες :"
+msgstr "Πατήστε παρακάτω για να αγοράσετε μονάδες : "
 
 #: Public/graph_stat.php:54
 #: Public/graph_statbar.php:56
 msgid "Calldate"
-msgstr "Ημερομηνία κλήσης "
+msgstr "Ημερομηνία κλήσης"
 
 #: Public/graph_stat.php:55
 #: Public/graph_statbar.php:57
@@ -3151,11 +3151,11 @@ msgstr "Εκτελέστηκε η ανανέωση "
 
 #: Public/A2B_entity_card.php:198
 msgid "GENERATED COMMISSION OF AN CUSTOMER REFILLED BY AN AGENT!"
-msgstr "ΠΑΡΑΓΟΜΕΝΕΣ ΠΡΟΜΗΘΕΙΕΣ ΕΝΟΣ ΠΕΛΑΤΗ ΠΟΥ ΑΝΑΝΕΩΘΗΚΕ ΑΠΟ ΕΚΠΡΟΣΩΠΟ! "
+msgstr "ΠΑΡΑΓΟΜΕΝΕΣ ΠΡΟΜΗΘΕΙΕΣ ΕΝΟΣ ΠΕΛΑΤΗ ΠΟΥ ΑΝΑΝΕΩΘΗΚΕ ΑΠΟ ΕΚΠΡΟΣΩΠΟ!"
 
 #: Public/A2B_entity_card.php:229
 msgid "You don't have enough credit to do this refill. You have "
-msgstr "Δεν έχετε αρκετές μονάδες για να κάνετε αυτήν την ανανέωση. Έχετε"
+msgstr "Δεν έχετε αρκετές μονάδες για να κάνετε αυτήν την ανανέωση. Έχετε "
 
 #: Public/A2B_entity_card.php:233
 msgid "Impossible to refill this card "
@@ -3163,7 +3163,7 @@ msgstr "Αδύνατον να γίνει ανανέωση σε αυτήν την
 
 #: Public/A2B_entity_card.php:292
 msgid "CARD ID"
-msgstr "ΑΝΑΓΝΩΡΙΣΤΙΚΟ KARTAΣ "
+msgstr "ΑΝΑΓΝΩΡΙΣΤΙΚΟ KARTAΣ"
 
 #: Public/A2B_entity_card.php:294
 msgid "or"
@@ -3277,13 +3277,13 @@ msgstr "ΣΥΝΔΕΣΗ"
 #: Public/form_data/FG_var_friend.inc:97
 #: Public/form_data/FG_var_payment.inc:66
 msgid "THERE IS NO "
-msgstr "ΔΕΝ ΥΠΑΡΧΕΙ"
+msgstr "ΔΕΝ ΥΠΑΡΧΕΙ "
 
 #: Public/form_data/FG_var_commission.inc:49
 #: Public/form_data/FG_var_logrefill.inc:53
 #: Public/form_data/FG_var_payment.inc:56
 msgid "ACCOUNT"
-msgstr "ΛΟΓΑΡΙΑΣΜΟΣ "
+msgstr "ΛΟΓΑΡΙΑΣΜΟΣ"
 
 #: Public/form_data/FG_var_commission.inc:53
 msgid "PAID STATUS"
@@ -3349,7 +3349,7 @@ msgstr "πατήστε το κουμπί διαγραφής."
 #: Public/form_data/FG_var_moneysituation.inc:94
 #: Public/form_data/FG_var_callerid.inc:131
 msgid "Add a "
-msgstr "Πρόσθεσε μια"
+msgstr "Πρόσθεσε μια "
 
 #: Public/form_data/FG_var_moneysituation.inc:95
 msgid "Your new "
@@ -3359,7 +3359,7 @@ msgstr "Το νέο σας "
 #: Public/form_data/FG_var_friend.inc:956
 #: Public/form_data/FG_var_card.inc:954
 msgid "Once you have completed the form above, click on the CONTINUE button."
-msgstr "Μόλις συμπληρώστε την παραπάνω φόρμα πατήστε το κουμπί ΣΥΝΕΧΕΙΑ "
+msgstr "Μόλις συμπληρώστε την παραπάνω φόρμα πατήστε το κουμπί ΣΥΝΕΧΕΙΑ"
 
 #: Public/form_data/FG_var_callerid.inc:49
 msgid "Add CallerID"
@@ -3445,7 +3445,7 @@ msgstr "Αριθμός κάρτας"
 
 #: Public/form_data/FG_var_paymentlog.inc:109
 msgid "THERE ARE NO "
-msgstr "ΔΕΝ ΥΠΑΡΧΟΥΝ"
+msgstr "ΔΕΝ ΥΠΑΡΧΟΥΝ "
 
 #: Public/form_data/FG_var_paymentlog.inc:125
 msgid "Insert the Id "
@@ -3453,7 +3453,7 @@ msgstr "Συμπληρώστε την ταυτότητα "
 
 #: Public/form_data/FG_var_paymentlog.inc:127
 msgid "Select the ID"
-msgstr "Επιλέξτε την ταυτότητα "
+msgstr "Επιλέξτε την ταυτότητα"
 
 #: Public/form_data/FG_var_paymentlog.inc:136
 msgid "Insert the creation date"
@@ -3469,11 +3469,11 @@ msgstr "Συμπληρώστε την μέθοδο πληρωμής"
 
 #: Public/form_data/FG_var_paymentlog.inc:147
 msgid "Enter the payment method "
-msgstr "Εισάγετε την μέθοδος πληρωμής"
+msgstr "Εισάγετε την μέθοδος πληρωμής "
 
 #: Public/form_data/FG_var_paymentlog.inc:159
 msgid "OWNER"
-msgstr "ΙΔΙΟΚΤΗΤΗΣ "
+msgstr "ΙΔΙΟΚΤΗΤΗΣ"
 
 #: Public/form_data/FG_var_paymentlog.inc:165
 msgid "Insert the owner"
@@ -3489,11 +3489,11 @@ msgstr "Συμπληρώστε το ποσό"
 
 #: Public/form_data/FG_var_paymentlog.inc:176
 msgid "Enter the amount "
-msgstr "Εισάγετε το ποσό"
+msgstr "Εισάγετε το ποσό "
 
 #: Public/form_data/FG_var_paymentlog.inc:190
 msgid "Select the Card Number ID"
-msgstr "Επιλέξτε την ταυτότητα του αριθμού της κάρτας "
+msgstr "Επιλέξτε την ταυτότητα του αριθμού της κάρτας"
 
 #: Public/form_data/FG_var_paymentlog.inc:210
 #: Public/form_data/FG_var_ticket_agent.inc:98
@@ -3549,7 +3549,7 @@ msgstr "Οι τιμές πρέπει να συμπληρώνονται στο ν
 
 #: Public/form_data/FG_var_def_ratecard.inc:138
 msgid "Click 'Confirm Data' to continue."
-msgstr "Πατήστε το «Επιβεβαίωση Στοιχείων» για να συνεχίσετε "
+msgstr "Πατήστε το «Επιβεβαίωση Στοιχείων» για να συνεχίσετε"
 
 #: Public/form_data/FG_var_signup_agent.inc:47
 msgid "Add Signup KEY"
@@ -3614,11 +3614,11 @@ msgstr "Ορίστε την ταυτότητα του πελάτη"
 
 #: Public/form_data/FG_var_ticket.inc:130
 msgid "Insert the Title of ticket "
-msgstr "Συμπληρώστε τον τίτλο του ερωτήματος"
+msgstr "Συμπληρώστε τον τίτλο του ερωτήματος "
 
 #: Public/form_data/FG_var_ticket.inc:157
 msgid "Insert the description"
-msgstr "Συμπληρώστε την περιγραφή "
+msgstr "Συμπληρώστε την περιγραφή"
 
 #: Public/form_data/FG_var_friend.inc:75
 msgid "CARDHOLDER"
@@ -4187,7 +4187,7 @@ msgstr "Αλλάξτε τα στοιχεία σας"
 
 #: Public/form_data/FG_var_card.inc:65
 msgid "You are going as well to remove all the SIP/IAX accounts & CallerIDs attached to this card! Please confirm that you really want to remove this card ? "
-msgstr "Πρόκειται να αφαιρέστε όλες τους λογαριασμόυς SIP/IAX και αναγνωριστικά κλήσεων που συνδέονται σε αυτήν την κάρτα! Παρακαλάω επιβεβαιώστε την επιθυμία σας για την αφαίρεση αυτής της κάρτας?"
+msgstr "Πρόκειται να αφαιρέστε όλες τους λογαριασμόυς SIP/IAX και αναγνωριστικά κλήσεων που συνδέονται σε αυτήν την κάρτα! Παρακαλάω επιβεβαιώστε την επιθυμία σας για την αφαίρεση αυτής της κάρτας? "
 
 #: Public/form_data/FG_var_card.inc:68
 msgid "You are going to remove a card that have SIP/IAX accounts and/or CallerIDs attached to it ! Please confirm that you really want to remove this card ? "
@@ -4195,7 +4195,7 @@ msgstr "Πρόκειται να αφαιρέστε μια κάρτα που έχ
 
 #: Public/form_data/FG_var_card.inc:74
 msgid "Generate Customers"
-msgstr "ΔΗΜΙΟΥΡΓΙΑ ΠΕΛΑΤΕΣ "
+msgstr "ΔΗΜΙΟΥΡΓΙΑ ΠΕΛΑΤΕΣ"
 
 #: Public/form_data/FG_var_card.inc:82
 msgid "Add Customer"
@@ -4325,11 +4325,11 @@ msgstr "Συμπληρώστε τον αριθμό μονάδων"
 #: Public/form_data/FG_var_card.inc:373
 #: Public/form_data/FG_var_card.inc:639
 msgid "currency : "
-msgstr "νόμισμα :"
+msgstr "νόμισμα : "
 
 #: Public/form_data/FG_var_card.inc:379
 msgid "CUSTOMER GROUP"
-msgstr "ΟΜΑΔΑ ΠΕΛΑΤΩΝ "
+msgstr "ΟΜΑΔΑ ΠΕΛΑΤΩΝ"
 
 #: Public/form_data/FG_var_card.inc:398
 #: Public/form_data/FG_var_card.inc:541
@@ -4598,11 +4598,11 @@ msgstr "ΦΠΑ για να προστεθεί στο τιμολόγιο του �
 
 #: Public/form_data/FG_var_card.inc:825
 msgid "VAT REGISTRATION NUMBER "
-msgstr "Α.Φ.Μ."
+msgstr "Α.Φ.Μ. "
 
 #: Public/form_data/FG_var_card.inc:831
 msgid "Insert the VAT registration number of this customer"
-msgstr "Συμπληρώστε τον Α.Φ.Μ. του πελάτη "
+msgstr "Συμπληρώστε τον Α.Φ.Μ. του πελάτη"
 
 #: Public/form_data/FG_var_card.inc:835
 msgid "DISCOUNT"
@@ -4680,5 +4680,5 @@ msgstr "Παλιός μυστικός κωδικός"
 
 #: Public/A2B_entity_secret.php:116
 msgid "New Secret"
-msgstr "Παλιός μυστικός κωδικός"
+msgstr "Νέος μυστικός κωδικός"
 
