@@ -109,6 +109,8 @@ prepaid-is-used-for                             is used for
 prepaid-point                                   point
 
 
+
+
 ===========================================  FRENCH ===========================================
 
 prepaid-welcome 								Bienvenue dans notre système de carte pré-payé....
@@ -308,6 +310,108 @@ prepaid-no-dialcode								Please, Enter your dial code
 prepaid-enter-dialcode							This dial code does not exist
 
 
+
+===========================================  GREEK ===========================================
+
+prepaid-welcome                                 Καλωσορίσατε στο σύστημα καρτών προπληρωμένου χρόνου ομιλίας...
+prepaid-final									Αντίο!
+
+-------- Authentication --------
+prepaid-enter-card-num   						Παρακαλώ εισάγετε τον δεκαψήφιο αριθμό της κάρτας σας, παραλείποντας τυχόν σημεία στίξης, ακολουθούμενο με το πλήκτρο της δίεσης.
+prepaid-enter-pin-number		   		    	παρακαλώ εισάγετε το πλήρες ΠΙΝ σας
+prepaid-no-card-entered							δεν έχετε εισάγει έναν αριθμό κάρτας
+prepaid-invalid-digits						    εσφαλμένα ψηφία
+prepaid-auth-fail								λυπάμαι, η ταυτοποίηση σας ήταν ανεπιτυχής
+prepaid-zero-balance							λυπάμαι, έχετε μηδέν μονάδες
+prepaid-card-expired						    Λυπάμαι, η κάρτα σας έχει λήξη
+prepaid-no-enough-credit				    	λυπάμαι, δεν έχετε αρκετές μονάδες για να καλέσετε αυτόν τον αριθμό
+prepaid-no-enough-credit-stop		    		λυπάμαι, δεν έχετε αρκετές μονάδες
+prepaid-card-in-use							    αυτός ο αριθμός κάρτας ήδη χρησιμοποιείτε!
+    
+-------- Call User --------
+prepaid-sipiax-press9							Αν θέλετε να καλέσετε έναν φιλικό αριθμό IAX ή SIP, πατήστε το εννέα τώρα...
+prepaid-sipiax-enternumber			    		Παρακαλώ εισάγετε τον φιλικό αριθμό IAX, SIP  που επιθυμείτε να καλέσετε ακολουθούμενο από το πλήκτρο της δίεσης...
+prepaid-sipiax-num-nomatch			    		Λυπάμαι, δεν βρέθηκε φιλικό αριθμό IAX, SIP που να ταιριάζει με αυτόν τον αριθμό!
+
+-------- Call Destination --------
+prepaid-enter-dest							    Παρακαλώ εισάγετε τον αριθμό που επιθυμείτε να καλέσετε βάζοντας μπροστά το μηδέν μηδέν και τον κωδικό της χώρας ακολουθούμενο από το πλήκτρο της δίεσης...
+prepaid-dest-unreachable				    	Ο αριθμός που καλέσατε είναι προσωρινά μη διαθέσιμος...
+prepaid-isbusy									ο αριθμός είναι κατελυμένος
+prepaid-noanswer								Ο αριθμός δεν απαντά
+prepaid-callfollowme						    Το άτομο που αναζητάτε δεν απάντησε. Παρακαλώ περιμένετε καθώς το άτομο που καλέσατε έχει ενεργοποιημένη την δυνατότητα ακολούθα με, και θα δρομολογήσουμε την κλήση σας σε αυτόν
+
+-------- Time to call and Balance --------
+prepaid-you-have								έχετε
+prepaid-minute									λεπτό
+prepaid-minutes								    λεπτά
+prepaid-second									δευτερόλεπτο
+prepaid-seconds								    δευτερόλεπτα
+prepaid-dollar									δολάριο
+prepaid-dollars									δολάρια
+prepaid-euro									ευρώ
+prepaid-euros								    ευρώ
+prepaid-cents								    Λεπτά
+prepaid-pound									λύρα
+prepaid-pounds									λύρες
+prepaid-pence									πέννες
+vm-and											και
+
+------ Voucher -------
+prepaid-account_refill						    ο λογαριασμός σας έχει πιστωθεί με
+prepaid-refill_card_with_voucher	    	    εάν επιθυμείτε να ανανεώστε την κάρτα σας με ένα κουπόνι, πατήστε το οχτώ τώρα
+prepaid-voucher_does_not_exist		    	    αυτό το κουπόνι δεν υπάρχει
+prepaid-voucher_enter_number			    	παρακαλώ εισάγετε τον αριθμού του κουπονιού ακολουθούμενο με το πλήκτρο της δίεσης.
+
+------ Callback -------
+prepaid-callback_intro						    Παρακαλώ περιμένετε, η κλήση σας συνδέετε
+
+------ Function Say Rate initial -------
+prepaid-cost-call 								Το κόστος της κλήσης είναι
+prepaid-per-minutes								Ανά λεπτό
+
+------ CallerID update ---------
+prepaid-enter-cid								Παρακαλώ, εισάγετε το αναγνωριστικό κλήσης σας
+
+------ Monitoring ----------
+prepaid-no-dialcode							    Αυτός ο κωδικός κλήσης δεν υπάρχει
+prepaid-enter-dialcode					    	Παρακαλώ, εισάγετε τον κωδικό κλήσης σας
+
+------ Locking & Information ----------
+prepaid-press4-info                             Πατήστε το τέσσερα για να ακούσετε πληροφορίες για τον λογαριασμός σας
+prepaid-press5-lock                             Πατήστε το πέντε για να κλειδώσετε τον λογαριασμός σας
+
+prepaid-enter-pin-lock                          Παρακαλώ, εισάγετε τον κωδικό κλειδώματοςPlease enter your locking code
+prepaid-no-pin-lock                             Ο κωδικός κλειδώματος σας είναι λανθασμένος
+prepaid-enter-code-lock-account                 Παρακαλώ, εισάγετε τον κωδικό που θέλετε να χρησιμοποιήσετε για να κλειδώστε τον λογαριασμό σας
+prepaid-your-locking-is                         Ο κωδικός κλειδώματος σας είναι
+prepaid-locking-accepted                        Έγινε αποδεκτός ο κωδικός κλειδώματος
+
+prepaid-press1-listen-lastcall                  Πατήστε το ένα για να ακούσετε την ώρα και την διάρκεια της τελευταίας σας κλήσης
+prepaid-press2-listen-accountlocked             Πατήστε το δυο για να ακούσετε την ώρα και την ημερομηνία της τελευταίας φοράς που κλειδώθηκε ο λογαριασμός σας
+prepaid-press3-listen-firstuse                  Πατήστε το τρία για να ακούσετε την ημερομηνία που πρώτο χρησιμοποιήθηκε ο λογαριασμός σας
+prepaid-pressdisconnect                         Πατήστε το αστεράκι για να αποσυνδεθείτε
+
+prepaid-lastcall                                Η τελευταία σας κλήση έγινε
+prepaid-no-call                                 Δεν έχουν πραγματοποιηθεί κλήσης
+prepaid-call-duration                           Η διάρκεια της κλήσης ήταν
+prepaid-account-has-locked                      Ο λογαριασμός σας είναι κλειδωμένος
+prepaid-account-nolocked                        Ο λογαριασμός σας δεν είναι κλειδωμένος
+prepaid-account-firstused                       Ο λογαριασμός σας χρησιμοποιήθηκε για πρώτη φορά την
+
+prepaid-press9-listen-exit-infomenu             Πατήστε το εννέα για να βγείτε από το μενού πληροφοριών 
+prepaid-press9-listen-exit-lockmenu             Πατήστε το εννέα για να βγείτε από το μενού κλειδώματος
+
+-------- Speed Dial --------
+prepaid-press9-new-speeddial   			        Πατήστε το εννέα για να προσθέστε μια νέα ταχεία κλήση
+prepaid-enter-speeddial                         Παρακαλώ εισάγετε τον αριθμό της ταχείας κλήσης
+prepaid-press1-change-speeddial					Εάν θέλετε να το αλλάξετε πατήστε το ένα ή οποιοδήποτε άλλο πλήκτρο για να εισάγετε κάποιο άλλο αριθμό ταχείας κλήσης.
+prepaid-phonenumber-to-speeddial				Παρακαλώ εισάγετε τον αριθμό τηλεφώνου και μετά πατήστε το πλήκτρο της δίεσης.
+prepaid-the-phonenumber							Ο αριθμός τηλεφώνου
+prepaid-assigned-speeddial						Θα οριστεί στην θέση ταχείας κλήσης
+prepaid-press1-add-speeddial					Εάν θέλετε να συνεχίσετε παρακαλώ πατήστε το ένα ή οποιοδήποτε άλλο πλήκτρο για να ακυρώσετε
+prepaid-speeddial-saved							Ο αριθμός της ταχείας κλήσης αποθηκεύτηκε με επιτυχία.
+prepaid-is-used-for                             Χρησιμοποιείτε για
+prepaid-point                                   Κόμμα
 
 
 
