@@ -890,9 +890,9 @@ if ($mode == 'standard') {
 			// $RateEngine -> webui = 0;
 			// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
 
-			$A2B ->agiconfig['use_dnid']=1;
-			$A2B ->agiconfig['say_timetocall']=0;
-			$A2B ->agiconfig['say_balance_after_auth']=0;
+			$A2B -> agiconfig['use_dnid']=1;
+			$A2B -> agiconfig['say_timetocall']=0;
+			$A2B -> agiconfig['say_balance_after_auth']=0;
 			$A2B -> extension = $A2B -> dnid = $A2B -> destination = $caller_areacode.$A2B -> CallerID;
 			
 			$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B -> destination, $A2B -> tariff);
