@@ -62,7 +62,7 @@ class paypal {
 
 		$my_currency = strtoupper($GLOBALS['A2B']->config['global']['base_currency']);
 
-		if (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD', 'MXN', 'AUD'))) {
+		if (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD', 'MXN', 'AUD', 'NZD'))) {
 			$my_currency = 'USD';
 		}
 		$currencyObject = new currencies();
@@ -90,7 +90,7 @@ class paypal {
         if($my_currency =='Selected Currency' && in_array($base_currency,array('CAD', 'EUR', 'GBP', 'JPY', 'USD', 'MXN', 'AUD')) ){
         	$my_currency = $base_currency;
         }
-        elseif (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD', 'MXN', 'AUD'))) {
+        elseif (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD', 'MXN', 'AUD', 'NZD'))) {
 			$my_currency = 'USD';
 		}
         return $my_currency;
