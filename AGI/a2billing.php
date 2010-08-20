@@ -337,7 +337,7 @@ if ($mode == 'standard') {
 				$res_dtmf = $agi -> get_data('prepaid-press5-lock', 5000, 1, '#'); //Press 5 to lock your account
 				
 				if ($res_dtmf ['result'] == 5) {
-                    for ($i=0 ; $i <= 3 ; $i++) {
+                    for ($ind_lock=0 ; $ind_lock <= 3 ; $ind_lock++) {
 
                         $res_dtmf = $agi -> get_data('prepaid-enter-code-lock-account', 3000, 10, '#'); //Please, Enter the code you want to use to lock your
                         $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[res_dtmf = ".$res_dtmf['result']."]");
