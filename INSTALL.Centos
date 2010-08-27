@@ -133,6 +133,9 @@ chown -R asterisk:asterisk /usr/local/src/a2billing/agent
 
 Cronjobs
 
+Create folder directory for Cronts PID
+ #mkdir -p /var/run/a2billing
+
 echo "
 # Automatically added for A2Billing
 0 * * * * php /usr/local/src/a2billing/Cronjobs/a2billing_alarm.php
@@ -155,7 +158,6 @@ echo "
 Add directory for monitoring Script
 
 mkdir -p /var/lib/a2billing/script
-mkdir -p /var/run/a2billing
 
 Create Log Files
 
