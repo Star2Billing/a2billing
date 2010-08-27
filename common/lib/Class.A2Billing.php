@@ -2211,7 +2211,7 @@ class A2Billing {
 			$QUERY .=  "SELECT cc_callerid.cid ".
 				  " FROM cc_callerid ".
 				  " JOIN cc_card ON cc_callerid.id_cc_card=cc_card.id ".
-				  " WHERE cc_card.username='".$this->cardnumber."' ";
+				  " WHERE cc_callerid.activated=1 AND cc_card.username='".$this->cardnumber."' ";
 			$QUERY .= "ORDER BY 1";
 			$result1 = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, print_r($result1,true));
@@ -2223,7 +2223,7 @@ class A2Billing {
 				  " FROM cc_did ".
 				  " JOIN cc_did_destination ON cc_did_destination.id_cc_did=cc_did.id ".
 				  " JOIN cc_card ON cc_did_destination.id_cc_card=cc_card.id ".
-				  " WHERE cc_card.username='".$this->cardnumber."' ";
+				  " WHERE cc_did.activated=1 AND cc_did_destination.activated=1 AND cc_card.username='".$this->cardnumber."' ";
 			$QUERY .= "ORDER BY 1";
 			$result2 = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, print_r($result2,true));
