@@ -297,7 +297,7 @@ function openURLFilter(theLINK)
 							$check = true;
 					  		$condition_eval=$this->FG_EDITION_CONDITION;
 							$check_eval=false;	
-					  		if (!empty($this->FG_EDITION_CONDITION) && (eregi ('col[0-9]', $this->FG_EDITION_CONDITION))) {
+					  		if (!empty($this->FG_EDITION_CONDITION) && (preg_match ('/col[0-9]/i', $this->FG_EDITION_CONDITION))) {
 					  			$check =false;
 								for ($h=count($list[$ligne_number]);$h>=0;$h--){
 									$findme = "|col$h|";
@@ -317,7 +317,7 @@ function openURLFilter(theLINK)
                         	$check = true;
 					  		$condition_eval=$this->FG_DELETION_CONDITION;
 							$check_eval=false;	
-					  		if (!empty($this->FG_DELETION_CONDITION) && (eregi ('col[0-9]', $this->FG_DELETION_CONDITION))) {
+					  		if (!empty($this->FG_DELETION_CONDITION) && (preg_match ('/col[0-9]/', $this->FG_DELETION_CONDITION))) {
 					  			$check =false;
 								for ($h=count($list[$ligne_number]);$h>=0;$h--){
 									$findme = "|col$h|";
@@ -338,7 +338,7 @@ function openURLFilter(theLINK)
 					  		$check = true;
 					  		$condition_eval=$this->FG_OTHER_BUTTON1_CONDITION;
 							$check_eval=false;	
-					  		if (!empty($this->FG_OTHER_BUTTON1_CONDITION) && (eregi ('col[0-9]', $this->FG_OTHER_BUTTON1_CONDITION))) {
+					  		if (!empty($this->FG_OTHER_BUTTON1_CONDITION) && (preg_match ('/col[0-9]/i', $this->FG_OTHER_BUTTON1_CONDITION))) {
 					  			$check =false;
 								for ($h=count($list[$ligne_number]);$h>=0;$h--){
 									$findme = "|col$h|";
@@ -363,7 +363,7 @@ function openURLFilter(theLINK)
 								}
 
 								// REPLACE |colX|  where is a numero of the column by the column value
-								if ((eregi ('col[0-9]', $new_FG_OTHER_BUTTON1_LINK))) {
+								if ((preg_match ('/col[0-9]/i', $new_FG_OTHER_BUTTON1_LINK))) {
 									for ($h=count($list[$ligne_number]);$h>=0;$h--) {
 										$findme = "|col$h|";
 										$pos = stripos($new_FG_OTHER_BUTTON1_LINK, $findme);
@@ -374,7 +374,7 @@ function openURLFilter(theLINK)
 								}
 
 								// REPLACE |col_origX|  where is a numero of the column by the column value
-								if (eregi ('col_orig[0-9]', $new_FG_OTHER_BUTTON1_LINK)) {
+								if (preg_match ('/col_orig[0-9]/i', $new_FG_OTHER_BUTTON1_LINK)) {
 									for ($h=count($list[$ligne_number]);$h>=0;$h--) {
 										$findme = "|col_orig$h|";
 										$pos = stripos($new_FG_OTHER_BUTTON1_LINK, $findme);
@@ -388,7 +388,7 @@ function openURLFilter(theLINK)
 								
 								$extra_html = "";
 								
-								if (!empty($this->FG_OTHER_BUTTON1_HTML_ID) && (eregi ('col[0-9]',$this->FG_OTHER_BUTTON1_HTML_ID))) {
+								if (!empty($this->FG_OTHER_BUTTON1_HTML_ID) && (preg_match ('/col[0-9]/i',$this->FG_OTHER_BUTTON1_HTML_ID))) {
 									$temp_id =$this->FG_OTHER_BUTTON1_HTML_ID;
 									for ($h=count($list[$ligne_number]);$h>=0;$h--) {
 										$findme = "|col$h|";
@@ -419,7 +419,7 @@ function openURLFilter(theLINK)
 							$check = true;
 					  		$condition_eval=$this->FG_OTHER_BUTTON2_CONDITION;
 							$check_eval=false;	
-					  		if (!empty($this->FG_OTHER_BUTTON2_CONDITION) && (eregi ('col[0-9]', $this->FG_OTHER_BUTTON2_CONDITION))) {
+					  		if (!empty($this->FG_OTHER_BUTTON2_CONDITION) && (preg_match ('/col[0-9]/i', $this->FG_OTHER_BUTTON2_CONDITION))) {
 					  			$check =false;
 								for ($h=count($list[$ligne_number]);$h>=0;$h--){
 									$findme = "|col$h|";
@@ -443,7 +443,7 @@ function openURLFilter(theLINK)
 								}
 
 								// REPLACE |colX|  where is a numero of the column by the column value
-								if (eregi ('col[0-9]', $new_FG_OTHER_BUTTON2_LINK)) {
+								if (preg_match ('/col[0-9]/i', $new_FG_OTHER_BUTTON2_LINK)) {
 									for ($h=count($list[$ligne_number]);$h>=0;$h--){
 										$findme = "|col$h|";
 										$pos = stripos($new_FG_OTHER_BUTTON2_LINK, $findme);
@@ -454,7 +454,7 @@ function openURLFilter(theLINK)
 								}
 
 								// REPLACE |col_origX|  where is a numero of the column by the column value
-								if (eregi ('col_orig[0-9]', $new_FG_OTHER_BUTTON2_LINK)) {
+								if (preg_match ('/col_orig[0-9]/i', $new_FG_OTHER_BUTTON2_LINK)) {
 									for ($h=count($list[$ligne_number]);$h>=0;$h--){
 										$findme = "|col_orig$h|";
 										$pos = stripos($new_FG_OTHER_BUTTON2_LINK, $findme);
@@ -467,7 +467,7 @@ function openURLFilter(theLINK)
 								
 								$extra_html="";
 								
-								if(!empty($this->FG_OTHER_BUTTON2_HTML_ID) && (eregi ('col[0-9]',$this->FG_OTHER_BUTTON2_HTML_ID))){
+								if(!empty($this->FG_OTHER_BUTTON2_HTML_ID) && (preg_match ('/col[0-9]/i',$this->FG_OTHER_BUTTON2_HTML_ID))){
 									$temp_id =$this->FG_OTHER_BUTTON2_HTML_ID;
 									for ($h=count($list[$ligne_number]);$h>=0;$h--){
 										$findme = "|col$h|";
@@ -500,7 +500,7 @@ function openURLFilter(theLINK)
 							$check = true;
 					  		$condition_eval=$this->FG_OTHER_BUTTON3_CONDITION;
 							$check_eval=false;	
-					  		if (!empty($this->FG_OTHER_BUTTON3_CONDITION) && (eregi ('col[0-9]', $this->FG_OTHER_BUTTON3_CONDITION))) {
+					  		if (!empty($this->FG_OTHER_BUTTON3_CONDITION) && (preg_match ('/col[0-9]/i', $this->FG_OTHER_BUTTON3_CONDITION))) {
 					  			$check =false;
 									for ($h=count($list[$ligne_number]);$h>=0;$h--){
 										$findme = "|col$h|";
@@ -524,7 +524,7 @@ function openURLFilter(theLINK)
 								}
 
 								// REPLACE |colX|  where is a numero of the column by the column value
-								if (eregi ('col[0-9]', $new_FG_OTHER_BUTTON3_LINK)) {
+								if (preg_match ('/col[0-9]/i', $new_FG_OTHER_BUTTON3_LINK)) {
 									for ($h=0;$h<=$this->FG_NB_TABLE_COL;$h++){
 										$findme = "|col$h|";
 										$pos = stripos($new_FG_OTHER_BUTTON3_LINK, $findme);
@@ -535,7 +535,7 @@ function openURLFilter(theLINK)
 								}
 
 								// REPLACE |col_origX|  where is a numero of the column by the column value
-								if (eregi ('col_orig[0-9]', $new_FG_OTHER_BUTTON3_LINK)) {
+								if (preg_match ('/col_orig[0-9]/i', $new_FG_OTHER_BUTTON3_LINK)) {
 										for ($h=count($list[$ligne_number]);$h>=0;$h--){
 										$findme = "|col_orig$h|";
 										$pos = stripos($new_FG_OTHER_BUTTON3_LINK, $findme);
@@ -548,7 +548,7 @@ function openURLFilter(theLINK)
 								
 								$extra_html="";
 								
-								if(!empty($this->FG_OTHER_BUTTON3_HTML_ID) && (eregi ('col[0-9]',$this->FG_OTHER_BUTTON3_HTML_ID))){
+								if(!empty($this->FG_OTHER_BUTTON3_HTML_ID) && (preg_match ('/col[0-9]/i',$this->FG_OTHER_BUTTON3_HTML_ID))){
 									$temp_id =$this->FG_OTHER_BUTTON3_HTML_ID;
 									for ($h=count($list[$ligne_number]);$h>=0;$h--){
 										$findme = "|col$h|";
@@ -581,7 +581,7 @@ function openURLFilter(theLINK)
 							$check = true;
 					  		$condition_eval=$this->FG_OTHER_BUTTON4_CONDITION;
 							$check_eval=false;	
-					  		if (!empty($this->FG_OTHER_BUTTON4_CONDITION) && (eregi ('col[0-9]', $this->FG_OTHER_BUTTON4_CONDITION))) {
+					  		if (!empty($this->FG_OTHER_BUTTON4_CONDITION) && (preg_match ('/col[0-9]/i', $this->FG_OTHER_BUTTON4_CONDITION))) {
 					  			$check =false;
 									for ($h=count($list[$ligne_number]);$h>=0;$h--){
 										$findme = "|col$h|";
@@ -605,7 +605,7 @@ function openURLFilter(theLINK)
 								}
 
 								// REPLACE |colX|  where is a numero of the column by the column value
-								if (eregi ('col[0-9]', $new_FG_OTHER_BUTTON4_LINK)) {
+								if (preg_match ('/col[0-9]/i', $new_FG_OTHER_BUTTON4_LINK)) {
 									for ($h=0;$h<=$this->FG_NB_TABLE_COL;$h++){
 										$findme = "|col$h|";
 										$pos = stripos($new_FG_OTHER_BUTTON4_LINK, $findme);
@@ -616,7 +616,7 @@ function openURLFilter(theLINK)
 								}
 
 								// REPLACE |col_origX|  where is a numero of the column by the column value
-								if (eregi ('col_orig[0-9]', $new_FG_OTHER_BUTTON4_LINK)) {
+								if (preg_match ('/col_orig[0-9]/i', $new_FG_OTHER_BUTTON4_LINK)) {
 										for ($h=count($list[$ligne_number]);$h>=0;$h--){
 										$findme = "|col_orig$h|";
 										$pos = stripos($new_FG_OTHER_BUTTON4_LINK, $findme);
@@ -629,7 +629,7 @@ function openURLFilter(theLINK)
 								
 								$extra_html="";
 								
-								if(!empty($this->FG_OTHER_BUTTON4_HTML_ID) && (eregi ('col[0-9]',$this->FG_OTHER_BUTTON4_HTML_ID))){
+								if(!empty($this->FG_OTHER_BUTTON4_HTML_ID) && (preg_match ('/col[0-9]/i',$this->FG_OTHER_BUTTON4_HTML_ID))){
 									$temp_id =$this->FG_OTHER_BUTTON4_HTML_ID;
 									for ($h=count($list[$ligne_number]);$h>=0;$h--){
 										$findme = "|col$h|";
@@ -663,7 +663,7 @@ function openURLFilter(theLINK)
 							$check = true;
 					  		$condition_eval=$this->FG_OTHER_BUTTON5_CONDITION;
 							$check_eval=false;	
-					  		if (!empty($this->FG_OTHER_BUTTON5_CONDITION) && (eregi ('col[0-9]', $this->FG_OTHER_BUTTON5_CONDITION))) {
+					  		if (!empty($this->FG_OTHER_BUTTON5_CONDITION) && (preg_match ('/col[0-9]/i', $this->FG_OTHER_BUTTON5_CONDITION))) {
 					  			$check =false;
 									for ($h=count($list[$ligne_number]);$h>=0;$h--){
 										$findme = "|col$h|";
@@ -687,7 +687,7 @@ function openURLFilter(theLINK)
 								}
 
 								// REPLACE |colX|  where is a numero of the column by the column value
-								if (eregi ('col[0-9]', $new_FG_OTHER_BUTTON5_LINK)) {
+								if (preg_match ('/col[0-9]/i', $new_FG_OTHER_BUTTON5_LINK)) {
 									for ($h=0;$h<=$this->FG_NB_TABLE_COL;$h++){
 										$findme = "|col$h|";
 										$pos = stripos($new_FG_OTHER_BUTTON5_LINK, $findme);
@@ -698,7 +698,7 @@ function openURLFilter(theLINK)
 								}
 
 								// REPLACE |col_origX|  where is a numero of the column by the column value
-								if (eregi ('col_orig[0-9]', $new_FG_OTHER_BUTTON5_LINK)) {
+								if (preg_match ('/col_orig[0-9]/i', $new_FG_OTHER_BUTTON5_LINK)) {
 										for ($h=count($list[$ligne_number]);$h>=0;$h--){
 										$findme = "|col_orig$h|";
 										$pos = stripos($new_FG_OTHER_BUTTON5_LINK, $findme);
@@ -711,7 +711,7 @@ function openURLFilter(theLINK)
 								
 								$extra_html="";
 								
-								if(!empty($this->FG_OTHER_BUTTON5_HTML_ID) && (eregi ('col[0-9]',$this->FG_OTHER_BUTTON5_HTML_ID))){
+								if(!empty($this->FG_OTHER_BUTTON5_HTML_ID) && (preg_match ('/col[0-9]/i',$this->FG_OTHER_BUTTON5_HTML_ID))){
 									$temp_id =$this->FG_OTHER_BUTTON5_HTML_ID;
 									for ($h=count($list[$ligne_number]);$h>=0;$h--){
 										$findme = "|col$h|";

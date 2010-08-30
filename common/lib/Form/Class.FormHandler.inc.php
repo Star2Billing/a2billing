@@ -1455,7 +1455,7 @@ class FormHandler
 					
 					// CHECK ACCORDING TO THE REGULAR EXPRESSION DEFINED	
 					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="")) {					
-						$this-> FG_fit_expression[$i] = ereg( $this->FG_regular[$regexp][0] , $processed[$fields_name]);								
+						$this-> FG_fit_expression[$i] = preg_match ('/'.$this->FG_regular[$regexp][0].'/' , $processed[$fields_name]);								
 						if ($this->FG_DEBUG == 1)  echo "<br>->  $fields_name => ".$this->FG_regular[$regexp][0]." , ".$processed[$fields_name];
 						if (!$this-> FG_fit_expression[$i]){
 							$this->VALID_SQL_REG_EXP = false;
@@ -1606,7 +1606,7 @@ class FormHandler
 				} else {
 					
 					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ) {
-						$this-> FG_fit_expression[$i] = ereg( $this->FG_regular[$regexp][0] , $processed[$fields_name]);
+						$this-> FG_fit_expression[$i] = preg_match ('/'.$this->FG_regular[$regexp][0].'/' , $processed[$fields_name]);
 						if ($this->FG_DEBUG == 1)  echo "<br>->  ".$this->FG_regular[$regexp][0]." , ".$processed[$fields_name];
 						if (!$this-> FG_fit_expression[$i]){
 							$this->VALID_SQL_REG_EXP = false;
@@ -1788,7 +1788,7 @@ class FormHandler
 		
 		if (is_array($processed[$table_split[1]])) {
 			foreach($processed[$table_split[1]] as $value) {
-				if (empty($table_split[12]) || ereg ($this->FG_regular[$table_split[12]][0], $value)){
+				if (empty($table_split[12]) || preg_match ('/'.$this->FG_regular[$table_split[12]][0].'/', $value)){
 					// RESPECT REGULAR EXPRESSION
 					$result_query = $instance_sub_table -> Add_table ($this->DBHandle, "'".addslashes(trim($value))."', '".addslashes(trim($id))."'", null, null);
 			
@@ -1806,7 +1806,7 @@ class FormHandler
 			}
 		} else {
 			$value = $processed[$table_split[1]];
-			if (empty($table_split[12]) || ereg ($this->FG_regular[$table_split[12]][0], $value)) {
+			if (empty($table_split[12]) || preg_match ('/'.$this->FG_regular[$table_split[12]][0].'/', $value)) {
 				// RESPECT REGULAR EXPRESSION
 				$result_query = $instance_sub_table -> Add_table ($this->DBHandle, "'".addslashes(trim($value))."', '".addslashes(trim($id))."'", null, null);
 		
