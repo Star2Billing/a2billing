@@ -486,7 +486,7 @@ $paymentTable->SQLExec ($DBHandle_max, $QUERY); */
 
 	// CHECK IF THE EMAIL ADDRESS IS CORRECT
 
-	if (eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+[.](([a-z]{2,3})|([a-z]{3}[.]{1}[a-z]{2}))$", $customer_info["email"])) {
+	if (preg_match("/^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+[.](([a-z]{2,3})|([a-z]{3}[.]{1}[a-z]{2}))$/", $customer_info["email"])) {
 
 	// FIND THE TEMPLATE APPROPRIATE
 

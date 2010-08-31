@@ -82,7 +82,7 @@ if ($list[0][8] != "1" && isset ($result) && $result != null) {
 
 	list ($username, $lastname, $firstname, $email, $uipass, $credit, $cardalias, $loginkey, $status, $idcard) = $list[0];
 	if ($FG_DEBUG == 1)
-		echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #</br>";
+		echo "<br/># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #<br/>";
 
 	try {
 		$mail = new Mail(Mail :: $TYPE_SIGNUPCONFIRM, $idcard);
@@ -99,20 +99,20 @@ if ($list[0][8] != "1" && isset ($result) && $result != null) {
 ?>
 
 <blockquote>
-	<div align="center"><br></br>
-	 <font color="#FF0000"><b><?php echo gettext("Welcome! Your account has been successfully activated. Thank you!"); ?></b></font><br>
-		  <br></br>
-		  <?php echo $list[0][2]; ?> <?php echo $list[0][1]; ?>, <?php echo gettext("Thank you for registering with us !");?><br>
-		  <?php echo gettext("An email confirming your information has been sent to"); ?> <b><?php echo $list[0][3]; ?></b><br></br>
+	<div align="center"><br/><br/>
+	 <font color="#FF0000"><b><?php echo gettext("Welcome! Your account has been successfully activated. Thank you!"); ?></b></font><br/>
+		  <br/><br/>
+		  <?php echo $list[0][2]; ?> <?php echo $list[0][1]; ?>, <?php echo gettext("Thank you for registering with us !");?><br/>
+		  <?php echo gettext("An email confirming your information has been sent to"); ?> <b><?php echo $list[0][3]; ?></b><br/><br/>
 			<h3>
-			  <?php echo gettext("Your cardnumber is "); ?> <b><font color="#00AA00"><?php echo $list[0][0]; ?></font></b><br></br></br>
-			  <?php echo gettext("To login to your account :"); ?></br>
-			  <?php echo gettext("Your card alias (login) is "); ?> <b><font color="#00AA00"><?php echo $list[0][6]; ?></font></b><br>
-			  <?php echo gettext("Your password is "); ?> <b><font color="#00AA00"><?php echo $list[0][4]; ?></font></b><br>
+			  <?php echo gettext("Your cardnumber is "); ?> <b><font color="#00AA00"><?php echo $list[0][0]; ?></font></b><br/><br/><br/>
+			  <?php echo gettext("To login to your account :"); ?><br/>
+			  <?php echo gettext("Your card alias (login) is "); ?> <b><font color="#00AA00"><?php echo $list[0][6]; ?></font></b><br/>
+			  <?php echo gettext("Your password is "); ?> <b><font color="#00AA00"><?php echo $list[0][4]; ?></font></b><br/>
 			</h3>	  
 			
-			<br><br>
-	<?php echo gettext("Follow the link to access your account : ").'<a href="'.$A2B->config["signup"]['urlcustomerinterface'].'">'.$A2B->config["signup"]['urlcustomerinterface']."</a><br>"; ?>
+			<br/><br/>
+	<?php echo gettext("Follow the link to access your account : ").'<a href="'.$A2B->config["signup"]['urlcustomerinterface'].'">'.$A2B->config["signup"]['urlcustomerinterface']."</a><br/>"; ?>
 		
 </div>
 </blockquote>
@@ -122,8 +122,8 @@ if ($list[0][8] != "1" && isset ($result) && $result != null) {
 ?>
 
 <center>
-<br></br><br></br>
-<br></br><br></br>
+<br/><br/><br/><br/>
+<br/><br/><br/><br/>
 
 <table width="400">
 <tr><td colspan="2" bgcolor="#DDDDDD"></td></tr>
@@ -134,11 +134,11 @@ if ($list[0][8] != "1" && isset ($result) && $result != null) {
 <b>
 <?php
 if( $list[0][9] == "1") {
-	echo gettext("Your account is already activated.")." <br>";
+	echo gettext("Your account is already activated.")." <br/>";
 } elseif(isset($result) || $result != null) {
 	// nothing
 } else {
-	echo gettext("Your account cannot be activated please contact <br> the website administrator or retry later.")." <br>";
+	echo gettext("Your account cannot be activated please contact <br/> the website administrator or retry later.")." <br/>";
 }
 ?>
 </b>
@@ -147,8 +147,8 @@ if( $list[0][9] == "1") {
 <tr><td colspan="2" bgcolor="#DDDDDD"></td></tr>
 </table>
 
-<br></br><br></br>
-<br></br><br></br>
+<br/><br/><br/><br/>
+<br/><br/><br/><br/>
 </center>
    
 

@@ -398,9 +398,9 @@ class Table {
 		}
 
 		$sqlletters = "";
-		if (!is_null ($letters) && (ereg("^[A-Za-z]+$", $letters)) && !is_null ($field_order_letter) && ($field_order_letter!='') ) {
+		if (!is_null ($letters) && (preg_match("/^[A-Za-z]+$/", $letters)) && !is_null ($field_order_letter) && ($field_order_letter!='') ) {
 			$sql_letters= ' (".$field_order_letter." LIKE \''.strtolower($letters).'%\') ';
-
+            
 			if ($sql_clause != "") {
 				$sql_clause .= " AND ";
 			} else {

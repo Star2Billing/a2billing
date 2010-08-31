@@ -603,7 +603,7 @@ function MDP_STRING($chrs = LEN_CARDNUMBER)
 	mt_srand((double) microtime() * 1000000);
 	while (strlen($pwd) < $chrs) {
 		$chr = chr(mt_rand(0, 255));
-		if (eregi("^[0-9a-z]$", $chr))
+		if (preg_match("/^[0-9a-z]$/i", $chr))
 			$pwd = $pwd . $chr;
 	};
 	return strtolower($pwd);
@@ -1206,13 +1206,13 @@ function arguments($argv) {
 	$_ARG = array ();
 	array_shift($argv); //skip argv[0] !
 	foreach ($argv as $arg) {
-		if (ereg('--([^=]+)=(.*)', $arg, $reg)) {
+		if (preg_match('/--([^=]+)=(.*)/', $arg, $reg)) {
 			$_ARG[$reg[1]] = $reg[2];
 		}
-		elseif (ereg('--([^=]+)', $arg, $reg)) {
+		elseif (preg_match('/--([^=]+)/', $arg, $reg)) {
 			$_ARG[$reg[1]] = true;
 		}
-		elseif (ereg('^-([a-zA-Z0-9])', $arg, $reg)) {
+		elseif (preg_match('/^-([a-zA-Z0-9])/', $arg, $reg)) {
 			$_ARG[$reg[1]] = true;
 		} else {
 			$_ARG['input'][] = $arg;

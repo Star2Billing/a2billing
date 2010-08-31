@@ -71,13 +71,15 @@ if ($dynamic_idconfig = intval($agi->get_variable("IDCONF", true))) {
 	$idconfig = $dynamic_idconfig;
 }
 
-if ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'did')						$mode = 'did';
-elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'callback')			$mode = 'callback';
-elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'cid-callback')		$mode = 'cid-callback';
-elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'all-callback')		$mode = 'all-callback';
-elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'voucher')				$mode = 'voucher';
-elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'campaign-callback')	$mode = 'campaign-callback';
-else																			$mode = 'standard';
+if ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'did')                         $mode = 'did';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'callback')                $mode = 'callback';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'cid-callback')            $mode = 'cid-callback';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'all-callback')            $mode = 'all-callback';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'voucher')                 $mode = 'voucher';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'campaign-callback')       $mode = 'campaign-callback';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'conference-moderator')	$mode = 'conference-moderator';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'conference-member')       $mode = 'conference-member';
+else                                                                                $mode = 'standard';
 
 // get the area code for the cid-callback & all-callback
 if ($argc > 3 && strlen($argv[3]) > 0) 
@@ -1134,7 +1136,343 @@ if ($mode == 'standard') {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[AUTHENTICATION FAILED (cia_res:".$cia_res.")]");
 	}
 
+// MODE CONFERENCE MODERATOR
+} elseif ($mode == 'conference-moderator') {
+
+	$callback_been_connected = 0;
+	
+	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[MODE : CONFERENCE MODERATOR]');
+	
+	if ($A2B -> config["callback"]['answer_call']==1) {
+		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[ANSWER CALL]');
+		$agi -> answer();
+		$status_channel = 6;
+	} else {
+		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[NO ANSWER CALL]');
+		$status_channel = 4;
+	}
+
+    $A2B -> play_menulanguage ($agi);
+    
+	$called_party = $agi->get_variable("CALLED", true);
+	$calling_party = $agi->get_variable("CALLING", true);
+	$callback_mode = $agi->get_variable("MODE", true);
+	$callback_tariff = $agi->get_variable("TARIFF", true);
+	$callback_uniqueid = $agi->get_variable("CBID", true);
+	$callback_leg = $agi->get_variable("LEG", true);
+    $accountcode = $agi->get_variable("ACCOUNTCODE", true);
+    $phonenumber_member = $agi->get_variable("PN_MEMBER", true);
+    $room_number = $agi->get_variable("ROOMNUMBER", true);
+
+    $A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[CALLBACK]:[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff | CBID=$callback_uniqueid | LEG=$callback_leg | ACCOUNTCODE=$accountcode | PN_MEMBER=$phonenumber_member | ROOMNUMBER=$room_number]");
+
+
+    $error_settings = False;
+    $room_number = intval($room_number);
+    if ($room_number <= 0){
+        $error_settings = True;
+    }
+
+    if (strlen($accountcode)==0 || strlen($phonenumber_member)==0) {
+        $error_settings = True;
+    } else {
+        $list_pn_member = preg_split("/[\s;]+/", $phonenumber_member);
+
+        if (count($list_pn_member)==0){
+            $error_settings = True;
+        }
+    }
+    
+    if ($error_settings) {
+        $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK : Error settings accountcode and phonenumber_member]");
+        $agi->hangup();
+        $A2B -> write_log("[STOP - EXIT]", 0);
+        exit();
+    }
+
+    $A2B -> username = $A2B -> accountcode = $accountcode;
+    $A2B -> callingcard_acct_start_inuse($agi,1);
+
+	if ($callback_mode=='CONF-MODERATOR') {
+		$charge_callback = 1;		
+		$A2B->CallerID = $called_party;
+		$A2B->agiconfig['number_try'] =1;
+		$A2B->agiconfig['use_dnid'] =1;
+		$A2B->agiconfig['say_balance_after_auth']=0;
+		$A2B->agiconfig['cid_enable'] =0;
+		$A2B->agiconfig['say_timetocall']=0;
+	}
+    
+	$QUERY = "UPDATE cc_callback_spool SET agi_result='AGI PROCESSING' WHERE uniqueid='$callback_uniqueid'";
+	$res = $A2B -> DBHandle -> Execute($QUERY);
+	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK : UPDATE CALLBACK AGI_RESULT : QUERY=$QUERY]");
+    
+    
+	/* WE START ;) */
+	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[TRY : callingcard_ivr_authenticate]");
+	$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
+	if ($cia_res==0) {
+
+		$charge_callback = 1; // EVEN FOR  ALL CALLBACK
+		$callback_leg = $A2B -> username;
+
+		
+		for ($i=0 ; $i < 1 ; $i++) {
+
+			$RateEngine->Reinit();
+			//$A2B-> Reinit();
+			
+			$stat_channel = $agi->channel_status($A2B-> channel);
+			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'.
+							"[status_channel=$status_channel]:[CREDIT - : ".$A2B -> credit." - CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
+			
+			if( !$A2B->enough_credit_to_call()) {
+				// SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL
+				$prompt = "prepaid-no-enough-credit-stop";
+				$agi-> stream_file($prompt, '#');
+				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[STOP STREAM FILE $prompt]");
+			}
+
+            // find the route and Initiate new callback for all the members
+            foreach ($list_pn_member as $inst_pn_member){
+                $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[Spool Callback for the PhoneNumber '.$inst_pn_member.']');
+
+                // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+                $A2B -> extension = $A2B -> dnid = $A2B -> destination = $inst_pn_member;
+
+                $resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B -> destination, $A2B -> tariff);
+
+                // IF FIND RATE
+                if ($resfindrate!=0) {
+                    //$RateEngine -> debug_st = 1;
+                    $res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
+
+                    if ($res_all_calcultimeout){
+                        // MAKE THE CALL
+                        if ($RateEngine -> ratecard_obj[0][34]!='-1'){
+                            $usetrunk = 34;
+                            $usetrunk_failover = 1;
+                            $RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[$k][34];
+                        } else {
+                            $usetrunk = 29;
+                            $RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[$k][29];
+                            $usetrunk_failover = 0;
+                        }
+
+                        $prefix			= $RateEngine -> ratecard_obj[0][$usetrunk+1];
+                        $tech 			= $RateEngine -> ratecard_obj[0][$usetrunk+2];
+                        $ipaddress 		= $RateEngine -> ratecard_obj[0][$usetrunk+3];
+                        $removeprefix 	= $RateEngine -> ratecard_obj[0][$usetrunk+4];
+                        $timeout		= $RateEngine -> ratecard_obj[0]['timeout'];
+                        $failover_trunk	= $RateEngine -> ratecard_obj[0][40+$usetrunk_failover];
+                        $addparameter	= $RateEngine -> ratecard_obj[0][42+$usetrunk_failover];
+
+                        $destination = $A2B ->destination;
+                        if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
+
+                        $pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
+
+                        $ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
+                        $ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
+
+                        if ($pos_dialingnumber !== false) {
+                               $dialstr = "$tech/$ipaddress";
+                        } else {
+                            if ($A2B->agiconfig['switchdialcommand'] == 1) {
+                                $dialstr = "$tech/$prefix$destination@$ipaddress";
+                            } else {
+                                $dialstr = "$tech/$ipaddress/$prefix$destination";
+                            }
+                        }
+
+                        //ADDITIONAL PARAMETER 			%dialingnumber%,	%cardnumber%
+                        if (strlen($addparameter)>0){
+                            $addparameter = str_replace("%cardnumber%", $A2B->cardnumber, $addparameter);
+                            $addparameter = str_replace("%dialingnumber%", $prefix.$destination, $addparameter);
+                            $dialstr .= $addparameter;
+                        }
+
+                        $channel= $dialstr;
+                        $exten = $inst_pn_member;
+                        $context = 'a2billing-conference-member';;
+                        $id_server_group = $A2B -> config["callback"]['id_server_group'];
+                        $callerid = $called_party;
+                        $priority = 1;
+                        $timeout = $A2B -> config["callback"]['timeout']*1000;
+                        $application = '';
+                        $account = $A2B -> accountcode;
+                        $uniqueid = $callback_uniqueid.'-'.MDP_NUMERIC(5);
+
+                        $sep = ($A2B->config['global']['asterisk_version'] == "1_6")?',':'|';
+
+                        $variable = "CALLED=$inst_pn_member".$sep."CALLING=$inst_pn_member".$sep."CBID=$callback_uniqueid".$sep."TARIFF=$callback_tariff".$sep.
+                                    "LEG=".$A2B -> accountcode.$sep."ACCOUNTCODE=".$A2B -> accountcode.$sep."ROOMNUMBER=".$room_number;
+                        
+                        $status = 'PENDING';
+                        $server_ip = 'localhost';
+                        $num_attempt = 0;
+
+                        if (is_numeric($A2B -> config["callback"]['sec_wait_before_callback']) && $A2B -> config["callback"]['sec_wait_before_callback']>=1) {
+                            $sec_wait_before_callback = $A2B -> config["callback"]['sec_wait_before_callback'];
+                        } else {
+                            $sec_wait_before_callback = 1;
+                        }
+
+                        $QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account, callerid, timeout ) VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group', ADDDATE( CURRENT_TIMESTAMP, INTERVAL $sec_wait_before_callback SECOND ), '$account', '$callerid', '$timeout')";
+                        $res = $A2B -> DBHandle -> Execute($QUERY);
+                        $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK-ALL : INSERT CALLBACK REQUEST IN SPOOL : QUERY=$QUERY]");
+
+                        if (!$res) {
+                            $error_msg= "Cannot insert the callback request in the spool!";
+                            $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK-ALL : CALLED=".$A2B ->destination." | $error_msg]");
+                        }
+
+                    } else {
+                        $error_msg = 'Error : You don t have enough credit to call you back !!!';
+                        $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | $error_msg]");
+                    }
+                } else {
+                    $error_msg = 'Error : There is no route to call back your phonenumber !!!';
+                    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | $error_msg]");
+                }
+
+                // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+            }
+
+			// DIAL INTO THE CONFERENCE AS ADMINISTRATOR
+            $dialstr = "local/$room_number@a2billing-conference-room";
+            
+            $A2B -> debug( INFO, $agi, __FILE__, __LINE__, "DIAL $dialstr");
+            $myres = $A2B -> run_dial($agi, $dialstr);
+
+
+            $charge_callback = 1;
+			
+		}//END FOR
+
+		if ($A2B->set_inuse==1) {
+			$A2B->callingcard_acct_start_inuse($agi,0);
+		}
+
+	} else {
+		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[AUTHENTICATION FAILED (cia_res:".$cia_res.")]");
+	}
+
+// MODE CONFERENCE MEMBER
+} elseif ($mode == 'conference-member') {
+
+	$callback_been_connected = 0;
+	
+	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[MODE : CONFERENCE MEMBER]');
+	
+	if ($A2B -> config["callback"]['answer_call']==1) {
+		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[ANSWER CALL]');
+		$agi -> answer();
+		$status_channel = 6;
+	} else {
+		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[NO ANSWER CALL]');
+		$status_channel = 4;
+	}
+
+    $A2B -> play_menulanguage ($agi);
+    
+	$called_party = $agi->get_variable("CALLED", true);
+	$calling_party = $agi->get_variable("CALLING", true);
+	$callback_mode = $agi->get_variable("MODE", true);
+	$callback_tariff = $agi->get_variable("TARIFF", true);
+	$callback_uniqueid = $agi->get_variable("CBID", true);
+	$callback_leg = $agi->get_variable("LEG", true);
+    $accountcode = $agi->get_variable("ACCOUNTCODE", true);
+    $room_number = $agi->get_variable("ROOMNUMBER", true);
+
+    $A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[CALLBACK]:[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff | CBID=$callback_uniqueid | LEG=$callback_leg | ACCOUNTCODE=$accountcode | ROOMNUMBER=$room_number]");
+
+
+    $error_settings = False;
+    $room_number = intval($room_number);
+    if ($room_number <= 0){
+        $error_settings = True;
+    }
+
+    if (strlen($accountcode)==0) {
+        $error_settings = True;
+    }
+    
+    if ($error_settings) {
+        $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK : Error settings accountcode]");
+        $agi->hangup();
+        $A2B -> write_log("[STOP - EXIT]", 0);
+        exit();
+    }
+
+    $A2B -> username = $A2B -> accountcode = $accountcode;
+    $A2B -> callingcard_acct_start_inuse($agi,1);
+
+	if ($callback_mode=='CONF-MODERATOR') {
+		$charge_callback = 1;		
+		$A2B->CallerID = $called_party;
+		$A2B->agiconfig['number_try'] =1;
+		$A2B->agiconfig['use_dnid'] =1;
+		$A2B->agiconfig['say_balance_after_auth']=0;
+		$A2B->agiconfig['cid_enable'] =0;
+		$A2B->agiconfig['say_timetocall']=0;
+	}
+    
+	$QUERY = "UPDATE cc_callback_spool SET agi_result='AGI PROCESSING' WHERE uniqueid='$callback_uniqueid'";
+	$res = $A2B -> DBHandle -> Execute($QUERY);
+	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK : UPDATE CALLBACK AGI_RESULT : QUERY=$QUERY]");
+    
+    
+	/* WE START ;) */
+	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[TRY : callingcard_ivr_authenticate]");
+	$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
+	if ($cia_res==0) {
+
+		$charge_callback = 1; // EVEN FOR  ALL CALLBACK
+		$callback_leg = $A2B -> username;
+
+		
+		for ($i=0 ; $i < 1 ; $i++) {
+
+			$RateEngine->Reinit();
+			//$A2B-> Reinit();
+			
+			$stat_channel = $agi->channel_status($A2B-> channel);
+			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'.
+							"[status_channel=$status_channel]:[CREDIT - : ".$A2B -> credit." - CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
+			
+			if( !$A2B->enough_credit_to_call()) {
+				// SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL
+				$prompt = "prepaid-no-enough-credit-stop";
+				$agi-> stream_file($prompt, '#');
+				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[STOP STREAM FILE $prompt]");
+			}
+
+            // DIAL INTO THE CONFERENCE AS ADMINISTRATOR
+            $dialstr = "local/$room_number@a2billing-conference-room";
+            
+            $A2B -> debug( INFO, $agi, __FILE__, __LINE__, "DIAL $dialstr");
+            $myres = $A2B -> run_dial($agi, $dialstr);
+
+
+            $charge_callback = 1;
+			
+		}//END FOR
+
+		if ($A2B->set_inuse==1) {
+			$A2B->callingcard_acct_start_inuse($agi,0);
+		}
+
+	} else {
+		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[AUTHENTICATION FAILED (cia_res:".$cia_res.")]");
+	}
+
 }
+
+
+
 
 // CHECK IF WE HAVE TO CHARGE CALLBACK
 if ($charge_callback) {
@@ -1152,7 +1490,7 @@ if ($charge_callback) {
 	//overrides the tariff for the user with the one passed in.
 	if (strlen($callback_tariff) > 0)
 	{ 
-		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "*** Tariff override **** Changing from ".$A2B -> tariff." to ".$callback_tariff);
+		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "*** Tariff override **** Changing from ".$A2B -> tariff." to ".$callback_tariff." cia_res=$cia_res");
 		$A2B ->tariff = $callback_tariff;
 	}
 	

@@ -35,10 +35,12 @@ ALTER TABLE cc_did_destination CHANGE destination destination VARCHAR( 100 ) CHA
 
 ALTER TABLE cc_sip_buddies ADD COLUMN useragent VARCHAR( 80 ) DEFAULT NULL;
 
-ALTER TABLE `cc_sip_buddies` ALTER `disallow` set DEFAULT 'ALL';
-ALTER TABLE `cc_sip_buddies` ALTER `rtpkeepalive` set DEFAULT 0;
-ALTER TABLE `cc_sip_buddies` ALTER `canreinvite` set DEFAULT 'YES';
+ALTER TABLE cc_sip_buddies ALTER disallow set DEFAULT 'ALL';
+ALTER TABLE cc_sip_buddies ALTER rtpkeepalive set DEFAULT 0;
+ALTER TABLE cc_sip_buddies ALTER canreinvite set DEFAULT 'YES';
 
+
+ALTER TABLE  cc_callback_spool CHANGE  variable  variable VARCHAR( 2000 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
   
 UPDATE cc_version SET version = '1.7.2';
 

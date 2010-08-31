@@ -355,29 +355,6 @@ if ( ($orderStatus != 2) && ($transaction_data[0][4]=='plugnpay')) {
 }
 
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT ORDER STATUS  = ".$statusmessage);
-// CHECK IF THE EMAIL ADDRESS IS CORRECT
-/*
-if (eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+[.](([a-z]{2,3})|([a-z]{3}[.]{1}[a-z]{2}))$", $customer_info["email"])){
-	// FIND THE TEMPLATE APPROPRIATE
-        try {
-            $mail = new Mail('payment',$id);
-            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-SENDING EMAIL TO CUSTOMER ".$customer_info["email"]);
-            $mail->replaceInEmail(Mail::$ITEM_AMOUNT_KEY,$amount_paid);
-            $mail->replaceInEmail(Mail::$ITEM_ID_KEY,$customer_info[0]);
-            $mail->replaceInEmail(Mail::$ITEM_NAME_KEY,'balance');
-            $mail->replaceInEmail(Mail::$PAYMENT_METHOD_KEY,$pmodule);
-            $mail->replaceInEmail(Mail::$PAYMENT_STATUS_KEY,$statusmessage);
-            $mail->send($customer_info["email"]);
-            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-SENDING EMAIL TO CUSTOMER ".$customer_info["email"]);
-            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"."- MAILTO:".$customer_info["email"]."-Sub=".$mail->getTitle()." , mtext=".$mail->getMessage());
-        } catch (A2bMailException $e) {
-            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO EMAIL TEMPLATE FOUND");
-        }
-
-} else {
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Customer : no email info !!!");
-}
-*/
 
 
 // load the after_process function from the payment modules

@@ -6,13 +6,13 @@ $processed = $this->getProcessed();
 
 <script language="JavaScript" src="./javascript/calonlydays.js"></script>
 
-	<FORM action=<?php echo $_SERVER['PHP_SELF']?> id="myForm" method="post" name="myForm">
+	<FORM action=<?php echo $_SERVER['PHP_SELF']; ?> id="myForm" method="post" name="myForm">
 	
-	<table cellspacing="2" class="addform_table1">
+	<TABLE cellspacing="2" class="addform_table1">
           <INPUT type="hidden" name="form_action" value="add">
-		  <INPUT type="hidden" name="wh" value="<?php echo $wh?>">
+		  <INPUT type="hidden" name="wh" value="<?php echo $wh; ?>">
 	<?php
-	if (!empty($this->FG_QUERY_ADITION_HIDDEN_FIELDS)){
+	if (!empty($this->FG_QUERY_ADITION_HIDDEN_FIELDS)) {
 		$split_hidden_fields = preg_split("/,/",trim($this->FG_QUERY_ADITION_HIDDEN_FIELDS));
 		$split_hidden_fields_value = preg_split("/,/",trim($this->FG_QUERY_ADITION_HIDDEN_VALUE));
 		for ($cur_hidden=0;$cur_hidden<count($split_hidden_fields);$cur_hidden++){

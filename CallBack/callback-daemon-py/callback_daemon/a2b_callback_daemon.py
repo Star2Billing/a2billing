@@ -266,21 +266,21 @@ class callback_manager(object):
             self._manager.login(self._manager_login, self._manager_passw)
             
         except manager.ManagerSocketException, (errno, reason):
-            #print "Error connecting to the manager: %s" % reason
+            logging.error("Error connecting to the manager: %s" % reason)
             #sys.exit(1)
             return False
         except manager.ManagerAuthException, reason:
-            #print "Error logging in to the manager: %s" % reason
+            logging.error("Error connecting to the manager: %s" % reason)
             #sys.exit(1)
             return False
         except manager.ManagerException, reason:
-            #print "Error: %s" % reason
+            logging.error("Error connecting to the manager: %s" % reason)
             #sys.exit(1)
             return False
+        
         return True
         
     def try_originate (self, channel = None, exten = None, context = None, priority = None, timeout = None, caller_id = None, async = True, account = None, application = None, data = None, variables = None, actionid = None):
-        
         response = self._manager.originate(channel, exten, context, priority, timeout, caller_id, async, account, application, data, variables, actionid)
         return response
      
