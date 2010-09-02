@@ -1791,7 +1791,7 @@ class A2Billing {
 		else $mycur = $currencies_list[strtoupper($this->currency)][2];
 		$credit_cur = $credit / $mycur;
 
-		list($units, $cents)=split('[.]', sprintf('%01.2f', $credit_cur));
+		list($units, $cents)=preg_split('/[.]/', sprintf('%01.2f', $credit_cur));
 
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[BEFORE: $credit_cur SPRINTF : ".sprintf('%01.2f', $credit_cur)."]");
 
@@ -1899,7 +1899,7 @@ class A2Billing {
 		else $mycur = $currencies_list[strtoupper($this->currency)][2];
 		$credit_cur = $rate / $mycur;
 		
-		list($units,$cents)=split('[.]', $credit_cur);
+		list($units,$cents)=preg_split('/[.]/', $credit_cur);
 		if (substr($cents,2) > 0) $point = substr($cents,2);
 		if (strlen($cents)>2) $cents=substr($cents,0,2);
 		if ($units=='') $units=0;

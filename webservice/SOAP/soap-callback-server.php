@@ -171,7 +171,7 @@ class Callback {
 		}
 
 		// CHECK CALLBACK TIME
-		if (strlen($callback_time) > 1 && !(ereg($FG_regular[0][0], $callback_time))) {
+		if (strlen($callback_time) > 1 && !(preg_match("/".$FG_regular[0][0]."/", $callback_time))) {
 			write_log(LOG_CALLBACK, basename(__FILE__) . ' line:' . __LINE__ . "[" . date("Y/m/d G:i:s", mktime()) . "] " . " ERROR FORMAT CALLBACKTIME : " . $FG_regular[0][0]);
 			return array ( $insert_id_callback, 'result=Error', " ERROR - FORMAT CALLBACKTIME : " . $FG_regular[0][0] );
 		}

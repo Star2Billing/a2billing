@@ -116,12 +116,12 @@ $show_list=array();
 $show_list_sizes=array();
 $show_list_temp=array();
 
-$show_list_temp=split(',', $A2B->config["webui"]['card_show_field_list']);
+$show_list_temp=preg_split('/,/', $A2B->config["webui"]['card_show_field_list']);
 foreach ($show_list_temp as $i => $value) {
 	$a=strtolower(trim($value));
 	$pos = strpos($a, ':');
 	if (!($pos===false)) {
-		$temp_ar=split(':',$a);
+		$temp_ar=preg_split('/:/',$a);
 		$b=$temp_ar[1];
 		$a=strtolower(trim($temp_ar[0]));	
 		if (strlen($a)>1) {
@@ -200,7 +200,7 @@ foreach ($show_list as $i => $value) {
 if (strlen($FG_COL_QUERY_FIELD)>2) {
 	$FG_COL_QUERY_FIELD=substr( $FG_COL_QUERY_FIELD,2);
 }
-$FG_COL_QUERY_COUNT=count(split(',',$FG_COL_QUERY_FIELD));
+$FG_COL_QUERY_COUNT=count(preg_split('/,/',$FG_COL_QUERY_FIELD));
 $FG_COL_QUERY_FIELD=$FG_COL_QUERY_FIELD.', id as id_,username as username_,useralias as alias_ ';
 $HD_Form -> FieldViewElement ($FG_COL_QUERY.' '.$FG_COL_QUERY_FIELD);
 

@@ -30,7 +30,7 @@ class Parser {
 		$arrResults = array();
 		
 		if ( ( $strBuff = execute_program( "lspci", "", $this->debug ) ) != "ERROR" ) {
-			$arrLines = split( "\n", $strBuff );
+			$arrLines = preg_split("/\n/", $strBuff );
 			foreach( $arrLines as $strLine ) {
 				list( $strAddr, $strName) = explode( ' ', trim( $strLine ), 2 );
 				$strName = preg_replace( '/\(.*\)/', '', $strName);

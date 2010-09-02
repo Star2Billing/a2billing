@@ -1059,7 +1059,7 @@ foreach ( $list as $recordset ) {
 					$sub_clause = str_replace ( "%id", $recordset [$i], $FG_TABLE_COL [$i] [9] );
 					$select_list = $instance_sub_table -> Get_list ($DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
 					if(is_array($select_list)){
-						$field_list_sun = split(',',$FG_TABLE_COL[$i][8]);
+						$field_list_sun = split('/,/',$FG_TABLE_COL[$i][8]);
 						$record_display = $FG_TABLE_COL[$i][10];
 						$link = $FG_TABLE_COL[$i][12]."?form_action=ask-edit&id=".$select_list[0][1];
 						for ($l=1;$l<=count($field_list_sun);$l++){

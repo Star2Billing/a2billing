@@ -1041,7 +1041,7 @@ foreach ( $list as $recordset ) {
 					$sub_clause = str_replace ( "%id", $recordset [$i], $FG_TABLE_COL [$i] [9] );
 					$select_list = $instance_sub_table->Get_list ( $DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
 					
-					$field_list_sun = preg_split ( '/,/', $FG_TABLE_COL [$i] [8] );
+					$field_list_sun = preg_split('/,/', $FG_TABLE_COL [$i] [8] );
 					$record_display = $FG_TABLE_COL [$i] [10];
 					
 					if (is_array($select_list)) {

@@ -42,14 +42,14 @@ class sysinfo extends bsd_common {
 
   function get_sys_ticks () {
     $s = explode(' ', $this->grab_key('kern.boottime'));
-    $a = ereg_replace('{ ', '', $s[3]);
+    $a = preg_replace('/{ /', '', $s[3]);
     $sys_ticks = time() - $a;
     return $sys_ticks;
   } 
 
   function network () {
     $netstat = execute_program('netstat', '-nibd | grep Link');
-    $lines = split("\n", $netstat);
+    $lines = preg_split("/\n/", $netstat);
     $results = array();
     for ($i = 0, $max = sizeof($lines); $i < $max; $i++) {
       $ar_buf = preg_split("/\s+/", $lines[$i]);

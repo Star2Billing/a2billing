@@ -146,7 +146,7 @@ if (!isset ($days_compare)) {
 	$days_compare = 2;
 }
 
-list ($myyear, $mymonth) = split("-", $fromstatsmonth_sday);
+list ($myyear, $mymonth) = preg_split("/-/", $fromstatsmonth_sday);
 
 $mymonth = $mymonth +1;
 if ($current_mymonth == 13) {

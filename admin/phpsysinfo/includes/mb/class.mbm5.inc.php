@@ -30,9 +30,9 @@ class mbinfo {
 		} else {
 			$delim = ";";
 		}
-		$buffer = split( "\n", $buffer );
-		$this->buf_label = split( $delim, $buffer[0] );
-		$this->buf_value = split( $delim, $buffer[1] );
+		$buffer = preg_split("/\n/", $buffer );
+		$this->buf_label = preg_split("/".$delim."/", $buffer[0] );
+		$this->buf_value = preg_split("/".$delim."/", $buffer[1] );
 	}
 	
 	function temperature() {

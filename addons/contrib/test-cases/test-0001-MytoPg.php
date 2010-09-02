@@ -420,7 +420,7 @@ $total_time = 0;
 for ($i = 0;  $i < sizeof($t);  $i++) {
 	if ($dbg) print "\n";
 	$time = 0;
-	if (eregi('My_to_Pg|Parse_helper|mytopg',$t[$i][1])) {
+	if (preg_match('/My_to_Pg|Parse_helper|mytopg/i',$t[$i][1])) {
 		$teststr = $t[$i][3];
 		for ($loop = 0; $loop < $times; $loop++) {
 			$s = microtime(true);
@@ -449,11 +449,11 @@ for ($i = 0;  $i < sizeof($t);  $i++) {
 	if ($out != $t[$i][2]) {
 		$fail++;
 		print "FAILED $res\n";
-		if (ereg_replace('[[:space:]]+', '', $out) == ereg_replace('[[:space:]]+', '', $t[$i][2])) {
+		if (preg_replace('/[[:space:]]+/', '', $out) == preg_replace('/[[:space:]]+/', '', $t[$i][2])) {
 			print "But matches except for whitespace\n";
 		}
 		for ($j = 0; $j < 80 ; $j++) { print $j % 10; }
-		if (eregi('My_to_Pg|Parse_helper|mytopg',$t[$i][1])) print "\n".$t[$i][3].' < test string\n';
+		if (preg_match('/My_to_Pg|Parse_helper|mytopg/i',$t[$i][1])) print "\n".$t[$i][3].' < test string\n';
 		print "\n".$t[$i][1]."\n";
 		print "".$out."\n\t != \n".$t[$i][2]."\n\n\n";
 		if ($dbg) exit;
@@ -461,7 +461,7 @@ for ($i = 0;  $i < sizeof($t);  $i++) {
 	} else {
 		$pass++;
 		print "PASSED $res";
-		if (eregi('^\s*SELECT\s*', $out)) {
+		if (preg_match('/^\s*SELECT\s*/i', $out)) {
 			$result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $out, 1, 300);
 			if ($A2B -> DBHandle -> ErrorNo() != 0) {
 				print " (Running SQL query failed!)\n";

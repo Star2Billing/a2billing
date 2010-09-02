@@ -334,7 +334,7 @@ function display_date_timestamp($timestamp){
  * function display_vm_callerid
  */
 function display_vm_callerid($callerid_string){
-	$arr_spli = split(" ", $callerid_string);
+	$arr_spli = preg_split("/ /", $callerid_string);
 	echo str_replace('"',"", $arr_spli[0]);
 }	
 
@@ -603,7 +603,7 @@ function MDP_STRING($chrs = LEN_CARDNUMBER)
 	mt_srand((double) microtime() * 1000000);
 	while (strlen($pwd) < $chrs) {
 		$chr = chr(mt_rand(0, 255));
-		if (eregi("^[0-9a-z]$", $chr))
+		if (preg_match("/^[0-9a-z]$/i", $chr))
 			$pwd = $pwd . $chr;
 	};
 	return strtolower($pwd);
@@ -618,7 +618,7 @@ function MDP_NUMERIC($chrs = LEN_CARDNUMBER)
 	mt_srand((double) microtime() * 1000000);
 	while (strlen($pwd) < $chrs) {
 		$chr = mt_rand(0, 9);
-		if (eregi("^[0-9]$", $chr))
+		if (preg_match("/^[0-9]$/i", $chr))
 			$pwd = $pwd . $chr;
 	};
 	return strtolower($pwd);
@@ -633,7 +633,7 @@ function MDP($chrs = LEN_CARDNUMBER)
 	mt_srand((double) microtime() * 1000000);
 	while (strlen($pwd) < $chrs) {
 		$chr = chr(mt_rand(0, 255));
-		if (eregi("^[0-9]$", $chr))
+		if (preg_match("/^[0-9]$/", $chr))
 			$pwd = $pwd . $chr;
 	};
 	return $pwd;
@@ -1214,13 +1214,13 @@ function arguments($argv) {
 	$_ARG = array ();
 	array_shift($argv); //skip argv[0] !
 	foreach ($argv as $arg) {
-		if (ereg('--([^=]+)=(.*)', $arg, $reg)) {
+		if (preg_match('/--([^=]+)=(.*)/', $arg, $reg)) {
 			$_ARG[$reg[1]] = $reg[2];
 		}
-		elseif (ereg('--([^=]+)', $arg, $reg)) {
+		elseif (preg_match('/--([^=]+)/', $arg, $reg)) {
 			$_ARG[$reg[1]] = true;
 		}
-		elseif (ereg('^-([a-zA-Z0-9])', $arg, $reg)) {
+		elseif (preg_match('/^-([a-zA-Z0-9])/', $arg, $reg)) {
 			$_ARG[$reg[1]] = true;
 		} else {
 			$_ARG['input'][] = $arg;
@@ -1305,7 +1305,7 @@ function isLuhnNum($num)
 function normalize_day_of_month(&$day, $year_month, $inplace=0)
 {
 	if( isset($day) && isset($year_month)) {
-		$year_month_ary = split('-', $year_month);
+		$year_month_ary = preg_split('/-/', $year_month);
 		$year = (int) $year_month_ary[0];
 		$month = (int) $year_month_ary[1];
 		$normalized_day = min( (int) $day, cal_days_in_month(CAL_GREGORIAN, $month, $year) );

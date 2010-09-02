@@ -334,7 +334,7 @@ function display_date_timestamp($timestamp){
  * function display_vm_callerid
  */
 function display_vm_callerid($callerid_string){
-	$arr_spli = split(" ", $callerid_string);
+	$arr_spli = preg_split("/ /", $callerid_string);
 	echo str_replace('"',"", $arr_spli[0]);
 }	
 
@@ -1297,7 +1297,7 @@ function isLuhnNum($num)
 function normalize_day_of_month(&$day, $year_month, $inplace=0)
 {
 	if( isset($day) && isset($year_month)) {
-		$year_month_ary = split('-', $year_month);
+		$year_month_ary = preg_split('/-/', $year_month);
 		$year = (int) $year_month_ary[0];
 		$month = (int) $year_month_ary[1];
 		$normalized_day = min( (int) $day, cal_days_in_month(CAL_GREGORIAN, $month, $year) );

@@ -161,12 +161,12 @@ function execute_program ($strProgramname, $strArgs = '', $booErrorRep = true ) 
 	}
 	// see if we've gotten a |, if we have we need to do patch checking on the cmd
 	if( $strArgs ) {
-		$arrArgs = split( ' ', $strArgs );
+		$arrArgs = preg_split( '/ /', $strArgs );
 		for( $i = 0; $i < count( $arrArgs ); $i++ ) {
 			if ( $arrArgs[$i] == '|' ) {
 				$strCmd = $arrArgs[$i + 1];
 				$strNewcmd = find_program( $strCmd );
-				$strArgs = ereg_replace( "\| " . $strCmd, "| " . $strNewcmd, $strArgs );
+				$strArgs = preg_replace("/\| " . $strCmd . "/", "| " . $strNewcmd, $strArgs );
 			}
 		}
 	}

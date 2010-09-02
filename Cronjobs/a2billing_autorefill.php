@@ -169,7 +169,7 @@ if ($verbose_level >= 1)
 write_log(LOGFILE_CRONT_AUTOREFILL, basename(__FILE__) . ' line:' . __LINE__ . "[Service report : 'totalcardperform=$totalcardperform', 'totalcredit=$totalcredit']");
 
 // SEND REPORT
-if (strlen($A2B->config["webui"]["email_admin"]) > 4 && eregi("^[[:alnum:]][a-z0-9_.-]*@[a-z0-9.-]+\.[a-z]{2,4}$", $A2B->config["webui"]["email_admin"])) {
+if (strlen($A2B->config["webui"]["email_admin"]) > 4 && preg_match("/^[[:alnum:]][a-z0-9_.-]*@[a-z0-9.-]+\.[a-z]{2,4}$/i", $A2B->config["webui"]["email_admin"])) {
 	$mail_subject = "A2BILLING AUTO REFILL : REPORT";
 	
 	$mail_content = "AUTO REFILL";

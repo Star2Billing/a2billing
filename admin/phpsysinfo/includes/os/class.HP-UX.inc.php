@@ -63,7 +63,7 @@ class sysinfo {
   } 
 
   function users () {
-    $who = split('=', execute_program('who', '-q'));
+    $who = preg_split('/=/', execute_program('who', '-q'));
     $result = $who[1];
     return $result;
   } 
@@ -169,7 +169,7 @@ class sysinfo {
         } 
 
         if ($device) {
-          list($key, $value) = split(': ', $buf, 2);
+          list($key, $value) = preg_split('/: /', $buf, 2);
 
           if (!preg_match('/bridge/i', $key) && !preg_match('/USB/i', $key)) {
             $results[] = preg_replace('/\([^\)]+\)\.$/', '', trim($value));
@@ -243,7 +243,7 @@ class sysinfo {
       foreach( $bufe as $buf ) {
         if (preg_match('/Vendor/', $buf)) {
           preg_match('/Vendor: (.*) Model: (.*) Rev: (.*)/i', $buf, $dev);
-          list($key, $value) = split(': ', $buf, 2);
+          list($key, $value) = preg_split('/: /', $buf, 2);
           $dev_str = $value;
           $get_type = 1;
           continue;
@@ -279,8 +279,8 @@ class sysinfo {
         } 
 
         if ($devstring) {
-          list($key, $value) = split(': ', $buf, 2);
-          list($key, $value2) = split('=', $value, 2);
+          list($key, $value) = preg_split('/: /', $buf, 2);
+          list($key, $value2) = preg_split('/=/', $value, 2);
           $results[$devnum] .= " " . trim($value2);
           $devstring = 0;
         } 
@@ -299,7 +299,7 @@ class sysinfo {
 
   function network () {
     $netstat = execute_program('netstat', '-ni | tail -n +2');
-    $lines = split("\n", $netstat);
+    $lines = preg_split("/\n/", $netstat);
     $results = array();
     for ($i = 0, $max = sizeof($lines); $i < $max; $i++) {
       $ar_buf = preg_split("/\s+/", $lines[$i]);
@@ -355,7 +355,7 @@ class sysinfo {
           // Get info on individual swap files
 	  $swaps = rfts( '/proc/swaps' );
 	  if( $swaps != "ERROR" ) {
-            $swapdevs = split("\n", $swaps);
+            $swapdevs = preg_split("/\n/", $swaps);
 
             for ($i = 1, $max = (sizeof($swapdevs) - 1); $i < $max; $i++) {
               $ar_buf = preg_split('/\s+/', $swapdevs[$i], 6);
@@ -376,7 +376,7 @@ class sysinfo {
 
   function filesystems () {
     $df = execute_program('df', '-kP');
-    $mounts = split("\n", $df);
+    $mounts = preg_split("/\n/", $df);
     $fstype = array();
 
     $s = execute_program('mount', '-v');
@@ -384,7 +384,7 @@ class sysinfo {
 
     $i = 0;
     while (list(, $line) = each($lines)) {
-      $a = split(' ', $line);
+      $a = preg_split('/ /', $line);
       $fsdev[$a[0]] = $a[4];
     } 
 

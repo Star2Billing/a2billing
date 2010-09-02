@@ -97,7 +97,7 @@ class hddtemp {
 		$i = 0;
 		foreach($ar_buf as $line) {
 			$data = array();
-			if (ereg("\|(.*)\|(.*)\|(.*)\|(.*)\|", $line, $data)) {
+			if (preg_match("/\|(.*)\|(.*)\|(.*)\|(.*)\|/", $line, $data)) {
 				if( trim($data[3]) != "ERR" ) {
 					// get the info we need
 					$results[$i]['label'] = $data[1];

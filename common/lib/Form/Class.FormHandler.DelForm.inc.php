@@ -97,8 +97,8 @@ else
 
 	<?php
 	if (!is_null($this->FG_QUERY_EDITION_HIDDEN_FIELDS) && $this->FG_QUERY_EDITION_HIDDEN_FIELDS!=""){
-		$split_hidden_fields = split(",",trim($this->FG_QUERY_EDITION_HIDDEN_FIELDS));
-		$split_hidden_fields_value = split(",",trim($this->FG_QUERY_EDITION_HIDDEN_VALUE));
+		$split_hidden_fields = preg_split("/,/",trim($this->FG_QUERY_EDITION_HIDDEN_FIELDS));
+		$split_hidden_fields_value = preg_split("/,/",trim($this->FG_QUERY_EDITION_HIDDEN_VALUE));
 
 		for ($cur_hidden=0;$cur_hidden<count($split_hidden_fields);$cur_hidden++){
 			echo "<INPUT type=\"hidden\" name=\"".trim($split_hidden_fields[$cur_hidden])."\" value=\"".trim($split_hidden_fields_value[$cur_hidden])."\">\n";
@@ -164,9 +164,9 @@ else
 					</SELECT>
 				 <?php   
 					}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("RADIOBUTTON")){
-						$radio_table = split(",",trim($this->FG_TABLE_EDITION[$i][10]));
+						$radio_table = preg_split("/,/",trim($this->FG_TABLE_EDITION[$i][10]));
 						foreach ($radio_table as $radio_instance){
-							$radio_composant = split(":",$radio_instance);
+							$radio_composant = preg_split("/:/",$radio_instance);
 							echo $radio_composant[0];
 							echo ' <input class="form_enter" disabled type="radio" name="'.$this->FG_TABLE_EDITION[$i][1].'" value="'.$radio_composant[1].'" ';
 							if($this->VALID_SQL_REG_EXP){ 

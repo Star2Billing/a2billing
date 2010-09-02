@@ -1023,7 +1023,7 @@ class=tableBody><?php echo $ligne_number + $current_page * $FG_LIMITE_DISPLAY . 
 					$sub_clause = str_replace ( "%id", $recordset [$i], $FG_TABLE_COL [$i] [9] );
 					$select_list = $instance_sub_table->Get_list ( $DBHandle, $sub_clause, null, null, null, null, null, null );
 					
-					$field_list_sun = split ( ',', $FG_TABLE_COL [$i] [8] );
+					$field_list_sun = preg_split( '/,/', $FG_TABLE_COL [$i] [8] );
 					$record_display = $FG_TABLE_COL [$i] [10];
 					
 					for($l = 1; $l <= count ( $field_list_sun ); $l ++) {
