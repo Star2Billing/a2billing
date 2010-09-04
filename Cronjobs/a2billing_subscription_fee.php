@@ -344,7 +344,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
                 $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
                 if ($verbose_level >= 1)
 					echo "==> UPDATE CARD QUERY: 	$QUERY\n";
-                $mail = new Mail(Mail::$TYPE_SUBSCRIPTION_DISABLE_CARD, $card['id'] );
+                $mail = new Mail(Mail::$TYPE_SUBSCRIPTION_DISABLE_CARD, $subscription('card_id'));
                 $mail -> replaceInEmail(Mail::$SUBSCRIPTION_FEE, $subscription['fee']);
                 $mail -> replaceInEmail(Mail::$SUBSCRIPTION_ID, $subscription['id']);
                 $mail -> replaceInEmail(Mail::$SUBSCRIPTION_LABEL, $subscription['product_name']);

@@ -1222,9 +1222,9 @@ class A2Billing {
 	{
 		$res=0;
 
-		if ($this -> CC_TESTING) $this->destination="kphone";
-		$this->agiconfig['say_balance_after_auth']=0;
-		$this->agiconfig['say_timetocall']=0;
+		if ($this -> CC_TESTING) $this->destination = "kphone";
+		$this->agiconfig['say_balance_after_auth'] = 0;
+		$this->agiconfig['say_timetocall'] = 0;
 
 
 		if (($listdestination[0][2]==0) || ($listdestination[0][2]==2)) {
@@ -1239,7 +1239,7 @@ class A2Billing {
 
 			$this -> debug( INFO, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: FOLLOWME=$callcount (cardnumber:".$inst_listdestination[6]."|destination:".$inst_listdestination[4]."|tariff:".$inst_listdestination[3].")\n");
 
-			$this->agiconfig['cid_enable']			= 0;
+			$this->agiconfig['cid_enable']	= 0;
 			$this->accountcode 				= $inst_listdestination[6];
 			$this->tariff 					= $inst_listdestination[3];
 			$this->destination 				= $inst_listdestination[4];
