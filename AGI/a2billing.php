@@ -74,6 +74,7 @@ if ($dynamic_idconfig = intval($agi->get_variable("IDCONF", true))) {
 if ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'did')                         $mode = 'did';
 elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'callback')                $mode = 'callback';
 elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'cid-callback')            $mode = 'cid-callback';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'cid-prompt-callback')     $mode = 'cid-prompt-callback';
 elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'all-callback')            $mode = 'all-callback';
 elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'voucher')                 $mode = 'voucher';
 elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'campaign-callback')       $mode = 'campaign-callback';
@@ -81,17 +82,18 @@ elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'conference-moderator')
 elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'conference-member')       $mode = 'conference-member';
 else                                                                                $mode = 'standard';
 
-// get the area code for the cid-callback & all-callback
-if ($argc > 3 && strlen($argv[3]) > 0) 
+// get the area code for the cid-callback, all-callback and cid-prompt-callback
+if ($argc > 3 && strlen($argv[3]) > 0) {
 	$caller_areacode = $argv[3];
-	
-if ($argc > 4 && strlen($argv[4]) > 0){ 
+}
+
+if ($argc > 4 && strlen($argv[4]) > 0) {
 	$groupid = $argv[4];
 	$A2B -> group_mode = true;
 	$A2B -> group_id = $groupid;
 }
 
-if ($argc > 5 && strlen($argv[5]) > 0){ 
+if ($argc > 5 && strlen($argv[5]) > 0) {
 	$cid_1st_leg_tariff_id = $argv[5];
 }
 
@@ -704,15 +706,16 @@ if ($mode == 'standard') {
 	$A2B -> write_log("[STOP - EXIT]", 0);
 	exit();
 
-// MODE CID-CALLBACK
+// MODE CAMPAIGN-CALLBACK
 }elseif ($mode == 'campaign-callback'){
 	$A2B -> update_callback_campaign ($agi);
-	
-}elseif ($mode == 'cid-callback'){
 
-	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[MODE : CALLERID-CALLBACK - '.$A2B->CallerID.']');
-	// END
-	if ($A2B->agiconfig['answer_call'] == 1) {
+// MODE cid-callback & cid-prompt-callback
+}elseif ($mode == 'cid-callback' || $mode == 'cid-prompt-callback') {
+
+	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[MODE : '.strtoupper($mode).' - '.$A2B->CallerID.']');
+	
+	if ($A2B->agiconfig['answer_call'] == 1 && $mode == 'cid-callback') {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[HANGUP CLI CALLBACK TRIGGER]');
 		$agi->hangup();
 	} else {
@@ -729,17 +732,16 @@ if ($mode == 'standard') {
 		/* WE START ;) */
 		$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[TRY : callingcard_ivr_authenticate]");
-		if ($cia_res==0){
+		if ($cia_res==0) {
 
 			$RateEngine = new RateEngine();
 			
 			// Apply 1st leg tariff override if param was passed in
-			if (strlen($cid_1st_leg_tariff_id) > 0)
-			{ 
+			if (strlen($cid_1st_leg_tariff_id) > 0) {
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, 'Callback Tariff override for 1st Leg only. New tariff is '.$cid_1st_leg_tariff_id);
 				$A2B ->tariff = $cid_1st_leg_tariff_id;
 			}
-
+            
 			$A2B -> agiconfig['use_dnid']=1;
 			$A2B -> agiconfig['say_timetocall']=0;
 
@@ -759,6 +761,61 @@ if ($mode == 'standard') {
 				//echo ("RES_ALL_CALCULTIMEOUT ::> $res_all_calcultimeout");
 
 				if ($res_all_calcultimeout) {
+
+                    $CALLING_VAR = '';
+                    $MODE_VAR = "MODE=CID";
+                    if ($mode == 'cid-prompt-callback') {
+
+                        $MODE_VAR = "MODE=CID-PROMPT";
+
+                        $try = 0;
+                        do {
+                            $try++;
+                            $return = TRUE;
+
+                            // GET THE DESTINATION NUMBER
+                            $prompt_enter_dest = $A2B->agiconfig['file_conf_enter_destination'];
+                            $res_dtmf = $agi->get_data($prompt_enter_dest, 6000, 20);
+                            $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : ".$res_dtmf ["result"]);
+                            $outbound_destination = $res_dtmf ["result"];
+
+                            $agi -> stream_file('prepaid-the-number-u-dialed-is', '#'); //Your locking code is
+                            $agi -> say_digits($outbound_destination);
+
+                            $subtry=0;
+                            do {
+                                $subtry++;
+                                //= CONFIRM THE DESTINATION NUMBER
+                                $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[MENU OF CONFIRM (".$res_dtmf ["result"].")]" );
+                                $res_dtmf = $agi->get_data('prepaid-re-enter-press1-confirm	', 4000, 1);
+                                if ($subtry >= 3) {
+                                    if ($A2B->set_inuse==1)
+                                        $A2B -> callingcard_acct_start_inuse($agi,0);
+                                    $agi -> hangup();
+                                    exit();
+                                }
+                            } while ($res_dtmf ["result"]!='1' && $res_dtmf ["result"]!='2');
+                            
+                            // Check the result
+                            if ($res_dtmf ["result"]=='1') {
+                                $return = TRUE;
+                            }elseif ($res_dtmf ["result"]=='2') {
+                                $return = FALSE;
+                            }
+                            
+                            $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[TRY : $try]" );
+                        } while($return && $try < 3);
+                        
+                        if (strlen($outbound_destination)<=0) {
+                            if ($A2B->set_inuse==1)
+                                $A2B -> callingcard_acct_start_inuse($agi,0);
+                            $agi -> hangup();
+                            exit();
+                        }
+
+                        $CALLING_VAR = "CALLING=".$outbound_destination;
+                    } // if ($mode == 'cid-prompt-callback')
+                    
 					// MAKE THE CALL
 					if ($RateEngine -> ratecard_obj[0][34]!='-1') {
 						$usetrunk = 34;
@@ -796,31 +853,32 @@ if ($mode == 'standard') {
 							$dialstr = "$tech/$ipaddress/$prefix$destination";
 						}
 					}
-
-					//ADDITIONAL PARAMETER 			%dialingnumber%,	%cardnumber%
-					if (strlen($addparameter)>0){
+                    
+					//ADDITIONAL PARAMETER      %dialingnumber%, %cardnumber%
+					if (strlen($addparameter)>0) {
 						$addparameter = str_replace("%cardnumber%", $A2B->cardnumber, $addparameter);
 						$addparameter = str_replace("%dialingnumber%", $prefix.$destination, $addparameter);
 						$dialstr .= $addparameter;
 					}
-
-					$channel= $dialstr;
+                    
+					$channel = $dialstr;
 					$exten = $A2B -> config["callback"]['extension'];
-					if ($argc > 4 && strlen($argv[4]) > 0) $exten = $argv[4];
+					if ($argc > 4 && strlen($argv[4]) > 0)
+                        $exten = $argv[4];
 					$context = $A2B -> config["callback"]['context_callback'];
 					$id_server_group = $A2B -> config["callback"]['id_server_group'];
 					$priority = 1;
 					$timeout = $A2B -> config["callback"]['timeout']*1000;
 					//$callerid = $A2B -> config["callback"]['callerid'];
-					$callerid=$A2B->CallerID;
-					$application='';
+					$callerid = $A2B -> CallerID;
+					$application = '';
 					$account = $A2B -> accountcode;
 
 					$uniqueid = MDP_NUMERIC(5).'-'.MDP_STRING(7);
 					
 					$sep = ($A2B->config['global']['asterisk_version'] == "1_6")?',':'|';
 					
-					$variable = "IDCONF=$idconfig".$sep."CALLED=".$A2B ->destination.$sep."MODE=CID".$sep."CBID=$uniqueid".$sep."LEG=".$A2B -> username;
+					$variable = "IDCONF=$idconfig".$sep."CALLED=".$A2B ->destination.$sep.$CALLING_VAR.$sep.$MODE_VAR.$sep."CBID=$uniqueid".$sep."LEG=".$A2B -> username;
 					
 					foreach($callbackrate as $key => $value){
 						$variable .= $sep.strtoupper($key).'='.$value;
@@ -1042,22 +1100,28 @@ if ($mode == 'standard') {
 	if ($callback_mode=='CID') {
 		$charge_callback = 1;
 		$A2B->agiconfig['use_dnid'] = 0;
-		$A2B->agiconfig['number_try'] =1;
+		$A2B->agiconfig['number_try'] = 1;
+		$A2B->CallerID = $called_party;
+
+	}elseif ($callback_mode=='CID-PROMPT') {
+		$charge_callback = 1;
+		$A2B->agiconfig['use_dnid'] = 1;
+		$A2B->agiconfig['number_try'] = 1;
 		$A2B->CallerID = $called_party;
 
 	}elseif ($callback_mode=='ALL') {
 		$A2B->agiconfig['use_dnid'] = 0;
-		$A2B->agiconfig['number_try'] =1;
-		$A2B->agiconfig['cid_enable'] =0;
+		$A2B->agiconfig['number_try'] = 1;
+		$A2B->agiconfig['cid_enable'] = 0;
 
 	} else {
 		$charge_callback = 1;
 		// FOR THE WEB-CALLBACK
-		$A2B->agiconfig['number_try'] =1;
-		$A2B->agiconfig['use_dnid'] =1;
-		$A2B->agiconfig['say_balance_after_auth']=0;
-		$A2B->agiconfig['cid_enable'] =0;
-		$A2B->agiconfig['say_timetocall']=0;
+		$A2B->agiconfig['number_try'] = 1;
+		$A2B->agiconfig['use_dnid'] = 1;
+		$A2B->agiconfig['say_balance_after_auth'] = 0;
+		$A2B->agiconfig['cid_enable'] = 0;
+		$A2B->agiconfig['say_timetocall'] = 0;
 	}
 
 	$A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[CALLBACK]:[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff | CBID=$callback_uniqueid | LEG=$callback_leg]");

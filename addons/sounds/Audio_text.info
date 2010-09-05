@@ -103,12 +103,14 @@ prepaid-press1-change-speeddial					If you want to change it press 1 or an other
 prepaid-phonenumber-to-speeddial				Please enter the phone number followed by the pound key
 prepaid-the-phonenumber							The phone number
 prepaid-assigned-speeddial						Will be assigned to the speed dial number
-prepaid-press1-add-speeddial					If you want to proceed please  press 1 or press an other key to cancel ?
+prepaid-press1-add-speeddial					If you want to proceed please press 1 or press an other key to cancel ?
 prepaid-speeddial-saved							The speed dial number has been successfully saved.
 prepaid-is-used-for                             is used for
 prepaid-point                                   point
 
-
+-------- CallBack CID Prompt  --------
+prepaid-the-number-u-dialed-is  				The number you dialed is
+prepaid-re-enter-press1-confirm				    To re-enter the destination, press 1, to confirm, press 2
 
 
 ===========================================  FRENCH ===========================================

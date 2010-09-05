@@ -2381,7 +2381,9 @@ class A2Billing {
 				    $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CID_CONTROL - NO CALLERID - ASK PIN CODE]");
 				    for ($k=0 ; $k <= 20 ; $k++) {
 						if ($k == 20) {
-						    $this -> debug( WARN, $agi, __FILE__, __LINE__, "ERROR : Impossible to generate a cardnumber not yet used!");	                            $prompt="prepaid-auth-fail";
+						    $this -> debug( WARN, $agi, __FILE__, __LINE__, "ERROR : Impossible to generate a cardnumber not yet used!");
+                            $prompt = "prepaid-auth-fail";
+                            $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[StreamFile : $prompt]");
 						    $agi-> stream_file($prompt, '#');
 						    return -2;
 						}
@@ -2534,7 +2536,6 @@ class A2Billing {
 				}
 
 				if (strlen($prompt)>0) {
-					
 					$agi-> stream_file($prompt, '#'); // Added because was missing the prompt
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[ERROR CHECK CARD : $prompt (cardnumber:".$this->cardnumber.")]");
 					
@@ -2578,7 +2579,7 @@ class A2Billing {
 		// 		 -%-%-%-%-%-%-		CHECK IF WE CAN AUTHENTICATE THROUGH THE "ACCOUNTCODE" 	-%-%-%-%-%-%-
 		
 		$prompt_entercardnum= "prepaid-enter-pin-number";
-		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, ' - Account code ::> '.$this->accountcode);
+		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, ' - Account code ::> '.$this -> accountcode);
 		if (strlen ($this->accountcode)>=1 && !$authentication) {
 			$this->username = $this -> cardnumber = $this->accountcode;
 			for ($i=0;$i<=0;$i++) {
@@ -2610,7 +2611,6 @@ class A2Billing {
 								$res = -2;
 								break;
 							}
-
 							$QUERY = " SELECT cid, id_cc_card, activated FROM cc_callerid "
 									." WHERE cc_callerid.cid='".$this->CallerID."' AND cc_callerid.id_cc_card='".$result[0][22]."'";
 							$result_check_cid = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
@@ -2753,7 +2753,7 @@ class A2Billing {
 				
 				if (($retries>0) && (strlen($prompt)>0)) {
 					$agi-> stream_file($prompt, '#');
-					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
+					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "Streamfile : ".strtoupper($prompt));
 				}
 				if ($res < 0) {
 					$res = -1;
