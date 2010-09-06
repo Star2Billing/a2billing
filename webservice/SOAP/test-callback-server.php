@@ -63,17 +63,6 @@ print_r($ans);
 $insert_id_callback = $ans[0];
 */
 
-echo "<hr>#############   Initiate_Conference   ############# <br/><hr/>";
-$method = 'Initiate_Conference';
-
-$params = array('security_key' => md5($security_key),
-                'phonenumber_moderator' => '34650784355', 'phonenumber_member' => '34650111111;34650222222', 'callerid' => '444444', 'callback_time' => '', 'uniqueid' => '', 'accountnumber' => '9543072273');
-$ans = $callback -> call($method, $params);
-
-print_r($ans);
-
-$insert_id_callback = $ans[0];
-
 
 
 echo "<hr>#############   Check Status  ############# <br/><hr>";
