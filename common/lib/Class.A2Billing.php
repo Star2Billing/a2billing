@@ -199,6 +199,8 @@ class A2Billing {
 	// Define if we have changed the status of the card
 	var $set_inuse = 0;
 
+    var $callback_beep_to_enter_destination = False;
+
 	/**
 	* CC_TESTING variables
 	* for developer purpose, will replace some get_data inputs in order to test the application from shell
@@ -811,7 +813,12 @@ class A2Billing {
 			}
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[USE_DNID DESTINATION ::> ".$this->destination."]");
 		} else {
-			$res_dtmf = $agi->get_data($prompt_enter_dest, 6000, 20);
+            if ($this->callback_beep_to_enter_destination) {
+                $res_dtmf = $agi->get_data('beep', 6000, 20);
+            } else {
+                $res_dtmf = $agi->get_data($prompt_enter_dest, 6000, 20);
+            }
+			
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : ".$res_dtmf ["result"]);
 			$this->destination = $res_dtmf ["result"];
 		}

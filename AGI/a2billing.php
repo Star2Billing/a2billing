@@ -1072,21 +1072,18 @@ if ($mode == 'standard') {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[ANSWER CALL]');
 		$agi -> answer();
 		$status_channel = 6;
-        
         $A2B -> play_menulanguage ($agi);
         
 		// PLAY INTRO FOR CALLBACK
 		if (strlen($A2B -> config["callback"]['callback_audio_intro']) > 0) {
 			$agi-> stream_file($A2B -> config["callback"]['callback_audio_intro'], '#');
 		}
-
 	} else {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[NO ANSWER CALL]');
 		$status_channel = 4;
-		
 		$A2B -> play_menulanguage ($agi);
 	}
-
+    
 	$called_party = $agi->get_variable("CALLED", true);
 	$calling_party = $agi->get_variable("CALLING", true);
 	$callback_mode = $agi->get_variable("MODE", true);
@@ -1123,6 +1120,10 @@ if ($mode == 'standard') {
 		$A2B->agiconfig['cid_enable'] = 0;
 		$A2B->agiconfig['say_timetocall'] = 0;
 	}
+
+    if ($A2B->agiconfig['callback_beep_to_enter_destination'] == 1) {
+        $A2B -> callback_beep_to_enter_destination = True;
+    }
 
 	$A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[CALLBACK]:[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff | CBID=$callback_uniqueid | LEG=$callback_leg]");
 	
