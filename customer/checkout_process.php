@@ -337,13 +337,13 @@ if ($id > 0 ) {
 			$id_agent_insert = "NULL";
 		}
 		
-		$field_insert = "date, credit, card_id, description,agent_id";
+		$field_insert = "date, credit, card_id, description, agent_id";
 		$value_insert = "'$nowDate', '".$amount_without_vat."', '$id', '".$transaction_data[0][4]."',$id_agent_insert";
 		$instance_sub_table = new Table("cc_logrefill", $field_insert);
 		$id_logrefill = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null, 'id');
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logrefill : $field_insert - VALUES $value_insert");
 		
-		$field_insert = "date, payment, card_id, id_logrefill, description,agent_id";
+		$field_insert = "date, payment, card_id, id_logrefill, description, agent_id";
 		$value_insert = "'$nowDate', '".$amount_paid."', '$id', '$id_logrefill', '".$transaction_data[0][4]."',$id_agent_insert ";
 		$instance_sub_table = new Table("cc_logpayment", $field_insert);
 		$id_payment = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
