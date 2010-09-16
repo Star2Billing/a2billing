@@ -58,6 +58,7 @@ $yesno = Constants::getYesNoList();
 
 
 $HD_Form -> AddViewElement(gettext("DID"), "did", "15%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CUSTOMER"), "iduser", "10%", "center", "sort", "", "lie_link", "cc_card", "lastname, id, firstname", "id='%id'", "%1 %3", "", "A2B_entity_card.php");
 $HD_Form -> AddViewElement(gettext("BILLING"), "billingtype", "10%", "center", "sort", "", "list", $billingtype_list_short);
 $HD_Form -> AddViewElement(gettext("START DATE"), "startingdate", "14%", "center", "sort", "19", "", "", "", "",  "display_dateformat");
 $HD_Form -> AddViewElement(gettext("DIDGROUP"), "id_cc_didgroup", "12%", "center", "sort", "15", "lie", "cc_didgroup", "didgroupname", "id='%id'", "%1");
@@ -70,7 +71,7 @@ $HD_Form -> AddViewElement("<acronym title=\"".gettext("SELLING RATE")."\">".get
 
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('did, billingtype, startingdate, id_cc_didgroup, id_cc_country, activated, secondusedreal, reserved, fixrate, selling_rate');
+$HD_Form -> FieldViewElement ('did, iduser, billingtype, startingdate, id_cc_didgroup, id_cc_country, activated, secondusedreal, reserved, fixrate, selling_rate');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
