@@ -834,10 +834,11 @@ class A2Billing {
 			
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[ACCOUNT WITH RESTRICTION]");
 			
-			$QUERY = "SELECT * FROM cc_restricted_phonenumber WHERE number='".$this->destination."'";
-			if ($this->removeinterprefix) { 
-				$QUERY .= " OR number='". $this -> apply_rules ($this->destination)."'";
+			$QUERY = "SELECT * FROM cc_restricted_phonenumber WHERE id_card='".$this->id_card."' AND '".$this->destination."' LIKE number";
+			if ($this->removeinterprefix) {
+				$QUERY .= " OR '". $this -> apply_rules ($this->destination)."' LIKE number";
 			}
+			$QUERY .= " LIMIT 1";
 			$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 
 			if ($this->restriction == 1) {
@@ -1126,13 +1127,13 @@ class A2Billing {
 				$myres = $agi->exec($command_mixmonitor);
 				$this -> debug( INFO, $agi, __FILE__, __LINE__, $command_mixmonitor);
 			}
-
+            
 			$agi->set_callerid($this->useralias);
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[EXEC SetCallerID : ".$this->useralias."]");
 
 			$dialparams = $this->agiconfig['dialcommand_param_sipiax_friend'];
 			$dialstr = $this->tech."/".$this->destination.$dialparams;
-
+            
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "app_callingcard sip/iax friend: Dialing '$dialstr' ".$this->tech." Friend.\n");
 
 			//# Channel: technology/number@ip_of_gw_to PSTN

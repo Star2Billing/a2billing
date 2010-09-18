@@ -44,7 +44,7 @@ echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key);
 print_r ($arr_result);
-exit();
+
 
 //$instance = 'VillageTelco_rmsu-2114';
 $instance_name = 'VillageTelco';
