@@ -29,6 +29,11 @@ class SOAP_A2Billing
 		
         // Necessary for WSDL creation
 		
+		$this->__dispatch_map['Update_Currencies_list'] =
+                 array('in' => array('security_key' => 'string'),
+                       'out' => array('result' => 'boolean', 'message' => 'string')
+                       );
+		
         $this->__dispatch_map['Authenticate_Admin'] =
                  array('in' => array('security_key' => 'string', 'username' => 'string', 'pwd' => 'string'),
                        'out' => array('result' => 'boolean', 'message' => 'string')
@@ -234,6 +239,25 @@ class SOAP_A2Billing
 		
 		return array($result[0][0], "Check_KeyInstance SUCCESS");
 	}
+    
+    /*
+	 *		Function to Update the currency list
+	 */ 
+    function Update_Currencies_list($security_key)
+    {
+        if (!$this->Check_SecurityKey ($security_key)) {
+		    return array("ERROR", "INVALID KEY");
+		}
+		
+	    $return = currencies_update_yahoo($this->DBHandle, $this -> instance_table);
+		
+		if (!$return)
+		{
+		    return array(false, "Currency Update Failure");
+		}
+        
+        return array (true, 'Currency Update  SUCCESS'); 
+    }
     
     
     /*

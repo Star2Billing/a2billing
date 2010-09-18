@@ -568,7 +568,7 @@ if ($mode == 'standard') {
 
 			} else {
 				
-				$ans=$A2B-> callingcard_ivr_authorize($agi, $RateEngine, $i,true);
+				$ans = $A2B-> callingcard_ivr_authorize($agi, $RateEngine, $i,true);
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, 'ANSWER fct callingcard_ivr authorize:> '.$ans);
 				
 				if ($ans==1) {

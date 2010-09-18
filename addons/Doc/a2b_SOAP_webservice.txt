@@ -27,6 +27,8 @@ SOAP Result Normalization :
  > WEBSERVICES DESCRIPTION
 -----------------------------
 
+//Update the currency list
+array (bool $status, $message) Update_Currencies_list(string $security_key)
 
 //Verify credential : pwd in encrypt
 array (bool $status, $message) Authenticate_Admin(string $security_key, string $username, string $pwd)
