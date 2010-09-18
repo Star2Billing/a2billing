@@ -938,10 +938,29 @@ class SOAP_A2Billing
 		    if (!$inserted) {
 		        return array(false, "ERROR CREATING DID (".$increment_did." DIDs created)");
 		    }
+		    
+		    $QUERY = "SELECT username FROM cc_card WHERE id='$val_account_id'";
+		    $result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
+		    if (!is_array($result)) {
+		        return array(false, "ERROR RETRIEVING THE USERNAME (id:".$val_account_id.")");
+		    }
+		    $username = $result[0][0];
+		    
+		    $func_table  = "cc_did_destination";		
+		    $func_fields = "destination, priority, id_cc_card, id_cc_did, creationdate, activated, secondusedreal, voip_call";
+    	    $id_name = "id";    
+    	    $value  = "'SIP/$username', 1, '$val_account_id', '$inserted', NOW(), 1, 0, 1";
+			
+			$inserted = $this->instance_table->Add_table($this->DBHandle, $value, $func_fields, $func_table, $id_name);
+            
+		    if (!$inserted) {
+		        return array(false, "ERROR CREATING DID DESTINATION (".$increment_did." DID_DESTINATIONs created)");
+		    }
+		    
 		    $arr_did[] = $did_to_create;
 		}
 		
-		return array(serialize($arr_did), "Create_DID SUCCESS - DIDs CREATION SUCCESSFUL (".$increment_did." DIDs created)");
+		return array(serialize($arr_did), "Create_DID SUCCESS - DIDs CREATION SUCCESSFUL (".$increment_did." DIDs & DID_DESTINATIONs created)");
 		
     }
     
@@ -1453,10 +1472,10 @@ class SOAP_A2Billing
 		    return array("ERROR", "INVALID KEY");
 		}
 
-		$QUERY = "SELECT `cc_call`.`id`, `cc_call`.`sessionid`, `cc_call`.`uniqueid`, `cc_call`.`card_id`, `cc_call`.`nasipaddress`, `cc_call`.`starttime`, `cc_call`.`stoptime`, `cc_call`.`sessiontime`, `cc_call`.`calledstation`, `cc_call`.`sessionbill`, `cc_call`.`id_tariffgroup`, `cc_call`.`id_tariffplan`, `cc_call`.`id_ratecard`, `cc_call`.`id_trunk`, `cc_call`.`sipiax`, `cc_call`.`src`, `cc_call`.`id_did`, `cc_call`.`buycost`, `cc_call`.`id_card_package_offer`, `cc_call`.`real_sessiontime`, `cc_call`.`dnid`, `cc_call`.`terminatecauseid`, `cc_call`.`destination`, `cc_prefix`.`prefix`, `cc_prefix`.`destination`
-				  FROM `cc_call` LEFT OUTER JOIN `cc_prefix` ON (`cc_call`.`destination` = `cc_prefix`.`prefix`)
-				  WHERE (`cc_call`.`card_id` = $card_id AND `cc_call`.`starttime` >= '$starttime_begin' AND `cc_call`.`starttime` <= '$starttime_end' AND `cc_call`.`terminatecauseid` = $terminatecauseid )
-				  ORDER BY `cc_call`.`starttime` DESC
+		$QUERY = "SELECT cc_call.id, cc_call.sessionid, cc_call.uniqueid, cc_call.card_id, cc_call.nasipaddress, cc_call.starttime, cc_call.stoptime, cc_call.sessiontime, cc_call.calledstation, cc_call.sessionbill, cc_call.id_tariffgroup, cc_call.id_tariffplan, cc_call.id_ratecard, cc_call.id_trunk, cc_call.sipiax, cc_call.src, cc_call.id_did, cc_call.buycost, cc_call.id_card_package_offer, cc_call.real_sessiontime, cc_call.dnid, cc_call.terminatecauseid, cc_call.destination, cc_prefix.prefix, cc_prefix.destination
+				  FROM cc_call LEFT OUTER JOIN cc_prefix ON (cc_call.destination = cc_prefix.prefix)
+				  WHERE (cc_call.card_id = $card_id AND cc_call.starttime >= '$starttime_begin' AND cc_call.starttime <= '$starttime_end' AND cc_call.terminatecauseid = $terminatecauseid )
+				  ORDER BY cc_call.starttime DESC
 				  LIMIT $offset, $items_number";
 		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 		if (!is_array($result))
@@ -1477,9 +1496,9 @@ class SOAP_A2Billing
 		}
 
 		$QUERY = "SELECT *
-				  FROM `cc_logrefill`
-				  WHERE (`cc_logrefill`.`card_id` = $card_id)
-				  ORDER BY `cc_logrefill`.`date` DESC
+				  FROM cc_logrefill
+				  WHERE (cc_logrefill.card_id = $card_id)
+				  ORDER BY cc_logrefill.date DESC
 				  LIMIT $offset, $items_number";
 		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 		if (!is_array($result))

@@ -85,7 +85,7 @@ echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key);
 print_r ($arr_result);
-exit;
+
 
 // BUILD TEST SUIT FOR CLASS SOAP FUNCTION
 
@@ -275,7 +275,7 @@ $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key, $arr_id_card, $id_didgroup, $rate, $connection_charge, $did_prefix, $did_suffix, $id_country);
 print_r ($arr_result[0]);
 
-
+exit();
 $method = 'Get_ProvisioningList';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
