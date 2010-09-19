@@ -30,6 +30,11 @@ SOAP Result Normalization :
 //Update the currency list
 array (bool $status, $message) Update_Currencies_list(string $security_key)
 
+
+//Reload the SIP / IAX Asterisk Config
+array (bool $status, $message) Reload_Asterisk_SIP_IAX(string $security_key)
+
+
 //Verify credential : pwd in encrypt
 array (bool $status, $message) Authenticate_Admin(string $security_key, string $username, string $pwd)
 

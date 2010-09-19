@@ -34,6 +34,11 @@ class SOAP_A2Billing
                        'out' => array('result' => 'boolean', 'message' => 'string')
                        );
 		
+		$this->__dispatch_map['Reload_Asterisk_SIP_IAX'] =
+                 array('in' => array('security_key' => 'string'),
+                       'out' => array('result' => 'boolean', 'message' => 'string')
+                       );
+		
         $this->__dispatch_map['Authenticate_Admin'] =
                  array('in' => array('security_key' => 'string', 'username' => 'string', 'pwd' => 'string'),
                        'out' => array('result' => 'boolean', 'message' => 'string')
@@ -259,6 +264,36 @@ class SOAP_A2Billing
         return array (true, 'Currency Update  SUCCESS'); 
     }
     
+    /*
+	 *		Function to reload the SIP / IAX Asterisk Config
+	 */ 
+    function Reload_Asterisk_SIP_IAX($security_key)
+    {
+        if (!$this->Check_SecurityKey ($security_key)) {
+		    return array("ERROR", "INVALID KEY");
+		}
+		
+		include (dirname(__FILE__)."/phpagi/phpagi-asmanager.php");
+		
+		$as = new AGI_AsteriskManager();
+	    
+	    $res = $as->connect(MANAGER_HOST, MANAGER_USERNAME, MANAGER_SECRET);
+	
+	    if ($res) {
+	        
+		    $res_sip = $as->Command('sip reload');
+			$res_iax = $as->Command('iax2 reload');
+		    
+		    $as->disconnect();
+		    
+	    } else {
+	    
+		    return array(false, "Cannot connect to the Asterisk Manager !");
+		    
+	    }
+        
+        return array (true, 'Asterisk SIP / IAX config reloaded'); 
+    }
     
     /*
 	 *		Function to Verify credential : pwd in encrypt

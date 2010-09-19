@@ -39,6 +39,13 @@ $security_key = md5(API_SECURITY_KEY);
 $webservice = new SOAP_A2Billing();
 
 
+$method = 'Reload_Asterisk_SIP_IAX';
+echo "\n\nTEST Method : $method \n\n... press key to test\n";
+$response = trim(fgets(STDIN));
+$arr_result = $webservice -> $method ($security_key);
+print_r ($arr_result);
+exit();
+
 $method = 'Update_Currencies_list';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
