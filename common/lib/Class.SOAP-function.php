@@ -292,7 +292,7 @@ class SOAP_A2Billing
 		    
 	    }
         
-        return array (true, 'Asterisk SIP / IAX config reloaded'); 
+        return array (true, 'Asterisk SIP / IAX config reloaded SUCCESS'); 
     }
     
     /*
