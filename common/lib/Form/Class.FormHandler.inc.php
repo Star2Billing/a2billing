@@ -1604,12 +1604,12 @@ class FormHandler
 					if ($i>0) $param_update .= ", ";				
 					$param_update .= "$fields_name = '".addslashes(trim($total_mult_select))."'";
 				} else {
-					
 					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ) {
 						$this-> FG_fit_expression[$i] = preg_match ('/'.$this->FG_regular[$regexp][0].'/' , $processed[$fields_name]);
-						if ($this->FG_DEBUG == 1)  echo "<br>->  ".$this->FG_regular[$regexp][0]." , ".$processed[$fields_name];
+						if ($this->FG_DEBUG == 1)  echo "<br>-> $i)  ".$this->FG_regular[$regexp][0]." , ".$processed[$fields_name];
 						if (!$this-> FG_fit_expression[$i]){
 							$this->VALID_SQL_REG_EXP = false;
+							if ($this->FG_DEBUG == 1)  echo "<br>-> $i) Error Match";
 							$form_action="ask-edit";
 						}
 					}
