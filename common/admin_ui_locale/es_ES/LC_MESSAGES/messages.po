@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Admin : 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-01 00:17+0200\n"
+"POT-Creation-Date: 2010-09-22 11:18+0200\n"
 "PO-Revision-Date: 2009-10-06 09:29-0300\n"
 "Last-Translator: Federico Pereira <info@opentecnologic.com>\n"
 "Language-Team: DebPBX <info@debpbx.org>\n"
@@ -624,7 +624,7 @@ msgstr "Agentes - Esto muestra toda la lista de agentes que tienen acceso a la i
 msgid "This shows a list of all signup key create for the Agents, this key is used to identify the default paramater for the subscription on the signup page"
 msgstr "Esto muestra una lista de todas las claves para crear el registro de agentes, esta clave se utiliza para identificar el parámetro por defecto para la suscripción en la página de registro"
 
-#: lib/Class.SOAP-function.php:792 lib/Form/Class.FormBO.php:287
+#: lib/Class.SOAP-function.php:851 lib/Form/Class.FormBO.php:287
 #: Public/A2B_entity_card_multi.php:145
 msgid "CREATION CARD REFILL"
 msgstr "CREACIÓN DE TARJETA DE RECARGA"
@@ -1184,7 +1184,7 @@ msgstr "El documento se ha creado correctamente. Ahora, usted puede definir las 
 msgid "You can modify, through the following form, the different properties of your"
 msgstr "Usted puede modificar, a través del siguiente formulario, las diferentes propiedades de su"
 
-#: lib/Form/Class.FormHandler.inc.php:554 Public/form_data/FG_var_did.inc:221
+#: lib/Form/Class.FormHandler.inc.php:554 Public/form_data/FG_var_did.inc:222
 #: Public/form_data/FG_var_did_destination.inc:187
 #: Public/form_data/FG_var_config_group.inc:89
 #: Public/form_data/FG_var_trunk.inc:265
@@ -1247,7 +1247,7 @@ msgstr "Uno"
 msgid "has been deleted!"
 msgstr "ha sido eliminado!"
 
-#: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_did.inc:222
+#: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_did.inc:223
 #: Public/form_data/FG_var_did_destination.inc:188
 #: Public/form_data/FG_var_config_group.inc:90
 #: Public/form_data/FG_var_trunk.inc:266
@@ -1295,7 +1295,7 @@ msgstr "ha sido eliminado!"
 msgid "you can add easily a new"
 msgstr "puede agregar facilmente uno nuevo"
 
-#: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_did.inc:222
+#: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_did.inc:223
 #: Public/form_data/FG_var_did_destination.inc:188
 #: Public/form_data/FG_var_config_group.inc:90
 #: Public/form_data/FG_var_trunk.inc:266
@@ -1357,7 +1357,7 @@ msgid "now."
 msgstr "ahora."
 
 #: lib/Form/Class.FormHandler.inc.php:559
-#: lib/Form/Class.FormHandler.inc.php:560 Public/form_data/FG_var_did.inc:225
+#: lib/Form/Class.FormHandler.inc.php:560 Public/form_data/FG_var_did.inc:226
 #: Public/form_data/FG_var_did_destination.inc:192
 #: Public/form_data/FG_var_config_group.inc:94
 #: Public/form_data/FG_var_trunk.inc:269
@@ -1985,7 +1985,7 @@ msgid "WAITING-MAILCONFIRMATION"
 msgstr "EN ESPERA DE CONFIRMACION DE CORREO"
 
 #: lib/interface/constants.php:327 lib/interface/constants.php:345
-#: Public/A2B_mass_mail.php:60 Public/form_data/FG_var_did.inc:67
+#: Public/A2B_mass_mail.php:60 Public/form_data/FG_var_did.inc:68
 #: Public/A2B_data_archiving.php:93 Public/A2B_data_archiving.php:101
 msgid "RESERVED"
 msgstr "RESERVADO"
@@ -2010,7 +2010,7 @@ msgid "WAITING SUBSCRIPTION PAYMENT"
 msgstr "IDENTIFICACION DE LA SUSCRIPCION"
 
 #: lib/interface/constants.php:342 lib/interface/constants.php:367
-#: Public/form_data/FG_var_did.inc:65 Public/form_data/FG_var_did.inc:168
+#: Public/form_data/FG_var_did.inc:66 Public/form_data/FG_var_did.inc:169
 #: Public/form_data/FG_var_did_destination.inc:142
 #: Public/form_data/FG_var_subscription_signup.inc:82
 #: Public/form_data/FG_var_voucher.inc:82
@@ -2140,28 +2140,28 @@ msgstr "USADO"
 msgid "NO DISCOUNT"
 msgstr "SIN DESCUENTO"
 
-#: lib/Class.A2Billing.php:386
+#: lib/Class.A2Billing.php:388
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Longitud del número inválido de tarjeta definidos en la configuración."
 
-#: lib/Class.A2Billing.php:3141
+#: lib/Class.A2Billing.php:3150
 msgid "Error : Authentication Failed !!!"
 msgstr "Error: Error de autenticación !!!"
 
-#: lib/Class.A2Billing.php:3181
+#: lib/Class.A2Billing.php:3190
 msgid "Error : Not enough credit to call !!!"
 msgstr "Error: el crédito no es suficiente para llamar!"
 
-#: lib/Class.A2Billing.php:3187
+#: lib/Class.A2Billing.php:3196
 msgid "Error : Card is not active!!!"
 msgstr "Error: Cuenta no esta activa"
 
-#: lib/Class.A2Billing.php:3193
+#: lib/Class.A2Billing.php:3202
 msgid "Error : Card is actually in use!!!"
 msgstr "Error: Cuenta está en uso!!!"
 
-#: lib/Class.A2Billing.php:3202 lib/Class.A2Billing.php:3210
-#: lib/Class.A2Billing.php:3218
+#: lib/Class.A2Billing.php:3211 lib/Class.A2Billing.php:3219
+#: lib/Class.A2Billing.php:3227
 msgid "Error : Card have expired!!!"
 msgstr "Error: Cuenta ha expirado!!!"
 
@@ -2496,7 +2496,7 @@ msgstr "GRAFICO"
 msgid "CALLS"
 msgstr "LLAMADAS"
 
-#: Public/call-comp.php:448 Public/form_data/FG_var_did.inc:65
+#: Public/call-comp.php:448 Public/form_data/FG_var_did.inc:66
 #: Public/call-daily-load.php:379
 msgid "ACT"
 msgstr "ACTA"
@@ -3848,7 +3848,7 @@ msgstr "Todos los Dids"
 msgid "Add DID"
 msgstr "Agregar DID"
 
-#: Public/form_data/FG_var_did.inc:60 Public/form_data/FG_var_did.inc:110
+#: Public/form_data/FG_var_did.inc:60 Public/form_data/FG_var_did.inc:111
 #: Public/form_data/FG_var_did_destination.inc:69
 #: Public/form_data/FG_var_did_destination.inc:131
 #: Public/form_data/FG_var_card_group.inc:88
@@ -3859,13 +3859,18 @@ msgstr "Agregar DID"
 msgid "DID"
 msgstr "DID"
 
-#: Public/form_data/FG_var_did.inc:61 Public/form_data/FG_var_did.inc:120
+#: Public/form_data/FG_var_did.inc:61 Public/form_data/FG_var_ticket.inc:75
+#: Public/card-history.php:151
+msgid "CUSTOMER"
+msgstr "CLIENTE"
+
+#: Public/form_data/FG_var_did.inc:62 Public/form_data/FG_var_did.inc:121
 #: Public/form_data/FG_var_user.inc:76 Public/form_data/FG_var_agent.inc:71
 #: Public/templates/default/main.tpl:302
 msgid "BILLING"
 msgstr "FACTURACION"
 
-#: Public/form_data/FG_var_did.inc:62 Public/form_data/FG_var_did.inc:129
+#: Public/form_data/FG_var_did.inc:63 Public/form_data/FG_var_did.inc:130
 #: Public/form_data/FG_var_subscription.inc:132
 #: Public/form_data/FG_var_def_ratecard.inc:172
 #: Public/form_data/FG_var_def_ratecard.inc:473
@@ -3875,52 +3880,52 @@ msgstr "FACTURACION"
 msgid "START DATE"
 msgstr "INGRESAR FECHA"
 
-#: Public/form_data/FG_var_did.inc:63 Public/form_data/FG_var_did.inc:147
+#: Public/form_data/FG_var_did.inc:64 Public/form_data/FG_var_did.inc:148
 #: Public/form_data/FG_var_card.inc:538
 msgid "DIDGROUP"
 msgstr "GRUPO DID"
 
-#: Public/form_data/FG_var_did.inc:64 Public/form_data/FG_var_did.inc:157
+#: Public/form_data/FG_var_did.inc:65 Public/form_data/FG_var_did.inc:158
 #: Public/form_data/FG_var_card.inc:455 Public/form_data/FG_var_user.inc:210
 #: Public/form_data/FG_var_agent.inc:308 Public/A2B_admin_info.php:135
 #: Public/A2B_card_info.php:281 Public/A2B_agent_info.php:152
 msgid "COUNTRY"
 msgstr "PAIS"
 
-#: Public/form_data/FG_var_did.inc:66
+#: Public/form_data/FG_var_did.inc:67
 #: Public/form_data/FG_var_did_destination.inc:74
 #: Public/form_data/FG_var_trunk.inc:103
 #: Public/form_data/FG_var_tariffplan.inc:65
 msgid "MINUTES USED"
 msgstr "MINUTOS USADOS"
 
-#: Public/form_data/FG_var_did.inc:66
+#: Public/form_data/FG_var_did.inc:67
 msgid "MU"
 msgstr "MU"
 
-#: Public/form_data/FG_var_did.inc:67
+#: Public/form_data/FG_var_did.inc:68
 msgid "RES"
 msgstr "RES"
 
-#: Public/form_data/FG_var_did.inc:68 Public/form_data/FG_var_did.inc:177
+#: Public/form_data/FG_var_did.inc:69 Public/form_data/FG_var_did.inc:178
 msgid "MONTHLY RATE"
 msgstr "TABLA MENSUAL"
 
-#: Public/form_data/FG_var_did.inc:68
+#: Public/form_data/FG_var_did.inc:69
 msgid "MR"
 msgstr "MR"
 
-#: Public/form_data/FG_var_did.inc:69 Public/form_data/FG_var_did.inc:197
+#: Public/form_data/FG_var_did.inc:70 Public/form_data/FG_var_did.inc:198
 #: Public/form_data/FG_var_def_ratecard.inc:261
 msgid "SELLING RATE"
 msgstr "TABLA DE VENTA"
 
-#: Public/form_data/FG_var_did.inc:69
+#: Public/form_data/FG_var_did.inc:70
 #: Public/form_data/FG_var_def_ratecard.inc:120
 msgid "SR"
 msgstr "SR"
 
-#: Public/form_data/FG_var_did.inc:76
+#: Public/form_data/FG_var_did.inc:77
 #: Public/form_data/FG_var_payment_configuration.inc:53
 #: Public/form_data/FG_var_config_group.inc:67
 #: Public/form_data/FG_var_paymentlog.inc:108
@@ -3929,88 +3934,88 @@ msgstr "SR"
 msgid "THERE ARE NO "
 msgstr "NO HAY "
 
-#: Public/form_data/FG_var_did.inc:116
+#: Public/form_data/FG_var_did.inc:117
 #: Public/form_data/FG_var_did_destination.inc:113
 msgid "Insert the DID"
 msgstr "Introduzca el DID"
 
-#: Public/form_data/FG_var_did.inc:118
+#: Public/form_data/FG_var_did.inc:119
 msgid "Define the DID's. If you ADD a new DID, NOT an EDIT, you can define a range of DID. <br>80412340210-80412340218 would add all DID's between the range, whereas DIDs separated by a comma e.g. 80412340210,80412340212,80412340214 would only add the individual DID listed."
 msgstr "Define los DID. sI USTED AGREGA UN NUEVO did, NO EDITAR, puede definir el rango de DID <br>80412340210-80412340218  añadir todos DID entre la gama, mientras que DID separados por una coma, por ejemplo 80412340210,80412340212,80412340214 sólo aumentaría lo que la persona tenía en la lista."
 
-#: Public/form_data/FG_var_did.inc:135
+#: Public/form_data/FG_var_did.inc:136
 #: Public/form_data/FG_var_def_ratecard.inc:479
 #: Public/form_data/FG_var_tariffplan.inc:106
 #: Public/form_data/FG_var_campaign.inc:177
 msgid "Insert the starting date"
 msgstr "Ingrese la fecha de inicio"
 
-#: Public/form_data/FG_var_did.inc:136 Public/form_data/FG_var_did.inc:145
+#: Public/form_data/FG_var_did.inc:137 Public/form_data/FG_var_did.inc:146
 #: Public/form_data/FG_var_def_ratecard.inc:480
 #: Public/form_data/FG_var_voucher.inc:193
 #: Public/form_data/FG_var_tariffplan.inc:116
 msgid "Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"
 msgstr "Formato YYYY-MM-DD HH:MM:SS. Por ejemplo, '2004-12-31 00:00:00'"
 
-#: Public/form_data/FG_var_did.inc:138 Public/form_data/FG_var_card.inc:742
+#: Public/form_data/FG_var_did.inc:139 Public/form_data/FG_var_card.inc:742
 #: Public/form_data/FG_var_voucher.inc:186
 #: Public/form_data/FG_var_tariffplan.inc:63
 #: Public/form_data/FG_var_tariffplan.inc:109
 msgid "EXPIRY DATE"
 msgstr "FECHA DE VENCIMIENTO"
 
-#: Public/form_data/FG_var_did.inc:144 Public/form_data/FG_var_card.inc:748
+#: Public/form_data/FG_var_did.inc:145 Public/form_data/FG_var_card.inc:748
 #: Public/form_data/FG_var_voucher.inc:192
 #: Public/form_data/FG_var_tariffplan.inc:115
 #: Public/form_data/FG_var_campaign.inc:186
 msgid "Insert the expiration date"
 msgstr "Inserte la fecha de vencimiento"
 
-#: Public/form_data/FG_var_did.inc:174
+#: Public/form_data/FG_var_did.inc:175
 #: Public/form_data/FG_var_did_destination.inc:148
 #: Public/form_data/FG_var_voucher.inc:164
 #: Public/form_data/FG_var_callerid.inc:89
 msgid "Choose if you want to activate this card"
 msgstr "Elija si desea activar ésta tarjeta"
 
-#: Public/form_data/FG_var_did.inc:183
+#: Public/form_data/FG_var_did.inc:184
 msgid "Insert the monthly rate"
 msgstr "Ingrese la tabla mensual"
 
-#: Public/form_data/FG_var_did.inc:184 Public/form_data/FG_var_card.inc:369
+#: Public/form_data/FG_var_did.inc:185 Public/form_data/FG_var_card.inc:369
 #: Public/form_data/FG_var_card.inc:658 Public/form_data/FG_var_agent.inc:200
 #: Public/form_data/FG_var_agent.inc:209 Public/form_data/FG_var_agent.inc:234
 msgid "currency : "
 msgstr "moneda:"
 
-#: Public/form_data/FG_var_did.inc:185
+#: Public/form_data/FG_var_did.inc:186
 #: Public/form_data/FG_var_def_ratecard.inc:268
 msgid "Define the selling cost for customers."
 msgstr "Definir el costo de venta para los clientes."
 
-#: Public/form_data/FG_var_did.inc:188
+#: Public/form_data/FG_var_did.inc:189
 #: Public/form_data/FG_var_def_ratecard.inc:291
 msgid "CONNECT CHARGE"
 msgstr "CARGO DE CONEXIÓN"
 
-#: Public/form_data/FG_var_did.inc:194
+#: Public/form_data/FG_var_did.inc:195
 #: Public/form_data/FG_var_def_ratecard.inc:297
 msgid "Insert the connect charge"
 msgstr "Introduzca el cargo de conexión"
 
-#: Public/form_data/FG_var_did.inc:195
+#: Public/form_data/FG_var_did.inc:196
 msgid "Apply a connection charge to connect DID together"
 msgstr "Aplicar un cargo de conexión junto al DID conectado"
 
-#: Public/form_data/FG_var_did.inc:203
+#: Public/form_data/FG_var_did.inc:204
 msgid "Insert the rate"
 msgstr "Introduzca una tabla"
 
-#: Public/form_data/FG_var_did.inc:204
+#: Public/form_data/FG_var_did.inc:205
 msgid "The retail rate; or the cost per minute to apply to the customer to connect DID together, e.g. 0.02"
 msgstr "La tasa de venta al por menor, o el costo por minuto a aplicarse al cliente para conectarse juntos, por ejemplo, 0,02"
 
-#: Public/form_data/FG_var_did.inc:221
+#: Public/form_data/FG_var_did.inc:222
 #: Public/form_data/FG_var_did_destination.inc:187
 #: Public/form_data/FG_var_config_group.inc:89
 #: Public/form_data/FG_var_trunk.inc:265
@@ -4061,7 +4066,7 @@ msgstr "La tasa de venta al por menor, o el costo por minuto a aplicarse al clie
 msgid "click on the delete button."
 msgstr "Clic en el botón eliminar"
 
-#: Public/form_data/FG_var_did.inc:225
+#: Public/form_data/FG_var_did.inc:226
 #: Public/form_data/FG_var_did_destination.inc:192
 #: Public/form_data/FG_var_config_group.inc:94
 #: Public/form_data/FG_var_alarm.inc:187
@@ -4071,7 +4076,7 @@ msgstr "Clic en el botón eliminar"
 msgid "has been inserted. <br>"
 msgstr "se ha insertado. <br>"
 
-#: Public/form_data/FG_var_did.inc:228
+#: Public/form_data/FG_var_did.inc:229
 #: Public/form_data/FG_var_did_destination.inc:196
 #: Public/form_data/FG_var_config_group.inc:98
 #: Public/form_data/FG_var_card_group.inc:157
@@ -8798,10 +8803,6 @@ msgstr "Ingresar la Descripción"
 #: Public/form_data/FG_var_ticket_agent.inc:57
 msgid "Add TICKET"
 msgstr "Agregar TICKET"
-
-#: Public/form_data/FG_var_ticket.inc:75 Public/card-history.php:151
-msgid "CUSTOMER"
-msgstr "CLIENTE"
 
 #: Public/form_data/FG_var_ticket.inc:79
 #: Public/form_data/FG_var_ticket.inc:148

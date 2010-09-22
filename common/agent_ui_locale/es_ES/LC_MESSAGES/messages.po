@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Agent : 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-01 00:17+0200\n"
+"POT-Creation-Date: 2010-09-22 11:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -156,7 +156,7 @@ msgstr "CERRADO"
 msgid "INVALID"
 msgstr "INVALIDO"
 
-#: lib/Class.SOAP-function.php:792 lib/Form/Class.FormBO.php:287
+#: lib/Class.SOAP-function.php:851 lib/Form/Class.FormBO.php:287
 #: Public/A2B_entity_card_multi.php:149
 msgid "CREATION CARD REFILL"
 msgstr "RELLENO DE TARJETA DE CREATION"
@@ -1324,28 +1324,28 @@ msgstr "USADO"
 msgid "NO DISCOUNT"
 msgstr "NO DESCUENTO"
 
-#: lib/Class.A2Billing.php:386
+#: lib/Class.A2Billing.php:388
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Numero de tarjeta no valido; Por la longitud definida en la configuracion "
 
-#: lib/Class.A2Billing.php:3141
+#: lib/Class.A2Billing.php:3150
 msgid "Error : Authentication Failed !!!"
 msgstr "Error : Autentificacion fallo! "
 
-#: lib/Class.A2Billing.php:3181
+#: lib/Class.A2Billing.php:3190
 msgid "Error : Not enough credit to call !!!"
 msgstr "Error : No hay suficiente credito para llamar! "
 
-#: lib/Class.A2Billing.php:3187
+#: lib/Class.A2Billing.php:3196
 msgid "Error : Card is not active!!!"
 msgstr "Error : Tarjeta no activa!"
 
-#: lib/Class.A2Billing.php:3193
+#: lib/Class.A2Billing.php:3202
 msgid "Error : Card is actually in use!!!"
 msgstr "Error : Tarjeta actualmente en uso!"
 
-#: lib/Class.A2Billing.php:3202 lib/Class.A2Billing.php:3210
-#: lib/Class.A2Billing.php:3218
+#: lib/Class.A2Billing.php:3211 lib/Class.A2Billing.php:3219
+#: lib/Class.A2Billing.php:3227
 msgid "Error : Card have expired!!!"
 msgstr "Error : Tarjeta expirada!"
 

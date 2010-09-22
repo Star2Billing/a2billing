@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Asterisk2Billing-1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-01 00:17+0200\n"
+"POT-Creation-Date: 2010-09-22 11:18+0200\n"
 "PO-Revision-Date: 2009-04-04 17:09-0300\n"
 "Last-Translator: felipe augusto <flipeicl@gmail.com>\n"
 "Language-Team: Carlos Alberto Cesario <carloscesario@gmail.com>\n"
@@ -1310,7 +1310,7 @@ msgstr "FECHADO"
 msgid "INVALID"
 msgstr "INVÁLIDO"
 
-#: lib/Class.SOAP-function.php:792 lib/Form/Class.FormBO.php:287
+#: lib/Class.SOAP-function.php:851 lib/Form/Class.FormBO.php:287
 msgid "CREATION CARD REFILL"
 msgstr "CRIAR RECARGA DE CARTÃO"
 
@@ -2331,28 +2331,28 @@ msgstr "USADO"
 msgid "NO DISCOUNT"
 msgstr "SEM DESCONTO"
 
-#: lib/Class.A2Billing.php:386
+#: lib/Class.A2Billing.php:388
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Tamanho do número do cartão inválido definido na configuração."
 
-#: lib/Class.A2Billing.php:3141
+#: lib/Class.A2Billing.php:3150
 msgid "Error : Authentication Failed !!!"
 msgstr "Erro : Autenticação falhou !!!"
 
-#: lib/Class.A2Billing.php:3181
+#: lib/Class.A2Billing.php:3190
 msgid "Error : Not enough credit to call !!!"
 msgstr "Erro : Não há crédito o bastante para ligar !!!"
 
-#: lib/Class.A2Billing.php:3187
+#: lib/Class.A2Billing.php:3196
 msgid "Error : Card is not active!!!"
 msgstr "Erro : Cartão não está ativo!!!"
 
-#: lib/Class.A2Billing.php:3193
+#: lib/Class.A2Billing.php:3202
 msgid "Error : Card is actually in use!!!"
 msgstr "Erro : Cartão atualmente em uso!!!"
 
-#: lib/Class.A2Billing.php:3202 lib/Class.A2Billing.php:3210
-#: lib/Class.A2Billing.php:3218
+#: lib/Class.A2Billing.php:3211 lib/Class.A2Billing.php:3219
+#: lib/Class.A2Billing.php:3227
 msgid "Error : Card have expired!!!"
 msgstr "Erro : O cartão expirou!!!"
 

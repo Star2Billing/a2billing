@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-01 00:17+0200\n"
+"POT-Creation-Date: 2010-09-22 11:18+0200\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -1391,7 +1391,7 @@ msgstr ""
 msgid "INVALID"
 msgstr ""
 
-#: lib/Class.SOAP-function.php:792 lib/Form/Class.FormBO.php:287
+#: lib/Class.SOAP-function.php:851 lib/Form/Class.FormBO.php:287
 msgid "CREATION CARD REFILL"
 msgstr ""
 
@@ -2437,28 +2437,28 @@ msgstr "&#24050;&#30331;&#24405;"
 msgid "NO DISCOUNT"
 msgstr "&#35831;&#19982;&#31649;&#29702;&#21592;&#32852;&#32476;&#24320;&#36890;IAX&#24080;&#21495;"
 
-#: lib/Class.A2Billing.php:386
+#: lib/Class.A2Billing.php:388
 msgid "Invalid card number lenght defined in configuration."
 msgstr ""
 
-#: lib/Class.A2Billing.php:3141
+#: lib/Class.A2Billing.php:3150
 msgid "Error : Authentication Failed !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3181
+#: lib/Class.A2Billing.php:3190
 msgid "Error : Not enough credit to call !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3187
+#: lib/Class.A2Billing.php:3196
 msgid "Error : Card is not active!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3193
+#: lib/Class.A2Billing.php:3202
 msgid "Error : Card is actually in use!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3202 lib/Class.A2Billing.php:3210
-#: lib/Class.A2Billing.php:3218
+#: lib/Class.A2Billing.php:3211 lib/Class.A2Billing.php:3219
+#: lib/Class.A2Billing.php:3227
 msgid "Error : Card have expired!!!"
 msgstr ""
 

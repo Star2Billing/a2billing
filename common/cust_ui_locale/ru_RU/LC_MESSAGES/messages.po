@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-01 00:17+0200\n"
+"POT-Creation-Date: 2010-09-22 11:18+0200\n"
 "PO-Revision-Date: 2010-01-28 19:09+0300\n"
 "Last-Translator: Taras Remez <taras.remez@telix.com.ua>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -1371,7 +1371,7 @@ msgstr "CALLS"
 msgid "INVALID"
 msgstr ""
 
-#: lib/Class.SOAP-function.php:792 lib/Form/Class.FormBO.php:287
+#: lib/Class.SOAP-function.php:851 lib/Form/Class.FormBO.php:287
 msgid "CREATION CARD REFILL"
 msgstr "СОЗДАНИЕ ЗАПИСИ ПОПОЛНЕНИЯ"
 
@@ -2436,29 +2436,29 @@ msgstr "REGISTERED"
 msgid "NO DISCOUNT"
 msgstr "У ВАС НЕТ IAX АККАУНТА"
 
-#: lib/Class.A2Billing.php:386
+#: lib/Class.A2Billing.php:388
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Неверная длина номера карты указана в конфигурации"
 
-#: lib/Class.A2Billing.php:3141
+#: lib/Class.A2Billing.php:3150
 msgid "Error : Authentication Failed !!!"
 msgstr "Ошибка: Проблема авторизации !!!"
 
-#: lib/Class.A2Billing.php:3181
+#: lib/Class.A2Billing.php:3190
 msgid "Error : Not enough credit to call !!!"
 msgstr "Ошибка: Недостаточно средства для осуществления звонка!!!"
 
-#: lib/Class.A2Billing.php:3187
+#: lib/Class.A2Billing.php:3196
 #, fuzzy
 msgid "Error : Card is not active!!!"
 msgstr "Неправильная карта"
 
-#: lib/Class.A2Billing.php:3193
+#: lib/Class.A2Billing.php:3202
 msgid "Error : Card is actually in use!!!"
 msgstr "Ошибка: Карта уже используется !!!"
 
-#: lib/Class.A2Billing.php:3202 lib/Class.A2Billing.php:3210
-#: lib/Class.A2Billing.php:3218
+#: lib/Class.A2Billing.php:3211 lib/Class.A2Billing.php:3219
+#: lib/Class.A2Billing.php:3227
 #, fuzzy
 msgid "Error : Card have expired!!!"
 msgstr "Неправильная карта"
