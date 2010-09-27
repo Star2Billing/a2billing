@@ -3,6 +3,7 @@ include(dirname(__FILE__).'/../includes/methods/paypal.php');
 
 class paypal {
     var $code, $title, $description, $enabled;
+    var $paypal_allowed_currencies = array('CAD', 'EUR', 'GBP', 'JPY', 'USD', 'MXN', 'AUD', 'NZD', 'BRL');
 
 	// class constructorform_action_url
     function paypal() {
@@ -62,7 +63,7 @@ class paypal {
 
 		$my_currency = strtoupper($GLOBALS['A2B']->config['global']['base_currency']);
 
-		if (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD', 'MXN', 'AUD', 'NZD'))) {
+		if (!in_array($my_currency, $this->paypal_allowed_currencies)) {
 			$my_currency = 'USD';
 		}
 		$currencyObject = new currencies();
@@ -87,10 +88,10 @@ class paypal {
     {    
         $my_currency = MODULE_PAYMENT_PAYPAL_CURRENCY;
         $base_currency = strtoupper($GLOBALS['A2B']->config['global']['base_currency']);
-        if($my_currency =='Selected Currency' && in_array($base_currency,array('CAD', 'EUR', 'GBP', 'JPY', 'USD', 'MXN', 'AUD')) ){
+        if($my_currency =='Selected Currency' && in_array($base_currency, $this->paypal_allowed_currencies) ){
         	$my_currency = $base_currency;
         }
-        elseif (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD', 'MXN', 'AUD', 'NZD'))) {
+        elseif (!in_array($my_currency, $this->paypal_allowed_currencies)) {
 			$my_currency = 'USD';
 		}
         return $my_currency;
