@@ -988,11 +988,11 @@ class FormHandler
 						gettext("(at least 4 characters)"));
 
 		// 4
-		$this -> FG_regular[]  = array(	"^[0-9]+$"	, 
+		$this -> FG_regular[]  = array(	"^[0-9]+$", 
 						gettext("(number format)"));
 			
 		// 5
-		$this -> FG_regular[]  = array(	"^([0-9]{4})-([0-9]{2})-([0-9]{2})$"	, 
+		$this -> FG_regular[]  = array(	"^([0-9]{4})[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$", 
 						"(YYYY-MM-DD)");
 			
 		// 6
