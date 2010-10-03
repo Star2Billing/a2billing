@@ -664,7 +664,7 @@ if ($mode == 'standard') {
 	}
 
 // MOVE VOUCHER TO LET CUSTOMER ONLY REFILL
-}elseif ($mode == 'voucher'){
+} elseif ($mode == 'voucher'){
 
 	if ($A2B->agiconfig['answer_call']==1){
 		$A2B -> debug( INFO, $agi, __FILE__, __LINE__, '[ANSWER CALL]');
@@ -707,17 +707,19 @@ if ($mode == 'standard') {
 	exit();
 
 // MODE CAMPAIGN-CALLBACK
-}elseif ($mode == 'campaign-callback'){
+} elseif ($mode == 'campaign-callback'){
 	$A2B -> update_callback_campaign ($agi);
 
 // MODE cid-callback & cid-prompt-callback
-}elseif ($mode == 'cid-callback' || $mode == 'cid-prompt-callback') {
+} elseif ($mode == 'cid-callback' || $mode == 'cid-prompt-callback') {
 
 	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[MODE : '.strtoupper($mode).' - '.$A2B->CallerID.']');
 	
 	if ($A2B->agiconfig['answer_call'] == 1 && $mode == 'cid-callback') {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[HANGUP CLI CALLBACK TRIGGER]');
 		$agi->hangup();
+    } elseif ($mode == 'cid-prompt-callback') {
+		$agi -> answer();
 	} else {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CLI CALLBACK TRIGGER RINGING]');
 	}
@@ -799,7 +801,7 @@ if ($mode == 'standard') {
                             // Check the result
                             if ($res_dtmf ["result"]=='1') {
                                 $return = TRUE;
-                            }elseif ($res_dtmf ["result"]=='2') {
+                            } elseif ($res_dtmf ["result"]=='2') {
                                 $return = FALSE;
                             }
                             
@@ -1100,13 +1102,13 @@ if ($mode == 'standard') {
 		$A2B->agiconfig['number_try'] = 1;
 		$A2B->CallerID = $called_party;
 
-	}elseif ($callback_mode=='CID-PROMPT') {
+	} elseif ($callback_mode=='CID-PROMPT') {
 		$charge_callback = 1;
 		$A2B->agiconfig['use_dnid'] = 1;
 		$A2B->agiconfig['number_try'] = 1;
 		$A2B->CallerID = $called_party;
 
-	}elseif ($callback_mode=='ALL') {
+	} elseif ($callback_mode=='ALL') {
 		$A2B->agiconfig['use_dnid'] = 0;
 		$A2B->agiconfig['number_try'] = 1;
 		$A2B->agiconfig['cid_enable'] = 0;
