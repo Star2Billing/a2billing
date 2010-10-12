@@ -36,7 +36,14 @@
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
-include (dirname(__FILE__) . "/../../../common/lib/admin.defines.php");
+include (dirname(__FILE__) . "/../../../../common/lib/admin.defines.php");
+
+function print_usage(){
+	echo "Usage : php a2billing_provisioning.php @IP_SERVER @NUMBER_ACCOUNT\n";
+	echo "        @IP_SERVER : IP of your Asterisk Server\n";
+    echo "        @NUMBER_ACCOUNT : Number of accounts to return\n\n";
+
+}
 
 if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-v')) {
 	echo "A2Billing Provisioning system V0.1\n";
@@ -44,16 +51,17 @@ if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-v')) {
 }
 
 if ($argc > 1 && ($argv[1] == '--help' || $argv[1] == '-h')) {
-	echo "A2Billing Provisioning system V0.1\n";
-	echo "Usage : php a2billing_provisioning.php @IP_SERVER @NUMBER_ACCOUNT\n";
-	echo "        @IP_SERVER : IP of your Asterisk Server\n";
-    echo "        @NUMBER_ACCOUNT : Number of accounts to return\n\n";
+    print_usage();
 	exit;
 }
 
-if ($argc > 1 && $argv[1] >= 0) {
+if ($argc > 1 && $argv[1] >= 0 && strlen($argv[1])>1) {
 	$Asterisk_IP = $argv[1];
+} else {
+    print_usage();
+    exit;
 }
+
 if ($argc > 2 && $argv[2] >= 0) {
 	$Number_account = $argv[2];
 } else {
