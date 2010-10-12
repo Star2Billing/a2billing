@@ -829,7 +829,7 @@ class SOAP_A2Billing
 	        $activated = 'f';
 		
 		$instance_realtime = new Realtime();
-
+        
 	    $FG_ADITION_SECOND_ADD_TABLE = "cc_card";
 	    $FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, country, language, activated, simultaccess, currency, typepaid, uipass, id_group, id_didgroup, sip_buddy, iax_buddy";
 
@@ -880,10 +880,10 @@ class SOAP_A2Billing
 			    $value_insert_refill = "'$balance', '$id_cc_card', '$description_refill' ";
 			    $instance_refill_table->Add_table($this->DBHandle, $value_insert_refill, null, null);
 		    }
-
+            
 		    $instance_realtime -> insert_voip_config ($sip_buddy, $iax_buddy, $id_cc_card, $accountnumber, $passui_secret);
 	    }
-	
+	    
 	    // Save Sip accounts to file
 	    $instance_realtime -> create_trunk_config_file ('sip');
 	    

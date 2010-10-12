@@ -68,7 +68,7 @@ class Realtime {
 	public function create_trunk_config_file ($type = 'sip') {
 	    
 	    if (USE_REALTIME) {
-	        //return false;
+	        return false;
 	    }
 	    
 	    if ($type == 'iax') {
@@ -95,14 +95,14 @@ class Realtime {
 			if (!$fd) {
 				$error_msg = "</br><center><b><font color=red>" . gettext("Could not open buddy file") . $buddyfile . "</font></b></center>";
 			} else {
-				foreach ($list_friend as $data) {
-					$line = "\n\n[" . $data[1] . "]\n";
+			    foreach ($list_friend as $data) {
+				    $line = "\n\n[" . $data[1] . "]\n";
 					if (fwrite($fd, $line) === FALSE) {
 						echo "Impossible to write to the file ($buddyfile)";
 						break;
 					} else {
 						for ($i = 1; $i < count($data) - 1; $i++) {
-							if (strlen($data[$i +1]) > 0) {
+							if (isset($data[$i +1]) && strlen($data[$i +1]) > 0) {
 								if (trim($list_names[$i]) == 'allow') {
 									$codecs = explode(",", $data[$i +1]);
 									$line = "";
