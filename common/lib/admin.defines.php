@@ -85,8 +85,11 @@ $A2B = new A2Billing();
 
 
 // The system will not log for Public/index.php and signup/index.php
-$URI = $_SERVER['REQUEST_URI'];
-
+if (isset($_SERVER['REQUEST_URI'])) {
+    $URI = $_SERVER['REQUEST_URI'];
+} else {
+    $URI = '';
+}
 // Enable UI Logger
 define ("ENABLE_LOG", 1);
 include (FSROOT."lib/Class.Logger.php");

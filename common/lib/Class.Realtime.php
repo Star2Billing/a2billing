@@ -91,7 +91,7 @@ class Realtime {
 		
 		
 		if (is_array($list_friend)) {
-			$fd = fopen($buddyfile, "w");
+		    $fd =@ fopen($buddyfile, "w");
 			if (!$fd) {
 				$error_msg = "</br><center><b><font color=red>" . gettext("Could not open buddy file") . $buddyfile . "</font></b></center>";
 			} else {
@@ -129,6 +129,7 @@ class Realtime {
 	// iax : 1 / 0
 	function insert_voip_config ($sip, $iax, $id_card, $accountnumber, $passui_secret) 
 	{
+	    $who_id = '';
 	    if (!isset ($sip))
 	        $sip = 0;
 	    
@@ -159,10 +160,10 @@ class Realtime {
 					$key = "iax_changed";
 				
 				//check who
-				if ($_SESSION["user_type"]=="ADMIN") {
+				if (isset($_SESSION["user_type"]) && $_SESSION["user_type"]=="ADMIN") {
 				    $who = Notification::$ADMIN;
 				    $who_id = $_SESSION['admin_id'];
-				} elseif ($_SESSION["user_type"]=="AGENT") {
+				} elseif (isset($_SESSION["user_type"]) && $_SESSION["user_type"]=="AGENT") {
 				    $who = Notification::$AGENT;
 				    $who_id = $_SESSION['agent_id'];
 				} else {
