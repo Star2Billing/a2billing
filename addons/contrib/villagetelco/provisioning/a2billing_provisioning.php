@@ -140,7 +140,7 @@ for($i=0;$i<$num;$i++) {
         }
     }
     $Config_output .= "insecure=very\n";
-    $Config_output .= "permit=10.130.1.1\n";
+    $Config_output .= "permit=$Asterisk_IP\n";
     
     $Config_output .= "\n\n\n";
     echo $Config_output;
