@@ -85,8 +85,10 @@ $trunkname = 'trunk-villagetelco';
 list($accountnumber, $password) = (preg_split("{_}",$activation_code,2));
 
 $QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.id_didgroup, cc.tariff, cc.vat, ct.gmtoffset, cc.voicemail_permitted, " .
-		 "cc.voicemail_activated, cc_card_group.users_perms, cc.currency " .
-		 "FROM cc_card cc LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone LEFT JOIN cc_card_group ON cc_card_group.id=cc.id_group ".
+		 "cc.voicemail_activated, cc_card_group.users_perms, cc.currency, cc_did.did " .
+		 "FROM cc_card cc ".
+		 "LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone LEFT JOIN cc_card_group ON cc_card_group.id=cc.id_group ".
+		 "LEFT JOIN cc_did ON cc_did.iduser=cc.id ".
 		 "LIMIT 0, $Number_account";
 $res = $DBHandle -> Execute($QUERY);
 
@@ -101,6 +103,7 @@ for($i=0;$i<$num;$i++) {
     
 	$accounts[$i] =$res -> fetchRow();
     $card_id = $accounts[$i][3];
+    $did = $accounts[$i][12];
     
     //$QUERY_IAX = "SELECT iax.id, iax.username, iax.secret, iax.disallow, iax.allow, iax.type, iax.host, iax.context FROM cc_iax_buddies iax WHERE iax.id_cc_card = $card_id";
     $QUERY_SIP = "SELECT sip.id, sip.username, sip.secret, sip.disallow, sip.allow, sip.type, sip.host, sip.context FROM cc_sip_buddies sip WHERE sip.id_cc_card = $card_id";
@@ -112,13 +115,20 @@ for($i=0;$i<$num;$i++) {
     $additional_sip = explode("|", SIP_ADDITIONAL_PARAMETERS);
     $additional_iax = explode("|", IAX_ADDITIONAL_PARAMETERS);
 
+    // ADD REGISTER
+    // register => [peer?][transport://]user[@domain][:secret[:authuser]]@host[:port][/extension][~expiry]
+    // 2345:password@mysipprovider.com
+    $Config_output .= "\n\n";
+    $Config_output .= "; REGISTER COMMAND\n";
+    $Config_output .= "register => ".$sip_data[0][1].":".$sip_data[0][2]."@$Asterisk_IP\n";
+    
     // SIP
-    //$Config_output = "#PROTOCOL:SIP#\n#SIP-TRUNK-CONFIG-START#\n[trunkname]\n";
-    $Config_output .= "\n[$trunkname]\n";
+    $Config_output .= "\nDID : $did\n";
+    $Config_output .= "[$trunkname]\n";
     $Config_output .= "username=".$sip_data[0][1]."\n";
     $Config_output .= "type=friend\n";
     $Config_output .= "secret=".$sip_data[0][2]."\n";
-    $Config_output .= "host=".$sip_data[0][6]."\n";
+    $Config_output .= "host=$Asterisk_IP\n";
     $Config_output .= "context=".$sip_data[0][7]."\n";
     $Config_output .= "disallow=all\n";
     $Config_output .= "allow=".SIP_IAX_INFO_ALLOWCODEC."\n";
@@ -129,17 +139,10 @@ for($i=0;$i<$num;$i++) {
             $Config_output .= trim($additional_sip[$j]).chr(10);
         }
     }
-    //$Config_output .= "#SIP-TRUNK-CONFIG-END#\n\n";
-    $Config_output .= "\n\n";
+    $Config_output .= "insecure=very\n";
+    $Config_output .= "permit=10.130.1.1\n";
     
-    // ADD REGISTER
-    // register => [peer?][transport://]user[@domain][:secret[:authuser]]@host[:port][/extension][~expiry]
-    // 2345:password@mysipprovider.com
-    
-    $Config_output .= "; REGISTER COMMAND\n";
-    $Config_output .= "register => ".$sip_data[0][1].":".$sip_data[0][2]."@$Asterisk_IP\n";
-    
-    $Config_output .= "\n\n";
+    $Config_output .= "\n\n\n";
     echo $Config_output;
     $Config_output = '';
     
