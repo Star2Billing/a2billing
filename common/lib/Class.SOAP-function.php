@@ -981,7 +981,7 @@ class SOAP_A2Billing
 		    }
 		    $username = $result[0][0];
 		    
-		    $func_table  = "cc_did_destination";		
+		    $func_table  = "cc_did_destination";
 		    $func_fields = "destination, priority, id_cc_card, id_cc_did, creationdate, activated, secondusedreal, voip_call";
     	    $id_name = "id";    
     	    $value  = "'SIP/$username', 1, '$val_account_id', '$inserted', NOW(), 1, 0, 1";
@@ -990,6 +990,20 @@ class SOAP_A2Billing
             
 		    if (!$inserted) {
 		        return array(false, "ERROR CREATING DID DESTINATION (".$increment_did." DID_DESTINATIONs created)");
+		    }
+		    
+		    $QUERY = "UPDATE cc_sip_buddies SET callerid='$did_to_create' WHERE id_cc_card=$val_account_id";
+		    $result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+		    if (!$result)
+		    {
+		        return array(false, "SQL ERROR UPDATING callerid on cc_sip_buddies");
+		    }
+		    
+		    $QUERY = "UPDATE cc_iax_buddies SET callerid='$did_to_create' WHERE id_cc_card=$val_account_id";
+		    $result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+		    if (!$result)
+		    {
+		        return array(false, "SQL ERROR UPDATING callerid on cc_iax_buddies");
 		    }
 		    
 		    $arr_did[] = $did_to_create;

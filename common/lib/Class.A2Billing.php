@@ -1418,16 +1418,16 @@ class A2Billing {
 	
     function call_2did ($agi, &$RateEngine, $listdestination)
     {
-    	$card_number = $this->username;
-        $nbused= $this->nbused;
-		$res=0;
+    	$card_number = $this -> username;
+        $nbused = $this -> nbused;
+		$res = 0;
         $connection_charge = $listdestination[0][8];
-        $selling_rate=  $listdestination[0][9];
-        if ($connection_charge==0 && $selling_rate==0) {
-        	$call_did_free =true;
+        $selling_rate = $listdestination[0][9];
+        if ($connection_charge == 0 && $selling_rate == 0) {
+        	$call_did_free = true;
 			$this -> debug( INFO, $agi, __FILE__, __LINE__, "[A2Billing] DID call free ");
 		} else {
-			$call_did_free =false;
+			$call_did_free = false;
 			$this -> debug( INFO, $agi, __FILE__, __LINE__, "[A2Billing] DID call not free: (connection charge:".$connection_charge."|selling_rate:".$selling_rate );
 		}
 		
@@ -1574,7 +1574,7 @@ class A2Billing {
                     if (count($listdestination)>$callcount) continue;
                 }
 
-                if ($answeredtime >0) {
+                if ($answeredtime > 0) {
 
                     $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: FOLLOWME=$callcount - (answeredtime=$answeredtime :: dialstatus=$dialstatus :: cost=$cost)]");
 
@@ -1584,6 +1584,7 @@ class A2Billing {
 						$terminatecauseid = 0;
                     }
                     
+                    /* CDR A-LEG OF DID CALL */
                     $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, ".
                             " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
                             "('".$this->uniqueid."', '".$this->channel."',  '".$this->id_card."', '".$this->hostname."',";
@@ -1596,7 +1597,8 @@ class A2Billing {
                     //CALL2DID CDR if not free
                     if (!$call_did_free) {
                         $cost = ($answeredtime/60) * abs($selling_rate) + abs($connection_charge);
-
+                        
+                        /* CDR B-LEG OF DID CALL */
                         $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, ".
                                 " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
                                 "('".$this->uniqueid."', '".$this->channel."',  '".$this->id_card."', '".$this->hostname."',";

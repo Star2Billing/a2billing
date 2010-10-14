@@ -40,7 +40,8 @@ include (dirname(__FILE__) . "/../common/lib/admin.defines.php");
 include (dirname(__FILE__) . "/../common/lib/phpagi/phpagi-asmanager.php");
 
 function print_usage(){
-	echo "Usage : php originate_echo.php [MAX_NUMBER_ACCOUNT]\n";
+	echo "Usage : php originate_echo.php [DID] [MAX_NUMBER_ACCOUNT]\n";
+    echo "        [DID] : PhoneNumber to reach\n";
     echo "        [MAX_NUMBER_ACCOUNT] : Max Number of accounts to call\n\n";
 
 }
@@ -56,6 +57,12 @@ if ($argc > 1 && ($argv[1] == '--help' || $argv[1] == '-h')) {
 }
 
 if ($argc > 1 && $argv[1] >= 0) {
+	$DID_to_reach = $argv[1];
+} else {
+    $DID_to_reach = False;
+}
+
+if ($argc > 2 && $argv[2] >= 0) {
 	$max_call_account = $argv[2];
 } else {
     $max_call_account = 50;
@@ -96,8 +103,7 @@ if ($res) {
 	    implode(",", $array);
 	    $comma_separated = '\''.implode("' , '", $account_sip).'\'';	
 	    
-        $QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.id_didgroup, cc.tariff, cc.vat, ct.gmtoffset, cc.voicemail_permitted, " .
-		         "cc.voicemail_activated, cc_card_group.users_perms, cc.currency, cc_did.did " .
+        $QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc_did.did " .
 		         "FROM cc_card cc ".
 		         "LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone LEFT JOIN cc_card_group ON cc_card_group.id=cc.id_group ".
 		         "LEFT JOIN cc_did ON cc_did.iduser=cc.id ".
@@ -116,19 +122,22 @@ if ($res) {
         }
         
         foreach ($accounts as $calling_account) {
-            $channel = "SIP/".$calling_account[0];
-            $exten = '1234';
-            $context = '1234@a2billing_echotest';
-            $priority = 1;
-            $timeout = 30000;
-            $async = True;
-            $callerid = "1234";
-             echo "--> Trying to Originate call to $channel \n\n";
-            $res_orig = $as->Originate($channel,
-                       $exten, $context, $priority,
-                       $application=NULL, $data=NULL,
-                       $timeout, $callerid, $variable=NULL, $account=NULL, $async, $actionid=NULL);
-	        print_r ($res_orig);
+            $current_did = $calling_account[4];
+            if (!$DID_to_reach or $current_did==$DID_to_reach) {    
+                $channel = "SIP/".$calling_account[0];
+                $exten = '1234';
+                $context = '1234@a2billing_echotest';
+                $priority = 1;
+                $timeout = 30000;
+                $async = True;
+                $callerid = "1234";
+                 echo "--> Trying to Originate call to $channel \n\n";
+                $res_orig = $as->Originate($channel,
+                           $exten, $context, $priority,
+                           $application=NULL, $data=NULL,
+                           $timeout, $callerid, $variable=NULL, $account=NULL, $async, $actionid=NULL);
+	            print_r ($res_orig);
+	        }
 	    }
 	    
 	} else {
