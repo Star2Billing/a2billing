@@ -170,6 +170,12 @@
       // swift TTS config
       if(!isset($this->config['cepstral']['swift'])) $this->config['cepstral']['swift'] = $this->which('swift');
 
+      // espeak TTS config
+      if(!isset($this->config['espeak']['espeak'])) $this->config['espeak']['espeak'] = $this->which('espeak');
+
+      // sox TTS config
+      if(!isset($this->config['sox']['sox'])) $this->config['sox']['sox'] = $this->which('sox');
+
       ob_implicit_flush(true);
 
       // open stdin & stdout
@@ -1370,7 +1376,7 @@
           fputs($fp, $text);
           fclose($fp);
         }
-		echo "{$this->config['cepstral']['swift']} -p audio/channels=1,audio/sampling-rate=$frequency $voice -o $fname.wav -f $fname.txt \n\n";
+		#echo "{$this->config['cepstral']['swift']} -p audio/channels=1,audio/sampling-rate=$frequency $voice -o $fname.wav -f $fname.txt \n\n";
         shell_exec("{$this->config['cepstral']['swift']} -p audio/channels=1,audio/sampling-rate=$frequency $voice -o $fname.wav -f $fname.txt");
       }
 
@@ -1380,6 +1386,57 @@
       // clean up old files
       $delete = time() - 2592000; // 1 month
       foreach(glob($this->config['phpagi']['tempdir'] . DIRECTORY_SEPARATOR . 'swift_*') as $file)
+        if(filemtime($file) < $delete)
+          unlink($file);
+
+      return $ret;
+    }
+    
+
+   /**
+    * Use Espeak to read text.
+    *
+    * @link http://www.cepstral.com/
+    * @param string $text
+    * @param string $escape_digits
+    * @param integer $frequency
+    * @return array, see evaluate for return information.
+    */
+    function espeak($text, $escape_digits='', $frequency=8000, $voice=NULL)
+    {
+      if(is_null($voice))
+        $voice = "-vf2";
+      
+      $text = trim($text);
+      if($text == '') return true;
+
+      $hash = md5($text);
+      $fname = $this->config['phpagi']['tempdir'] . DIRECTORY_SEPARATOR;
+      $fname .= 'espeak_' . $hash;
+
+      // create wave file
+      if(!file_exists("$fname.wav"))
+      {
+        // write text file
+        if(!file_exists("$fname.txt"))
+        {
+          $fp = fopen("$fname.txt", 'w');
+          fputs($fp, $text);
+          fclose($fp);
+        }
+		#echo "{$this->config['espeak']['espeak']} $voice -f $fname.txt -w $fname.wav  \n\n";
+        shell_exec("{$this->config['espeak']['espeak']} $voice -f $fname.txt -w $fname" . "_orig.wav ");
+        
+        shell_exec("{$this->config['sox']['sox']} $fname"."_orig.wav -r 8000 -c1 $fname.wav ");
+        unlink("$fname"."_orig.wav");
+      }
+
+      // stream it
+      $ret = $this->stream_file($fname, $escape_digits);
+
+      // clean up old files
+      $delete = time() - 2592000; // 1 month
+      foreach(glob($this->config['phpagi']['tempdir'] . DIRECTORY_SEPARATOR . 'espeak_*') as $file)
         if(filemtime($file) < $delete)
           unlink($file);
 
