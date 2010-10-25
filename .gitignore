@@ -1,0 +1,5 @@
+*.pyc
+*dilla*
+*.db
+*nbproject*
+*devserver*
