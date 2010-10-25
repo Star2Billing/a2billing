@@ -258,7 +258,7 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 
 $HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
 
-if ($form_action!="ask-delete") {	
+if ($form_action!="ask-delete") {
 	$DBHandle_max  = DbConnect();
 	$numrow = 0;
 	$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_phonebook");

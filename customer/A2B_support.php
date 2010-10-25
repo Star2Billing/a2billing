@@ -61,10 +61,10 @@ if ((strlen($description) > 0 || strlen($title) > 0) && is_numeric($priority) &&
 	$ticket_table = new Table('cc_ticket', $fields);
 	$values = "'" . $_SESSION["card_id"] . "', '" . $title . "', '" . $description . "', '" . $component . "', '" . $priority . "' ,'0'";
 	$id_ticket = $ticket_table ->Add_table($HD_Form -> DBHandle, $values, null, null, "id");
-	NotificationsDAO :: AddNotification("ticket_added_cust", Notification :: $LOW, Notification :: $CUST, $_SESSION['card_id'],Notification::$LINK_TICKET_CUST,$id_ticket);
-	$table_card =new Table("cc_card", "firstname,lastname,language,email");
+	NotificationsDAO::AddNotification("ticket_added_cust", Notification::$LOW, Notification::$CUST, $_SESSION['card_id'], Notification::$LINK_TICKET_CUST, $id_ticket);
+	$table_card =new Table("cc_card", "firstname, lastname, language, email");
 	$card_clause = "id = ".$_SESSION["card_id"];
-	$result=$table_card ->Get_list($HD_Form -> DBHandle, $card_clause);
+	$result=$table_card -> Get_list($HD_Form -> DBHandle, $card_clause);
 	$owner = $_SESSION["pr_login"]." (".$result[0]['firstname']." ".$result[0]['lastname'].")";
 	
 	try {

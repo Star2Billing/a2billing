@@ -45,7 +45,7 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 $HD_Form = new FormHandler("cc_card", gettext("Card"));
 
 $HD_Form -> FG_DEBUG = 0;
-$HD_Form -> FG_TABLE_ID="id";
+$HD_Form -> FG_TABLE_ID = "id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
 $HD_Form -> FG_FK_DELETE_CONFIRM = true;

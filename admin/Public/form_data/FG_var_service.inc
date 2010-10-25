@@ -228,7 +228,7 @@ $resmax = $DBHandle_max -> Execute("SELECT * FROM cc_card_group");
 if ( $resmax )
 	$numrow = $resmax -> RecordCount( );
 
-if ($numrow>0) { 
+if ($numrow > 0) { 
 	$HD_Form -> AddEditElement (gettext("CARD GROUP"),
 		"service",	
 		'$value',	

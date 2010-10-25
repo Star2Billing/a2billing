@@ -364,7 +364,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 	$numrow = 0;
 	$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_tariffgroup");
 	if ( $resmax )
-		$numrow = $resmax -> RecordCount( );
+		$numrow = $resmax -> RecordCount();
 
 	if ($numrow > 0) { 
 		$HD_Form -> AddEditElement (gettext("CALL PLAN USABLE"),

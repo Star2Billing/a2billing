@@ -61,7 +61,11 @@ $billingtype_list = Constants::getBillingTypeList();
 
 $priority_list = array();
 for ($k=1;$k<=5;$k++)
-        $priority_list["$k"]  = array( "$k", "$k");
+    $priority_list["$k"]  = array( "$k", "$k");
+
+$validated_list = array();
+$validated_list["0"] = array( gettext("Pending"), "0");
+$validated_list["1"] = array( gettext("Validated"), "1");
 
 
 $HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "15%", "center", "sort");
@@ -72,12 +76,12 @@ $HD_Form -> AddViewElement(gettext("ACTIVE"), "activated", "5%", "center", "sort
 $HD_Form -> AddViewElement(gettext("VOIP"), "voip_call", "5%", "center", "sort", "", "list", $actived_list);
 $HD_Form -> AddViewElement(gettext("PRIOR"), "priority", "5%", "center", "sort", "", "list", $priority_list);
 $HD_Form -> AddViewElement(gettext("MINUTES USED"), "secondusedreal", "10%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-
+$HD_Form -> AddViewElement(gettext("VALIDATED"), "validated", "10%", "center", "sort", "", "list", $validated_list);
 
 
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('destination, cc_did_destination.creationdate, cc_did.did, id_cc_card, cc_did_destination.activated, voip_call, priority, cc_did_destination.secondusedreal');
+$HD_Form -> FieldViewElement ('destination, cc_did_destination.creationdate, cc_did.did, id_cc_card, cc_did_destination.activated, voip_call, priority, cc_did_destination.secondusedreal, validated');
 
 $HD_Form -> FG_ACTION_SIZE_COLUMN = '15%';
  
@@ -148,6 +152,15 @@ $HD_Form -> AddEditElement (gettext("ACTIVATED"),
 	gettext("Choose if you want to activate this card"),
 	"" , "", "", "Yes :1, - No:0",   "", "" , "", "");
 
+$HD_Form -> AddEditElement (gettext("VALIDATED"),
+	"validated",
+	"",
+	"SELECT",
+	"",
+	"",
+	"",
+	"list" , "", "",  "", $validated_list, "%1" , "" , "");
+
 $HD_Form -> AddEditElement (gettext("PRIORITY"),
 	"priority",
 	"",
@@ -167,9 +180,9 @@ $HD_Form -> AddEditElement (gettext("VOIP_CALL"),
 	"" , "",  "", "Yes :1, - No:0",  "", "" , "" , "");
 
 if ($form_action!='ask-edit' && $form_action!='edit') {
-	$HD_Form -> FieldEditElement ('destination, id_cc_card, id_cc_did, activated, priority, voip_call');
+	$HD_Form -> FieldEditElement ('destination, id_cc_card, id_cc_did, activated, validated, priority, voip_call');
 } else {
-	$HD_Form -> FieldEditElement ('destination, activated, priority, voip_call');
+	$HD_Form -> FieldEditElement ('destination, activated, validated, priority, voip_call');
 }
 
 // Set the filter variables
@@ -198,9 +211,9 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'did_destination_add';
 $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_DELETE = 'did_destination_del';
 
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?id=";
 
 
 

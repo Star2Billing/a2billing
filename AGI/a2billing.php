@@ -593,8 +593,9 @@ if ($mode == 'standard') {
 					
                     $QUERY =  "SELECT cc_did.id, cc_did_destination.id, billingtype, tariff, destination,  voip_call, username, useralias, connection_charge, selling_rate, did".
                             " FROM cc_did, cc_did_destination,  cc_card ".
-                            " WHERE id_cc_did=cc_did.id  AND cc_card.status=1 and cc_card.id=id_cc_card and cc_did_destination.activated=1  and cc_did.activated=1 and did='".$A2B-> destination."' ".
-                            " AND cc_did.startingdate<= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL";
+                            " WHERE id_cc_did=cc_did.id AND cc_card.status=1 AND cc_card.id=id_cc_card and cc_did_destination.activated=1 AND cc_did.activated=1 AND did='".$A2B-> destination."' ".
+                            " AND cc_did.startingdate<= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL ".
+                            " AND cc_did_destination.validated=1 ";
                     if ($A2B->config["database"]['dbtype'] == "mysql") {
                         $QUERY .= " OR cc_did.expirationdate = '0000-00-00 00:00:00'";
                     }
@@ -646,8 +647,9 @@ if ($mode == 'standard') {
 		$QUERY =  "SELECT cc_did.id, cc_did_destination.id, billingtype, tariff, destination,  voip_call, username, useralias".
 			" FROM cc_did, cc_did_destination,  cc_card ".
 			" WHERE id_cc_did=cc_did.id and cc_card.status=1 and cc_card.id=id_cc_card and cc_did_destination.activated=1  and cc_did.activated=1 and did='$mydnid' ".
-			" AND cc_did.startingdate<= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL";
-		if ($A2B->config["database"]['dbtype'] != "postgres"){
+			" AND cc_did.startingdate<= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL ".
+			" AND cc_did_destination.validated=1";
+		if ($A2B->config["database"]['dbtype'] != "postgres") {
 			// MYSQL
 			$QUERY .= " OR cc_did.expirationdate = '0000-00-00 00:00:00'";
 		}

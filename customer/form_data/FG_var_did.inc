@@ -47,19 +47,22 @@ $HD_Form -> FG_DELETION = true;
 $HD_Form -> FG_ADDITION = true;
 
 $actived_list = Constants::getActivationList();
-
-
 $billingtype_list = Constants::getBillingTypeList();
 
 // -- billtype: 0 = fix per month + dialoutrate, 1= fix per month, 2 = dialoutrate, 3 = free
 $billingtype_list_short = Constants::getBillingTypeShortList();
 
 $priority_list = array();
-for ($k=1;$k<=5;$k++)
-{
+for ($k=1;$k<=5;$k++) {
     $priority_list["$k"]  = array( "Priority : $k", "$k");
 }
-$actived_list = array(); $actived_list["1"]  = array( gettext("Active"), "1"); $actived_list["0"]  = array( gettext("Inactive"), "0");
+$actived_list = array(); 
+$actived_list["1"] = array( gettext("Active"), "1"); 
+$actived_list["0"]  = array( gettext("Inactive"), "0");
+
+$validated_list = array();
+$validated_list["0"] = array( gettext("Pending"), "0");
+$validated_list["1"] = array( gettext("Validated"), "1");
 
 $HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "20%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DID"), "id_cc_did", "15%", "center", "sort", "15", "lie", "cc_did", "did", "id='%id'", "%1");
@@ -67,20 +70,43 @@ $HD_Form -> AddViewElement(gettext("ACTIVATED"), "t1.activated", "10%", "center"
 $HD_Form -> AddViewElement(gettext("PRIORITY"), "priority", "10%", "center", "sort", "", "list", $priority_list);
 $HD_Form -> AddViewElement(gettext("USED MINUTE"), "t1.secondusedreal", "10%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 $HD_Form -> AddViewElement(gettext("COUNTRY"), "id_cc_country", "15%", "center", "sort", "15", "lie", "cc_country", "countryname", "id='%id'", "%1");
-
-// added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('destination, id_cc_did, activated, priority ,secondusedreal id_cc_country');
+$HD_Form -> AddViewElement(gettext("VALIDATED"), "validated", "10%", "center", "sort", "", "list", $validated_list);
 
 
-if (isset($form_action) && ($form_action=='ask-edit' || $form_action=='edit')){
+if (isset($form_action) && ($form_action=='ask-edit' || $form_action=='edit')) {
 	$HD_Form -> FG_TABLE_NAME = "cc_did_destination AS t1";
 	$country_field = '';
-}else{
+	$validated = 1;
+	
+	if ($voip_call == 1) {
+	    // It's a Voip Call
+	    $DBHandle_max = DbConnect();
+	    $numrow = 0;
+	    $resmax = $DBHandle_max -> Execute("SELECT * FROM cc_did_destination WHERE id='$id' AND destination='$destination' AND validated=1");
+	    
+	    if ( $resmax )
+		    $numrow = $resmax -> RecordCount( );
+        $validated = ($numrow == 1) ? 1 : 0;
+	
+	    if ($validated)
+	        NotificationsDAO::AddNotification("did_destination_edited_cust", Notification::$LOW, Notification::$CUST, $_SESSION['card_id'], Notification::$LINK_DID_DESTINATION, $id);
+	    
+	    //$HD_Form->_processed['destination'] = intval($destination);
+	    
+	} else {
+	    // It's not a Voip call, check if we don't try to inject
+	    $destination = (intval($destination)) ? intval($destination) : 'no valid';
+	    //echo "Validity check ($destination)";
+	}
+	
+} else {
 	$HD_Form -> FG_TABLE_NAME = "cc_did_destination AS t1, cc_did AS t2";
 	$HD_Form -> FG_TABLE_CLAUSE = " id_cc_card='".$_SESSION["card_id"]."' AND t1.id_cc_did=t2.id";
 	$country_field = ' id_cc_country,';
+	$validated = 0;
 }
-$HD_Form -> FG_COL_QUERY = 'destination, id_cc_did, t1.activated, priority, t1.secondusedreal,'. $country_field .' t1.id ';
+
+$HD_Form -> FG_COL_QUERY = 'destination, id_cc_did, t1.activated, priority, t1.secondusedreal,'. $country_field .'  t1.validated, t1.id ';
 
 $HD_Form -> CV_NO_FIELDS  = gettext("There are no destinations created");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
@@ -91,14 +117,17 @@ $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 $HD_Form -> FG_VIEW_TABLE_WITDH = '80%';
 
-$HD_Form -> AddEditElement (gettext("DESTINATION"),
-	"destination",
-	'$value',
-	"INPUT",
-	"size=50 maxlength=120",
-	"0",
-	"Insert the Destination",
-	"" , "", "", "", "" , "", "", gettext("Enter here the phonenumber you want to call or the SIP/IAX/H323 peer to reach (ie: 347894999 or SIP/jeremy@182.212.1.45). To call SIP/IAX/H323 peer, you need to enable the voip_call bellow (voip_call = Yes) "));
+if (isset($form_action) && ($form_action=='ask-edit')) {
+
+    $HD_Form -> AddEditElement (gettext("DESTINATION"),
+	    "destination",
+	    '$value',
+	    "INPUT",
+	    "size=50 maxlength=120",
+	    "0",
+	    "Insert the Destination",
+	    "" , "", "", "", "" , "", "", gettext("Enter here the phonenumber you want to call or the SIP/IAX/H323 peer to reach (ie: 347894999 or SIP/jeremy@182.212.1.45). To call SIP/IAX/H323 peer, you need to enable the voip_call bellow (voip_call = Yes) "));
+}
 
 $HD_Form -> AddEditElement (gettext("ACTIVATED"),
 	"activated",
@@ -129,9 +158,12 @@ $HD_Form -> AddEditElement (gettext("VOIP_CALL"),
 	"" , "",  "", "Yes :1, - No:0",  "", "" , "" , "");
 
 
-//$HD_Form -> FieldEditElement ('destination, id_cc_did, activated, priority, voip_call');
-$HD_Form -> FieldEditElement ('destination, activated, priority, voip_call');
-
+if (isset($form_action) && ($form_action=='ask-edit')) {
+    $HD_Form -> FieldEditElement ('destination, activated, priority, voip_call');
+} else {
+    $HD_Form -> FG_QUERY_EDITION_HIDDEN_FIELDS = "destination, validated";
+    $HD_Form -> FG_QUERY_EDITION_HIDDEN_VALUE = "$destination, $validated";
+}
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= '';
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");

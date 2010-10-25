@@ -105,8 +105,7 @@ if ($action_release == "confirm_release") {
 	try {
 	    a2b_mail(ADMIN_EMAIL, $subject, $messagetext, $from, $fromname);
 	}catch (Exception $e) {
-	    echo "<br>" . gettext("Error : Sending mail");
-	    //exit ();
+	    echo gettext("Error : Sending mail");
     }
 }
 
@@ -155,8 +154,13 @@ if (!isset ($action_release) || $action_release == "confirm_release" || $action_
 	if (is_numeric($voip_call) && ($confirm_buy_did >= 2) && ($voip_call==0 || ($voip_call==1 && strpos(substr($destination, strpos( $destination, '@')),'.')))) {
 		 
 		$instance_table_did_use = new Table();
-		$QUERY = "INSERT INTO cc_did_destination (activated, id_cc_card, id_cc_did, destination, priority, voip_call) VALUES ('1', '" . $_SESSION["card_id"] . "', '" . $choose_did . "', '" . $destination . "', '1', '" . $voip_call . "')";
-
+		$validated = ($voip_call==1) ? 0 : 1;
+		
+		if ($voip_call==0)
+		    $destination = (intval($destination)) ? intval($destination) : 'no valid';
+		
+		$QUERY = "INSERT INTO cc_did_destination (activated, id_cc_card, id_cc_did, destination, priority, voip_call, validated) VALUES ('1', '" . $_SESSION["card_id"] . "', '" . $choose_did . "', '" . $destination . "', '1', '" . $voip_call . "', '$validated')";
+		
 		$result = $instance_table_did_use->SQLExec($HD_Form->DBHandle, $QUERY, 0);
 		if ($confirm_buy_did == 2) {
 			$QUERY1 = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did) " .

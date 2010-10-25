@@ -657,7 +657,7 @@ class FormHandler
 
 
 	function &getProcessed()
-	{	
+	{
 		foreach ($this->_vars as $key => $value) {
 			if (!$this->_processed[$key] or empty($this->_processed[$key])) {
 				$this->_processed[$key] = $this -> sanitize($value);

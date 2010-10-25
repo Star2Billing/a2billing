@@ -48,6 +48,7 @@ Class Notification {
 	static public $LINK_TICKET_CUST = "ticket_cust";
 	static public $LINK_TICKET_AGENT = "ticket_agent";
 	static public $LINK_REMITTANCE = "remittance";
+	static public $LINK_DID_DESTINATION = "did_destination";
 	static public $LINK_CARD = "card";
 	
 	private $id;
@@ -60,7 +61,7 @@ Class Notification {
 	private $link_type;
 	private $link_id;
 	
-	function __construct($id,$date,$key,$priority,$from_type,$from_id,$link_id=null,$link_type=null,$new ){
+	function __construct($id, $date, $key, $priority, $from_type, $from_id, $link_id = null, $link_type = null, $new){
 		$this->id = $id;
 		$this->date = $date;
 		$this->priority = $priority;
@@ -78,6 +79,7 @@ Class Notification {
 					  "iax_changed"			=> gettext("New IAX added : IAX Friends conf have to be generated"),
 					  "ticket_added_agent" 	=> gettext("New Ticket added by agent"),
 					  "ticket_added_cust" 	=> gettext("New Ticket added by customer"),
+					  "did_destination_edited_cust" => gettext("DID Destination edited by customer"),
                       "remittance_added_agent"	=> gettext("New Remittance request added"),
                       "added_new_signup"	=> gettext("Added new sign-up"));
 	}
@@ -160,11 +162,13 @@ Class Notification {
 		if(!empty($this->link_id) && !empty($this->link_type) && $this->link_type != Notification::$LINK_NONE ){
 			switch ($this->link_type) {
 				case Notification::$LINK_REMITTANCE:$link .= "A2B_remittance_info.php?id=";
-				break;
+				    break;
+				case Notification::$LINK_DID_DESTINATION:$link .= "A2B_entity_did_destination.php?form_action=ask-edit&id=";
+				    break;
 				case Notification::$LINK_TICKET_CUST:
 				case Notification::$LINK_TICKET_AGENT:$link .= "CC_ticket_view.php?id=";
 				case Notification::$LINK_CARD:$link .= "A2B_entity_card.php?form_action=ask-edit&id=";
-                break;
+                    break;
 			}
 			$link .= $this->link_id;
 		}
