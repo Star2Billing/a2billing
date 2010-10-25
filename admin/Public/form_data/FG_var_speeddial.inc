@@ -56,14 +56,14 @@ for ($k=0;$k<=9;$k++)
 	$speeddial_list["$k"] = array("$k", "$k");
 
 
-$HD_Form -> AddViewElement(gettext("DATE"), "cc_speeddial.creationdate", "20%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("ACCOUNT"), " cc_speeddial.id_cc_card", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer_id");
+$HD_Form -> AddViewElement(gettext("SPEED DIAL"), "cc_speeddial.speeddial", "10%", "center", "sort", "26");
+$HD_Form -> AddViewElement(gettext("PHONE NUMBER"), "cc_speeddial.phone", "20%", "center", "sort", "26");
 $HD_Form -> AddViewElement(gettext("NAME"), "cc_speeddial.name", "10%", "center", "sort", "26");
-$HD_Form -> AddViewElement(gettext("PHONE"), "cc_speeddial.phone", "10%", "center", "sort", "26");
-$HD_Form -> AddViewElement(gettext("SPEED DIAL"), "cc_speeddial.speeddial", "20%", "center", "sort", "26");
+$HD_Form -> AddViewElement(gettext("ACCOUNT"), " cc_speeddial.id_cc_card", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer_id");
+$HD_Form -> AddViewElement(gettext("DATE"), "cc_speeddial.creationdate", "20%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
 
 
-$HD_Form -> FieldViewElement ('cc_speeddial.creationdate, cc_speeddial.id_cc_card, cc_speeddial.name, cc_speeddial.phone, cc_speeddial.speeddial');
+$HD_Form -> FieldViewElement ('cc_speeddial.speeddial, cc_speeddial.phone, cc_speeddial.name, cc_speeddial.id_cc_card, cc_speeddial.creationdate');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO SPEED DIALS HAVE BEEN CREATED!"); 
