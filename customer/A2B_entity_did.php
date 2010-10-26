@@ -259,7 +259,7 @@ if (!isset ($action_release) || $action_release == "confirm_release" || $action_
 
 	if (isset ($choose_country)) {
 		// LIST FREE DID TO ADD PHONENUMBER
-		$instance_table_did = new Table("cc_did", "DISTINCT cc_did.id, did, fixrate");
+		$instance_table_did = new Table("cc_did", "DISTINCT cc_did.id, did, fixrate, connection_charge, selling_rate, aleg_retail_connect_charge, aleg_retail_cost_min");
 		$FG_TABLE_CLAUSE = "id_cc_country=$choose_country and id_cc_didgroup='" . $_SESSION["id_didgroup"] . "' and reserved=0";
 		$list_did = $instance_table_did->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "did", "ASC", null, null, null, null);
 		$nb_did = count($list_did);
@@ -390,9 +390,16 @@ function CheckCountry(Source){
 					<option value=''><?php echo gettext("Select Virtual Phone Number");?></option>
 
 					<?php
-				  	 foreach ($list_did as $recordset){
+				  	foreach ($list_did as $recordset){
+				  	// fixrate, connection_charge, selling_rate, aleg_retail_connect_charge, aleg_retail_cost_min
+					$price_annoucement = gettext("Monthly:").$recordset[2].' '.BASE_CURRENCY;
+					$price_annoucement .= ';'.gettext("B-Leg Connect:").$recordset[3].' '.BASE_CURRENCY;
+					$price_annoucement .= ';'.gettext("B-Leg Rate:").$recordset[4].' '.BASE_CURRENCY;
+					$price_annoucement .= ';'.gettext("A-Leg Connect:").$recordset[5].' '.BASE_CURRENCY;
+					$price_annoucement .= ';'.gettext("A-Leg Rate:").$recordset[6].' '.BASE_CURRENCY;
 					?>
-						<option class=input value='<?php echo $recordset[0]."CUR".$recordset[2] ?>'<?php if ($choose_did_rate == $recordset[0]."CUR".$recordset[2]) echo 'selected';?>><?php echo $recordset[1]?>  (<?php echo $recordset[2].' '.BASE_CURRENCY ?> )</option>
+					
+						<option class=input value='<?php echo $recordset[0]."CUR".$recordset[2] ?>'<?php if ($choose_did_rate == $recordset[0]."CUR".$recordset[2]) echo 'selected';?>><?php echo $recordset[1]?>  (<?php echo $price_annoucement; ?>)</option>
 					<?php 	 }
 					?>
 				</select>

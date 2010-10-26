@@ -69,8 +69,6 @@ $HD_Form -> AddViewElement("<acronym title=\"".gettext("RESERVED")."\">".gettext
 $HD_Form -> AddViewElement("<acronym title=\"".gettext("MONTHLY RATE")."\">".gettext("MR")."</acronym>", "fixrate", "5%", "center", "SORT", "30");
 $HD_Form -> AddViewElement("<acronym title=\"".gettext("SELLING RATE")."\">".gettext("SR")."</acronym>", "selling_rate", "5%", "center", "SORT", "30");
 
-
-// added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
 $HD_Form -> FieldViewElement ('did, iduser, billingtype, startingdate, id_cc_didgroup, id_cc_country, activated, secondusedreal, reserved, fixrate, selling_rate');
 
 
@@ -83,7 +81,6 @@ $HD_Form -> FG_ADDITION = true;
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 $HD_Form -> FG_SPLITABLE_FIELD = 'did';
-
 
 
 // TODO integrate in Framework
@@ -104,9 +101,6 @@ if ($form_action=="ask-add") {
 }
 
 $did_regexpress = '9';
-if ($form_action=="ask-edit" || $form_action=="edit") {
-	$did_regexpress = '13';
-}
 
 $HD_Form -> AddEditElement (gettext("DID"),
 	"did",
@@ -183,7 +177,7 @@ $HD_Form -> AddEditElement (gettext("MONTHLY RATE"),
 	"12",
 	gettext("Insert the monthly rate"),
 	"" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY),
-	null, null, gettext("Define the selling cost for customers.") );
+	null, null, gettext("Define the renting cost for the customers.") );
 
 
 $HD_Form -> AddEditElement(gettext("CONNECT CHARGE"),
@@ -193,7 +187,9 @@ $HD_Form -> AddEditElement(gettext("CONNECT CHARGE"),
    "size=30 maxlength=20 $fixval",
    "12",
    gettext("Insert the connect charge"),
-   "" , "", "",	"", "", "" , "NO", gettext("Apply a connection charge to connect DID together"));
+   "" , "", "",	"", "", "" , "NO", gettext("Apply a connection charge to connect DID together"),
+   null, null, gettext("DID On Net Charges") );
+   // On Net Charges is where one customer calls another customer without any external carrier being involved in the call
 
 $HD_Form -> AddEditElement(gettext("SELLING RATE"),
    "selling_rate",
@@ -204,9 +200,45 @@ $HD_Form -> AddEditElement(gettext("SELLING RATE"),
    gettext("Insert the rate"),
    "" , "", "",	"", "" , "", "", gettext("The retail rate; or the cost per minute to apply to the customer to connect DID together, e.g. 0.02"));
 
+$HD_Form -> AddEditElement(gettext("CARRIER CONNECTION CHARGE"),
+   "aleg_carrier_connect_charge",
+   '$value',
+   "INPUT",
+   "size=30 maxlength=20 $fixval",
+   "12",
+   gettext("Insert a rate"),
+   "" , "", "",	"", "" , "", "", gettext("The connection charge can be negative or positive"),
+   null, null, gettext("DID Ingress Charges") );
 
-$HD_Form -> FieldEditElement ('did, billingtype, startingdate, expirationdate, id_cc_didgroup, id_cc_country, activated, fixrate,connection_charge,selling_rate');
+$HD_Form -> AddEditElement(gettext("CARRIER COST PER MINUTE"),
+   "aleg_carrier_cost_min",
+   '$value',
+   "INPUT",
+   "size=30 maxlength=20 $fixval",
+   "12",
+   gettext("Insert the connect cost"),
+   "" , "", "",	"", "", "" , "NO", gettext("The cost can be negative for Non geographic calls where there is an out-payment"));
 
+$HD_Form -> AddEditElement(gettext("RETAIL CONNECTION CHARGE"),
+   "aleg_retail_connect_charge",
+   '$value',
+   "INPUT",
+   "size=30 maxlength=20 $fixval",
+   "12",
+   gettext("Insert a rate"),
+   "" , "", "",	"", "" , "", "", gettext("The connection charge can be negative or positive"));
+
+$HD_Form -> AddEditElement(gettext("RETAIL COST PER MINUTE"),
+   "aleg_retail_cost_min",
+   '$value',
+   "INPUT",
+   "size=30 maxlength=20 $fixval",
+   "12",
+   gettext("Insert the connect cost"),
+   "" , "", "",	"", "", "" , "NO", gettext("The cost can be negative where there is an out payment, or more usually, positive"));
+
+
+$HD_Form -> FieldEditElement ('did, billingtype, startingdate, expirationdate, id_cc_didgroup, id_cc_country, activated, fixrate, connection_charge, selling_rate, aleg_carrier_connect_charge, aleg_carrier_cost_min, aleg_retail_connect_charge, aleg_retail_cost_min');
 
 // Set the filter variables
 $HD_Form -> FG_FILTER_APPLY = true;

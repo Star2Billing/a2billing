@@ -1423,6 +1423,13 @@ class A2Billing {
 		$res = 0;
         $connection_charge = $listdestination[0][8];
         $selling_rate = $listdestination[0][9];
+        
+        $aleg_carrier_connect_charge = $listdestination[0][11];
+        $aleg_carrier_cost_min = $listdestination[0][12];
+        $aleg_retail_connect_charge = $listdestination[0][13];
+        $aleg_retail_cost_min = $listdestination[0][14];
+        #TODO use the above variables to define the time2call
+        
         if ($connection_charge == 0 && $selling_rate == 0) {
         	$call_did_free = true;
 			$this -> debug( INFO, $agi, __FILE__, __LINE__, "[A2Billing] DID call free ");
@@ -1439,9 +1446,9 @@ class A2Billing {
 		
         if (!$call_did_free) {
 			
-            if ($this->typepaid==0) {
+            if ($this->typepaid == 0) {
                 if ($this->credit < $this->agiconfig['min_credit_2call']) {
-                	$time2call =0;
+                	$time2call = 0;
                 } else {
 					$credit_without_charge = $this->credit - abs($connection_charge);
 					if ($credit_without_charge>0 && $selling_rate!=0 ) {
@@ -1617,6 +1624,15 @@ class A2Billing {
                         $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
                         $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - UPDATE CARD: SQL: $QUERY]:[result:$result]");
                     }
+                    
+                    # TODO
+                    # Check if we add a new CDR for A-Leg
+                    if (($aleg_carrier_connect_charge != 0) || ($aleg_carrier_cost_min != 0) || ($aleg_retail_connect_charge != 0) || ($aleg_retail_cost_min != 0)){
+                        # TODO 
+                        # duration of the call for the A-Leg is since the start date
+                        
+                    }
+                    
                     
                     // CC_DID & CC_DID_DESTINATION - cc_did.id, cc_did_destination.id
                     $QUERY = "UPDATE cc_did SET secondusedreal = secondusedreal + $answeredtime WHERE id='".$inst_listdestination[0]."'";

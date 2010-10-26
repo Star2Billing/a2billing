@@ -34,6 +34,13 @@
 ALTER TABLE cc_did_destination ADD COLUMN validated integer DEFAULT 0;
 UPDATE cc_did_destination SET validated=1;
 
+
+ALTER TABLE cc_did ADD aleg_carrier_connect_charge DECIMAL( 15, 5 ) NOT NULL DEFAULT '0';
+ALTER TABLE cc_did ADD aleg_carrier_cost_min DECIMAL( 15, 5 ) NOT NULL DEFAULT '0';
+ALTER TABLE cc_did ADD aleg_retail_connect_charge DECIMAL( 15, 5 ) NOT NULL DEFAULT '0';
+ALTER TABLE cc_did ADD aleg_retail_cost_min DECIMAL( 15, 5 ) NOT NULL DEFAULT '0';
+
+
 UPDATE cc_version SET version = '1.8.2';
 
 

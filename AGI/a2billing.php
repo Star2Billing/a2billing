@@ -34,7 +34,7 @@
 
 declare(ticks = 1);
 if (function_exists('pcntl_signal')) {
-	pcntl_signal(SIGHUP,  SIG_IGN);
+	pcntl_signal(SIGHUP, SIG_IGN);
 }
 
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
@@ -591,11 +591,12 @@ if ($mode == 'standard') {
 					
                     $A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[ CALL OF THE SYSTEM - [DID=".$A2B-> destination."]");
 					
-                    $QUERY =  "SELECT cc_did.id, cc_did_destination.id, billingtype, tariff, destination,  voip_call, username, useralias, connection_charge, selling_rate, did".
-                            " FROM cc_did, cc_did_destination,  cc_card ".
+                    $QUERY = "SELECT cc_did.id, cc_did_destination.id, billingtype, tariff, destination, voip_call, username, useralias, connection_charge, selling_rate, did, ".
+                            " aleg_carrier_connect_charge, aleg_carrier_cost_min, aleg_retail_connect_charge, aleg_retail_cost_min ".
+                            " FROM cc_did, cc_did_destination, cc_card ".
                             " WHERE id_cc_did=cc_did.id AND cc_card.status=1 AND cc_card.id=id_cc_card and cc_did_destination.activated=1 AND cc_did.activated=1 AND did='".$A2B-> destination."' ".
-                            " AND cc_did.startingdate<= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL ".
-                            " AND cc_did_destination.validated=1 ";
+                            " AND cc_did.startingdate <= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL ".
+                            " AND cc_did_destination.validated = 1 ";
                     if ($A2B->config["database"]['dbtype'] == "mysql") {
                         $QUERY .= " OR cc_did.expirationdate = '0000-00-00 00:00:00'";
                     }
