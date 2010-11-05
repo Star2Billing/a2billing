@@ -97,9 +97,9 @@ $yesno["1"]  = array( "Yes", "1");
 $yesno["0"]  = array( "No", "0");
 
 // 0 = NORMAL CALL ; 1 = VOIP CALL (SIP/IAX) ; 2= DIDCALL + TRUNK ; 3 = VOIP CALL DID ; 4 = CALLBACK call
-$list_calltype = array(); 	$list_calltype["0"]  = array( "STANDARD", "0");	 $list_calltype["1"]  = array( "SIP/IAX", "1");
-$list_calltype["2"]  = array( "DIDCALL", "2"); $list_calltype["3"]  = array( "DID_VOIP", "3"); $list_calltype["4"]  = array( "CALLBACK", "4");
-$list_calltype["5"]  = array( "PREDICT", "5");
+$list_calltype = array(); 	$list_calltype["0"]  = array( gettext("STANDARD"), "0");	 $list_calltype["1"]  = array( gettext("SIP/IAX"), "1");
+$list_calltype["2"]  = array( gettext("DIDCALL"), "2"); $list_calltype["3"]  = array( gettext("DID_VOIP"), "3"); $list_calltype["4"]  = array( gettext("CALLBACK"), "4");
+$list_calltype["5"]  = array( gettext("PREDICT"), "5");
 
 
 $DBHandle  = DbConnect();
