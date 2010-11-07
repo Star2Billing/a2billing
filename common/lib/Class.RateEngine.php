@@ -1249,7 +1249,8 @@ class RateEngine
 			$outcid = 0;
 			if (is_array($cidresult) && count($cidresult)>0) {
 				$outcid = $cidresult[0][0];
-				$A2B -> CallerID = $outcid;
+				# Uncomment this line if you want to save the outbound_cid in the CDR
+				//$A2B -> CallerID = $outcid;
 				$agi -> set_callerid($outcid);
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[EXEC SetCallerID : $outcid]");
 			}
