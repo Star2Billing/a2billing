@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Agent UI : 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-22 11:18+0200\n"
+"POT-Creation-Date: 2010-11-07 13:09+0100\n"
 "PO-Revision-Date: 2010-07-29 17:48+0200\n"
 "Last-Translator: Polihronis Porfiris <pporfiris@hotmail.com>\n"
 "Language-Team: Polihronis Porfiris <pporfiris@hotmai.com>\n"
@@ -809,7 +809,7 @@ msgstr "Επιλέξτε μια κρότα τιμών"
 msgid "Create a new "
 msgstr "Δημιουργήστε ένα νέο "
 
-#: lib/Misc.php:515 lib/Class.Notification.php:138
+#: lib/Misc.php:515 lib/Class.Notification.php:140
 msgid "UNKNOWN"
 msgstr "ΑΓΝΩΣΤΟ"
 
@@ -1119,15 +1119,15 @@ msgstr "LCD : Τιμή πωλητή"
 msgid "NONE"
 msgstr "ΚΑΜΙΑ"
 
-#: lib/interface/constants.php:268 lib/Class.Notification.php:107
+#: lib/interface/constants.php:268 lib/Class.Notification.php:109
 msgid "LOW"
 msgstr "ΧΑΜΗΛΗ"
 
-#: lib/interface/constants.php:269 lib/Class.Notification.php:104
+#: lib/interface/constants.php:269 lib/Class.Notification.php:106
 msgid "MEDIUM"
 msgstr "ΜΕΣΑΙΑ"
 
-#: lib/interface/constants.php:270 lib/Class.Notification.php:102
+#: lib/interface/constants.php:270 lib/Class.Notification.php:104
 msgid "HIGH"
 msgstr "ΥΨΗΛΗ"
 
@@ -1320,60 +1320,65 @@ msgstr "ΧΩΡΙΣ ΕΚΠΤΩΣΗ"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Εχει οριστεί λανθασμένο μήκος κάρτας στις ρυθμίσεις"
 
-#: lib/Class.A2Billing.php:3150
+#: lib/Class.A2Billing.php:3169
 msgid "Error : Authentication Failed !!!"
 msgstr "Σφάλμα : Αποτυχία αυθεντικοποιησης !!!"
 
-#: lib/Class.A2Billing.php:3190
+#: lib/Class.A2Billing.php:3209
 msgid "Error : Not enough credit to call !!!"
 msgstr "Σφάλμα : Δεν υπάρχουν αρκετές μονάδες για να καλέσετε !!!"
 
-#: lib/Class.A2Billing.php:3196
+#: lib/Class.A2Billing.php:3215
 msgid "Error : Card is not active!!!"
 msgstr "Σφάλμα : Η κάρτα δεν έχει ενεργοποιηθεί !!!"
 
-#: lib/Class.A2Billing.php:3202
+#: lib/Class.A2Billing.php:3221
 msgid "Error : Card is actually in use!!!"
 msgstr "Σφάλμα : Η κάρτα είναι σε χρήση !!!"
 
-#: lib/Class.A2Billing.php:3211 lib/Class.A2Billing.php:3219
-#: lib/Class.A2Billing.php:3227
+#: lib/Class.A2Billing.php:3230 lib/Class.A2Billing.php:3238
+#: lib/Class.A2Billing.php:3246
 msgid "Error : Card have expired!!!"
 msgstr "Σφάλμα : Η κάρτα έχει λήξη !!!"
 
-#: lib/Class.Notification.php:76
+#: lib/Class.Notification.php:77
 msgid "New SIP & IAX added : Friends conf have to be generated"
 msgstr "Προστέθηκαν νέα SIP & IAX : Πρέπει να δημιουργηθούν η ρυθμίσεις φίλων."
 
-#: lib/Class.Notification.php:77
+#: lib/Class.Notification.php:78
 msgid "New SIP added : Sip Friends conf have to be generated"
 msgstr "Προστέθηκε νέο SIP : Πρέπει να δημιουργηθεί η ρυθμίσεις φίλων SIP."
 
-#: lib/Class.Notification.php:78
+#: lib/Class.Notification.php:79
 msgid "New IAX added : IAX Friends conf have to be generated"
 msgstr "Προστέθηκε νέο IAX : Πρέπει να δημιουργηθεί η ρυθμίσεις φίλων IAX."
 
-#: lib/Class.Notification.php:79
+#: lib/Class.Notification.php:80
 msgid "New Ticket added by agent"
 msgstr "Προστέθηκε νέο ερώτημα από εκπρόσωπο."
 
-#: lib/Class.Notification.php:80
+#: lib/Class.Notification.php:81
 msgid "New Ticket added by customer"
 msgstr "Προστέθηκε νέο ερώτημα από πελάτη."
 
-#: lib/Class.Notification.php:81
+#: lib/Class.Notification.php:82
+#, fuzzy
+msgid "DID Destination edited by customer"
+msgstr "Προστέθηκε νέο ερώτημα από πελάτη."
+
+#: lib/Class.Notification.php:83
 msgid "New Remittance request added"
 msgstr "Προστέθηκε νέο αίτημα εμβάσματος"
 
-#: lib/Class.Notification.php:82
+#: lib/Class.Notification.php:84
 msgid "Added new sign-up"
 msgstr "Προστέθηκε νέο αίτημα έγγραφης."
 
-#: lib/Class.Notification.php:134
+#: lib/Class.Notification.php:136
 msgid "BATCH"
 msgstr "ΟΜΑΔΙΚΗ"
 
-#: lib/Class.Notification.php:136
+#: lib/Class.Notification.php:138
 msgid "SOAP-SERVER"
 msgstr "ΔΙΑΚΟΜΗΣΤΗΣ - SOAP"
 
@@ -1546,6 +1551,39 @@ msgstr "ΠΩΛΗΣΗ"
 #: Public/call-log-customers.php:57
 msgid "ERROR: Cannot download file "
 msgstr "Σφάλμα : Αδυναμία κατεβάσματος του αρχείου "
+
+#: Public/call-log-customers.php:98
+#, fuzzy
+msgid "STANDARD"
+msgstr "ΜΕΤΑΠΛΗΡΩΜΕΝΗ ΚΑΡΤΑ"
+
+#: Public/call-log-customers.php:99
+#, fuzzy
+msgid "SIP/IAX"
+msgstr "SIP"
+
+#: Public/call-log-customers.php:100
+#, fuzzy
+msgid "DIDCALL"
+msgstr "ΜΗΝ ΞΑΝΑΠΑΡΕΙΣ"
+
+#: Public/call-log-customers.php:101
+#, fuzzy
+msgid "DID_VOIP"
+msgstr "VOIP"
+
+#: Public/call-log-customers.php:102 Public/A2B_card_info.php:187
+msgid "CALLBACK"
+msgstr "ΕΠΑΝΑΚΛΗΣΗ"
+
+#: Public/call-log-customers.php:103
+#, fuzzy
+msgid "PREDICT"
+msgstr "ΜΟΝΑΔΕΣ"
+
+#: Public/call-log-customers.php:104
+msgid "AUTO DIALER"
+msgstr ""
 
 #: Public/call-log-customers.php:113 Public/card-history.php:75
 msgid "Date"
@@ -3923,10 +3961,6 @@ msgstr "ΗΜΕΡΟΜΗΝΙΑ ΛΗΞΗΣ"
 #: Public/A2B_card_info.php:179
 msgid "LAST USE DATE"
 msgstr "ΗΜΕΡΟΜΗΝΙΑ ΤΕΛΕΥΤΑΙΑΣ ΧΡΗΣΗΣ"
-
-#: Public/A2B_card_info.php:187
-msgid "CALLBACK"
-msgstr "ΕΠΑΝΑΚΛΗΣΗ"
 
 #: Public/A2B_card_info.php:198
 msgid "UNLOCK"

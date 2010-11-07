@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-22 11:18+0200\n"
+"POT-Creation-Date: 2010-11-07 13:09+0100\n"
 "PO-Revision-Date: 2010-01-28 19:09+0300\n"
 "Last-Translator: Taras Remez <taras.remez@telix.com.ua>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -258,7 +258,7 @@ msgstr "Симулятор нашел цену для указанного на�
 msgid "We found several destinations:"
 msgstr "Найдено несколько направлений"
 
-#: simulator.php:209 form_data/FG_var_did.inc:64 form_data/FG_var_did.inc:94
+#: simulator.php:209 form_data/FG_var_did.inc:67 form_data/FG_var_did.inc:122
 #: form_data/FG_var_ratecard.inc:56
 msgid "DESTINATION"
 msgstr "НАПРАВЛЕНИЕ"
@@ -307,18 +307,18 @@ msgid "NONE"
 msgstr "НЕТ"
 
 #: A2B_support.php:151 lib/interface/constants.php:268
-#: lib/Class.Notification.php:107
+#: lib/Class.Notification.php:109
 msgid "LOW"
 msgstr "НИЗКИЙ"
 
 #: A2B_support.php:152 lib/interface/constants.php:269
-#: lib/Class.Notification.php:104
+#: lib/Class.Notification.php:106
 #, fuzzy
 msgid "MEDIUM"
 msgstr "РЕДАКТИРОВАТЬ"
 
 #: A2B_support.php:153 lib/interface/constants.php:270
-#: lib/Class.Notification.php:102
+#: lib/Class.Notification.php:104
 msgid "HIGH"
 msgstr "ВЫСОКИЙ"
 
@@ -341,69 +341,82 @@ msgstr "СОЗДАН!"
 msgid "Refill ONLINE"
 msgstr ""
 
-#: form_data/FG_var_did.inc:62 lib/interface/constants.php:89
+#: form_data/FG_var_did.inc:60 lib/interface/constants.php:89
 #, fuzzy
 msgid "Active"
 msgstr "Date"
 
-#: form_data/FG_var_did.inc:62 lib/interface/constants.php:88
+#: form_data/FG_var_did.inc:61 lib/interface/constants.php:88
 #, fuzzy
 msgid "Inactive"
 msgstr "Date"
 
-#: form_data/FG_var_did.inc:65 templates/default/main.tpl:62
+#: form_data/FG_var_did.inc:64
+msgid "Pending"
+msgstr ""
+
+#: form_data/FG_var_did.inc:65
+msgid "Validated"
+msgstr ""
+
+#: form_data/FG_var_did.inc:68 templates/default/main.tpl:62
 msgid "DID"
 msgstr "DID"
 
-#: form_data/FG_var_did.inc:66 form_data/FG_var_did.inc:103
+#: form_data/FG_var_did.inc:69 form_data/FG_var_did.inc:132
 #: form_data/FG_var_callerid.inc:49 form_data/FG_var_callerid.inc:91
 #: lib/interface/constants.php:342 lib/interface/constants.php:367
 msgid "ACTIVATED"
 msgstr "АКТИВИРОВАН"
 
-#: form_data/FG_var_did.inc:67 form_data/FG_var_did.inc:112
+#: form_data/FG_var_did.inc:70 form_data/FG_var_did.inc:141
 #: form_data/FG_var_ticket.inc:58
 msgid "PRIORITY"
 msgstr "ПРИОРИТЕТ"
 
-#: form_data/FG_var_did.inc:68
+#: form_data/FG_var_did.inc:71
 msgid "USED MINUTE"
 msgstr "USED MINUTE"
 
-#: form_data/FG_var_did.inc:69 form_data/FG_var_signup.inc:229
+#: form_data/FG_var_did.inc:72 form_data/FG_var_signup.inc:229
 #: form_data/FG_var_card.inc:102 userinfo.php:116
 msgid "COUNTRY"
 msgstr "СТРАНА"
 
-#: form_data/FG_var_did.inc:85
+#: form_data/FG_var_did.inc:73
+#, fuzzy
+msgid "VALIDATED"
+msgstr "АКТИВИРОВАН"
+
+#: form_data/FG_var_did.inc:111
 msgid "There are no destinations created"
 msgstr "Не создано ни одного направления"
 
-#: form_data/FG_var_did.inc:101
+#: form_data/FG_var_did.inc:129
 #, fuzzy
 msgid "Enter here the phonenumber you want to call or the SIP/IAX/H323 peer to reach (ie: 347894999 or SIP/jeremy@182.212.1.45). To call SIP/IAX/H323 peer, you need to enable the voip_call bellow (voip_call = Yes) "
 msgstr "Введите здесь номер по которому хотите позвонить или SIP/IAX/H323 пользователя (напримет: 347894999 or SIP/jeremy@182.212.1.45). Чтобы позвонить SIP/IAX/H323 пользователю, нужно включить the voip_call  (voip_call = Yes)"
 
-#: form_data/FG_var_did.inc:109 form_data/FG_var_callerid.inc:97
+#: form_data/FG_var_did.inc:138 form_data/FG_var_callerid.inc:97
 msgid "Choose if you want to activate this card"
 msgstr "Выберите, если хотите активировать эту карту"
 
-#: form_data/FG_var_did.inc:122
+#: form_data/FG_var_did.inc:151
 msgid "VOIP_CALL"
 msgstr "VOIP звонок"
 
-#: form_data/FG_var_did.inc:128
+#: form_data/FG_var_did.inc:157
 msgid "Choose if you want to not use the trunk and let the asterisk call directly the destination (ie, Destination : SIP/jeremy@182.212.1.45)"
 msgstr "Выберите, если выхотите использовать транк и позволить системе звонить напряму (Например SIP/taras@182.212.1.42)"
 
-#: form_data/FG_var_did.inc:137 form_data/FG_var_campaign.inc:295
+#: form_data/FG_var_did.inc:169 form_data/FG_var_campaign.inc:295
 #: form_data/FG_var_speeddial.inc:118 form_data/FG_var_phonebook.inc:109
 #: form_data/FG_var_ticket.inc:80 form_data/FG_var_phonenumber.inc:144
 #: form_data/FG_var_callerid.inc:116 lib/Form/Class.FormHandler.inc.php:554
 msgid "If you really want remove this"
 msgstr "Если действительно хотите удалить"
 
-#: form_data/FG_var_did.inc:137 form_data/FG_var_campaign.inc:295
+#: form_data/FG_var_did.inc:169 form_data/FG_var_campaign.inc:295
 #: form_data/FG_var_speeddial.inc:118 form_data/FG_var_phonebook.inc:109
 #: form_data/FG_var_ticket.inc:80 form_data/FG_var_phonenumber.inc:144
 #: form_data/FG_var_callerid.inc:116
@@ -411,21 +424,21 @@ msgstr "Если действительно хотите удалить"
 msgid "click on the delete button."
 msgstr "Click on Add button"
 
-#: form_data/FG_var_did.inc:138 form_data/FG_var_campaign.inc:296
+#: form_data/FG_var_did.inc:170 form_data/FG_var_campaign.inc:296
 #: form_data/FG_var_speeddial.inc:119 form_data/FG_var_phonebook.inc:110
 #: form_data/FG_var_ticket.inc:81 form_data/FG_var_phonenumber.inc:145
 #: form_data/FG_var_callerid.inc:117 lib/Form/Class.FormHandler.inc.php:557
 msgid "you can add easily a new"
 msgstr "вы можете легко добавить"
 
-#: form_data/FG_var_did.inc:138 form_data/FG_var_campaign.inc:296
+#: form_data/FG_var_did.inc:170 form_data/FG_var_campaign.inc:296
 #: form_data/FG_var_speeddial.inc:119 form_data/FG_var_phonebook.inc:110
 #: form_data/FG_var_ticket.inc:81 form_data/FG_var_phonenumber.inc:145
 #: form_data/FG_var_callerid.inc:117 lib/Form/Class.FormHandler.inc.php:557
 msgid "Fill the following fields and confirm by clicking on the button add."
 msgstr "Заполните поля, и поддвердите нажава кнопку Добавить"
 
-#: form_data/FG_var_did.inc:142 form_data/FG_var_campaign.inc:300
+#: form_data/FG_var_did.inc:174 form_data/FG_var_campaign.inc:300
 #: form_data/FG_var_speeddial.inc:124 form_data/FG_var_phonebook.inc:114
 #: form_data/FG_var_ticket.inc:85 form_data/FG_var_callerid.inc:123
 #: lib/Form/Class.FormHandler.inc.php:559
@@ -433,14 +446,14 @@ msgstr "Заполните поля, и поддвердите нажава кн
 msgid "Your new"
 msgstr "Новый"
 
-#: form_data/FG_var_did.inc:142 form_data/FG_var_campaign.inc:300
+#: form_data/FG_var_did.inc:174 form_data/FG_var_campaign.inc:300
 #: form_data/FG_var_speeddial.inc:124 form_data/FG_var_phonebook.inc:114
 #: form_data/FG_var_ticket.inc:85 form_data/FG_var_callerid.inc:123
 #, fuzzy
 msgid "has been inserted."
 msgstr "зарегистрирован"
 
-#: form_data/FG_var_did.inc:146
+#: form_data/FG_var_did.inc:178
 msgid "Setup those values to create or edit the "
 msgstr ""
 
@@ -1959,7 +1972,7 @@ msgstr "Выбирите тарифный план"
 msgid "Create a new "
 msgstr "Создать"
 
-#: lib/Misc.php:515 lib/Class.Notification.php:138
+#: lib/Misc.php:515 lib/Class.Notification.php:140
 msgid "UNKNOWN"
 msgstr "НЕИЗВЕСТНО"
 
@@ -1967,12 +1980,12 @@ msgstr "НЕИЗВЕСТНО"
 msgid "First"
 msgstr "Первый"
 
-#: lib/Misc.php:715 A2B_entity_did.php:448
+#: lib/Misc.php:715 A2B_entity_did.php:459
 #, fuzzy
 msgid "Prev"
 msgstr "Назад"
 
-#: lib/Misc.php:716 A2B_entity_did.php:418
+#: lib/Misc.php:716 A2B_entity_did.php:429
 msgid "Next"
 msgstr "Дальше"
 
@@ -2082,7 +2095,7 @@ msgstr "АГЕНТЫ"
 msgid "CUSTOMERS AND AGENTS"
 msgstr "КЛИЕНТЫ И АГЕНТЫ"
 
-#: lib/interface/constants.php:63 A2B_entity_did.php:402
+#: lib/interface/constants.php:63 A2B_entity_did.php:413
 msgid "Yes"
 msgstr "Да"
 
@@ -2440,63 +2453,68 @@ msgstr "У ВАС НЕТ IAX АККАУНТА"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Неверная длина номера карты указана в конфигурации"
 
-#: lib/Class.A2Billing.php:3150
+#: lib/Class.A2Billing.php:3169
 msgid "Error : Authentication Failed !!!"
 msgstr "Ошибка: Проблема авторизации !!!"
 
-#: lib/Class.A2Billing.php:3190
+#: lib/Class.A2Billing.php:3209
 msgid "Error : Not enough credit to call !!!"
 msgstr "Ошибка: Недостаточно средства для осуществления звонка!!!"
 
-#: lib/Class.A2Billing.php:3196
+#: lib/Class.A2Billing.php:3215
 #, fuzzy
 msgid "Error : Card is not active!!!"
 msgstr "Неправильная карта"
 
-#: lib/Class.A2Billing.php:3202
+#: lib/Class.A2Billing.php:3221
 msgid "Error : Card is actually in use!!!"
 msgstr "Ошибка: Карта уже используется !!!"
 
-#: lib/Class.A2Billing.php:3211 lib/Class.A2Billing.php:3219
-#: lib/Class.A2Billing.php:3227
+#: lib/Class.A2Billing.php:3230 lib/Class.A2Billing.php:3238
+#: lib/Class.A2Billing.php:3246
 #, fuzzy
 msgid "Error : Card have expired!!!"
 msgstr "Неправильная карта"
 
-#: lib/Class.Notification.php:76
+#: lib/Class.Notification.php:77
 msgid "New SIP & IAX added : Friends conf have to be generated"
 msgstr "Новые SIP и IAX записи добавлены."
 
-#: lib/Class.Notification.php:77
+#: lib/Class.Notification.php:78
 msgid "New SIP added : Sip Friends conf have to be generated"
 msgstr "Новая SIP запись добавлены."
 
-#: lib/Class.Notification.php:78
+#: lib/Class.Notification.php:79
 msgid "New IAX added : IAX Friends conf have to be generated"
 msgstr "Новае IAX запись добавлены."
 
-#: lib/Class.Notification.php:79
+#: lib/Class.Notification.php:80
 msgid "New Ticket added by agent"
 msgstr "Новый тикет добавлен агентом"
 
-#: lib/Class.Notification.php:80
+#: lib/Class.Notification.php:81
 msgid "New Ticket added by customer"
 msgstr "Новый тикет добавлен клиентом"
 
-#: lib/Class.Notification.php:81
+#: lib/Class.Notification.php:82
+#, fuzzy
+msgid "DID Destination edited by customer"
+msgstr "Новый тикет добавлен клиентом"
+
+#: lib/Class.Notification.php:83
 msgid "New Remittance request added"
 msgstr ""
 
-#: lib/Class.Notification.php:82
+#: lib/Class.Notification.php:84
 msgid "Added new sign-up"
 msgstr ""
 
-#: lib/Class.Notification.php:134
+#: lib/Class.Notification.php:136
 #, fuzzy
 msgid "BATCH"
 msgstr "МАРТ"
 
-#: lib/Class.Notification.php:136
+#: lib/Class.Notification.php:138
 msgid "SOAP-SERVER"
 msgstr ""
 
@@ -3126,7 +3144,7 @@ msgstr "Введите здесь номер для быстрого набор�
 msgid "Speed Dial code"
 msgstr "Код быстрого набора"
 
-#: A2B_entity_speeddial.php:109 call-history.php:127 A2B_entity_did.php:404
+#: A2B_entity_speeddial.php:109 call-history.php:127 A2B_entity_did.php:415
 msgid "Destination"
 msgstr "Номер телефона"
 
@@ -3293,6 +3311,34 @@ msgstr "Удаление"
 #: call-history.php:58
 msgid "ERROR: Cannot download file "
 msgstr ""
+
+#: call-history.php:114
+#, fuzzy
+msgid "STANDARD"
+msgstr "КАРТА С КРЕДИТНОЙ ЛИНИЕЙ"
+
+#: call-history.php:114
+#, fuzzy
+msgid "SIP/IAX"
+msgstr "Параметры SIP/IAX"
+
+#: call-history.php:115
+#, fuzzy
+msgid "DIDCALL"
+msgstr "ЗВОНОК"
+
+#: call-history.php:115
+msgid "DID_VOIP"
+msgstr ""
+
+#: call-history.php:115 templates/default/main.tpl:78
+msgid "CALLBACK"
+msgstr "ОБРАТНЫЙ ЗВОНОК"
+
+#: call-history.php:116
+#, fuzzy
+msgid "PREDICT"
+msgstr "КРЕДИТ"
 
 #: call-history.php:126
 msgid "PhoneNumber"
@@ -3497,10 +3543,6 @@ msgstr "БЫСТРЫЙ НАБОР"
 msgid "SIMULATOR"
 msgstr "СИМУЛЯТОР"
 
-#: templates/default/main.tpl:78
-msgid "CALLBACK"
-msgstr "ОБРАТНЫЙ ЗВОНОК"
-
 #: templates/default/main.tpl:82
 msgid "ADD CALLER ID"
 msgstr "ДОБАВИТЬ CALLER ID"
@@ -3608,96 +3650,117 @@ msgstr "Следующий номер был освобожден"
 msgid "Error : Sending mail"
 msgstr "Ошибка: Проблема авторизации !!!"
 
-#: A2B_entity_did.php:127
+#: A2B_entity_did.php:126
 msgid "If you really want release this DID , Click on the release button."
 msgstr "Если вы действительно хотите освободить этот номер, нажмите на кнопку Освободить"
 
-#: A2B_entity_did.php:134
+#: A2B_entity_did.php:133
 #, fuzzy
 msgid "Release the DID "
 msgstr "Insert a new"
 
-#: A2B_entity_did.php:179
+#: A2B_entity_did.php:183
 msgid "The following Destinaton for your DID has been added:"
 msgstr "Следующее направление для номера было создано"
 
-#: A2B_entity_did.php:356
+#: A2B_entity_did.php:360
 msgid "Buy New DID"
 msgstr "Купить DID"
 
-#: A2B_entity_did.php:356
+#: A2B_entity_did.php:360
 msgid "Add Phone Number to your DID"
 msgstr "Добавить номер телефона к DID"
 
-#: A2B_entity_did.php:356
+#: A2B_entity_did.php:360
 msgid "Release DID"
 msgstr "Освободить НОМЕР"
 
-#: A2B_entity_did.php:372
+#: A2B_entity_did.php:376
 msgid "Select Country"
 msgstr "Выбирите Страну"
 
-#: A2B_entity_did.php:386
+#: A2B_entity_did.php:390
 #, fuzzy
 msgid "Select Virtual Phone Number"
 msgstr "Выбирите Виртуальный Номер Телефона"
 
-#: A2B_entity_did.php:402
+#: A2B_entity_did.php:395
+#, fuzzy
+msgid "Monthly:"
+msgstr "Ежемесячно"
+
+#: A2B_entity_did.php:396
+msgid "B-Leg Connect:"
+msgstr ""
+
+#: A2B_entity_did.php:397
+msgid "B-Leg Rate:"
+msgstr ""
+
+#: A2B_entity_did.php:398
+msgid "A-Leg Connect:"
+msgstr ""
+
+#: A2B_entity_did.php:399
+msgid "A-Leg Rate:"
+msgstr ""
+
+#: A2B_entity_did.php:413
 msgid "VOIP CALL : "
 msgstr "VOIP ЗВОНОК : "
 
-#: A2B_entity_did.php:402
+#: A2B_entity_did.php:413
 msgid "NO"
 msgstr "НЕТ"
 
-#: A2B_entity_did.php:407
+#: A2B_entity_did.php:418
 #, fuzzy
 msgid "Enter the phone number you wish to call, or the SIP/IAX client to reach  (ie: 347894999 or SIP/jeremy@182.212.1.45). In order to call a VoIP number, you will need to enable voip_call"
 msgstr "Введите здесь номер по которому хотите позвонить или SIP/IAX/H323 пользователя (напримет: 347894999 or SIP/jeremy@182.212.1.45). Чтобы позвонить SIP/IAX/H323 пользователю, нужно включить the voip_call  (voip_call = Yes)"
 
-#: A2B_entity_did.php:411
+#: A2B_entity_did.php:422
 msgid "If you release the did you will not be monthly charged any more."
 msgstr "Если вы освободите номер, с вас больше не будут списываться средства за него"
 
-#: A2B_entity_did.php:420
+#: A2B_entity_did.php:431
 #, fuzzy
 msgid "Add phone number"
 msgstr "Your PhoneNumber / Location"
 
-#: A2B_entity_did.php:422 A2B_entity_did.php:451 A2B_entity_did.php:474
+#: A2B_entity_did.php:433 A2B_entity_did.php:462 A2B_entity_did.php:485
 msgid "Ok"
 msgstr ""
 
-#: A2B_entity_did.php:438
+#: A2B_entity_did.php:449
 msgid "Confirm the purchase of the DID "
 msgstr "Подтвердите покупку НОМЕРА"
 
-#: A2B_entity_did.php:443
+#: A2B_entity_did.php:454
 msgid "A monthly fee of "
 msgstr "Месячная оплата"
 
-#: A2B_entity_did.php:443
+#: A2B_entity_did.php:454
 #, fuzzy
 msgid " will be carried out from your acount"
 msgstr "на ваш счет!"
 
-#: A2B_entity_did.php:462
+#: A2B_entity_did.php:473
 msgid "The purchase of the DID is done "
 msgstr "Покупка номера осуществлена"
 
-#: A2B_entity_did.php:463
+#: A2B_entity_did.php:474
 msgid "The purchase of the DID cannot be done, the VoIP destination have to be a proper URI"
 msgstr "Покупка номера не может быть осуществлена, VoIP направление должно быть в нужном виде"
 
-#: A2B_entity_did.php:464
+#: A2B_entity_did.php:475
 msgid "The purchase of the DID cannot be done, your credit of  "
 msgstr "Покупка номера не может быть осуществлена, ваш кредит"
 
-#: A2B_entity_did.php:464
+#: A2B_entity_did.php:475
 msgid " is lower than Fixerate of the DID  "
 msgstr "ниже чем абонплата за номер"
 
-#: A2B_entity_did.php:464
+#: A2B_entity_did.php:475
 #, fuzzy
 msgid "Please reload your account "
 msgstr "на ваш счет!"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Agent : 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-22 11:18+0200\n"
+"POT-Creation-Date: 2010-11-07 13:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -806,7 +806,7 @@ msgstr ""
 msgid "Create a new "
 msgstr ""
 
-#: lib/Misc.php:515 lib/Class.Notification.php:138
+#: lib/Misc.php:515 lib/Class.Notification.php:140
 msgid "UNKNOWN"
 msgstr ""
 
@@ -1116,15 +1116,15 @@ msgstr ""
 msgid "NONE"
 msgstr ""
 
-#: lib/interface/constants.php:268 lib/Class.Notification.php:107
+#: lib/interface/constants.php:268 lib/Class.Notification.php:109
 msgid "LOW"
 msgstr ""
 
-#: lib/interface/constants.php:269 lib/Class.Notification.php:104
+#: lib/interface/constants.php:269 lib/Class.Notification.php:106
 msgid "MEDIUM"
 msgstr ""
 
-#: lib/interface/constants.php:270 lib/Class.Notification.php:102
+#: lib/interface/constants.php:270 lib/Class.Notification.php:104
 msgid "HIGH"
 msgstr ""
 
@@ -1317,60 +1317,64 @@ msgstr ""
 msgid "Invalid card number lenght defined in configuration."
 msgstr ""
 
-#: lib/Class.A2Billing.php:3150
+#: lib/Class.A2Billing.php:3169
 msgid "Error : Authentication Failed !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3190
+#: lib/Class.A2Billing.php:3209
 msgid "Error : Not enough credit to call !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3196
+#: lib/Class.A2Billing.php:3215
 msgid "Error : Card is not active!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3202
+#: lib/Class.A2Billing.php:3221
 msgid "Error : Card is actually in use!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3211 lib/Class.A2Billing.php:3219
-#: lib/Class.A2Billing.php:3227
+#: lib/Class.A2Billing.php:3230 lib/Class.A2Billing.php:3238
+#: lib/Class.A2Billing.php:3246
 msgid "Error : Card have expired!!!"
 msgstr ""
 
-#: lib/Class.Notification.php:76
+#: lib/Class.Notification.php:77
 msgid "New SIP & IAX added : Friends conf have to be generated"
 msgstr ""
 
-#: lib/Class.Notification.php:77
+#: lib/Class.Notification.php:78
 msgid "New SIP added : Sip Friends conf have to be generated"
 msgstr ""
 
-#: lib/Class.Notification.php:78
+#: lib/Class.Notification.php:79
 msgid "New IAX added : IAX Friends conf have to be generated"
 msgstr ""
 
-#: lib/Class.Notification.php:79
+#: lib/Class.Notification.php:80
 msgid "New Ticket added by agent"
 msgstr ""
 
-#: lib/Class.Notification.php:80
+#: lib/Class.Notification.php:81
 msgid "New Ticket added by customer"
 msgstr ""
 
-#: lib/Class.Notification.php:81
+#: lib/Class.Notification.php:82
+msgid "DID Destination edited by customer"
+msgstr ""
+
+#: lib/Class.Notification.php:83
 msgid "New Remittance request added"
 msgstr ""
 
-#: lib/Class.Notification.php:82
+#: lib/Class.Notification.php:84
 msgid "Added new sign-up"
 msgstr ""
 
-#: lib/Class.Notification.php:134
+#: lib/Class.Notification.php:136
 msgid "BATCH"
 msgstr ""
 
-#: lib/Class.Notification.php:136
+#: lib/Class.Notification.php:138
 msgid "SOAP-SERVER"
 msgstr ""
 
@@ -1542,6 +1546,34 @@ msgstr ""
 
 #: Public/call-log-customers.php:57
 msgid "ERROR: Cannot download file "
+msgstr ""
+
+#: Public/call-log-customers.php:98
+msgid "STANDARD"
+msgstr ""
+
+#: Public/call-log-customers.php:99
+msgid "SIP/IAX"
+msgstr ""
+
+#: Public/call-log-customers.php:100
+msgid "DIDCALL"
+msgstr ""
+
+#: Public/call-log-customers.php:101
+msgid "DID_VOIP"
+msgstr ""
+
+#: Public/call-log-customers.php:102 Public/A2B_card_info.php:187
+msgid "CALLBACK"
+msgstr ""
+
+#: Public/call-log-customers.php:103
+msgid "PREDICT"
+msgstr ""
+
+#: Public/call-log-customers.php:104
+msgid "AUTO DIALER"
 msgstr ""
 
 #: Public/call-log-customers.php:113 Public/card-history.php:75
@@ -3919,10 +3951,6 @@ msgstr ""
 
 #: Public/A2B_card_info.php:179
 msgid "LAST USE DATE"
-msgstr ""
-
-#: Public/A2B_card_info.php:187
-msgid "CALLBACK"
 msgstr ""
 
 #: Public/A2B_card_info.php:198

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Agent : 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-22 11:18+0200\n"
+"POT-Creation-Date: 2010-11-07 13:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -806,7 +806,7 @@ msgstr "Elegir Tarjeta de Tarifas"
 msgid "Create a new "
 msgstr "Creaer un nuevo"
 
-#: lib/Misc.php:515 lib/Class.Notification.php:138
+#: lib/Misc.php:515 lib/Class.Notification.php:140
 msgid "UNKNOWN"
 msgstr "DESCONOCIDO"
 
@@ -1118,15 +1118,15 @@ msgstr "LCD : Precio del vendedor"
 msgid "NONE"
 msgstr "NINGUNO"
 
-#: lib/interface/constants.php:268 lib/Class.Notification.php:107
+#: lib/interface/constants.php:268 lib/Class.Notification.php:109
 msgid "LOW"
 msgstr "BAJO"
 
-#: lib/interface/constants.php:269 lib/Class.Notification.php:104
+#: lib/interface/constants.php:269 lib/Class.Notification.php:106
 msgid "MEDIUM"
 msgstr "MEDIO"
 
-#: lib/interface/constants.php:270 lib/Class.Notification.php:102
+#: lib/interface/constants.php:270 lib/Class.Notification.php:104
 msgid "HIGH"
 msgstr "ALTO"
 
@@ -1328,61 +1328,66 @@ msgstr "NO DESCUENTO"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Numero de tarjeta no valido; Por la longitud definida en la configuracion "
 
-#: lib/Class.A2Billing.php:3150
+#: lib/Class.A2Billing.php:3169
 msgid "Error : Authentication Failed !!!"
 msgstr "Error : Autentificacion fallo! "
 
-#: lib/Class.A2Billing.php:3190
+#: lib/Class.A2Billing.php:3209
 msgid "Error : Not enough credit to call !!!"
 msgstr "Error : No hay suficiente credito para llamar! "
 
-#: lib/Class.A2Billing.php:3196
+#: lib/Class.A2Billing.php:3215
 msgid "Error : Card is not active!!!"
 msgstr "Error : Tarjeta no activa!"
 
-#: lib/Class.A2Billing.php:3202
+#: lib/Class.A2Billing.php:3221
 msgid "Error : Card is actually in use!!!"
 msgstr "Error : Tarjeta actualmente en uso!"
 
-#: lib/Class.A2Billing.php:3211 lib/Class.A2Billing.php:3219
-#: lib/Class.A2Billing.php:3227
+#: lib/Class.A2Billing.php:3230 lib/Class.A2Billing.php:3238
+#: lib/Class.A2Billing.php:3246
 msgid "Error : Card have expired!!!"
 msgstr "Error : Tarjeta expirada!"
 
-#: lib/Class.Notification.php:76
+#: lib/Class.Notification.php:77
 msgid "New SIP & IAX added : Friends conf have to be generated"
 msgstr "Nuevo SIP & IAX añadido : La confirguracion debe ser generada."
 
-#: lib/Class.Notification.php:77
+#: lib/Class.Notification.php:78
 msgid "New SIP added : Sip Friends conf have to be generated"
 msgstr "Nuevo SIP añadido : La confirguracion SIP debe ser generada."
 
-#: lib/Class.Notification.php:78
+#: lib/Class.Notification.php:79
 msgid "New IAX added : IAX Friends conf have to be generated"
 msgstr "Nuevo IAX añadido : La confirguracion IAX debe ser generada."
 
-#: lib/Class.Notification.php:79
+#: lib/Class.Notification.php:80
 msgid "New Ticket added by agent"
 msgstr "Nuevo tiquete añadido por el agente"
 
-#: lib/Class.Notification.php:80
+#: lib/Class.Notification.php:81
 msgid "New Ticket added by customer"
 msgstr "Nuevo tiquete añadido por el cliente"
 
-#: lib/Class.Notification.php:81
+#: lib/Class.Notification.php:82
+#, fuzzy
+msgid "DID Destination edited by customer"
+msgstr "Nuevo tiquete añadido por el cliente"
+
+#: lib/Class.Notification.php:83
 msgid "New Remittance request added"
 msgstr ""
 
-#: lib/Class.Notification.php:82
+#: lib/Class.Notification.php:84
 #, fuzzy
 msgid "Added new sign-up"
 msgstr "Añadir un URL de Registro Nuevo"
 
-#: lib/Class.Notification.php:134
+#: lib/Class.Notification.php:136
 msgid "BATCH"
 msgstr "LOTE"
 
-#: lib/Class.Notification.php:136
+#: lib/Class.Notification.php:138
 msgid "SOAP-SERVER"
 msgstr ""
 
@@ -1555,6 +1560,39 @@ msgstr "VENDER"
 #: Public/call-log-customers.php:57
 msgid "ERROR: Cannot download file "
 msgstr "ERROR: No se puede bajar el archivo"
+
+#: Public/call-log-customers.php:98
+#, fuzzy
+msgid "STANDARD"
+msgstr "TARJETA POS PAGO"
+
+#: Public/call-log-customers.php:99
+#, fuzzy
+msgid "SIP/IAX"
+msgstr "SIP"
+
+#: Public/call-log-customers.php:100
+#, fuzzy
+msgid "DIDCALL"
+msgstr "NOLLAMAR"
+
+#: Public/call-log-customers.php:101
+#, fuzzy
+msgid "DID_VOIP"
+msgstr "GRUPO DID"
+
+#: Public/call-log-customers.php:102 Public/A2B_card_info.php:187
+msgid "CALLBACK"
+msgstr "VOLVER A LLAMAR"
+
+#: Public/call-log-customers.php:103
+#, fuzzy
+msgid "PREDICT"
+msgstr "CREDITO"
+
+#: Public/call-log-customers.php:104
+msgid "AUTO DIALER"
+msgstr ""
 
 #: Public/call-log-customers.php:113 Public/card-history.php:75
 msgid "Date"
@@ -3978,10 +4016,6 @@ msgstr "FECHA DE EXPIRACION"
 #: Public/A2B_card_info.php:179
 msgid "LAST USE DATE"
 msgstr "FECHA DE ULTIMO USO"
-
-#: Public/A2B_card_info.php:187
-msgid "CALLBACK"
-msgstr "VOLVER A LLAMAR"
 
 #: Public/A2B_card_info.php:198
 #, fuzzy
