@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 13:09+0100\n"
+"POT-Creation-Date: 2010-11-08 23:59+0100\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -261,7 +261,7 @@ msgstr "&#34987;&#21483;&#30005;&#35805;&#21495;&#30721;"
 msgid "CallTime available"
 msgstr ""
 
-#: simulator.php:216 call-history.php:374
+#: simulator.php:216 call-history.php:380
 msgid "Minutes"
 msgstr "&#20998;"
 
@@ -455,8 +455,8 @@ msgid "REFERENCE"
 msgstr ""
 
 #: form_data/FG_var_invoice.inc:68 form_data/FG_var_receipt.inc:67
-#: form_data/FG_var_phonenumber.inc:64 call-history.php:253
-#: call-history.php:586
+#: form_data/FG_var_phonenumber.inc:64 call-history.php:259
+#: call-history.php:592
 msgid "DATE"
 msgstr "&#26085;&#26399;"
 
@@ -560,7 +560,7 @@ msgid "TIMEZONE"
 msgstr ""
 
 #: form_data/FG_var_signup.inc:268 form_data/FG_var_phonenumber.inc:61
-#: call-history.php:318
+#: call-history.php:324
 #, fuzzy
 msgid "PHONENUMBER"
 msgstr "&#21313;&#19968;&#26376;"
@@ -1185,7 +1185,7 @@ msgstr "&#28155;&#21152;&#24050;&#26377;&#30340;DID&#21495;&#30721;"
 msgid "Your new phone number has been inserted."
 msgstr "&#24050;&#21487;&#20351;&#29992;"
 
-#: form_data/FG_var_callerid.inc:39 call-history.php:125
+#: form_data/FG_var_callerid.inc:39 call-history.php:131
 #, fuzzy
 msgid "CallerID"
 msgstr "&#30005;&#35805;&#35760;&#24405;"
@@ -1494,7 +1494,7 @@ msgstr ""
 #: CC_entity_edit_did_destination.php:626
 #: CC_entity_edit_did_destination.php:944
 #: CC_entity_edit_did_destination.php:1066
-#: CC_entity_edit_did_destination.php:1208 call-history.php:519
+#: CC_entity_edit_did_destination.php:1208 call-history.php:525
 msgid "No data found !!!"
 msgstr "&#26080;&#35760;&#24405; !!!"
 
@@ -1648,19 +1648,19 @@ msgstr ""
 msgid "To :"
 msgstr ""
 
-#: lib/Form/Class.SearchHandler.inc.php:213 call-history.php:323
+#: lib/Form/Class.SearchHandler.inc.php:213 call-history.php:329
 msgid "Exact"
 msgstr "&#31934;&#30830;"
 
-#: lib/Form/Class.SearchHandler.inc.php:214 call-history.php:324
+#: lib/Form/Class.SearchHandler.inc.php:214 call-history.php:330
 msgid "Begins with"
 msgstr "&#24320;&#22987;"
 
-#: lib/Form/Class.SearchHandler.inc.php:215 call-history.php:325
+#: lib/Form/Class.SearchHandler.inc.php:215 call-history.php:331
 msgid "Contains"
 msgstr "&#21253;&#21547;"
 
-#: lib/Form/Class.SearchHandler.inc.php:216 call-history.php:326
+#: lib/Form/Class.SearchHandler.inc.php:216 call-history.php:332
 msgid "Ends with"
 msgstr "&#32467;&#26463;"
 
@@ -2451,28 +2451,28 @@ msgstr "&#24050;&#30331;&#24405;"
 msgid "NO DISCOUNT"
 msgstr "&#35831;&#19982;&#31649;&#29702;&#21592;&#32852;&#32476;&#24320;&#36890;IAX&#24080;&#21495;"
 
-#: lib/Class.A2Billing.php:388
+#: lib/Class.A2Billing.php:391
 msgid "Invalid card number lenght defined in configuration."
 msgstr ""
 
-#: lib/Class.A2Billing.php:3169
+#: lib/Class.A2Billing.php:3239
 msgid "Error : Authentication Failed !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3209
+#: lib/Class.A2Billing.php:3279
 msgid "Error : Not enough credit to call !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3215
+#: lib/Class.A2Billing.php:3285
 msgid "Error : Card is not active!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3221
+#: lib/Class.A2Billing.php:3291
 msgid "Error : Card is actually in use!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3230 lib/Class.A2Billing.php:3238
-#: lib/Class.A2Billing.php:3246
+#: lib/Class.A2Billing.php:3300 lib/Class.A2Billing.php:3308
+#: lib/Class.A2Billing.php:3316
 msgid "Error : Card have expired!!!"
 msgstr ""
 
@@ -2810,7 +2810,7 @@ msgstr ""
 #: A2B_receipt_detail.php:118 A2B_receipt_detail.php:137 card-history.php:75
 #: A2B_billing_preview.php:162 A2B_billing_preview.php:183
 #: A2B_billing_preview.php:255 A2B_billing_preview.php:276
-#: A2B_receipt_preview_detail.php:215 call-history.php:124
+#: A2B_receipt_preview_detail.php:215 call-history.php:130
 #: A2B_receipt_view.php:179 A2B_receipt_view.php:200
 msgid "Date"
 msgstr "&#26085;&#26399;"
@@ -2850,7 +2850,7 @@ msgid "RECEIPT DETAIL"
 msgstr ""
 
 #: A2B_receipt_detail.php:139 A2B_billing_preview.php:185
-#: A2B_receipt_preview_detail.php:217 call-history.php:131
+#: A2B_receipt_preview_detail.php:217 call-history.php:137
 #: A2B_receipt_view.php:202
 msgid "Cost"
 msgstr "&#21512;&#35745;"
@@ -2874,71 +2874,71 @@ msgstr ""
 msgid "SELECT BY MONTH"
 msgstr "&#24555;&#36895;&#25320;&#21495;"
 
-#: card-history.php:213 card-history.php:264 call-history.php:258
+#: card-history.php:213 card-history.php:264 call-history.php:264
 msgid "FROM"
 msgstr "&#20174;"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "JANUARY"
 msgstr "&#19968;&#26376;"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "FEBRUARY"
 msgstr "&#20108;&#26376;"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "MARCH"
 msgstr "&#19977;&#26376;"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "APRIL"
 msgstr "&#22235;&#26376;"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "MAY"
 msgstr "&#20116;&#26376;"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "JUNE"
 msgstr "&#20845;&#26376;"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "JULY"
 msgstr "&#19971;&#26376;"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "AUGUST"
 msgstr "&#20843;&#26376;"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "SEPTEMBER"
 msgstr "&#20061;&#26376;"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "OCTOBER"
 msgstr "&#21313;&#26376;"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "NOVEMBER"
 msgstr "&#21313;&#19968;&#26376;"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "DECEMBER"
 msgstr "&#21313;&#20108;&#26376;"
 
-#: card-history.php:233 card-history.php:292 call-history.php:286
+#: card-history.php:233 card-history.php:292 call-history.php:292
 msgid "TO"
 msgstr "&#33267;"
 
@@ -2947,7 +2947,7 @@ msgstr "&#33267;"
 msgid "SELECT BY DAY"
 msgstr "&#24555;&#36895;&#25320;&#21495;"
 
-#: card-history.php:326 call-history.php:401
+#: card-history.php:326 call-history.php:407
 msgid "Search"
 msgstr "&#26597;&#35810;"
 
@@ -3147,7 +3147,7 @@ msgstr "&#28155;&#21152;&#30005;&#35805;&#21495;&#30721;"
 msgid "Speed Dial code"
 msgstr ""
 
-#: A2B_entity_speeddial.php:109 call-history.php:127 A2B_entity_did.php:415
+#: A2B_entity_speeddial.php:109 call-history.php:133 A2B_entity_did.php:415
 msgid "Destination"
 msgstr "&#22269;&#23478;"
 
@@ -3313,150 +3313,159 @@ msgstr ""
 msgid "ERROR: Cannot download file "
 msgstr ""
 
-#: call-history.php:114
+#: call-history.php:115
 #, fuzzy
 msgid "STANDARD"
 msgstr "&#24030;,&#30465;"
 
-#: call-history.php:114
+#: call-history.php:116
 #, fuzzy
 msgid "SIP/IAX"
 msgstr "&#20256;&#30495;&#21495;&#30721;"
 
-#: call-history.php:115
+#: call-history.php:117
 #, fuzzy
 msgid "DIDCALL"
 msgstr "&#27425;&#25968;"
 
-#: call-history.php:115
+#: call-history.php:118
 msgid "DID_VOIP"
 msgstr ""
 
-#: call-history.php:115 templates/default/main.tpl:78
+#: call-history.php:119 templates/default/main.tpl:78
 msgid "CALLBACK"
 msgstr "&#22238;    &#25320;"
 
-#: call-history.php:116
+#: call-history.php:120
 #, fuzzy
 msgid "PREDICT"
 msgstr "&#20313;  &#39069;"
 
-#: call-history.php:126
+#: call-history.php:121
+msgid "AUTO DIALER"
+msgstr ""
+
+#: call-history.php:122
+#, fuzzy
+msgid "DID-ALEG"
+msgstr "&#27425;&#25968;"
+
+#: call-history.php:132
 #, fuzzy
 msgid "PhoneNumber"
 msgstr "&#28155;&#21152;&#24050;&#26377;&#30340;DID&#21495;&#30721;"
 
-#: call-history.php:128
+#: call-history.php:134
 msgid "Duration"
 msgstr "&#36890;&#35805;&#26102;&#38388;"
 
-#: call-history.php:129
+#: call-history.php:135
 #, fuzzy
 msgid "Terminate Cause"
 msgstr "&#29366;&#24577;"
 
-#: call-history.php:129
+#: call-history.php:135
 msgid "TC"
 msgstr ""
 
-#: call-history.php:130
+#: call-history.php:136
 #, fuzzy
 msgid "CallType"
 msgstr "&#36890;&#35805;&#31867;&#22411;"
 
-#: call-history.php:148
+#: call-history.php:154
 msgid "Call Logs"
 msgstr "&#30005;&#35805;&#35760;&#24405;"
 
-#: call-history.php:331
+#: call-history.php:337
 #, fuzzy
 msgid "CALL TYPE"
 msgstr "&#36890;&#35805;&#35760;&#24405;"
 
-#: call-history.php:337
+#: call-history.php:343
 #, fuzzy
 msgid "ALL CALLS"
 msgstr "&#27425;&#25968;"
 
-#: call-history.php:354
+#: call-history.php:360
 #, fuzzy
 msgid "OPTIONS"
 msgstr "&#29366;&#24577;"
 
-#: call-history.php:359
+#: call-history.php:365
 msgid "SHOW"
 msgstr ""
 
-#: call-history.php:362
+#: call-history.php:368
 msgid "Answered Calls"
 msgstr ""
 
-#: call-history.php:364
+#: call-history.php:370
 msgid "All Calls"
 msgstr ""
 
-#: call-history.php:371
+#: call-history.php:377
 msgid "RESULT"
 msgstr ""
 
-#: call-history.php:374
+#: call-history.php:380
 msgid "Seconds"
 msgstr "&#31186;"
 
-#: call-history.php:379
+#: call-history.php:385
 msgid "CURRENCY"
 msgstr ""
 
-#: call-history.php:410
+#: call-history.php:416
 msgid "Number of Calls"
 msgstr "&#36890;&#35805;&#27425;&#25968;"
 
-#: call-history.php:532
+#: call-history.php:538
 msgid "PREVIOUS"
 msgstr "&#19978;&#19968;&#39029;"
 
-#: call-history.php:538
+#: call-history.php:544
 msgid "NEXT"
 msgstr "&#19979;&#19968;&#39029;"
 
-#: call-history.php:571
+#: call-history.php:577
 #, fuzzy
 msgid "SUMMARY"
 msgstr "&#20116;&#26376;"
 
-#: call-history.php:583
+#: call-history.php:589
 msgid "CALLING CARD MINUTES"
 msgstr "&#32479;&#35745;&#22270;&#20363;"
 
-#: call-history.php:587
+#: call-history.php:593
 msgid "DURATION"
 msgstr "&#36890;&#35805;&#26102;&#38388;"
 
-#: call-history.php:588
+#: call-history.php:594
 msgid "GRAPHIC"
 msgstr "&#22270;&#20363;"
 
-#: call-history.php:589
+#: call-history.php:595
 msgid "CALLS"
 msgstr "&#27425;&#25968;"
 
-#: call-history.php:590
+#: call-history.php:596
 msgid "AVERAGE LENGTH OF CALL"
 msgstr ""
 
-#: call-history.php:590
+#: call-history.php:596
 msgid "ALOC"
 msgstr ""
 
-#: call-history.php:591
+#: call-history.php:597
 msgid "TOTAL COST"
 msgstr "&#21512;&#35745;"
 
-#: call-history.php:640
+#: call-history.php:646
 msgid "TOTAL"
 msgstr "&#21512;&#35745;"
 
-#: call-history.php:652
+#: call-history.php:658
 msgid "No calls in your selection"
 msgstr "&#27492;&#26102;&#26399;&#20869;&#26080;&#36890;&#35805;&#35760;&#24405;"
 

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 13:09+0100\n"
+"POT-Creation-Date: 2010-11-08 23:59+0100\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -258,7 +258,7 @@ msgstr "DESTINATIE"
 msgid "CallTime available"
 msgstr "Timp conversatie posibil"
 
-#: simulator.php:216 call-history.php:374
+#: simulator.php:216 call-history.php:380
 msgid "Minutes"
 msgstr "Minute"
 
@@ -445,8 +445,8 @@ msgid "REFERENCE"
 msgstr "REFERINTA"
 
 #: form_data/FG_var_invoice.inc:68 form_data/FG_var_receipt.inc:67
-#: form_data/FG_var_phonenumber.inc:64 call-history.php:253
-#: call-history.php:586
+#: form_data/FG_var_phonenumber.inc:64 call-history.php:259
+#: call-history.php:592
 msgid "DATE"
 msgstr "DATA"
 
@@ -538,7 +538,7 @@ msgid "TIMEZONE"
 msgstr "TIME ZONE"
 
 #: form_data/FG_var_signup.inc:268 form_data/FG_var_phonenumber.inc:61
-#: call-history.php:318
+#: call-history.php:324
 msgid "PHONENUMBER"
 msgstr "NUMAR TELEFON"
 
@@ -1109,7 +1109,7 @@ msgstr "Adauga un numar de telefon DID-ului tau"
 msgid "Your new phone number has been inserted."
 msgstr "Numere de telefon importate"
 
-#: form_data/FG_var_callerid.inc:39 call-history.php:125
+#: form_data/FG_var_callerid.inc:39 call-history.php:131
 msgid "CallerID"
 msgstr "IDENTIFICATOR APELANT"
 
@@ -1412,7 +1412,7 @@ msgstr "Exporta XML"
 #: CC_entity_edit_did_destination.php:626
 #: CC_entity_edit_did_destination.php:944
 #: CC_entity_edit_did_destination.php:1066
-#: CC_entity_edit_did_destination.php:1208 call-history.php:519
+#: CC_entity_edit_did_destination.php:1208 call-history.php:525
 msgid "No data found !!!"
 msgstr "Nu exista date !!!"
 
@@ -1562,19 +1562,19 @@ msgstr "Decembrie"
 msgid "To :"
 msgstr "Pana la"
 
-#: lib/Form/Class.SearchHandler.inc.php:213 call-history.php:323
+#: lib/Form/Class.SearchHandler.inc.php:213 call-history.php:329
 msgid "Exact"
 msgstr "Exact"
 
-#: lib/Form/Class.SearchHandler.inc.php:214 call-history.php:324
+#: lib/Form/Class.SearchHandler.inc.php:214 call-history.php:330
 msgid "Begins with"
 msgstr "Incepe cu"
 
-#: lib/Form/Class.SearchHandler.inc.php:215 call-history.php:325
+#: lib/Form/Class.SearchHandler.inc.php:215 call-history.php:331
 msgid "Contains"
 msgstr "Contine"
 
-#: lib/Form/Class.SearchHandler.inc.php:216 call-history.php:326
+#: lib/Form/Class.SearchHandler.inc.php:216 call-history.php:332
 msgid "Ends with"
 msgstr "Se termina cu"
 
@@ -2344,28 +2344,28 @@ msgstr "Folosit"
 msgid "NO DISCOUNT"
 msgstr "Fara Discount"
 
-#: lib/Class.A2Billing.php:388
+#: lib/Class.A2Billing.php:391
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Configurare numarului de caractere a cardului invalida in configurare"
 
-#: lib/Class.A2Billing.php:3169
+#: lib/Class.A2Billing.php:3239
 msgid "Error : Authentication Failed !!!"
 msgstr "Eroare : Authentificare esuata!"
 
-#: lib/Class.A2Billing.php:3209
+#: lib/Class.A2Billing.php:3279
 msgid "Error : Not enough credit to call !!!"
 msgstr "Eroare : Nu ai suficient credit!!!"
 
-#: lib/Class.A2Billing.php:3215
+#: lib/Class.A2Billing.php:3285
 msgid "Error : Card is not active!!!"
 msgstr "Eroare : Contul tau nu este activ"
 
-#: lib/Class.A2Billing.php:3221
+#: lib/Class.A2Billing.php:3291
 msgid "Error : Card is actually in use!!!"
 msgstr "Eroare : Contul tau  este activ in convorbire- nu ai decat un singur canal disponibil "
 
-#: lib/Class.A2Billing.php:3230 lib/Class.A2Billing.php:3238
-#: lib/Class.A2Billing.php:3246
+#: lib/Class.A2Billing.php:3300 lib/Class.A2Billing.php:3308
+#: lib/Class.A2Billing.php:3316
 msgid "Error : Card have expired!!!"
 msgstr "Eroare : Contul tau a expirat"
 
@@ -2699,7 +2699,7 @@ msgstr "E-mail"
 #: A2B_receipt_detail.php:118 A2B_receipt_detail.php:137 card-history.php:75
 #: A2B_billing_preview.php:162 A2B_billing_preview.php:183
 #: A2B_billing_preview.php:255 A2B_billing_preview.php:276
-#: A2B_receipt_preview_detail.php:215 call-history.php:124
+#: A2B_receipt_preview_detail.php:215 call-history.php:130
 #: A2B_receipt_view.php:179 A2B_receipt_view.php:200
 msgid "Date"
 msgstr "DATA"
@@ -2738,7 +2738,7 @@ msgid "RECEIPT DETAIL"
 msgstr "Detali Chitanta"
 
 #: A2B_receipt_detail.php:139 A2B_billing_preview.php:185
-#: A2B_receipt_preview_detail.php:217 call-history.php:131
+#: A2B_receipt_preview_detail.php:217 call-history.php:137
 #: A2B_receipt_view.php:202
 msgid "Cost"
 msgstr "Cost"
@@ -2761,71 +2761,71 @@ msgstr "Istoric Card"
 msgid "SELECT BY MONTH"
 msgstr "Selectie Lunara"
 
-#: card-history.php:213 card-history.php:264 call-history.php:258
+#: card-history.php:213 card-history.php:264 call-history.php:264
 msgid "FROM"
 msgstr "Din"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "JANUARY"
 msgstr "Ianuarie"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "FEBRUARY"
 msgstr "Februrie"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "MARCH"
 msgstr "Martie"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "APRIL"
 msgstr "Aprilie"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "MAY"
 msgstr "Mai"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "JUNE"
 msgstr "Iunie"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "JULY"
 msgstr "Iulie"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "AUGUST"
 msgstr "August"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "SEPTEMBER"
 msgstr "Septembrie"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "OCTOBER"
 msgstr "Octombrie"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "NOVEMBER"
 msgstr "Noiembrie"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "DECEMBER"
 msgstr "Decembrie"
 
-#: card-history.php:233 card-history.php:292 call-history.php:286
+#: card-history.php:233 card-history.php:292 call-history.php:292
 msgid "TO"
 msgstr "Pana in"
 
@@ -2833,7 +2833,7 @@ msgstr "Pana in"
 msgid "SELECT BY DAY"
 msgstr "Selectie Zile"
 
-#: card-history.php:326 call-history.php:401
+#: card-history.php:326 call-history.php:407
 msgid "Search"
 msgstr "Cauta"
 
@@ -3031,7 +3031,7 @@ msgstr "Introduce-ti numarul pe care doriti sa fie format cand codul estre intro
 msgid "Speed Dial code"
 msgstr "Codul Apelare Rapida"
 
-#: A2B_entity_speeddial.php:109 call-history.php:127 A2B_entity_did.php:415
+#: A2B_entity_speeddial.php:109 call-history.php:133 A2B_entity_did.php:415
 msgid "Destination"
 msgstr "Destinatie"
 
@@ -3191,144 +3191,153 @@ msgstr "Stergere"
 msgid "ERROR: Cannot download file "
 msgstr ""
 
-#: call-history.php:114
+#: call-history.php:115
 #, fuzzy
 msgid "STANDARD"
 msgstr "Card cu plata lunara"
 
-#: call-history.php:114
+#: call-history.php:116
 #, fuzzy
 msgid "SIP/IAX"
 msgstr "Informatii SIP/IAX"
 
-#: call-history.php:115
+#: call-history.php:117
 #, fuzzy
 msgid "DIDCALL"
 msgstr "NU SUNA"
 
-#: call-history.php:115
+#: call-history.php:118
 msgid "DID_VOIP"
 msgstr ""
 
-#: call-history.php:115 templates/default/main.tpl:78
+#: call-history.php:119 templates/default/main.tpl:78
 msgid "CALLBACK"
 msgstr "CALLBACK"
 
-#: call-history.php:116
+#: call-history.php:120
 #, fuzzy
 msgid "PREDICT"
 msgstr "CREDIT"
 
-#: call-history.php:126
+#: call-history.php:121
+msgid "AUTO DIALER"
+msgstr ""
+
+#: call-history.php:122
+#, fuzzy
+msgid "DID-ALEG"
+msgstr "Dezactiveaza"
+
+#: call-history.php:132
 msgid "PhoneNumber"
 msgstr "Nr. Tel"
 
-#: call-history.php:128
+#: call-history.php:134
 msgid "Duration"
 msgstr "Durata"
 
-#: call-history.php:129
+#: call-history.php:135
 msgid "Terminate Cause"
 msgstr "Situatie"
 
-#: call-history.php:129
+#: call-history.php:135
 msgid "TC"
 msgstr ""
 
-#: call-history.php:130
+#: call-history.php:136
 #, fuzzy
 msgid "CallType"
 msgstr "Tip"
 
-#: call-history.php:148
+#: call-history.php:154
 msgid "Call Logs"
 msgstr "Convorbiri"
 
-#: call-history.php:331
+#: call-history.php:337
 msgid "CALL TYPE"
 msgstr "TIP APEL"
 
-#: call-history.php:337
+#: call-history.php:343
 msgid "ALL CALLS"
 msgstr "TOATE APELURILE"
 
-#: call-history.php:354
+#: call-history.php:360
 msgid "OPTIONS"
 msgstr "OPTIUNI"
 
-#: call-history.php:359
+#: call-history.php:365
 msgid "SHOW"
 msgstr "ARATA"
 
-#: call-history.php:362
+#: call-history.php:368
 msgid "Answered Calls"
 msgstr "APELURI RASPUNSE"
 
-#: call-history.php:364
+#: call-history.php:370
 msgid "All Calls"
 msgstr "TOATE APELURILE"
 
-#: call-history.php:371
+#: call-history.php:377
 msgid "RESULT"
 msgstr "REZULTAT"
 
-#: call-history.php:374
+#: call-history.php:380
 msgid "Seconds"
 msgstr "Secunde"
 
-#: call-history.php:379
+#: call-history.php:385
 msgid "CURRENCY"
 msgstr "MONEDA"
 
-#: call-history.php:410
+#: call-history.php:416
 msgid "Number of Calls"
 msgstr "Numarul convorbirilor"
 
-#: call-history.php:532
+#: call-history.php:538
 msgid "PREVIOUS"
 msgstr "Inapoi"
 
-#: call-history.php:538
+#: call-history.php:544
 msgid "NEXT"
 msgstr "Inainte"
 
-#: call-history.php:571
+#: call-history.php:577
 msgid "SUMMARY"
 msgstr "SUMAR"
 
-#: call-history.php:583
+#: call-history.php:589
 msgid "CALLING CARD MINUTES"
 msgstr "Minute Cont"
 
-#: call-history.php:587
+#: call-history.php:593
 msgid "DURATION"
 msgstr "DURATA"
 
-#: call-history.php:588
+#: call-history.php:594
 msgid "GRAPHIC"
 msgstr "GRAFIC"
 
-#: call-history.php:589
+#: call-history.php:595
 msgid "CALLS"
 msgstr "CONVORBIRI"
 
-#: call-history.php:590
+#: call-history.php:596
 msgid "AVERAGE LENGTH OF CALL"
 msgstr "DURATA MEDIA A APELULUI"
 
-#: call-history.php:590
+#: call-history.php:596
 msgid "ALOC"
 msgstr ""
 
-#: call-history.php:591
+#: call-history.php:597
 msgid "TOTAL COST"
 msgstr "COST TOTAL"
 
-#: call-history.php:640
+#: call-history.php:646
 msgid "TOTAL"
 msgstr "TOTAL"
 
-#: call-history.php:652
+#: call-history.php:658
 msgid "No calls in your selection"
 msgstr "Nu aveti nici o convorbire in perioada selectata"
 

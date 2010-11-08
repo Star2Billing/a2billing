@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Agent UI : 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 13:09+0100\n"
+"POT-Creation-Date: 2010-11-08 23:59+0100\n"
 "PO-Revision-Date: 2010-07-29 17:48+0200\n"
 "Last-Translator: Polihronis Porfiris <pporfiris@hotmail.com>\n"
 "Language-Team: Polihronis Porfiris <pporfiris@hotmai.com>\n"
@@ -232,11 +232,11 @@ msgstr "ΕΜΦΑΝΙΣΗ"
 msgid "GO"
 msgstr "ΠΑΜΕ"
 
-#: lib/Form/Class.ViewHandler.inc.php:829 Public/call-log-customers.php:1343
+#: lib/Form/Class.ViewHandler.inc.php:829 Public/call-log-customers.php:1344
 msgid "Export CSV"
 msgstr "Εξαγωγή CSV"
 
-#: lib/Form/Class.ViewHandler.inc.php:833 Public/call-log-customers.php:1352
+#: lib/Form/Class.ViewHandler.inc.php:833 Public/call-log-customers.php:1353
 msgid "Export XML"
 msgstr "Εξαγωγή XML"
 
@@ -245,7 +245,7 @@ msgstr "Εξαγωγή XML"
 #: lib/Form/Class.FormHandler.EditForm.inc.php:780
 #: lib/Form/Class.FormHandler.DelForm.inc.php:161
 #: lib/Form/Class.FormHandler.AddForm.inc.php:158
-#: Public/call-log-customers.php:1076 Public/card-history.php:401
+#: Public/call-log-customers.php:1077 Public/card-history.php:401
 msgid "No data found !!!"
 msgstr "Δεν βρέθηκαν δεδομένα!!!"
 
@@ -346,73 +346,73 @@ msgid "From :"
 msgstr "Από :"
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:195
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "January"
 msgstr "Ιανουάριος"
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:196
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "February"
 msgstr "Φεβρουάριος"
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:197
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "March"
 msgstr "Μάρτιος"
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:198
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "April"
 msgstr "Απρίλιος"
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:199
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "May"
 msgstr "Μάιος"
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:200
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "June"
 msgstr "Ιούνιος"
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:201
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "July"
 msgstr "Ιούλιος"
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:202
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "August"
 msgstr "Αύγουστος"
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:203
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "September"
 msgstr "Σεπτέμβριος"
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:204
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "October"
 msgstr "Οκτώβριος"
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:205
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "November"
 msgstr "Νοέμβριος"
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:206
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "December"
 msgstr "Δεκέμβριος"
@@ -423,26 +423,26 @@ msgid "To :"
 msgstr "Εως :"
 
 #: lib/Form/Class.SearchHandler.inc.php:213 Public/call-last-month.php:133
-#: Public/call-log-customers.php:592 Public/call-log-customers.php:644
-#: Public/call-log-customers.php:697
+#: Public/call-log-customers.php:593 Public/call-log-customers.php:645
+#: Public/call-log-customers.php:698
 msgid "Exact"
 msgstr "Ακριβός"
 
 #: lib/Form/Class.SearchHandler.inc.php:214 Public/call-last-month.php:134
-#: Public/call-log-customers.php:601 Public/call-log-customers.php:653
-#: Public/call-log-customers.php:706
+#: Public/call-log-customers.php:602 Public/call-log-customers.php:654
+#: Public/call-log-customers.php:707
 msgid "Begins with"
 msgstr "Αρχίζει με"
 
 #: lib/Form/Class.SearchHandler.inc.php:215 Public/call-last-month.php:135
-#: Public/call-log-customers.php:610 Public/call-log-customers.php:662
-#: Public/call-log-customers.php:715
+#: Public/call-log-customers.php:611 Public/call-log-customers.php:663
+#: Public/call-log-customers.php:716
 msgid "Contains"
 msgstr "Περιέχει"
 
 #: lib/Form/Class.SearchHandler.inc.php:216 Public/call-last-month.php:136
-#: Public/call-log-customers.php:619 Public/call-log-customers.php:671
-#: Public/call-log-customers.php:724
+#: Public/call-log-customers.php:620 Public/call-log-customers.php:672
+#: Public/call-log-customers.php:725
 msgid "Ends with"
 msgstr "Τελειώνει με"
 
@@ -821,7 +821,7 @@ msgstr "Πρώτο"
 msgid "Prev"
 msgstr "Προηγούμενο"
 
-#: lib/Misc.php:716 Public/call-log-customers.php:1099
+#: lib/Misc.php:716 Public/call-log-customers.php:1100
 msgid "Next"
 msgstr "Επόμενο"
 
@@ -922,7 +922,7 @@ msgid "CAN ONLY CALL RESTRICTED NUMBERS"
 msgstr "ΜΠΟΡΕΙ ΝΑ ΚΑΛΕΣΕΙ ΠΕΡΙΟΡΙΣΜΕΝΟΥΣ ΑΡΙΘΜΟΥΣ"
 
 #: lib/interface/constants.php:55 Public/call-last-month.php:64
-#: Public/call-log-customers.php:374 Public/templates/default/main.tpl:46
+#: Public/call-log-customers.php:375 Public/templates/default/main.tpl:46
 msgid "CUSTOMERS"
 msgstr "ΠΕΛΑΤΕΣ"
 
@@ -1316,28 +1316,28 @@ msgstr "ΑΡΝΗΘΗΚΕ"
 msgid "NO DISCOUNT"
 msgstr "ΧΩΡΙΣ ΕΚΠΤΩΣΗ"
 
-#: lib/Class.A2Billing.php:388
+#: lib/Class.A2Billing.php:391
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Εχει οριστεί λανθασμένο μήκος κάρτας στις ρυθμίσεις"
 
-#: lib/Class.A2Billing.php:3169
+#: lib/Class.A2Billing.php:3239
 msgid "Error : Authentication Failed !!!"
 msgstr "Σφάλμα : Αποτυχία αυθεντικοποιησης !!!"
 
-#: lib/Class.A2Billing.php:3209
+#: lib/Class.A2Billing.php:3279
 msgid "Error : Not enough credit to call !!!"
 msgstr "Σφάλμα : Δεν υπάρχουν αρκετές μονάδες για να καλέσετε !!!"
 
-#: lib/Class.A2Billing.php:3215
+#: lib/Class.A2Billing.php:3285
 msgid "Error : Card is not active!!!"
 msgstr "Σφάλμα : Η κάρτα δεν έχει ενεργοποιηθεί !!!"
 
-#: lib/Class.A2Billing.php:3221
+#: lib/Class.A2Billing.php:3291
 msgid "Error : Card is actually in use!!!"
 msgstr "Σφάλμα : Η κάρτα είναι σε χρήση !!!"
 
-#: lib/Class.A2Billing.php:3230 lib/Class.A2Billing.php:3238
-#: lib/Class.A2Billing.php:3246
+#: lib/Class.A2Billing.php:3300 lib/Class.A2Billing.php:3308
+#: lib/Class.A2Billing.php:3316
 msgid "Error : Card have expired!!!"
 msgstr "Σφάλμα : Η κάρτα έχει λήξη !!!"
 
@@ -1504,11 +1504,11 @@ msgstr "ΛΙΣΤΑ ΑΝΑΝΕΩΣΕΩΝ ΕΚΠΡΟΣΩΠΟΥ"
 msgid "ERROR CSV EXPORT"
 msgstr "ΣΦΑΛΜΑ ΕΞΑΓΩΓΗ ΣΕ CSV"
 
-#: Public/call-last-month.php:70 Public/call-log-customers.php:382
+#: Public/call-last-month.php:70 Public/call-log-customers.php:383
 msgid "Enter the customer ID"
 msgstr "Συμπληρώστε την ταυτότητα του πελάτη"
 
-#: Public/call-last-month.php:76 Public/call-log-customers.php:396
+#: Public/call-last-month.php:76 Public/call-log-customers.php:397
 msgid "Rate"
 msgstr "Τιμή"
 
@@ -1516,7 +1516,7 @@ msgstr "Τιμή"
 msgid "SELECT MONTH"
 msgstr "ΕΠΙΛΟΓΗ ΜΗΝΑ"
 
-#: Public/call-last-month.php:91 Public/call-log-customers.php:432
+#: Public/call-last-month.php:91 Public/call-log-customers.php:433
 #: Public/A2B_entity_paymentlog.php:102 Public/A2B_entity_paymentlog.php:154
 msgid "From"
 msgstr "Από"
@@ -1543,7 +1543,7 @@ msgstr "ΚΙΝΗΣΗ"
 msgid "Stat Graph"
 msgstr "Γράφημα Στατιστικών"
 
-#: Public/call-last-month.php:166 Public/call-log-customers.php:1234
+#: Public/call-last-month.php:166 Public/call-log-customers.php:1235
 #: Public/A2B_card_info.php:841
 msgid "SELL"
 msgstr "ΠΩΛΗΣΗ"
@@ -1585,65 +1585,70 @@ msgstr "ΜΟΝΑΔΕΣ"
 msgid "AUTO DIALER"
 msgstr ""
 
-#: Public/call-log-customers.php:113 Public/card-history.php:75
+#: Public/call-log-customers.php:105
+#, fuzzy
+msgid "DID-ALEG"
+msgstr "ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΗ"
+
+#: Public/call-log-customers.php:114 Public/card-history.php:75
 msgid "Date"
 msgstr "Ημερομηνία"
 
-#: Public/call-log-customers.php:115
+#: Public/call-log-customers.php:116
 msgid "CallerID"
 msgstr "Αναγνωριστικό κλήσης"
 
-#: Public/call-log-customers.php:117 Public/call-log-customers.php:680
+#: Public/call-log-customers.php:118 Public/call-log-customers.php:681
 msgid "DNID"
 msgstr "DNID"
 
-#: Public/call-log-customers.php:118
+#: Public/call-log-customers.php:119
 msgid "Phone Number"
 msgstr "Τηλέφωνο"
 
-#: Public/call-log-customers.php:119 Public/graph_stat.php:56
+#: Public/call-log-customers.php:120 Public/graph_stat.php:56
 #: Public/graph_statbar.php:58
 msgid "Destination"
 msgstr "Προορισμός"
 
-#: Public/call-log-customers.php:120
+#: Public/call-log-customers.php:121
 msgid "Sell Rate"
 msgstr "Τιμή πώλησης"
 
-#: Public/call-log-customers.php:121 Public/graph_stat.php:57
+#: Public/call-log-customers.php:122 Public/graph_stat.php:57
 #: Public/graph_statbar.php:59
 msgid "Duration"
 msgstr "Διάρκεια"
 
-#: Public/call-log-customers.php:122
+#: Public/call-log-customers.php:123
 msgid "Account"
 msgstr "Λογαριασμός"
 
-#: Public/call-log-customers.php:123
+#: Public/call-log-customers.php:124
 msgid "Terminate Cause"
 msgstr "Αιτία διακοπής"
 
-#: Public/call-log-customers.php:123
+#: Public/call-log-customers.php:124
 msgid "TC"
 msgstr "TC"
 
-#: Public/call-log-customers.php:124
+#: Public/call-log-customers.php:125
 msgid "CallType"
 msgstr "Είδος κλήσης"
 
-#: Public/call-log-customers.php:125
+#: Public/call-log-customers.php:126
 msgid "Sell"
 msgstr "Πώληση"
 
-#: Public/call-log-customers.php:148
+#: Public/call-log-customers.php:149
 msgid " - Call Logs - "
 msgstr " - Αρχεία κλήσεων - "
 
-#: Public/call-log-customers.php:391
+#: Public/call-log-customers.php:392
 msgid "CallPlan"
 msgstr "Σχέδιο κλήσεων"
 
-#: Public/call-log-customers.php:420 Public/call-log-customers.php:1210
+#: Public/call-log-customers.php:421 Public/call-log-customers.php:1211
 #: Public/form_data/FG_var_moneysituation_details.inc:48
 #: Public/form_data/FG_var_moneysituation_details.inc:63
 #: Public/form_data/FG_var_remittance_request.inc:56
@@ -1651,20 +1656,20 @@ msgstr "Σχέδιο κλήσεων"
 msgid "DATE"
 msgstr "ΗΜΕΡΟΜΗΝΙΑ"
 
-#: Public/call-log-customers.php:474 Public/call-log-customers.php:546
+#: Public/call-log-customers.php:475 Public/call-log-customers.php:547
 msgid "Time :"
 msgstr "Ωρα :"
 
-#: Public/call-log-customers.php:506 Public/A2B_entity_paymentlog.php:124
+#: Public/call-log-customers.php:507 Public/A2B_entity_paymentlog.php:124
 #: Public/A2B_entity_paymentlog.php:184
 msgid "To"
 msgstr "Εως"
 
-#: Public/call-log-customers.php:576
+#: Public/call-log-customers.php:577
 msgid "PHONENUMBER"
 msgstr "ΤΗΛΕΦΩΝΟ"
 
-#: Public/call-log-customers.php:627 Public/form_data/FG_var_card.inc:889
+#: Public/call-log-customers.php:628 Public/form_data/FG_var_card.inc:889
 #: Public/form_data/FG_var_friend.inc:79
 #: Public/form_data/FG_var_friend.inc:186
 #: Public/form_data/FG_var_callerid.inc:56
@@ -1672,132 +1677,132 @@ msgstr "ΤΗΛΕΦΩΝΟ"
 msgid "CALLERID"
 msgstr "ΑΝΑΓΝΩΡΙΣΤΙΚΟ ΚΛΗΣΗΣ"
 
-#: Public/call-log-customers.php:734
+#: Public/call-log-customers.php:735
 msgid "CALL TYPE"
 msgstr "ΕΙΔΟΣ ΚΛΗΣΕΩΝ"
 
-#: Public/call-log-customers.php:748
+#: Public/call-log-customers.php:749
 msgid "ALL CALLS"
 msgstr "ΟΛΕΣ ΟΙ ΚΛΗΣΗΣ"
 
-#: Public/call-log-customers.php:774
+#: Public/call-log-customers.php:775
 msgid "OPTIONS"
 msgstr "ΕΠΙΛΟΓΕΣ"
 
-#: Public/call-log-customers.php:783
+#: Public/call-log-customers.php:784
 msgid "SHOW CALLS"
 msgstr "ΕΜΦΑΝΗΣΗ ΚΛΗΣΕΩΝ"
 
-#: Public/call-log-customers.php:795
+#: Public/call-log-customers.php:796
 msgid "ANSWERED"
 msgstr "ΑΠΑΝΤΗΜΕΝΕΣ"
 
-#: Public/call-log-customers.php:804
+#: Public/call-log-customers.php:805
 msgid "ALL"
 msgstr "ΟΛΕΣ"
 
-#: Public/call-log-customers.php:813
+#: Public/call-log-customers.php:814
 msgid "NOT COMPLETED"
 msgstr "ΔΕΝ ΟΛΟΚΛΗΡΩΘΗΚΕ"
 
-#: Public/call-log-customers.php:822
+#: Public/call-log-customers.php:823
 msgid "CONGESTIONED"
 msgstr "ΣΥΜΦΟΡΗΣΜΕΝΗ"
 
-#: Public/call-log-customers.php:831
+#: Public/call-log-customers.php:832
 msgid "BUSIED"
 msgstr "ΑΠΑΣΧΟΛΗΜΕΝΕΣ"
 
-#: Public/call-log-customers.php:840
+#: Public/call-log-customers.php:841
 msgid "NOT ANSWERED"
 msgstr "ΜΗ ΑΠΑΝΤΗΜΕΝΕΣ"
 
-#: Public/call-log-customers.php:849
+#: Public/call-log-customers.php:850
 msgid "CHANNEL UNAVAILABLE"
 msgstr "ΜΗ ΔΙΑΘΕΣΙΜΟ"
 
-#: Public/call-log-customers.php:858
+#: Public/call-log-customers.php:859
 msgid "CANCELED"
 msgstr "ΑΚΥΡΩΘΗΚΕ"
 
-#: Public/call-log-customers.php:866
+#: Public/call-log-customers.php:867
 msgid "RESULT"
 msgstr "ΑΠΟΤΕΛΕΣΜΑ"
 
-#: Public/call-log-customers.php:871
+#: Public/call-log-customers.php:872
 msgid "mins"
 msgstr "λεπτά"
 
-#: Public/call-log-customers.php:880
+#: Public/call-log-customers.php:881
 msgid "secs"
 msgstr "δευτερόλεπτα"
 
-#: Public/call-log-customers.php:891 Public/form_data/FG_var_card.inc:154
+#: Public/call-log-customers.php:892 Public/form_data/FG_var_card.inc:154
 #: Public/form_data/FG_var_card.inc:571 Public/A2B_card_info.php:353
 msgid "CURRENCY"
 msgstr "ΝΟΜΙΣΜΑ"
 
-#: Public/call-log-customers.php:937
+#: Public/call-log-customers.php:938
 msgid "Number of call"
 msgstr "Αριθμός κλήσης"
 
-#: Public/call-log-customers.php:1094
+#: Public/call-log-customers.php:1095
 msgid "Previous"
 msgstr "Προηγούμενο"
 
-#: Public/call-log-customers.php:1121
+#: Public/call-log-customers.php:1122
 msgid "TOTAL COSTS"
 msgstr "ΣΥΝΟΛΙΚΟ ΚΟΣΤΗ"
 
-#: Public/call-log-customers.php:1128
+#: Public/call-log-customers.php:1129
 msgid "TOTAL BUYCOSTS"
 msgstr "ΣΥΝΟΛΙΚΟ ΚΟΣΤΟΣ ΑΓΟΡΑΣ"
 
-#: Public/call-log-customers.php:1137
+#: Public/call-log-customers.php:1138
 msgid "DIFFERENCE"
 msgstr "ΔΙΑΦΟΡΑ"
 
-#: Public/call-log-customers.php:1207
+#: Public/call-log-customers.php:1208
 msgid "TRAFFIC SUMMARY"
 msgstr "ΠΕΡΙΛΗΨΗ ΚΙΝΗΣΗΣ"
 
-#: Public/call-log-customers.php:1212 Public/A2B_card_info.php:832
+#: Public/call-log-customers.php:1213 Public/A2B_card_info.php:832
 msgid "DURATION"
 msgstr "ΔΙΑΡΚΕΙΑ"
 
-#: Public/call-log-customers.php:1213
+#: Public/call-log-customers.php:1214
 msgid "DUR"
 msgstr "ΔΙΑΡΚΕΙΑ"
 
-#: Public/call-log-customers.php:1216
+#: Public/call-log-customers.php:1217
 msgid "GRAPHIC"
 msgstr "ΓΡΑΦΙΚΟ"
 
-#: Public/call-log-customers.php:1219
+#: Public/call-log-customers.php:1220
 msgid "CALLS"
 msgstr "ΚΛΗΣΗΣ"
 
-#: Public/call-log-customers.php:1223
+#: Public/call-log-customers.php:1224
 msgid "AVERAGE LENGTH OF CALL"
 msgstr "ΜΕΣΟΣ ΟΡΟΣ ΔΙΑΡΚΕΙΑΣ ΚΛΗΣΕΩΝ"
 
-#: Public/call-log-customers.php:1225
+#: Public/call-log-customers.php:1226
 msgid "ALOC"
 msgstr "ALOC"
 
-#: Public/call-log-customers.php:1229
+#: Public/call-log-customers.php:1230
 msgid "ANSWER SEIZE RATIO"
 msgstr "ΑΝΑΛΟΓΙΑ ΑΡΠΑΓΗΣ ΑΠΑΝΤΗΣΕΩΝ"
 
-#: Public/call-log-customers.php:1231
+#: Public/call-log-customers.php:1232
 msgid "ASR"
 msgstr "ASR"
 
-#: Public/call-log-customers.php:1317
+#: Public/call-log-customers.php:1318
 msgid "TOTAL"
 msgstr "ΣΥΝΟΛΟ"
 
-#: Public/call-log-customers.php:1361
+#: Public/call-log-customers.php:1362
 msgid "No calls in your selection"
 msgstr "Δεν υπάρχουν κλήσης για την επιλογή σας"
 

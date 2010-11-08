@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Agent : 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 13:09+0100\n"
+"POT-Creation-Date: 2010-11-08 23:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -229,11 +229,11 @@ msgstr ""
 msgid "GO"
 msgstr ""
 
-#: lib/Form/Class.ViewHandler.inc.php:829 Public/call-log-customers.php:1343
+#: lib/Form/Class.ViewHandler.inc.php:829 Public/call-log-customers.php:1344
 msgid "Export CSV"
 msgstr ""
 
-#: lib/Form/Class.ViewHandler.inc.php:833 Public/call-log-customers.php:1352
+#: lib/Form/Class.ViewHandler.inc.php:833 Public/call-log-customers.php:1353
 msgid "Export XML"
 msgstr ""
 
@@ -242,7 +242,7 @@ msgstr ""
 #: lib/Form/Class.FormHandler.EditForm.inc.php:780
 #: lib/Form/Class.FormHandler.DelForm.inc.php:161
 #: lib/Form/Class.FormHandler.AddForm.inc.php:158
-#: Public/call-log-customers.php:1076 Public/card-history.php:401
+#: Public/call-log-customers.php:1077 Public/card-history.php:401
 msgid "No data found !!!"
 msgstr ""
 
@@ -343,73 +343,73 @@ msgid "From :"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:195
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "January"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:196
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "February"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:197
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "March"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:198
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "April"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:199
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "May"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:200
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "June"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:201
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "July"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:202
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "August"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:203
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "September"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:204
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "October"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:205
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "November"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:206
-#: Public/call-last-month.php:94 Public/call-log-customers.php:448
+#: Public/call-last-month.php:94 Public/call-log-customers.php:449
 #: Public/A2B_entity_paymentlog.php:104
 msgid "December"
 msgstr ""
@@ -420,26 +420,26 @@ msgid "To :"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:213 Public/call-last-month.php:133
-#: Public/call-log-customers.php:592 Public/call-log-customers.php:644
-#: Public/call-log-customers.php:697
+#: Public/call-log-customers.php:593 Public/call-log-customers.php:645
+#: Public/call-log-customers.php:698
 msgid "Exact"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:214 Public/call-last-month.php:134
-#: Public/call-log-customers.php:601 Public/call-log-customers.php:653
-#: Public/call-log-customers.php:706
+#: Public/call-log-customers.php:602 Public/call-log-customers.php:654
+#: Public/call-log-customers.php:707
 msgid "Begins with"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:215 Public/call-last-month.php:135
-#: Public/call-log-customers.php:610 Public/call-log-customers.php:662
-#: Public/call-log-customers.php:715
+#: Public/call-log-customers.php:611 Public/call-log-customers.php:663
+#: Public/call-log-customers.php:716
 msgid "Contains"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:216 Public/call-last-month.php:136
-#: Public/call-log-customers.php:619 Public/call-log-customers.php:671
-#: Public/call-log-customers.php:724
+#: Public/call-log-customers.php:620 Public/call-log-customers.php:672
+#: Public/call-log-customers.php:725
 msgid "Ends with"
 msgstr ""
 
@@ -818,7 +818,7 @@ msgstr ""
 msgid "Prev"
 msgstr ""
 
-#: lib/Misc.php:716 Public/call-log-customers.php:1099
+#: lib/Misc.php:716 Public/call-log-customers.php:1100
 msgid "Next"
 msgstr ""
 
@@ -919,7 +919,7 @@ msgid "CAN ONLY CALL RESTRICTED NUMBERS"
 msgstr ""
 
 #: lib/interface/constants.php:55 Public/call-last-month.php:64
-#: Public/call-log-customers.php:374 Public/templates/default/main.tpl:46
+#: Public/call-log-customers.php:375 Public/templates/default/main.tpl:46
 msgid "CUSTOMERS"
 msgstr ""
 
@@ -1313,28 +1313,28 @@ msgstr ""
 msgid "NO DISCOUNT"
 msgstr ""
 
-#: lib/Class.A2Billing.php:388
+#: lib/Class.A2Billing.php:391
 msgid "Invalid card number lenght defined in configuration."
 msgstr ""
 
-#: lib/Class.A2Billing.php:3169
+#: lib/Class.A2Billing.php:3239
 msgid "Error : Authentication Failed !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3209
+#: lib/Class.A2Billing.php:3279
 msgid "Error : Not enough credit to call !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3215
+#: lib/Class.A2Billing.php:3285
 msgid "Error : Card is not active!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3221
+#: lib/Class.A2Billing.php:3291
 msgid "Error : Card is actually in use!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3230 lib/Class.A2Billing.php:3238
-#: lib/Class.A2Billing.php:3246
+#: lib/Class.A2Billing.php:3300 lib/Class.A2Billing.php:3308
+#: lib/Class.A2Billing.php:3316
 msgid "Error : Card have expired!!!"
 msgstr ""
 
@@ -1500,11 +1500,11 @@ msgstr ""
 msgid "ERROR CSV EXPORT"
 msgstr ""
 
-#: Public/call-last-month.php:70 Public/call-log-customers.php:382
+#: Public/call-last-month.php:70 Public/call-log-customers.php:383
 msgid "Enter the customer ID"
 msgstr ""
 
-#: Public/call-last-month.php:76 Public/call-log-customers.php:396
+#: Public/call-last-month.php:76 Public/call-log-customers.php:397
 msgid "Rate"
 msgstr ""
 
@@ -1512,7 +1512,7 @@ msgstr ""
 msgid "SELECT MONTH"
 msgstr ""
 
-#: Public/call-last-month.php:91 Public/call-log-customers.php:432
+#: Public/call-last-month.php:91 Public/call-log-customers.php:433
 #: Public/A2B_entity_paymentlog.php:102 Public/A2B_entity_paymentlog.php:154
 msgid "From"
 msgstr ""
@@ -1539,7 +1539,7 @@ msgstr ""
 msgid "Stat Graph"
 msgstr ""
 
-#: Public/call-last-month.php:166 Public/call-log-customers.php:1234
+#: Public/call-last-month.php:166 Public/call-log-customers.php:1235
 #: Public/A2B_card_info.php:841
 msgid "SELL"
 msgstr ""
@@ -1576,65 +1576,69 @@ msgstr ""
 msgid "AUTO DIALER"
 msgstr ""
 
-#: Public/call-log-customers.php:113 Public/card-history.php:75
+#: Public/call-log-customers.php:105
+msgid "DID-ALEG"
+msgstr ""
+
+#: Public/call-log-customers.php:114 Public/card-history.php:75
 msgid "Date"
 msgstr ""
 
-#: Public/call-log-customers.php:115
+#: Public/call-log-customers.php:116
 msgid "CallerID"
 msgstr ""
 
-#: Public/call-log-customers.php:117 Public/call-log-customers.php:680
+#: Public/call-log-customers.php:118 Public/call-log-customers.php:681
 msgid "DNID"
 msgstr ""
 
-#: Public/call-log-customers.php:118
+#: Public/call-log-customers.php:119
 msgid "Phone Number"
 msgstr ""
 
-#: Public/call-log-customers.php:119 Public/graph_stat.php:56
+#: Public/call-log-customers.php:120 Public/graph_stat.php:56
 #: Public/graph_statbar.php:58
 msgid "Destination"
 msgstr ""
 
-#: Public/call-log-customers.php:120
+#: Public/call-log-customers.php:121
 msgid "Sell Rate"
 msgstr ""
 
-#: Public/call-log-customers.php:121 Public/graph_stat.php:57
+#: Public/call-log-customers.php:122 Public/graph_stat.php:57
 #: Public/graph_statbar.php:59
 msgid "Duration"
 msgstr ""
 
-#: Public/call-log-customers.php:122
+#: Public/call-log-customers.php:123
 msgid "Account"
 msgstr ""
 
-#: Public/call-log-customers.php:123
+#: Public/call-log-customers.php:124
 msgid "Terminate Cause"
 msgstr ""
 
-#: Public/call-log-customers.php:123
+#: Public/call-log-customers.php:124
 msgid "TC"
 msgstr ""
 
-#: Public/call-log-customers.php:124
+#: Public/call-log-customers.php:125
 msgid "CallType"
 msgstr ""
 
-#: Public/call-log-customers.php:125
+#: Public/call-log-customers.php:126
 msgid "Sell"
 msgstr ""
 
-#: Public/call-log-customers.php:148
+#: Public/call-log-customers.php:149
 msgid " - Call Logs - "
 msgstr ""
 
-#: Public/call-log-customers.php:391
+#: Public/call-log-customers.php:392
 msgid "CallPlan"
 msgstr ""
 
-#: Public/call-log-customers.php:420 Public/call-log-customers.php:1210
+#: Public/call-log-customers.php:421 Public/call-log-customers.php:1211
 #: Public/form_data/FG_var_moneysituation_details.inc:48
 #: Public/form_data/FG_var_moneysituation_details.inc:63
 #: Public/form_data/FG_var_remittance_request.inc:56
@@ -1642,20 +1646,20 @@ msgstr ""
 msgid "DATE"
 msgstr ""
 
-#: Public/call-log-customers.php:474 Public/call-log-customers.php:546
+#: Public/call-log-customers.php:475 Public/call-log-customers.php:547
 msgid "Time :"
 msgstr ""
 
-#: Public/call-log-customers.php:506 Public/A2B_entity_paymentlog.php:124
+#: Public/call-log-customers.php:507 Public/A2B_entity_paymentlog.php:124
 #: Public/A2B_entity_paymentlog.php:184
 msgid "To"
 msgstr ""
 
-#: Public/call-log-customers.php:576
+#: Public/call-log-customers.php:577
 msgid "PHONENUMBER"
 msgstr ""
 
-#: Public/call-log-customers.php:627 Public/form_data/FG_var_card.inc:889
+#: Public/call-log-customers.php:628 Public/form_data/FG_var_card.inc:889
 #: Public/form_data/FG_var_friend.inc:79
 #: Public/form_data/FG_var_friend.inc:186
 #: Public/form_data/FG_var_callerid.inc:56
@@ -1663,132 +1667,132 @@ msgstr ""
 msgid "CALLERID"
 msgstr ""
 
-#: Public/call-log-customers.php:734
+#: Public/call-log-customers.php:735
 msgid "CALL TYPE"
 msgstr ""
 
-#: Public/call-log-customers.php:748
+#: Public/call-log-customers.php:749
 msgid "ALL CALLS"
 msgstr ""
 
-#: Public/call-log-customers.php:774
+#: Public/call-log-customers.php:775
 msgid "OPTIONS"
 msgstr ""
 
-#: Public/call-log-customers.php:783
+#: Public/call-log-customers.php:784
 msgid "SHOW CALLS"
 msgstr ""
 
-#: Public/call-log-customers.php:795
+#: Public/call-log-customers.php:796
 msgid "ANSWERED"
 msgstr ""
 
-#: Public/call-log-customers.php:804
+#: Public/call-log-customers.php:805
 msgid "ALL"
 msgstr ""
 
-#: Public/call-log-customers.php:813
+#: Public/call-log-customers.php:814
 msgid "NOT COMPLETED"
 msgstr ""
 
-#: Public/call-log-customers.php:822
+#: Public/call-log-customers.php:823
 msgid "CONGESTIONED"
 msgstr ""
 
-#: Public/call-log-customers.php:831
+#: Public/call-log-customers.php:832
 msgid "BUSIED"
 msgstr ""
 
-#: Public/call-log-customers.php:840
+#: Public/call-log-customers.php:841
 msgid "NOT ANSWERED"
 msgstr ""
 
-#: Public/call-log-customers.php:849
+#: Public/call-log-customers.php:850
 msgid "CHANNEL UNAVAILABLE"
 msgstr ""
 
-#: Public/call-log-customers.php:858
+#: Public/call-log-customers.php:859
 msgid "CANCELED"
 msgstr ""
 
-#: Public/call-log-customers.php:866
+#: Public/call-log-customers.php:867
 msgid "RESULT"
 msgstr ""
 
-#: Public/call-log-customers.php:871
+#: Public/call-log-customers.php:872
 msgid "mins"
 msgstr ""
 
-#: Public/call-log-customers.php:880
+#: Public/call-log-customers.php:881
 msgid "secs"
 msgstr ""
 
-#: Public/call-log-customers.php:891 Public/form_data/FG_var_card.inc:154
+#: Public/call-log-customers.php:892 Public/form_data/FG_var_card.inc:154
 #: Public/form_data/FG_var_card.inc:571 Public/A2B_card_info.php:353
 msgid "CURRENCY"
 msgstr ""
 
-#: Public/call-log-customers.php:937
+#: Public/call-log-customers.php:938
 msgid "Number of call"
 msgstr ""
 
-#: Public/call-log-customers.php:1094
+#: Public/call-log-customers.php:1095
 msgid "Previous"
 msgstr ""
 
-#: Public/call-log-customers.php:1121
+#: Public/call-log-customers.php:1122
 msgid "TOTAL COSTS"
 msgstr ""
 
-#: Public/call-log-customers.php:1128
+#: Public/call-log-customers.php:1129
 msgid "TOTAL BUYCOSTS"
 msgstr ""
 
-#: Public/call-log-customers.php:1137
+#: Public/call-log-customers.php:1138
 msgid "DIFFERENCE"
 msgstr ""
 
-#: Public/call-log-customers.php:1207
+#: Public/call-log-customers.php:1208
 msgid "TRAFFIC SUMMARY"
 msgstr ""
 
-#: Public/call-log-customers.php:1212 Public/A2B_card_info.php:832
+#: Public/call-log-customers.php:1213 Public/A2B_card_info.php:832
 msgid "DURATION"
 msgstr ""
 
-#: Public/call-log-customers.php:1213
+#: Public/call-log-customers.php:1214
 msgid "DUR"
 msgstr ""
 
-#: Public/call-log-customers.php:1216
+#: Public/call-log-customers.php:1217
 msgid "GRAPHIC"
 msgstr ""
 
-#: Public/call-log-customers.php:1219
+#: Public/call-log-customers.php:1220
 msgid "CALLS"
 msgstr ""
 
-#: Public/call-log-customers.php:1223
+#: Public/call-log-customers.php:1224
 msgid "AVERAGE LENGTH OF CALL"
 msgstr ""
 
-#: Public/call-log-customers.php:1225
+#: Public/call-log-customers.php:1226
 msgid "ALOC"
 msgstr ""
 
-#: Public/call-log-customers.php:1229
+#: Public/call-log-customers.php:1230
 msgid "ANSWER SEIZE RATIO"
 msgstr ""
 
-#: Public/call-log-customers.php:1231
+#: Public/call-log-customers.php:1232
 msgid "ASR"
 msgstr ""
 
-#: Public/call-log-customers.php:1317
+#: Public/call-log-customers.php:1318
 msgid "TOTAL"
 msgstr ""
 
-#: Public/call-log-customers.php:1361
+#: Public/call-log-customers.php:1362
 msgid "No calls in your selection"
 msgstr ""
 

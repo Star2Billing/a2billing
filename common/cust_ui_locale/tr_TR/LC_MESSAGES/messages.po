@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 13:09+0100\n"
+"POT-Creation-Date: 2010-11-08 23:59+0100\n"
 "PO-Revision-Date: 2009-08-13 13:15+0100\n"
 "Last-Translator: Tamer KESER <tkeser080107@hotmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -259,7 +259,7 @@ msgstr "Hedef"
 msgid "CallTime available"
 msgstr "CallTime kullanılabilir"
 
-#: simulator.php:216 call-history.php:374
+#: simulator.php:216 call-history.php:380
 msgid "Minutes"
 msgstr "Dakika"
 
@@ -446,8 +446,8 @@ msgid "REFERENCE"
 msgstr "REFERANS"
 
 #: form_data/FG_var_invoice.inc:68 form_data/FG_var_receipt.inc:67
-#: form_data/FG_var_phonenumber.inc:64 call-history.php:253
-#: call-history.php:586
+#: form_data/FG_var_phonenumber.inc:64 call-history.php:259
+#: call-history.php:592
 msgid "DATE"
 msgstr "TAR?H"
 
@@ -539,7 +539,7 @@ msgid "TIMEZONE"
 msgstr "ZAMANDILIMI"
 
 #: form_data/FG_var_signup.inc:268 form_data/FG_var_phonenumber.inc:61
-#: call-history.php:318
+#: call-history.php:324
 msgid "PHONENUMBER"
 msgstr "TELEFONNUMARASI"
 
@@ -1108,7 +1108,7 @@ msgstr "Yeni bir telefon numarası ekleyiniz."
 msgid "Your new phone number has been inserted."
 msgstr "Yeni telefon numaranız eklendi."
 
-#: form_data/FG_var_callerid.inc:39 call-history.php:125
+#: form_data/FG_var_callerid.inc:39 call-history.php:131
 msgid "CallerID"
 msgstr "AramaİD"
 
@@ -1411,7 +1411,7 @@ msgstr "XML e aktar"
 #: CC_entity_edit_did_destination.php:626
 #: CC_entity_edit_did_destination.php:944
 #: CC_entity_edit_did_destination.php:1066
-#: CC_entity_edit_did_destination.php:1208 call-history.php:519
+#: CC_entity_edit_did_destination.php:1208 call-history.php:525
 msgid "No data found !!!"
 msgstr "Bilgi Bulunamadı !!!"
 
@@ -1561,19 +1561,19 @@ msgstr "Aralık"
 msgid "To :"
 msgstr "Kime :"
 
-#: lib/Form/Class.SearchHandler.inc.php:213 call-history.php:323
+#: lib/Form/Class.SearchHandler.inc.php:213 call-history.php:329
 msgid "Exact"
 msgstr "Tam"
 
-#: lib/Form/Class.SearchHandler.inc.php:214 call-history.php:324
+#: lib/Form/Class.SearchHandler.inc.php:214 call-history.php:330
 msgid "Begins with"
 msgstr "ile başlıyor"
 
-#: lib/Form/Class.SearchHandler.inc.php:215 call-history.php:325
+#: lib/Form/Class.SearchHandler.inc.php:215 call-history.php:331
 msgid "Contains"
 msgstr "içeriyor"
 
-#: lib/Form/Class.SearchHandler.inc.php:216 call-history.php:326
+#: lib/Form/Class.SearchHandler.inc.php:216 call-history.php:332
 msgid "Ends with"
 msgstr "ile bitiyor"
 
@@ -2336,28 +2336,28 @@ msgstr "KULLANILAN"
 msgid "NO DISCOUNT"
 msgstr "İNDİRİMSİZ"
 
-#: lib/Class.A2Billing.php:388
+#: lib/Class.A2Billing.php:391
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Ayar dosyasında girilen kart numara uzunluğu geçersiz."
 
-#: lib/Class.A2Billing.php:3169
+#: lib/Class.A2Billing.php:3239
 msgid "Error : Authentication Failed !!!"
 msgstr "Hata : Kullanıcı girişi başarısız !!!"
 
-#: lib/Class.A2Billing.php:3209
+#: lib/Class.A2Billing.php:3279
 msgid "Error : Not enough credit to call !!!"
 msgstr "Hata : Hesabınızda arama için yeterli para yok!!!"
 
-#: lib/Class.A2Billing.php:3215
+#: lib/Class.A2Billing.php:3285
 msgid "Error : Card is not active!!!"
 msgstr "Hata : Kart aktif değil!!!"
 
-#: lib/Class.A2Billing.php:3221
+#: lib/Class.A2Billing.php:3291
 msgid "Error : Card is actually in use!!!"
 msgstr "Hata : Kart kullanımda!!!"
 
-#: lib/Class.A2Billing.php:3230 lib/Class.A2Billing.php:3238
-#: lib/Class.A2Billing.php:3246
+#: lib/Class.A2Billing.php:3300 lib/Class.A2Billing.php:3308
+#: lib/Class.A2Billing.php:3316
 msgid "Error : Card have expired!!!"
 msgstr "Hata : Kart kullanım süresi doldu!!!"
 
@@ -2689,7 +2689,7 @@ msgstr "posta"
 #: A2B_receipt_detail.php:118 A2B_receipt_detail.php:137 card-history.php:75
 #: A2B_billing_preview.php:162 A2B_billing_preview.php:183
 #: A2B_billing_preview.php:255 A2B_billing_preview.php:276
-#: A2B_receipt_preview_detail.php:215 call-history.php:124
+#: A2B_receipt_preview_detail.php:215 call-history.php:130
 #: A2B_receipt_view.php:179 A2B_receipt_view.php:200
 msgid "Date"
 msgstr "TARİH"
@@ -2728,7 +2728,7 @@ msgid "RECEIPT DETAIL"
 msgstr "FİŞ DETAYI"
 
 #: A2B_receipt_detail.php:139 A2B_billing_preview.php:185
-#: A2B_receipt_preview_detail.php:217 call-history.php:131
+#: A2B_receipt_preview_detail.php:217 call-history.php:137
 #: A2B_receipt_view.php:202
 msgid "Cost"
 msgstr "Maliyet"
@@ -2749,71 +2749,71 @@ msgstr "Kart Geçmişi"
 msgid "SELECT BY MONTH"
 msgstr "AY "
 
-#: card-history.php:213 card-history.php:264 call-history.php:258
+#: card-history.php:213 card-history.php:264 call-history.php:264
 msgid "FROM"
 msgstr "Kimden"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "JANUARY"
 msgstr "OCAK"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "FEBRUARY"
 msgstr "ŞUBAT"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "MARCH"
 msgstr "MART"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "APRIL"
 msgstr "NİSAN"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "MAY"
 msgstr "MAYIS"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "JUNE"
 msgstr "HAZİRAN"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "JULY"
 msgstr "TEMMUZ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "AUGUST"
 msgstr "AĞUSTOS"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "SEPTEMBER"
 msgstr "EYLÜL"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "OCTOBER"
 msgstr "EKİM"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "NOVEMBER"
 msgstr "KASIM"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "DECEMBER"
 msgstr "ARALIK"
 
-#: card-history.php:233 card-history.php:292 call-history.php:286
+#: card-history.php:233 card-history.php:292 call-history.php:292
 msgid "TO"
 msgstr "Kime"
 
@@ -2821,7 +2821,7 @@ msgstr "Kime"
 msgid "SELECT BY DAY"
 msgstr "GÜNE GÖRE"
 
-#: card-history.php:326 call-history.php:401
+#: card-history.php:326 call-history.php:407
 msgid "Search"
 msgstr "Ara"
 
@@ -3009,7 +3009,7 @@ msgstr "Bu koda atamak istediğiniz numarayı giriniz"
 msgid "Speed Dial code"
 msgstr "Hızlı Arama Kodu"
 
-#: A2B_entity_speeddial.php:109 call-history.php:127 A2B_entity_did.php:415
+#: A2B_entity_speeddial.php:109 call-history.php:133 A2B_entity_did.php:415
 msgid "Destination"
 msgstr "Aranan Yer"
 
@@ -3169,144 +3169,154 @@ msgstr "Silme"
 msgid "ERROR: Cannot download file "
 msgstr "HATA: Dosya indirilemiyor"
 
-#: call-history.php:114
+#: call-history.php:115
 #, fuzzy
 msgid "STANDARD"
 msgstr "FATURALI KART"
 
-#: call-history.php:114
+#: call-history.php:116
 #, fuzzy
 msgid "SIP/IAX"
 msgstr "SIP/IAX BİLGİSİ"
 
-#: call-history.php:115
+#: call-history.php:117
 #, fuzzy
 msgid "DIDCALL"
 msgstr "ARAMA"
 
-#: call-history.php:115
+#: call-history.php:118
 msgid "DID_VOIP"
 msgstr ""
 
-#: call-history.php:115 templates/default/main.tpl:78
+#: call-history.php:119 templates/default/main.tpl:78
 msgid "CALLBACK"
 msgstr "GERİARAMA"
 
-#: call-history.php:116
+#: call-history.php:120
 #, fuzzy
 msgid "PREDICT"
 msgstr "KRED?"
 
-#: call-history.php:126
+#: call-history.php:121
+#, fuzzy
+msgid "AUTO DIALER"
+msgstr "OTOMATIK ÇEVİRİCİ"
+
+#: call-history.php:122
+#, fuzzy
+msgid "DID-ALEG"
+msgstr "AKTİVASYON KALDIR"
+
+#: call-history.php:132
 msgid "PhoneNumber"
 msgstr "TelefonNumarası"
 
-#: call-history.php:128
+#: call-history.php:134
 msgid "Duration"
 msgstr "Süre"
 
-#: call-history.php:129
+#: call-history.php:135
 msgid "Terminate Cause"
 msgstr "Bitiş Sebebi"
 
-#: call-history.php:129
+#: call-history.php:135
 msgid "TC"
 msgstr "BS"
 
-#: call-history.php:130
+#: call-history.php:136
 #, fuzzy
 msgid "CallType"
 msgstr "Arama Tipi"
 
-#: call-history.php:148
+#: call-history.php:154
 msgid "Call Logs"
 msgstr "Arama Kayıtları"
 
-#: call-history.php:331
+#: call-history.php:337
 msgid "CALL TYPE"
 msgstr "ARAMA TİPİ"
 
-#: call-history.php:337
+#: call-history.php:343
 msgid "ALL CALLS"
 msgstr "BÜTÜN ARAMALAR"
 
-#: call-history.php:354
+#: call-history.php:360
 msgid "OPTIONS"
 msgstr "SEÇENEKLER"
 
-#: call-history.php:359
+#: call-history.php:365
 msgid "SHOW"
 msgstr "GÖSTER"
 
-#: call-history.php:362
+#: call-history.php:368
 msgid "Answered Calls"
 msgstr "Cevaplanan Aramalar"
 
-#: call-history.php:364
+#: call-history.php:370
 msgid "All Calls"
 msgstr "Bütün Aramalar"
 
-#: call-history.php:371
+#: call-history.php:377
 msgid "RESULT"
 msgstr "SONUÇ"
 
-#: call-history.php:374
+#: call-history.php:380
 msgid "Seconds"
 msgstr "Saniye"
 
-#: call-history.php:379
+#: call-history.php:385
 msgid "CURRENCY"
 msgstr "PARABİRİMİ"
 
-#: call-history.php:410
+#: call-history.php:416
 msgid "Number of Calls"
 msgstr "Arama Sayısı"
 
-#: call-history.php:532
+#: call-history.php:538
 msgid "PREVIOUS"
 msgstr "Önceki"
 
-#: call-history.php:538
+#: call-history.php:544
 msgid "NEXT"
 msgstr "Sonraki"
 
-#: call-history.php:571
+#: call-history.php:577
 msgid "SUMMARY"
 msgstr "ÖZET"
 
-#: call-history.php:583
+#: call-history.php:589
 msgid "CALLING CARD MINUTES"
 msgstr "TELEFOON KARTI DAK?KALARI"
 
-#: call-history.php:587
+#: call-history.php:593
 msgid "DURATION"
 msgstr "SÃRE"
 
-#: call-history.php:588
+#: call-history.php:594
 msgid "GRAPHIC"
 msgstr "GRAF?K"
 
-#: call-history.php:589
+#: call-history.php:595
 msgid "CALLS"
 msgstr "ARAMALAR"
 
-#: call-history.php:590
+#: call-history.php:596
 msgid "AVERAGE LENGTH OF CALL"
 msgstr "ORTALAMA ARAMA SÜRESİ"
 
-#: call-history.php:590
+#: call-history.php:596
 msgid "ALOC"
 msgstr "OAS"
 
-#: call-history.php:591
+#: call-history.php:597
 msgid "TOTAL COST"
 msgstr "TOPLAM TUTAR"
 
-#: call-history.php:640
+#: call-history.php:646
 msgid "TOTAL"
 msgstr "TOPLAM"
 
-#: call-history.php:652
+#: call-history.php:658
 msgid "No calls in your selection"
 msgstr "Hiçbir Arama Bulunamadı"
 

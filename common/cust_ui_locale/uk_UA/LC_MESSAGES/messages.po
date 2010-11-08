@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 13:09+0100\n"
+"POT-Creation-Date: 2010-11-08 23:59+0100\n"
 "PO-Revision-Date: 2008-03-01 23:40+0200\n"
 "Last-Translator: Oleh Miniv <oleg-min@ukr.net>\n"
 "Language-Team: Oleh Miniv <oleg-min@ukr.net>\n"
@@ -272,7 +272,7 @@ msgstr "НАПРЯМОК"
 msgid "CallTime available"
 msgstr "Доступний час дзвінка"
 
-#: simulator.php:216 call-history.php:374
+#: simulator.php:216 call-history.php:380
 msgid "Minutes"
 msgstr "Хвилини"
 
@@ -465,8 +465,8 @@ msgid "REFERENCE"
 msgstr ""
 
 #: form_data/FG_var_invoice.inc:68 form_data/FG_var_receipt.inc:67
-#: form_data/FG_var_phonenumber.inc:64 call-history.php:253
-#: call-history.php:586
+#: form_data/FG_var_phonenumber.inc:64 call-history.php:259
+#: call-history.php:592
 msgid "DATE"
 msgstr "ДАТА"
 
@@ -569,7 +569,7 @@ msgid "TIMEZONE"
 msgstr ""
 
 #: form_data/FG_var_signup.inc:268 form_data/FG_var_phonenumber.inc:61
-#: call-history.php:318
+#: call-history.php:324
 msgid "PHONENUMBER"
 msgstr "Номер телефону"
 
@@ -1197,7 +1197,7 @@ msgstr "Додати номер телефону"
 msgid "Your new phone number has been inserted."
 msgstr "Ваш запис був оновлений."
 
-#: form_data/FG_var_callerid.inc:39 call-history.php:125
+#: form_data/FG_var_callerid.inc:39 call-history.php:131
 #, fuzzy
 msgid "CallerID"
 msgstr "Дзвінок"
@@ -1503,7 +1503,7 @@ msgstr "Експорт в XML"
 #: CC_entity_edit_did_destination.php:626
 #: CC_entity_edit_did_destination.php:944
 #: CC_entity_edit_did_destination.php:1066
-#: CC_entity_edit_did_destination.php:1208 call-history.php:519
+#: CC_entity_edit_did_destination.php:1208 call-history.php:525
 msgid "No data found !!!"
 msgstr "Немає даних!"
 
@@ -1655,19 +1655,19 @@ msgstr "Грудень"
 msgid "To :"
 msgstr "По:"
 
-#: lib/Form/Class.SearchHandler.inc.php:213 call-history.php:323
+#: lib/Form/Class.SearchHandler.inc.php:213 call-history.php:329
 msgid "Exact"
 msgstr "Точно"
 
-#: lib/Form/Class.SearchHandler.inc.php:214 call-history.php:324
+#: lib/Form/Class.SearchHandler.inc.php:214 call-history.php:330
 msgid "Begins with"
 msgstr "Починається з"
 
-#: lib/Form/Class.SearchHandler.inc.php:215 call-history.php:325
+#: lib/Form/Class.SearchHandler.inc.php:215 call-history.php:331
 msgid "Contains"
 msgstr "Містить"
 
-#: lib/Form/Class.SearchHandler.inc.php:216 call-history.php:326
+#: lib/Form/Class.SearchHandler.inc.php:216 call-history.php:332
 msgid "Ends with"
 msgstr "Закінчується на"
 
@@ -2469,28 +2469,28 @@ msgstr "Не використовується"
 msgid "NO DISCOUNT"
 msgstr "Немає SIP аккаунта"
 
-#: lib/Class.A2Billing.php:388
+#: lib/Class.A2Billing.php:391
 msgid "Invalid card number lenght defined in configuration."
 msgstr "В конфігурації визначена неправильна довжина номера картки."
 
-#: lib/Class.A2Billing.php:3169
+#: lib/Class.A2Billing.php:3239
 msgid "Error : Authentication Failed !!!"
 msgstr "Помилка: Невдала автентифікація!"
 
-#: lib/Class.A2Billing.php:3209
+#: lib/Class.A2Billing.php:3279
 msgid "Error : Not enough credit to call !!!"
 msgstr "Помилка: Недостатньо коштів для здійснення дзвінка!"
 
-#: lib/Class.A2Billing.php:3215
+#: lib/Class.A2Billing.php:3285
 msgid "Error : Card is not active!!!"
 msgstr "Помилка: Картка не активна!"
 
-#: lib/Class.A2Billing.php:3221
+#: lib/Class.A2Billing.php:3291
 msgid "Error : Card is actually in use!!!"
 msgstr "Помилка: Картка вже використовується!"
 
-#: lib/Class.A2Billing.php:3230 lib/Class.A2Billing.php:3238
-#: lib/Class.A2Billing.php:3246
+#: lib/Class.A2Billing.php:3300 lib/Class.A2Billing.php:3308
+#: lib/Class.A2Billing.php:3316
 msgid "Error : Card have expired!!!"
 msgstr "Помилка: Закінчився термін дії картки!"
 
@@ -2833,7 +2833,7 @@ msgstr "Email"
 #: A2B_receipt_detail.php:118 A2B_receipt_detail.php:137 card-history.php:75
 #: A2B_billing_preview.php:162 A2B_billing_preview.php:183
 #: A2B_billing_preview.php:255 A2B_billing_preview.php:276
-#: A2B_receipt_preview_detail.php:215 call-history.php:124
+#: A2B_receipt_preview_detail.php:215 call-history.php:130
 #: A2B_receipt_view.php:179 A2B_receipt_view.php:200
 msgid "Date"
 msgstr "Дата"
@@ -2874,7 +2874,7 @@ msgid "RECEIPT DETAIL"
 msgstr ""
 
 #: A2B_receipt_detail.php:139 A2B_billing_preview.php:185
-#: A2B_receipt_preview_detail.php:217 call-history.php:131
+#: A2B_receipt_preview_detail.php:217 call-history.php:137
 #: A2B_receipt_view.php:202
 msgid "Cost"
 msgstr "Вартість"
@@ -2897,71 +2897,71 @@ msgstr ""
 msgid "SELECT BY MONTH"
 msgstr "ВИБІР ПО МІСЯЦЮ"
 
-#: card-history.php:213 card-history.php:264 call-history.php:258
+#: card-history.php:213 card-history.php:264 call-history.php:264
 msgid "FROM"
 msgstr "З"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "JANUARY"
 msgstr "СІЧЕНЬ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "FEBRUARY"
 msgstr "ЛЮТИЙ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "MARCH"
 msgstr "БЕРЕЗЕНЬ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "APRIL"
 msgstr "КВІТЕНЬ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "MAY"
 msgstr "ТРАВЕНЬ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "JUNE"
 msgstr "ЧЕРВЕНЬ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "JULY"
 msgstr "ЛИПЕНЬ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "AUGUST"
 msgstr "СЕРПЕНЬ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "SEPTEMBER"
 msgstr "ВЕРЕСЕНЬ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "OCTOBER"
 msgstr "ЖОВТЕНЬ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "NOVEMBER"
 msgstr "ЛИСТОПАД"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "DECEMBER"
 msgstr "ГРУДЕНЬ"
 
-#: card-history.php:233 card-history.php:292 call-history.php:286
+#: card-history.php:233 card-history.php:292 call-history.php:292
 msgid "TO"
 msgstr "ПО"
 
@@ -2969,7 +2969,7 @@ msgstr "ПО"
 msgid "SELECT BY DAY"
 msgstr "ВИБІР ПО ДНЮ"
 
-#: card-history.php:326 call-history.php:401
+#: card-history.php:326 call-history.php:407
 msgid "Search"
 msgstr "Пошук"
 
@@ -3170,7 +3170,7 @@ msgstr "Введіть номер, який Ви хочете прив'язат�
 msgid "Speed Dial code"
 msgstr "Код швидкого набору"
 
-#: A2B_entity_speeddial.php:109 call-history.php:127 A2B_entity_did.php:415
+#: A2B_entity_speeddial.php:109 call-history.php:133 A2B_entity_did.php:415
 msgid "Destination"
 msgstr "Напрямок"
 
@@ -3333,148 +3333,157 @@ msgstr "Видалення"
 msgid "ERROR: Cannot download file "
 msgstr ""
 
-#: call-history.php:114
+#: call-history.php:115
 #, fuzzy
 msgid "STANDARD"
 msgstr "Дата відправки"
 
-#: call-history.php:114
+#: call-history.php:116
 #, fuzzy
 msgid "SIP/IAX"
 msgstr "Інформація SIP/IAX"
 
-#: call-history.php:115
+#: call-history.php:117
 #, fuzzy
 msgid "DIDCALL"
 msgstr "ДЗВІНКІВ"
 
-#: call-history.php:115
+#: call-history.php:118
 msgid "DID_VOIP"
 msgstr ""
 
-#: call-history.php:115 templates/default/main.tpl:78
+#: call-history.php:119 templates/default/main.tpl:78
 msgid "CALLBACK"
 msgstr "Callback"
 
-#: call-history.php:116
+#: call-history.php:120
 #, fuzzy
 msgid "PREDICT"
 msgstr "Кредит"
 
-#: call-history.php:126
+#: call-history.php:121
+msgid "AUTO DIALER"
+msgstr ""
+
+#: call-history.php:122
+#, fuzzy
+msgid "DID-ALEG"
+msgstr "ДЗВІНКІВ"
+
+#: call-history.php:132
 #, fuzzy
 msgid "PhoneNumber"
 msgstr "Номер телефону"
 
-#: call-history.php:128
+#: call-history.php:134
 msgid "Duration"
 msgstr "Тривалість"
 
-#: call-history.php:129
+#: call-history.php:135
 msgid "Terminate Cause"
 msgstr "Причина роз’єднання"
 
-#: call-history.php:129
+#: call-history.php:135
 #, fuzzy
 msgid "TC"
 msgstr "Пр. роз'єд."
 
-#: call-history.php:130
+#: call-history.php:136
 #, fuzzy
 msgid "CallType"
 msgstr "Тип дзвінка"
 
-#: call-history.php:148
+#: call-history.php:154
 msgid "Call Logs"
 msgstr "Логи дзвінків"
 
-#: call-history.php:331
+#: call-history.php:337
 #, fuzzy
 msgid "CALL TYPE"
 msgstr "Історія дзвінків"
 
-#: call-history.php:337
+#: call-history.php:343
 #, fuzzy
 msgid "ALL CALLS"
 msgstr "ДЗВІНКІВ"
 
-#: call-history.php:354
+#: call-history.php:360
 msgid "OPTIONS"
 msgstr "ОПЦІЇ"
 
-#: call-history.php:359
+#: call-history.php:365
 msgid "SHOW"
 msgstr "ПОКАЗАТИ"
 
-#: call-history.php:362
+#: call-history.php:368
 msgid "Answered Calls"
 msgstr "Вдалі дзвінки"
 
-#: call-history.php:364
+#: call-history.php:370
 msgid "All Calls"
 msgstr "Всі дзвінки"
 
-#: call-history.php:371
+#: call-history.php:377
 msgid "RESULT"
 msgstr "РЕЗУЛЬТАТ"
 
-#: call-history.php:374
+#: call-history.php:380
 msgid "Seconds"
 msgstr "Секунди"
 
-#: call-history.php:379
+#: call-history.php:385
 msgid "CURRENCY"
 msgstr "ВАЛЮТА"
 
-#: call-history.php:410
+#: call-history.php:416
 msgid "Number of Calls"
 msgstr "Кількість дзвінків"
 
-#: call-history.php:532
+#: call-history.php:538
 msgid "PREVIOUS"
 msgstr "Попередня"
 
-#: call-history.php:538
+#: call-history.php:544
 msgid "NEXT"
 msgstr "Наступна"
 
-#: call-history.php:571
+#: call-history.php:577
 msgid "SUMMARY"
 msgstr ""
 
-#: call-history.php:583
+#: call-history.php:589
 msgid "CALLING CARD MINUTES"
 msgstr ""
 
-#: call-history.php:587
+#: call-history.php:593
 msgid "DURATION"
 msgstr "ТРИВАЛІСТЬ"
 
-#: call-history.php:588
+#: call-history.php:594
 msgid "GRAPHIC"
 msgstr "ГРАФІК"
 
-#: call-history.php:589
+#: call-history.php:595
 msgid "CALLS"
 msgstr "ДЗВІНКІВ"
 
-#: call-history.php:590
+#: call-history.php:596
 msgid "AVERAGE LENGTH OF CALL"
 msgstr "Середня тривалість дзвінка"
 
-#: call-history.php:590
+#: call-history.php:596
 msgid "ALOC"
 msgstr "СЕР. ТРИВ."
 
-#: call-history.php:591
+#: call-history.php:597
 msgid "TOTAL COST"
 msgstr ""
 
-#: call-history.php:640
+#: call-history.php:646
 msgid "TOTAL"
 msgstr "Загалом"
 
-#: call-history.php:652
+#: call-history.php:658
 msgid "No calls in your selection"
 msgstr "Не знайдено дзвінків за заданим критерієм"
 

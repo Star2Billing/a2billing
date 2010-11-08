@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Customer UI : 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 13:09+0100\n"
+"POT-Creation-Date: 2010-11-08 23:59+0100\n"
 "PO-Revision-Date: 2010-07-28 17:45+0200\n"
 "Last-Translator: Polihronis Porfiris <pporfiris@hotmail.com>\n"
 "Language-Team: Polihronis Porfiris <pporfiris@hotmai.com>\n"
@@ -258,7 +258,7 @@ msgstr "ΠΡΟΟΡΙΣΜΟΣ"
 msgid "CallTime available"
 msgstr "Διαθέσιμος χρόνος ομιλίας"
 
-#: simulator.php:216 call-history.php:374
+#: simulator.php:216 call-history.php:380
 msgid "Minutes"
 msgstr "Λεπτά"
 
@@ -444,8 +444,8 @@ msgid "REFERENCE"
 msgstr "ΣΥΣΧΕΤΙΣΗ"
 
 #: form_data/FG_var_invoice.inc:68 form_data/FG_var_receipt.inc:67
-#: form_data/FG_var_phonenumber.inc:64 call-history.php:253
-#: call-history.php:586
+#: form_data/FG_var_phonenumber.inc:64 call-history.php:259
+#: call-history.php:592
 msgid "DATE"
 msgstr "ΗΜΕΡΟΜΗΝΙΑ"
 
@@ -537,7 +537,7 @@ msgid "TIMEZONE"
 msgstr "ΖΩΝΗ ΩΡΑΣ"
 
 #: form_data/FG_var_signup.inc:268 form_data/FG_var_phonenumber.inc:61
-#: call-history.php:318
+#: call-history.php:324
 msgid "PHONENUMBER"
 msgstr "ΤΗΛΕΦΩΝΟ"
 
@@ -1106,7 +1106,7 @@ msgstr "Προσθέστε ένα νέο τηλεφωνικό αριθμό."
 msgid "Your new phone number has been inserted."
 msgstr "Ο νέος τηλεφωνικός σας αριθμός εισήχθηκε"
 
-#: form_data/FG_var_callerid.inc:39 call-history.php:125
+#: form_data/FG_var_callerid.inc:39 call-history.php:131
 msgid "CallerID"
 msgstr "Αναγνωριστικό κλήσης"
 
@@ -1408,7 +1408,7 @@ msgstr "Εξαγωγή XML"
 #: CC_entity_edit_did_destination.php:626
 #: CC_entity_edit_did_destination.php:944
 #: CC_entity_edit_did_destination.php:1066
-#: CC_entity_edit_did_destination.php:1208 call-history.php:519
+#: CC_entity_edit_did_destination.php:1208 call-history.php:525
 msgid "No data found !!!"
 msgstr "Δεν βρέθηκαν δεδομένα!!!"
 
@@ -1558,19 +1558,19 @@ msgstr "Δεκέμβριος "
 msgid "To :"
 msgstr "Προς :"
 
-#: lib/Form/Class.SearchHandler.inc.php:213 call-history.php:323
+#: lib/Form/Class.SearchHandler.inc.php:213 call-history.php:329
 msgid "Exact"
 msgstr "Ακριβός"
 
-#: lib/Form/Class.SearchHandler.inc.php:214 call-history.php:324
+#: lib/Form/Class.SearchHandler.inc.php:214 call-history.php:330
 msgid "Begins with"
 msgstr "Αρχίζει με"
 
-#: lib/Form/Class.SearchHandler.inc.php:215 call-history.php:325
+#: lib/Form/Class.SearchHandler.inc.php:215 call-history.php:331
 msgid "Contains"
 msgstr "Περιέχει"
 
-#: lib/Form/Class.SearchHandler.inc.php:216 call-history.php:326
+#: lib/Form/Class.SearchHandler.inc.php:216 call-history.php:332
 msgid "Ends with"
 msgstr "Τελειώνει με"
 
@@ -2324,28 +2324,28 @@ msgstr "ΑΡΝΗΘΗΚΕ"
 msgid "NO DISCOUNT"
 msgstr "ΧΩΡΙΣ ΕΚΠΤΩΣΗ"
 
-#: lib/Class.A2Billing.php:388
+#: lib/Class.A2Billing.php:391
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Έχει οριστεί λανθασμένο μήκος κάρτας στις ρυθμίσεις"
 
-#: lib/Class.A2Billing.php:3169
+#: lib/Class.A2Billing.php:3239
 msgid "Error : Authentication Failed !!!"
 msgstr "Σφάλμα : Αποτυχία αυθεντικοποιησης !!!"
 
-#: lib/Class.A2Billing.php:3209
+#: lib/Class.A2Billing.php:3279
 msgid "Error : Not enough credit to call !!!"
 msgstr "Σφάλμα : Δεν υπάρχουν αρκετές μονάδες για να καλέσετε !!!"
 
-#: lib/Class.A2Billing.php:3215
+#: lib/Class.A2Billing.php:3285
 msgid "Error : Card is not active!!!"
 msgstr "Σφάλμα : Η κάρτα δεν έχει ενεργοποιηθεί !!!"
 
-#: lib/Class.A2Billing.php:3221
+#: lib/Class.A2Billing.php:3291
 msgid "Error : Card is actually in use!!!"
 msgstr "Σφάλμα : Η κάρτα είναι σε χρήση !!!"
 
-#: lib/Class.A2Billing.php:3230 lib/Class.A2Billing.php:3238
-#: lib/Class.A2Billing.php:3246
+#: lib/Class.A2Billing.php:3300 lib/Class.A2Billing.php:3308
+#: lib/Class.A2Billing.php:3316
 msgid "Error : Card have expired!!!"
 msgstr "Σφάλμα : Η κάρτα έχει λήξη !!!"
 
@@ -2673,7 +2673,7 @@ msgstr "ταχυδρομείο"
 #: A2B_receipt_detail.php:118 A2B_receipt_detail.php:137 card-history.php:75
 #: A2B_billing_preview.php:162 A2B_billing_preview.php:183
 #: A2B_billing_preview.php:255 A2B_billing_preview.php:276
-#: A2B_receipt_preview_detail.php:215 call-history.php:124
+#: A2B_receipt_preview_detail.php:215 call-history.php:130
 #: A2B_receipt_view.php:179 A2B_receipt_view.php:200
 msgid "Date"
 msgstr "Ημερομηνία"
@@ -2712,7 +2712,7 @@ msgid "RECEIPT DETAIL"
 msgstr "ΛΕΠΤΟΜΕΡΕΙΕΣ ΑΠΟΔΕΙΞΗΣ"
 
 #: A2B_receipt_detail.php:139 A2B_billing_preview.php:185
-#: A2B_receipt_preview_detail.php:217 call-history.php:131
+#: A2B_receipt_preview_detail.php:217 call-history.php:137
 #: A2B_receipt_view.php:202
 msgid "Cost"
 msgstr "Κόστος"
@@ -2733,71 +2733,71 @@ msgstr "Ιστορικό Κάρτας"
 msgid "SELECT BY MONTH"
 msgstr "ΕΠΙΛΟΓΗ ΚΑΤΑ ΜΗΝΑ"
 
-#: card-history.php:213 card-history.php:264 call-history.php:258
+#: card-history.php:213 card-history.php:264 call-history.php:264
 msgid "FROM"
 msgstr "ΑΠΟ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "JANUARY"
 msgstr "ΙΑΝΟΥΑΡΙΟΣ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "FEBRUARY"
 msgstr "ΦΕΒΡΟΥΑΡΙΟΣ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "MARCH"
 msgstr "ΜΑΡΤΙΟΣ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "APRIL"
 msgstr "ΑΠΡΙΛΙΟΣ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "MAY"
 msgstr "ΜΑΙΟΣ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "JUNE"
 msgstr "ΙΟΥΝΙΟΣ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "JULY"
 msgstr "ΙΟΥΛΙΟΣ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "AUGUST"
 msgstr "ΑΥΓΟΥΣΤΟΣ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "SEPTEMBER"
 msgstr "ΣΕΤΕΜΒΡΙΟΣ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "OCTOBER"
 msgstr "ΟΚΤΩΒΡΙΟΣ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "NOVEMBER"
 msgstr "ΝΟΕΜΒΡΙΟΣ"
 
 #: card-history.php:217 card-history.php:238 card-history.php:277
-#: card-history.php:305 call-history.php:271 call-history.php:299
+#: card-history.php:305 call-history.php:277 call-history.php:305
 msgid "DECEMBER"
 msgstr "ΔΕΚΕΜΒΡΙΟΣ"
 
-#: card-history.php:233 card-history.php:292 call-history.php:286
+#: card-history.php:233 card-history.php:292 call-history.php:292
 msgid "TO"
 msgstr "ΕΩΣ"
 
@@ -2805,7 +2805,7 @@ msgstr "ΕΩΣ"
 msgid "SELECT BY DAY"
 msgstr "ΕΠΙΛΟΓΗ ΚΑΤΑ ΜΕΡΑ"
 
-#: card-history.php:326 call-history.php:401
+#: card-history.php:326 call-history.php:407
 msgid "Search"
 msgstr "Αναζήτηση"
 
@@ -2993,7 +2993,7 @@ msgstr "Πληκτρολογήστε τον αριθμό που θέλετε ν�
 msgid "Speed Dial code"
 msgstr "Κωδικός ταχείας κλήσης"
 
-#: A2B_entity_speeddial.php:109 call-history.php:127 A2B_entity_did.php:415
+#: A2B_entity_speeddial.php:109 call-history.php:133 A2B_entity_did.php:415
 msgid "Destination"
 msgstr "Προορισμός"
 
@@ -3149,143 +3149,153 @@ msgstr "Διαγράφετε"
 msgid "ERROR: Cannot download file "
 msgstr "Σφάλμα : Δεν μπορώ να κατεβάσω το αρχείο"
 
-#: call-history.php:114
+#: call-history.php:115
 #, fuzzy
 msgid "STANDARD"
 msgstr "ΜΕΤΑΠΛΗΡΩΜΕΝΗ ΚΑΡΤΑ"
 
-#: call-history.php:114
+#: call-history.php:116
 #, fuzzy
 msgid "SIP/IAX"
 msgstr "ΠΛΗΡΟΦΟΡΙΕΣ SIP/IAX"
 
-#: call-history.php:115
+#: call-history.php:117
 #, fuzzy
 msgid "DIDCALL"
 msgstr "ΜΗΝ ΞΑΝΑΠΑΡΕΙΣ"
 
-#: call-history.php:115
+#: call-history.php:118
 msgid "DID_VOIP"
 msgstr ""
 
-#: call-history.php:115 templates/default/main.tpl:78
+#: call-history.php:119 templates/default/main.tpl:78
 msgid "CALLBACK"
 msgstr "ΕΠΑΝΑΚΛΗΣΗ"
 
-#: call-history.php:116
+#: call-history.php:120
 #, fuzzy
 msgid "PREDICT"
 msgstr "ΜΟΝΑΔΕΣ"
 
-#: call-history.php:126
+#: call-history.php:121
+#, fuzzy
+msgid "AUTO DIALER"
+msgstr "ΑΥΤΟΜΑΤΗ ΚΛΗΣΗ"
+
+#: call-history.php:122
+#, fuzzy
+msgid "DID-ALEG"
+msgstr "ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΗ"
+
+#: call-history.php:132
 msgid "PhoneNumber"
 msgstr "Τηλέφωνο"
 
-#: call-history.php:128
+#: call-history.php:134
 msgid "Duration"
 msgstr "Διάρκεια"
 
-#: call-history.php:129
+#: call-history.php:135
 msgid "Terminate Cause"
 msgstr "Αιτία διακοπής"
 
-#: call-history.php:129
+#: call-history.php:135
 msgid "TC"
 msgstr "TC"
 
-#: call-history.php:130
+#: call-history.php:136
 msgid "CallType"
 msgstr "Είδος κλήσης"
 
-#: call-history.php:148
+#: call-history.php:154
 msgid "Call Logs"
 msgstr "Αρχεία κλήσεων"
 
-#: call-history.php:331
+#: call-history.php:337
 msgid "CALL TYPE"
 msgstr "ΕΙΔΟΣ ΚΛΗΣΕΩΝ"
 
-#: call-history.php:337
+#: call-history.php:343
 msgid "ALL CALLS"
 msgstr "ΌΛΕΣ ΟΙ ΚΛΗΣΗΣ"
 
-#: call-history.php:354
+#: call-history.php:360
 msgid "OPTIONS"
 msgstr "ΕΠΙΛΟΓΕΣ"
 
-#: call-history.php:359
+#: call-history.php:365
 msgid "SHOW"
 msgstr "ΕΜΦΑΝΙΣΗ"
 
-#: call-history.php:362
+#: call-history.php:368
 msgid "Answered Calls"
 msgstr "Απαντημένες κλήσης"
 
-#: call-history.php:364
+#: call-history.php:370
 msgid "All Calls"
 msgstr "Όλες οι κλήσης"
 
-#: call-history.php:371
+#: call-history.php:377
 msgid "RESULT"
 msgstr "ΑΠΟΤΕΛΕΣΜΑ"
 
-#: call-history.php:374
+#: call-history.php:380
 msgid "Seconds"
 msgstr "Δευτερόλεπτα"
 
-#: call-history.php:379
+#: call-history.php:385
 msgid "CURRENCY"
 msgstr "ΝΟΜΙΣΜΑ"
 
-#: call-history.php:410
+#: call-history.php:416
 msgid "Number of Calls"
 msgstr "Αριθμός κλήσεων"
 
-#: call-history.php:532
+#: call-history.php:538
 msgid "PREVIOUS"
 msgstr "ΠΡΟΗΓΟΥΜΕΝΟ"
 
-#: call-history.php:538
+#: call-history.php:544
 msgid "NEXT"
 msgstr "ΕΠΟΜΕΝΟ"
 
-#: call-history.php:571
+#: call-history.php:577
 msgid "SUMMARY"
 msgstr "ΠΕΡΙΛΗΨΗ"
 
-#: call-history.php:583
+#: call-history.php:589
 msgid "CALLING CARD MINUTES"
 msgstr "ΧΡΟΝΟΣ ΟΜΙΛΙΑΣ ΚΑΡΤΑΣ"
 
-#: call-history.php:587
+#: call-history.php:593
 msgid "DURATION"
 msgstr "ΔΙΑΡΚΕΙΑ"
 
-#: call-history.php:588
+#: call-history.php:594
 msgid "GRAPHIC"
 msgstr "ΓΡΑΦΙΚΟ"
 
-#: call-history.php:589
+#: call-history.php:595
 msgid "CALLS"
 msgstr "ΚΛΗΣΗΣ"
 
-#: call-history.php:590
+#: call-history.php:596
 msgid "AVERAGE LENGTH OF CALL"
 msgstr "ΜΕΣΟΣ ΌΡΟΣ ΔΙΑΡΚΕΙΑΣ ΚΛΗΣΕΩΝ"
 
-#: call-history.php:590
+#: call-history.php:596
 msgid "ALOC"
 msgstr "ALOC"
 
-#: call-history.php:591
+#: call-history.php:597
 msgid "TOTAL COST"
 msgstr "ΣΥΝΟΛΙΚΟ ΚΟΣΤΟΣ"
 
-#: call-history.php:640
+#: call-history.php:646
 msgid "TOTAL"
 msgstr "ΣΥΝΟΛΟ"
 
-#: call-history.php:652
+#: call-history.php:658
 msgid "No calls in your selection"
 msgstr "Δεν υπάρχουν κλήσης για την επιλογή σας"
 
