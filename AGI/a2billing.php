@@ -184,7 +184,7 @@ if ($mode == 'standard') {
 		$A2B->callingcard_auto_setcallerid($agi);
 		
 		for ($i=0;$i< $A2B->agiconfig['number_try'] ;$i++) {
-
+            
 			$RateEngine->Reinit();
 			$A2B-> Reinit();
 
@@ -1102,24 +1102,20 @@ if ($mode == 'standard') {
 	if ($callback_mode=='CID') {
 		$charge_callback = 1;
 		$A2B->agiconfig['use_dnid'] = 0;
-		$A2B->agiconfig['number_try'] = 1;
 		$A2B->CallerID = $called_party;
 
 	} elseif ($callback_mode=='CID-PROMPT') {
 		$charge_callback = 1;
 		$A2B->agiconfig['use_dnid'] = 1;
-		$A2B->agiconfig['number_try'] = 1;
 		$A2B->CallerID = $called_party;
 
 	} elseif ($callback_mode=='ALL') {
 		$A2B->agiconfig['use_dnid'] = 0;
-		$A2B->agiconfig['number_try'] = 1;
 		$A2B->agiconfig['cid_enable'] = 0;
 
 	} else {
 		$charge_callback = 1;
 		// FOR THE WEB-CALLBACK
-		$A2B->agiconfig['number_try'] = 1;
 		$A2B->agiconfig['use_dnid'] = 1;
 		$A2B->agiconfig['say_balance_after_auth'] = 0;
 		$A2B->agiconfig['cid_enable'] = 0;
@@ -1148,7 +1144,7 @@ if ($mode == 'standard') {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[Start]");
 		$A2B -> callingcard_auto_setcallerid($agi);
 
-		for ($i=0 ; $i < 1 ; $i++) {
+		for ($i=0;$i< $A2B->agiconfig['number_try'] ;$i++) {
 
 			$RateEngine->Reinit();
 			$A2B-> Reinit();
@@ -1287,8 +1283,8 @@ if ($mode == 'standard') {
 		$callback_leg = $A2B -> username;
 
 		
-		for ($i=0 ; $i < 1 ; $i++) {
-
+		for ($i=0;$i< $A2B->agiconfig['number_try'] ;$i++) {
+		
 			$RateEngine->Reinit();
 			//$A2B-> Reinit();
 			
@@ -1306,9 +1302,6 @@ if ($mode == 'standard') {
             // find the route and Initiate new callback for all the members
             foreach ($list_pn_member as $inst_pn_member){
                 $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[Spool Callback for the PhoneNumber '.$inst_pn_member.']');
-
-                // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
                 $A2B -> extension = $A2B -> dnid = $A2B -> destination = $inst_pn_member;
 
                 $resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B -> destination, $A2B -> tariff);
@@ -1329,14 +1322,14 @@ if ($mode == 'standard') {
                             $RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[$k][29];
                             $usetrunk_failover = 0;
                         }
-
+                        
                         $prefix			= $RateEngine -> ratecard_obj[0][$usetrunk+1];
                         $tech 			= $RateEngine -> ratecard_obj[0][$usetrunk+2];
                         $ipaddress 		= $RateEngine -> ratecard_obj[0][$usetrunk+3];
                         $removeprefix 	= $RateEngine -> ratecard_obj[0][$usetrunk+4];
                         $timeout		= $RateEngine -> ratecard_obj[0]['timeout'];
-                        $failover_trunk	= $RateEngine -> ratecard_obj[0][40+$usetrunk_failover];
-                        $addparameter	= $RateEngine -> ratecard_obj[0][42+$usetrunk_failover];
+                        $failover_trunk	= $RateEngine -> ratecard_obj[0][40 + $usetrunk_failover];
+                        $addparameter	= $RateEngine -> ratecard_obj[0][42 + $usetrunk_failover];
 
                         $destination = $A2B ->destination;
                         if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
@@ -1406,9 +1399,6 @@ if ($mode == 'standard') {
                     $error_msg = 'Error : There is no route to call back your phonenumber !!!';
                     $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | $error_msg]");
                 }
-
-                // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
             }
 
 			// DIAL INTO THE CONFERENCE AS ADMINISTRATOR
@@ -1416,8 +1406,7 @@ if ($mode == 'standard') {
             
             $A2B -> debug( INFO, $agi, __FILE__, __LINE__, "DIAL $dialstr");
             $myres = $A2B -> run_dial($agi, $dialstr);
-
-
+            
             $charge_callback = 1;
 			
 		}//END FOR
@@ -1502,9 +1491,8 @@ if ($mode == 'standard') {
 
 		$charge_callback = 1; // EVEN FOR  ALL CALLBACK
 		$callback_leg = $A2B -> username;
-
 		
-		for ($i=0 ; $i < 1 ; $i++) {
+		for ($i=0;$i< $A2B->agiconfig['number_try'] ;$i++) {
 
 			$RateEngine->Reinit();
 			//$A2B-> Reinit();
@@ -1561,21 +1549,20 @@ if ($charge_callback) {
 	if (strlen($callback_tariff) > 0)
 	{ 
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "*** Tariff override **** Changing from ".$A2B -> tariff." to ".$callback_tariff." cia_res=$cia_res");
-		$A2B ->tariff = $callback_tariff;
+		$A2B -> tariff = $callback_tariff;
 	}
 	
 	if ($cia_res==0) {
 
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK 1ST LEG]:[MAKE BILLING FOR THE 1ST LEG - TARIFF:".$A2B -> tariff.";CALLED=$called_party]");
-		$A2B->agiconfig['use_dnid'] = 1;
-		$A2B ->dnid = $A2B ->destination = $called_party;
+		$A2B -> agiconfig['use_dnid'] = 1;
+		$A2B -> dnid = $A2B -> destination = $called_party;
 		
 		$resfindrate = $RateEngine->rate_engine_findrates($A2B, $called_party, $A2B -> tariff);
-		
-		$RateEngine-> usedratecard = 0;
+		$RateEngine -> usedratecard = 0;
 		
 		// IF FIND RATE
-		if ($resfindrate!=0 && is_numeric($RateEngine->usedratecard)) {
+		if ($resfindrate != 0) {
 			$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
 
 			if ($res_all_calcultimeout) {
