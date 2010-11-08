@@ -183,6 +183,9 @@ class A2Billing {
 	var $useralias;
 	var $countryprefix;
 	
+	// Start time of the Script
+	var $G_startime;
+	
 	// Enable voicemail for this card. For DID and SIP/IAX call
 	var $voicemail = 0;
 
@@ -1355,6 +1358,8 @@ class A2Billing {
 						$result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
 						$this -> debug( INFO, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION]:[result:$result]");
 						
+						$this -> bill_did_aleg ($agi, $inst_listdestination);
+						
 						return 1;
 					}
 					
@@ -1395,6 +1400,8 @@ class A2Billing {
 						$result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
 						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION]:[result:$result]");
 						
+						$this -> bill_did_aleg ($agi, $inst_listdestination);
+						
 						// THEN STATUS IS ANSWER
 						break;
 					}
@@ -1423,12 +1430,6 @@ class A2Billing {
 		$res = 0;
         $connection_charge = $listdestination[0][8];
         $selling_rate = $listdestination[0][9];
-        
-        $aleg_carrier_connect_charge = $listdestination[0][11];
-        $aleg_carrier_cost_min = $listdestination[0][12];
-        $aleg_retail_connect_charge = $listdestination[0][13];
-        $aleg_retail_cost_min = $listdestination[0][14];
-        #TODO use the above variables to define the time2call
         
         if ($connection_charge == 0 && $selling_rate == 0) {
         	$call_did_free = true;
@@ -1476,9 +1477,9 @@ class A2Billing {
         $this->timeout = $time2call;
 		$callcount = 0;
 		$accountcode = $this->accountcode;
-		$username = $this->username ;
-		$useralias = $this->useralias ;
-		$set_inuse = $this->set_inuse ;
+		$username = $this->username;
+		$useralias = $this->useralias;
+		$set_inuse = $this->set_inuse;
 		
 		foreach ($listdestination as $inst_listdestination) {
 			
@@ -1591,7 +1592,7 @@ class A2Billing {
 						$terminatecauseid = 0;
                     }
                     
-                    /* CDR A-LEG OF DID CALL */
+                    /* CDR B-LEG OF DID CALL */
                     $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, ".
                             " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
                             "('".$this->uniqueid."', '".$this->channel."',  '".$this->id_card."', '".$this->hostname."',";
@@ -1614,25 +1615,17 @@ class A2Billing {
 
                         $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
                         $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
-                        if ($nbused>0) {
-                                $firstuse= "";
+                        
+                        // Update the account
+                        if ($nbused > 0) {
+                            $firstuse = "";
                         } else {
-                               $firstuse= "firstusedate=now(),";
+                            $firstuse = "firstusedate=now(),";
                         }
-						//update card
                         $QUERY = "UPDATE cc_card SET credit= credit - ".a2b_round(abs($cost))." ,  lastuse=now(),$firstuse nbused=nbused+1 WHERE username='".$card_number."'";
                         $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
                         $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - UPDATE CARD: SQL: $QUERY]:[result:$result]");
                     }
-                    
-                    # TODO
-                    # Check if we add a new CDR for A-Leg
-                    if (($aleg_carrier_connect_charge != 0) || ($aleg_carrier_cost_min != 0) || ($aleg_retail_connect_charge != 0) || ($aleg_retail_cost_min != 0)){
-                        # TODO 
-                        # duration of the call for the A-Leg is since the start date
-                        
-                    }
-                    
                     
                     // CC_DID & CC_DID_DESTINATION - cc_did.id, cc_did_destination.id
                     $QUERY = "UPDATE cc_did SET secondusedreal = secondusedreal + $answeredtime WHERE id='".$inst_listdestination[0]."'";
@@ -1641,7 +1634,10 @@ class A2Billing {
 
                     $QUERY = "UPDATE cc_did_destination SET secondusedreal = secondusedreal + $answeredtime WHERE id='".$inst_listdestination[1]."'";
                     $result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
-                    $this -> debug( INFO, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION]:[result:$result]");                       
+                    $this -> debug( INFO, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION]:[result:$result]");
+                    
+                    $this -> bill_did_aleg ($agi, $listdestination[0]);
+                                           
                 }
 
             // ELSEIF NOT VOIP CALL
@@ -1713,6 +1709,9 @@ class A2Billing {
                         $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
                         $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - UPDATE CARD: SQL: $QUERY]:[result:$result]");
                     }
+                    
+                    $this -> bill_did_aleg ($agi, $listdestination[0]);
+                    
                     break;
                 }
             }
@@ -1733,6 +1732,77 @@ class A2Billing {
 		$this->useralias = $useralias;
 		$this->set_inuse = $set_inuse;
 	}
+	
+	
+	/*
+	 * Function to bill the A-Leg on DID Calls
+	 */
+	function bill_did_aleg ($agi, $inst_listdestination)
+	{
+	    
+	    $aleg_carrier_connect_charge = $inst_listdestination[11];
+        $aleg_carrier_cost_min = $inst_listdestination[12];
+        $aleg_retail_connect_charge = $inst_listdestination[13];
+        $aleg_retail_cost_min = $inst_listdestination[14];
+        #TODO use the above variables to define the time2call
+        
+        $this -> debug( INFO, $agi, __FILE__, __LINE__, "[bill_did_aleg]:[$aleg_carrier_connect_charge;$aleg_carrier_cost_min;$aleg_retail_connect_charge;$aleg_retail_cost_min]");
+        
+        # if we add a new CDR for A-Leg
+        if (($aleg_carrier_connect_charge != 0) || ($aleg_carrier_cost_min != 0) || ($aleg_retail_connect_charge != 0) || ($aleg_retail_cost_min != 0)){
+            # duration of the call for the A-Leg is since the start date
+            
+            // SET CORRECTLY THE CALLTIME FOR THE 1st LEG
+	        $aleg_answeredtime  = time() - $this -> G_startime;
+	        $terminatecauseid = 1; // ANSWERED
+            
+            $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL]:[A-Leg -> answeredtime=".$aleg_answeredtime."]");
+	        
+	        $aleg_retail_cost = 0;
+            $aleg_retail_cost += $aleg_retail_connect_charge;
+            $aleg_retail_cost += ($aleg_answeredtime/60) * $aleg_retail_cost_min;
+            
+            $aleg_carrier_cost = 0;
+            $aleg_carrier_cost += $aleg_carrier_connect_charge;
+            $aleg_carrier_cost += ($aleg_answeredtime/60) * $aleg_carrier_cost_min;
+            
+            $QUERY_COLUMN = " uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, ".
+                            " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, " .
+                            " id_trunk, src, sipiax, buycost, dnid";
+            $calltype = '7'; // DID-ALEG 
+            $QUERY = "INSERT INTO cc_call ($QUERY_COLUMN) VALUES (".
+                        "'".$this->uniqueid."', ".
+                        "'".$this->channel."',".
+                        "'".$this->id_card."',".
+                        "'".$this->hostname."',".
+                        "SUBDATE(CURRENT_TIMESTAMP, INTERVAL $aleg_answeredtime SECOND), ".
+                        "'$aleg_answeredtime', ".
+                        "'$aleg_answeredtime', ".
+                        "'".$listdestination[0][10]."', ".
+                        "$terminatecauseid, ".
+                        "now(), ".
+                        "'".a2b_round($aleg_retail_cost)."', ".
+		                "'0', ".
+		                "'0', ".
+		                "'0', ".
+		                "'0', ".
+		                "'".$this->CallerID."', ".
+		                "'$calltype', ".
+		                "'$aleg_carrier_cost', ".
+		                "'".$this->dnid."'".
+		                ")";
+            
+            $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+            $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
+            
+            if ($aleg_retail_cost != 0) {
+                // update card
+                $QUERY = "UPDATE cc_card SET credit= credit - ".a2b_round($aleg_retail_cost)." WHERE username='".$this->username."'";
+                $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+                $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - UPDATE CARD: SQL: $QUERY]:[result:$result]");
+            }
+        }
+    }
 
 
     function fct_say_time_2_call($agi,$timeout,$rate=0)

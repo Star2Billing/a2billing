@@ -387,7 +387,6 @@ class RateEngine
 									$package_selected = true;
 									$this ->package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=> "Free minutes","type"=>$packagetype);
 								}
-
 							}
 							break;
 					}
@@ -444,9 +443,9 @@ class RateEngine
 		$TIMEOUT = 0;
 		$answeredtime_1st_leg = 0;
 
-		if ($rateinitial<=0) {
+		if ($rateinitial <= 0) {
 			$this -> ratecard_obj[$K]['timeout']= $A2B->agiconfig['maxtime_tocall_negatif_free_route'];
-			$this -> ratecard_obj[$K]['timeout_without_rules'] =	$A2B->agiconfig['maxtime_tocall_negatif_free_route'];
+			$this -> ratecard_obj[$K]['timeout_without_rules'] = $A2B->agiconfig['maxtime_tocall_negatif_free_route'];
 			$TIMEOUT = $A2B->agiconfig['maxtime_tocall_negatif_free_route'];
 			// 90 min
 			if ($this -> debug_st) print_r($this -> ratecard_obj[$K]);
@@ -454,7 +453,7 @@ class RateEngine
 		}
 		
 		if ($this -> freecall[$K]) {
-			if (	$this -> package_to_apply [$K] ["type"] == 0) {
+			if ($this -> package_to_apply [$K] ["type"] == 0) {
 				$this -> ratecard_obj[$K]['timeout']= $A2B->agiconfig['maxtime_tounlimited_calls']; // default : 90 min
 				$TIMEOUT = $A2B->agiconfig['maxtime_tounlimited_calls'];
 				$this -> ratecard_obj[$K]['timeout_without_rules'] =$A2B->agiconfig['maxtime_tounlimited_calls'];
@@ -475,8 +474,7 @@ class RateEngine
 			$TIMEOUT =  $this -> freetimetocall_left[$K];
 			$this -> ratecard_obj[$K]['timeout_without_rules'] = $this -> freetimetocall_left[$K];
 			return $TIMEOUT;
-			}
-		
+        }
 		
 
 		// IMPROVE THE get_variable AND TRY TO RETRIEVE THEM ALL SOMEHOW
@@ -497,7 +495,7 @@ class RateEngine
 		// 2 KIND OF CALCULATION : PROGRESSIVE RATE & FLAT RATE
 		// IF FLAT RATE
 		if (empty($chargea) || $chargea==0 || empty($timechargea) || $timechargea==0 ) {
-
+		    
 			if ($A2B->mode == 'callback') {
 				/*
 				Comment from Abdoulaye Siby

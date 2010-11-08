@@ -101,6 +101,7 @@ $list_calltype ["3"] = array (gettext("DID_VOIP"), "3" );
 $list_calltype ["4"] = array (gettext("CALLBACK"), "4" );
 $list_calltype ["5"] = array (gettext("PREDICT"), "5" );
 $list_calltype ["6"] = array (gettext("AUTO DIALER"), "6" );
+$list_calltype ["7"] = array (gettext("DID-ALEG"), "7" );
 
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
