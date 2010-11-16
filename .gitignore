@@ -1,0 +1,6 @@
+*.pyc
+*dilla*
+*.db
+*nbproject*
+*devserver*
+common/lib/smarty
