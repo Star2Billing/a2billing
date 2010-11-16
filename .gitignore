@@ -6,3 +6,4 @@
 common/lib/smarty
 customer/templates_c/*.tpl.php
 agent/templates_c/*.tpl.php
+admin/templates_c/*.tpl.php
