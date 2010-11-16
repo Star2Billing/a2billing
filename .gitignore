@@ -4,5 +4,5 @@
 *nbproject*
 *devserver*
 common/lib/smarty
-customer/templates_c/*
-agent/templates_c/*
+customer/templates_c/*.tpl.php
+agent/templates_c/*.tpl.php
