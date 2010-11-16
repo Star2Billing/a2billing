@@ -3,4 +3,3 @@
 *.db
 *nbproject*
 *devserver*
-common/lib/smarty
