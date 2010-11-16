@@ -6,4 +6,3 @@
 common/lib/smarty
 customer/templates_c/*
 agent/templates_c/*
-admin/templates_c/*
