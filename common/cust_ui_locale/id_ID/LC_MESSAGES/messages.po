@@ -1,0 +1,3554 @@
+# A2Billing Customer Panel - PO File.
+# Copyright (C) 2004-2009 A2BILLING
+# This file is distributed under the same license as the PACKAGE package.
+# ARESKI <areski@gmail.com>.
+#
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-22 11:18+0200\n"
+"PO-Revision-Date: 2009-03-30 15:17+0200\n"
+"Last-Translator: Tony Sampano <tonys@kejora.net>\n"
+"Language-Team: ARESKI <areski@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: A2B_notification.php:76
+msgid "Your notification settings have been successfully updated."
+msgstr "Pengaturan pemberitahuan Anda telah berhasil diperbarui."
+
+#: A2B_recurring_payment.php:140 A2B_recurring_payment.php:146
+msgid "Reccurring payment : automated refill"
+msgstr "Pembayaran Berkala: isi ulang otomatis "
+
+#: A2B_recurring_payment.php:156 iridium_threed.php:315
+#: checkout_process.php:357
+msgid "CUSTOMER REFILL"
+msgstr "PELANGGAN ISI ULANG "
+
+#: A2B_recurring_payment.php:157 iridium_threed.php:317
+#: lib/Form/Class.FormBO.php:840 lib/Form/Class.FormBO.php:949
+#: checkout_process.php:358
+msgid "Invoice for refill"
+msgstr "Faktur untuk isi ulang"
+
+#: A2B_recurring_payment.php:165
+msgid "Automated Refill : recurring payment"
+msgstr "Isi Ulang Otomatis: pembayaran berkala"
+
+#: A2B_recurring_payment.php:194 iridium_threed.php:387
+#: lib/Form/Class.FormBO.php:996 checkout_process.php:392
+msgid "AUTOMATICALY GENERATED COMMISSION!"
+msgstr "OTOMATIS DIHASILKAN KOMISI! "
+
+#: A2B_entity_phonenumber.php:113
+msgid "CAMPAIGN"
+msgstr "KAMPANYE"
+
+#: A2B_entity_phonenumber.php:116 lib/interface/constants.php:15
+msgid "INFO"
+msgstr "INFO"
+
+#: A2B_entity_phonenumber.php:119 form_data/FG_var_invoice.inc:70
+#: form_data/FG_var_campaign.inc:72 form_data/FG_var_ticket.inc:60
+#: form_data/FG_var_phonenumber.inc:65
+msgid "STATUS"
+msgstr "STATUS"
+
+#: A2B_entity_phonenumber.php:122 lib/Form/Class.ViewHandler.inc.php:196
+msgid "ACTION"
+msgstr "TINDAKAN"
+
+#: A2B_entity_phonenumber.php:137 lib/interface/constants.php:328
+#: lib/interface/constants.php:346
+msgid "EXPIRED"
+msgstr "kadaluarsa"
+
+#: A2B_entity_phonenumber.php:139
+msgid "STARTED AND IN PROCESS"
+msgstr "MEMULAI DAN DALAM PROSES"
+
+#: A2B_entity_phonenumber.php:140
+msgid "STARTED BUT NOT IN PROCESS : check the batch"
+msgstr "MEMULAI TAPI TIDAK DALAM PROSES: cek batch"
+
+#: A2B_entity_phonenumber.php:141
+msgid "NOT STARTED"
+msgstr "TIDAK MEMULAI"
+
+#: A2B_entity_phonenumber.php:148
+msgid "RUN"
+msgstr "MENJALANKAN"
+
+#: A2B_entity_phonenumber.php:149
+msgid "HOLD"
+msgstr "MENAHAN"
+
+#: A2B_entity_phonenumber.php:150
+msgid "STOP"
+msgstr "BERHENTI"
+
+#: A2B_entity_phonenumber.php:151
+msgid "NO STATUS"
+msgstr "TIDAK ADA STATUS"
+
+#: A2B_entity_password.php:77
+msgid "No value in New Password entered"
+msgstr "Tidak ada nilai masuk di Sandi Baru"
+
+#: A2B_entity_password.php:83
+msgid "No Value in Confirm New Password entered"
+msgstr "Tidak ada nilai masuk di Konfirmasi Sandi Baru"
+
+#: A2B_entity_password.php:89
+msgid "Password length should be greater than or equal to 5"
+msgstr "Panjang Sandi harus lebih dari atau sama dengan 5"
+
+#: A2B_entity_password.php:95
+msgid "Value mismatch, New Password should be equal to Confirm New Password"
+msgstr "Nilai tidak cocok, Sandi Baru harus sama dengan Konfirmasi Sandi Baru"
+
+#: A2B_entity_password.php:109
+msgid "Your password is updated successfully."
+msgstr "Sandi Anda berhasil diperbarui."
+
+#: A2B_entity_password.php:111
+msgid "Your old password is wrong."
+msgstr "Sandi lama Anda salah."
+
+#: A2B_entity_password.php:119
+msgid "Change Password"
+msgstr "Ubah Sandi"
+
+#: A2B_entity_password.php:122
+msgid "Do not use \" or = characters in your password"
+msgstr "Jangan gunakan \" atau = karakter dalam sandi anda"
+
+#: A2B_entity_password.php:125
+msgid "Old Password"
+msgstr "Sandi Lama"
+
+#: A2B_entity_password.php:129
+msgid "New Password"
+msgstr "Sandi Baru"
+
+#: A2B_entity_password.php:133
+msgid "Confirm Password"
+msgstr "Konfirmasi Sandi"
+
+#: A2B_entity_password.php:140
+msgid "Save"
+msgstr "Simpan"
+
+#: A2B_phonelist_import.php:71
+msgid "Please, you must first select a phonebook !"
+msgstr "Silakan, Anda harus memilih buku telepon!"
+
+#: A2B_phonelist_import.php:76
+msgid "Please, you must first select a file !"
+msgstr "Silakan, Anda harus terlebih dahulu memilih file!"
+
+#: A2B_phonelist_import.php:226
+msgid "New phonebooks have to imported from a CSV file."
+msgstr "Buku telepon baru harus diimpor dari file CSV."
+
+#: A2B_phonelist_import.php:233
+msgid "Choose the phonebook to import"
+msgstr "Pilih buku telepon untuk diimpor"
+
+#: A2B_phonelist_import.php:235
+msgid "Choose a phonebook"
+msgstr "Pilih buku telepon"
+
+#: A2B_phonelist_import.php:247
+msgid "These fields are mandatory"
+msgstr "Kolom ini wajib diisi"
+
+#: A2B_phonelist_import.php:250
+msgid "number"
+msgstr "nomor"
+
+#: A2B_phonelist_import.php:254
+msgid "Choose the additional fields to import from the CSV file"
+msgstr "Pilih kolom tambahan untuk mengimpor dari file CSV"
+
+#: A2B_phonelist_import.php:261
+msgid "Unselected Fields..."
+msgstr "Kolom yang tidak dipilih..."
+
+#: A2B_phonelist_import.php:262
+msgid "name"
+msgstr "nama"
+
+#: A2B_phonelist_import.php:263
+msgid "info"
+msgstr "info"
+
+#: A2B_phonelist_import.php:275
+msgid "Selected Fields..."
+msgstr "Kotak yang dipilih..."
+
+#: A2B_phonelist_import.php:301
+msgid "Use the example below  to format the CSV file. Fields are separated by [,] or [;]"
+msgstr "Gunakan contoh di bawah ini untuk format file CSV. Bidang dipisahkan oleh [,] atau [;]"
+
+#: A2B_phonelist_import.php:302
+msgid "(dot) . is used for decimal format."
+msgstr "(dot). digunakan untuk format desimal."
+
+#: A2B_phonelist_import.php:306
+msgid "Complex Sample"
+msgstr "Contoh Kompleks"
+
+#: A2B_phonelist_import.php:307
+msgid "Simple Sample"
+msgstr "Contoh Sederhana"
+
+#: A2B_phonelist_import.php:323
+msgid "The maximum file size is "
+msgstr "Ukuran file maksimal adalah"
+
+#: A2B_phonelist_import.php:329
+msgid "Import Phonebook"
+msgstr "Masukkan Buku telepon"
+
+#: A2B_entity_card.php:77
+msgid "Your personal information has successfully been updated."
+msgstr "Informasi pribadi Anda telah berhasil diperbarui."
+
+#: simulator.php:86
+msgid "Error card !!!"
+msgstr "Kartu error!"
+
+#: simulator.php:146
+msgid "Simulator"
+msgstr "Simulator"
+
+#: simulator.php:152
+msgid "Enter the number you wish to call"
+msgstr "Masukkan nomor yang ingin Anda panggil"
+
+#: simulator.php:157
+msgid "YOUR BALANCE"
+msgstr "SALDO ANDA"
+
+#: simulator.php:165
+msgid "SEARCH"
+msgstr "CARI"
+
+#: simulator.php:185
+msgid "Simulator found a rate for your destination"
+msgstr "Simulator menemukan tarif untuk tujuan Anda"
+
+#: simulator.php:191
+msgid "We found several destinations:"
+msgstr "Kami menemukan beberapa tujuan:"
+
+#: simulator.php:209 form_data/FG_var_did.inc:64 form_data/FG_var_did.inc:94
+#: form_data/FG_var_ratecard.inc:56
+msgid "DESTINATION"
+msgstr "TUJUAN"
+
+#: simulator.php:214
+msgid "CallTime available"
+msgstr "Waktu Panggilan yang tersedia"
+
+#: simulator.php:216 call-history.php:374
+msgid "Minutes"
+msgstr "Menit"
+
+#: simulator.php:245
+msgid "The number, you have entered, is not correct!"
+msgstr "Nomor, Yang Anda masukkan, salah!"
+
+#: A2B_support.php:98
+msgid "Ticket added successfully"
+msgstr "Tiket berhasil ditambahkan"
+
+#: A2B_support.php:103
+msgid "Please complete the title and description portions of the form."
+msgstr "Harap melengkapi bagian judul dan deskripsi bentuk."
+
+#: A2B_support.php:105
+msgid "Sorry, There was a problem creating your ticket."
+msgstr "Maaf, Ada masalah dalam membuat tiket Anda."
+
+#: A2B_support.php:130
+msgid "Create support ticket"
+msgstr "Membuat tiket dukungan"
+
+#: A2B_support.php:138
+msgid "Title"
+msgstr "Judul"
+
+#: A2B_support.php:146
+msgid "Priority"
+msgstr "Prioritas"
+
+#: A2B_support.php:150 lib/interface/constants.php:267
+#: A2B_entity_ratecard.php:97
+msgid "NONE"
+msgstr "TAK SATU PUN"
+
+#: A2B_support.php:151 lib/interface/constants.php:268
+#: lib/Class.Notification.php:107
+msgid "LOW"
+msgstr "RENDAH"
+
+#: A2B_support.php:152 lib/interface/constants.php:269
+#: lib/Class.Notification.php:104
+msgid "MEDIUM"
+msgstr "SEDANG"
+
+#: A2B_support.php:153 lib/interface/constants.php:270
+#: lib/Class.Notification.php:102
+msgid "HIGH"
+msgstr "TINGGI"
+
+#: A2B_support.php:159
+msgid "Component"
+msgstr "Komponen"
+
+#: A2B_support.php:179 A2B_invoice_view.php:215 A2B_receipt_detail.php:138
+#: card-history.php:76 A2B_billing_preview.php:184 A2B_billing_preview.php:277
+#: A2B_receipt_preview_detail.php:216 A2B_receipt_view.php:201
+msgid "Description"
+msgstr "Deskripsi"
+
+#: A2B_support.php:187
+msgid "CREATE"
+msgstr "MEMBUAT"
+
+#: iridium_threed.php:331 checkout_process.php:365
+msgid "Refill ONLINE"
+msgstr "Isi ulang ONLINE"
+
+#: form_data/FG_var_did.inc:62 lib/interface/constants.php:89
+msgid "Active"
+msgstr "Aktif"
+
+#: form_data/FG_var_did.inc:62 lib/interface/constants.php:88
+msgid "Inactive"
+msgstr "Tidak aktif"
+
+#: form_data/FG_var_did.inc:65 templates/default/main.tpl:62
+msgid "DID"
+msgstr "DID"
+
+#: form_data/FG_var_did.inc:66 form_data/FG_var_did.inc:103
+#: form_data/FG_var_callerid.inc:49 form_data/FG_var_callerid.inc:91
+#: lib/interface/constants.php:342 lib/interface/constants.php:367
+msgid "ACTIVATED"
+msgstr "AKTIF"
+
+#: form_data/FG_var_did.inc:67 form_data/FG_var_did.inc:112
+#: form_data/FG_var_ticket.inc:58
+msgid "PRIORITY"
+msgstr "PRIORITAS"
+
+#: form_data/FG_var_did.inc:68
+msgid "USED MINUTE"
+msgstr "DIGUNAKAN MENIT"
+
+#: form_data/FG_var_did.inc:69 form_data/FG_var_signup.inc:229
+#: form_data/FG_var_card.inc:102 userinfo.php:116
+msgid "COUNTRY"
+msgstr "NEGARA"
+
+#: form_data/FG_var_did.inc:85
+msgid "There are no destinations created"
+msgstr "Tidak ada tujuan dibuat"
+
+#: form_data/FG_var_did.inc:101
+msgid "Enter here the phonenumber you want to call or the SIP/IAX/H323 peer to reach (ie: 347894999 or SIP/jeremy@182.212.1.45). To call SIP/IAX/H323 peer, you need to enable the voip_call bellow (voip_call = Yes) "
+msgstr "Masukkan di sini nomor telepon yang ingin Anda panggil atau peer SIP/IAX/H323 untuk mencapai (misalnya: 347894999 atau SIP / Jeremy @ 182.212.1.45). Untuk memanggil peer SIP/IAX/H323, Anda perlu mengaktifkan panggilan_voip di bawah ini (panggilan_voip = Ya)"
+
+#: form_data/FG_var_did.inc:109 form_data/FG_var_callerid.inc:97
+msgid "Choose if you want to activate this card"
+msgstr "Pilih jika Anda ingin mengaktifkan kartu ini"
+
+#: form_data/FG_var_did.inc:122
+msgid "VOIP_CALL"
+msgstr "PANGGILAN_VOIP"
+
+#: form_data/FG_var_did.inc:128
+msgid "Choose if you want to not use the trunk and let the asterisk call directly the destination (ie, Destination : SIP/jeremy@182.212.1.45)"
+msgstr "Pilih jika Anda ingin untuk tidak menggunakan bagasi dan membiarkan panggilan tanda bintang langsung tujuan (yaitu, Tujuan: SIP / Jeremy @ 182.212.1.45)"
+
+#: form_data/FG_var_did.inc:137 form_data/FG_var_campaign.inc:295
+#: form_data/FG_var_speeddial.inc:118 form_data/FG_var_phonebook.inc:109
+#: form_data/FG_var_ticket.inc:80 form_data/FG_var_phonenumber.inc:144
+#: form_data/FG_var_callerid.inc:116 lib/Form/Class.FormHandler.inc.php:554
+msgid "If you really want remove this"
+msgstr "Jika Anda benar-benar ingin menghapus ini"
+
+#: form_data/FG_var_did.inc:137 form_data/FG_var_campaign.inc:295
+#: form_data/FG_var_speeddial.inc:118 form_data/FG_var_phonebook.inc:109
+#: form_data/FG_var_ticket.inc:80 form_data/FG_var_phonenumber.inc:144
+#: form_data/FG_var_callerid.inc:116
+msgid "click on the delete button."
+msgstr "klik pada tombol hapus."
+
+#: form_data/FG_var_did.inc:138 form_data/FG_var_campaign.inc:296
+#: form_data/FG_var_speeddial.inc:119 form_data/FG_var_phonebook.inc:110
+#: form_data/FG_var_ticket.inc:81 form_data/FG_var_phonenumber.inc:145
+#: form_data/FG_var_callerid.inc:117 lib/Form/Class.FormHandler.inc.php:557
+msgid "you can add easily a new"
+msgstr "Anda dapat menambahkan baru dengan mudah"
+
+#: form_data/FG_var_did.inc:138 form_data/FG_var_campaign.inc:296
+#: form_data/FG_var_speeddial.inc:119 form_data/FG_var_phonebook.inc:110
+#: form_data/FG_var_ticket.inc:81 form_data/FG_var_phonenumber.inc:145
+#: form_data/FG_var_callerid.inc:117 lib/Form/Class.FormHandler.inc.php:557
+msgid "Fill the following fields and confirm by clicking on the button add."
+msgstr "Isi kolom berikut dan konfirmasikan dengan mengklik tombol add"
+
+#: form_data/FG_var_did.inc:142 form_data/FG_var_campaign.inc:300
+#: form_data/FG_var_speeddial.inc:124 form_data/FG_var_phonebook.inc:114
+#: form_data/FG_var_ticket.inc:85 form_data/FG_var_callerid.inc:123
+#: lib/Form/Class.FormHandler.inc.php:559
+#: lib/Form/Class.FormHandler.inc.php:560
+msgid "Your new"
+msgstr "baru Anda"
+
+#: form_data/FG_var_did.inc:142 form_data/FG_var_campaign.inc:300
+#: form_data/FG_var_speeddial.inc:124 form_data/FG_var_phonebook.inc:114
+#: form_data/FG_var_ticket.inc:85 form_data/FG_var_callerid.inc:123
+msgid "has been inserted."
+msgstr "telah dimasukkan."
+
+#: form_data/FG_var_did.inc:146
+msgid "Setup those values to create or edit the "
+msgstr "Setup nilai-nilai untuk membuat atau mengedit"
+
+#: form_data/FG_var_invoice.inc:67
+msgid "REFERENCE"
+msgstr "REFERENSI"
+
+#: form_data/FG_var_invoice.inc:68 form_data/FG_var_receipt.inc:67
+#: form_data/FG_var_phonenumber.inc:64 call-history.php:253
+#: call-history.php:586
+msgid "DATE"
+msgstr "TANGGAL"
+
+#: form_data/FG_var_invoice.inc:69 form_data/FG_var_receipt.inc:68
+#: form_data/FG_var_ticket.inc:55
+msgid "TITLE"
+msgstr "JUDUL"
+
+#: form_data/FG_var_invoice.inc:71 form_data/FG_var_receipt.inc:69
+msgid "AMOUNT INCL VAT"
+msgstr "JUMLAH TERMASUK PPN"
+
+#: form_data/FG_var_invoice.inc:75
+msgid "THERE IS NO INVOICE CREATED!"
+msgstr "TIDAK ADA FAKTUR DIBUAT!"
+
+#: form_data/FG_var_signup.inc:88
+msgid "No Call Plan id are defined"
+msgstr "Tidak ada Rencana Panggil id didefinisikan"
+
+#: form_data/FG_var_signup.inc:155
+msgid "LANGUAGE"
+msgstr "Bahasa"
+
+#: form_data/FG_var_signup.inc:163
+msgid "CALL PLAN"
+msgstr "RENCANA PANGGILAN"
+
+#: form_data/FG_var_signup.inc:175 form_data/FG_var_card.inc:53
+msgid "LASTNAME"
+msgstr "Nama Belakang"
+
+#: form_data/FG_var_signup.inc:180
+msgid "Insert your lastname"
+msgstr "Masukkan nama belakang Anda"
+
+#: form_data/FG_var_signup.inc:184 form_data/FG_var_card.inc:62
+msgid "FIRSTNAME"
+msgstr "NAMA DEPAN"
+
+#: form_data/FG_var_signup.inc:189
+msgid "Insert your firstname"
+msgstr "Masukkan nama depan Anda"
+
+#: form_data/FG_var_signup.inc:192 userinfo.php:107
+msgid "EMAIL"
+msgstr "EMAIL"
+
+#: form_data/FG_var_signup.inc:197
+msgid "Insert your email"
+msgstr "Masukkan email anda"
+
+#: form_data/FG_var_signup.inc:199 form_data/FG_var_card.inc:72
+#: userinfo.php:112
+msgid "ADDRESS"
+msgstr "ALAMAT"
+
+#: form_data/FG_var_signup.inc:204
+msgid "Insert your address"
+msgstr "Masukkan alamat Anda"
+
+#: form_data/FG_var_signup.inc:208 form_data/FG_var_card.inc:82
+#: userinfo.php:114
+msgid "CITY"
+msgstr "KOTA"
+
+#: form_data/FG_var_signup.inc:213
+msgid "Insert your city"
+msgstr "Masukkan kota Anda"
+
+#: form_data/FG_var_signup.inc:217 form_data/FG_var_card.inc:92
+msgid "STATE/PROVINCE"
+msgstr "NEGARA / PROVINSI"
+
+#: form_data/FG_var_signup.inc:222
+msgid "Insert your state"
+msgstr "Masukkan negara Anda"
+
+#: form_data/FG_var_signup.inc:239 form_data/FG_var_card.inc:113
+msgid "ZIP/POSTAL CODE"
+msgstr "ZIP / KODE POS"
+
+#: form_data/FG_var_signup.inc:239
+msgid "Insert your zipcode"
+msgstr "Masukkan kode pos Anda"
+
+#: form_data/FG_var_signup.inc:257 form_data/FG_var_card.inc:122
+msgid "TIMEZONE"
+msgstr "Zona waktu"
+
+#: form_data/FG_var_signup.inc:268 form_data/FG_var_phonenumber.inc:61
+#: call-history.php:318
+msgid "PHONENUMBER"
+msgstr "NOMER TELEPON"
+
+#: form_data/FG_var_signup.inc:272
+msgid "Insert your phone number"
+msgstr "Masukkan nomor telepon Anda"
+
+#: form_data/FG_var_signup.inc:276
+msgid "FAXNUMBER"
+msgstr "NOMER FAKS"
+
+#: form_data/FG_var_signup.inc:280
+msgid "Insert your fax number"
+msgstr "Masukkan nomor faks Anda"
+
+#: form_data/FG_var_signup.inc:284
+msgid "COMPANY NAME"
+msgstr "NAMA PERUSAHAAN"
+
+#: form_data/FG_var_signup.inc:288
+msgid "Insert Company name of this customer"
+msgstr "Masukkan nama Perusahaan dari pelanggan ini"
+
+#: form_data/FG_var_signup.inc:292
+msgid "COMPANY WEBSITE"
+msgstr "PERUSAHAAN WEBSITE"
+
+#: form_data/FG_var_signup.inc:296
+msgid "Insert the company website of this customer"
+msgstr "Masukkan situs perusahaan dari pelanggan ini"
+
+#: form_data/FG_var_signup.inc:300
+msgid "VAT REGISTRATION NUMBER "
+msgstr " PPN NOMOR  PENDAFTARAN "
+
+#: form_data/FG_var_signup.inc:304
+msgid "Insert the VAT registration number of this customer"
+msgstr "Masukkan nomor pendaftaran PPN dari pelanggan ini"
+
+#: form_data/FG_var_signup.inc:308
+msgid "TRAFFIC PER MONTH"
+msgstr "TRAFFIC PER BULAN"
+
+#: form_data/FG_var_signup.inc:312
+msgid "Insert the traffic per month for this customer"
+msgstr "Masukkan traffic per bulan untuk pelanggan ini"
+
+#: form_data/FG_var_signup.inc:316
+msgid "TARGET TRAFFIC"
+msgstr "TARGET TRAFFIC"
+
+#: form_data/FG_var_signup.inc:320
+msgid "Insert the target traffic description"
+msgstr "Masukkan deskripsi target lalu lintas"
+
+#: form_data/FG_var_signup.inc:324
+msgid "VERIFICATION"
+msgstr "VERIFIKASI"
+
+#: form_data/FG_var_signup.inc:324
+msgid "Insert code from above picture"
+msgstr "Sisipkan kode dari gambar diatas"
+
+#: form_data/FG_var_signup.inc:425
+msgid "You can modify, through the following form, the different properties of your "
+msgstr "Anda dapat memodifikasi, melalui form berikut, sifat yang berbeda dari Anda"
+
+#: form_data/FG_var_signup.inc:426
+msgid "If you really want remove this "
+msgstr "Jika Anda benar-benar ingin menghapus ini"
+
+#: form_data/FG_var_signup.inc:427
+msgid "you can add easily a new "
+msgstr "Anda dapat menambahkan baru dengan mudah"
+
+#: form_data/FG_var_signup.inc:430
+msgid "Thanks for registering with us.<br>A email with your information has been sent to your account "
+msgstr "Terima kasih untuk mendaftar dengan kami. <br> Sebuah email dengan informasi Anda telah dikirim ke account Anda"
+
+#: form_data/FG_var_signup.inc:430
+msgid "Your card number is "
+msgstr "Nomor kartu Anda adalah"
+
+#: form_data/FG_var_signup.inc:430 activate.php:111
+#: signup_confirmation.php:121
+msgid "Your password is "
+msgstr "Sandi Anda adalah"
+
+#: form_data/FG_var_signup.inc:433
+msgid "SIGNUP"
+msgstr "MENDAFTAR"
+
+#: form_data/FG_var_card.inc:59
+msgid "Insert the lastname of the customers"
+msgstr "Masukkan nama belakang pelanggan"
+
+#: form_data/FG_var_card.inc:68
+msgid "Insert the firstname of the customers"
+msgstr "Masukkan nama depan pelanggan"
+
+#: form_data/FG_var_card.inc:78
+msgid "Insert the address of the customers"
+msgstr "Masukkan alamat pelanggan"
+
+#: form_data/FG_var_card.inc:88
+msgid "Insert the city"
+msgstr "Masukkan kota"
+
+#: form_data/FG_var_card.inc:98
+msgid "Insert the state"
+msgstr "Masukkan negara"
+
+#: form_data/FG_var_card.inc:119
+msgid "Insert the zipcode"
+msgstr "Masukkan kode pos yang"
+
+#: form_data/FG_var_card.inc:132
+msgid "PHONE NUMBER"
+msgstr "NOMOR TELEPON"
+
+#: form_data/FG_var_card.inc:138
+msgid "Insert the phone number of the customers"
+msgstr "Masukkan nomor telepon dari pelanggan"
+
+#: form_data/FG_var_card.inc:142
+msgid "FAX NUMBER"
+msgstr "NOMOR FAKS"
+
+#: form_data/FG_var_card.inc:148
+msgid "Insert the fax number of the customers"
+msgstr "Masukkan nomor faks dari pelanggan"
+
+#: form_data/FG_var_card.inc:152
+msgid "ACTIVE VOICEMAIL SERVICE"
+msgstr "AKTIF LAYANAN voicemail"
+
+#: form_data/FG_var_card.inc:158
+msgid "Customer can choose to enable the voicemail for this card"
+msgstr "Pelanggan dapat memilih untuk mengaktifkan pesan suara untuk kartu ini"
+
+#: form_data/FG_var_card.inc:159
+msgid "Customer can enable the voicemail for this card."
+msgstr "Pelanggan dapat mengaktifkan pesan suara untuk kartu ini."
+
+#: form_data/FG_var_card.inc:169 form_data/FG_var_notify.inc:114
+msgid "you can add easily update your information clicking on the button."
+msgstr "Anda dapat dengan mudah memperbarui informasi Anda dengan mengklik tombol."
+
+#: form_data/FG_var_card.inc:172 form_data/FG_var_notify.inc:117
+msgid "Your record has been updated."
+msgstr "Catatan Anda telah diperbarui."
+
+#: form_data/FG_var_voucher.inc:45 A2B_entity_voucher.php:116
+msgid "VOUCHER"
+msgstr "VOUCHER"
+
+#: form_data/FG_var_voucher.inc:46
+msgid "CREDIT"
+msgstr "KREDIT"
+
+#: form_data/FG_var_voucher.inc:54
+msgid "No vouchers have been used!"
+msgstr "Tidak ada voucher telah digunakan!"
+
+#: form_data/FG_var_campaign.inc:64
+msgid "Add CAMPAIGN"
+msgstr "Tambah KAMPANYE"
+
+#: form_data/FG_var_campaign.inc:68 form_data/FG_var_speeddial.inc:53
+#: form_data/FG_var_speeddial.inc:90 form_data/FG_var_phonebook.inc:65
+#: form_data/FG_var_phonebook.inc:81 form_data/FG_var_phonenumber.inc:62
+#: form_data/FG_var_phonenumber.inc:101
+msgid "NAME"
+msgstr "NAMA"
+
+#: form_data/FG_var_campaign.inc:69
+msgid "STARTINGDATE"
+msgstr "TANGGAL MULAI"
+
+#: form_data/FG_var_campaign.inc:70
+msgid "EXPIRATIONDATE"
+msgstr "TANGGAL KADALUARSA"
+
+#: form_data/FG_var_campaign.inc:71 A2B_entity_sipiax_info.php:88
+msgid "CARD"
+msgstr "KARTU"
+
+#: form_data/FG_var_campaign.inc:78
+msgid "No campaigns have been created."
+msgstr "Tidak ada kampanye telah dibuat."
+
+#: form_data/FG_var_campaign.inc:89
+msgid "CAMPAIGN NAME"
+msgstr "NAMA KAMPANYE"
+
+#: form_data/FG_var_campaign.inc:95
+msgid "Insert the tariff name "
+msgstr "Masukkan nama tarif"
+
+#: form_data/FG_var_campaign.inc:105
+msgid "Define if this campaign is active or not"
+msgstr "Tentukan jika kampanye ini aktif atau tidak"
+
+#: form_data/FG_var_campaign.inc:107
+msgid "CONFIG TO APPLY"
+msgstr "CONFIG UNTUK MENERAPKAN"
+
+#: form_data/FG_var_campaign.inc:115
+msgid "Define the configuration that you want apply on this campaign"
+msgstr "Menentukan konfigurasi yang ingin Anda terapkan pada kampanye ini"
+
+#: form_data/FG_var_campaign.inc:131
+msgid "CID GROUP"
+msgstr "CID KELOMPOK"
+
+#: form_data/FG_var_campaign.inc:141
+msgid "STARTING DATE"
+msgstr "TANGGAL AWAL"
+
+#: form_data/FG_var_campaign.inc:147
+msgid "Insert the starting date"
+msgstr "Masukkan tanggal awal"
+
+#: form_data/FG_var_campaign.inc:148 form_data/FG_var_campaign.inc:157
+msgid "Please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"
+msgstr "Harap mengikuti format YYYY-MM-DD HH:MM:SS. Sebagai contoh, '2004-12-31 00:00:00"
+
+#: form_data/FG_var_campaign.inc:150
+msgid "EXPIRATION DATE"
+msgstr "Tanggal Kadaluarsa"
+
+#: form_data/FG_var_campaign.inc:156
+msgid "Insert the expiration date"
+msgstr "Masukkan tanggal kedaluwarsa"
+
+#: form_data/FG_var_campaign.inc:159
+msgid "FREQUENCY"
+msgstr "FREKUENSI"
+
+#: form_data/FG_var_campaign.inc:165
+msgid "Insert the frequency of callback in min "
+msgstr "Masukkan frekuensi panggilan balik dalam menit"
+
+#: form_data/FG_var_campaign.inc:166
+msgid "Please insert the frequency in minutes"
+msgstr "Silakan masukkan frekuensi dalam beberapa menit"
+
+#: form_data/FG_var_campaign.inc:168
+msgid "DAILY STARTING TIME"
+msgstr "WAKTU MULAI SETIAP HARI"
+
+#: form_data/FG_var_campaign.inc:174
+msgid "Insert the daily starting time"
+msgstr "Masukkan waktu mulai setiap hari"
+
+#: form_data/FG_var_campaign.inc:175 form_data/FG_var_campaign.inc:184
+msgid "Please respect the format HH:MM:SS. For instance, '00:00:00'"
+msgstr "Harap mengikuti format HH:MM:SS. Sebagai contoh, '00:00:00"
+
+#: form_data/FG_var_campaign.inc:177
+msgid "DAILY STOPING TIME"
+msgstr "WAKTU BERHENTI SETIAP HARI"
+
+#: form_data/FG_var_campaign.inc:183
+msgid "Insert the daily stoping time"
+msgstr "Masukkan waktu berhenti setiap harian"
+
+#: form_data/FG_var_campaign.inc:186
+msgid "MONDAY"
+msgstr "SENIN"
+
+#: form_data/FG_var_campaign.inc:192 form_data/FG_var_campaign.inc:201
+#: form_data/FG_var_campaign.inc:210
+msgid "Choose if you want to enable the campaign callback for the monday"
+msgstr "Pilih jika Anda ingin mengaktifkan kampanye panggilan balik untuk hari Senin"
+
+#: form_data/FG_var_campaign.inc:195
+msgid "TUESDAY"
+msgstr "SELASA"
+
+#: form_data/FG_var_campaign.inc:204
+msgid "WEDNESDAY"
+msgstr "RABU"
+
+#: form_data/FG_var_campaign.inc:213
+msgid "THURSDAY"
+msgstr "KAMIS"
+
+#: form_data/FG_var_campaign.inc:219
+msgid "Choose if you want to enable the campaign callback for the thursday"
+msgstr "Pilih jika Anda ingin mengaktifkan kampanye panggilan balik untuk hari Kamis"
+
+#: form_data/FG_var_campaign.inc:222
+msgid "FRIDAY"
+msgstr "JUMAT"
+
+#: form_data/FG_var_campaign.inc:228
+msgid "Choose if you want to enable the campaign callback for the friday"
+msgstr "Pilih jika Anda ingin mengaktifkan kampanye panggilan balik untuk hari Jumat"
+
+#: form_data/FG_var_campaign.inc:231
+msgid "SATURDAY"
+msgstr "SABTU"
+
+#: form_data/FG_var_campaign.inc:237
+msgid "Choose if you want to enable the campaign callback for the saturday"
+msgstr "Pilih jika Anda ingin mengaktifkan kampanye panggilan balik untuk hari Sabtu"
+
+#: form_data/FG_var_campaign.inc:240
+msgid "SUNDAY"
+msgstr "MINGGU"
+
+#: form_data/FG_var_campaign.inc:246
+msgid "Choose if you want to enable the campaign callback for the sunday"
+msgstr "Pilih jika Anda ingin mengaktifkan kampanye panggilan balik untuk hari Minggu"
+
+#: form_data/FG_var_campaign.inc:249 form_data/FG_var_payment.inc:53
+#: form_data/FG_var_phonebook.inc:66 form_data/FG_var_phonebook.inc:90
+msgid "DESCRIPTION"
+msgstr "URAIAN"
+
+#: form_data/FG_var_campaign.inc:255 form_data/FG_var_phonebook.inc:96
+msgid "Insert the description"
+msgstr "Masukkan deskripsi"
+
+#: form_data/FG_var_campaign.inc:269
+msgid "PHONE BOOK"
+msgstr "BUKU TELEPON"
+
+#: form_data/FG_var_campaign.inc:294 form_data/FG_var_speeddial.inc:117
+#: form_data/FG_var_phonebook.inc:108 form_data/FG_var_phonenumber.inc:143
+#: form_data/FG_var_callerid.inc:115 lib/Form/Class.FormHandler.inc.php:553
+msgid "You can modify, through the following form, the different properties of your"
+msgstr "Anda dapat merubah, melalui bentuk berikut, perbedaan sifat  sifat Anda"
+
+#: form_data/FG_var_campaign.inc:299
+msgid "Add a "
+msgstr "Tambah"
+
+#: form_data/FG_var_campaign.inc:304
+msgid "Setup those values to create the new"
+msgstr "Setup untuk menciptakan nilai-nilai yang baru"
+
+#: form_data/FG_var_speeddial.inc:51 form_data/FG_var_speeddial.inc:80
+msgid "SPEEDDIAL"
+msgstr "PANGGILAN CEPAT"
+
+#: form_data/FG_var_speeddial.inc:52 form_data/FG_var_speeddial.inc:100
+#: userinfo.php:108
+msgid "PHONE"
+msgstr "TELEPON"
+
+#: form_data/FG_var_speeddial.inc:57
+msgid "There are no speed dials created."
+msgstr "Ada panggilan cepat tidak dibuat."
+
+#: form_data/FG_var_speeddial.inc:96
+msgid "Insert the name"
+msgstr "Masukkan nama"
+
+#: form_data/FG_var_speeddial.inc:97
+msgid "Enter here the name/label that will identify this speed dial"
+msgstr "Masukkan di sini nama / label yang akan mengidentifikasi panggilan cepat"
+
+#: form_data/FG_var_speeddial.inc:106
+msgid "Insert the phone"
+msgstr "Masukkan telepon"
+
+#: form_data/FG_var_speeddial.inc:107
+msgid "Enter here the phonenumber you want to call for this speed dial"
+msgstr "Masukkan di sini nomer telepon yang Anda ingin panggil dengan panggilan cepat"
+
+#: form_data/FG_var_speeddial.inc:128
+msgid "Once you have completed the form above, click on the CONTINUE button."
+msgstr "Setelah Anda menyelesaikan formulir di atas, klik tombol CONTINUE."
+
+#: form_data/FG_var_payment.inc:40
+msgid "payment"
+msgstr "pembayaran"
+
+#: form_data/FG_var_payment.inc:50 form_data/FG_var_receipt.inc:65
+#: form_data/FG_var_ticket.inc:54
+msgid "ID"
+msgstr "ID"
+
+#: form_data/FG_var_payment.inc:51
+msgid "PAYMENT DATE"
+msgstr "TANGGAL PEMBAYARAN"
+
+#: form_data/FG_var_payment.inc:52
+msgid "PAYMENT AMOUNT"
+msgstr "JUMLAH PEMBAYARAN"
+
+#: form_data/FG_var_payment.inc:58
+msgid "Payment list"
+msgstr "Daftar pembayaran"
+
+#: form_data/FG_var_payment.inc:59
+msgid "No payments have been made!"
+msgstr "Tidak ada pembayaran yang telah dibuat!"
+
+#: form_data/FG_var_ratecard.inc:55
+msgid "PREFIX"
+msgstr "AWALAN"
+
+#: form_data/FG_var_ratecard.inc:57
+msgid "SR"
+msgstr "SR"
+
+#: form_data/FG_var_ratecard.inc:63
+msgid "THERE IS NO RATECARD CREATED!"
+msgstr "TIDAK ADA TINGKATAN KARTU DIBUAT!"
+
+#: form_data/FG_var_receipt.inc:66
+msgid "ACCOUNT"
+msgstr "ACCOUNT"
+
+#: form_data/FG_var_receipt.inc:73
+msgid "THERE IS NO RECEIPT CREATED!"
+msgstr "TIDAK ADA PENERIMAAN DIBUAT!"
+
+#: form_data/FG_var_phonebook.inc:38 form_data/FG_var_phonenumber.inc:91
+#: templates/default/main.tpl:114
+msgid "Phone Book"
+msgstr "Buku Telepon"
+
+#: form_data/FG_var_phonebook.inc:56
+msgid "You have some phone using this PhoneBook! Please comfirm that you really want to remove this PhoneBook ? "
+msgstr "Anda memiliki beberapa ponsel menggunakan Buku Telepon! Harap konfirmasi bahwa Anda benar-benar ingin menghapus Buku Telepon ini ? "
+
+#: form_data/FG_var_phonebook.inc:61
+msgid "Add PhoneBook"
+msgstr "Tambah Buku Telepon"
+
+#: form_data/FG_var_phonebook.inc:70
+msgid "NO PHONEBOOK CREATED!"
+msgstr "TIDAK MEMBUAT BUKU TELEPON!"
+
+#: form_data/FG_var_phonebook.inc:86
+msgid "Insert the provider name"
+msgstr "Masukkan nama provider"
+
+#: form_data/FG_var_phonebook.inc:113 lib/Form/Class.SearchHandler.inc.php:379
+#: lib/Form/Class.SearchHandler.inc.php:394
+#: lib/Form/Class.SearchHandler.inc.php:410
+#: lib/Form/Class.SearchHandler.inc.php:426
+#: lib/Form/Class.SearchHandler.inc.php:442
+#: lib/Form/Class.SearchHandler.inc.php:458
+#: lib/Form/Class.SearchHandler.inc.php:474
+#: lib/Form/Class.SearchHandler.inc.php:490
+#: lib/Form/Class.SearchHandler.inc.php:507
+msgid "Add"
+msgstr "Tambah"
+
+#: form_data/FG_var_phonebook.inc:118 form_data/FG_var_ticket.inc:88
+#: form_data/FG_var_phonenumber.inc:153
+msgid "Click 'Confirm Data' to continue"
+msgstr "Klik 'Konfirmasi Data' untuk melanjutkan"
+
+#: form_data/FG_var_notify.inc:82
+msgid "LIMIT CREDIT NOTIFICATION"
+msgstr "PEMBERITAHUAN BATAS KREDIT"
+
+#: form_data/FG_var_notify.inc:88
+msgid "Insert the number of credit when the customer receive a notification"
+msgstr "Masukkan jumlah kredit saat pelanggan menerima pemberitahuan"
+
+#: form_data/FG_var_notify.inc:89
+msgid "currency : "
+msgstr "mata uang: "
+
+#: form_data/FG_var_notify.inc:89
+msgid "NOT DEFINED"
+msgstr "TIDAK DIDEFINISIKAN"
+
+#: form_data/FG_var_notify.inc:92
+msgid "PERMITTED NOTIFICATIONS BY MAIL"
+msgstr "DIIZINKAN PEMBERTITAHUAN MELALUI EMAIL"
+
+#: form_data/FG_var_notify.inc:98
+msgid "Choose if you want to enable the notification by email for this card"
+msgstr "Pilih jika Anda ingin mengaktifkan pemberitahuan melalui email untuk kartu ini"
+
+#: form_data/FG_var_notify.inc:99
+msgid "Enable Email Notification"
+msgstr "Aktifkan Email Pemberitahuan"
+
+#: form_data/FG_var_notify.inc:102
+msgid "EMAIL NOTIFICATION"
+msgstr "PEMBERITAHUAN EMAIL"
+
+#: form_data/FG_var_notify.inc:108
+msgid "Insert the email to notify the customers"
+msgstr "Masukkan email untuk memberitahukan pelanggan"
+
+#: form_data/FG_var_ticket.inc:56
+msgid "CREATIONDATE"
+msgstr "TANGGAL PEMBUATAN"
+
+#: form_data/FG_var_ticket.inc:57
+msgid "COMPONENT"
+msgstr "KOMPONEN"
+
+#: form_data/FG_var_ticket.inc:59 lib/interface/constants.php:276
+msgid "VIEWED"
+msgstr "DILIHAT"
+
+#: form_data/FG_var_ticket.inc:68
+msgid "There are no tickets created"
+msgstr "Tidak ada tiket diciptakan"
+
+#: form_data/FG_var_phonenumber.inc:53
+msgid "Add PHONE NUMBER"
+msgstr "Tambahkan NOMOR TELEPON"
+
+#: form_data/FG_var_phonenumber.inc:60
+msgid "PHONEBOOK"
+msgstr "BUKU TELEPON"
+
+#: form_data/FG_var_phonenumber.inc:63 form_data/FG_var_phonenumber.inc:110
+#: lib/interface/constants.php:410
+msgid "AMOUNT"
+msgstr "JUMLAH"
+
+#: form_data/FG_var_phonenumber.inc:71
+msgid "No phone numbers have been created"
+msgstr "Tidak ada nomor telepon yang telah dibuat"
+
+#: form_data/FG_var_phonenumber.inc:82 templates/default/main.tpl:115
+msgid "Phone Number"
+msgstr "Nomor Telepon"
+
+#: form_data/FG_var_phonenumber.inc:88
+msgid "Insert the phonenumber"
+msgstr "Masukkan nomor telepon"
+
+#: form_data/FG_var_phonenumber.inc:89
+msgid "Enter here the phonenumber to call"
+msgstr "Masukkan di sini nomor telepon untuk panggilan"
+
+#: form_data/FG_var_phonenumber.inc:107
+msgid "Insert the name "
+msgstr "Masukkan nama"
+
+#: form_data/FG_var_phonenumber.inc:116
+msgid "Insert the amount "
+msgstr "Masukkan jumlah"
+
+#: form_data/FG_var_phonenumber.inc:126
+msgid "Define if this phone number is active or not"
+msgstr "Tentukan apakah nomor telepon ini aktif atau tidak"
+
+#: form_data/FG_var_phonenumber.inc:128
+msgid "ADDITIONALINFO"
+msgstr "INFO TAMBAHAN"
+
+#: form_data/FG_var_phonenumber.inc:134
+msgid "Insert additional information"
+msgstr "Masukkan informasi tambahan"
+
+#: form_data/FG_var_phonenumber.inc:148
+msgid "Add a new phone number."
+msgstr "Tambah nomor telepon baru."
+
+#: form_data/FG_var_phonenumber.inc:149
+msgid "Your new phone number has been inserted."
+msgstr "nomor telepon baru Anda telah dimasukkan."
+
+#: form_data/FG_var_callerid.inc:39 call-history.php:125
+msgid "CallerID"
+msgstr "CallerID"
+
+#: form_data/FG_var_callerid.inc:48 form_data/FG_var_callerid.inc:81
+msgid "CALLERID"
+msgstr "CALLERID"
+
+#: form_data/FG_var_callerid.inc:54
+msgid "CallerID list"
+msgstr "daftar CallerID"
+
+#: form_data/FG_var_callerid.inc:55
+msgid "There are no Caller IDs created"
+msgstr "Tidak ada ID Caller diciptakan "
+
+#: form_data/FG_var_callerid.inc:87
+msgid "Insert the CallerID"
+msgstr "Masukkan CallerID"
+
+#: form_data/FG_var_callerid.inc:122
+msgid "You can add your home phone or cellphone number below to allow you to call in, be automatically recognized, and use your telephony services without having to enter your PIN."
+msgstr "Anda dapat menambahkan telepon rumah atau nomor ponsel di bawah ini untuk memungkinkan Anda memanggil, secara otomatis diakui, dan menggunakan layanan telepon Anda tanpa harus memasukkan PIN Anda."
+
+#: form_data/FG_var_callerid.inc:126
+msgid "Made your change to edit this callerid."
+msgstr "Membuat perubahan Anda untuk mengedit callerid ini."
+
+#: lib/customer.defines.php:114
+msgid "The expiry date entered for the credit card is invalid."
+msgstr "Tanggal kadaluwarsa dimasukkan untuk kartu kredit yang tidak benar."
+
+#: lib/customer.defines.php:114
+msgid "Please check the date and try again."
+msgstr "Silakan memeriksa tanggal dan coba lagi"
+
+#: lib/customer.defines.php:115
+msgid "The credit card number entered is invalid."
+msgstr "Nomor kartu kredit yang dimasukkan tidak benar."
+
+#: lib/customer.defines.php:115
+msgid "Please check the number and try again."
+msgstr "Periksa nomor tersebut dan coba lagi."
+
+#: lib/customer.defines.php:116
+msgid "The first four digits of the number entered are"
+msgstr "Empat digit pertama dari nomor yang dimasukkan adalah "
+
+#: lib/customer.defines.php:116
+msgid "If that number is correct, we do not accept that type of credit card."
+msgstr "Jika nomor yang benar, kami tidak menerima bahwa jenis kartu kredit."
+
+#: lib/customer.defines.php:116
+msgid "If it is wrong, please try again."
+msgstr "Jika salah, silakan coba lagi."
+
+#: lib/customer.defines.php:123
+msgid "Errors have occured during the process of your form."
+msgstr "Kesalahan telah terjadi selama proses formulir Anda."
+
+#: lib/customer.defines.php:123
+msgid "Please make the following corrections:\\n\\n"
+msgstr "Silakan membuat koreksi berikut:\\n\\n"
+
+#: lib/customer.defines.php:124
+msgid "* The 'Review Text' must have at least"
+msgstr "* 'Tinjauan Teks' harus memiliki setidaknya"
+
+#: lib/customer.defines.php:124 lib/customer.defines.php:136
+#: lib/customer.defines.php:137 lib/customer.defines.php:150
+msgid "characters"
+msgstr "karakter"
+
+#: lib/customer.defines.php:125
+msgid "You must rate the product for your review."
+msgstr "Anda harus menilai produk tinjauan Anda."
+
+#: lib/customer.defines.php:126 lib/customer.defines.php:128
+msgid "Please select a payment method for your order."
+msgstr "Silahkan pilih metode pembayaran untuk pesanan Anda."
+
+#: lib/customer.defines.php:127
+msgid "This form has already been submitted. Please press Ok and wait for this process to be completed."
+msgstr "Formulir ini telah diajukan Silahkan tekan Ok dan menunggu proses ini selesai."
+
+#: lib/customer.defines.php:130
+msgid "Credit Card"
+msgstr "Kartu Kredit"
+
+#: lib/customer.defines.php:131 lib/customer.defines.php:141
+msgid "Credit Card Test Info"
+msgstr "Kartu Kredit Info Test"
+
+#: lib/customer.defines.php:131 lib/customer.defines.php:141
+msgid "Expiry: Any"
+msgstr "Kadaluwarsa: Setiap"
+
+#: lib/customer.defines.php:132
+msgid "Credit Card Type"
+msgstr "Jenis Kartu Kredit"
+
+#: lib/customer.defines.php:133
+msgid "Credit Card Owner"
+msgstr "Pemilik Kartu Kredit"
+
+#: lib/customer.defines.php:134
+msgid "Credit Card Number"
+msgstr "Nomor Kartu Kredit"
+
+#: lib/customer.defines.php:135
+msgid "Credit Card Expiry Date"
+msgstr "Tanggal Kadaluwarsa Kartu Kredit"
+
+#: lib/customer.defines.php:136 lib/customer.defines.php:149
+msgid "* The owner's name of the credit card must be at least"
+msgstr "* Nama pemilik dari kartu kredit harus minimal "
+
+#: lib/customer.defines.php:137 lib/customer.defines.php:150
+msgid "* The credit card number must be at least"
+msgstr "* Jumlah kartu kredit harus minimal "
+
+#: lib/customer.defines.php:138
+msgid "Credit Card Error!"
+msgstr "Kartu Kredit Error!"
+
+#: lib/customer.defines.php:142
+msgid "There has been an error processing your credit card"
+msgstr "Ada masalah saat memproses kartu kredit Anda "
+
+#: lib/customer.defines.php:143
+msgid "Please check your credit card details!"
+msgstr "Silakan periksa rincian kartu kredit Anda!"
+
+#: lib/customer.defines.php:144
+msgid "Credit Card Owner:"
+msgstr "Kartu Kredit Pemilik:"
+
+#: lib/customer.defines.php:145
+msgid "Credit Card Number:"
+msgstr "Nomor Kartu Kredit:"
+
+#: lib/customer.defines.php:146
+msgid "Credit Card Expiry Date:"
+msgstr "Tanggal Kadaluarsa Kartu Kredit:"
+
+#: lib/customer.defines.php:147
+msgid "Credit Card Checknumber:"
+msgstr "Cek nomor Kartu Kredi:"
+
+#: lib/customer.defines.php:148
+msgid "(located at the back of the credit card)"
+msgstr "(terletak di bagian belakang kartu kredit)"
+
+#: lib/customer.defines.php:149
+msgid "characters."
+msgstr " karakter."
+
+#: lib/Class.Realtime.php:96
+msgid "Could not open buddy file"
+msgstr "Tidak dapat membuka berkas buddy "
+
+#: lib/Class.Realtime.php:115
+msgid "Impossible to write to the file"
+msgstr "Tidak mungkin untuk menulis ke file"
+
+#: lib/customer.smarty.php:103 lib/admin.smarty.php:68 lib/agent.smarty.php:69
+msgid "This option is not available on the Demo!"
+msgstr "Pilihan ini tidak tersedia di Demo!"
+
+#: lib/epayment/methods/iridium.php:607 checkout_success.php:70
+msgid "We are sorry your transaction is failed. Please try later or check your provided information."
+msgstr "Mohon maaf transaksi Anda gagal Coba lagi nanti atau periksa informasi yang Anda diberikan."
+
+#: lib/epayment/methods/iridium.php:611 checkout_success.php:74
+msgid "We are sorry your transaction is denied. Please try later or check your provided information."
+msgstr "Mohon maaf transaksi Anda ditolak Coba lagi nanti atau periksa informasi yang Anda diberikan."
+
+#: lib/epayment/methods/iridium.php:620 checkout_success.php:82
+msgid "Your transaction is in progress."
+msgstr "transaksi Anda sedang berlangsung."
+
+#: lib/epayment/methods/iridium.php:624 checkout_success.php:86
+msgid "Your transaction was successful."
+msgstr "Transaksi Anda berhasil."
+
+#: lib/support/classes/ticket.php:79 lib/support/classes/ticket.php:233
+msgid "(AGENT)"
+msgstr "(AGEN)"
+
+#: lib/support/classes/ticket.php:212
+msgid "(ADMINISTRATOR) "
+msgstr "(ADMINISTRATOR)"
+
+#: lib/support/classes/ticket.php:370 lib/interface/constants.php:277
+#: lib/interface/constants.php:325 lib/interface/constants.php:343
+msgid "NEW"
+msgstr "BARU"
+
+#: lib/support/classes/ticket.php:373
+msgid "FIXED"
+msgstr "TETAP"
+
+#: lib/support/classes/ticket.php:376
+msgid "REOPEN"
+msgstr "TERBUKA KEMBALI"
+
+#: lib/support/classes/ticket.php:379
+msgid "CLOSED"
+msgstr "TERTUTUP"
+
+#: lib/support/classes/ticket.php:382
+msgid "INVALID"
+msgstr "TIDAK BENAR"
+
+#: lib/Class.SOAP-function.php:851 lib/Form/Class.FormBO.php:287
+msgid "CREATION CARD REFILL"
+msgstr "PEMBUATAN KARTU ISI ULANG"
+
+#: lib/common.defines.php:90
+msgid "Address line 1:"
+msgstr "Baris alamat 1:"
+
+#: lib/common.defines.php:91
+msgid "Address line 2:"
+msgstr "Baris alamat 2:"
+
+#: lib/common.defines.php:92
+msgid "Address line 3:"
+msgstr "Baris alamat 3:"
+
+#: lib/common.defines.php:93
+msgid "Postcode:"
+msgstr "Kode pos:"
+
+#: lib/common.defines.php:94
+msgid "Country:"
+msgstr "Negara:"
+
+#: lib/common.defines.php:95
+msgid "Telephone:"
+msgstr "Telepon:"
+
+#: lib/common.defines.php:126
+msgid "This software has been created by Areski under AGPL licence. For futher information, feel free to contact me:"
+msgstr "perangkat lunak ini telah diciptakan oleh Areski dibawah lisensi AGPL. Untuk informasi lebih lanjut, jangan ragu untuk menghubungi saya:"
+
+#: lib/common.defines.php:132
+msgid "A2Billing Portal"
+msgstr "Gerbang A2Tagihan"
+
+#: lib/Form/Class.ViewHandler.inc.php:72
+msgid "Archiving All "
+msgstr "Pengarsipan Semua"
+
+#: lib/Form/Class.ViewHandler.inc.php:86
+msgid "Sort"
+msgstr "Urutkan"
+
+#: lib/Form/Class.ViewHandler.inc.php:106
+msgid "Records"
+msgstr "Catatan"
+
+#: lib/Form/Class.ViewHandler.inc.php:136
+msgid "FILTER ON "
+msgstr "SARINGAN DI"
+
+#: lib/Form/Class.ViewHandler.inc.php:153
+msgid "FILTER ON"
+msgstr "SARINGAN DI"
+
+#: lib/Form/Class.ViewHandler.inc.php:166
+msgid "APPLY FILTER "
+msgstr "MENERAPLAN PENYARING"
+
+#: lib/Form/Class.ViewHandler.inc.php:796
+msgid "DISPLAY"
+msgstr "LAYAR"
+
+#: lib/Form/Class.ViewHandler.inc.php:825
+msgid "GO"
+msgstr "PERGI"
+
+#: lib/Form/Class.ViewHandler.inc.php:829
+msgid "Export CSV"
+msgstr "Ekspor CSV"
+
+#: lib/Form/Class.ViewHandler.inc.php:833
+msgid "Export XML"
+msgstr "Ekspor XML"
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:223
+#: lib/Form/Class.FormHandler.EditForm.inc.php:399
+#: lib/Form/Class.FormHandler.EditForm.inc.php:780
+#: lib/Form/Class.FormHandler.DelForm.inc.php:161
+#: lib/Form/Class.FormHandler.AddForm.inc.php:158
+#: CC_entity_edit_speeddial.php:298 CC_entity_edit_speeddial.php:508
+#: CC_entity_edit_speeddial.php:800 CC_entity_edit_speeddial.php:1046
+#: card-history.php:418 CC_entity_edit_did_destination.php:407
+#: CC_entity_edit_did_destination.php:626
+#: CC_entity_edit_did_destination.php:944
+#: CC_entity_edit_did_destination.php:1066
+#: CC_entity_edit_did_destination.php:1208 call-history.php:519
+msgid "No data found !!!"
+msgstr "Tidak ada data!"
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:282
+msgid "LIST "
+msgstr "DAFTAR"
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:333
+#: lib/interface/constants.php:64 CC_entity_edit_did_destination.php:739
+msgid "No"
+msgstr "Tidak"
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:353
+#: lib/Form/Class.FormHandler.EditForm.inc.php:509
+#: lib/Form/Class.FormHandler.EditForm.inc.php:632
+#: CC_entity_edit_speeddial.php:452 CC_entity_edit_speeddial.php:642
+#: CC_entity_edit_did_destination.php:773
+msgid "Add a new"
+msgstr "Tambah baru"
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:440
+#: lib/Form/Class.FormHandler.EditForm.inc.php:567
+#: CC_entity_edit_speeddial.php:564 CC_entity_edit_speeddial.php:733
+#: CC_entity_edit_did_destination.php:680
+#: CC_entity_edit_did_destination.php:875
+msgid "LIST"
+msgstr "DAFTAR"
+
+#: lib/Form/Class.FormBO.php:20
+msgid "This did is in use by customer id:"
+msgstr "Ini tidak sedang digunakan oleh id pelanggan:"
+
+#: lib/Form/Class.FormBO.php:318
+msgid "DELETION CARD REFILL"
+msgstr "PENGHAPUSAN KARTU ISI ULANG"
+
+#: lib/Form/Class.FormBO.php:337
+msgid "CORRECT COMMISSION AFTER CARD DELETED!"
+msgstr "BENAR KOMISI SETELAH KARTU DIHAPUS!"
+
+#: lib/Form/Class.FormBO.php:363
+msgid "CREATION AGENT REFILL"
+msgstr "PEMBUATAN AGEN ISI ULANG"
+
+#: lib/Form/Class.FormBO.php:433
+msgid "SUBSCRIPTION INVOICE REMINDER"
+msgstr "PERINGATAN FAKTUR BERLANGGANAN"
+
+#: lib/Form/Class.FormBO.php:695
+msgid "SUMMARY OF CALLS"
+msgstr "RINGKASAN DARI PANGGILAN"
+
+#: lib/Form/Class.FormBO.php:696
+msgid "Summary of the calls charged since the last billing"
+msgstr "Ringkasan dari panggilan dibebankan sejak penagihan terakhir"
+
+#: lib/Form/Class.FormBO.php:713
+msgid "SUMMARY OF CHARGE"
+msgstr "RINGKASAN BIAYA"
+
+#: lib/Form/Class.FormBO.php:715 A2B_billing_preview.php:230
+msgid "Summary of the charge charged since the last billing."
+msgstr "Ringkasan biaya yang dikenakan sejak penagihan terakhir."
+
+#: lib/Form/Class.FormBO.php:721 lib/Form/Class.FormBO.php:751
+#: A2B_billing_preview.php:107 A2B_billing_preview.php:116
+#: A2B_receipt_preview_detail.php:77
+msgid "CHARGE :"
+msgstr "BIAYA:"
+
+#: lib/Form/Class.FormBO.php:740
+msgid "BILLING CHARGES"
+msgstr "BIAYA PENAGIHAN"
+
+#: lib/Form/Class.FormBO.php:741
+msgid "This invoice is for some charges unpaid since the last billing."
+msgstr "Faktur ini untuk beberapa biaya yang belum dibayarkan sejak penagihan terakhir."
+
+#: lib/Form/Class.FormBO.php:773
+msgid "BILLING POSTPAID"
+msgstr "PENAGIHAN PASCA BAYAR"
+
+#: lib/Form/Class.FormBO.php:774
+msgid "Invoice for POSTPAID"
+msgstr "Faktur PASCA BAYAR"
+
+#: lib/Form/Class.FormBO.php:836 lib/Form/Class.FormBO.php:838
+#: lib/Form/Class.FormBO.php:945 lib/Form/Class.FormBO.php:947
+msgid "REFILL"
+msgstr "ISI ULANG"
+
+#: lib/Form/Class.SearchHandler.inc.php:24
+#: lib/Form/Class.SearchHandler.inc.php:100
+msgid "From :"
+msgstr "Dari:"
+
+#: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:195
+msgid "January"
+msgstr "Januari"
+
+#: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:196
+msgid "February"
+msgstr "Februari"
+
+#: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:197
+msgid "March"
+msgstr "Maret"
+
+#: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:198
+msgid "April"
+msgstr "April"
+
+#: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:199
+msgid "May"
+msgstr "Mei"
+
+#: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:200
+msgid "June"
+msgstr "Juni"
+
+#: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:201
+msgid "July"
+msgstr "Juli"
+
+#: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:202
+msgid "August"
+msgstr "Agustus"
+
+#: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:203
+msgid "September"
+msgstr "September"
+
+#: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:204
+msgid "October"
+msgstr "Oktober"
+
+#: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:205
+msgid "November"
+msgstr "November"
+
+#: lib/Form/Class.SearchHandler.inc.php:35 lib/interface/constants.php:206
+msgid "December"
+msgstr "Desember"
+
+#: lib/Form/Class.SearchHandler.inc.php:57
+#: lib/Form/Class.SearchHandler.inc.php:131
+msgid "To :"
+msgstr "Untuk:"
+
+#: lib/Form/Class.SearchHandler.inc.php:213 call-history.php:323
+msgid "Exact"
+msgstr "Persis"
+
+#: lib/Form/Class.SearchHandler.inc.php:214 call-history.php:324
+msgid "Begins with"
+msgstr "Dimulai dengan"
+
+#: lib/Form/Class.SearchHandler.inc.php:215 call-history.php:325
+msgid "Contains"
+msgstr "Berisi"
+
+#: lib/Form/Class.SearchHandler.inc.php:216 call-history.php:326
+msgid "Ends with"
+msgstr "Berakhir dengan"
+
+#: lib/Form/Class.SearchHandler.inc.php:327
+msgid "There is"
+msgstr "Ada"
+
+#: lib/Form/Class.SearchHandler.inc.php:327
+msgid "selected, use the option below if you are willing to make a batch updated of the selected cards."
+msgstr "pilihan, gunakan opsi di bawah ini jika Anda bersedia untuk membuat batch terbaru dari kartu yang dipilih."
+
+#: lib/Form/Class.SearchHandler.inc.php:356 templates/default/main.tpl:70
+msgid "RATECARD"
+msgstr "TINGKATAN KARTU"
+
+#: lib/Form/Class.SearchHandler.inc.php:375
+msgid "BUYRATE"
+msgstr "TINGKATAN MEMBELI"
+
+#: lib/Form/Class.SearchHandler.inc.php:378
+#: lib/Form/Class.SearchHandler.inc.php:393
+#: lib/Form/Class.SearchHandler.inc.php:409
+#: lib/Form/Class.SearchHandler.inc.php:425
+#: lib/Form/Class.SearchHandler.inc.php:441
+#: lib/Form/Class.SearchHandler.inc.php:457
+#: lib/Form/Class.SearchHandler.inc.php:473
+#: lib/Form/Class.SearchHandler.inc.php:489
+#: lib/Form/Class.SearchHandler.inc.php:505
+msgid "Equal"
+msgstr "Persamaan"
+
+#: lib/Form/Class.SearchHandler.inc.php:380
+#: lib/Form/Class.SearchHandler.inc.php:395
+#: lib/Form/Class.SearchHandler.inc.php:411
+#: lib/Form/Class.SearchHandler.inc.php:427
+#: lib/Form/Class.SearchHandler.inc.php:443
+#: lib/Form/Class.SearchHandler.inc.php:459
+#: lib/Form/Class.SearchHandler.inc.php:475
+#: lib/Form/Class.SearchHandler.inc.php:491
+#: lib/Form/Class.SearchHandler.inc.php:508
+msgid "Substract"
+msgstr "Kurangi"
+
+#: lib/Form/Class.SearchHandler.inc.php:390
+msgid "BUYRATEINITBLOCK"
+msgstr "TINGKATAN MEMBELI DI BLOK"
+
+#: lib/Form/Class.SearchHandler.inc.php:406
+msgid "BUYRATEINCREMENT"
+msgstr "TINGKATAN MEMBELI DI CREMENT"
+
+#: lib/Form/Class.SearchHandler.inc.php:422
+msgid "RATE INITIAL"
+msgstr "TINGKAT AWAL"
+
+#: lib/Form/Class.SearchHandler.inc.php:438
+msgid "MIN DURATION"
+msgstr "DURASI MINIMAL"
+
+#: lib/Form/Class.SearchHandler.inc.php:454
+msgid "BILLINGBLOCK"
+msgstr "BLOK TAGIHAN"
+
+#: lib/Form/Class.SearchHandler.inc.php:470
+msgid "CONNECTCHARGE"
+msgstr "TERHUBUNG BIAYA"
+
+#: lib/Form/Class.SearchHandler.inc.php:486
+msgid "DISCONNECTCHARGE"
+msgstr "PUTUSKAN BIAYA"
+
+#: lib/Form/Class.SearchHandler.inc.php:502
+msgid "DISCONNECT CHARGE THRESHOLD"
+msgstr "PUTUSKAN AMBANG BATAS BIAYA"
+
+#: lib/Form/Class.SearchHandler.inc.php:520
+msgid " BATCH UPDATE RATECARD "
+msgstr "MEMPERBARUI SEJUMLAH TINGKATAN KARTU"
+
+#: lib/Form/Class.FormHandler.DelForm.inc.php:46 checkout_success.php:55
+msgid "Message"
+msgstr "Pesan"
+
+#: lib/Form/Class.FormHandler.DelForm.inc.php:53
+msgid "You have "
+msgstr "Anda memiliki"
+
+#: lib/Form/Class.FormHandler.DelForm.inc.php:208
+msgid "Remove this "
+msgstr "Menghapus"
+
+#: lib/Form/Class.FormHandler.inc.php:545
+msgid "No data found!"
+msgstr "Tidak ada data!"
+
+#: lib/Form/Class.FormHandler.inc.php:546
+msgid "DIRECTORY"
+msgstr "DIREKTORI"
+
+#: lib/Form/Class.FormHandler.inc.php:547
+msgid "list"
+msgstr "daftar"
+
+#: lib/Form/Class.FormHandler.inc.php:548
+#: lib/Form/Class.FormHandler.inc.php:630
+msgid "Define criteria to make a precise search"
+msgstr "Tentukan kriteria untuk membuat pencarian yang tepat"
+
+#: lib/Form/Class.FormHandler.inc.php:549
+msgid "You can browse through our"
+msgstr "Anda dapat menelusuri melalui kami"
+
+#: lib/Form/Class.FormHandler.inc.php:549
+msgid "and modify their different properties"
+msgstr "dan memodifikasi properti yang berbeda"
+
+#: lib/Form/Class.FormHandler.inc.php:550
+msgid "Delete this record"
+msgstr "Hapus catatan ini"
+
+#: lib/Form/Class.FormHandler.inc.php:551
+msgid "Edit this record"
+msgstr "Edit catatan ini"
+
+#: lib/Form/Class.FormHandler.inc.php:552
+msgid "The document has been created correctly. Now, you can define the different tariff that you want to associate."
+msgstr "Dokumen telah dibuat dengan benar. Sekarang, Anda dapat menentukan tarif yang berbeda yang ingin Anda kaitkan."
+
+#: lib/Form/Class.FormHandler.inc.php:554
+msgid "Click on the delete button."
+msgstr "Klik pada tombol hapus."
+
+#: lib/Form/Class.FormHandler.inc.php:555
+msgid "One"
+msgstr "Satu"
+
+#: lib/Form/Class.FormHandler.inc.php:555
+msgid "has been deleted!"
+msgstr "telah dihapus!"
+
+#: lib/Form/Class.FormHandler.inc.php:558
+msgid "Add a"
+msgstr "Menambahkan"
+
+#: lib/Form/Class.FormHandler.inc.php:558
+msgid "now."
+msgstr "sekarang."
+
+#: lib/Form/Class.FormHandler.inc.php:559
+msgid "has been inserted.<br>"
+msgstr "telah dimasukkan. <br>"
+
+#: lib/Form/Class.FormHandler.inc.php:560
+msgid "hasn't been inserted."
+msgstr "belum dimasukkan."
+
+#: lib/Form/Class.FormHandler.inc.php:561
+msgid "You cannot choose more than one !"
+msgstr "Anda tidak dapat memilih lebih dari satu!"
+
+#: lib/Form/Class.FormHandler.inc.php:563
+msgid "Are you sure to delete all records connected to this instance."
+msgstr "Apakah Anda yakin untuk menghapus semua catatan yang berhubungan dengan hal ini."
+
+#: lib/Form/Class.FormHandler.inc.php:565
+#: lib/Form/Class.FormHandler.inc.php:567
+msgid "CONFIRM DATA"
+msgstr "KONFIRMASI DATA"
+
+#: lib/Form/Class.FormHandler.inc.php:566
+msgid "DELETE"
+msgstr "HAPUS"
+
+#: lib/Form/Class.FormHandler.inc.php:619
+#: lib/Form/Class.FormHandler.inc.php:837
+msgid "Delete this "
+msgstr "Menghapus ini"
+
+#: lib/Form/Class.FormHandler.inc.php:620
+#: lib/Form/Class.FormHandler.inc.php:831
+msgid "Edit this "
+msgstr "Mengedit ini"
+
+#: lib/Form/Class.FormHandler.inc.php:651
+msgid "INSERTED"
+msgstr "DIMASUKKAN"
+
+#: lib/Form/Class.FormHandler.inc.php:652
+msgid "ENABLE"
+msgstr "MEMBOLEHKAN"
+
+#: lib/Form/Class.FormHandler.inc.php:653
+msgid "DISABLE"
+msgstr "MELUMPUHKAN"
+
+#: lib/Form/Class.FormHandler.inc.php:654
+msgid "FREE"
+msgstr "BEBAS"
+
+#: lib/Form/Class.FormHandler.inc.php:806
+#: lib/Form/Class.FormHandler.inc.php:808
+msgid "You can browse through our "
+msgstr "Anda dapat menelusuri melalui kami"
+
+#: lib/Form/Class.FormHandler.inc.php:806
+#: lib/Form/Class.FormHandler.inc.php:808
+msgid " and modify their different properties<br>"
+msgstr "dan memodifikasi berbeda sifat <br>"
+
+#: lib/Form/Class.FormHandler.inc.php:976
+msgid "(at least 3 characters)"
+msgstr "(minimal 3 karakter)"
+
+#: lib/Form/Class.FormHandler.inc.php:980
+msgid "(must match email structure. Example : name@domain.com)"
+msgstr "(harus sesuai struktur email. Contoh: name@domain.com)"
+
+#: lib/Form/Class.FormHandler.inc.php:984
+msgid "(at least 5 successive characters appear at the end of this string)"
+msgstr "(minimal 5 karakter berturut-turut muncul di akhir deretan ini)"
+
+#: lib/Form/Class.FormHandler.inc.php:988
+msgid "(at least 4 characters)"
+msgstr "(minimal 4 karakter)"
+
+#: lib/Form/Class.FormHandler.inc.php:992
+msgid "(number format)"
+msgstr "(format angka)"
+
+#: lib/Form/Class.FormHandler.inc.php:1000
+msgid "(only number with more that 8 digits)"
+msgstr "(hanya nomor dengan lebih dari 8 digit)"
+
+#: lib/Form/Class.FormHandler.inc.php:1004
+msgid "(at least 8 digits using . or - or the space key)"
+msgstr "(minimal 8 digit menggunakan . atau - atau tombol spasi)"
+
+#: lib/Form/Class.FormHandler.inc.php:1008
+msgid "network adress format"
+msgstr "Format alamat jaringan"
+
+#: lib/Form/Class.FormHandler.inc.php:1012
+msgid "at least 1 character"
+msgstr "minimal 1 karakter"
+
+#: lib/Form/Class.FormHandler.inc.php:1020
+msgid "(AT LEAST 2 CARACTERS)"
+msgstr "(MINIMAL 2 KARAKTER)"
+
+#: lib/Form/Class.FormHandler.inc.php:1024
+msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
+msgstr "(FORMAT NOMOR DENGAN / TANPA DECIMAL, gunakan '.' untuk desimal)"
+
+#: lib/Form/Class.FormHandler.inc.php:1040
+msgid "You must write something."
+msgstr "Anda harus menulis sesuatu."
+
+#: lib/Form/Class.FormHandler.inc.php:1044
+msgid "8 characters alphanumeric"
+msgstr "8 karakter alfanumerik"
+
+#: lib/Form/Class.FormHandler.inc.php:1051
+msgid "(at least 6 Alphanumeric characters)"
+msgstr "(minimal 6 karakter alfanumerik)"
+
+#: lib/Form/Class.FormHandler.inc.php:1059
+#, php-format
+msgid "(PERCENT FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal and don't use '%' character. e.g.: 12.4 )"
+msgstr "(FORMAT PERSEN DENGAN / TANPA DECIMAL, gunakan '.' untuk desimal dan tidak menggunakan karakter '%' . misalnya: 12.4)"
+
+#: lib/Form/Class.FormHandler.inc.php:1737
+#: CC_entity_edit_did_destination.php:233
+msgid "error deletion"
+msgstr "kesalahan penghapusan"
+
+#: lib/Form/Class.FormHandler.inc.php:1864
+msgid "ERROR_DUPLICATION"
+msgstr "KESALAHAN_DUPLIKASI"
+
+#: lib/Form/Class.FormHandler.inc.php:1950
+msgid "Done"
+msgstr "Selesai"
+
+#: lib/Form/Class.FormHandler.inc.php:1990
+msgid "Export Call Plan with LCR"
+msgstr "Ekspor Rencana Panggil dengan LCR"
+
+#: lib/Form/Class.FormHandler.inc.php:1996
+msgid "Choose a call plan"
+msgstr "Pilih rencana panggilan"
+
+#: lib/Form/Class.FormHandler.inc.php:2042
+msgid "THE CURRENT RATECARD"
+msgstr "TINGKATAN KARTU SAAT INI"
+
+#: lib/Form/Class.FormHandler.inc.php:2053
+msgid "R A T E C A R D"
+msgstr "T I N G K A T A N  K A R T U"
+
+#: lib/Form/Class.FormHandler.inc.php:2059
+msgid "Choose a ratecard"
+msgstr "Pilih sebuah tingkatan kartu"
+
+#: lib/Form/Class.FormHandler.AddForm.inc.php:211
+msgid "Create a new "
+msgstr "Buat baru"
+
+#: lib/Misc.php:515 lib/Class.Notification.php:138
+msgid "UNKNOWN"
+msgstr "TIDAK DIKETAHUI"
+
+#: lib/Misc.php:714
+msgid "First"
+msgstr "Pertama"
+
+#: lib/Misc.php:715 A2B_entity_did.php:448
+msgid "Prev"
+msgstr "Sebelumnya"
+
+#: lib/Misc.php:716 A2B_entity_did.php:418
+msgid "Next"
+msgstr "Berikutnya"
+
+#: lib/Misc.php:717
+msgid "Last"
+msgstr "Terakhir"
+
+#: lib/Misc.php:807
+msgid "File size is greater than allowed limit."
+msgstr "Ukuran file lebih besar dari batas yang diijinkan."
+
+#: lib/Misc.php:810
+msgid "You did not upload anything!"
+msgstr "Anda tidak meng-upload apa pun!"
+
+#: lib/Misc.php:813
+msgid "Failed to upload the file, The file you uploaded may not exist on disk."
+msgstr "Gagal meng-upload file, File yang Anda upload mungkin tidak ada pada disk."
+
+#: lib/Misc.php:816
+msgid "file type is not allowed"
+msgstr "tipe file tidak diperbolehkan"
+
+#: lib/Misc.php:1122
+msgid "Can't find our base_currency in cc_currencies."
+msgstr "Tidak dapat menemukan base_currency kami di cc_currencies."
+
+#: lib/Misc.php:1122 lib/Misc.php:1145 lib/Misc.php:1149 lib/Misc.php:1159
+msgid "Currency update ABORTED."
+msgstr "Memperbaharui mata uang dibatalkan."
+
+#: lib/Misc.php:1145
+msgid "The CSV file doesn't contain all the currencies we requested."
+msgstr "Berkas CSV tidak berisi semua mata uang yang kami minta."
+
+#: lib/Misc.php:1149
+msgid "At least one of the entries in the CSV file isn't a number."
+msgstr "Minimal salah satu entri di file CSV bukan angka."
+
+#: lib/Misc.php:1159
+msgid "Our base_currency seems to be worthless."
+msgstr "base_currency kami tampaknya tidak berguna."
+
+#: lib/Misc.php:1197
+msgid "Success! All currencies are now updated."
+msgstr "Sukses! Semua mata uang kini telah diperbarui."
+
+#: lib/Misc.php:1488
+msgid "GO TO CUSTOMER ACCOUNT"
+msgstr "KE REKENING NASABAH"
+
+#: lib/interface/constants.php:16
+msgid "SUCCESS"
+msgstr "SUKSES"
+
+#: lib/interface/constants.php:17
+msgid "WARNING"
+msgstr "PERINGATAN"
+
+#: lib/interface/constants.php:18 lib/interface/constants.php:72
+msgid "ERROR"
+msgstr "KESALAHAN"
+
+#: lib/interface/constants.php:24 lib/interface/constants.php:38
+msgid "ENGLISH"
+msgstr "INGGRIS"
+
+#: lib/interface/constants.php:25 lib/interface/constants.php:39
+msgid "SPANISH"
+msgstr "SPANYOL"
+
+#: lib/interface/constants.php:26 lib/interface/constants.php:40
+msgid "FRENCH"
+msgstr "PERANCIS"
+
+#: lib/interface/constants.php:27 lib/interface/constants.php:41
+msgid "RUSSIAN"
+msgstr "RUSIA"
+
+#: lib/interface/constants.php:28 lib/interface/constants.php:42
+msgid "BRAZILIAN"
+msgstr "BRAZIL"
+
+#: lib/interface/constants.php:48
+msgid "NONE RESTRICTION USED"
+msgstr "TIDAK ADA PEMBATASAN YANG DIGUNAKAN"
+
+#: lib/interface/constants.php:49
+msgid "CAN'T CALL RESTRICTED NUMBERS"
+msgstr "TIDAK DAPAT MEMANGGIL NOMOR YANG DIBATASI"
+
+#: lib/interface/constants.php:50
+msgid "CAN ONLY CALL RESTRICTED NUMBERS"
+msgstr "HANYA DAPAT MEMANGGIL NOMOR YANG DIBATASI"
+
+#: lib/interface/constants.php:55
+msgid "CUSTOMERS"
+msgstr "PELANGGAN"
+
+#: lib/interface/constants.php:56
+msgid "AGENTS"
+msgstr "AGEN"
+
+#: lib/interface/constants.php:57
+msgid "CUSTOMERS AND AGENTS"
+msgstr "PELANGGAN DAN AGEN"
+
+#: lib/interface/constants.php:63 A2B_entity_did.php:402
+msgid "Yes"
+msgstr "Ya"
+
+#: lib/interface/constants.php:70
+msgid "PENDING"
+msgstr "TERTUNDA"
+
+#: lib/interface/constants.php:71
+msgid "SENT"
+msgstr "DIKIRIM"
+
+#: lib/interface/constants.php:110
+msgid "Fix per month + dialoutrate"
+msgstr "Perbaiki per bulan + tingkatan panggilan keluar"
+
+#: lib/interface/constants.php:111
+msgid "Fix per month"
+msgstr "Perbaiki per bulan"
+
+#: lib/interface/constants.php:112
+msgid "Only dialout rate"
+msgstr "Hanya tingkatan panggilan keluar"
+
+#: lib/interface/constants.php:113 lib/interface/constants.php:122
+msgid "Free"
+msgstr "Bebas"
+
+#: lib/interface/constants.php:119
+msgid "Fix+Dial"
+msgstr "Perbaiki + Panggil"
+
+#: lib/interface/constants.php:120
+msgid "Fix"
+msgstr "Perbaiki"
+
+#: lib/interface/constants.php:121
+msgid "Dial"
+msgstr "Panggil"
+
+#: lib/interface/constants.php:128 lib/interface/constants.php:375
+msgid "INDIVIDUAL ACCESS"
+msgstr "AKSES INDIVIDU"
+
+#: lib/interface/constants.php:129 lib/interface/constants.php:374
+msgid "ACCESS"
+msgstr "AKSES BERSAMA"
+
+#: lib/interface/constants.php:135
+msgid "PREPAID CARD"
+msgstr "KARTU PRABAYAR"
+
+#: lib/interface/constants.php:136
+msgid "POSTPAID CARD"
+msgstr "KARTU PASCA BAYAR "
+
+#: lib/interface/constants.php:146
+msgid "NO EXPIRATION"
+msgstr "TIDAK KADALUARSA"
+
+#: lib/interface/constants.php:147 lib/interface/constants.php:386
+msgid "EXPIRE DATE"
+msgstr "TANGGAL KADALUARSA"
+
+#: lib/interface/constants.php:148 lib/interface/constants.php:387
+msgid "EXPIRE DAYS SINCE FIRST USE"
+msgstr "KADALUARSA SEJAK PERTAMA MENGGUNAKAN"
+
+#: lib/interface/constants.php:149 lib/interface/constants.php:388
+msgid "EXPIRE DAYS SINCE CREATION"
+msgstr "KADALUARSA SEJAK DIBUAT"
+
+#: lib/interface/constants.php:156 lib/interface/constants.php:167
+msgid "OPEN"
+msgstr "BUKA"
+
+#: lib/interface/constants.php:157 lib/interface/constants.php:168
+msgid "CLOSE"
+msgstr "TUTUP"
+
+#: lib/interface/constants.php:175 lib/interface/constants.php:189
+#: lib/interface/constants.php:212
+msgid "UNPAID"
+msgstr "Tunggakan"
+
+#: lib/interface/constants.php:176 lib/interface/constants.php:188
+#: lib/interface/constants.php:215
+msgid "PAID"
+msgstr "DIBAYAR"
+
+#: lib/interface/constants.php:186
+msgid "FIRSTUSE"
+msgstr "PERTAMA MENGGUNAKAN"
+
+#: lib/interface/constants.php:187
+msgid "BILLED"
+msgstr "DITAGIH"
+
+#: lib/interface/constants.php:213
+msgid "SENT-UNPAID"
+msgstr "DIKIRIM-TUNGGAKAN"
+
+#: lib/interface/constants.php:214
+msgid "SENT-PAID"
+msgstr "DIKIRIM-DIBAYAR"
+
+#: lib/interface/constants.php:222 CC_entity_edit_speeddial.php:1080
+#: CC_entity_edit_did_destination.php:1240
+msgid "New"
+msgstr "Baru"
+
+#: lib/interface/constants.php:223
+msgid "Proceed"
+msgstr "Meneruskan"
+
+#: lib/interface/constants.php:224
+msgid "In Process"
+msgstr "Dalam Proses"
+
+#: lib/interface/constants.php:230
+msgid "Failed"
+msgstr "Gagal"
+
+#: lib/interface/constants.php:231
+msgid "Successful"
+msgstr "Berhasil"
+
+#: lib/interface/constants.php:232
+msgid "Not Sent"
+msgstr "Tidak Terkirim"
+
+#: lib/interface/constants.php:238
+msgid "Unlimited calls"
+msgstr "Panggilan tak terbatas"
+
+#: lib/interface/constants.php:239
+msgid "Number of Free calls"
+msgstr "Jumlah Bebas panggilan "
+
+#: lib/interface/constants.php:240
+msgid "Free seconds"
+msgstr "Bebas tiap detik"
+
+#: lib/interface/constants.php:246
+msgid "Monthly"
+msgstr "Bulanan"
+
+#: lib/interface/constants.php:247
+msgid "Weekly"
+msgstr "Mingguan"
+
+#: lib/interface/constants.php:253
+msgid "LCR : According to the buyer price"
+msgstr "LCR: Menurut harga pembeli"
+
+#: lib/interface/constants.php:254
+msgid "LCD : According to the seller price"
+msgstr "LCD: Menurut harga penjual"
+
+#: lib/interface/constants.php:260
+msgid "LCR : buyer price"
+msgstr "LCR: harga pembeli"
+
+#: lib/interface/constants.php:261
+msgid "LCD : seller price"
+msgstr "LCD: harga penjual"
+
+#: lib/interface/constants.php:284
+msgid "NOT USED"
+msgstr "TIDAK DIGUNAKAN"
+
+#: lib/interface/constants.php:285
+msgid "USED"
+msgstr "DIGUNAKAN"
+
+#: lib/interface/constants.php:295
+msgid "ANSWER"
+msgstr "JAWABAN"
+
+#: lib/interface/constants.php:296
+msgid "BUSY"
+msgstr "SIBUK"
+
+#: lib/interface/constants.php:297
+msgid "NOANSWER"
+msgstr "TIDAK ADA JAWABAN"
+
+#: lib/interface/constants.php:298 lib/interface/constants.php:341
+#: lib/interface/constants.php:366
+msgid "CANCEL"
+msgstr "BATAL"
+
+#: lib/interface/constants.php:299
+msgid "CONGESTION"
+msgstr "KEMACETAN"
+
+#: lib/interface/constants.php:300
+msgid "CHANUNAVAIL"
+msgstr "CHANUNAVAIL"
+
+#: lib/interface/constants.php:301
+msgid "DONTCALL"
+msgstr "JANGAN MEMANGGIL"
+
+#: lib/interface/constants.php:302
+msgid "TORTURE"
+msgstr "PENYIKSAAN"
+
+#: lib/interface/constants.php:303
+msgid "INVALIDARGS"
+msgstr "ARGS TIDAK VALID"
+
+#: lib/interface/constants.php:323 lib/interface/constants.php:355
+msgid "ACTIVE"
+msgstr "AKTIF"
+
+#: lib/interface/constants.php:324 lib/interface/constants.php:341
+#: lib/interface/constants.php:356 lib/interface/constants.php:366
+#: lib/interface/constants.php:433
+msgid "CANCELLED"
+msgstr "DIBATALKAN"
+
+#: lib/interface/constants.php:326 lib/interface/constants.php:344
+msgid "WAITING-MAILCONFIRMATION"
+msgstr "TUNGGU-KONFIRMASI EMAIL"
+
+#: lib/interface/constants.php:327 lib/interface/constants.php:345
+msgid "RESERVED"
+msgstr "DILINDUNGI"
+
+#: lib/interface/constants.php:329 lib/interface/constants.php:347
+msgid "SUSPENDED FOR UNDERPAYMENT"
+msgstr "DITANGGUHKAN UNTUK TIDAK DIBAYAR"
+
+#: lib/interface/constants.php:330 lib/interface/constants.php:348
+msgid "SUSPENDED FOR LITIGATION"
+msgstr "DITANGGUHKAN UNTUK PROSES PENGADILAN"
+
+#: lib/interface/constants.php:331
+msgid "WAITING SUBSCRIPTION PAYMENT"
+msgstr "TUNGGU PEMBAYARAN BERLANGGANAN"
+
+#: lib/interface/constants.php:344 lib/interface/constants.php:430
+msgid "WAITING"
+msgstr "MENUNGGU"
+
+#: lib/interface/constants.php:345
+msgid "RESERV"
+msgstr "PEMESANAN"
+
+#: lib/interface/constants.php:347
+msgid "SUS-PAY"
+msgstr " SUS-MEMBAYAR "
+
+#: lib/interface/constants.php:348
+msgid "SUS-LIT"
+msgstr "SUS-LIT"
+
+#: lib/interface/constants.php:349
+msgid "WAITING-SUBSCRIPTION-PAYMENT"
+msgstr "MENUNGGU-PEMESANAN-PEMBAYARAN"
+
+#: lib/interface/constants.php:349
+msgid "WAIT-PAY"
+msgstr "MENUNGGU-PEMBAYAR"
+
+#: lib/interface/constants.php:385
+msgid "NO EXPIRY"
+msgstr "TIDAK KADALUARSA"
+
+#: lib/interface/constants.php:394
+msgid "SQL"
+msgstr "SQL"
+
+#: lib/interface/constants.php:395
+msgid "SHELL SCRIPT"
+msgstr "SHELL SCRIPT"
+
+#: lib/interface/constants.php:401
+msgid "TEXT2SPEECH"
+msgstr "TEXT2SPEECH"
+
+#: lib/interface/constants.php:402
+msgid "UNIXTIME"
+msgstr "UNIXTIME"
+
+#: lib/interface/constants.php:403
+msgid "NUMBER"
+msgstr "NOMOR"
+
+#: lib/interface/constants.php:404
+msgid "DIGIT"
+msgstr "DIGIT"
+
+#: lib/interface/constants.php:411
+msgid "CORRECTION"
+msgstr "KOREKSI"
+
+#: lib/interface/constants.php:412
+msgid "EXTRA FEE"
+msgstr "BIAYA TAMBAHAN"
+
+#: lib/interface/constants.php:413
+msgid "AGENT REFUND"
+msgstr "AGEN PENGEMBALIAN UANG"
+
+#: lib/interface/constants.php:419
+msgid "TO BALANCE"
+msgstr "UNTUK MENYEIMBANGKAN"
+
+#: lib/interface/constants.php:420
+msgid "TO BANK"
+msgstr "KE BANK"
+
+#: lib/interface/constants.php:431
+msgid "ACCEPTED"
+msgstr "DITERIMA"
+
+#: lib/interface/constants.php:432
+msgid "REFUSED"
+msgstr "DITOLAK"
+
+#: lib/interface/constants.php:450
+msgid "NO DISCOUNT"
+msgstr " TIDAK DISKON"
+
+#: lib/Class.A2Billing.php:388
+msgid "Invalid card number lenght defined in configuration."
+msgstr "Panjang nomor kartu tidak benar ditetapkan dalam konfigurasi."
+
+#: lib/Class.A2Billing.php:3150
+msgid "Error : Authentication Failed !!!"
+msgstr "Kesalahan: Otentikasi Gagal!!!"
+
+#: lib/Class.A2Billing.php:3190
+msgid "Error : Not enough credit to call !!!"
+msgstr "Kesalahan: kredit Tidak cukup untuk memanggil!!!"
+
+#: lib/Class.A2Billing.php:3196
+msgid "Error : Card is not active!!!"
+msgstr "Kesalahan: Kartu tidak aktif!!! "
+
+#: lib/Class.A2Billing.php:3202
+msgid "Error : Card is actually in use!!!"
+msgstr "Kesalahan: Kartu sebenarnya harus digunakan!!!"
+
+#: lib/Class.A2Billing.php:3211 lib/Class.A2Billing.php:3219
+#: lib/Class.A2Billing.php:3227
+msgid "Error : Card have expired!!!"
+msgstr "Kesalahan: Kartu telah kadaluarsa!!!"
+
+#: lib/Class.Notification.php:76
+msgid "New SIP & IAX added : Friends conf have to be generated"
+msgstr "SIP & IAX baru ditambahkan: mengkonfirmasi telah dihasilkan"
+
+#: lib/Class.Notification.php:77
+msgid "New SIP added : Sip Friends conf have to be generated"
+msgstr "SIP baru ditambahkan: Sip mengkonfirmasi telah dihasilkan"
+
+#: lib/Class.Notification.php:78
+msgid "New IAX added : IAX Friends conf have to be generated"
+msgstr "IAX baru di tambahkan: IAX mengkonfirmasi telah dihasilkan "
+
+#: lib/Class.Notification.php:79
+msgid "New Ticket added by agent"
+msgstr "Tiket Baru ditambahkan oleh agen"
+
+#: lib/Class.Notification.php:80
+msgid "New Ticket added by customer"
+msgstr "Tiket Baru ditambahkan oleh pelanggan"
+
+#: lib/Class.Notification.php:81
+msgid "New Remittance request added"
+msgstr "Permintaan Pengiriman Uang baru telah ditambahkan "
+
+#: lib/Class.Notification.php:82
+msgid "Added new sign-up"
+msgstr "Ditambahkan mendaftar baru"
+
+#: lib/Class.Notification.php:134
+msgid "BATCH"
+msgstr "BATCH"
+
+#: lib/Class.Notification.php:136
+msgid "SOAP-SERVER"
+msgstr "SOAP-SERVER"
+
+#: lib/customer.help.php:47
+msgid "From here, you can use the web based screen phone. You need microphone and speakers on your PC."
+msgstr "Dari sini, Anda dapat menggunakan layar ponsel berbasis web. Anda perlu mikrofon dan speaker pada PC Anda."
+
+#: lib/customer.help.php:49
+msgid "All calls are listed below. Search by month, day or status. Additionally, you can check the rate and price."
+msgstr "Semua panggilan tercantum di bawah ini. Cari berdasarkan bulan, hari atau status.. Selain itu, Anda dapat memeriksa tingkatan dan harga."
+
+#: lib/customer.help.php:51
+msgid "On this page, you can open a support ticket and consult the status of your existing ticket."
+msgstr "Pada halaman ini, Anda dapat membuka tiket dukungan dan berkonsultasi status tiket yang ada."
+
+#: lib/customer.help.php:53
+msgid "Personal information."
+msgstr "Informasi Pribadi."
+
+#: lib/customer.help.php:53
+msgid "You can update your personal information here."
+msgstr "Anda dapat memperbarui informasi pribadi Anda di sini."
+
+#: lib/customer.help.php:55
+msgid "Notification settings."
+msgstr "Pengaturan Pemberitahuan."
+
+#: lib/customer.help.php:55
+msgid "You can update your notification settings here."
+msgstr "Anda dapat memperbarui pengaturan pemberitahuan Anda di sini."
+
+#: lib/customer.help.php:57
+msgid "Simulate the calling process to discover the cost per minute of a call, and the number of minutes you can call that number with your current credit."
+msgstr "Simulasikan proses panggilan untuk menemukan biaya per menit panggilan, dan jumlah menit Anda dapat memanggil nomor dengan kredit Anda saat ini."
+
+#: lib/customer.help.php:59
+msgid "Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and do necessary modifications."
+msgstr "Konfigurasi informasi untuk SIP dan IAX Klien Anda bisa copy dan paste di file konfigurasi anda dan lakukan modifikasi yang diperlukan."
+
+#: lib/customer.help.php:61
+msgid "On this page you will be able to change your password, You have to enter the New Password and Confirm it."
+msgstr "Pada halaman ini Anda akan dapat mengubah sandi Anda, Anda harus memasukkan Sandi Baru dan Konfirmasi nya."
+
+#: lib/customer.help.php:63
+msgid "View Rates"
+msgstr "Lihat Harga"
+
+#: lib/customer.help.php:65
+msgid "Payment history - Record of payments made."
+msgstr "Sejarah pembayaran - Rekam pembayaran dibuat."
+
+#: lib/customer.help.php:67
+msgid "Voicemail - The section below allows you to see all your voicemail, listen to them and move them into other folders."
+msgstr "Pesan suara - Bagian di bawah ini memungkinkan Anda untuk melihat semua pesan suara Anda, mendengarkan dan memindahkan ke folder lain."
+
+#: lib/customer.help.php:69
+msgid "Enter your voucher number to top up your card."
+msgstr "Masukkan nomor voucher Anda untuk top up kartu Anda."
+
+#: lib/customer.help.php:71
+msgid "This section will allow you to create and edit campaign. "
+msgstr "Bagian ini memungkinkan Anda untuk membuat dan mengedit kampanye."
+
+#: lib/customer.help.php:72
+msgid "A campaign will be attached to a user in order to let him use the predictive-dialer option. "
+msgstr " Kampanye akan melekat pada pengguna untuk membiarkan dia menggunakan opsi prediktif-dialer."
+
+#: lib/customer.help.php:73
+msgid "Predictive dialer will browse all the phone numbers from the campaign and perform outgoing calls."
+msgstr "dialer prediktif akan menelusuri semua nomor telepon dari kampanye dan melakukan panggilan keluar."
+
+#: lib/customer.help.php:75
+msgid "Phonelist are all the phone numbers attached to a campaign. You can add, remove and edit the phone numbers."
+msgstr "Daftar semua nomor telepon yang melekat pada kampanye. Anda dapat menambah, menghapus dan mengedit nomor telepon."
+
+#: lib/customer.help.php:77
+msgid "Invoice history - The section below allows you to see and pay the invoices that you have to pay."
+msgstr "Sejarah Faktur - Bagian di bawah ini memungkinkan Anda untuk melihat dan membayar tagihan yang harus Anda bayar. "
+
+#: lib/customer.help.php:79
+msgid "Receipt history - The section below allows you to see the receipt that you received. you can see in them the summary of some withdrawal"
+msgstr "Sejarah Penerimaan - Bagian bawah ini memungkinkan Anda untuk melihat penerimaan yang Anda terima Anda dapat melihat di dalamnya ringkasan penarikan beberapa"
+
+#: lib/customer.help.php:81
+msgid "Phonebook are set of phone numbers. You can add, remove and edit the phonebook. You can also associate phonebook to a campaign in the Campaign section"
+msgstr "Buku telepon ditetapkan nomor telepon. Anda dapat menambah, menghapus dan mengedit buku telepon. Anda juga dapat mengasosiasikan buku telepon untuk kampanye di bagian Kampanye "
+
+#: lib/customer.help.php:83
+msgid "Select the country below where you would like a DID, select a DID from the list and enter the destination you would like to assign it to."
+msgstr "Pilih negara di bawah ini di mana Anda ingin DID, pilih salah satu DID dari daftar dan masukkan tujuan yang Anda ingin menetapkan ke."
+
+#: lib/customer.help.php:85
+msgid "After confirmation, the release of the did will be done immediately and you will not be monthly charged any more."
+msgstr "Setelah konfirmasi, pelepasan akan dilakukan segera dan Anda tidak akan dikenakan biaya bulanan lagi."
+
+#: lib/customer.help.php:87
+msgid "Map single digit to your most dialed numbers."
+msgstr "Peta single digit ke nomor Anda yang paling sering dipanggil."
+
+#: lib/customer.help.php:89
+msgid "Callback : Enter your phone number and the phone number you wish to call."
+msgstr "Panggilan balik: Masukkan nomor telepon Anda dan nomor telepon yang ingin Anda panggil."
+
+#: A2B_ticket_view.php:58
+msgid "Ticket updated successfully"
+msgstr "Memperbaharui tiket berhasil"
+
+#: A2B_ticket_view.php:64
+msgid "Ticket ID not found"
+msgstr "Tiket ID tidak ditemukan"
+
+#: A2B_ticket_view.php:114
+msgid "TICKET: "
+msgstr "TIKET:"
+
+#: A2B_ticket_view.php:122
+msgid "BY : "
+msgstr "OLEH:"
+
+#: A2B_ticket_view.php:127
+msgid "PRIORITY : "
+msgstr "PRIORITAS:"
+
+#: A2B_ticket_view.php:130
+msgid "DATE : "
+msgstr "TANGGAL:"
+
+#: A2B_ticket_view.php:135
+msgid "COMPONENT : "
+msgstr "KOMPONEN:"
+
+#: A2B_ticket_view.php:141
+msgid "DESCRIPTION : "
+msgstr "DESKRIPSI:"
+
+#: A2B_ticket_view.php:170
+msgid "STATUS : "
+msgstr "STATUS:"
+
+#: A2B_ticket_view.php:190
+msgid "COMMENT : "
+msgstr "KOMENTAR:"
+
+#: checkout_confirmation.php:111
+msgid "No Transaction ID found"
+msgstr "Tidak ada ID Transaksi ditemukan "
+
+#: checkout_confirmation.php:144
+msgid "Please confirm your order"
+msgstr "Silakan konfirmasi pesanan Anda"
+
+#: checkout_confirmation.php:151
+msgid "Payment Method"
+msgstr "Metode Pembayaran"
+
+#: checkout_confirmation.php:156
+msgid "Amount"
+msgstr "Jumlah"
+
+#: checkout_confirmation.php:166 A2B_invoice_view.php:217
+#: A2B_invoice_view.php:274 A2B_billing_preview.php:279 userinfo.php:250
+#: userinfo.php:276
+msgid "VAT"
+msgstr "PPN"
+
+#: checkout_confirmation.php:177
+msgid "Total Amount Incl. VAT"
+msgstr "Jumlah Total termasuk PPN "
+
+#: checkout_confirmation.php:194
+msgid "Please click button to confirm your order"
+msgstr "Silakan klik tombol untuk konfirmasi pesanan Anda"
+
+#: callback.php:173
+msgid "Cannot insert the callback request in the spool!"
+msgstr "Tidak dapat memasukkan permintaan panggilan balik di spul!"
+
+#: callback.php:175
+msgid "Your callback request has been queued correctly!"
+msgstr "Permintaan panggil balik Anda telah antri dengan benar!"
+
+#: callback.php:180
+msgid "Error : You don t have enough credit to call you back!"
+msgstr "Kesalahan: Anda tidak memiliki kredit yang cukup untuk memanggil Anda kembali!"
+
+#: callback.php:183
+msgid "Error : There is no route to call back your phonenumber!"
+msgstr "Kesalahan: Tidak ada rute untuk memanggil kembali nomor telepon Anda!"
+
+#: callback.php:189
+msgid "Error : You have to specify your phonenumber and the number you wish to call!"
+msgstr "Kesalahan: Anda harus menentukan nomor telepon Anda dan jumlah yang ingin Anda panggil!"
+
+#: callback.php:208
+msgid "You can initiate the callback by entering your phonenumber and the number you wish to call!"
+msgstr "Anda dapat memulai panggilan balik dengan memasukkan nomor telepon Anda dan jumlah yang ingin Anda panggil!"
+
+#: callback.php:217
+msgid "Your Phone Number"
+msgstr "Nomor Telepon Anda"
+
+#: callback.php:220
+msgid "The number you wish to call"
+msgstr "Nomor yang ingin Anda panggil "
+
+#: callback.php:225
+msgid "Click here to Place Call"
+msgstr "Klik di sini untuk Place Cal "
+
+#: CC_entity_edit_speeddial.php:657
+msgid "Voip Station"
+msgstr "Voip Stasiun"
+
+#: CC_entity_edit_speeddial.php:1061
+msgid "Remove this Speed Dial"
+msgstr "Hapus Panggilan Cepat ini "
+
+#: CC_entity_edit_speeddial.php:1061 CC_entity_edit_did_destination.php:1223
+msgid "Delete"
+msgstr "Hapus"
+
+#: CC_entity_edit_speeddial.php:1078
+msgid "Deletetion"
+msgstr "Menghapus"
+
+#: CC_entity_edit_speeddial.php:1080 CC_entity_edit_did_destination.php:1240
+msgid "Inserted"
+msgstr "Dimasukkan"
+
+#: forgotpassword.php:56
+msgid "Please wait 1 minutes before making any other request for the forgot password!"
+msgstr "Silakan tunggu 1 menit sebelum membuat permintaan lain untuk lupa password!"
+
+#: forgotpassword.php:85
+msgid "Error : Mail sender"
+msgstr "Kesalahan: Email pengirim "
+
+#: forgotpassword.php:104
+msgid "Your login information email has been sent to you."
+msgstr "informasi email login Anda telah dikirim kepada Anda."
+
+#: forgotpassword.php:107
+msgid "No such login exists."
+msgstr "Tidak ada login seperti itu."
+
+#: forgotpassword.php:110
+msgid "Invalid Action."
+msgstr "Aksi tidak benar."
+
+#: forgotpassword.php:113
+msgid "Please provide your email address to get your login information."
+msgstr "Harap berikan alamat email Anda untuk mendapatkan informasi login Anda."
+
+#: forgotpassword.php:127
+msgid "You must enter an email address!"
+msgstr "Anda harus memasukkan alamat email!"
+
+#: A2B_invoice_view.php:145
+msgid "Print"
+msgstr "Cetak"
+
+#: A2B_invoice_view.php:155
+msgid "INVOICE"
+msgstr "FAKTUR"
+
+#: A2B_invoice_view.php:163 A2B_invoice_view.php:180 A2B_receipt_view.php:155
+msgid "VAT nr."
+msgstr "nr. PPN"
+
+#: A2B_invoice_view.php:176
+msgid "tel"
+msgstr "tel"
+
+#: A2B_invoice_view.php:177
+msgid "fax"
+msgstr "faks"
+
+#: A2B_invoice_view.php:178
+msgid "mail"
+msgstr "email"
+
+#: A2B_invoice_view.php:190 A2B_invoice_view.php:214
+#: A2B_receipt_detail.php:118 A2B_receipt_detail.php:137 card-history.php:75
+#: A2B_billing_preview.php:162 A2B_billing_preview.php:183
+#: A2B_billing_preview.php:255 A2B_billing_preview.php:276
+#: A2B_receipt_preview_detail.php:215 call-history.php:124
+#: A2B_receipt_view.php:179 A2B_receipt_view.php:200
+msgid "Date"
+msgstr "Tanggal"
+
+#: A2B_invoice_view.php:194
+msgid "Invoice number"
+msgstr "Nomor faktur"
+
+#: A2B_invoice_view.php:199 A2B_receipt_view.php:185
+msgid "Client Account Number"
+msgstr "Nomor Rekening Pelanggan"
+
+#: A2B_invoice_view.php:216 A2B_billing_preview.php:278
+msgid "Cost excl. VAT"
+msgstr "Biaya tidak termasuk PPN"
+
+#: A2B_invoice_view.php:218 A2B_billing_preview.php:280
+msgid "Cost incl. VAT"
+msgstr "Biaya termasuk PPN"
+
+#: A2B_invoice_view.php:267 A2B_billing_preview.php:327
+msgid "Subtotal excl. VAT:"
+msgstr "Total keseluruhan tidak termasuk PPN:"
+
+#: A2B_invoice_view.php:280 A2B_billing_preview.php:340
+msgid "Total incl. VAT:"
+msgstr "Total termasuk PPN:"
+
+#: A2B_receipt_detail.php:90 A2B_receipt_detail.php:97
+#: A2B_receipt_preview_detail.php:169 A2B_receipt_preview_detail.php:176
+msgid "Page"
+msgstr "Halaman"
+
+#: A2B_receipt_detail.php:109
+msgid "RECEIPT DETAIL"
+msgstr "PENERIMAAN DETIL"
+
+#: A2B_receipt_detail.php:139 A2B_billing_preview.php:185
+#: A2B_receipt_preview_detail.php:217 call-history.php:131
+#: A2B_receipt_view.php:202
+msgid "Cost"
+msgstr "Biaya"
+
+#: A2B_receipt_detail.php:175 A2B_receipt_preview_detail.php:254
+msgid "Total Page"
+msgstr "Jumlah Halaman"
+
+#: A2B_receipt_detail.php:182 A2B_receipt_preview_detail.php:260
+msgid "Total Receipt :"
+msgstr " Total Penerimaan:"
+
+#: card-history.php:100
+msgid "Card History"
+msgstr " Sejarah Kartu"
+
+#: card-history.php:207
+msgid "SELECT BY MONTH"
+msgstr "PILIH MENURUT BULAN"
+
+#: card-history.php:213 card-history.php:264 call-history.php:258
+msgid "FROM"
+msgstr "DARI"
+
+#: card-history.php:217 card-history.php:238 card-history.php:277
+#: card-history.php:305 call-history.php:271 call-history.php:299
+msgid "JANUARY"
+msgstr "JANUARI"
+
+#: card-history.php:217 card-history.php:238 card-history.php:277
+#: card-history.php:305 call-history.php:271 call-history.php:299
+msgid "FEBRUARY"
+msgstr "FEBRUARI"
+
+#: card-history.php:217 card-history.php:238 card-history.php:277
+#: card-history.php:305 call-history.php:271 call-history.php:299
+msgid "MARCH"
+msgstr "MARET"
+
+#: card-history.php:217 card-history.php:238 card-history.php:277
+#: card-history.php:305 call-history.php:271 call-history.php:299
+msgid "APRIL"
+msgstr "APRIL"
+
+#: card-history.php:217 card-history.php:238 card-history.php:277
+#: card-history.php:305 call-history.php:271 call-history.php:299
+msgid "MAY"
+msgstr "MEI"
+
+#: card-history.php:217 card-history.php:238 card-history.php:277
+#: card-history.php:305 call-history.php:271 call-history.php:299
+msgid "JUNE"
+msgstr "JUNI"
+
+#: card-history.php:217 card-history.php:238 card-history.php:277
+#: card-history.php:305 call-history.php:271 call-history.php:299
+msgid "JULY"
+msgstr "JULI"
+
+#: card-history.php:217 card-history.php:238 card-history.php:277
+#: card-history.php:305 call-history.php:271 call-history.php:299
+msgid "AUGUST"
+msgstr "AGUSTUS"
+
+#: card-history.php:217 card-history.php:238 card-history.php:277
+#: card-history.php:305 call-history.php:271 call-history.php:299
+msgid "SEPTEMBER"
+msgstr "SEPTEMBER"
+
+#: card-history.php:217 card-history.php:238 card-history.php:277
+#: card-history.php:305 call-history.php:271 call-history.php:299
+msgid "OCTOBER"
+msgstr "OKTOBER"
+
+#: card-history.php:217 card-history.php:238 card-history.php:277
+#: card-history.php:305 call-history.php:271 call-history.php:299
+msgid "NOVEMBER"
+msgstr "NOVEMBER"
+
+#: card-history.php:217 card-history.php:238 card-history.php:277
+#: card-history.php:305 call-history.php:271 call-history.php:299
+msgid "DECEMBER"
+msgstr "DESEMBER"
+
+#: card-history.php:233 card-history.php:292 call-history.php:286
+msgid "TO"
+msgstr "UNTUK"
+
+#: card-history.php:259
+msgid "SELECT BY DAY"
+msgstr "PILIH MENURUT HARI "
+
+#: card-history.php:326 call-history.php:401
+msgid "Search"
+msgstr "Pencarian"
+
+#: A2B_phonelist_import_analyse.php:54
+msgid "No Phonebook defined !"
+msgstr "Tidak ada Buku telepon didefinisikan!"
+
+#: A2B_phonelist_import_analyse.php:109
+msgid "File Save Failed, FILE="
+msgstr "Menyimpan Berkas Gagal, FILE ="
+
+#: A2B_phonelist_import_analyse.php:125
+msgid "Error: Failed to open the file."
+msgstr "Kesalahan: Gagal untuk membuka file."
+
+#: A2B_phonelist_import_analyse.php:250
+msgid "The first line of your import is previewed below, please check to ensure that every is correct"
+msgstr "Baris pertama impor Anda akan dilihat terlebih dulu di bawah, silakan periksa untuk memastikan bahwa semuanya telah benar "
+
+#: A2B_phonelist_import_analyse.php:257
+msgid "FIELD"
+msgstr "BIDANG"
+
+#: A2B_phonelist_import_analyse.php:260
+msgid "VALUE"
+msgstr "NILAI"
+
+#: A2B_phonelist_import_analyse.php:297
+msgid "Please check if the datas above are correct."
+msgstr "Silakan memeriksa apakah data di atas telah benar."
+
+#: A2B_phonelist_import_analyse.php:297
+msgid "If Yes"
+msgstr "Jika Ya"
+
+#: A2B_phonelist_import_analyse.php:297
+msgid "you can continue the import. Otherwise you must fix your csv file!"
+msgstr "Anda dapat melanjutkan mengimpor Jika Anda harus memperbaiki file csv Anda!"
+
+#: A2B_phonelist_import_analyse.php:309
+msgid "Continue to Import the RateCard"
+msgstr "Lanjutkan untuk Impor Tingkatan Kartu"
+
+#: A2B_phonelist_import_analyse.php:341
+msgid "Success"
+msgstr "Sukses"
+
+#: A2B_phonelist_import_analyse.php:341
+msgid "new phone number have been imported"
+msgstr "nomor telepon baru telah diimpor"
+
+#: A2B_phonelist_import_analyse.php:347
+msgid "Line that has not been inserted"
+msgstr "Baris yang belum dimasukkan"
+
+#: PP_error.php:45
+msgid "ERROR : ACCESS REFUSED"
+msgstr "KESALAHAN: AKSES DITOLAK "
+
+#: PP_error.php:46
+msgid "Sorry a problem occur on our system, please try later!"
+msgstr "Maaf masalah terjadi pada sistem kami, silahkan coba kembali!"
+
+#: PP_error.php:47
+msgid "There is an error on this page!"
+msgstr "Ada error di halaman ini!"
+
+#: PP_error.php:48
+msgid "Sorry, you don't have access to this page !"
+msgstr "Maaf, Anda tidak memiliki akses ke halaman ini!"
+
+#: PP_error.php:60
+msgid "ERROR PAGE"
+msgstr "KESALAHAN HALAMAN"
+
+#: PP_error.php:73
+msgid "GO TO LOGIN PAGE"
+msgstr "KE HALAMAN LOGIN"
+
+#: A2B_billing_preview.php:83
+msgid "Cost of calls between the "
+msgstr "Biaya panggilan antara "
+
+#: A2B_billing_preview.php:87
+msgid "Cost of calls before the "
+msgstr "Biaya panggilan sebelum "
+
+#: A2B_billing_preview.php:152
+msgid "PREVIEW NEXT RECEIPT"
+msgstr "MENINJAU PENERIMAAN BERIKUTNYA"
+
+#: A2B_billing_preview.php:169 A2B_billing_preview.php:262
+msgid "Client number"
+msgstr "nomor Klien"
+
+#: A2B_billing_preview.php:221 A2B_receipt_view.php:238
+msgid "Total:"
+msgstr "Total:"
+
+#: A2B_billing_preview.php:232
+msgid "Summary of calls since the last billing."
+msgstr "Ringkasan panggilan sejak penagihan terakhir."
+
+#: A2B_billing_preview.php:246
+msgid "PREVIEW NEXT INVOICE"
+msgstr "PENINJAUAN FAKTUR BERIKUTNYA"
+
+#: A2B_billing_preview.php:349
+msgid "This invoice is for some charges unpaid since the last billing, and for the negative balance."
+msgstr "faktur ini untuk beberapa biaya yang belum dibayarkan sejak penagihan terakhir, dan untuk saldo negatif."
+
+#: checkout_success.php:63
+msgid "Thank you for your purchase"
+msgstr "Terima kasih atas pembelian Anda"
+
+#: checkout_success.php:78
+msgid "We are sorry your transaction is pending."
+msgstr "Mohon maaf transaksi Anda sedang menunggu."
+
+#: A2B_receipt_preview_detail.php:188
+msgid "PREVIEW NEXT RECEIPT DETAIL"
+msgstr "PENINJAUAN PENERIMAAN DETIL BERIKUTNYA"
+
+#: A2B_entity_sipiax_info.php:59
+msgid "IAX Config"
+msgstr "IAX Konfigurasi"
+
+#: A2B_entity_sipiax_info.php:60
+msgid "iax.conf"
+msgstr "iax.conf"
+
+#: A2B_entity_sipiax_info.php:63
+msgid "SIP Config"
+msgstr "SIP Konfigurasi"
+
+#: A2B_entity_sipiax_info.php:64
+msgid "sip.conf"
+msgstr "sip.conf"
+
+#: A2B_entity_sipiax_info.php:92
+msgid "CONFIGURATION TYPE"
+msgstr "TIPE KONFIGURASI"
+
+#: A2B_entity_sipiax_info.php:95
+msgid "IAX"
+msgstr "IAX"
+
+#: A2B_entity_sipiax_info.php:96
+msgid "SIP"
+msgstr "SIP"
+
+#: A2B_entity_sipiax_info.php:117
+msgid "Username"
+msgstr "Nama Pengguna"
+
+#: A2B_entity_sipiax_info.php:118 templates/default/index.tpl:61
+msgid "Password"
+msgstr "Sandi"
+
+#: A2B_entity_sipiax_info.php:120
+msgid "To configure your Asterisk server, copy and paste this into your "
+msgstr "Untuk mengkonfigurasi server Asterisk Anda, copy dan paste ini ke "
+
+#: A2B_entity_sipiax_info.php:165
+msgid "The peer is not defined, please contact your Administrator!"
+msgstr "Peer tidak didefinisikan, silahkan hubungi Administrator!"
+
+#: signup_service.php:64
+msgid "SELECT THE SERVICE THAT YOU WANT SUBSCRIBE"
+msgstr "PILIH LAYANAN BERLANGGANAN YANG ANDA INGINKAN"
+
+#: signup_service.php:74
+msgid "SERVICE"
+msgstr "LAYANAN"
+
+#: signup_service.php:103
+msgid "SUBSCRIBE THIS SERVICE"
+msgstr "BERLANGGANAN LAYANAN INI"
+
+#: A2B_entity_speeddial.php:92
+msgid "Enter the number which you wish to assign to the code here"
+msgstr "Masukkan nomor yang ingin Anda tetapkan untuk kode di sini"
+
+#: A2B_entity_speeddial.php:98
+msgid "Speed Dial code"
+msgstr "kode Panggilan Cepat"
+
+#: A2B_entity_speeddial.php:109 call-history.php:127 A2B_entity_did.php:404
+msgid "Destination"
+msgstr "Tujuan"
+
+#: A2B_entity_speeddial.php:111
+msgid "Name"
+msgstr "Nama"
+
+#: A2B_entity_speeddial.php:115
+msgid "ASSIGN NUMBER TO SPEEDDIAL"
+msgstr "BERI NOMOR KE PANGGILAN CEPAT"
+
+#: checkout_process.php:284
+msgid "No Such Customer exists."
+msgstr "Pelanggan tersebut tidak ada."
+
+#: checkout_process.php:421
+msgid "Invoice Payment Ref: "
+msgstr "Ref. faktur Pembayaran:"
+
+#: A2B_entity_callerid.php:98
+msgid "CALLER ID :"
+msgstr "CALLER D:"
+
+#: A2B_entity_callerid.php:102
+msgid "ADD NEW CALLERID"
+msgstr "TAMBAHKAN CALLERID BARU"
+
+#: A2B_entity_callerid.php:115
+msgid "You are not allowed to add more CallerID."
+msgstr "Anda tidak diizinkan untuk menambahkan CallerID lebih."
+
+#: A2B_entity_callerid.php:117
+msgid "Remove one if you are willing to use an other CallerID."
+msgstr "Hapus satu jika Anda bersedia untuk menggunakan CallerID lainnya."
+
+#: A2B_entity_callerid.php:119
+msgid "Max CallerId"
+msgstr "Maksimal CallerId "
+
+#: checkout_payment.php:306
+msgid "Please enter the order amount"
+msgstr "Silakan masukkan jumlah pesanan"
+
+#: checkout_payment.php:313
+msgid "Total Amount"
+msgstr "Jumlah Total"
+
+#: userinfo.php:61
+msgid "Error loading your account information!"
+msgstr "Kesalahan memuat informasi account Anda!"
+
+#: userinfo.php:105
+msgid "LAST NAME"
+msgstr "NAMA BELAKANG"
+
+#: userinfo.php:106
+msgid "FIRST NAME"
+msgstr "NAMA DEPAN"
+
+#: userinfo.php:109
+msgid "FAX"
+msgstr "FAKS"
+
+#: userinfo.php:113
+msgid "ZIP CODE"
+msgstr "KODE POS"
+
+#: userinfo.php:115
+msgid "STATE"
+msgstr "NEGARA"
+
+#: userinfo.php:127
+msgid "EDIT PERSONAL INFORMATION"
+msgstr "EDIT INFORMASI PRIBADI"
+
+#: userinfo.php:141
+msgid "CARD NUMBER"
+msgstr "NOMOR KARTU"
+
+#: userinfo.php:145
+msgid "BALANCE REMAINING"
+msgstr "SISA SALDO"
+
+#: userinfo.php:152
+msgid "CALLING PACKAGE"
+msgstr "PAKE PANGGILAN"
+
+#: userinfo.php:158
+msgid "PACKAGE MINUTES REMAINING"
+msgstr "SISA MENIT PAKET"
+
+#: userinfo.php:160
+msgid "PACKAGE MINUTES USED"
+msgstr "MENIT PAKET DIGUNAKAN"
+
+#: userinfo.php:176
+msgid "Your subscription for an automique refill success"
+msgstr "Langganan Anda untuk isi ulang automique sukses"
+
+#: userinfo.php:179
+msgid "Your subscription for an automique refill faild"
+msgstr "Langganan Anda untuk isi ulang automique gagal"
+
+#: userinfo.php:196
+msgid "Click below to buy credit : "
+msgstr "Klik di bawah untuk membeli kredit:"
+
+#: userinfo.php:229
+msgid "BUY NOW"
+msgstr "BELI SEKARANG"
+
+#: userinfo.php:245
+msgid "Click below to subscribe an automated refill : "
+msgstr "Klik di bawah ini untuk berlangganan isi ulang otomatis:"
+
+#: userinfo.php:252
+msgid "for each"
+msgstr "untuk setiap"
+
+#: userinfo.php:254
+msgid "Days"
+msgstr "Hari"
+
+#: userinfo.php:257
+msgid "Months"
+msgstr "Bulan"
+
+#: userinfo.php:259
+msgid "Years"
+msgstr "Tahun"
+
+#: userinfo.php:275
+msgid "Automated refill"
+msgstr "Isi ulang otomatis"
+
+#: userinfo.php:301
+msgid "SUBSCRIPTION"
+msgstr "BERLANGGANAN"
+
+#: CC_entity_edit_did_destination.php:565
+msgid "Add a new "
+msgstr "Tambahan baru"
+
+#: CC_entity_edit_did_destination.php:1223
+msgid "Remove this DID DESTINATION"
+msgstr "Hapus TUJUAN DID"
+
+#: CC_entity_edit_did_destination.php:1238
+msgid "Deletion"
+msgstr "Penghapusan"
+
+#: call-history.php:58
+msgid "ERROR: Cannot download file "
+msgstr "KESALAHAN: Tidak dapat men-download file "
+
+#: call-history.php:126
+msgid "PhoneNumber"
+msgstr "NOMOR TELEPON"
+
+#: call-history.php:128
+msgid "Duration"
+msgstr "Durasi"
+
+#: call-history.php:129
+msgid "Terminate Cause"
+msgstr "Hentikan Penyebab"
+
+#: call-history.php:129
+msgid "TC"
+msgstr "TC"
+
+#: call-history.php:130
+msgid "CallType"
+msgstr "Tipe Panggilan"
+
+#: call-history.php:148
+msgid "Call Logs"
+msgstr "Catatan Panggilan"
+
+#: call-history.php:331
+msgid "CALL TYPE"
+msgstr " TIPE PANGGILAN"
+
+#: call-history.php:337
+msgid "ALL CALLS"
+msgstr "SEMUA PANGGILAN"
+
+#: call-history.php:354
+msgid "OPTIONS"
+msgstr "PILIHAN"
+
+#: call-history.php:359
+msgid "SHOW"
+msgstr "TAMPILAN"
+
+#: call-history.php:362
+msgid "Answered Calls"
+msgstr "Panggilan Dijawab"
+
+#: call-history.php:364
+msgid "All Calls"
+msgstr "Semua Panggilang"
+
+#: call-history.php:371
+msgid "RESULT"
+msgstr "HASIL"
+
+#: call-history.php:374
+msgid "Seconds"
+msgstr "Detik"
+
+#: call-history.php:379
+msgid "CURRENCY"
+msgstr "MATA UANG"
+
+#: call-history.php:410
+msgid "Number of Calls"
+msgstr "Jumlah Panggilan "
+
+#: call-history.php:532
+msgid "PREVIOUS"
+msgstr "SEBELUMNYA"
+
+#: call-history.php:538
+msgid "NEXT"
+msgstr "SELANJUTNYA"
+
+#: call-history.php:571
+msgid "SUMMARY"
+msgstr "RINGKASAN"
+
+#: call-history.php:583
+msgid "CALLING CARD MINUTES"
+msgstr "KARTU PANGGIL MENIT "
+
+#: call-history.php:587
+msgid "DURATION"
+msgstr "DURASI"
+
+#: call-history.php:588
+msgid "GRAPHIC"
+msgstr "GRAFIS"
+
+#: call-history.php:589
+msgid "CALLS"
+msgstr "PANGGILAN"
+
+#: call-history.php:590
+msgid "AVERAGE LENGTH OF CALL"
+msgstr "RATA-RATA LAMA PANGGILAN"
+
+#: call-history.php:590
+msgid "ALOC"
+msgstr "ALOC"
+
+#: call-history.php:591
+msgid "TOTAL COST"
+msgstr "TOTAL BIAYA"
+
+#: call-history.php:640
+msgid "TOTAL"
+msgstr "TOTAL"
+
+#: call-history.php:652
+msgid "No calls in your selection"
+msgstr "Tidak ada panggilan dalam pilihan Anda"
+
+#: activate.php:43
+msgid "Sorry the activation has been sent already, please wait 1 minute before making any other try !"
+msgstr "Maaf aktivasi telah dikirim, silakan tunggu 1 menit sebelum membuat yang lain mencoba!"
+
+#: activate.php:103
+msgid "Welcome! Your account has been successfully activated. Thank you!"
+msgstr "Selamat datang! account Anda telah berhasil diaktifkan. Terima kasih!"
+
+#: activate.php:105 signup_confirmation.php:115
+msgid "Thank you for registering with us !"
+msgstr "Terima kasih telah mendaftar dengan kami!"
+
+#: activate.php:106 signup_confirmation.php:116
+msgid "An email confirming your information has been sent to"
+msgstr "email konfirmasi informasi Anda telah dikirim ke "
+
+#: activate.php:108 signup_confirmation.php:118
+msgid "Your cardnumber is "
+msgstr "Nomor kartu Anda adalah "
+
+#: activate.php:109 signup_confirmation.php:119
+msgid "To login to your account :"
+msgstr "Untuk login ke akun Anda:"
+
+#: activate.php:110 signup_confirmation.php:120
+msgid "Your card alias (login) is "
+msgstr "Kartu Anda alias (login) adalah "
+
+#: activate.php:115
+msgid "Follow the link to access your account : "
+msgstr "Ikuti link untuk mengakses account Anda :"
+
+#: activate.php:137
+msgid "Your account is already activated."
+msgstr "Akun Anda telah diaktifkan."
+
+#: activate.php:141
+msgid "Your account cannot be activated please contact <br/> the website administrator or retry later."
+msgstr "Account Anda tidak dapat diaktifkan silahkan hubungi <br/> administrator website atau coba lagi nanti."
+
+#: templates/default/main.tpl:12
+msgid "ACCOUNT INFO"
+msgstr "INFO ACCOUNT"
+
+#: templates/default/main.tpl:15
+msgid "VOICEMAIL"
+msgstr "SURAT SUARA"
+
+#: templates/default/main.tpl:19
+msgid "SIP/IAX INFO"
+msgstr " INFO SIP / IAX"
+
+#: templates/default/main.tpl:23
+msgid "CALL HISTORY"
+msgstr "SEJARAH PANGGILAN"
+
+#: templates/default/main.tpl:27
+msgid "PAYMENT HISTORY"
+msgstr "SEJARAH PEMBAYARAN"
+
+#: templates/default/main.tpl:32
+msgid "VOUCHERS"
+msgstr "VOUCER"
+
+#: templates/default/main.tpl:43
+msgid "INVOICES"
+msgstr "FAKTUR"
+
+#: templates/default/main.tpl:52
+msgid "View Receipts"
+msgstr "Lihat Penerimaan"
+
+#: templates/default/main.tpl:53
+msgid "View Invoices"
+msgstr "Lihat Faktur"
+
+#: templates/default/main.tpl:54
+msgid "Preview Next Billing"
+msgstr "Peninjauan Tagihan Berikutnya"
+
+#: templates/default/main.tpl:66
+msgid "SPEED DIAL"
+msgstr "PANGGILAN CEPAT"
+
+#: templates/default/main.tpl:74
+msgid "SIMULATOR"
+msgstr "SIMULATOR"
+
+#: templates/default/main.tpl:78
+msgid "CALLBACK"
+msgstr "PANGGILAN BALIK"
+
+#: templates/default/main.tpl:82
+msgid "ADD CALLER ID"
+msgstr "MENAMBAH Caller ID "
+
+#: templates/default/main.tpl:86
+msgid "PASSWORD"
+msgstr "SANDI"
+
+#: templates/default/main.tpl:90
+msgid "SUPPORT"
+msgstr "DUKUNGAN"
+
+#: templates/default/main.tpl:94
+msgid "NOTIFICATION"
+msgstr "NOTIFIKASI"
+
+#: templates/default/main.tpl:104
+msgid "AUTO DIALLER"
+msgstr "PANGGILAN OTOMATIS"
+
+#: templates/default/main.tpl:113
+msgid "Campaign's"
+msgstr "Kampanye"
+
+#: templates/default/main.tpl:116
+msgid "Import Phone List"
+msgstr "Impor Daftar Telepon"
+
+#: templates/default/main.tpl:126
+msgid "LOGOUT"
+msgstr "KELUAR"
+
+#: templates/default/index.tpl:49
+msgid "AUTHENTICATION"
+msgstr "OTENTIKASI"
+
+#: templates/default/index.tpl:57
+msgid "User"
+msgstr "Pengguna"
+
+#: templates/default/index.tpl:94
+msgid "Forgot your password ?"
+msgstr "Lupa password Anda?"
+
+#: templates/default/index.tpl:94 templates/default/index.tpl:97
+msgid "Click here"
+msgstr "Klik di sini"
+
+#: templates/default/index.tpl:97
+msgid "To sign up"
+msgstr "Untuk mendaftar"
+
+#: templates/default/index.tpl:106
+msgid "AUTHENTICATION REFUSED : please check your user/password!"
+msgstr "OTENTIKASI DITOLAK: silahkan cek user / sandi anda!"
+
+#: templates/default/index.tpl:108
+msgid "INACTIVE ACCOUNT : Your account need to be activated!"
+msgstr "ACCOUNT TIDAK AKTIF: Account Anda perlu diaktifkan!"
+
+#: templates/default/index.tpl:110
+msgid "BLOCKED ACCOUNT : Please contact the administrator!"
+msgstr "BLOK ACCOUNT: Silahkan hubungi administrator!"
+
+#: templates/default/index.tpl:112
+msgid "NEW ACCOUNT : Your account has not been validate yet!"
+msgstr "ACCOUNT BARU: Account Anda belum divalidasi!"
+
+#: signup_confirmation.php:46
+msgid "Sorry the confirmation email has been sent already, multi-signup are not authorized! Please wait 2 minutes before making any other signup!"
+msgstr "Maaf email konfirmasi telah dikirim, multi-pendaftaran tidak diizinkan! Silakan tunggu 2 menit sebelum membuat pendaftaran yang lain!"
+
+#: signup_confirmation.php:51
+msgid "Error : No User Created."
+msgstr "Kesalahan: Tidak ada User Dibuat."
+
+#: signup_confirmation.php:70
+msgid "Error : No email Template Found"
+msgstr "Kesalahan: Tidak Template email Ditemukan"
+
+#: signup_confirmation.php:82
+msgid "Error : No such user found in database"
+msgstr "Kesalahan: Tidak ada pengguna yang ditemukan dalam database"
+
+#: signup_confirmation.php:108
+msgid "SIGNUP CONFIRMATION"
+msgstr "KONFIRMASI MENDAFTAR"
+
+#: signup_confirmation.php:112
+msgid "thank you for registering with us!"
+msgstr "terima kasih untuk mendaftar dengan kami!"
+
+#: signup_confirmation.php:113
+msgid "An activation email has been sent to"
+msgstr "Sebuah email aktivasi telah dikirim ke"
+
+#: A2B_entity_did.php:82
+msgid "The following Destination-DID has been relesed:"
+msgstr "Tujuan berikut-DID telah rilis:"
+
+#: A2B_entity_did.php:108
+msgid "Error : Sending mail"
+msgstr "Kesalahan: Mengirim pesan"
+
+#: A2B_entity_did.php:127
+msgid "If you really want release this DID , Click on the release button."
+msgstr "Jika Anda benar-benar ingin melepaskan DID ini, Klik pada tombol pelepas."
+
+#: A2B_entity_did.php:134
+msgid "Release the DID "
+msgstr "Lepaskan DID"
+
+#: A2B_entity_did.php:179
+msgid "The following Destination for your DID has been added:"
+msgstr "Tujuan berikut untuk DID Anda telah ditambahkan:"
+
+#: A2B_entity_did.php:356
+msgid "Buy New DID"
+msgstr "Beli DID Baru"
+
+#: A2B_entity_did.php:356
+msgid "Add Phone Number to your DID"
+msgstr "Tambahkan Nomor Telepon ke DID Anda "
+
+#: A2B_entity_did.php:356
+msgid "Release DID"
+msgstr "Pelepas DID "
+
+#: A2B_entity_did.php:372
+msgid "Select Country"
+msgstr "Pilih Negara"
+
+#: A2B_entity_did.php:386
+msgid "Select Virtual Phone Number"
+msgstr "Pilih Virtual Nomor Telepon"
+
+#: A2B_entity_did.php:402
+msgid "VOIP CALL : "
+msgstr "PANGGILAN VOIP:"
+
+#: A2B_entity_did.php:402
+msgid "NO"
+msgstr "TIDAK"
+
+#: A2B_entity_did.php:407
+msgid "Enter the phone number you wish to call, or the SIP/IAX client to reach  (ie: 347894999 or SIP/jeremy@182.212.1.45). In order to call a VoIP number, you will need to enable voip_call"
+msgstr "Masukkan nomor telepon yang ingin Anda panggil, atau SIP / IAX klien untuk mencapai (misalnya: 347894999 atau SIP / Jeremy @ 182.212.1.45) Untuk memanggil nomor VoIP, anda perlu mengaktifkan voip_call."
+
+#: A2B_entity_did.php:411
+msgid "If you release the did you will not be monthly charged any more."
+msgstr "Jika Anda melepaskan did, Anda tidak akan dikenakan biaya bulanan lagi."
+
+#: A2B_entity_did.php:420
+msgid "Add phone number"
+msgstr "Tambah nomor telepon"
+
+#: A2B_entity_did.php:422 A2B_entity_did.php:451 A2B_entity_did.php:474
+msgid "Ok"
+msgstr "OK"
+
+#: A2B_entity_did.php:438
+msgid "Confirm the purchase of the DID "
+msgstr "Konfirmasi pembelian DID"
+
+#: A2B_entity_did.php:443
+msgid "A monthly fee of "
+msgstr "Biaya bulanan"
+
+#: A2B_entity_did.php:443
+msgid " will be carried out from your acount"
+msgstr "akan dilakukan dari acount anda"
+
+#: A2B_entity_did.php:462
+msgid "The purchase of the DID is done "
+msgstr "Pembelian DID dilakukan"
+
+#: A2B_entity_did.php:463
+msgid "The purchase of the DID cannot be done, the VoIP destination have to be a proper URI"
+msgstr "pembelian DID tidak dapat dilakukan, tujuan VoIP harus menjadi URI yang tepat"
+
+#: A2B_entity_did.php:464
+msgid "The purchase of the DID cannot be done, your credit of  "
+msgstr "pembelian DID tidak dapat dilakukan, kredit Anda "
+
+#: A2B_entity_did.php:464
+msgid " is lower than Fixerate of the DID  "
+msgstr "lebih rendah dari tingkatan Fixe dari DID "
+
+#: A2B_entity_did.php:464
+msgid "Please reload your account "
+msgstr "Silakan isi akun Anda"
+
+#: A2B_receipt_view.php:148
+msgid "RECEIPT"
+msgstr "PENERIMAAN"
+
+#: A2B_entity_voucher.php:68
+msgid "System Error : the currency table is incomplete!"
+msgstr "Kesalahan Sistem: tabel mata uang tidak lengkap!"
+
+#: A2B_entity_voucher.php:77
+msgid "The voucher"
+msgstr "Voucher"
+
+#: A2B_entity_voucher.php:77
+msgid "has been used, We added"
+msgstr "telah digunakan, Kami menambahkan "
+
+#: A2B_entity_voucher.php:77
+msgid "credit on your account!"
+msgstr "kredit pada account Anda!"
+
+#: A2B_entity_voucher.php:80
+msgid "This voucher doesn't exist !"
+msgstr "Voucher ini tidak ada!"
+
+#: A2B_entity_voucher.php:83
+msgid "The voucher should be a number !"
+msgstr "voucher harus berupa angka!"
+
+#: A2B_entity_voucher.php:121
+msgid "USE VOUCHER"
+msgstr "MENGGUNAKAN VOUCHER "

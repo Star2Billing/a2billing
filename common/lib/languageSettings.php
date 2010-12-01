@@ -122,6 +122,11 @@ function SetLocalLanguage()
             $slectedLanguage = "el_GR";
             $charEncoding = "UTF-8";
             break;
+        case "indonesian":
+			$languageEncoding = "id_ID.iso88591";
+			$slectedLanguage = "id_ID";
+			$charEncoding = "iso88591";
+			break;
 		default:
 			$languageEncoding = "en_US.iso88591";
 			$slectedLanguage = "en_US";

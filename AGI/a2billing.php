@@ -1559,7 +1559,7 @@ if ($charge_callback) {
 		$A2B -> agiconfig['use_dnid'] = 1;
 		$A2B -> dnid = $A2B -> destination = $called_party;
 		
-		$resfindrate = $RateEngine->rate_engine_findrates($A2B, $called_party, $A2B -> tariff);
+		$resfindrate = $RateEngine -> rate_engine_findrates($A2B, $called_party, $A2B -> tariff);
 		$RateEngine -> usedratecard = 0;
 		
 		// IF FIND RATE
@@ -1575,10 +1575,10 @@ if ($charge_callback) {
 				//(ST) replace above code with the code below to store CDR for all callbacks and to only charge for the callback if requested
 				if ($callback_been_connected==1 || ($A2B->agiconfig['callback_bill_1stleg_ifcall_notconnected']==1) )  { 
 					//(ST) this is called if we need to bill the user
-					$RateEngine->rate_engine_updatesystem($A2B, $agi, $A2B-> destination, 1, 0, 1); 
+					$RateEngine -> rate_engine_updatesystem($A2B, $agi, $A2B-> destination, 1, 0, 1); 
 				} else { 
 					//(ST) this is called if we don't bill ther user but to keep track of call costs
-					$RateEngine->rate_engine_updatesystem($A2B, $agi, $A2B-> destination, 0, 0, 1); 
+					$RateEngine -> rate_engine_updatesystem($A2B, $agi, $A2B-> destination, 0, 0, 1); 
 				} 
 				
 			} else {
