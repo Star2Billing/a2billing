@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-	<link rel="shortcut icon" href="templates/{$SKIN_NAME}/images/favicon.ico">
+	<link rel="shortcut icon" href="templates/{$SKIN_NAME}/images/a2billing-icon-32x32.ico">
 	<title>..:: {$CCMAINTITLE} ::..</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		{if ($CSS_NAME!="" && $CSS_NAME!="default")}

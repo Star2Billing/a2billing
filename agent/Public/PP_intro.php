@@ -66,7 +66,7 @@ if(is_array($messages)&& sizeof($messages)>0){
 <table align="center" width="90%" bgcolor="white" cellpadding="25" cellspacing="25" style="border: solid 1px">
 	<tr>
 		<td width="340">
-			<img src="<?php echo Images_Path;?>/a2b-logo-450.png">
+			<img src="images/logo/a2billing.png">
 			<br><br>
 			<center><b><i>A2Billing is licensed under <a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html" target="_blank">AGPL 3</a>.</i></b></center>
 			<br><br>

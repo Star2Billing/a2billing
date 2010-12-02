@@ -52,7 +52,7 @@ $smarty->display('main.tpl');
 <table align="center" width="90%" bgcolor="white" cellpadding="15" cellspacing="15" style="border: solid 1px">
 	<tr>
 		<td width="340" align="center">
-			<img src="<?php echo Images_Path;?>/a2b-logo-450.png">
+			<img src="images/logo/a2billing.png">
 			<br><br>
 			
 		</td>
