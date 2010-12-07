@@ -802,16 +802,18 @@ if ($mode == 'standard') {
                                         exit();
                                     }
                                 } while ($res_dtmf ["result"]!='1' && $res_dtmf ["result"]!='2');
-                            }
                             
-                            // Check the result
-                            if ($res_dtmf ["result"]=='1') {
-                                $return = TRUE;
-                            } elseif ($res_dtmf ["result"]=='2') {
+                                // Check the result
+                                if ($res_dtmf ["result"]=='1') {
+                                    $return = TRUE;
+                                } elseif ($res_dtmf ["result"]=='2') {
+                                    $return = FALSE;
+                                }
+                            
+                                $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[TRY : $try]" );
+                            } else {
                                 $return = FALSE;
                             }
-                            
-                            $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[TRY : $try]" );
                         } while($return && $try < 3);
                         
                         if (strlen($outbound_destination)<=0) {
