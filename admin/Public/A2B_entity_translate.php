@@ -93,7 +93,7 @@ if (is_array($result)) {
 }
 
 ?>
-<FORM name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+<FORM name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" METHOD="POST">
 <input name="mailtype" value="<?php echo $mailtype; ?>" type="hidden">
 
 <table cellspacing="2" class="addform_table1">
