@@ -141,20 +141,18 @@ if ($task == 'upload') {
 			}
 			break;
 		}
-		if (substr($ligne, 0, 1) != '#' && $val[2] != '' && strlen($val[2]) > 0) {
-
+		if (substr($ligne, 0, 1) != '#' && $val[2] != '' && strlen($val[2]) > 0)
+		{
 			$FG_ADITION_SECOND_ADD_TABLE = 'cc_ratecard';
-			$instance_table_prefix = new Table("cc_prefix");
 			$FG_ADITION_SECOND_ADD_FIELDS = 'idtariffplan, id_trunk, dialprefix, destination, rateinitial'; //$fieldtoimport_sql
 			$FG_ADITION_SECOND_ADD_FIELDS_PREFIX = 'prefix, destination';					
 			if ($currencytype == "cent") {
 				$val[2] = $val[2] / 100;
 			}
-
+            
 			$FG_ADITION_SECOND_ADD_VALUE = "'" . $tariffplanval[0] . "', '" . $trunkval[0] . "', '" . $val[0] . "', '" . intval($val[0]) . "', '" . $val[2] . "'";
 			
 			for ($k = 0; $k < count($fieldtoimport); $k++) {
-
 				if (!empty ($val[$k +3]) || $val[$k +3] == '0') {
 					if ($fieldtoimport[$k] == "startdate" && ($val[$k +3] == '0' || $val[$k +3] == ''))
 						continue;
@@ -196,8 +194,8 @@ if ($task == 'upload') {
 			}
 			if (intval($val[0]) > 0) {
 				$FG_ADITION_SECOND_ADD_VALUE_PREFIX = "'" . intval($val[0]) . "', '" . $val[1] . "'";
-				$TT_QUERY_PREFIX = "INSERT INTO " . $FG_ADITION_SECOND_ADD_TABLE_PREFIX . " (" . $FG_ADITION_SECOND_ADD_FIELDS_PREFIX . ") values (" . $FG_ADITION_SECOND_ADD_VALUE_PREFIX . ") ";
-				$instance_table_prefix -> Add_table ($DBHandle, $FG_ADITION_SECOND_ADD_VALUE_PREFIX, $FG_ADITION_SECOND_ADD_FIELDS_PREFIX);
+				$TT_QUERY_PREFIX = "REPLACE INTO " . $FG_ADITION_SECOND_ADD_TABLE_PREFIX . " (" . $FG_ADITION_SECOND_ADD_FIELDS_PREFIX . ") values (" . $FG_ADITION_SECOND_ADD_VALUE_PREFIX . ") "; 
+                $DBHandle->Execute($TT_QUERY_PREFIX)
 			}
 			
 			$TT_QUERY .= "INSERT INTO " . $FG_ADITION_SECOND_ADD_TABLE . " (" . $FG_ADITION_SECOND_ADD_FIELDS . ") values (" . $FG_ADITION_SECOND_ADD_VALUE . ") ";
