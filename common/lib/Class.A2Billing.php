@@ -2541,7 +2541,9 @@ class A2Billing {
 					    $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CID_CONTROL - NO CALLERID - ASK PIN CODE]");
 					    $this -> accountcode = '';
 					    $callerID_enable = 0;
-				    }
+				    } else {
+                        $prompt="prepaid-auth-fail";
+                    }
 				}
 			} else {
 				// authenticate OK using the callerID
