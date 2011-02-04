@@ -32,8 +32,7 @@
 **/
 
 
-
-getpost_ifset(array('id', 'billingtype', 'did', 'startingdate', 'expirationdate', 'id_cc_didgroup', 'id_cc_country', 'activated', 'fixrate', 'id_trunk','connection_charge','selling_rate'));
+getpost_ifset(array('id', 'billingtype', 'did', 'startingdate', 'expirationdate', 'id_cc_didgroup', 'id_cc_country', 'activated', 'fixrate', 'id_trunk','connection_charge','selling_rate', 'aleg_carrier_connect_charge', 'aleg_carrier_cost_min', 'aleg_carrier_initblock', 'aleg_carrier_increment', 'aleg_retail_connect_charge', 'aleg_retail_cost_min', 'aleg_retail_initblock', 'aleg_retail_increment'));
 
 
 $HD_Form = new FormHandler("cc_did","did");
@@ -219,6 +218,26 @@ $HD_Form -> AddEditElement(gettext("CARRIER COST PER MINUTE"),
    gettext("Insert the connect cost"),
    "" , "", "",	"", "", "" , "NO", gettext("The cost can be negative for Non geographic calls where there is an out-payment"));
 
+$HD_Form -> AddEditElement(gettext("CARRIER MIN DURATION"),
+   "aleg_carrier_initblock",
+   '$value',
+   "INPUT",
+   "size=30 maxlength=20",
+   "4",
+   gettext("Insert the buyrate init block"),
+   "" , "", "",	"", "", "" , "NO", gettext("Set the minimum duration charged by the carrier. (i.e. 30 secs)"));
+
+
+$HD_Form -> AddEditElement(gettext("CARRIER BILLING BLOCK"),
+   "aleg_carrier_increment",
+   '$value',
+   "INPUT",
+   "size=30 maxlength=20",
+   "4",
+   gettext("Insert the billing block"),
+   "" , "", "",	"", "", "" , "NO", gettext("Set the billing increment, in seconds (billing block), that the carrier applies. (ie 30 secs)"));
+
+
 $HD_Form -> AddEditElement(gettext("RETAIL CONNECTION CHARGE"),
    "aleg_retail_connect_charge",
    '$value',
@@ -238,7 +257,29 @@ $HD_Form -> AddEditElement(gettext("RETAIL COST PER MINUTE"),
    "" , "", "",	"", "", "" , "NO", gettext("The cost can be negative where there is an out payment, or more usually, positive"));
 
 
-$HD_Form -> FieldEditElement ('did, billingtype, startingdate, expirationdate, id_cc_didgroup, id_cc_country, activated, fixrate, connection_charge, selling_rate, aleg_carrier_connect_charge, aleg_carrier_cost_min, aleg_retail_connect_charge, aleg_retail_cost_min');
+$HD_Form -> AddEditElement(gettext("RETAIL MIN DURATION"),
+   "aleg_retail_initblock",		
+   '$value',	
+   "INPUT",	
+   "size=30 maxlength=20",	
+   "4",	
+   gettext("Insert the init block"),
+   "" , "", "",	"", "", "", "NO", gettext("Set the minimum duration to charge the customer (ie 60 seconds)"));
+
+
+$HD_Form -> AddEditElement(gettext("RETAIL BILLING BLOCK"),
+   "aleg_retail_increment",
+   '$value',
+   "INPUT",
+   "size=30 maxlength=20",
+   "4",
+   gettext("Insert the billing block"),
+   "" , "", "",	"", "", "", "NO", gettext("Set the billing increment in seconds to bill your customer."));
+
+
+
+$HD_Form -> FieldEditElement ('did, billingtype, startingdate, expirationdate, id_cc_didgroup, id_cc_country, activated, fixrate, connection_charge, selling_rate, aleg_carrier_connect_charge, aleg_carrier_cost_min, aleg_carrier_initblock, aleg_carrier_increment, aleg_retail_connect_charge, aleg_retail_cost_min, aleg_retail_initblock, aleg_retail_increment');
+
 
 // Set the filter variables
 $HD_Form -> FG_FILTER_APPLY = true;

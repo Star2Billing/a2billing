@@ -1390,7 +1390,7 @@ class A2Billing {
 							break;
 
 						// INSERT CDR  & UPDATE SYSTEM
-						$RateEngine->rate_engine_updatesystem($this, $agi, $this-> destination, $doibill, 1);
+						$RateEngine->rate_engine_updatesystem($this, $agi, $this->destination, $doibill, 1);
 						// CC_DID & CC_DID_DESTINATION - cc_did.id, cc_did_destination.id
 						$QUERY = "UPDATE cc_did SET secondusedreal = secondusedreal + ".$RateEngine->answeredtime." WHERE id='".$inst_listdestination[0]."'";
 						$result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
@@ -1744,10 +1744,23 @@ class A2Billing {
         $aleg_carrier_cost_min = $inst_listdestination[12];
         $aleg_retail_connect_charge = $inst_listdestination[13];
         $aleg_retail_cost_min = $inst_listdestination[14];
+
+        $aleg_carrier_initblock = $inst_listdestination[15];
+        $aleg_carrier_increment = $inst_listdestination[16];
+        $aleg_retail_initblock = $inst_listdestination[17];
+        $aleg_retail_increment = $inst_listdestination[18];
+        
         #TODO use the above variables to define the time2call
         
-        $this -> debug( INFO, $agi, __FILE__, __LINE__, "[bill_did_aleg]:[$aleg_carrier_connect_charge;$aleg_carrier_cost_min;$aleg_retail_connect_charge;$aleg_retail_cost_min]");
-        
+        $this -> debug( INFO, $agi, __FILE__, __LINE__, "[bill_did_aleg]:[aleg_carrier_connect_charge=$aleg_carrier_connect_charge;\
+                                                                          aleg_carrier_cost_min=$aleg_carrier_cost_min;\
+                                                                          aleg_retail_connect_charge=$aleg_retail_connect_charge;\
+                                                                          aleg_retail_cost_min=$aleg_retail_cost_min;\
+                                                                          aleg_carrier_initblock=$aleg_carrier_initblock;\
+                                                                          aleg_carrier_increment=$aleg_carrier_increment;\
+                                                                          aleg_retail_initblock=$aleg_retail_initblock;\
+                                                                          aleg_retail_increment=$aleg_retail_increment]");
+        $this -> dnid = 'a-leg';
         # if we add a new CDR for A-Leg
         if (($aleg_carrier_connect_charge != 0) || ($aleg_carrier_cost_min != 0) || ($aleg_retail_connect_charge != 0) || ($aleg_retail_cost_min != 0)){
             # duration of the call for the A-Leg is since the start date
@@ -1756,15 +1769,31 @@ class A2Billing {
 	        $aleg_answeredtime  = time() - $this -> G_startime;
 	        $terminatecauseid = 1; // ANSWERED
             
-            $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL]:[A-Leg -> answeredtime=".$aleg_answeredtime."]");
-	        
-	        $aleg_retail_cost = 0;
-            $aleg_retail_cost += $aleg_retail_connect_charge;
-            $aleg_retail_cost += ($aleg_answeredtime/60) * $aleg_retail_cost_min;
+            $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL]:[A-Leg -> dnid=".$this -> dnid."; answeredtime=".$aleg_answeredtime."]");
             
+		    # Carrier Minimum Duration and Billing Increment
+		    $aleg_carrier_callduration = $aleg_answeredtime;
+		    if ($aleg_carrier_callduration < $aleg_carrier_initblock) $aleg_carrier_callduration = $aleg_carrier_initblock;
+		    if (($aleg_carrier_increment > 0) && ($aleg_carrier_callduration > $aleg_carrier_initblock)) {
+			    $mod_sec = $aleg_carrier_callduration % $aleg_carrier_increment; // 12 = 30 % 18
+			    if ($mod_sec > 0) $aleg_carrier_callduration += ($aleg_carrier_increment - $mod_sec); // 30 += 18 - 12
+		    }
+		    
+		    # Retail Minimum Duration and Billing Increment
+		    $aleg_retail_callduration = $aleg_answeredtime;
+		    if ($aleg_retail_callduration < $aleg_retail_initblock) $aleg_retail_callduration = $aleg_retail_initblock;
+		    if (($aleg_retail_increment > 0) && ($aleg_retail_callduration > $aleg_retail_initblock)) {
+			    $mod_sec = $aleg_retail_callduration % $aleg_retail_increment; // 12 = 30 % 18
+			    if ($mod_sec > 0) $aleg_retail_callduration += ($aleg_carrier_increment - $mod_sec); // 30 += 18 - 12
+		    }
+	        
             $aleg_carrier_cost = 0;
             $aleg_carrier_cost += $aleg_carrier_connect_charge;
-            $aleg_carrier_cost += ($aleg_answeredtime/60) * $aleg_carrier_cost_min;
+            $aleg_carrier_cost += ($aleg_carrier_callduration / 60) * $aleg_carrier_cost_min;
+            
+	        $aleg_retail_cost = 0;
+            $aleg_retail_cost += $aleg_retail_connect_charge;
+            $aleg_retail_cost += ($aleg_retail_callduration / 60) * $aleg_retail_cost_min;
             
             $QUERY_COLUMN = " uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, ".
                             " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, " .
@@ -1776,7 +1805,7 @@ class A2Billing {
                         "'".$this->id_card."',".
                         "'".$this->hostname."',".
                         "SUBDATE(CURRENT_TIMESTAMP, INTERVAL $aleg_answeredtime SECOND), ".
-                        "'$aleg_answeredtime', ".
+                        "'$aleg_retail_callduration', ".
                         "'$aleg_answeredtime', ".
                         "'".$listdestination[0][10]."', ".
                         "$terminatecauseid, ".
@@ -1789,7 +1818,7 @@ class A2Billing {
 		                "'".$this->CallerID."', ".
 		                "'$calltype', ".
 		                "'$aleg_carrier_cost', ".
-		                "'".$this->dnid."'".
+		                "'".$this -> dnid."'".
 		                ")";
             
             $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);

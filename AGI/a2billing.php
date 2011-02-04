@@ -67,7 +67,7 @@ if ($argc > 1 && is_numeric($argv[1]) && $argv[1] >= 0) {
 	$idconfig = 1;
 }
 
-if ($dynamic_idconfig = intval($agi->get_variable("IDCONF", true))) {
+if ($dynamic_idconfig = intval($agi -> get_variable("IDCONF", true))) {
 	$idconfig = $dynamic_idconfig;
 }
 
@@ -121,7 +121,7 @@ define ("SMTP_PASSWORD", isset($A2B->config['global']['smtp_password'])?$A2B->co
 // if ($A2B -> CC_TESTING) $mode = 'did';
 
 // Print header
-$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "AGI Request:\n".print_r($agi->request, true));
+$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "AGI Request:\n".print_r($agi -> request, true));
 
 $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[INFO : $agi_version]");
 
@@ -129,7 +129,7 @@ $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[INFO : $agi_version]");
 $A2B -> get_agi_request_parameter ($agi);
 
 if (!$A2B -> DbConnect()) {
-	$agi-> stream_file('prepaid-final', '#');
+	$agi -> stream_file('prepaid-final', '#');
 	exit;
 }
 
@@ -160,7 +160,7 @@ if ($mode == 'standard') {
 
 	if ($A2B -> agiconfig['answer_call']==1) {
 		$A2B -> debug( INFO, $agi, __FILE__, __LINE__, '[ANSWER CALL]');
-		$agi->answer();
+		$agi -> answer();
 		$status_channel=6;
 	} else {
 		$A2B -> debug( INFO, $agi, __FILE__, __LINE__, '[NO ANSWER CALL]');
@@ -171,7 +171,7 @@ if ($mode == 'standard') {
 
 	// Play intro message
 	if (strlen($A2B -> agiconfig['intro_prompt'])>0) {
-		$agi-> stream_file($A2B -> agiconfig['intro_prompt'], '#');
+		$agi -> stream_file($A2B -> agiconfig['intro_prompt'], '#');
 	}
 	
 	$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
@@ -189,7 +189,7 @@ if ($mode == 'standard') {
 			$A2B-> Reinit();
 
 			// RETRIEVE THE CHANNEL STATUS AND LOG : STATUS - CREIT - MIN_CREDIT_2CALL
-			$stat_channel = $agi->channel_status($A2B-> channel);
+			$stat_channel = $agi -> channel_status($A2B-> channel);
 			$A2B -> debug( INFO, $agi, __FILE__, __LINE__, '[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'.
 						   "\n[CREDIT : ".$A2B-> credit."][CREDIT MIN_CREDIT_2CALL : ".$A2B -> agiconfig['min_credit_2call']."]");
 			
@@ -399,7 +399,7 @@ if ($mode == 'standard') {
 
 				// SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL
 				$prompt = "prepaid-no-enough-credit-stop";
-				$agi-> stream_file($prompt, '#');
+				$agi -> stream_file($prompt, '#');
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[STOP STREAM FILE $prompt]");
 				
 				if (($A2B -> agiconfig['notenoughcredit_cardnumber']==1) && (($i+1)< $A2B -> agiconfig['number_try'])) {
@@ -429,11 +429,11 @@ if ($mode == 'standard') {
 				}
 			}
 			
-			$A2B->dnid = $agi->request['agi_dnid'];
-			$A2B->extension = $agi->request['agi_extension'];
+			$A2B->dnid = $agi -> request['agi_dnid'];
+			$A2B->extension = $agi -> request['agi_extension'];
 
 			if ($A2B -> agiconfig['ivr_voucher']==1) {
-				$res_dtmf = $agi->get_data('prepaid-refill_card_with_voucher', 5000, 1);
+				$res_dtmf = $agi -> get_data('prepaid-refill_card_with_voucher', 5000, 1);
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "RES REFILL CARD VOUCHER DTMF : ".$res_dtmf ["result"]);
 				$A2B-> ivr_voucher = $res_dtmf ["result"];
 				if ((isset($A2B-> ivr_voucher)) && ($A2B-> ivr_voucher == $A2B -> agiconfig['ivr_voucher_prefixe'])) {
@@ -533,7 +533,7 @@ if ($mode == 'standard') {
 
 					} elseif ($i == 0) {
 						$prompt_enter_dest = $A2B -> agiconfig['file_conf_enter_destination'];
-						$res_dtmf = $agi->get_data($prompt_enter_dest, 4000, 20);
+						$res_dtmf = $agi -> get_data($prompt_enter_dest, 4000, 20);
 						$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "RES sip_iax_pstndirect_call DTMF : ".$res_dtmf ["result"]);
 						$A2B-> destination = $res_dtmf ["result"];
 					}
@@ -555,7 +555,7 @@ if ($mode == 'standard') {
 						$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "TRUNK - dnid : ".$A2B->dnid." (".$A2B -> agiconfig['use_dnid'].")");
 					}
 				} else {
-					$res_dtmf = $agi->get_data('prepaid-sipiax-press9', 4000, 1);
+					$res_dtmf = $agi -> get_data('prepaid-sipiax-press9', 4000, 1);
 					$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "RES SIP_IAX_FRIEND DTMF : ".$res_dtmf ["result"]);
 					$A2B -> sip_iax_buddy = $res_dtmf ["result"];
 				}
@@ -577,7 +577,7 @@ if ($mode == 'standard') {
 
 					if (!$result_callperf) {
 						$prompt="prepaid-dest-unreachable";
-						$agi-> stream_file($prompt, '#');
+						$agi -> stream_file($prompt, '#');
 					}
 					// INSERT CDR  & UPDATE SYSTEM
 					$RateEngine->rate_engine_updatesystem($A2B, $agi, $A2B-> destination);
@@ -592,7 +592,8 @@ if ($mode == 'standard') {
                     $A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[ CALL OF THE SYSTEM - [DID=".$A2B-> destination."]");
 					
                     $QUERY = "SELECT cc_did.id, cc_did_destination.id, billingtype, tariff, destination, voip_call, username, useralias, connection_charge, selling_rate, did, ".
-                            " aleg_carrier_connect_charge, aleg_carrier_cost_min, aleg_retail_connect_charge, aleg_retail_cost_min ".
+                            " aleg_carrier_connect_charge, aleg_carrier_cost_min, aleg_retail_connect_charge, aleg_retail_cost_min, ".
+                            " aleg_carrier_initblock, aleg_carrier_increment, aleg_retail_initblock, aleg_retail_increment ".
                             " FROM cc_did, cc_did_destination, cc_card ".
                             " WHERE id_cc_did=cc_did.id AND cc_card.status=1 AND cc_card.id=id_cc_card and cc_did_destination.activated=1 AND cc_did.activated=1 AND did='".$A2B-> destination."' ".
                             " AND cc_did.startingdate <= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL ".
@@ -620,7 +621,7 @@ if ($mode == 'standard') {
 	}
 	
 	/****************  SAY GOODBYE   ***************/
-	if ($A2B -> agiconfig['say_goodbye']==1) $agi-> stream_file('prepaid-final', '#');
+	if ($A2B -> agiconfig['say_goodbye']==1) $agi -> stream_file('prepaid-final', '#');
 
 
 // MODE DID
@@ -629,7 +630,7 @@ if ($mode == 'standard') {
 	
 	if ($A2B -> agiconfig['answer_call']==1) {
 		$A2B -> debug( INFO, $agi, __FILE__, __LINE__, '[ANSWER CALL]');
-		$agi->answer();
+		$agi -> answer();
 	} else {
 		$A2B -> debug( INFO, $agi, __FILE__, __LINE__, '[NO ANSWER CALL]');
 	}
@@ -639,14 +640,15 @@ if ($mode == 'standard') {
 	$RateEngine -> Reinit();
 	$A2B -> Reinit();
 
-	$mydnid = $agi->request['agi_extension'];
+	$mydnid = $agi -> request['agi_extension'];
 	if ($A2B -> CC_TESTING) $mydnid = '11111111';
 
 	if (strlen($mydnid) > 0){
 		$A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - [CallerID=".$A2B->CallerID."]:[DID=".$mydnid."]");
 
-		$QUERY =  "SELECT cc_did.id, cc_did_destination.id, billingtype, tariff, destination,  voip_call, username, useralias, connection_charge, selling_rate, did, ".
-                    " aleg_carrier_connect_charge, aleg_carrier_cost_min, aleg_retail_connect_charge, aleg_retail_cost_min ".
+		$QUERY =  "SELECT cc_did.id, cc_did_destination.id, billingtype, tariff, destination, voip_call, username, useralias, connection_charge, selling_rate, did, ".
+                    " aleg_carrier_connect_charge, aleg_carrier_cost_min, aleg_retail_connect_charge, aleg_retail_cost_min, ".
+                    " aleg_carrier_initblock, aleg_carrier_increment, aleg_retail_initblock, aleg_retail_increment ".
 			        " FROM cc_did, cc_did_destination,  cc_card ".
 			        " WHERE id_cc_did=cc_did.id and cc_card.status=1 and cc_card.id=id_cc_card and cc_did_destination.activated=1  and cc_did.activated=1 and did='$mydnid' ".
 			        " AND cc_did.startingdate<= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL ".
@@ -672,7 +674,7 @@ if ($mode == 'standard') {
 
 	if ($A2B -> agiconfig['answer_call']==1){
 		$A2B -> debug( INFO, $agi, __FILE__, __LINE__, '[ANSWER CALL]');
-		$agi->answer();
+		$agi -> answer();
 		$status_channel=6;
 	}else{
 		$A2B -> debug( INFO, $agi, __FILE__, __LINE__, '[NO ANSWER CALL]');
@@ -681,7 +683,7 @@ if ($mode == 'standard') {
 
 	$A2B -> play_menulanguage ($agi);
 	/*************************   PLAY INTRO MESSAGE   ************************/
-	if (strlen($A2B -> agiconfig['intro_prompt'])>0) 		$agi-> stream_file($A2B -> agiconfig['intro_prompt'], '#');
+	if (strlen($A2B -> agiconfig['intro_prompt'])>0) 		$agi -> stream_file($A2B -> agiconfig['intro_prompt'], '#');
 
 	if (strlen($A2B->CallerID)>1 && is_numeric($A2B->CallerID)) {
 		$A2B->CallerID = $caller_areacode.$A2B->CallerID;
@@ -703,9 +705,9 @@ if ($mode == 'standard') {
     }
     
 	// SAY GOODBYE
-	if ($A2B -> agiconfig['say_goodbye']==1) $agi-> stream_file('prepaid-final', '#');
+	if ($A2B -> agiconfig['say_goodbye']==1) $agi -> stream_file('prepaid-final', '#');
 
-	$agi->hangup();
+	$agi -> hangup();
 	if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
 	$A2B -> write_log("[STOP - EXIT]", 0);
 	exit();
@@ -721,7 +723,7 @@ if ($mode == 'standard') {
 	
 	if ($A2B -> agiconfig['answer_call'] == 1 && $mode == 'cid-callback') {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[HANGUP CLI CALLBACK TRIGGER]');
-		$agi->hangup();
+		$agi -> hangup();
     } elseif ($mode == 'cid-prompt-callback') {
 		$agi -> answer();
 	} else {
@@ -781,7 +783,7 @@ if ($mode == 'standard') {
                             
                             // GET THE DESTINATION NUMBER
                             $prompt_enter_dest = $A2B -> agiconfig['file_conf_enter_destination'];
-                            $res_dtmf = $agi->get_data($prompt_enter_dest, 6000, 20);
+                            $res_dtmf = $agi -> get_data($prompt_enter_dest, 6000, 20);
                             $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : ".$res_dtmf ["result"]);
                             $outbound_destination = $res_dtmf ["result"];
                             
@@ -794,7 +796,7 @@ if ($mode == 'standard') {
                                     $subtry++;
                                     //= CONFIRM THE DESTINATION NUMBER
                                     $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[MENU OF CONFIRM (".$res_dtmf ["result"].")]" );
-                                    $res_dtmf = $agi->get_data('prepaid-re-enter-press1-confirm	', 4000, 1);
+                                    $res_dtmf = $agi -> get_data('prepaid-re-enter-press1-confirm	', 4000, 1);
                                     if ($subtry >= 3) {
                                         if ($A2B->set_inuse==1)
                                             $A2B -> callingcard_acct_start_inuse($agi,0);
@@ -1086,7 +1088,7 @@ if ($mode == 'standard') {
         
 		// PLAY INTRO FOR CALLBACK
 		if (strlen($A2B -> config["callback"]['callback_audio_intro']) > 0) {
-			$agi-> stream_file($A2B -> config["callback"]['callback_audio_intro'], '#');
+			$agi -> stream_file($A2B -> config["callback"]['callback_audio_intro'], '#');
 		}
 	} else {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[NO ANSWER CALL]');
@@ -1094,12 +1096,12 @@ if ($mode == 'standard') {
 		$A2B -> play_menulanguage ($agi);
 	}
     
-	$called_party = $agi->get_variable("CALLED", true);
-	$calling_party = $agi->get_variable("CALLING", true);
-	$callback_mode = $agi->get_variable("MODE", true);
-	$callback_tariff = $agi->get_variable("TARIFF", true);
-	$callback_uniqueid = $agi->get_variable("CBID", true);
-	$callback_leg = $agi->get_variable("LEG", true);
+	$called_party = $agi -> get_variable("CALLED", true);
+	$calling_party = $agi -> get_variable("CALLING", true);
+	$callback_mode = $agi -> get_variable("MODE", true);
+	$callback_tariff = $agi -> get_variable("TARIFF", true);
+	$callback_uniqueid = $agi -> get_variable("CBID", true);
+	$callback_leg = $agi -> get_variable("LEG", true);
 
 	// |MODEFROM=ALL-CALLBACK|TARIFF=".$A2B ->tariff;
 	$A2B -> extension = $A2B -> dnid = $A2B -> destination = $calling_party;
@@ -1163,7 +1165,7 @@ if ($mode == 'standard') {
 				$A2B->credit = $A2B->credit / 2;
 			}
 			
-			$stat_channel = $agi->channel_status($A2B-> channel);
+			$stat_channel = $agi -> channel_status($A2B-> channel);
 			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'.
 							"[status_channel=$status_channel]:[ORIG_CREDIT : ".$orig_credit." - CUR_CREDIT - : ".$A2B -> credit.
 							" - CREDIT MIN_CREDIT_2CALL : ".$A2B -> agiconfig['min_credit_2call']."]");
@@ -1171,7 +1173,7 @@ if ($mode == 'standard') {
 			if( !$A2B->enough_credit_to_call()) {
 				// SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL
 				$prompt = "prepaid-no-enough-credit-stop";
-				$agi-> stream_file($prompt, '#');
+				$agi -> stream_file($prompt, '#');
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[STOP STREAM FILE $prompt]");
 			}
 
@@ -1180,7 +1182,7 @@ if ($mode == 'standard') {
 				$result_callperf = $RateEngine->rate_engine_performcall ($agi, $A2B-> destination, $A2B);
 				if (!$result_callperf) {
 					$prompt="prepaid-dest-unreachable";
-					$agi-> stream_file($prompt, '#');
+					$agi -> stream_file($prompt, '#');
 				}
 
 				// INSERT CDR  & UPDATE SYSTEM
@@ -1225,15 +1227,15 @@ if ($mode == 'standard') {
 
     $A2B -> play_menulanguage ($agi);
     
-	$called_party = $agi->get_variable("CALLED", true);
-	$calling_party = $agi->get_variable("CALLING", true);
-	$callback_mode = $agi->get_variable("MODE", true);
-	$callback_tariff = $agi->get_variable("TARIFF", true);
-	$callback_uniqueid = $agi->get_variable("CBID", true);
-	$callback_leg = $agi->get_variable("LEG", true);
-    $accountcode = $agi->get_variable("ACCOUNTCODE", true);
-    $phonenumber_member = $agi->get_variable("PN_MEMBER", true);
-    $room_number = $agi->get_variable("ROOMNUMBER", true);
+	$called_party = $agi -> get_variable("CALLED", true);
+	$calling_party = $agi -> get_variable("CALLING", true);
+	$callback_mode = $agi -> get_variable("MODE", true);
+	$callback_tariff = $agi -> get_variable("TARIFF", true);
+	$callback_uniqueid = $agi -> get_variable("CBID", true);
+	$callback_leg = $agi -> get_variable("LEG", true);
+    $accountcode = $agi -> get_variable("ACCOUNTCODE", true);
+    $phonenumber_member = $agi -> get_variable("PN_MEMBER", true);
+    $room_number = $agi -> get_variable("ROOMNUMBER", true);
 
     $A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[CALLBACK]:[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff | CBID=$callback_uniqueid | LEG=$callback_leg | ACCOUNTCODE=$accountcode | PN_MEMBER=$phonenumber_member | ROOMNUMBER=$room_number]");
 
@@ -1256,7 +1258,7 @@ if ($mode == 'standard') {
     
     if ($error_settings) {
         $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK : Error settings accountcode and phonenumber_member]");
-        $agi->hangup();
+        $agi -> hangup();
         $A2B -> write_log("[STOP - EXIT]", 0);
         exit();
     }
@@ -1293,14 +1295,14 @@ if ($mode == 'standard') {
 			$RateEngine->Reinit();
 			//$A2B-> Reinit();
 			
-			$stat_channel = $agi->channel_status($A2B-> channel);
+			$stat_channel = $agi -> channel_status($A2B-> channel);
 			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'.
 							"[status_channel=$status_channel]:[CREDIT - : ".$A2B -> credit." - CREDIT MIN_CREDIT_2CALL : ".$A2B -> agiconfig['min_credit_2call']."]");
 			
 			if( !$A2B->enough_credit_to_call()) {
 				// SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL
 				$prompt = "prepaid-no-enough-credit-stop";
-				$agi-> stream_file($prompt, '#');
+				$agi -> stream_file($prompt, '#');
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[STOP STREAM FILE $prompt]");
 			}
 
@@ -1442,14 +1444,14 @@ if ($mode == 'standard') {
 
     $A2B -> play_menulanguage ($agi);
     
-	$called_party = $agi->get_variable("CALLED", true);
-	$calling_party = $agi->get_variable("CALLING", true);
-	$callback_mode = $agi->get_variable("MODE", true);
-	$callback_tariff = $agi->get_variable("TARIFF", true);
-	$callback_uniqueid = $agi->get_variable("CBID", true);
-	$callback_leg = $agi->get_variable("LEG", true);
-    $accountcode = $agi->get_variable("ACCOUNTCODE", true);
-    $room_number = $agi->get_variable("ROOMNUMBER", true);
+	$called_party = $agi -> get_variable("CALLED", true);
+	$calling_party = $agi -> get_variable("CALLING", true);
+	$callback_mode = $agi -> get_variable("MODE", true);
+	$callback_tariff = $agi -> get_variable("TARIFF", true);
+	$callback_uniqueid = $agi -> get_variable("CBID", true);
+	$callback_leg = $agi -> get_variable("LEG", true);
+    $accountcode = $agi -> get_variable("ACCOUNTCODE", true);
+    $room_number = $agi -> get_variable("ROOMNUMBER", true);
 
     $A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[CALLBACK]:[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff | CBID=$callback_uniqueid | LEG=$callback_leg | ACCOUNTCODE=$accountcode | ROOMNUMBER=$room_number]");
 
@@ -1466,7 +1468,7 @@ if ($mode == 'standard') {
     
     if ($error_settings) {
         $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK : Error settings accountcode]");
-        $agi->hangup();
+        $agi -> hangup();
         $A2B -> write_log("[STOP - EXIT]", 0);
         exit();
     }
@@ -1502,14 +1504,14 @@ if ($mode == 'standard') {
 			$RateEngine->Reinit();
 			//$A2B-> Reinit();
 			
-			$stat_channel = $agi->channel_status($A2B-> channel);
+			$stat_channel = $agi -> channel_status($A2B-> channel);
 			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'.
 							"[status_channel=$status_channel]:[CREDIT - : ".$A2B -> credit." - CREDIT MIN_CREDIT_2CALL : ".$A2B -> agiconfig['min_credit_2call']."]");
 			
 			if( !$A2B->enough_credit_to_call()) {
 				// SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL
 				$prompt = "prepaid-no-enough-credit-stop";
-				$agi-> stream_file($prompt, '#');
+				$agi -> stream_file($prompt, '#');
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[STOP STREAM FILE $prompt]");
 			}
 
@@ -1600,9 +1602,9 @@ if ($charge_callback) {
 
 // END
 if ($mode != 'cid-callback' && $mode != 'all-callback') {
-	$agi->hangup();
+	$agi -> hangup();
 } elseif ($A2B -> agiconfig['answer_call'] == 1) {
-	$agi->hangup();
+	$agi -> hangup();
 }
 
 
