@@ -76,6 +76,7 @@ if (ProcessHandler :: isActive()) {
 $verbose_level = 0;
 
 $groupcard = 5000;
+$oneday = 24 * 60 * 60;
 
 $A2B = new A2Billing();
 $A2B->load_conf($agi, NULL, 0, $idconfig);
@@ -179,12 +180,12 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$clause_call_billing .= "stoptime >= '" . $result[0][1] . "' AND ";
 				$clause_charge .= "creationdate >= '" . $result[0][1] . "' AND  ";
 				$desc_billing = "Calls cost between the " . $result[0][1] . " and " . $date_now;
-				$desc_billing_postpaid = "Amount for period between the " .date("Y-m-d", strtotime($result[0][1])). " and " . $date_now;
+				$desc_billing_postpaid = "Amount for period between the " .date("Y-m-d", strtotime($result[0][1]) + $oneday)). " and " . $date_now;
 				$start_date = $result[0][1];
 				$lastbilling_invoice = $result[0][2];
 			} else {
 				$desc_billing = "Calls cost before the " . $date_now;
-				$desc_billing_postpaid = "Amount for periode before the " . $date_now;
+				$desc_billing_postpaid = "Amount for period before the " . $date_now;
 			}
 
 			// RETRIEVE THE LAST POSTPAID AMOUNT -SUM OF ALL INVOICE ITEMS UNPAID FOR A POSTPAID USER
