@@ -180,7 +180,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$clause_call_billing .= "stoptime >= '" . $result[0][1] . "' AND ";
 				$clause_charge .= "creationdate >= '" . $result[0][1] . "' AND  ";
 				$desc_billing = "Calls cost between the " . $result[0][1] . " and " . $date_now;
-				$desc_billing_postpaid = "Amount for period between the " .date("Y-m-d", strtotime($result[0][1]) + $oneday)). " and " . $date_now;
+				$desc_billing_postpaid = "Amount for period between the " .date("Y-m-d", strtotime($result[0][1]) + $oneday). " and " . $date_now;
 				$start_date = $result[0][1];
 				$lastbilling_invoice = $result[0][2];
 			} else {

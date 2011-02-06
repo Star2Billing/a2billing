@@ -665,7 +665,7 @@ class FormBO {
 			$clause_call_billing .= "stoptime >= '" .$result[0][1]."' AND "; 
 			$clause_charge .= "creationdate >= '".$result[0][1]."' AND  ";
 			$desc_billing = "Calls cost between the ".$result[0][1]." and  $date_bill" ;
-			$desc_billing_postpaid="Amount for period between the ".date("Y-m-d", strtotime($result[0][1]) + $oneday))." and $date_bill";
+			$desc_billing_postpaid="Amount for period between the ".date("Y-m-d", strtotime($result[0][1]) + $oneday)." and $date_bill";
 			$start_date = $result[0][1];
 		} else {
 			$desc_billing = "Calls cost before the $date_bill" ;
