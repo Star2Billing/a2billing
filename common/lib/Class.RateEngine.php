@@ -937,7 +937,7 @@ class RateEngine
 		
 		// ****************  PACKAGE PARAMETERS ****************
 		$id_cc_package_offer = $this -> ratecard_obj[$K][45];
-		$additional_grace_time = $this->ratecard_obj[$K][58];
+		$additional_grace_time = $this -> ratecard_obj[$K][58];
 		$id_card_package_offer = null;
 		
 		if ($A2B -> CC_TESTING) {
@@ -1370,7 +1370,7 @@ class RateEngine
 					$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "DIAL FAILOVER $dialstr");
 					
 					// check connection after dial(long pause) 
-					$A2B -> DbReConnect(); 
+					$A2B -> DbReConnect($agi); 
 
 					// Count this call on the trunk
 					$this -> trunk_start_inuse($agi, $A2B, 0);
