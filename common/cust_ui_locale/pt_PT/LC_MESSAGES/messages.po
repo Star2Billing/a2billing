@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Asterisk2Billing-1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-08 23:59+0100\n"
+"POT-Creation-Date: 2011-02-10 18:40+0100\n"
 "PO-Revision-Date: 2009-04-04 17:09-0300\n"
 "Last-Translator: felipe augusto <flipeicl@gmail.com>\n"
 "Language-Team: Carlos Alberto Cesario <carloscesario@gmail.com>\n"
@@ -2349,24 +2349,24 @@ msgstr "SEM DESCONTO"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Tamanho do número do cartão inválido definido na configuração."
 
-#: lib/Class.A2Billing.php:3239
+#: lib/Class.A2Billing.php:3276
 msgid "Error : Authentication Failed !!!"
 msgstr "Erro : Autenticação falhou !!!"
 
-#: lib/Class.A2Billing.php:3279
+#: lib/Class.A2Billing.php:3316
 msgid "Error : Not enough credit to call !!!"
 msgstr "Erro : Não há crédito o bastante para ligar !!!"
 
-#: lib/Class.A2Billing.php:3285
+#: lib/Class.A2Billing.php:3322
 msgid "Error : Card is not active!!!"
 msgstr "Erro : Cartão não está ativo!!!"
 
-#: lib/Class.A2Billing.php:3291
+#: lib/Class.A2Billing.php:3328
 msgid "Error : Card is actually in use!!!"
 msgstr "Erro : Cartão atualmente em uso!!!"
 
-#: lib/Class.A2Billing.php:3300 lib/Class.A2Billing.php:3308
-#: lib/Class.A2Billing.php:3316
+#: lib/Class.A2Billing.php:3337 lib/Class.A2Billing.php:3345
+#: lib/Class.A2Billing.php:3353
 msgid "Error : Card have expired!!!"
 msgstr "Erro : O cartão expirou!!!"
 
@@ -3475,32 +3475,32 @@ msgstr "NOTIFICAÇÃO"
 msgid "User"
 msgstr ""
 
-#: templates/default/index.tpl:94
+#: templates/default/index.tpl:95
 #, fuzzy
 msgid "Forgot your password ?"
 msgstr "Esqueceu sua senha?"
 
-#: templates/default/index.tpl:94 templates/default/index.tpl:97
+#: templates/default/index.tpl:95 templates/default/index.tpl:98
 msgid "Click here"
 msgstr ""
 
-#: templates/default/index.tpl:97
+#: templates/default/index.tpl:98
 msgid "To sign up"
 msgstr ""
 
-#: templates/default/index.tpl:106
+#: templates/default/index.tpl:107
 msgid "AUTHENTICATION REFUSED : please check your user/password!"
 msgstr ""
 
-#: templates/default/index.tpl:108
+#: templates/default/index.tpl:109
 msgid "INACTIVE ACCOUNT : Your account need to be activated!"
 msgstr ""
 
-#: templates/default/index.tpl:110
+#: templates/default/index.tpl:111
 msgid "BLOCKED ACCOUNT : Please contact the administrator!"
 msgstr ""
 
-#: templates/default/index.tpl:112
+#: templates/default/index.tpl:113
 msgid "NEW ACCOUNT : Your account has not been validate yet!"
 msgstr ""
 

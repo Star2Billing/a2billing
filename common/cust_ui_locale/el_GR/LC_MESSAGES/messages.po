@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Customer UI : 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-08 23:59+0100\n"
+"POT-Creation-Date: 2011-02-10 18:40+0100\n"
 "PO-Revision-Date: 2010-07-28 17:45+0200\n"
 "Last-Translator: Polihronis Porfiris <pporfiris@hotmail.com>\n"
 "Language-Team: Polihronis Porfiris <pporfiris@hotmai.com>\n"
@@ -2328,24 +2328,24 @@ msgstr "ΧΩΡΙΣ ΕΚΠΤΩΣΗ"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Έχει οριστεί λανθασμένο μήκος κάρτας στις ρυθμίσεις"
 
-#: lib/Class.A2Billing.php:3239
+#: lib/Class.A2Billing.php:3276
 msgid "Error : Authentication Failed !!!"
 msgstr "Σφάλμα : Αποτυχία αυθεντικοποιησης !!!"
 
-#: lib/Class.A2Billing.php:3279
+#: lib/Class.A2Billing.php:3316
 msgid "Error : Not enough credit to call !!!"
 msgstr "Σφάλμα : Δεν υπάρχουν αρκετές μονάδες για να καλέσετε !!!"
 
-#: lib/Class.A2Billing.php:3285
+#: lib/Class.A2Billing.php:3322
 msgid "Error : Card is not active!!!"
 msgstr "Σφάλμα : Η κάρτα δεν έχει ενεργοποιηθεί !!!"
 
-#: lib/Class.A2Billing.php:3291
+#: lib/Class.A2Billing.php:3328
 msgid "Error : Card is actually in use!!!"
 msgstr "Σφάλμα : Η κάρτα είναι σε χρήση !!!"
 
-#: lib/Class.A2Billing.php:3300 lib/Class.A2Billing.php:3308
-#: lib/Class.A2Billing.php:3316
+#: lib/Class.A2Billing.php:3337 lib/Class.A2Billing.php:3345
+#: lib/Class.A2Billing.php:3353
 msgid "Error : Card have expired!!!"
 msgstr "Σφάλμα : Η κάρτα έχει λήξη !!!"
 
@@ -3428,31 +3428,31 @@ msgstr "ΤΑΥΤΟΠΟΙΗΣΗ"
 msgid "User"
 msgstr "Χρήστης"
 
-#: templates/default/index.tpl:94
+#: templates/default/index.tpl:95
 msgid "Forgot your password ?"
 msgstr "Ξεχάσατε τον κωδικό σας?"
 
-#: templates/default/index.tpl:94 templates/default/index.tpl:97
+#: templates/default/index.tpl:95 templates/default/index.tpl:98
 msgid "Click here"
 msgstr "Πατήστε εδώ"
 
-#: templates/default/index.tpl:97
+#: templates/default/index.tpl:98
 msgid "To sign up"
 msgstr "Για να εγγραφτείτε"
 
-#: templates/default/index.tpl:106
+#: templates/default/index.tpl:107
 msgid "AUTHENTICATION REFUSED : please check your user/password!"
 msgstr "Η ΤΑΥΤΟΠΟΙΗΣΗ ΑΡΝΗΘΗΚΕ : παρακαλώ ελέγξτε το όνομα χρήστη / κωδικό σας"
 
-#: templates/default/index.tpl:108
+#: templates/default/index.tpl:109
 msgid "INACTIVE ACCOUNT : Your account need to be activated!"
 msgstr "ΑΝΕΝΕΡΓΟΣ ΛΟΓΑΡΙΑΣΜΟΣ : Ο λογαριασμός σας πρέπει να ενεργοποιηθεί!"
 
-#: templates/default/index.tpl:110
+#: templates/default/index.tpl:111
 msgid "BLOCKED ACCOUNT : Please contact the administrator!"
 msgstr "ΜΠΛΟΚΑΡΙΣΜΕΝΟΣ ΛΟΓΑΡΙΑΣΜΟΣ : Παρακαλώ επικοινωνήστε με τον διαχειριστή!"
 
-#: templates/default/index.tpl:112
+#: templates/default/index.tpl:113
 msgid "NEW ACCOUNT : Your account has not been validate yet!"
 msgstr "ΝΕΟΣ ΛΟΓΑΡΙΑΣΜΟΣ : Ο λογαριασμός σας δεν έχει πιστοποιηθεί ακόμα!"
 
