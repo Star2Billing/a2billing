@@ -997,7 +997,7 @@ class RateEngine
 				// rate_engine_calculcost could have change the duration of the call
 				
 				$sessiontime = $this -> answeredtime;
-				if ($sessiontime>0 && $additional_grace_time>0) {
+				if ($sessiontime > 0 && $additional_grace_time > 0) {
 					$sessiontime = $sessiontime + $additional_grace_time;
 				}
 			}
@@ -1033,7 +1033,7 @@ class RateEngine
 
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_UPDATESYSTEM: usedratecard K=$K - (sessiontime=$sessiontime :: dialstatus=$dialstatus :: buycost=$buycost :: cost=$cost : signe_cc_call=$signe_cc_call: signe=$signe)]");
 
-		if (strlen($this -> dialstatus_rev_list[$dialstatus])>0) {
+		if (strlen($this -> dialstatus_rev_list[$dialstatus]) > 0) {
 			$terminatecauseid = $this -> dialstatus_rev_list[$dialstatus];
         } else {
 			$terminatecauseid = 0;
