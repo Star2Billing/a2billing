@@ -360,7 +360,7 @@ INSERT INTO cc_templatemail (mailtype, fromemail, fromname, subject, messagetext
 Thank you for registering with us
 Please click on below link to activate your account.
 
-http://call-labs.com/A2Billing_UI/signup/activate.php?key$loginkey
+http://call-labs.com/activate.php?key$loginkey
 
 Please make sure you active your account by making payment to us either by
 credit card, wire transfer, money order, cheque, and western union money
