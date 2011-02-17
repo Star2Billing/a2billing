@@ -91,7 +91,7 @@ $_SESSION["p_amount"] = 3;
 
 $paymentTable = new Table();
 $time_stamp = date("Y-m-d H:i:s"); 
-$amount_string=sprintf("%.3f",$total_amount);
+$amount_string = sprintf("%.3F", $total_amount);
 
 if (strtoupper($payment)=='PLUGNPAY') {
 	$QUERY_FIELDS = "cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, cvv, credit_card_type, currency , item_id , item_type";
@@ -114,7 +114,7 @@ if (empty($transaction_no)) {
 $HD_Form -> create_toppage ($form_action);
 
 $payment_modules = new payment($payment);
-$order = new order($total_amount);
+$order = new order($amount_string);
 
 if (is_array($payment_modules->modules)) {
 	$payment_modules->pre_confirmation_check();

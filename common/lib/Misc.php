@@ -87,7 +87,7 @@ function a2b_mail($to, $subject, $mail_content, $from = 'root@localhost', $fromn
 	$mail->ContentType = $contenttype;
 	
 	if (strpos($to, ',') > 0) {
-		foreach (explode(',',$to) as $toemail){
+		foreach (explode(',', $to) as $toemail){
             $mail->AddAddress($toemail);
         }
 	} else {
