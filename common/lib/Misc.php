@@ -85,7 +85,15 @@ function a2b_mail($to, $subject, $mail_content, $from = 'root@localhost', $fromn
 	$mail->AltBody = $mail_content; // Plain text body (for mail clients that cannot read 	HTML)
 	// if ContentType = multipart/alternative -> HTML will be send
 	$mail->ContentType = $contenttype;
-	$mail->AddAddress($to);
+	
+	if (strpos($to, ',') > 0) {
+		foreach (explode(',',$to) as $toemail){
+            $mail->AddAddress($toemail);
+        }
+	} else {
+	    $mail->AddAddress($to);
+	}
+	
 	try {
 		$mail->Send();
 	} catch (phpmailerException $e) {
