@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-10 18:40+0100\n"
+"POT-Creation-Date: 2011-02-18 00:40+0100\n"
 "PO-Revision-Date: 2010-01-28 19:09+0300\n"
 "Last-Translator: Taras Remez <taras.remez@telix.com.ua>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -1972,68 +1972,68 @@ msgstr "Выбирите тарифный план"
 msgid "Create a new "
 msgstr "Создать"
 
-#: lib/Misc.php:515 lib/Class.Notification.php:140
+#: lib/Misc.php:523 lib/Class.Notification.php:140
 msgid "UNKNOWN"
 msgstr "НЕИЗВЕСТНО"
 
-#: lib/Misc.php:714
+#: lib/Misc.php:722
 msgid "First"
 msgstr "Первый"
 
-#: lib/Misc.php:715 A2B_entity_did.php:459
+#: lib/Misc.php:723 A2B_entity_did.php:459
 #, fuzzy
 msgid "Prev"
 msgstr "Назад"
 
-#: lib/Misc.php:716 A2B_entity_did.php:429
+#: lib/Misc.php:724 A2B_entity_did.php:429
 msgid "Next"
 msgstr "Дальше"
 
-#: lib/Misc.php:717
+#: lib/Misc.php:725
 msgid "Last"
 msgstr "Последний"
 
-#: lib/Misc.php:807
+#: lib/Misc.php:815
 msgid "File size is greater than allowed limit."
 msgstr "Размер файла больше установленого ограничения"
 
-#: lib/Misc.php:810
+#: lib/Misc.php:818
 msgid "You did not upload anything!"
 msgstr "Вы ничего не загрузили !"
 
-#: lib/Misc.php:813
+#: lib/Misc.php:821
 msgid "Failed to upload the file, The file you uploaded may not exist on disk."
 msgstr "Ошибка загрузки файла. Возможно он отсуствует на диске"
 
-#: lib/Misc.php:816
+#: lib/Misc.php:824
 msgid "file type is not allowed"
 msgstr "тип файла не разрешен"
 
-#: lib/Misc.php:1122
+#: lib/Misc.php:1130
 msgid "Can't find our base_currency in cc_currencies."
 msgstr "Не могу найти base_currency среди cc_currencies"
 
-#: lib/Misc.php:1122 lib/Misc.php:1145 lib/Misc.php:1149 lib/Misc.php:1159
+#: lib/Misc.php:1130 lib/Misc.php:1153 lib/Misc.php:1157 lib/Misc.php:1167
 msgid "Currency update ABORTED."
 msgstr "Обновление курсов ПРЕРВАНО"
 
-#: lib/Misc.php:1145
+#: lib/Misc.php:1153
 msgid "The CSV file doesn't contain all the currencies we requested."
 msgstr "Файл CSV не содержит все необходимых курсов валют"
 
-#: lib/Misc.php:1149
+#: lib/Misc.php:1157
 msgid "At least one of the entries in the CSV file isn't a number."
 msgstr "Как минимум одна запись в CSV файле не является номером"
 
-#: lib/Misc.php:1159
+#: lib/Misc.php:1167
 msgid "Our base_currency seems to be worthless."
 msgstr "Наша base_currency является безсмысленной"
 
-#: lib/Misc.php:1197
+#: lib/Misc.php:1205
 msgid "Success! All currencies are now updated."
 msgstr "Успех! Все курсы валют был обновлены"
 
-#: lib/Misc.php:1488
+#: lib/Misc.php:1496
 msgid "GO TO CUSTOMER ACCOUNT"
 msgstr ""
 

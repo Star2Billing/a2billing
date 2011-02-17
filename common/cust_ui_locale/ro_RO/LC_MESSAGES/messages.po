@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-10 18:40+0100\n"
+"POT-Creation-Date: 2011-02-18 00:40+0100\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -1882,68 +1882,68 @@ msgstr "Aegeti grupa de trarife"
 msgid "Create a new "
 msgstr "Creaz un nou"
 
-#: lib/Misc.php:515 lib/Class.Notification.php:140
+#: lib/Misc.php:523 lib/Class.Notification.php:140
 msgid "UNKNOWN"
 msgstr "NECUNOSCUT"
 
-#: lib/Misc.php:714
+#: lib/Misc.php:722
 #, fuzzy
 msgid "First"
 msgstr "Lista"
 
-#: lib/Misc.php:715 A2B_entity_did.php:459
+#: lib/Misc.php:723 A2B_entity_did.php:459
 msgid "Prev"
 msgstr "Inapoi"
 
-#: lib/Misc.php:716 A2B_entity_did.php:429
+#: lib/Misc.php:724 A2B_entity_did.php:429
 msgid "Next"
 msgstr "Urmatorul"
 
-#: lib/Misc.php:717
+#: lib/Misc.php:725
 msgid "Last"
 msgstr ""
 
-#: lib/Misc.php:807
+#: lib/Misc.php:815
 msgid "File size is greater than allowed limit."
 msgstr "Marimea fisierului este mai mre decat limita maxima posibila"
 
-#: lib/Misc.php:810
+#: lib/Misc.php:818
 msgid "You did not upload anything!"
 msgstr "Nu ai incarcat nimic"
 
-#: lib/Misc.php:813
+#: lib/Misc.php:821
 msgid "Failed to upload the file, The file you uploaded may not exist on disk."
 msgstr "Eroare la incarcarea fisierului ..."
 
-#: lib/Misc.php:816
+#: lib/Misc.php:824
 msgid "file type is not allowed"
 msgstr "Tipul fisierului nu este suporatat"
 
-#: lib/Misc.php:1122
+#: lib/Misc.php:1130
 msgid "Can't find our base_currency in cc_currencies."
 msgstr "Nu pot sa gasesc  base_currency in cc_currencies. "
 
-#: lib/Misc.php:1122 lib/Misc.php:1145 lib/Misc.php:1149 lib/Misc.php:1159
+#: lib/Misc.php:1130 lib/Misc.php:1153 lib/Misc.php:1157 lib/Misc.php:1167
 msgid "Currency update ABORTED."
 msgstr "ACTUALIZAREA MONEDELOR ANULATA"
 
-#: lib/Misc.php:1145
+#: lib/Misc.php:1153
 msgid "The CSV file doesn't contain all the currencies we requested."
 msgstr "FISIERUL CSV NU CONTINE TOATE MONEDELE CERUTE"
 
-#: lib/Misc.php:1149
+#: lib/Misc.php:1157
 msgid "At least one of the entries in the CSV file isn't a number."
 msgstr "Cel putin unu din intrarile in fisierul csv nu este un numar"
 
-#: lib/Misc.php:1159
+#: lib/Misc.php:1167
 msgid "Our base_currency seems to be worthless."
 msgstr ""
 
-#: lib/Misc.php:1197
+#: lib/Misc.php:1205
 msgid "Success! All currencies are now updated."
 msgstr "Toate monedele au fost actualizate"
 
-#: lib/Misc.php:1488
+#: lib/Misc.php:1496
 #, fuzzy
 msgid "GO TO CUSTOMER ACCOUNT"
 msgstr "NU exista cont IAX "

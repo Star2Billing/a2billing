@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Admin UI : 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-08 23:59+0100\n"
+"POT-Creation-Date: 2011-02-18 00:40+0100\n"
 "PO-Revision-Date: 2010-08-03 16:09+0200\n"
 "Last-Translator: Polihronis Porfiris <pporfiris@hotmail.com>\n"
 "Language-Team: Polihronis Porfiris <pporfiris@hotmai.com>\n"
@@ -1179,7 +1179,7 @@ msgstr "Το έγγραφο έχει δημιουργηθεί σωστά. Τώρ
 msgid "You can modify, through the following form, the different properties of your"
 msgstr "Μέσου της παρακάτω φόρμας, μπορείτε να τροποποιήσετε την"
 
-#: lib/Form/Class.FormHandler.inc.php:554 Public/form_data/FG_var_did.inc:254
+#: lib/Form/Class.FormHandler.inc.php:554 Public/form_data/FG_var_did.inc:295
 #: Public/form_data/FG_var_did_destination.inc:200
 #: Public/form_data/FG_var_config_group.inc:89
 #: Public/form_data/FG_var_trunk.inc:265
@@ -1216,7 +1216,7 @@ msgstr "Μέσου της παρακάτω φόρμας, μπορείτε να �
 #: Public/form_data/FG_var_transactions.inc:84
 #: Public/form_data/FG_var_outbound_cid.php:84
 #: Public/form_data/FG_var_moneysituation.inc:77
-#: Public/form_data/FG_var_friend.inc:965
+#: Public/form_data/FG_var_friend.inc:942
 #: Public/form_data/FG_var_card_seria.inc:101
 #: Public/form_data/FG_var_phonebook.inc:122
 #: Public/form_data/FG_var_did_billing.inc:102
@@ -1242,7 +1242,7 @@ msgstr "Μία"
 msgid "has been deleted!"
 msgstr "Εχει διαγραφτεί!"
 
-#: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_did.inc:255
+#: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_did.inc:296
 #: Public/form_data/FG_var_did_destination.inc:201
 #: Public/form_data/FG_var_config_group.inc:90
 #: Public/form_data/FG_var_trunk.inc:266
@@ -1276,7 +1276,7 @@ msgstr "Εχει διαγραφτεί!"
 #: Public/form_data/FG_var_subscriber.inc:135
 #: Public/form_data/FG_var_outbound_cid.php:85
 #: Public/form_data/FG_var_moneysituation.inc:78
-#: Public/form_data/FG_var_friend.inc:966
+#: Public/form_data/FG_var_friend.inc:943
 #: Public/form_data/FG_var_card_seria.inc:102
 #: Public/form_data/FG_var_phonebook.inc:123
 #: Public/form_data/FG_var_did_billing.inc:103
@@ -1290,7 +1290,7 @@ msgstr "Εχει διαγραφτεί!"
 msgid "you can add easily a new"
 msgstr "μπορείτε εύκολα να προσθέστε μια"
 
-#: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_did.inc:255
+#: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_did.inc:296
 #: Public/form_data/FG_var_did_destination.inc:201
 #: Public/form_data/FG_var_config_group.inc:90
 #: Public/form_data/FG_var_trunk.inc:266
@@ -1325,7 +1325,7 @@ msgstr "μπορείτε εύκολα να προσθέστε μια"
 #: Public/form_data/FG_var_subscriber.inc:135
 #: Public/form_data/FG_var_outbound_cid.php:85
 #: Public/form_data/FG_var_moneysituation.inc:78
-#: Public/form_data/FG_var_friend.inc:966
+#: Public/form_data/FG_var_friend.inc:943
 #: Public/form_data/FG_var_card_seria.inc:102
 #: Public/form_data/FG_var_phonebook.inc:123
 #: Public/form_data/FG_var_did_billing.inc:103
@@ -1352,7 +1352,7 @@ msgid "now."
 msgstr "τώρα."
 
 #: lib/Form/Class.FormHandler.inc.php:559
-#: lib/Form/Class.FormHandler.inc.php:560 Public/form_data/FG_var_did.inc:258
+#: lib/Form/Class.FormHandler.inc.php:560 Public/form_data/FG_var_did.inc:299
 #: Public/form_data/FG_var_did_destination.inc:205
 #: Public/form_data/FG_var_config_group.inc:94
 #: Public/form_data/FG_var_trunk.inc:269
@@ -1385,7 +1385,7 @@ msgstr "τώρα."
 #: Public/form_data/FG_var_prefix.inc:130
 #: Public/form_data/FG_var_subscriber.inc:139
 #: Public/form_data/FG_var_outbound_cid.php:89
-#: Public/form_data/FG_var_friend.inc:970
+#: Public/form_data/FG_var_friend.inc:947
 #: Public/form_data/FG_var_card_seria.inc:105
 #: Public/form_data/FG_var_phonebook.inc:127
 #: Public/form_data/FG_var_did_billing.inc:107
@@ -1560,68 +1560,68 @@ msgstr "Επιλέξτε μια κρότα τιμών"
 msgid "Create a new "
 msgstr "Δημιουργήστε ένα νέο "
 
-#: lib/Misc.php:515 lib/Class.Notification.php:140
+#: lib/Misc.php:523 lib/Class.Notification.php:140
 msgid "UNKNOWN"
 msgstr "ΑΓΝΩΣΤΟ"
 
-#: lib/Misc.php:714
+#: lib/Misc.php:722
 msgid "First"
 msgstr "Πρώτο"
 
-#: lib/Misc.php:715
+#: lib/Misc.php:723
 msgid "Prev"
 msgstr "Προηγούμενο"
 
-#: lib/Misc.php:716 Public/call-log-customers.php:1140
+#: lib/Misc.php:724 Public/call-log-customers.php:1140
 #: Public/A2B_detail_package.php:533
 msgid "Next"
 msgstr "Επόμενο"
 
-#: lib/Misc.php:717
+#: lib/Misc.php:725
 msgid "Last"
 msgstr "Τελευταίο"
 
-#: lib/Misc.php:807
+#: lib/Misc.php:815
 msgid "File size is greater than allowed limit."
 msgstr "Το μέγεθος του αρχείου υπερβαίνει το επιτρεπτό όριο."
 
-#: lib/Misc.php:810
+#: lib/Misc.php:818
 msgid "You did not upload anything!"
 msgstr "Δεν ανεβάσατε κάτι!"
 
-#: lib/Misc.php:813
+#: lib/Misc.php:821
 msgid "Failed to upload the file, The file you uploaded may not exist on disk."
 msgstr "Αποτυχία στο ανέβασμα του αρχείου. Το αρχείο που ανεβάσατε μπορεί να μην υπάρχει στον δίσκο."
 
-#: lib/Misc.php:816
+#: lib/Misc.php:824
 msgid "file type is not allowed"
 msgstr "αυτό το είδος αρχείου δεν επιτρέπετε"
 
-#: lib/Misc.php:1122
+#: lib/Misc.php:1130
 msgid "Can't find our base_currency in cc_currencies."
 msgstr "Δεν μπορώ να βρω το base_currency στο cc_currencies."
 
-#: lib/Misc.php:1122 lib/Misc.php:1145 lib/Misc.php:1149 lib/Misc.php:1159
+#: lib/Misc.php:1130 lib/Misc.php:1153 lib/Misc.php:1157 lib/Misc.php:1167
 msgid "Currency update ABORTED."
 msgstr "ΜΑΤΑΙΩΘΗΚΕ η ενημέρωση νομισμάτων."
 
-#: lib/Misc.php:1145
+#: lib/Misc.php:1153
 msgid "The CSV file doesn't contain all the currencies we requested."
 msgstr "Το αρχείο CSV δεν περιέχει όλα τα νομίσματα που ζητήσαμε."
 
-#: lib/Misc.php:1149
+#: lib/Misc.php:1157
 msgid "At least one of the entries in the CSV file isn't a number."
 msgstr "Τουλάχιστον μια από τις καταχωρίσεις στο αρχείο CSV δεν είναι νούμερο."
 
-#: lib/Misc.php:1159
+#: lib/Misc.php:1167
 msgid "Our base_currency seems to be worthless."
 msgstr "Το base_currency φαίνεται να είναι άχρηστο."
 
-#: lib/Misc.php:1197
+#: lib/Misc.php:1205
 msgid "Success! All currencies are now updated."
 msgstr "Επιτυχία! Ολα τα νομίσματα ενημερώθηκαν με επιτυχία."
 
-#: lib/Misc.php:1488
+#: lib/Misc.php:1496
 msgid "GO TO CUSTOMER ACCOUNT"
 msgstr "ΜΕΤΑΒΙΒΑΣΗ ΣΤΟΝ ΛΟΓΑΡΙΑΣΜΟ ΤΟΥ ΠΕΛΑΤΗ"
 
@@ -1978,7 +1978,7 @@ msgid "WAITING-MAILCONFIRMATION"
 msgstr "ΑΝΑΜΟΝΗ ΓΙΑ ΗΛΕΚΤΡΟΝΙΚΗ ΕΠΙΒΕΒΑΙΩΣΗ"
 
 #: lib/interface/constants.php:327 lib/interface/constants.php:345
-#: Public/A2B_mass_mail.php:60 Public/form_data/FG_var_did.inc:68
+#: Public/A2B_mass_mail.php:60 Public/form_data/FG_var_did.inc:67
 #: Public/A2B_data_archiving.php:93 Public/A2B_data_archiving.php:101
 msgid "RESERVED"
 msgstr "ΔΕΣΜΕΥΜΕΝΟ"
@@ -2002,7 +2002,7 @@ msgid "WAITING SUBSCRIPTION PAYMENT"
 msgstr "ΑΝΑΜΟΝΗ ΓΙΑ ΠΛΗΡΩΜΗ ΣΥΝΔΡΟΜΗΣ"
 
 #: lib/interface/constants.php:342 lib/interface/constants.php:367
-#: Public/form_data/FG_var_did.inc:66 Public/form_data/FG_var_did.inc:163
+#: Public/form_data/FG_var_did.inc:65 Public/form_data/FG_var_did.inc:162
 #: Public/form_data/FG_var_did_destination.inc:146
 #: Public/form_data/FG_var_subscription_signup.inc:82
 #: Public/form_data/FG_var_voucher.inc:82
@@ -2126,24 +2126,24 @@ msgstr "ΧΩΡΙΣ ΕΚΠΤΩΣΗ"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Εχει οριστεί λανθασμένο μήκος κάρτας στις ρυθμίσεις"
 
-#: lib/Class.A2Billing.php:3239
+#: lib/Class.A2Billing.php:3276
 msgid "Error : Authentication Failed !!!"
 msgstr "Σφάλμα : Αποτυχία αυθεντικοποιησης !!!"
 
-#: lib/Class.A2Billing.php:3279
+#: lib/Class.A2Billing.php:3316
 msgid "Error : Not enough credit to call !!!"
 msgstr "Σφάλμα : Δεν υπάρχουν αρκετές μονάδες για να καλέσετε !!!"
 
-#: lib/Class.A2Billing.php:3285
+#: lib/Class.A2Billing.php:3322
 msgid "Error : Card is not active!!!"
 msgstr "Σφάλμα : Η κάρτα δεν έχει ενεργοποιηθεί !!!"
 
-#: lib/Class.A2Billing.php:3291
+#: lib/Class.A2Billing.php:3328
 msgid "Error : Card is actually in use!!!"
 msgstr "Σφάλμα : Η κάρτα είναι σε χρήση !!!"
 
-#: lib/Class.A2Billing.php:3300 lib/Class.A2Billing.php:3308
-#: lib/Class.A2Billing.php:3316
+#: lib/Class.A2Billing.php:3337 lib/Class.A2Billing.php:3345
+#: lib/Class.A2Billing.php:3353
 msgid "Error : Card have expired!!!"
 msgstr "Σφάλμα : Η κάρτα έχει λήξη !!!"
 
@@ -2482,7 +2482,7 @@ msgstr "ΓΡΑΦΙΚΟ"
 msgid "CALLS"
 msgstr "ΚΛΗΣΗΣ"
 
-#: Public/call-comp.php:448 Public/form_data/FG_var_did.inc:66
+#: Public/call-comp.php:448 Public/form_data/FG_var_did.inc:65
 #: Public/call-daily-load.php:379
 msgid "ACT"
 msgstr "ACT"
@@ -2945,7 +2945,7 @@ msgstr "Παρακάτω προβάλετε η πρώτη γραμμή της ε
 
 #: Public/CC_card_import_analyse.php:273
 #: Public/A2B_phonelist_import_analyse.php:243
-#: Public/CC_ratecard_import_analyse.php:272
+#: Public/CC_ratecard_import_analyse.php:270
 #: Public/A2B_entity_did_import_analyse.php:300
 msgid "FIELD"
 msgstr "ΠΕΔΙΟ"
@@ -2959,7 +2959,7 @@ msgstr "ΠΕΔΙΟ"
 #: Public/form_data/FG_var_config.inc:204
 #: Public/form_data/FG_var_config.inc:212 Public/A2B_entity_config.php:112
 #: Public/A2B_phonelist_import_analyse.php:246
-#: Public/CC_ratecard_import_analyse.php:275
+#: Public/CC_ratecard_import_analyse.php:273
 #: Public/A2B_entity_did_import_analyse.php:303
 msgid "VALUE"
 msgstr "ΤΙΜΗ"
@@ -2971,14 +2971,14 @@ msgstr "Παρακαλώ ελέγξτε αν τα δεδομένα είναι σ
 
 #: Public/CC_card_import_analyse.php:307
 #: Public/A2B_phonelist_import_analyse.php:283
-#: Public/CC_ratecard_import_analyse.php:313
+#: Public/CC_ratecard_import_analyse.php:311
 #: Public/A2B_entity_did_import_analyse.php:344
 msgid "If Yes"
 msgstr "Εάν Ναι"
 
 #: Public/CC_card_import_analyse.php:307
 #: Public/A2B_phonelist_import_analyse.php:283
-#: Public/CC_ratecard_import_analyse.php:313
+#: Public/CC_ratecard_import_analyse.php:311
 #: Public/A2B_entity_did_import_analyse.php:344
 msgid "you can continue the import. Otherwise you must fix your csv file!"
 msgstr "μπορείτε να συνεχίσετε με την εισαγωγή. Διαφορετικά θα πρέπει να διορθώστε το CSV αρχείο σας."
@@ -2989,7 +2989,7 @@ msgstr "Συνέχεια με την εισαγωγή των καρτών"
 
 #: Public/CC_card_import_analyse.php:352
 #: Public/A2B_phonelist_import_analyse.php:327
-#: Public/CC_ratecard_import_analyse.php:356
+#: Public/CC_ratecard_import_analyse.php:354
 msgid "Success"
 msgstr "Επιτυχής"
 
@@ -3851,11 +3851,11 @@ msgstr "Dids σε χρήση"
 msgid "All Dids"
 msgstr "¨όλα τα DIDs"
 
-#: Public/form_data/FG_var_did.inc:43
+#: Public/form_data/FG_var_did.inc:42
 msgid "Add DID"
 msgstr "Προσθήκη DID"
 
-#: Public/form_data/FG_var_did.inc:60 Public/form_data/FG_var_did.inc:105
+#: Public/form_data/FG_var_did.inc:59 Public/form_data/FG_var_did.inc:104
 #: Public/form_data/FG_var_did_destination.inc:73
 #: Public/form_data/FG_var_did_destination.inc:135
 #: Public/form_data/FG_var_card_group.inc:88
@@ -3866,18 +3866,18 @@ msgstr "Προσθήκη DID"
 msgid "DID"
 msgstr "DID"
 
-#: Public/form_data/FG_var_did.inc:61 Public/form_data/FG_var_ticket.inc:75
+#: Public/form_data/FG_var_did.inc:60 Public/form_data/FG_var_ticket.inc:75
 #: Public/card-history.php:151
 msgid "CUSTOMER"
 msgstr "ΠΕΛΑΤΗΣ"
 
-#: Public/form_data/FG_var_did.inc:62 Public/form_data/FG_var_did.inc:115
+#: Public/form_data/FG_var_did.inc:61 Public/form_data/FG_var_did.inc:114
 #: Public/form_data/FG_var_user.inc:76 Public/form_data/FG_var_agent.inc:71
 #: Public/templates/default/main.tpl:302
 msgid "BILLING"
 msgstr "ΛΟΓΙΣΤΗΡΙΟ"
 
-#: Public/form_data/FG_var_did.inc:63 Public/form_data/FG_var_did.inc:124
+#: Public/form_data/FG_var_did.inc:62 Public/form_data/FG_var_did.inc:123
 #: Public/form_data/FG_var_subscription.inc:132
 #: Public/form_data/FG_var_def_ratecard.inc:172
 #: Public/form_data/FG_var_def_ratecard.inc:473
@@ -3887,52 +3887,52 @@ msgstr "ΛΟΓΙΣΤΗΡΙΟ"
 msgid "START DATE"
 msgstr "ΗΜΕΡΟΜΗΝΙΑ ΕΝΑΡΞΗΣ"
 
-#: Public/form_data/FG_var_did.inc:64 Public/form_data/FG_var_did.inc:142
+#: Public/form_data/FG_var_did.inc:63 Public/form_data/FG_var_did.inc:141
 #: Public/form_data/FG_var_card.inc:538
 msgid "DIDGROUP"
 msgstr "ΟΜΑΔΑ DID"
 
-#: Public/form_data/FG_var_did.inc:65 Public/form_data/FG_var_did.inc:152
+#: Public/form_data/FG_var_did.inc:64 Public/form_data/FG_var_did.inc:151
 #: Public/form_data/FG_var_card.inc:455 Public/form_data/FG_var_user.inc:210
 #: Public/form_data/FG_var_agent.inc:308 Public/A2B_admin_info.php:135
 #: Public/A2B_card_info.php:281 Public/A2B_agent_info.php:152
 msgid "COUNTRY"
 msgstr "ΧΩΡΑ"
 
-#: Public/form_data/FG_var_did.inc:67
+#: Public/form_data/FG_var_did.inc:66
 #: Public/form_data/FG_var_did_destination.inc:78
 #: Public/form_data/FG_var_trunk.inc:103
 #: Public/form_data/FG_var_tariffplan.inc:65
 msgid "MINUTES USED"
 msgstr "ΧΡΟΝΟΣ ΟΜΙΛΙΑΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΗΘΗΚΕ"
 
-#: Public/form_data/FG_var_did.inc:67
+#: Public/form_data/FG_var_did.inc:66
 msgid "MU"
 msgstr "MU"
 
-#: Public/form_data/FG_var_did.inc:68
+#: Public/form_data/FG_var_did.inc:67
 msgid "RES"
 msgstr "RES"
 
-#: Public/form_data/FG_var_did.inc:69 Public/form_data/FG_var_did.inc:172
+#: Public/form_data/FG_var_did.inc:68 Public/form_data/FG_var_did.inc:171
 msgid "MONTHLY RATE"
 msgstr "ΜΗΝΙΑΙΑ ΧΡΕΩΣΗ"
 
-#: Public/form_data/FG_var_did.inc:69
+#: Public/form_data/FG_var_did.inc:68
 msgid "MR"
 msgstr "MR"
 
-#: Public/form_data/FG_var_did.inc:70 Public/form_data/FG_var_did.inc:194
+#: Public/form_data/FG_var_did.inc:69 Public/form_data/FG_var_did.inc:193
 #: Public/form_data/FG_var_def_ratecard.inc:261
 msgid "SELLING RATE"
 msgstr "ΤΙΜΗ ΠΩΛΗΣΗΣ"
 
-#: Public/form_data/FG_var_did.inc:70
+#: Public/form_data/FG_var_did.inc:69
 #: Public/form_data/FG_var_def_ratecard.inc:120
 msgid "SR"
 msgstr "SR"
 
-#: Public/form_data/FG_var_did.inc:75
+#: Public/form_data/FG_var_did.inc:74
 #: Public/form_data/FG_var_payment_configuration.inc:53
 #: Public/form_data/FG_var_config_group.inc:67
 #: Public/form_data/FG_var_paymentlog.inc:108
@@ -3941,138 +3941,194 @@ msgstr "SR"
 msgid "THERE ARE NO "
 msgstr "ΔΕΝ ΥΠΑΡΧΟΥΝ"
 
-#: Public/form_data/FG_var_did.inc:111
+#: Public/form_data/FG_var_did.inc:110
 #: Public/form_data/FG_var_did_destination.inc:117
 msgid "Insert the DID"
 msgstr "Συμπληρώστε το DID"
 
-#: Public/form_data/FG_var_did.inc:113
+#: Public/form_data/FG_var_did.inc:112
 msgid "Define the DID's. If you ADD a new DID, NOT an EDIT, you can define a range of DID. <br>80412340210-80412340218 would add all DID's between the range, whereas DIDs separated by a comma e.g. 80412340210,80412340212,80412340214 would only add the individual DID listed."
 msgstr "Ορίστε τα DIDs. Εάν προσθέστε, και δεν  τροποποιήστε, ένα νέο DID μπορείτε να ορίσετε ένα εύρος DIDs.<br>80412340210-80412340218 θα προσθέσει όλα τα DIDs ανάμεσα στην περιοχή. Αντιθέτως τα DIDs διαχωρισμένα με κόμματα π.χ. 80412340210,80412340212,80412340214 θα προσθέσει μόνο αυτά τα DID."
 
-#: Public/form_data/FG_var_did.inc:130
+#: Public/form_data/FG_var_did.inc:129
 #: Public/form_data/FG_var_def_ratecard.inc:479
 #: Public/form_data/FG_var_tariffplan.inc:106
 #: Public/form_data/FG_var_campaign.inc:177
 msgid "Insert the starting date"
 msgstr "Συμπληρώστε την ημερομηνία έναρξης"
 
-#: Public/form_data/FG_var_did.inc:131 Public/form_data/FG_var_did.inc:140
+#: Public/form_data/FG_var_did.inc:130 Public/form_data/FG_var_did.inc:139
 #: Public/form_data/FG_var_def_ratecard.inc:480
 #: Public/form_data/FG_var_voucher.inc:193
 #: Public/form_data/FG_var_tariffplan.inc:116
 msgid "Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"
 msgstr "Μορφή ΕΕΕΕ-ΜΜ-ΗΗ ΩΩ:ΛΛ:ΔΔ. Για παράδειγμα '2004-12-31 00:00:00'"
 
-#: Public/form_data/FG_var_did.inc:133 Public/form_data/FG_var_card.inc:742
+#: Public/form_data/FG_var_did.inc:132 Public/form_data/FG_var_card.inc:742
 #: Public/form_data/FG_var_voucher.inc:186
 #: Public/form_data/FG_var_tariffplan.inc:63
 #: Public/form_data/FG_var_tariffplan.inc:109
 msgid "EXPIRY DATE"
 msgstr "ΗΜΕΡΟΜΗΝΙΑ ΛΗΞΗΣ"
 
-#: Public/form_data/FG_var_did.inc:139 Public/form_data/FG_var_card.inc:748
+#: Public/form_data/FG_var_did.inc:138 Public/form_data/FG_var_card.inc:748
 #: Public/form_data/FG_var_voucher.inc:192
 #: Public/form_data/FG_var_tariffplan.inc:115
 #: Public/form_data/FG_var_campaign.inc:186
 msgid "Insert the expiration date"
 msgstr "Συμπληρώστε την ημερομηνία λήξης"
 
-#: Public/form_data/FG_var_did.inc:169
+#: Public/form_data/FG_var_did.inc:168
 #: Public/form_data/FG_var_did_destination.inc:152
 #: Public/form_data/FG_var_voucher.inc:164
 #: Public/form_data/FG_var_callerid.inc:89
 msgid "Choose if you want to activate this card"
 msgstr "Επιλέξτε εάν θέλετε να ενεργοποιήσετε αυτήν την κάρτα"
 
-#: Public/form_data/FG_var_did.inc:178
+#: Public/form_data/FG_var_did.inc:177
 msgid "Insert the monthly rate"
 msgstr "Συμπληρώστε την μηνιαία χρέωση"
 
-#: Public/form_data/FG_var_did.inc:179 Public/form_data/FG_var_card.inc:369
+#: Public/form_data/FG_var_did.inc:178 Public/form_data/FG_var_card.inc:369
 #: Public/form_data/FG_var_card.inc:658 Public/form_data/FG_var_agent.inc:200
 #: Public/form_data/FG_var_agent.inc:209 Public/form_data/FG_var_agent.inc:234
 msgid "currency : "
 msgstr "νόμισμα : "
 
-#: Public/form_data/FG_var_did.inc:180
+#: Public/form_data/FG_var_did.inc:179
 #, fuzzy
 msgid "Define the renting cost for the customers."
 msgstr "Ορίστε το κόστος πώλησης για τους πελάτες"
 
-#: Public/form_data/FG_var_did.inc:183
+#: Public/form_data/FG_var_did.inc:182
 #: Public/form_data/FG_var_def_ratecard.inc:291
 msgid "CONNECT CHARGE"
 msgstr "ΚΟΣΤΟΣ ΣΥΝΔΕΣΗΣ"
 
-#: Public/form_data/FG_var_did.inc:189
+#: Public/form_data/FG_var_did.inc:188
 #: Public/form_data/FG_var_def_ratecard.inc:297
 msgid "Insert the connect charge"
 msgstr "Συμπληρώστε το κόστος σύνδεσης"
 
-#: Public/form_data/FG_var_did.inc:190
+#: Public/form_data/FG_var_did.inc:189
 msgid "Apply a connection charge to connect DID together"
 msgstr "Εφαρμογή κόστος σύνδεσης για να συνδεθούν τα DID μεταξύ τους"
 
-#: Public/form_data/FG_var_did.inc:191
+#: Public/form_data/FG_var_did.inc:190
 msgid "DID On Net Charges"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:200
+#: Public/form_data/FG_var_did.inc:199
 msgid "Insert the rate"
 msgstr "Συμπληρώστε την τιμή"
 
-#: Public/form_data/FG_var_did.inc:201
+#: Public/form_data/FG_var_did.inc:200
 msgid "The retail rate; or the cost per minute to apply to the customer to connect DID together, e.g. 0.02"
 msgstr "Την λιανική τιμή ή το κόστος ανά λεπτό που θα εφαρμοστεί στους πελάτες για την σύνδεση DID μεταξύ τους π.χ. 0,02"
 
-#: Public/form_data/FG_var_did.inc:203
+#: Public/form_data/FG_var_did.inc:202
 #, fuzzy
 msgid "CARRIER CONNECTION CHARGE"
 msgstr "ΚΟΣΤΟΣ ΣΥΝΔΕΣΗΣ"
 
-#: Public/form_data/FG_var_did.inc:209 Public/form_data/FG_var_did.inc:228
+#: Public/form_data/FG_var_did.inc:208 Public/form_data/FG_var_did.inc:247
 #, fuzzy
 msgid "Insert a rate"
 msgstr "Συμπληρώστε την τιμή"
 
-#: Public/form_data/FG_var_did.inc:210 Public/form_data/FG_var_did.inc:229
+#: Public/form_data/FG_var_did.inc:209 Public/form_data/FG_var_did.inc:248
 msgid "The connection charge can be negative or positive"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:211
+#: Public/form_data/FG_var_did.inc:210
 msgid "DID Ingress Charges"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:213
+#: Public/form_data/FG_var_did.inc:212
 #, fuzzy
 msgid "CARRIER COST PER MINUTE"
 msgstr "ΛΕΠΤΑ ASTERISK"
 
-#: Public/form_data/FG_var_did.inc:219 Public/form_data/FG_var_did.inc:237
+#: Public/form_data/FG_var_did.inc:218 Public/form_data/FG_var_did.inc:256
 #, fuzzy
 msgid "Insert the connect cost"
 msgstr "Συμπληρώστε το κόστος σύνδεσης"
 
-#: Public/form_data/FG_var_did.inc:220
+#: Public/form_data/FG_var_did.inc:219
 msgid "The cost can be negative for Non geographic calls where there is an out-payment"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:222
+#: Public/form_data/FG_var_did.inc:221
+#, fuzzy
+msgid "CARRIER MIN DURATION"
+msgstr "ΕΛΑΧΙΣΤΗ ΔΙΑΡΚΕΙΑ"
+
+#: Public/form_data/FG_var_did.inc:227
+#: Public/form_data/FG_var_def_ratecard.inc:247
+msgid "Insert the buyrate init block"
+msgstr "Συμπληρώστε το αρχικό μπλοκ της τιμής αγοράς"
+
+#: Public/form_data/FG_var_did.inc:228
+#: Public/form_data/FG_var_def_ratecard.inc:248
+msgid "Set the minimum duration charged by the carrier. (i.e. 30 secs)"
+msgstr "Ορίστε την ελάχιστη χρέωση που χρεώνει ο πάροχος (π.χ. 30 δευτερόλεπτα)"
+
+#: Public/form_data/FG_var_did.inc:231
+#, fuzzy
+msgid "CARRIER BILLING BLOCK"
+msgstr "ΜΠΛΟΚ ΤΙΜΟΛΟΓΗΣΗΣ ΤΙΜΗΣ ΑΓΟΡΑΣ"
+
+#: Public/form_data/FG_var_did.inc:237 Public/form_data/FG_var_did.inc:276
+#: Public/form_data/FG_var_def_ratecard.inc:257
+#: Public/form_data/FG_var_def_ratecard.inc:287
+msgid "Insert the billing block"
+msgstr "Συμπληρώστε το μπλοκ τιμολόγησης"
+
+#: Public/form_data/FG_var_did.inc:238
+#: Public/form_data/FG_var_def_ratecard.inc:258
+msgid "Set the billing increment, in seconds (billing block), that the carrier applies. (ie 30 secs)"
+msgstr "Ορίστε την πρόοδο χρέωσης, σε δευτερόλεπτα (μπλοκ χρέωσης), που εφαρμόζει ο πάροχος (π.χ. 30 δευτερόλεπτα)"
+
+#: Public/form_data/FG_var_did.inc:241
 #, fuzzy
 msgid "RETAIL CONNECTION CHARGE"
 msgstr "ΚΟΣΤΟΣ ΣΥΝΔΕΣΗΣ"
 
-#: Public/form_data/FG_var_did.inc:231
+#: Public/form_data/FG_var_did.inc:250
 #, fuzzy
 msgid "RETAIL COST PER MINUTE"
 msgstr "ΛΕΠΤΑ ASTERISK"
 
-#: Public/form_data/FG_var_did.inc:238
+#: Public/form_data/FG_var_did.inc:257
 msgid "The cost can be negative where there is an out payment, or more usually, positive"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:254
+#: Public/form_data/FG_var_did.inc:260
+#, fuzzy
+msgid "RETAIL MIN DURATION"
+msgstr "ΕΛΑΧΙΣΤΗ ΔΙΑΡΚΕΙΑ"
+
+#: Public/form_data/FG_var_did.inc:266
+#: Public/form_data/FG_var_def_ratecard.inc:277
+msgid "Insert the init block"
+msgstr "Συμπληρώστε την αρχικό μπλοκ"
+
+#: Public/form_data/FG_var_did.inc:267
+#: Public/form_data/FG_var_def_ratecard.inc:278
+msgid "Set the minimum duration to charge the customer (ie 60 seconds)"
+msgstr "Ορίστε τον ελάχιστο χρόνο χρέωσης για του πελάτες (π.χ. 60 δευτερόλεπτα)"
+
+#: Public/form_data/FG_var_did.inc:270
+#, fuzzy
+msgid "RETAIL BILLING BLOCK"
+msgstr "ΜΠΛΟΚ ΤΙΜΟΛΟΓΗΣΗΣ ΤΙΜΗΣ ΑΓΟΡΑΣ"
+
+#: Public/form_data/FG_var_did.inc:277
+#: Public/form_data/FG_var_def_ratecard.inc:288
+msgid "Set the billing increment in seconds to bill your customer."
+msgstr "Ορίστε την πρόοδο χρέωσης σε δευτερόλεπτα που θα χρεώνετε τους πελάτες."
+
+#: Public/form_data/FG_var_did.inc:295
 #: Public/form_data/FG_var_did_destination.inc:200
 #: Public/form_data/FG_var_config_group.inc:89
 #: Public/form_data/FG_var_trunk.inc:265
@@ -4109,7 +4165,7 @@ msgstr ""
 #: Public/form_data/FG_var_transactions.inc:84
 #: Public/form_data/FG_var_outbound_cid.php:84
 #: Public/form_data/FG_var_moneysituation.inc:77
-#: Public/form_data/FG_var_friend.inc:965
+#: Public/form_data/FG_var_friend.inc:942
 #: Public/form_data/FG_var_card_seria.inc:101
 #: Public/form_data/FG_var_phonebook.inc:122
 #: Public/form_data/FG_var_did_billing.inc:102
@@ -4123,17 +4179,17 @@ msgstr ""
 msgid "click on the delete button."
 msgstr "πατήστε το κουμπί διαγραφής."
 
-#: Public/form_data/FG_var_did.inc:258
+#: Public/form_data/FG_var_did.inc:299
 #: Public/form_data/FG_var_did_destination.inc:205
 #: Public/form_data/FG_var_config_group.inc:94
 #: Public/form_data/FG_var_alarm.inc:187
 #: Public/form_data/FG_var_monitor.inc:165
 #: Public/form_data/FG_var_outbound_cid.php:89
-#: Public/form_data/FG_var_friend.inc:970
+#: Public/form_data/FG_var_friend.inc:947
 msgid "has been inserted. <br>"
 msgstr "έχει εισαχτεί <br>"
 
-#: Public/form_data/FG_var_did.inc:261
+#: Public/form_data/FG_var_did.inc:302
 #: Public/form_data/FG_var_did_destination.inc:209
 #: Public/form_data/FG_var_config_group.inc:98
 #: Public/form_data/FG_var_card_group.inc:157
@@ -4153,7 +4209,7 @@ msgstr "έχει εισαχτεί <br>"
 #: Public/form_data/FG_var_provider.inc:113
 #: Public/form_data/FG_var_prefix.inc:134
 #: Public/form_data/FG_var_outbound_cid.php:93
-#: Public/form_data/FG_var_friend.inc:974
+#: Public/form_data/FG_var_friend.inc:951
 #: Public/form_data/FG_var_card_seria.inc:108
 #: Public/form_data/FG_var_phonebook.inc:131
 #: Public/form_data/FG_var_paymentlog.inc:209
@@ -5303,7 +5359,7 @@ msgstr "MIN"
 #: Public/form_data/FG_var_def_ratecard.inc:570
 #: Public/form_data/FG_var_tariffplan.inc:64
 #: Public/form_data/FG_var_tariffplan.inc:118
-#: Public/form_data/FG_var_friend.inc:700
+#: Public/form_data/FG_var_friend.inc:688
 #: Public/A2B_entity_def_ratecard.php:324
 #: Public/A2B_entity_def_ratecard.php:499
 msgid "TRUNK"
@@ -5793,7 +5849,7 @@ msgstr "Κατάσταση πελάτη"
 msgid "Changing the call plan will result in the free minutes or free calls package being reset."
 msgstr "Αλλάζοντας το πακέτο κλήσης θα έχει ως συνέπεια τον μηδενισμό των πακέτων των δωρεάν λεπτών ή δωρεάν κλήσεων."
 
-#: Public/form_data/FG_var_card.inc:560 Public/form_data/FG_var_friend.inc:887
+#: Public/form_data/FG_var_card.inc:560 Public/form_data/FG_var_friend.inc:865
 msgid "TIMEZONE"
 msgstr "ΖΩΝΗ ΩΡΑΣ"
 
@@ -6616,26 +6672,9 @@ msgstr "Συμπληρώστε την τιμή χρέωσης του πάροχ�
 msgid "BUYRATE MIN DURATION"
 msgstr "ΕΛΑΧΙΣΤΗ ΔΙΑΡΚΕΙΑ ΤΙΜΗΣ ΑΓΟΡΑΣ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:247
-msgid "Insert the buyrate init block"
-msgstr "Συμπληρώστε το αρχικό μπλοκ της τιμής αγοράς"
-
-#: Public/form_data/FG_var_def_ratecard.inc:248
-msgid "Set the minimum duration charged by the carrier. (i.e. 30 secs)"
-msgstr "Ορίστε την ελάχιστη χρέωση που χρεώνει ο πάροχος (π.χ. 30 δευτερόλεπτα)"
-
 #: Public/form_data/FG_var_def_ratecard.inc:251
 msgid "BUYRATE BILLING BLOCK"
 msgstr "ΜΠΛΟΚ ΤΙΜΟΛΟΓΗΣΗΣ ΤΙΜΗΣ ΑΓΟΡΑΣ"
-
-#: Public/form_data/FG_var_def_ratecard.inc:257
-#: Public/form_data/FG_var_def_ratecard.inc:287
-msgid "Insert the billing block"
-msgstr "Συμπληρώστε το μπλοκ τιμολόγησης"
-
-#: Public/form_data/FG_var_def_ratecard.inc:258
-msgid "Set the billing increment, in seconds (billing block), that the carrier applies. (ie 30 secs)"
-msgstr "Ορίστε την πρόοδο χρέωσης, σε δευτερόλεπτα (μπλοκ χρέωσης), που εφαρμόζει ο πάροχος (π.χ. 30 δευτερόλεπτα)"
 
 #: Public/form_data/FG_var_def_ratecard.inc:267
 msgid "Insert the initial rate"
@@ -6653,21 +6692,9 @@ msgstr "Ορίστε το κόστος πώλησης για τους πελάτ
 msgid "SELLRATE MIN DURATION"
 msgstr "ΕΛΑΧΙΣΤΗ ΔΙΑΡΚΕΙΑ ΤΙΜΗΣ ΠΩΛΗΣΗΣ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:277
-msgid "Insert the init block"
-msgstr "Συμπληρώστε την αρχικό μπλοκ"
-
-#: Public/form_data/FG_var_def_ratecard.inc:278
-msgid "Set the minimum duration to charge the customer (ie 60 seconds)"
-msgstr "Ορίστε τον ελάχιστο χρόνο χρέωσης για του πελάτες (π.χ. 60 δευτερόλεπτα)"
-
 #: Public/form_data/FG_var_def_ratecard.inc:281
 msgid "SELLRATE BILLING BLOCK"
 msgstr "ΜΠΛΟΚ ΤΙΜΟΛΟΓΗΣΗΣ ΤΙΜΗΣ ΠΩΛΗΣΗΣ"
-
-#: Public/form_data/FG_var_def_ratecard.inc:288
-msgid "Set the billing increment in seconds to bill your customer."
-msgstr "Ορίστε την πρόοδο χρέωσης σε δευτερόλεπτα που θα χρεώνετε τους πελάτες."
 
 #: Public/form_data/FG_var_def_ratecard.inc:298
 msgid "Apply a connection charge"
@@ -6971,7 +6998,7 @@ msgid "Set a tag on this rate"
 msgstr "Ορίστε μια ετικέτα σε αυτήν την χρέωση"
 
 #: Public/form_data/FG_var_def_ratecard.inc:603
-#: Public/form_data/FG_var_friend.inc:528
+#: Public/form_data/FG_var_friend.inc:527
 msgid "MUSICONHOLD"
 msgstr "MUSICONHOLD"
 
@@ -8204,8 +8231,6 @@ msgid "Insert the ipaddr"
 msgstr "Συμπληρώστε την διεύθυνση IP"
 
 #: Public/form_data/FG_var_friend.inc:312
-#: Public/form_data/FG_var_friend.inc:628
-#: Public/form_data/FG_var_friend.inc:749
 msgid "MOHSUGGEST"
 msgstr "MOHSUGGEST"
 
@@ -8253,297 +8278,297 @@ msgstr "PERMIT"
 msgid "Insert the permit"
 msgstr "Συμπληρώστε το permit"
 
-#: Public/form_data/FG_var_friend.inc:382
+#: Public/form_data/FG_var_friend.inc:381
 msgid "MD5SECRET"
 msgstr "MD5SECRET"
 
-#: Public/form_data/FG_var_friend.inc:388
+#: Public/form_data/FG_var_friend.inc:387
 msgid "Insert the md5secret"
 msgstr "Συμπληρώστε το md5secret"
 
-#: Public/form_data/FG_var_friend.inc:392
+#: Public/form_data/FG_var_friend.inc:391
 msgid "NAT"
 msgstr "NAT"
 
-#: Public/form_data/FG_var_friend.inc:398
+#: Public/form_data/FG_var_friend.inc:397
 msgid "Insert the nat"
 msgstr "Συμπληρώστε το nat"
 
-#: Public/form_data/FG_var_friend.inc:399
+#: Public/form_data/FG_var_friend.inc:398
 msgid "nat = yes | no | never | route ( default : yes )"
 msgstr "nat = yes | no | never | route ( προεπιλογή : yes )"
 
-#: Public/form_data/FG_var_friend.inc:402
+#: Public/form_data/FG_var_friend.inc:401
 msgid "DTMFMODE"
 msgstr "DTMFMODE"
 
-#: Public/form_data/FG_var_friend.inc:408
+#: Public/form_data/FG_var_friend.inc:407
 msgid "Insert the dtmfmode"
 msgstr "Συμπληρώστε το dtmfmode"
 
-#: Public/form_data/FG_var_friend.inc:409
+#: Public/form_data/FG_var_friend.inc:408
 msgid "dtmfmode = RFC2833 | INFO | INBAND | AUTO ( default : RFC2833 )"
 msgstr "dtmfmode = RFC2833 | INFO | INBAND | AUTO ( προεπιλογή : RFC2833 )"
 
-#: Public/form_data/FG_var_friend.inc:413
+#: Public/form_data/FG_var_friend.inc:412
 msgid "CANREINVITE"
 msgstr "CANREINVITE"
 
-#: Public/form_data/FG_var_friend.inc:419
+#: Public/form_data/FG_var_friend.inc:418
 msgid "Insert the canreinvite"
 msgstr "Συμπληρώστε το canreinvite"
 
-#: Public/form_data/FG_var_friend.inc:420
+#: Public/form_data/FG_var_friend.inc:419
 msgid "canreinvite : yes | no ( default : yes )"
 msgstr "canreinvite : yes | no ( προεπιλογή : yes )"
 
-#: Public/form_data/FG_var_friend.inc:425
+#: Public/form_data/FG_var_friend.inc:424
 msgid "CALLGROUP"
 msgstr "CALLGROUP"
 
-#: Public/form_data/FG_var_friend.inc:431
+#: Public/form_data/FG_var_friend.inc:430
 msgid "Insert the callgroup"
 msgstr "Συμπληρώστε το callgroup"
 
-#: Public/form_data/FG_var_friend.inc:437
+#: Public/form_data/FG_var_friend.inc:436
 msgid "FROMUSER"
 msgstr "FROMUSER"
 
-#: Public/form_data/FG_var_friend.inc:443
+#: Public/form_data/FG_var_friend.inc:442
 msgid "Insert the fromuser"
 msgstr "Συμπληρώστε το fromuser"
 
-#: Public/form_data/FG_var_friend.inc:447
+#: Public/form_data/FG_var_friend.inc:446
 msgid "FROMDOMAIN"
 msgstr "FROMDOMAIN"
 
-#: Public/form_data/FG_var_friend.inc:453
+#: Public/form_data/FG_var_friend.inc:452
 msgid "Insert the fromdomain"
 msgstr "Συμπληρώστε το fromdomain"
 
-#: Public/form_data/FG_var_friend.inc:457
+#: Public/form_data/FG_var_friend.inc:456
 msgid "INSECURE"
 msgstr "INSECURE"
 
-#: Public/form_data/FG_var_friend.inc:463
+#: Public/form_data/FG_var_friend.inc:462
 msgid "Insert the insecure"
 msgstr "Συμπληρώστε το insecure"
 
-#: Public/form_data/FG_var_friend.inc:467
+#: Public/form_data/FG_var_friend.inc:466
 msgid "MAILBOX"
 msgstr "MAILBOX"
 
-#: Public/form_data/FG_var_friend.inc:473
+#: Public/form_data/FG_var_friend.inc:472
 msgid "Insert the mailbox"
 msgstr "Συμπληρώστε το mailbox"
 
-#: Public/form_data/FG_var_friend.inc:478
+#: Public/form_data/FG_var_friend.inc:477
 msgid "MASK"
 msgstr "MASK"
 
-#: Public/form_data/FG_var_friend.inc:484
+#: Public/form_data/FG_var_friend.inc:483
 msgid "Insert the mask"
 msgstr "Συμπληρώστε την mask"
 
-#: Public/form_data/FG_var_friend.inc:488
+#: Public/form_data/FG_var_friend.inc:487
 msgid "PICKUPGROUP"
 msgstr "PICKUPGROUP"
 
-#: Public/form_data/FG_var_friend.inc:494
+#: Public/form_data/FG_var_friend.inc:493
 msgid "Insert the pickupgroup"
 msgstr "Συμπληρώστε το pickupgroup"
 
-#: Public/form_data/FG_var_friend.inc:498
+#: Public/form_data/FG_var_friend.inc:497
 msgid "RESTRICTCID"
 msgstr "RESTRICTCID"
 
-#: Public/form_data/FG_var_friend.inc:504
+#: Public/form_data/FG_var_friend.inc:503
 msgid "Insert the restrictcid"
 msgstr "Συμπληρώστε το restrictcid"
 
-#: Public/form_data/FG_var_friend.inc:508
+#: Public/form_data/FG_var_friend.inc:507
 msgid "RTPTIMEOUT"
 msgstr "RTPTIMEOUT"
 
-#: Public/form_data/FG_var_friend.inc:514
+#: Public/form_data/FG_var_friend.inc:513
 msgid "Insert the rtptimeout"
 msgstr "Συμπληρώστε το rtptimeout"
 
-#: Public/form_data/FG_var_friend.inc:518
+#: Public/form_data/FG_var_friend.inc:517
 msgid "RTPHOLDTIMEOUT"
 msgstr "RTPHOLDTIMEOUT"
 
-#: Public/form_data/FG_var_friend.inc:524
+#: Public/form_data/FG_var_friend.inc:523
 msgid "Insert the rtpholdtimeout"
 msgstr "Συμπληρώστε το rtpholdtimeout"
 
-#: Public/form_data/FG_var_friend.inc:534
+#: Public/form_data/FG_var_friend.inc:533
 msgid "Insert the musiconhold"
 msgstr "Συμπληρώστε το musiconhold"
 
-#: Public/form_data/FG_var_friend.inc:538
+#: Public/form_data/FG_var_friend.inc:537
 msgid "CANCALLFORWARD"
 msgstr "CANCALLFORWARD"
 
-#: Public/form_data/FG_var_friend.inc:544
+#: Public/form_data/FG_var_friend.inc:543
 msgid "Insert the cancallforward"
 msgstr "Συμπληρώστε το αν μπορεί να κάνει προώθηση κλήσης"
 
-#: Public/form_data/FG_var_friend.inc:545
+#: Public/form_data/FG_var_friend.inc:544
 msgid "cancallforward = yes | no ( default : yes )"
 msgstr "cancallforward = yes | no ( προεπιλογή : yes )"
 
-#: Public/form_data/FG_var_friend.inc:548
+#: Public/form_data/FG_var_friend.inc:547
 msgid "DEFAULTUSER"
 msgstr "DEFAULTUSER"
 
-#: Public/form_data/FG_var_friend.inc:558
+#: Public/form_data/FG_var_friend.inc:557
 msgid "SUBSCRIBEMWI"
 msgstr "ΣΥΝΔΡΟΜΗ MWI"
 
-#: Public/form_data/FG_var_friend.inc:568
+#: Public/form_data/FG_var_friend.inc:567
 msgid "VMEXTEN"
 msgstr "VMEXTEN"
 
-#: Public/form_data/FG_var_friend.inc:578
+#: Public/form_data/FG_var_friend.inc:577
 msgid "CALLINGPRES"
 msgstr "CALLINGPRES"
 
-#: Public/form_data/FG_var_friend.inc:588
+#: Public/form_data/FG_var_friend.inc:587
 msgid "USEREQPHONE"
 msgstr "USEREQPHONE"
 
-#: Public/form_data/FG_var_friend.inc:598
+#: Public/form_data/FG_var_friend.inc:597
 msgid "INCOMINGLIMIT"
 msgstr "INCOMINGLIMIT"
 
-#: Public/form_data/FG_var_friend.inc:608
+#: Public/form_data/FG_var_friend.inc:607
 msgid "SUBSCRIBECONTEXT"
 msgstr "CONTEXT ΣΥΝΔΡΟΜΗΣ"
 
-#: Public/form_data/FG_var_friend.inc:618
+#: Public/form_data/FG_var_friend.inc:617
 msgid "MUSICCLASS"
 msgstr "MUSICCLASS"
 
-#: Public/form_data/FG_var_friend.inc:639
+#: Public/form_data/FG_var_friend.inc:627
 msgid "ALLOWTRANSFER"
 msgstr "ALLOWTRANSFER"
 
-#: Public/form_data/FG_var_friend.inc:649
+#: Public/form_data/FG_var_friend.inc:637
 msgid "AUTOFRAMING"
 msgstr "AUTOFRAMING"
 
-#: Public/form_data/FG_var_friend.inc:659
+#: Public/form_data/FG_var_friend.inc:647
 msgid "MAXCALLBITRATE"
 msgstr "MAXCALLBITRATE"
 
-#: Public/form_data/FG_var_friend.inc:669
+#: Public/form_data/FG_var_friend.inc:657
 msgid "OUTBOUNDPROXY"
 msgstr "OUTBOUNDPROXY"
 
-#: Public/form_data/FG_var_friend.inc:679
+#: Public/form_data/FG_var_friend.inc:667
 msgid "REGSERVER"
 msgstr "REGSERVER"
 
-#: Public/form_data/FG_var_friend.inc:689
+#: Public/form_data/FG_var_friend.inc:677
 msgid "RTPKEEPALIVE"
 msgstr "RTPKEEPALIVE"
 
-#: Public/form_data/FG_var_friend.inc:706
+#: Public/form_data/FG_var_friend.inc:694
 msgid "Define the iax trunking"
 msgstr "Ορίστε τα κανάλια  IAX"
 
-#: Public/form_data/FG_var_friend.inc:707
+#: Public/form_data/FG_var_friend.inc:695
 msgid "iax trunking = yes | no ( default : yes )"
 msgstr "iax trunking = yes | no ( προεπιλογή : yes )"
 
-#: Public/form_data/FG_var_friend.inc:710
+#: Public/form_data/FG_var_friend.inc:698
 msgid "DBSECRET"
 msgstr "DBSECRET"
 
-#: Public/form_data/FG_var_friend.inc:720
+#: Public/form_data/FG_var_friend.inc:708
 msgid "REGCONTEXT"
 msgstr "REGCONTEXT"
 
-#: Public/form_data/FG_var_friend.inc:730
+#: Public/form_data/FG_var_friend.inc:718
 msgid "SOURCEADDRESS"
 msgstr "ΔΙΕΥΘΥΝΣΗ ΠΗΓΗΣ"
 
-#: Public/form_data/FG_var_friend.inc:739
+#: Public/form_data/FG_var_friend.inc:727
 msgid "MOHINTERPRET"
 msgstr "MOHINTERPRET"
 
-#: Public/form_data/FG_var_friend.inc:759
+#: Public/form_data/FG_var_friend.inc:737
 msgid "INKEYS"
 msgstr "INKEYS"
 
-#: Public/form_data/FG_var_friend.inc:769
+#: Public/form_data/FG_var_friend.inc:747
 msgid "OUTKEY"
 msgstr "OUTKEY"
 
-#: Public/form_data/FG_var_friend.inc:778
+#: Public/form_data/FG_var_friend.inc:756
 msgid "SENDANI"
 msgstr "ΑΠΟΣΤΟΛΗ ANI"
 
-#: Public/form_data/FG_var_friend.inc:787
+#: Public/form_data/FG_var_friend.inc:765
 msgid "FULLNAME"
 msgstr "ΠΛΗΡΕΣ ΟΝΟΜΑ"
 
-#: Public/form_data/FG_var_friend.inc:797
+#: Public/form_data/FG_var_friend.inc:775
 msgid "MAXAUTHREQ"
 msgstr "MAXAUTHREQ"
 
-#: Public/form_data/FG_var_friend.inc:807
+#: Public/form_data/FG_var_friend.inc:785
 msgid "ENCRYPTION"
 msgstr "ΚΡΥΠΤΟΓΡΑΦΗΣΗ"
 
-#: Public/form_data/FG_var_friend.inc:817
+#: Public/form_data/FG_var_friend.inc:795
 msgid "TRANSFER"
 msgstr "ΜΕΤΑΒΙΒΑΣΗ"
 
-#: Public/form_data/FG_var_friend.inc:827
+#: Public/form_data/FG_var_friend.inc:805
 msgid "JITTERBUFFER"
 msgstr "JITTERBUFFER"
 
-#: Public/form_data/FG_var_friend.inc:837
+#: Public/form_data/FG_var_friend.inc:815
 msgid "FORCEJITTERBUFFER"
 msgstr "FORCEJITTERBUFFER"
 
-#: Public/form_data/FG_var_friend.inc:847
+#: Public/form_data/FG_var_friend.inc:825
 msgid "CODECPRIORITY"
 msgstr "ΠΡΟΤΕΡΑΙΟΤΗΤΑ CODEC"
 
-#: Public/form_data/FG_var_friend.inc:857
+#: Public/form_data/FG_var_friend.inc:835
 msgid "QUALIFYSMOOTHING"
 msgstr "QUALIFYSMOOTHING"
 
-#: Public/form_data/FG_var_friend.inc:867
+#: Public/form_data/FG_var_friend.inc:845
 msgid "QUALIFYFREQOK"
 msgstr "QUALIFYFREQOK"
 
-#: Public/form_data/FG_var_friend.inc:877
+#: Public/form_data/FG_var_friend.inc:855
 msgid "QUALIFYFREQNOTOK"
 msgstr "QUALIFYFREQNOTOK"
 
-#: Public/form_data/FG_var_friend.inc:897
+#: Public/form_data/FG_var_friend.inc:875
 msgid "ADSI"
 msgstr "ADSI"
 
-#: Public/form_data/FG_var_friend.inc:907
+#: Public/form_data/FG_var_friend.inc:885
 msgid "REQUITE CALL TOKEN"
 msgstr "REQUITE CALL TOKEN"
 
-#: Public/form_data/FG_var_friend.inc:914
-#: Public/form_data/FG_var_friend.inc:924
-#: Public/form_data/FG_var_friend.inc:934
+#: Public/form_data/FG_var_friend.inc:892
+#: Public/form_data/FG_var_friend.inc:902
+#: Public/form_data/FG_var_friend.inc:912
 msgid "No supported by Realtime"
 msgstr "Δεν υποστηρίζετε σε πραγματικό χρόνο"
 
-#: Public/form_data/FG_var_friend.inc:917
+#: Public/form_data/FG_var_friend.inc:895
 msgid "MAX CALL NUMBERS"
 msgstr "ΜΕΓΙΣΤΟΣ ΑΡΙΘΜΟΣ ΚΛΗΣΕΩΝ"
 
-#: Public/form_data/FG_var_friend.inc:927
+#: Public/form_data/FG_var_friend.inc:905
 msgid "MAX CALL NUMBERS NON VALIDATED"
 msgstr "ΜΗ ΕΛΕΓΧΟΜΕΝΟΣ ΜΕΓΙΣΤΟΣ ΑΡΙΘΜΟΣ ΚΛΗΣΕΩΝ"
 
@@ -9665,12 +9690,12 @@ msgid "Error: Failed to open the file."
 msgstr "Σφάλμα: Αποτυχία κατά το άνοιγμα του αρχείου."
 
 #: Public/A2B_phonelist_import_analyse.php:236
-#: Public/CC_ratecard_import_analyse.php:267
+#: Public/CC_ratecard_import_analyse.php:265
 msgid "The first line of your import is previewed below, please check to ensure that every is correct"
 msgstr "Παρακάτω προβάλετε η πρώτη γραμμή της εισαγωγής σας, παρακαλώ ελέγξτε αν όλα είναι σωστά."
 
 #: Public/A2B_phonelist_import_analyse.php:283
-#: Public/CC_ratecard_import_analyse.php:313
+#: Public/CC_ratecard_import_analyse.php:311
 msgid "Please check if the datas above are correct."
 msgstr "Παρακαλώ ελέγξτε αν τα παραπάνω δεδομένα είναι σωστά."
 
@@ -9679,7 +9704,7 @@ msgid "new phone number have been imported"
 msgstr "νέο τηλεφωνικό νούμερο έχει εισαχτεί"
 
 #: Public/A2B_phonelist_import_analyse.php:333
-#: Public/CC_ratecard_import_analyse.php:362
+#: Public/CC_ratecard_import_analyse.php:360
 msgid "Line that has not been inserted"
 msgstr "Γραμμή που δεν έχει εισαχτεί"
 
@@ -10351,7 +10376,7 @@ msgstr "Δεν έχει οριστεί σχέδιο χρεώσεων!"
 msgid "No Trunk defined !"
 msgstr "Δεν έχει οριστεί γραμμή!"
 
-#: Public/CC_ratecard_import_analyse.php:356
+#: Public/CC_ratecard_import_analyse.php:354
 msgid "new rates have been imported"
 msgstr "νέες τιμές έχουν εισαχτεί"
 

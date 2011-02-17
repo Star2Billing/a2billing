@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-08 23:59+0100\n"
+"POT-Creation-Date: 2011-02-18 00:40+0100\n"
 "PO-Revision-Date: 2009-07-22 HO:MI+ZONE\n"
 "Last-Translator: ARNOLD\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -591,7 +591,7 @@ msgstr "Vous pouvez modifier, &agrave la forme suivante, les différents param&e
 #: lib/Form/Class.FormHandler.inc.php:554 Public/form_data/FG_var_card.inc:945
 #: Public/form_data/FG_var_def_ratecard.inc:129
 #: Public/form_data/FG_var_moneysituation.inc:78
-#: Public/form_data/FG_var_friend.inc:947
+#: Public/form_data/FG_var_friend.inc:925
 #: Public/form_data/FG_var_ticket.inc:172
 #: Public/form_data/FG_var_ticket_agent.inc:90
 #: Public/form_data/FG_var_callerid.inc:121
@@ -613,7 +613,7 @@ msgstr "&agrave éé supprimer !"
 #: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_card.inc:946
 #: Public/form_data/FG_var_def_ratecard.inc:130
 #: Public/form_data/FG_var_moneysituation.inc:79
-#: Public/form_data/FG_var_friend.inc:948
+#: Public/form_data/FG_var_friend.inc:926
 #: Public/form_data/FG_var_ticket.inc:173
 #: Public/form_data/FG_var_ticket_agent.inc:91
 #: Public/form_data/FG_var_callerid.inc:122
@@ -623,7 +623,7 @@ msgstr "Vous pouvez ajouter facilement un nouveau"
 #: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_card.inc:946
 #: Public/form_data/FG_var_def_ratecard.inc:130
 #: Public/form_data/FG_var_moneysituation.inc:79
-#: Public/form_data/FG_var_friend.inc:948
+#: Public/form_data/FG_var_friend.inc:926
 #: Public/form_data/FG_var_ticket.inc:173
 #: Public/form_data/FG_var_ticket_agent.inc:91
 #: Public/form_data/FG_var_callerid.inc:122
@@ -641,7 +641,7 @@ msgstr "maintenant."
 #: lib/Form/Class.FormHandler.inc.php:559
 #: lib/Form/Class.FormHandler.inc.php:560 Public/form_data/FG_var_card.inc:950
 #: Public/form_data/FG_var_def_ratecard.inc:134
-#: Public/form_data/FG_var_friend.inc:952
+#: Public/form_data/FG_var_friend.inc:930
 #: Public/form_data/FG_var_ticket.inc:177
 #: Public/form_data/FG_var_ticket_agent.inc:95
 #: Public/form_data/FG_var_callerid.inc:132
@@ -806,67 +806,67 @@ msgstr "Choisir une grille tarifaire"
 msgid "Create a new "
 msgstr "Créer un nouveau "
 
-#: lib/Misc.php:515 lib/Class.Notification.php:140
+#: lib/Misc.php:523 lib/Class.Notification.php:140
 msgid "UNKNOWN"
 msgstr "INCONNU"
 
-#: lib/Misc.php:714
+#: lib/Misc.php:722
 msgid "First"
 msgstr "Prem"
 
-#: lib/Misc.php:715
+#: lib/Misc.php:723
 msgid "Prev"
 msgstr "Prec"
 
-#: lib/Misc.php:716 Public/call-log-customers.php:1100
+#: lib/Misc.php:724 Public/call-log-customers.php:1100
 msgid "Next"
 msgstr "Proch"
 
-#: lib/Misc.php:717
+#: lib/Misc.php:725
 msgid "Last"
 msgstr "Dern"
 
-#: lib/Misc.php:807
+#: lib/Misc.php:815
 msgid "File size is greater than allowed limit."
 msgstr "La taille du fichier dépasse la limite autorisé."
 
-#: lib/Misc.php:810
+#: lib/Misc.php:818
 msgid "You did not upload anything!"
 msgstr "Vous n'avez rien charger !"
 
-#: lib/Misc.php:813
+#: lib/Misc.php:821
 msgid "Failed to upload the file, The file you uploaded may not exist on disk."
 msgstr "Echec chargement du fichier ! Le fichier chargé n'existe peut-&ecirc;tre pas sur le disque."
 
-#: lib/Misc.php:816
+#: lib/Misc.php:824
 msgid "file type is not allowed"
 msgstr " le type de fichier n'est pas autorisé"
 
-#: lib/Misc.php:1122
+#: lib/Misc.php:1130
 msgid "Can't find our base_currency in cc_currencies."
 msgstr "Impossible de trouver notre base_currency dans cc_currencies."
 
-#: lib/Misc.php:1122 lib/Misc.php:1145 lib/Misc.php:1149 lib/Misc.php:1159
+#: lib/Misc.php:1130 lib/Misc.php:1153 lib/Misc.php:1157 lib/Misc.php:1167
 msgid "Currency update ABORTED."
 msgstr "Mise &agrave jour de la devise ECHOUÉ."
 
-#: lib/Misc.php:1145
+#: lib/Misc.php:1153
 msgid "The CSV file doesn't contain all the currencies we requested."
 msgstr "Le fichier CSV ne contient pas toutes les devises requises."
 
-#: lib/Misc.php:1149
+#: lib/Misc.php:1157
 msgid "At least one of the entries in the CSV file isn't a number."
 msgstr "Au moins une entrée, dans le fichier CSV, n'est pas un nombre."
 
-#: lib/Misc.php:1159
+#: lib/Misc.php:1167
 msgid "Our base_currency seems to be worthless."
 msgstr "Notre base_currency semble &ecirc;tre inutile."
 
-#: lib/Misc.php:1197
+#: lib/Misc.php:1205
 msgid "Success! All currencies are now updated."
 msgstr "Reussie ! Toutes les devises sont &agrave jour."
 
-#: lib/Misc.php:1488
+#: lib/Misc.php:1496
 msgid "GO TO CUSTOMER ACCOUNT"
 msgstr "ALLERS VERS LE COMPTE CLIENT"
 
@@ -1330,24 +1330,24 @@ msgstr "AUCUNE REMISE"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Longueur de numéro de carte définis dans la configuration invalide."
 
-#: lib/Class.A2Billing.php:3239
+#: lib/Class.A2Billing.php:3276
 msgid "Error : Authentication Failed !!!"
 msgstr "Erreur : Echec authentification !!!"
 
-#: lib/Class.A2Billing.php:3279
+#: lib/Class.A2Billing.php:3316
 msgid "Error : Not enough credit to call !!!"
 msgstr "Erreur :  Crédit insuffisant pour téléphoner !!!"
 
-#: lib/Class.A2Billing.php:3285
+#: lib/Class.A2Billing.php:3322
 msgid "Error : Card is not active!!!"
 msgstr "Erreur : Carte incative !!!"
 
-#: lib/Class.A2Billing.php:3291
+#: lib/Class.A2Billing.php:3328
 msgid "Error : Card is actually in use!!!"
 msgstr "Erreur : Carte en cours d'utilisation !!!"
 
-#: lib/Class.A2Billing.php:3300 lib/Class.A2Billing.php:3308
-#: lib/Class.A2Billing.php:3316
+#: lib/Class.A2Billing.php:3337 lib/Class.A2Billing.php:3345
+#: lib/Class.A2Billing.php:3353
 msgid "Error : Card have expired!!!"
 msgstr "Erreur : La carte &agrave expiré !!!"
 
@@ -2461,7 +2461,7 @@ msgstr "PLAN DE NUMEROTATION"
 msgid "DIDGROUP"
 msgstr "GROUPE SDA"
 
-#: Public/form_data/FG_var_card.inc:553 Public/form_data/FG_var_friend.inc:898
+#: Public/form_data/FG_var_card.inc:553 Public/form_data/FG_var_friend.inc:877
 msgid "TIMEZONE"
 msgstr "FUSEAU HORAIRE"
 
@@ -2749,7 +2749,7 @@ msgstr "HISTORIQUE CLIENT"
 #: Public/form_data/FG_var_card.inc:945
 #: Public/form_data/FG_var_def_ratecard.inc:129
 #: Public/form_data/FG_var_moneysituation.inc:78
-#: Public/form_data/FG_var_friend.inc:947
+#: Public/form_data/FG_var_friend.inc:925
 #: Public/form_data/FG_var_ticket.inc:172
 #: Public/form_data/FG_var_ticket_agent.inc:90
 #: Public/form_data/FG_var_callerid.inc:121
@@ -2766,7 +2766,7 @@ msgstr "&agrave été saisie."
 
 #: Public/form_data/FG_var_card.inc:954
 #: Public/form_data/FG_var_moneysituation.inc:99
-#: Public/form_data/FG_var_friend.inc:956
+#: Public/form_data/FG_var_friend.inc:934
 msgid "Once you have completed the form above, click on the CONTINUE button."
 msgstr "Apr&egrave;s avoir complété le formulaire, ci-dessus, cliquez sur le bouton CONTINUER."
 
@@ -3148,8 +3148,6 @@ msgid "Insert the ipaddr"
 msgstr "Saisir l'adresse IP"
 
 #: Public/form_data/FG_var_friend.inc:325
-#: Public/form_data/FG_var_friend.inc:639
-#: Public/form_data/FG_var_friend.inc:760
 msgid "MOHSUGGEST"
 msgstr ""
 
@@ -3386,127 +3384,127 @@ msgstr "CONTEXTE"
 msgid "MUSICCLASS"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:650
+#: Public/form_data/FG_var_friend.inc:639
 msgid "ALLOWTRANSFER"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:660
+#: Public/form_data/FG_var_friend.inc:649
 msgid "AUTOFRAMING"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:670
+#: Public/form_data/FG_var_friend.inc:659
 #, fuzzy
 msgid "MAXCALLBITRATE"
 msgstr "DATE APPEL"
 
-#: Public/form_data/FG_var_friend.inc:680
+#: Public/form_data/FG_var_friend.inc:669
 msgid "OUTBOUNDPROXY"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:690
+#: Public/form_data/FG_var_friend.inc:679
 #, fuzzy
 msgid "REGSERVER"
 msgstr "RESERVÉ"
 
-#: Public/form_data/FG_var_friend.inc:700
+#: Public/form_data/FG_var_friend.inc:689
 msgid "RTPKEEPALIVE"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:711
+#: Public/form_data/FG_var_friend.inc:700
 msgid "TRUNK"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:717
+#: Public/form_data/FG_var_friend.inc:706
 msgid "Define the iax trunking"
 msgstr "Paramétrer le raccordement iax"
 
-#: Public/form_data/FG_var_friend.inc:718
+#: Public/form_data/FG_var_friend.inc:707
 msgid "iax trunking = yes | no ( default : yes )"
 msgstr "raccordement iax = oui | non ( par défaut : oui )"
 
-#: Public/form_data/FG_var_friend.inc:721
+#: Public/form_data/FG_var_friend.inc:710
 #, fuzzy
 msgid "DBSECRET"
 msgstr "MOT DE PASSE"
 
-#: Public/form_data/FG_var_friend.inc:731
+#: Public/form_data/FG_var_friend.inc:720
 #, fuzzy
 msgid "REGCONTEXT"
 msgstr "CONTEXTE"
 
-#: Public/form_data/FG_var_friend.inc:741
+#: Public/form_data/FG_var_friend.inc:730
 #, fuzzy
 msgid "SOURCEADDRESS"
 msgstr "ADRESSE"
 
-#: Public/form_data/FG_var_friend.inc:750
+#: Public/form_data/FG_var_friend.inc:739
 msgid "MOHINTERPRET"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:770
+#: Public/form_data/FG_var_friend.inc:749
 #, fuzzy
 msgid "INKEYS"
 msgstr "CLE"
 
-#: Public/form_data/FG_var_friend.inc:780
+#: Public/form_data/FG_var_friend.inc:759
 #, fuzzy
 msgid "OUTKEY"
 msgstr "CLE"
 
-#: Public/form_data/FG_var_friend.inc:789
+#: Public/form_data/FG_var_friend.inc:768
 #, fuzzy
 msgid "SENDANI"
 msgstr "ENVOYÉ-PAYÉ"
 
-#: Public/form_data/FG_var_friend.inc:798
+#: Public/form_data/FG_var_friend.inc:777
 #, fuzzy
 msgid "FULLNAME"
 msgstr "NOM"
 
-#: Public/form_data/FG_var_friend.inc:808
+#: Public/form_data/FG_var_friend.inc:787
 msgid "MAXAUTHREQ"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:818
+#: Public/form_data/FG_var_friend.inc:797
 #, fuzzy
 msgid "ENCRYPTION"
 msgstr "DESCRIPTION"
 
-#: Public/form_data/FG_var_friend.inc:828
+#: Public/form_data/FG_var_friend.inc:807
 #, fuzzy
 msgid "TRANSFER"
 msgstr "REPONSE"
 
-#: Public/form_data/FG_var_friend.inc:838
+#: Public/form_data/FG_var_friend.inc:817
 msgid "JITTERBUFFER"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:848
+#: Public/form_data/FG_var_friend.inc:827
 msgid "FORCEJITTERBUFFER"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:858
+#: Public/form_data/FG_var_friend.inc:837
 #, fuzzy
 msgid "CODECPRIORITY"
 msgstr "PRORITE"
 
-#: Public/form_data/FG_var_friend.inc:868
+#: Public/form_data/FG_var_friend.inc:847
 msgid "QUALIFYSMOOTHING"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:878
+#: Public/form_data/FG_var_friend.inc:857
 msgid "QUALIFYFREQOK"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:888
+#: Public/form_data/FG_var_friend.inc:867
 msgid "QUALIFYFREQNOTOK"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:908
+#: Public/form_data/FG_var_friend.inc:887
 msgid "ADSI"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:952
+#: Public/form_data/FG_var_friend.inc:930
 msgid "has been inserted. <br>"
 msgstr "&agrave été saisie. <br>"
 

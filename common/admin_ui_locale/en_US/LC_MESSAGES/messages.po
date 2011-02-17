@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Admin : 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-08 23:59+0100\n"
+"POT-Creation-Date: 2011-02-18 00:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -1174,7 +1174,7 @@ msgstr ""
 msgid "You can modify, through the following form, the different properties of your"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:554 Public/form_data/FG_var_did.inc:254
+#: lib/Form/Class.FormHandler.inc.php:554 Public/form_data/FG_var_did.inc:295
 #: Public/form_data/FG_var_did_destination.inc:200
 #: Public/form_data/FG_var_config_group.inc:89
 #: Public/form_data/FG_var_trunk.inc:265
@@ -1211,7 +1211,7 @@ msgstr ""
 #: Public/form_data/FG_var_transactions.inc:84
 #: Public/form_data/FG_var_outbound_cid.php:84
 #: Public/form_data/FG_var_moneysituation.inc:77
-#: Public/form_data/FG_var_friend.inc:965
+#: Public/form_data/FG_var_friend.inc:942
 #: Public/form_data/FG_var_card_seria.inc:101
 #: Public/form_data/FG_var_phonebook.inc:122
 #: Public/form_data/FG_var_did_billing.inc:102
@@ -1237,7 +1237,7 @@ msgstr ""
 msgid "has been deleted!"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_did.inc:255
+#: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_did.inc:296
 #: Public/form_data/FG_var_did_destination.inc:201
 #: Public/form_data/FG_var_config_group.inc:90
 #: Public/form_data/FG_var_trunk.inc:266
@@ -1271,7 +1271,7 @@ msgstr ""
 #: Public/form_data/FG_var_subscriber.inc:135
 #: Public/form_data/FG_var_outbound_cid.php:85
 #: Public/form_data/FG_var_moneysituation.inc:78
-#: Public/form_data/FG_var_friend.inc:966
+#: Public/form_data/FG_var_friend.inc:943
 #: Public/form_data/FG_var_card_seria.inc:102
 #: Public/form_data/FG_var_phonebook.inc:123
 #: Public/form_data/FG_var_did_billing.inc:103
@@ -1285,7 +1285,7 @@ msgstr ""
 msgid "you can add easily a new"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_did.inc:255
+#: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_did.inc:296
 #: Public/form_data/FG_var_did_destination.inc:201
 #: Public/form_data/FG_var_config_group.inc:90
 #: Public/form_data/FG_var_trunk.inc:266
@@ -1320,7 +1320,7 @@ msgstr ""
 #: Public/form_data/FG_var_subscriber.inc:135
 #: Public/form_data/FG_var_outbound_cid.php:85
 #: Public/form_data/FG_var_moneysituation.inc:78
-#: Public/form_data/FG_var_friend.inc:966
+#: Public/form_data/FG_var_friend.inc:943
 #: Public/form_data/FG_var_card_seria.inc:102
 #: Public/form_data/FG_var_phonebook.inc:123
 #: Public/form_data/FG_var_did_billing.inc:103
@@ -1347,7 +1347,7 @@ msgid "now."
 msgstr ""
 
 #: lib/Form/Class.FormHandler.inc.php:559
-#: lib/Form/Class.FormHandler.inc.php:560 Public/form_data/FG_var_did.inc:258
+#: lib/Form/Class.FormHandler.inc.php:560 Public/form_data/FG_var_did.inc:299
 #: Public/form_data/FG_var_did_destination.inc:205
 #: Public/form_data/FG_var_config_group.inc:94
 #: Public/form_data/FG_var_trunk.inc:269
@@ -1380,7 +1380,7 @@ msgstr ""
 #: Public/form_data/FG_var_prefix.inc:130
 #: Public/form_data/FG_var_subscriber.inc:139
 #: Public/form_data/FG_var_outbound_cid.php:89
-#: Public/form_data/FG_var_friend.inc:970
+#: Public/form_data/FG_var_friend.inc:947
 #: Public/form_data/FG_var_card_seria.inc:105
 #: Public/form_data/FG_var_phonebook.inc:127
 #: Public/form_data/FG_var_did_billing.inc:107
@@ -1555,68 +1555,68 @@ msgstr ""
 msgid "Create a new "
 msgstr ""
 
-#: lib/Misc.php:515 lib/Class.Notification.php:140
+#: lib/Misc.php:523 lib/Class.Notification.php:140
 msgid "UNKNOWN"
 msgstr ""
 
-#: lib/Misc.php:714
+#: lib/Misc.php:722
 msgid "First"
 msgstr ""
 
-#: lib/Misc.php:715
+#: lib/Misc.php:723
 msgid "Prev"
 msgstr ""
 
-#: lib/Misc.php:716 Public/call-log-customers.php:1140
+#: lib/Misc.php:724 Public/call-log-customers.php:1140
 #: Public/A2B_detail_package.php:533
 msgid "Next"
 msgstr ""
 
-#: lib/Misc.php:717
+#: lib/Misc.php:725
 msgid "Last"
 msgstr ""
 
-#: lib/Misc.php:807
+#: lib/Misc.php:815
 msgid "File size is greater than allowed limit."
 msgstr ""
 
-#: lib/Misc.php:810
+#: lib/Misc.php:818
 msgid "You did not upload anything!"
 msgstr ""
 
-#: lib/Misc.php:813
+#: lib/Misc.php:821
 msgid "Failed to upload the file, The file you uploaded may not exist on disk."
 msgstr ""
 
-#: lib/Misc.php:816
+#: lib/Misc.php:824
 msgid "file type is not allowed"
 msgstr ""
 
-#: lib/Misc.php:1122
+#: lib/Misc.php:1130
 msgid "Can't find our base_currency in cc_currencies."
 msgstr ""
 
-#: lib/Misc.php:1122 lib/Misc.php:1145 lib/Misc.php:1149 lib/Misc.php:1159
+#: lib/Misc.php:1130 lib/Misc.php:1153 lib/Misc.php:1157 lib/Misc.php:1167
 msgid "Currency update ABORTED."
 msgstr ""
 
-#: lib/Misc.php:1145
+#: lib/Misc.php:1153
 msgid "The CSV file doesn't contain all the currencies we requested."
 msgstr ""
 
-#: lib/Misc.php:1149
+#: lib/Misc.php:1157
 msgid "At least one of the entries in the CSV file isn't a number."
 msgstr ""
 
-#: lib/Misc.php:1159
+#: lib/Misc.php:1167
 msgid "Our base_currency seems to be worthless."
 msgstr ""
 
-#: lib/Misc.php:1197
+#: lib/Misc.php:1205
 msgid "Success! All currencies are now updated."
 msgstr ""
 
-#: lib/Misc.php:1488
+#: lib/Misc.php:1496
 msgid "GO TO CUSTOMER ACCOUNT"
 msgstr ""
 
@@ -1973,7 +1973,7 @@ msgid "WAITING-MAILCONFIRMATION"
 msgstr ""
 
 #: lib/interface/constants.php:327 lib/interface/constants.php:345
-#: Public/A2B_mass_mail.php:60 Public/form_data/FG_var_did.inc:68
+#: Public/A2B_mass_mail.php:60 Public/form_data/FG_var_did.inc:67
 #: Public/A2B_data_archiving.php:93 Public/A2B_data_archiving.php:101
 msgid "RESERVED"
 msgstr ""
@@ -1997,7 +1997,7 @@ msgid "WAITING SUBSCRIPTION PAYMENT"
 msgstr ""
 
 #: lib/interface/constants.php:342 lib/interface/constants.php:367
-#: Public/form_data/FG_var_did.inc:66 Public/form_data/FG_var_did.inc:163
+#: Public/form_data/FG_var_did.inc:65 Public/form_data/FG_var_did.inc:162
 #: Public/form_data/FG_var_did_destination.inc:146
 #: Public/form_data/FG_var_subscription_signup.inc:82
 #: Public/form_data/FG_var_voucher.inc:82
@@ -2121,24 +2121,24 @@ msgstr ""
 msgid "Invalid card number lenght defined in configuration."
 msgstr ""
 
-#: lib/Class.A2Billing.php:3239
+#: lib/Class.A2Billing.php:3276
 msgid "Error : Authentication Failed !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3279
+#: lib/Class.A2Billing.php:3316
 msgid "Error : Not enough credit to call !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3285
+#: lib/Class.A2Billing.php:3322
 msgid "Error : Card is not active!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3291
+#: lib/Class.A2Billing.php:3328
 msgid "Error : Card is actually in use!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3300 lib/Class.A2Billing.php:3308
-#: lib/Class.A2Billing.php:3316
+#: lib/Class.A2Billing.php:3337 lib/Class.A2Billing.php:3345
+#: lib/Class.A2Billing.php:3353
 msgid "Error : Card have expired!!!"
 msgstr ""
 
@@ -2476,7 +2476,7 @@ msgstr ""
 msgid "CALLS"
 msgstr ""
 
-#: Public/call-comp.php:448 Public/form_data/FG_var_did.inc:66
+#: Public/call-comp.php:448 Public/form_data/FG_var_did.inc:65
 #: Public/call-daily-load.php:379
 msgid "ACT"
 msgstr ""
@@ -2939,7 +2939,7 @@ msgstr ""
 
 #: Public/CC_card_import_analyse.php:273
 #: Public/A2B_phonelist_import_analyse.php:243
-#: Public/CC_ratecard_import_analyse.php:272
+#: Public/CC_ratecard_import_analyse.php:270
 #: Public/A2B_entity_did_import_analyse.php:300
 msgid "FIELD"
 msgstr ""
@@ -2953,7 +2953,7 @@ msgstr ""
 #: Public/form_data/FG_var_config.inc:204
 #: Public/form_data/FG_var_config.inc:212 Public/A2B_entity_config.php:112
 #: Public/A2B_phonelist_import_analyse.php:246
-#: Public/CC_ratecard_import_analyse.php:275
+#: Public/CC_ratecard_import_analyse.php:273
 #: Public/A2B_entity_did_import_analyse.php:303
 msgid "VALUE"
 msgstr ""
@@ -2965,14 +2965,14 @@ msgstr ""
 
 #: Public/CC_card_import_analyse.php:307
 #: Public/A2B_phonelist_import_analyse.php:283
-#: Public/CC_ratecard_import_analyse.php:313
+#: Public/CC_ratecard_import_analyse.php:311
 #: Public/A2B_entity_did_import_analyse.php:344
 msgid "If Yes"
 msgstr ""
 
 #: Public/CC_card_import_analyse.php:307
 #: Public/A2B_phonelist_import_analyse.php:283
-#: Public/CC_ratecard_import_analyse.php:313
+#: Public/CC_ratecard_import_analyse.php:311
 #: Public/A2B_entity_did_import_analyse.php:344
 msgid "you can continue the import. Otherwise you must fix your csv file!"
 msgstr ""
@@ -2983,7 +2983,7 @@ msgstr ""
 
 #: Public/CC_card_import_analyse.php:352
 #: Public/A2B_phonelist_import_analyse.php:327
-#: Public/CC_ratecard_import_analyse.php:356
+#: Public/CC_ratecard_import_analyse.php:354
 msgid "Success"
 msgstr ""
 
@@ -3838,11 +3838,11 @@ msgstr ""
 msgid "All Dids"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:43
+#: Public/form_data/FG_var_did.inc:42
 msgid "Add DID"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:60 Public/form_data/FG_var_did.inc:105
+#: Public/form_data/FG_var_did.inc:59 Public/form_data/FG_var_did.inc:104
 #: Public/form_data/FG_var_did_destination.inc:73
 #: Public/form_data/FG_var_did_destination.inc:135
 #: Public/form_data/FG_var_card_group.inc:88
@@ -3853,18 +3853,18 @@ msgstr ""
 msgid "DID"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:61 Public/form_data/FG_var_ticket.inc:75
+#: Public/form_data/FG_var_did.inc:60 Public/form_data/FG_var_ticket.inc:75
 #: Public/card-history.php:151
 msgid "CUSTOMER"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:62 Public/form_data/FG_var_did.inc:115
+#: Public/form_data/FG_var_did.inc:61 Public/form_data/FG_var_did.inc:114
 #: Public/form_data/FG_var_user.inc:76 Public/form_data/FG_var_agent.inc:71
 #: Public/templates/default/main.tpl:302
 msgid "BILLING"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:63 Public/form_data/FG_var_did.inc:124
+#: Public/form_data/FG_var_did.inc:62 Public/form_data/FG_var_did.inc:123
 #: Public/form_data/FG_var_subscription.inc:132
 #: Public/form_data/FG_var_def_ratecard.inc:172
 #: Public/form_data/FG_var_def_ratecard.inc:473
@@ -3874,52 +3874,52 @@ msgstr ""
 msgid "START DATE"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:64 Public/form_data/FG_var_did.inc:142
+#: Public/form_data/FG_var_did.inc:63 Public/form_data/FG_var_did.inc:141
 #: Public/form_data/FG_var_card.inc:538
 msgid "DIDGROUP"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:65 Public/form_data/FG_var_did.inc:152
+#: Public/form_data/FG_var_did.inc:64 Public/form_data/FG_var_did.inc:151
 #: Public/form_data/FG_var_card.inc:455 Public/form_data/FG_var_user.inc:210
 #: Public/form_data/FG_var_agent.inc:308 Public/A2B_admin_info.php:135
 #: Public/A2B_card_info.php:281 Public/A2B_agent_info.php:152
 msgid "COUNTRY"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:67
+#: Public/form_data/FG_var_did.inc:66
 #: Public/form_data/FG_var_did_destination.inc:78
 #: Public/form_data/FG_var_trunk.inc:103
 #: Public/form_data/FG_var_tariffplan.inc:65
 msgid "MINUTES USED"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:67
+#: Public/form_data/FG_var_did.inc:66
 msgid "MU"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:68
+#: Public/form_data/FG_var_did.inc:67
 msgid "RES"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:69 Public/form_data/FG_var_did.inc:172
+#: Public/form_data/FG_var_did.inc:68 Public/form_data/FG_var_did.inc:171
 msgid "MONTHLY RATE"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:69
+#: Public/form_data/FG_var_did.inc:68
 msgid "MR"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:70 Public/form_data/FG_var_did.inc:194
+#: Public/form_data/FG_var_did.inc:69 Public/form_data/FG_var_did.inc:193
 #: Public/form_data/FG_var_def_ratecard.inc:261
 msgid "SELLING RATE"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:70
+#: Public/form_data/FG_var_did.inc:69
 #: Public/form_data/FG_var_def_ratecard.inc:120
 msgid "SR"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:75
+#: Public/form_data/FG_var_did.inc:74
 #: Public/form_data/FG_var_payment_configuration.inc:53
 #: Public/form_data/FG_var_config_group.inc:67
 #: Public/form_data/FG_var_paymentlog.inc:108
@@ -3928,131 +3928,183 @@ msgstr ""
 msgid "THERE ARE NO "
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:111
+#: Public/form_data/FG_var_did.inc:110
 #: Public/form_data/FG_var_did_destination.inc:117
 msgid "Insert the DID"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:113
+#: Public/form_data/FG_var_did.inc:112
 msgid "Define the DID's. If you ADD a new DID, NOT an EDIT, you can define a range of DID. <br>80412340210-80412340218 would add all DID's between the range, whereas DIDs separated by a comma e.g. 80412340210,80412340212,80412340214 would only add the individual DID listed."
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:130
+#: Public/form_data/FG_var_did.inc:129
 #: Public/form_data/FG_var_def_ratecard.inc:479
 #: Public/form_data/FG_var_tariffplan.inc:106
 #: Public/form_data/FG_var_campaign.inc:177
 msgid "Insert the starting date"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:131 Public/form_data/FG_var_did.inc:140
+#: Public/form_data/FG_var_did.inc:130 Public/form_data/FG_var_did.inc:139
 #: Public/form_data/FG_var_def_ratecard.inc:480
 #: Public/form_data/FG_var_voucher.inc:193
 #: Public/form_data/FG_var_tariffplan.inc:116
 msgid "Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:133 Public/form_data/FG_var_card.inc:742
+#: Public/form_data/FG_var_did.inc:132 Public/form_data/FG_var_card.inc:742
 #: Public/form_data/FG_var_voucher.inc:186
 #: Public/form_data/FG_var_tariffplan.inc:63
 #: Public/form_data/FG_var_tariffplan.inc:109
 msgid "EXPIRY DATE"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:139 Public/form_data/FG_var_card.inc:748
+#: Public/form_data/FG_var_did.inc:138 Public/form_data/FG_var_card.inc:748
 #: Public/form_data/FG_var_voucher.inc:192
 #: Public/form_data/FG_var_tariffplan.inc:115
 #: Public/form_data/FG_var_campaign.inc:186
 msgid "Insert the expiration date"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:169
+#: Public/form_data/FG_var_did.inc:168
 #: Public/form_data/FG_var_did_destination.inc:152
 #: Public/form_data/FG_var_voucher.inc:164
 #: Public/form_data/FG_var_callerid.inc:89
 msgid "Choose if you want to activate this card"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:178
+#: Public/form_data/FG_var_did.inc:177
 msgid "Insert the monthly rate"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:179 Public/form_data/FG_var_card.inc:369
+#: Public/form_data/FG_var_did.inc:178 Public/form_data/FG_var_card.inc:369
 #: Public/form_data/FG_var_card.inc:658 Public/form_data/FG_var_agent.inc:200
 #: Public/form_data/FG_var_agent.inc:209 Public/form_data/FG_var_agent.inc:234
 msgid "currency : "
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:180
+#: Public/form_data/FG_var_did.inc:179
 msgid "Define the renting cost for the customers."
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:183
+#: Public/form_data/FG_var_did.inc:182
 #: Public/form_data/FG_var_def_ratecard.inc:291
 msgid "CONNECT CHARGE"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:189
+#: Public/form_data/FG_var_did.inc:188
 #: Public/form_data/FG_var_def_ratecard.inc:297
 msgid "Insert the connect charge"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:190
+#: Public/form_data/FG_var_did.inc:189
 msgid "Apply a connection charge to connect DID together"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:191
+#: Public/form_data/FG_var_did.inc:190
 msgid "DID On Net Charges"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:200
+#: Public/form_data/FG_var_did.inc:199
 msgid "Insert the rate"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:201
+#: Public/form_data/FG_var_did.inc:200
 msgid "The retail rate; or the cost per minute to apply to the customer to connect DID together, e.g. 0.02"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:203
+#: Public/form_data/FG_var_did.inc:202
 msgid "CARRIER CONNECTION CHARGE"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:209 Public/form_data/FG_var_did.inc:228
+#: Public/form_data/FG_var_did.inc:208 Public/form_data/FG_var_did.inc:247
 msgid "Insert a rate"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:210 Public/form_data/FG_var_did.inc:229
+#: Public/form_data/FG_var_did.inc:209 Public/form_data/FG_var_did.inc:248
 msgid "The connection charge can be negative or positive"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:211
+#: Public/form_data/FG_var_did.inc:210
 msgid "DID Ingress Charges"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:213
+#: Public/form_data/FG_var_did.inc:212
 msgid "CARRIER COST PER MINUTE"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:219 Public/form_data/FG_var_did.inc:237
+#: Public/form_data/FG_var_did.inc:218 Public/form_data/FG_var_did.inc:256
 msgid "Insert the connect cost"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:220
+#: Public/form_data/FG_var_did.inc:219
 msgid "The cost can be negative for Non geographic calls where there is an out-payment"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:222
-msgid "RETAIL CONNECTION CHARGE"
+#: Public/form_data/FG_var_did.inc:221
+msgid "CARRIER MIN DURATION"
+msgstr ""
+
+#: Public/form_data/FG_var_did.inc:227
+#: Public/form_data/FG_var_def_ratecard.inc:247
+msgid "Insert the buyrate init block"
+msgstr ""
+
+#: Public/form_data/FG_var_did.inc:228
+#: Public/form_data/FG_var_def_ratecard.inc:248
+msgid "Set the minimum duration charged by the carrier. (i.e. 30 secs)"
 msgstr ""
 
 #: Public/form_data/FG_var_did.inc:231
-msgid "RETAIL COST PER MINUTE"
+msgid "CARRIER BILLING BLOCK"
+msgstr ""
+
+#: Public/form_data/FG_var_did.inc:237 Public/form_data/FG_var_did.inc:276
+#: Public/form_data/FG_var_def_ratecard.inc:257
+#: Public/form_data/FG_var_def_ratecard.inc:287
+msgid "Insert the billing block"
 msgstr ""
 
 #: Public/form_data/FG_var_did.inc:238
+#: Public/form_data/FG_var_def_ratecard.inc:258
+msgid "Set the billing increment, in seconds (billing block), that the carrier applies. (ie 30 secs)"
+msgstr ""
+
+#: Public/form_data/FG_var_did.inc:241
+msgid "RETAIL CONNECTION CHARGE"
+msgstr ""
+
+#: Public/form_data/FG_var_did.inc:250
+msgid "RETAIL COST PER MINUTE"
+msgstr ""
+
+#: Public/form_data/FG_var_did.inc:257
 msgid "The cost can be negative where there is an out payment, or more usually, positive"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:254
+#: Public/form_data/FG_var_did.inc:260
+msgid "RETAIL MIN DURATION"
+msgstr ""
+
+#: Public/form_data/FG_var_did.inc:266
+#: Public/form_data/FG_var_def_ratecard.inc:277
+msgid "Insert the init block"
+msgstr ""
+
+#: Public/form_data/FG_var_did.inc:267
+#: Public/form_data/FG_var_def_ratecard.inc:278
+msgid "Set the minimum duration to charge the customer (ie 60 seconds)"
+msgstr ""
+
+#: Public/form_data/FG_var_did.inc:270
+msgid "RETAIL BILLING BLOCK"
+msgstr ""
+
+#: Public/form_data/FG_var_did.inc:277
+#: Public/form_data/FG_var_def_ratecard.inc:288
+msgid "Set the billing increment in seconds to bill your customer."
+msgstr ""
+
+#: Public/form_data/FG_var_did.inc:295
 #: Public/form_data/FG_var_did_destination.inc:200
 #: Public/form_data/FG_var_config_group.inc:89
 #: Public/form_data/FG_var_trunk.inc:265
@@ -4089,7 +4141,7 @@ msgstr ""
 #: Public/form_data/FG_var_transactions.inc:84
 #: Public/form_data/FG_var_outbound_cid.php:84
 #: Public/form_data/FG_var_moneysituation.inc:77
-#: Public/form_data/FG_var_friend.inc:965
+#: Public/form_data/FG_var_friend.inc:942
 #: Public/form_data/FG_var_card_seria.inc:101
 #: Public/form_data/FG_var_phonebook.inc:122
 #: Public/form_data/FG_var_did_billing.inc:102
@@ -4103,17 +4155,17 @@ msgstr ""
 msgid "click on the delete button."
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:258
+#: Public/form_data/FG_var_did.inc:299
 #: Public/form_data/FG_var_did_destination.inc:205
 #: Public/form_data/FG_var_config_group.inc:94
 #: Public/form_data/FG_var_alarm.inc:187
 #: Public/form_data/FG_var_monitor.inc:165
 #: Public/form_data/FG_var_outbound_cid.php:89
-#: Public/form_data/FG_var_friend.inc:970
+#: Public/form_data/FG_var_friend.inc:947
 msgid "has been inserted. <br>"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:261
+#: Public/form_data/FG_var_did.inc:302
 #: Public/form_data/FG_var_did_destination.inc:209
 #: Public/form_data/FG_var_config_group.inc:98
 #: Public/form_data/FG_var_card_group.inc:157
@@ -4133,7 +4185,7 @@ msgstr ""
 #: Public/form_data/FG_var_provider.inc:113
 #: Public/form_data/FG_var_prefix.inc:134
 #: Public/form_data/FG_var_outbound_cid.php:93
-#: Public/form_data/FG_var_friend.inc:974
+#: Public/form_data/FG_var_friend.inc:951
 #: Public/form_data/FG_var_card_seria.inc:108
 #: Public/form_data/FG_var_phonebook.inc:131
 #: Public/form_data/FG_var_paymentlog.inc:209
@@ -5281,7 +5333,7 @@ msgstr ""
 #: Public/form_data/FG_var_def_ratecard.inc:570
 #: Public/form_data/FG_var_tariffplan.inc:64
 #: Public/form_data/FG_var_tariffplan.inc:118
-#: Public/form_data/FG_var_friend.inc:700
+#: Public/form_data/FG_var_friend.inc:688
 #: Public/A2B_entity_def_ratecard.php:324
 #: Public/A2B_entity_def_ratecard.php:499
 msgid "TRUNK"
@@ -5771,7 +5823,7 @@ msgstr ""
 msgid "Changing the call plan will result in the free minutes or free calls package being reset."
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:560 Public/form_data/FG_var_friend.inc:887
+#: Public/form_data/FG_var_card.inc:560 Public/form_data/FG_var_friend.inc:865
 msgid "TIMEZONE"
 msgstr ""
 
@@ -6594,25 +6646,8 @@ msgstr ""
 msgid "BUYRATE MIN DURATION"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:247
-msgid "Insert the buyrate init block"
-msgstr ""
-
-#: Public/form_data/FG_var_def_ratecard.inc:248
-msgid "Set the minimum duration charged by the carrier. (i.e. 30 secs)"
-msgstr ""
-
 #: Public/form_data/FG_var_def_ratecard.inc:251
 msgid "BUYRATE BILLING BLOCK"
-msgstr ""
-
-#: Public/form_data/FG_var_def_ratecard.inc:257
-#: Public/form_data/FG_var_def_ratecard.inc:287
-msgid "Insert the billing block"
-msgstr ""
-
-#: Public/form_data/FG_var_def_ratecard.inc:258
-msgid "Set the billing increment, in seconds (billing block), that the carrier applies. (ie 30 secs)"
 msgstr ""
 
 #: Public/form_data/FG_var_def_ratecard.inc:267
@@ -6631,20 +6666,8 @@ msgstr ""
 msgid "SELLRATE MIN DURATION"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:277
-msgid "Insert the init block"
-msgstr ""
-
-#: Public/form_data/FG_var_def_ratecard.inc:278
-msgid "Set the minimum duration to charge the customer (ie 60 seconds)"
-msgstr ""
-
 #: Public/form_data/FG_var_def_ratecard.inc:281
 msgid "SELLRATE BILLING BLOCK"
-msgstr ""
-
-#: Public/form_data/FG_var_def_ratecard.inc:288
-msgid "Set the billing increment in seconds to bill your customer."
 msgstr ""
 
 #: Public/form_data/FG_var_def_ratecard.inc:298
@@ -6949,7 +6972,7 @@ msgid "Set a tag on this rate"
 msgstr ""
 
 #: Public/form_data/FG_var_def_ratecard.inc:603
-#: Public/form_data/FG_var_friend.inc:528
+#: Public/form_data/FG_var_friend.inc:527
 msgid "MUSICONHOLD"
 msgstr ""
 
@@ -8182,8 +8205,6 @@ msgid "Insert the ipaddr"
 msgstr ""
 
 #: Public/form_data/FG_var_friend.inc:312
-#: Public/form_data/FG_var_friend.inc:628
-#: Public/form_data/FG_var_friend.inc:749
 msgid "MOHSUGGEST"
 msgstr ""
 
@@ -8231,297 +8252,297 @@ msgstr ""
 msgid "Insert the permit"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:382
+#: Public/form_data/FG_var_friend.inc:381
 msgid "MD5SECRET"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:388
+#: Public/form_data/FG_var_friend.inc:387
 msgid "Insert the md5secret"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:392
+#: Public/form_data/FG_var_friend.inc:391
 msgid "NAT"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:398
+#: Public/form_data/FG_var_friend.inc:397
 msgid "Insert the nat"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:399
+#: Public/form_data/FG_var_friend.inc:398
 msgid "nat = yes | no | never | route ( default : yes )"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:402
+#: Public/form_data/FG_var_friend.inc:401
 msgid "DTMFMODE"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:408
+#: Public/form_data/FG_var_friend.inc:407
 msgid "Insert the dtmfmode"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:409
+#: Public/form_data/FG_var_friend.inc:408
 msgid "dtmfmode = RFC2833 | INFO | INBAND | AUTO ( default : RFC2833 )"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:413
+#: Public/form_data/FG_var_friend.inc:412
 msgid "CANREINVITE"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:419
+#: Public/form_data/FG_var_friend.inc:418
 msgid "Insert the canreinvite"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:420
+#: Public/form_data/FG_var_friend.inc:419
 msgid "canreinvite : yes | no ( default : yes )"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:425
+#: Public/form_data/FG_var_friend.inc:424
 msgid "CALLGROUP"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:431
+#: Public/form_data/FG_var_friend.inc:430
 msgid "Insert the callgroup"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:437
+#: Public/form_data/FG_var_friend.inc:436
 msgid "FROMUSER"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:443
+#: Public/form_data/FG_var_friend.inc:442
 msgid "Insert the fromuser"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:447
+#: Public/form_data/FG_var_friend.inc:446
 msgid "FROMDOMAIN"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:453
+#: Public/form_data/FG_var_friend.inc:452
 msgid "Insert the fromdomain"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:457
+#: Public/form_data/FG_var_friend.inc:456
 msgid "INSECURE"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:463
+#: Public/form_data/FG_var_friend.inc:462
 msgid "Insert the insecure"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:467
+#: Public/form_data/FG_var_friend.inc:466
 msgid "MAILBOX"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:473
+#: Public/form_data/FG_var_friend.inc:472
 msgid "Insert the mailbox"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:478
+#: Public/form_data/FG_var_friend.inc:477
 msgid "MASK"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:484
+#: Public/form_data/FG_var_friend.inc:483
 msgid "Insert the mask"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:488
+#: Public/form_data/FG_var_friend.inc:487
 msgid "PICKUPGROUP"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:494
+#: Public/form_data/FG_var_friend.inc:493
 msgid "Insert the pickupgroup"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:498
+#: Public/form_data/FG_var_friend.inc:497
 msgid "RESTRICTCID"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:504
+#: Public/form_data/FG_var_friend.inc:503
 msgid "Insert the restrictcid"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:508
+#: Public/form_data/FG_var_friend.inc:507
 msgid "RTPTIMEOUT"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:514
+#: Public/form_data/FG_var_friend.inc:513
 msgid "Insert the rtptimeout"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:518
+#: Public/form_data/FG_var_friend.inc:517
 msgid "RTPHOLDTIMEOUT"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:524
+#: Public/form_data/FG_var_friend.inc:523
 msgid "Insert the rtpholdtimeout"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:534
+#: Public/form_data/FG_var_friend.inc:533
 msgid "Insert the musiconhold"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:538
+#: Public/form_data/FG_var_friend.inc:537
 msgid "CANCALLFORWARD"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:544
+#: Public/form_data/FG_var_friend.inc:543
 msgid "Insert the cancallforward"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:545
+#: Public/form_data/FG_var_friend.inc:544
 msgid "cancallforward = yes | no ( default : yes )"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:548
+#: Public/form_data/FG_var_friend.inc:547
 msgid "DEFAULTUSER"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:558
+#: Public/form_data/FG_var_friend.inc:557
 msgid "SUBSCRIBEMWI"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:568
+#: Public/form_data/FG_var_friend.inc:567
 msgid "VMEXTEN"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:578
+#: Public/form_data/FG_var_friend.inc:577
 msgid "CALLINGPRES"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:588
+#: Public/form_data/FG_var_friend.inc:587
 msgid "USEREQPHONE"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:598
+#: Public/form_data/FG_var_friend.inc:597
 msgid "INCOMINGLIMIT"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:608
+#: Public/form_data/FG_var_friend.inc:607
 msgid "SUBSCRIBECONTEXT"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:618
+#: Public/form_data/FG_var_friend.inc:617
 msgid "MUSICCLASS"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:639
+#: Public/form_data/FG_var_friend.inc:627
 msgid "ALLOWTRANSFER"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:649
+#: Public/form_data/FG_var_friend.inc:637
 msgid "AUTOFRAMING"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:659
+#: Public/form_data/FG_var_friend.inc:647
 msgid "MAXCALLBITRATE"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:669
+#: Public/form_data/FG_var_friend.inc:657
 msgid "OUTBOUNDPROXY"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:679
+#: Public/form_data/FG_var_friend.inc:667
 msgid "REGSERVER"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:689
+#: Public/form_data/FG_var_friend.inc:677
 msgid "RTPKEEPALIVE"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:706
+#: Public/form_data/FG_var_friend.inc:694
 msgid "Define the iax trunking"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:707
+#: Public/form_data/FG_var_friend.inc:695
 msgid "iax trunking = yes | no ( default : yes )"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:710
+#: Public/form_data/FG_var_friend.inc:698
 msgid "DBSECRET"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:720
+#: Public/form_data/FG_var_friend.inc:708
 msgid "REGCONTEXT"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:730
+#: Public/form_data/FG_var_friend.inc:718
 msgid "SOURCEADDRESS"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:739
+#: Public/form_data/FG_var_friend.inc:727
 msgid "MOHINTERPRET"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:759
+#: Public/form_data/FG_var_friend.inc:737
 msgid "INKEYS"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:769
+#: Public/form_data/FG_var_friend.inc:747
 msgid "OUTKEY"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:778
+#: Public/form_data/FG_var_friend.inc:756
 msgid "SENDANI"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:787
+#: Public/form_data/FG_var_friend.inc:765
 msgid "FULLNAME"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:797
+#: Public/form_data/FG_var_friend.inc:775
 msgid "MAXAUTHREQ"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:807
+#: Public/form_data/FG_var_friend.inc:785
 msgid "ENCRYPTION"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:817
+#: Public/form_data/FG_var_friend.inc:795
 msgid "TRANSFER"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:827
+#: Public/form_data/FG_var_friend.inc:805
 msgid "JITTERBUFFER"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:837
+#: Public/form_data/FG_var_friend.inc:815
 msgid "FORCEJITTERBUFFER"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:847
+#: Public/form_data/FG_var_friend.inc:825
 msgid "CODECPRIORITY"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:857
+#: Public/form_data/FG_var_friend.inc:835
 msgid "QUALIFYSMOOTHING"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:867
+#: Public/form_data/FG_var_friend.inc:845
 msgid "QUALIFYFREQOK"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:877
+#: Public/form_data/FG_var_friend.inc:855
 msgid "QUALIFYFREQNOTOK"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:897
+#: Public/form_data/FG_var_friend.inc:875
 msgid "ADSI"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:907
+#: Public/form_data/FG_var_friend.inc:885
 msgid "REQUITE CALL TOKEN"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:914
-#: Public/form_data/FG_var_friend.inc:924
-#: Public/form_data/FG_var_friend.inc:934
+#: Public/form_data/FG_var_friend.inc:892
+#: Public/form_data/FG_var_friend.inc:902
+#: Public/form_data/FG_var_friend.inc:912
 msgid "No supported by Realtime"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:917
+#: Public/form_data/FG_var_friend.inc:895
 msgid "MAX CALL NUMBERS"
 msgstr ""
 
-#: Public/form_data/FG_var_friend.inc:927
+#: Public/form_data/FG_var_friend.inc:905
 msgid "MAX CALL NUMBERS NON VALIDATED"
 msgstr ""
 
@@ -9643,12 +9664,12 @@ msgid "Error: Failed to open the file."
 msgstr ""
 
 #: Public/A2B_phonelist_import_analyse.php:236
-#: Public/CC_ratecard_import_analyse.php:267
+#: Public/CC_ratecard_import_analyse.php:265
 msgid "The first line of your import is previewed below, please check to ensure that every is correct"
 msgstr ""
 
 #: Public/A2B_phonelist_import_analyse.php:283
-#: Public/CC_ratecard_import_analyse.php:313
+#: Public/CC_ratecard_import_analyse.php:311
 msgid "Please check if the datas above are correct."
 msgstr ""
 
@@ -9657,7 +9678,7 @@ msgid "new phone number have been imported"
 msgstr ""
 
 #: Public/A2B_phonelist_import_analyse.php:333
-#: Public/CC_ratecard_import_analyse.php:362
+#: Public/CC_ratecard_import_analyse.php:360
 msgid "Line that has not been inserted"
 msgstr ""
 
@@ -10329,7 +10350,7 @@ msgstr ""
 msgid "No Trunk defined !"
 msgstr ""
 
-#: Public/CC_ratecard_import_analyse.php:356
+#: Public/CC_ratecard_import_analyse.php:354
 msgid "new rates have been imported"
 msgstr ""
 

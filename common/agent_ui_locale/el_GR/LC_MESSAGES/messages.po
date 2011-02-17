@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Agent UI : 1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-08 23:59+0100\n"
+"POT-Creation-Date: 2011-02-18 00:40+0100\n"
 "PO-Revision-Date: 2010-07-29 17:48+0200\n"
 "Last-Translator: Polihronis Porfiris <pporfiris@hotmail.com>\n"
 "Language-Team: Polihronis Porfiris <pporfiris@hotmai.com>\n"
@@ -594,7 +594,7 @@ msgstr "Μέσου της παρακάτω φόρμας, μπορείτε να �
 #: lib/Form/Class.FormHandler.inc.php:554 Public/form_data/FG_var_card.inc:945
 #: Public/form_data/FG_var_def_ratecard.inc:129
 #: Public/form_data/FG_var_moneysituation.inc:78
-#: Public/form_data/FG_var_friend.inc:947
+#: Public/form_data/FG_var_friend.inc:925
 #: Public/form_data/FG_var_ticket.inc:172
 #: Public/form_data/FG_var_ticket_agent.inc:90
 #: Public/form_data/FG_var_callerid.inc:121
@@ -616,7 +616,7 @@ msgstr "Εχει διαγραφτεί!"
 #: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_card.inc:946
 #: Public/form_data/FG_var_def_ratecard.inc:130
 #: Public/form_data/FG_var_moneysituation.inc:79
-#: Public/form_data/FG_var_friend.inc:948
+#: Public/form_data/FG_var_friend.inc:926
 #: Public/form_data/FG_var_ticket.inc:173
 #: Public/form_data/FG_var_ticket_agent.inc:91
 #: Public/form_data/FG_var_callerid.inc:122
@@ -626,7 +626,7 @@ msgstr "μπορείτε εύκολα να προσθέστε μια"
 #: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_card.inc:946
 #: Public/form_data/FG_var_def_ratecard.inc:130
 #: Public/form_data/FG_var_moneysituation.inc:79
-#: Public/form_data/FG_var_friend.inc:948
+#: Public/form_data/FG_var_friend.inc:926
 #: Public/form_data/FG_var_ticket.inc:173
 #: Public/form_data/FG_var_ticket_agent.inc:91
 #: Public/form_data/FG_var_callerid.inc:122
@@ -644,7 +644,7 @@ msgstr "τώρα."
 #: lib/Form/Class.FormHandler.inc.php:559
 #: lib/Form/Class.FormHandler.inc.php:560 Public/form_data/FG_var_card.inc:950
 #: Public/form_data/FG_var_def_ratecard.inc:134
-#: Public/form_data/FG_var_friend.inc:952
+#: Public/form_data/FG_var_friend.inc:930
 #: Public/form_data/FG_var_ticket.inc:177
 #: Public/form_data/FG_var_ticket_agent.inc:95
 #: Public/form_data/FG_var_callerid.inc:132
@@ -809,67 +809,67 @@ msgstr "Επιλέξτε μια κρότα τιμών"
 msgid "Create a new "
 msgstr "Δημιουργήστε ένα νέο "
 
-#: lib/Misc.php:515 lib/Class.Notification.php:140
+#: lib/Misc.php:523 lib/Class.Notification.php:140
 msgid "UNKNOWN"
 msgstr "ΑΓΝΩΣΤΟ"
 
-#: lib/Misc.php:714
+#: lib/Misc.php:722
 msgid "First"
 msgstr "Πρώτο"
 
-#: lib/Misc.php:715
+#: lib/Misc.php:723
 msgid "Prev"
 msgstr "Προηγούμενο"
 
-#: lib/Misc.php:716 Public/call-log-customers.php:1100
+#: lib/Misc.php:724 Public/call-log-customers.php:1100
 msgid "Next"
 msgstr "Επόμενο"
 
-#: lib/Misc.php:717
+#: lib/Misc.php:725
 msgid "Last"
 msgstr "Τελευταίο"
 
-#: lib/Misc.php:807
+#: lib/Misc.php:815
 msgid "File size is greater than allowed limit."
 msgstr "Το μέγεθος του αρχείου υπερβαίνει το επιτρεπτό όριο."
 
-#: lib/Misc.php:810
+#: lib/Misc.php:818
 msgid "You did not upload anything!"
 msgstr "Δεν ανεβάσατε κάτι!"
 
-#: lib/Misc.php:813
+#: lib/Misc.php:821
 msgid "Failed to upload the file, The file you uploaded may not exist on disk."
 msgstr "Αποτυχία στο ανέβασμα του αρχείου. Το αρχείο που ανεβάσατε μπορεί να μην υπάρχει στον δίσκο."
 
-#: lib/Misc.php:816
+#: lib/Misc.php:824
 msgid "file type is not allowed"
 msgstr "αυτό το είδος αρχείου δεν επιτρέπετε"
 
-#: lib/Misc.php:1122
+#: lib/Misc.php:1130
 msgid "Can't find our base_currency in cc_currencies."
 msgstr "Αδυναμία εύρεσης του base_currency στο cc_currencies."
 
-#: lib/Misc.php:1122 lib/Misc.php:1145 lib/Misc.php:1149 lib/Misc.php:1159
+#: lib/Misc.php:1130 lib/Misc.php:1153 lib/Misc.php:1157 lib/Misc.php:1167
 msgid "Currency update ABORTED."
 msgstr "ΜΑΤΑΙΩΘΗΚΕ η ενημέρωση νομισμάτων."
 
-#: lib/Misc.php:1145
+#: lib/Misc.php:1153
 msgid "The CSV file doesn't contain all the currencies we requested."
 msgstr "Το αρχείο CSV δεν περιέχει όλα τα νομίσματα που ζητήσαμε."
 
-#: lib/Misc.php:1149
+#: lib/Misc.php:1157
 msgid "At least one of the entries in the CSV file isn't a number."
 msgstr "Τουλάχιστον μια από τις καταχωρίσεις στο αρχείο CSV δεν είναι νούμερο."
 
-#: lib/Misc.php:1159
+#: lib/Misc.php:1167
 msgid "Our base_currency seems to be worthless."
 msgstr "Το base_currency φαίνεται να είναι άχρηστο."
 
-#: lib/Misc.php:1197
+#: lib/Misc.php:1205
 msgid "Success! All currencies are now updated."
 msgstr "Επιτυχία! Ολα τα νομίσματα ενημερώθηκαν με επιτυχία."
 
-#: lib/Misc.php:1488
+#: lib/Misc.php:1496
 msgid "GO TO CUSTOMER ACCOUNT"
 msgstr "ΜΕΤΑΒΙΒΑΣΗ ΣΤΟΝ ΛΟΓΑΡΙΑΣΜΟ ΤΟΥ ΠΕΛΑΤΗ"
 
@@ -1320,24 +1320,24 @@ msgstr "ΧΩΡΙΣ ΕΚΠΤΩΣΗ"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Εχει οριστεί λανθασμένο μήκος κάρτας στις ρυθμίσεις"
 
-#: lib/Class.A2Billing.php:3239
+#: lib/Class.A2Billing.php:3276
 msgid "Error : Authentication Failed !!!"
 msgstr "Σφάλμα : Αποτυχία αυθεντικοποιησης !!!"
 
-#: lib/Class.A2Billing.php:3279
+#: lib/Class.A2Billing.php:3316
 msgid "Error : Not enough credit to call !!!"
 msgstr "Σφάλμα : Δεν υπάρχουν αρκετές μονάδες για να καλέσετε !!!"
 
-#: lib/Class.A2Billing.php:3285
+#: lib/Class.A2Billing.php:3322
 msgid "Error : Card is not active!!!"
 msgstr "Σφάλμα : Η κάρτα δεν έχει ενεργοποιηθεί !!!"
 
-#: lib/Class.A2Billing.php:3291
+#: lib/Class.A2Billing.php:3328
 msgid "Error : Card is actually in use!!!"
 msgstr "Σφάλμα : Η κάρτα είναι σε χρήση !!!"
 
-#: lib/Class.A2Billing.php:3300 lib/Class.A2Billing.php:3308
-#: lib/Class.A2Billing.php:3316
+#: lib/Class.A2Billing.php:3337 lib/Class.A2Billing.php:3345
+#: lib/Class.A2Billing.php:3353
 msgid "Error : Card have expired!!!"
 msgstr "Σφάλμα : Η κάρτα έχει λήξη !!!"
 
@@ -2441,7 +2441,7 @@ msgstr "ΣΧΕΔΙΟ ΚΛΗΣΕΩΝ"
 msgid "DIDGROUP"
 msgstr "ΟΜΑΔΑ DID"
 
-#: Public/form_data/FG_var_card.inc:553 Public/form_data/FG_var_friend.inc:898
+#: Public/form_data/FG_var_card.inc:553 Public/form_data/FG_var_friend.inc:877
 msgid "TIMEZONE"
 msgstr "ΖΩΝΗ ΩΡΑΣ"
 
@@ -2724,7 +2724,7 @@ msgstr "ΙΣΤΟΡΙΚΟ ΠΕΛΑΤΩΝ"
 #: Public/form_data/FG_var_card.inc:945
 #: Public/form_data/FG_var_def_ratecard.inc:129
 #: Public/form_data/FG_var_moneysituation.inc:78
-#: Public/form_data/FG_var_friend.inc:947
+#: Public/form_data/FG_var_friend.inc:925
 #: Public/form_data/FG_var_ticket.inc:172
 #: Public/form_data/FG_var_ticket_agent.inc:90
 #: Public/form_data/FG_var_callerid.inc:121
@@ -2741,7 +2741,7 @@ msgstr "έχει εισαχτεί."
 
 #: Public/form_data/FG_var_card.inc:954
 #: Public/form_data/FG_var_moneysituation.inc:99
-#: Public/form_data/FG_var_friend.inc:956
+#: Public/form_data/FG_var_friend.inc:934
 msgid "Once you have completed the form above, click on the CONTINUE button."
 msgstr "Μόλις συμπληρώστε την παραπάνω φόρμα πατήστε το κουμπί ΣΥΝΕΧΕΙΑ"
 
@@ -3121,8 +3121,6 @@ msgid "Insert the ipaddr"
 msgstr "Συμπληρώστε την διεύθυνση IP"
 
 #: Public/form_data/FG_var_friend.inc:325
-#: Public/form_data/FG_var_friend.inc:639
-#: Public/form_data/FG_var_friend.inc:760
 msgid "MOHSUGGEST"
 msgstr "MOHSUGGEST"
 
@@ -3350,115 +3348,115 @@ msgstr "CONTEXT ΣΥΝΔΡΟΜΗΣ"
 msgid "MUSICCLASS"
 msgstr "MUSICCLASS"
 
-#: Public/form_data/FG_var_friend.inc:650
+#: Public/form_data/FG_var_friend.inc:639
 msgid "ALLOWTRANSFER"
 msgstr "ALLOWTRANSFER"
 
-#: Public/form_data/FG_var_friend.inc:660
+#: Public/form_data/FG_var_friend.inc:649
 msgid "AUTOFRAMING"
 msgstr "AUTOFRAMING"
 
-#: Public/form_data/FG_var_friend.inc:670
+#: Public/form_data/FG_var_friend.inc:659
 msgid "MAXCALLBITRATE"
 msgstr "MAXCALLBITRATE"
 
-#: Public/form_data/FG_var_friend.inc:680
+#: Public/form_data/FG_var_friend.inc:669
 msgid "OUTBOUNDPROXY"
 msgstr "OUTBOUNDPROXY"
 
-#: Public/form_data/FG_var_friend.inc:690
+#: Public/form_data/FG_var_friend.inc:679
 msgid "REGSERVER"
 msgstr "REGSERVER"
 
-#: Public/form_data/FG_var_friend.inc:700
+#: Public/form_data/FG_var_friend.inc:689
 msgid "RTPKEEPALIVE"
 msgstr "RTPKEEPALIVE"
 
-#: Public/form_data/FG_var_friend.inc:711
+#: Public/form_data/FG_var_friend.inc:700
 msgid "TRUNK"
 msgstr "ΓΡΑΜΜΗ"
 
-#: Public/form_data/FG_var_friend.inc:717
+#: Public/form_data/FG_var_friend.inc:706
 msgid "Define the iax trunking"
 msgstr "Ορίστε τα κανάλια  IAX"
 
-#: Public/form_data/FG_var_friend.inc:718
+#: Public/form_data/FG_var_friend.inc:707
 msgid "iax trunking = yes | no ( default : yes )"
 msgstr "iax trunking = yes | no ( default : yes )"
 
-#: Public/form_data/FG_var_friend.inc:721
+#: Public/form_data/FG_var_friend.inc:710
 msgid "DBSECRET"
 msgstr "DBSECRET"
 
-#: Public/form_data/FG_var_friend.inc:731
+#: Public/form_data/FG_var_friend.inc:720
 msgid "REGCONTEXT"
 msgstr "REGCONTEXT"
 
-#: Public/form_data/FG_var_friend.inc:741
+#: Public/form_data/FG_var_friend.inc:730
 msgid "SOURCEADDRESS"
 msgstr "ΔΙΕΥΘΥΝΣΗ ΠΗΓΗΣ"
 
-#: Public/form_data/FG_var_friend.inc:750
+#: Public/form_data/FG_var_friend.inc:739
 msgid "MOHINTERPRET"
 msgstr "MOHINTERPRET"
 
-#: Public/form_data/FG_var_friend.inc:770
+#: Public/form_data/FG_var_friend.inc:749
 msgid "INKEYS"
 msgstr "INKEYS"
 
-#: Public/form_data/FG_var_friend.inc:780
+#: Public/form_data/FG_var_friend.inc:759
 msgid "OUTKEY"
 msgstr "OUTKEY"
 
-#: Public/form_data/FG_var_friend.inc:789
+#: Public/form_data/FG_var_friend.inc:768
 msgid "SENDANI"
 msgstr "ΑΠΟΣΤΟΛΗ ANI"
 
-#: Public/form_data/FG_var_friend.inc:798
+#: Public/form_data/FG_var_friend.inc:777
 msgid "FULLNAME"
 msgstr "ΠΛΗΡΕΣ ΟΝΟΜΑ"
 
-#: Public/form_data/FG_var_friend.inc:808
+#: Public/form_data/FG_var_friend.inc:787
 msgid "MAXAUTHREQ"
 msgstr "MAXAUTHREQ"
 
-#: Public/form_data/FG_var_friend.inc:818
+#: Public/form_data/FG_var_friend.inc:797
 msgid "ENCRYPTION"
 msgstr "ΚΡΥΠΤΟΓΡΑΦΗΣΗ"
 
-#: Public/form_data/FG_var_friend.inc:828
+#: Public/form_data/FG_var_friend.inc:807
 msgid "TRANSFER"
 msgstr "ΜΕΤΑΒΙΒΑΣΗ"
 
-#: Public/form_data/FG_var_friend.inc:838
+#: Public/form_data/FG_var_friend.inc:817
 msgid "JITTERBUFFER"
 msgstr "JITTERBUFFER"
 
-#: Public/form_data/FG_var_friend.inc:848
+#: Public/form_data/FG_var_friend.inc:827
 msgid "FORCEJITTERBUFFER"
 msgstr "FORCEJITTERBUFFER"
 
-#: Public/form_data/FG_var_friend.inc:858
+#: Public/form_data/FG_var_friend.inc:837
 msgid "CODECPRIORITY"
 msgstr "ΠΡΟΤΕΡΑΙΟΤΗΤΑ CODEC"
 
-#: Public/form_data/FG_var_friend.inc:868
+#: Public/form_data/FG_var_friend.inc:847
 msgid "QUALIFYSMOOTHING"
 msgstr "QUALIFYSMOOTHING"
 
-#: Public/form_data/FG_var_friend.inc:878
+#: Public/form_data/FG_var_friend.inc:857
 msgid "QUALIFYFREQOK"
 msgstr "QUALIFYFREQOK"
 
-#: Public/form_data/FG_var_friend.inc:888
+#: Public/form_data/FG_var_friend.inc:867
 msgid "QUALIFYFREQNOTOK"
 msgstr "QUALIFYFREQNOTOK"
 
-#: Public/form_data/FG_var_friend.inc:908
+#: Public/form_data/FG_var_friend.inc:887
 msgid "ADSI"
 msgstr "ADSI"
 
-#: Public/form_data/FG_var_friend.inc:952
+#: Public/form_data/FG_var_friend.inc:930
 msgid "has been inserted. <br>"
 msgstr "έχει εισαχτεί <br>"
 
