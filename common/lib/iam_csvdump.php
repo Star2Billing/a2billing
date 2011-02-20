@@ -7,7 +7,7 @@
 
  /**
  *  IAM_CSVDump A class form performing a query dump and sending it to the browser or setting it or download.
- *  @author     Iv�n Ariel Melgrati <phpclasses@imelgrat.mailshell.com>
+ *  @author     Iván Ariel Melgrati <phpclasses@imelgrat.mailshell.com>
  *  @package    iam_csvdump
  *  @version 1.0
  *
@@ -41,7 +41,7 @@ class iam_csvdump
     * @return String A CSV String. It returns an empty string if there Array is empty (NULL)
     * @todo Add param "fill to fit max length"?
     */
-    function 	arrayToCsvString	($array, $separator=';', $trim='both', $removeEmptyLines=TRUE) {
+    function arrayToCsvString($array, $separator=';', $trim='both', $removeEmptyLines=TRUE) {
     if (!is_array($array) || empty($array)) return '';
 
     switch ($trim) {
@@ -155,25 +155,33 @@ class iam_csvdump
     {
         $USER_BROWSER_AGENT="";
 
-        if (preg_match('/OPERA(\/| )([0-9].[0-9]{1,2})/', strtoupper($_SERVER["HTTP_USER_AGENT"]), $log_version)) 
+        if (preg_match('/OPERA/i', strtoupper($_SERVER["HTTP_USER_AGENT"]))) 
         {
             $USER_BROWSER_AGENT='OPERA';
         }
-        else if (preg_match('/MSIE ([0-9].[0-9]{1,2})/',strtoupper($_SERVER["HTTP_USER_AGENT"]), $log_version))
+        else if (preg_match('/MSIE/i',strtoupper($_SERVER["HTTP_USER_AGENT"])))
         {
             $USER_BROWSER_AGENT='IE';
         }
-        else if (preg_match('/OMNIWEB\/([0-9].[0-9]{1,2})/', strtoupper($_SERVER["HTTP_USER_AGENT"]), $log_version))
+        else if (preg_match('/OMNIWEB/i', strtoupper($_SERVER["HTTP_USER_AGENT"])))
         {
             $USER_BROWSER_AGENT='OMNIWEB';
         }
-        else if (preg_match('/MOZILLA\/([0-9].[0-9]{1,2})/', strtoupper($_SERVER["HTTP_USER_AGENT"]), $log_version)) 
+        else if (preg_match('/MOZILLA/i', strtoupper($_SERVER["HTTP_USER_AGENT"]))) 
         {
             $USER_BROWSER_AGENT='MOZILLA';
         }
-        else if (preg_match('/KONQUEROR\/([0-9].[0-9]{1,2})/', strtoupper($_SERVER["HTTP_USER_AGENT"]), $log_version)) 
+        else if (preg_match('/FIREFOX/i', strtoupper($_SERVER["HTTP_USER_AGENT"]))) 
+        {
+            $USER_BROWSER_AGENT='FIREFOX';
+        }
+        else if (preg_match('/KONQUEROR/i', strtoupper($_SERVER["HTTP_USER_AGENT"]))) 
         {
             $USER_BROWSER_AGENT='KONQUEROR';
+        }
+        else if (preg_match('/CHROME/i', strtoupper($_SERVER["HTTP_USER_AGENT"]))) 
+        {
+            $USER_BROWSER_AGENT='CHROME';
         }
         else
         {
