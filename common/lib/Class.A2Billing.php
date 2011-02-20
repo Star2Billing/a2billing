@@ -1531,8 +1531,10 @@ class A2Billing {
                     $dialparams = str_replace("%timeoutsec%", min($time2call, $max_long), $dialparams);
 
                     if ($this -> agiconfig['record_call'] == 1) {
-                        $myres = $agi->exec("MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b");
-                        $this -> debug( INFO, $agi, __FILE__, __LINE__, "EXEC MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b");
+				        $command_mixmonitor = "MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b";
+				        $command_mixmonitor = $this -> format_parameters ($command_mixmonitor);
+				        $myres = $agi->exec($command_mixmonitor);
+				        $this -> debug( INFO, $agi, __FILE__, __LINE__, $command_mixmonitor);
                     }
                     $dialstr 	= $inst_listdestination[4].$dialparams;
                     $myres = $this -> run_dial($agi, $dialstr);
