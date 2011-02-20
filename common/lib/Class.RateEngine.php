@@ -1396,8 +1396,8 @@ class RateEngine
 			//# Ooh, something actually happened!
 			if ($this->dialstatus  == "BUSY") {
 				$this -> real_answeredtime = $this -> answeredtime = 0;
-				if ($this->agiconfig['busy_timeout'] > 0)
-					$res_busy = $agi->exec("Busy ".$this->agiconfig['busy_timeout']);
+				if ($A2B->agiconfig['busy_timeout'] > 0)
+					$res_busy = $agi->exec("Busy ".$A2B->agiconfig['busy_timeout']);
 				$agi-> stream_file('prepaid-isbusy', '#');
 			} elseif ($this->dialstatus == "NOANSWER") {
 				$this -> real_answeredtime = $this -> answeredtime = 0;
