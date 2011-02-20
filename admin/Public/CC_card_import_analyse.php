@@ -141,7 +141,6 @@ if ($task=='upload') {
 			break;
 		}
 		$ligneoriginal = trim ($ligneoriginal);
-		$ligneoriginal = strtolower($ligneoriginal);
 		
 		for ($i = 0; $i < strlen($chaine1); $i++)
 			$ligne = str_replace($chaine1[$i], ' ', $ligneoriginal);
