@@ -31,6 +31,8 @@
 **/
 
 
+ALTER TABLE  cc_call CHANGE  calledstation  calledstation VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
+
 UPDATE cc_version SET version = '1.9.0';
 
 
