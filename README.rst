@@ -37,5 +37,5 @@ Support
 
 Star2Billing S.L. offers consultancy including installation, training and customisation 
 
-Please email us us at sales@star2billing.com for more information
+Please email us at sales@star2billing.com for more information
 
