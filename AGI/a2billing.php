@@ -49,7 +49,7 @@ include (dirname(__FILE__)."/lib/interface/constants.php");
 
 $charge_callback = 0;
 $G_startime = time();
-$agi_version = "A2Billing - Version 1.9.1 (Cuprum)";
+$agi_version = "A2Billing - Version 1.9.2 (Cuprum)";
 
 if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-v')) {
 	echo "$agi_version\n";
