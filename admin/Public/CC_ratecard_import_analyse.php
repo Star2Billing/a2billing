@@ -194,8 +194,7 @@ if ($task == 'upload') {
 			}
 			if (intval($val[0]) > 0) {
 				$FG_ADITION_SECOND_ADD_VALUE_PREFIX = "'" . intval($val[0]) . "', '" . $val[1] . "'";
-				$TT_QUERY_PREFIX = "REPLACE INTO cc_prefix " . $FG_ADITION_SECOND_ADD_TABLE_PREFIX . " (" . $FG_ADITION_SECOND_ADD_FIELDS_PREFIX . ") values (" . $FG_ADITION_SECOND_ADD_VALUE_PREFIX . ") "; 
-				echo $TT_QUERY_PREFIX;
+				$TT_QUERY_PREFIX = "REPLACE INTO cc_prefix " . $FG_ADITION_SECOND_ADD_TABLE_PREFIX . " (" . $FG_ADITION_SECOND_ADD_FIELDS_PREFIX . ") values (" . $FG_ADITION_SECOND_ADD_VALUE_PREFIX . ") ";
                 $DBHandle->Execute($TT_QUERY_PREFIX);
 			}
 			
