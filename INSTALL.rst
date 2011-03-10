@@ -1,4 +1,4 @@
-     ___________________________________________________________________________________________________________________________________________________________________
+
 
 A2Billing INSTALLATION GUIDE 
 Release: 1.9.3 - March 2011
@@ -78,7 +78,12 @@ Release: 1.9.3 - March 2011
    /opt/swift/lib
 
    Do not forget to register your voice!
-     ___________________________________________________________________________________________________________________________________________________________________
+
+
+
+
+
+-------------------------------------------------------------------------------
 
 Installation
 
@@ -269,8 +274,8 @@ Step 5: Install web-based Graphical interfaces
 
 
    Checkpoint 2: Direct a browser to the administrative web interface (http://<ip-addr>/a2billing/admin) and login as administrator. Default passwords are:
-user: root
-pass: changepassword
+        user: root
+        pass: changepassword
 
 Step 7: Create a dialplan for A2Billing
 
@@ -365,15 +370,23 @@ Step 9: Call back daemon (only for Call backs)
 
    Install the init.d startup script
      #cd /usr/local/src/a2billing/CallBack/callback-daemon-py/callback_daemon/
-     #cp a2b-callback-daemon.debian  /etc/init.d/a2b-callback-daemon
+     For Debian :
+        #cp a2b-callback-daemon.debian  /etc/init.d/a2b-callback-daemon
+     For RedHat :
+        cp a2b-callback-daemon.rc /etc/init.d/a2b-callback-daemon
      #chmod +x /etc/init.d/a2b-callback-daemon
 
-   Make sure the daemon starts
-     #update-rc.d a2b-callback-daemon defaults 40 60
+   
+    Make sure the daemon starts
+        For Debian :
+            #update-rc.d a2b-callback-daemon defaults 40 60
 
-   If you need to remove the daemon in the future run
-     #update-rc.d -f a2b-callback-daemon remove
-
+            If you need to remove the daemon in the future run
+            #update-rc.d -f a2b-callback-daemon remove
+        For RedHat :
+            chkconfig --add a2b-callback-daemon
+            service a2b-callback-daemon start
+            chkconfig a2b-callback-daemon on
 
 Step 10: Enable Monitoring
    General system monitoring via IVR is available from version 1.7, the new AGI
