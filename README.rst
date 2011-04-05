@@ -9,6 +9,7 @@ DID resale and callback services.
 
 A2Billing is commercially supported by Star2Billing S.L, where installation 
 services, consultancy and support is available : 
+
 see http://www.star2billing.com/ for more details
 
 
@@ -39,5 +40,5 @@ Star2Billing S.L. offers consultancy including installation, training and custom
 
 Please email us at sales@star2billing.com for more information
 
-http//www.star2billing.com
+http//www.star2billing.com/
 
