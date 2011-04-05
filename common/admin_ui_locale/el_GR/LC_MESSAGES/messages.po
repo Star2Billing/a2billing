@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Admin UI : 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-18 00:40+0100\n"
+"POT-Creation-Date: 2011-04-05 16:59+0200\n"
 "PO-Revision-Date: 2010-08-03 16:09+0200\n"
 "Last-Translator: Polihronis Porfiris <pporfiris@hotmail.com>\n"
 "Language-Team: Polihronis Porfiris <pporfiris@hotmai.com>\n"
@@ -2126,24 +2126,24 @@ msgstr "ΧΩΡΙΣ ΕΚΠΤΩΣΗ"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Εχει οριστεί λανθασμένο μήκος κάρτας στις ρυθμίσεις"
 
-#: lib/Class.A2Billing.php:3276
+#: lib/Class.A2Billing.php:3280
 msgid "Error : Authentication Failed !!!"
 msgstr "Σφάλμα : Αποτυχία αυθεντικοποιησης !!!"
 
-#: lib/Class.A2Billing.php:3316
+#: lib/Class.A2Billing.php:3320
 msgid "Error : Not enough credit to call !!!"
 msgstr "Σφάλμα : Δεν υπάρχουν αρκετές μονάδες για να καλέσετε !!!"
 
-#: lib/Class.A2Billing.php:3322
+#: lib/Class.A2Billing.php:3326
 msgid "Error : Card is not active!!!"
 msgstr "Σφάλμα : Η κάρτα δεν έχει ενεργοποιηθεί !!!"
 
-#: lib/Class.A2Billing.php:3328
+#: lib/Class.A2Billing.php:3332
 msgid "Error : Card is actually in use!!!"
 msgstr "Σφάλμα : Η κάρτα είναι σε χρήση !!!"
 
-#: lib/Class.A2Billing.php:3337 lib/Class.A2Billing.php:3345
-#: lib/Class.A2Billing.php:3353
+#: lib/Class.A2Billing.php:3341 lib/Class.A2Billing.php:3349
+#: lib/Class.A2Billing.php:3357
 msgid "Error : Card have expired!!!"
 msgstr "Σφάλμα : Η κάρτα έχει λήξη !!!"
 
@@ -2939,18 +2939,18 @@ msgstr "Απέτυχε η αποθήκευση αρχείου. ΑΡΧΕΙΟ="
 msgid "THE FILE DOESNOT EXIST"
 msgstr "ΤΟ ΑΡΧΕΙΟ ΔΕΝ ΥΠΑΡΧΕΙ"
 
-#: Public/CC_card_import_analyse.php:266
+#: Public/CC_card_import_analyse.php:265
 msgid "The first line of your import is previewed below, please check to ensure that every is correct."
 msgstr "Παρακάτω προβάλετε η πρώτη γραμμή της εισαγωγής σας, παρακαλώ ελέγξτε αν όλα είναι σωστά."
 
-#: Public/CC_card_import_analyse.php:273
+#: Public/CC_card_import_analyse.php:272
 #: Public/A2B_phonelist_import_analyse.php:243
 #: Public/CC_ratecard_import_analyse.php:270
 #: Public/A2B_entity_did_import_analyse.php:300
 msgid "FIELD"
 msgstr "ΠΕΔΙΟ"
 
-#: Public/CC_card_import_analyse.php:276
+#: Public/CC_card_import_analyse.php:275
 #: Public/form_data/FG_var_transactions_agent.inc:56
 #: Public/form_data/FG_var_currencies.inc:50
 #: Public/form_data/FG_var_currencies.inc:84
@@ -2964,40 +2964,40 @@ msgstr "ΠΕΔΙΟ"
 msgid "VALUE"
 msgstr "ΤΙΜΗ"
 
-#: Public/CC_card_import_analyse.php:307
+#: Public/CC_card_import_analyse.php:306
 #: Public/A2B_entity_did_import_analyse.php:344
 msgid "Please check if the datas above are correct"
 msgstr "Παρακαλώ ελέγξτε αν τα δεδομένα είναι σωστά."
 
-#: Public/CC_card_import_analyse.php:307
+#: Public/CC_card_import_analyse.php:306
 #: Public/A2B_phonelist_import_analyse.php:283
 #: Public/CC_ratecard_import_analyse.php:311
 #: Public/A2B_entity_did_import_analyse.php:344
 msgid "If Yes"
 msgstr "Εάν Ναι"
 
-#: Public/CC_card_import_analyse.php:307
+#: Public/CC_card_import_analyse.php:306
 #: Public/A2B_phonelist_import_analyse.php:283
 #: Public/CC_ratecard_import_analyse.php:311
 #: Public/A2B_entity_did_import_analyse.php:344
 msgid "you can continue the import. Otherwise you must fix your csv file!"
 msgstr "μπορείτε να συνεχίσετε με την εισαγωγή. Διαφορετικά θα πρέπει να διορθώστε το CSV αρχείο σας."
 
-#: Public/CC_card_import_analyse.php:319
+#: Public/CC_card_import_analyse.php:318
 msgid "Continue to Import the CARD's"
 msgstr "Συνέχεια με την εισαγωγή των καρτών"
 
-#: Public/CC_card_import_analyse.php:352
+#: Public/CC_card_import_analyse.php:351
 #: Public/A2B_phonelist_import_analyse.php:327
 #: Public/CC_ratecard_import_analyse.php:354
 msgid "Success"
 msgstr "Επιτυχής"
 
-#: Public/CC_card_import_analyse.php:352
+#: Public/CC_card_import_analyse.php:351
 msgid "new cards have been imported."
 msgstr "νέες κάρτες έχουν εισαχτεί"
 
-#: Public/CC_card_import_analyse.php:360
+#: Public/CC_card_import_analyse.php:359
 #: Public/A2B_entity_did_import_analyse.php:398
 msgid "Line that has not been inserted!"
 msgstr "Γραμμή που δεν έχει εισαχτεί!"

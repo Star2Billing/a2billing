@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Admin 1.8.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-18 00:40+0100\n"
+"POT-Creation-Date: 2011-04-05 16:59+0200\n"
 "PO-Revision-Date: 2010-11-05 09:00-0300\n"
 "Last-Translator: Renato Fiuza <fiuza@tecnologia.inf.br>\n"
 "Language-Team: Renato Fiuza <fiuza@tecnologia.inf.br>\n"
@@ -2148,24 +2148,24 @@ msgstr "SEM DESCONTO"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Tamanho do número do cartão inválido definido na configuração."
 
-#: lib/Class.A2Billing.php:3276
+#: lib/Class.A2Billing.php:3280
 msgid "Error : Authentication Failed !!!"
 msgstr "Erro : Autenticação falhou !!!"
 
-#: lib/Class.A2Billing.php:3316
+#: lib/Class.A2Billing.php:3320
 msgid "Error : Not enough credit to call !!!"
 msgstr "Erro : Não há crédito o bastante para ligar !!!"
 
-#: lib/Class.A2Billing.php:3322
+#: lib/Class.A2Billing.php:3326
 msgid "Error : Card is not active!!!"
 msgstr "Erro : Cartão não está ativado!!!"
 
-#: lib/Class.A2Billing.php:3328
+#: lib/Class.A2Billing.php:3332
 msgid "Error : Card is actually in use!!!"
 msgstr "Erro : Cartão atualmente em uso!!!"
 
-#: lib/Class.A2Billing.php:3337 lib/Class.A2Billing.php:3345
-#: lib/Class.A2Billing.php:3353
+#: lib/Class.A2Billing.php:3341 lib/Class.A2Billing.php:3349
+#: lib/Class.A2Billing.php:3357
 msgid "Error : Card have expired!!!"
 msgstr "Erro : O cartão expirou!!!"
 
@@ -2967,18 +2967,18 @@ msgstr "Falha ao salvar o arquivo, ARQUIVO="
 msgid "THE FILE DOESNOT EXIST"
 msgstr "O ARQUIVO NÃO EXISTE"
 
-#: Public/CC_card_import_analyse.php:266
+#: Public/CC_card_import_analyse.php:265
 msgid "The first line of your import is previewed below, please check to ensure that every is correct."
 msgstr "A primeira linha do seu arquivo é pré-visualizada abaixo, por favor verifique se tudo está correto"
 
-#: Public/CC_card_import_analyse.php:273
+#: Public/CC_card_import_analyse.php:272
 #: Public/A2B_phonelist_import_analyse.php:243
 #: Public/CC_ratecard_import_analyse.php:270
 #: Public/A2B_entity_did_import_analyse.php:300
 msgid "FIELD"
 msgstr "CAMPO"
 
-#: Public/CC_card_import_analyse.php:276
+#: Public/CC_card_import_analyse.php:275
 #: Public/form_data/FG_var_transactions_agent.inc:56
 #: Public/form_data/FG_var_currencies.inc:50
 #: Public/form_data/FG_var_currencies.inc:84
@@ -2992,40 +2992,40 @@ msgstr "CAMPO"
 msgid "VALUE"
 msgstr "VALOR"
 
-#: Public/CC_card_import_analyse.php:307
+#: Public/CC_card_import_analyse.php:306
 #: Public/A2B_entity_did_import_analyse.php:344
 msgid "Please check if the datas above are correct"
 msgstr "Por favor verifique se os dados acima estão corretos"
 
-#: Public/CC_card_import_analyse.php:307
+#: Public/CC_card_import_analyse.php:306
 #: Public/A2B_phonelist_import_analyse.php:283
 #: Public/CC_ratecard_import_analyse.php:311
 #: Public/A2B_entity_did_import_analyse.php:344
 msgid "If Yes"
 msgstr "Se Sim"
 
-#: Public/CC_card_import_analyse.php:307
+#: Public/CC_card_import_analyse.php:306
 #: Public/A2B_phonelist_import_analyse.php:283
 #: Public/CC_ratecard_import_analyse.php:311
 #: Public/A2B_entity_did_import_analyse.php:344
 msgid "you can continue the import. Otherwise you must fix your csv file!"
 msgstr "você pode continuar a importação. Se não você deve reparar seu arquivo csv!"
 
-#: Public/CC_card_import_analyse.php:319
+#: Public/CC_card_import_analyse.php:318
 msgid "Continue to Import the CARD's"
 msgstr "Continue Importar os CARTÕES"
 
-#: Public/CC_card_import_analyse.php:352
+#: Public/CC_card_import_analyse.php:351
 #: Public/A2B_phonelist_import_analyse.php:327
 #: Public/CC_ratecard_import_analyse.php:354
 msgid "Success"
 msgstr "Sucesso"
 
-#: Public/CC_card_import_analyse.php:352
+#: Public/CC_card_import_analyse.php:351
 msgid "new cards have been imported."
 msgstr "novos cartões foram importados."
 
-#: Public/CC_card_import_analyse.php:360
+#: Public/CC_card_import_analyse.php:359
 #: Public/A2B_entity_did_import_analyse.php:398
 msgid "Line that has not been inserted!"
 msgstr "Linha que não foi inserida!"

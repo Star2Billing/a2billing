@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Admin : 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-18 00:40+0100\n"
+"POT-Creation-Date: 2011-04-05 16:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -2121,24 +2121,24 @@ msgstr ""
 msgid "Invalid card number lenght defined in configuration."
 msgstr ""
 
-#: lib/Class.A2Billing.php:3276
+#: lib/Class.A2Billing.php:3280
 msgid "Error : Authentication Failed !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3316
+#: lib/Class.A2Billing.php:3320
 msgid "Error : Not enough credit to call !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3322
+#: lib/Class.A2Billing.php:3326
 msgid "Error : Card is not active!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3328
+#: lib/Class.A2Billing.php:3332
 msgid "Error : Card is actually in use!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3337 lib/Class.A2Billing.php:3345
-#: lib/Class.A2Billing.php:3353
+#: lib/Class.A2Billing.php:3341 lib/Class.A2Billing.php:3349
+#: lib/Class.A2Billing.php:3357
 msgid "Error : Card have expired!!!"
 msgstr ""
 
@@ -2933,18 +2933,18 @@ msgstr ""
 msgid "THE FILE DOESNOT EXIST"
 msgstr ""
 
-#: Public/CC_card_import_analyse.php:266
+#: Public/CC_card_import_analyse.php:265
 msgid "The first line of your import is previewed below, please check to ensure that every is correct."
 msgstr ""
 
-#: Public/CC_card_import_analyse.php:273
+#: Public/CC_card_import_analyse.php:272
 #: Public/A2B_phonelist_import_analyse.php:243
 #: Public/CC_ratecard_import_analyse.php:270
 #: Public/A2B_entity_did_import_analyse.php:300
 msgid "FIELD"
 msgstr ""
 
-#: Public/CC_card_import_analyse.php:276
+#: Public/CC_card_import_analyse.php:275
 #: Public/form_data/FG_var_transactions_agent.inc:56
 #: Public/form_data/FG_var_currencies.inc:50
 #: Public/form_data/FG_var_currencies.inc:84
@@ -2958,40 +2958,40 @@ msgstr ""
 msgid "VALUE"
 msgstr ""
 
-#: Public/CC_card_import_analyse.php:307
+#: Public/CC_card_import_analyse.php:306
 #: Public/A2B_entity_did_import_analyse.php:344
 msgid "Please check if the datas above are correct"
 msgstr ""
 
-#: Public/CC_card_import_analyse.php:307
+#: Public/CC_card_import_analyse.php:306
 #: Public/A2B_phonelist_import_analyse.php:283
 #: Public/CC_ratecard_import_analyse.php:311
 #: Public/A2B_entity_did_import_analyse.php:344
 msgid "If Yes"
 msgstr ""
 
-#: Public/CC_card_import_analyse.php:307
+#: Public/CC_card_import_analyse.php:306
 #: Public/A2B_phonelist_import_analyse.php:283
 #: Public/CC_ratecard_import_analyse.php:311
 #: Public/A2B_entity_did_import_analyse.php:344
 msgid "you can continue the import. Otherwise you must fix your csv file!"
 msgstr ""
 
-#: Public/CC_card_import_analyse.php:319
+#: Public/CC_card_import_analyse.php:318
 msgid "Continue to Import the CARD's"
 msgstr ""
 
-#: Public/CC_card_import_analyse.php:352
+#: Public/CC_card_import_analyse.php:351
 #: Public/A2B_phonelist_import_analyse.php:327
 #: Public/CC_ratecard_import_analyse.php:354
 msgid "Success"
 msgstr ""
 
-#: Public/CC_card_import_analyse.php:352
+#: Public/CC_card_import_analyse.php:351
 msgid "new cards have been imported."
 msgstr ""
 
-#: Public/CC_card_import_analyse.php:360
+#: Public/CC_card_import_analyse.php:359
 #: Public/A2B_entity_did_import_analyse.php:398
 msgid "Line that has not been inserted!"
 msgstr ""
