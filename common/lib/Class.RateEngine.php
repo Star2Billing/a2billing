@@ -1206,9 +1206,11 @@ class RateEngine
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "EXEC SETMUSICONHOLD $musiconhold");
 			}
 			
-			if ($A2B -> agiconfig['record_call'] == 1) {
-				$myres = $agi->exec("MixMonitor {$A2B->uniqueid}.{$A2B->agiconfig['monitor_formatfile']}|b");
-				$A2B -> debug( INFO, $agi, __FILE__, __LINE__, "EXEC MixMonitor {$A2B->uniqueid}.{$A2B->agiconfig['monitor_formatfile']}|b");
+			if ($A2B->agiconfig['record_call'] == 1) {
+                $command_mixmonitor = "MixMonitor {$A2B->uniqueid}.{$A2B->agiconfig['monitor_formatfile']}|b";
+                $command_mixmonitor = $A2B -> format_parameters ($command_mixmonitor);
+                $myres = $agi->exec($command_mixmonitor);
+                $A2B -> debug( INFO, $agi, __FILE__, __LINE__, $command_mixmonitor);
 			}
 
 			$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
