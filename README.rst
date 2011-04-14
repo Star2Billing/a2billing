@@ -33,7 +33,7 @@ Info
     http://www.asterisk2billing.org/cgi-bin/trac.cgi/report
 
 
-Support 
+Support
 -------
 
 Star2Billing S.L. offers consultancy including installation, training and customisation 
