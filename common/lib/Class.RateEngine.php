@@ -338,15 +338,15 @@ class RateEngine
 		//CHECK THE PACKAGES TO APPLY TO THIS RATES
 		if ($id_cc_package_offer!=-1) {
 
-			$query_pakages ="SELECT cc_package_offer.id, packagetype, billingtype, startday, freetimetocall
-			FROM cc_package_offer,cc_package_rate
-			WHERE cc_package_offer.id= ".$id_cc_package_offer."
-				AND cc_package_offer.id = cc_package_rate.package_id
-				AND cc_package_rate.rate_id = ".$id_rate." ORDER BY packagetype ASC";
+			$query_pakages = "SELECT cc_package_offer.id, packagetype, billingtype, startday, freetimetocall ".
+			                    "FROM cc_package_offer,cc_package_rate WHERE cc_package_offer.id= ".$id_cc_package_offer.
+			                    " AND cc_package_offer.id = cc_package_rate.package_id AND cc_package_rate.rate_id = ".$id_rate.
+			                    " ORDER BY packagetype ASC";
 			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[PACKAGE IN:$query_pakages ]");
 			$table_packages = new Table();
 			$result_packages = $table_packages -> SQLExec ($A2B -> DBHandle, $query_pakages);
 			$idx_pack = 0;
+			
 			if (!empty($result_packages)) {
 				$package_selected = false;
 
@@ -358,39 +358,43 @@ class RateEngine
 					$startday 			= $result_packages[$idx_pack]["startday"];
 					$id_cc_package_offer= $result_packages[$idx_pack][0];
 
-					if ($this -> debug_st) print_r("[ID PACKAGE  TO APPLY = $id_cc_package_offer]");
+					$A2B -> debug("[ID PACKAGE  TO APPLY=$id_cc_package_offer - packagetype=$packagetype]");
 					switch($packagetype) {
 						// 0 : UNLIMITED PACKAGE
 						//IF PACKAGE IS "UNLIMITED" SO WE DON'T NEED TO CALCULATE THE USED TIMES
 						case 0 : $this -> freecall[$K] = true;
 								$package_selected = true;
 								$this -> package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=>"Unlimited calls","type"=>$packagetype);
+								$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[Unlimited calls]");
 								break;
 						// 1 : FREE CALLS
 						//IF PACKAGE IS "NUMBER OF FREE CALLS"  AND WE CAN USE IT ELSE WE CHECK THE OTHERS PACKAGE LIKE FREE TIMES
 						case 1 :
-							if  ( $freetimetocall>0) {
+							if  ( $freetimetocall > 0) {
 								$number_calls_used =$A2B -> number_free_calls_used($A2B->DBHandle, $A2B->id_card, $id_cc_package_offer, $billingtype, $startday);
 								if ($number_calls_used < $freetimetocall) {
 									$this -> freecall[$K] = true;
 									$package_selected = true;
-									$this ->package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=> "Number of Free calls","type"=>$packagetype);
+									$this -> package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=> "Number of Free calls","type"=>$packagetype);
+									$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[Number of Free calls]");
 								}
 							}
 							break;
 						//2 : FREE TIMES
 						case 2 :
 							// CHECK IF WE HAVE A FREETIME THAT CAN APPLY FOR THIS DESTINATION
-							if  ( $freetimetocall>0) {
+							if  ( $freetimetocall > 0) {
 								// WE NEED TO RETRIEVE THE AMOUNT OF USED MINUTE FOR THIS CUSTOMER ACCORDING TO BILLINGTYPE (Monthly ; Weekly) & STARTDAY
 								$this -> freetimetocall_used = $A2B -> FT2C_used_seconds($A2B->DBHandle, $A2B->id_card, $id_cc_package_offer, $billingtype, $startday);
 								$this -> freetimetocall_left[$K] = $freetimetocall - $this->freetimetocall_used;
 								if ($this -> freetimetocall_left[$K] < 0) $this -> freetimetocall_left[$K] = 0;
 								if ($this -> freetimetocall_left[$K] > 0) {
 									$package_selected = true;
-									$this ->package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=> "Free minutes","type"=>$packagetype);
+									$this -> package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=> "Free minutes","type"=>$packagetype);
+									$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[Free minutes - freetimetocall_used=$this->freetimetocall_used]");
 								}
 							}
+							$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[Free minutes - Break (freetimetocall_left=".$this -> freetimetocall_left[$K].")]");
 							break;
 					}
 					$idx_pack++;
@@ -429,8 +433,7 @@ class RateEngine
 		$this -> ratecard_obj[$K]['timeout']=0;
 		$this -> ratecard_obj[$K]['timeout_without_rules']=0;
 		// used for the simulator
-		$this -> ratecard_obj[$K]['freetime_include_in_timeout']=$this -> freetimetocall_left[$K];
-
+		$this -> ratecard_obj[$K]['freetime_include_in_timeout'] = $this -> freetimetocall_left[$K];
 		
 		// CHECK IF THE USER IS ALLOW TO CALL WITH ITS CREDIT AMOUNT
 		/*
@@ -439,6 +442,7 @@ class RateEngine
 		This mininum credit should be calculated based on the destination, and the minimum billing block.
 		*/
 		if ($credit < $A2B->agiconfig['min_credit_2call'] && !$this -> freecall[$K] && $this -> freetimetocall_left[$K]<=0) {
+		    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NO ENOUGH CREDIT TO CALL THIS NUMBER - ERROR CT1]");
 			return "ERROR CT1";  //NO ENOUGH CREDIT TO CALL THIS NUMBER
 		}
 
@@ -473,7 +477,7 @@ class RateEngine
 		}
 		
 		if ($credit < $A2B->agiconfig['min_credit_2call'] && $this -> freetimetocall_left[$K]>0) {
-			$this -> ratecard_obj[$K]['timeout']= $this -> freetimetocall_left[$K];
+			$this -> ratecard_obj[$K]['timeout'] = $this -> freetimetocall_left[$K];
 			$TIMEOUT =  $this -> freetimetocall_left[$K];
 			$this -> ratecard_obj[$K]['timeout_without_rules'] = $this -> freetimetocall_left[$K];
 			return $TIMEOUT;
@@ -673,11 +677,12 @@ class RateEngine
 		//Call time to speak without rate rules... idiot rules
 		$num_min_WR = $initial_credit/$rateinitial;
 		$num_sec_WR = intval($num_min_WR * 60);
-		$this -> ratecard_obj[$K]['timeout_without_rules'] = $num_sec_WR+$this -> freetimetocall_left[$K];
+		$this -> ratecard_obj[$K]['timeout_without_rules'] = $num_sec_WR + $this -> freetimetocall_left[$K];
 		
-		$this -> ratecard_obj[$K]['timeout']=$TIMEOUT + $this -> freetimetocall_left[$K];
+		$this -> ratecard_obj[$K]['timeout'] = $TIMEOUT + $this -> freetimetocall_left[$K];
 		if ($this -> debug_st) print_r($this -> ratecard_obj[$K]);
-		RETURN $TIMEOUT + $this -> freetimetocall_left[$K];
+		
+		return $TIMEOUT + $this -> freetimetocall_left[$K];
 	}
 
 	/*
@@ -727,8 +732,8 @@ class RateEngine
 		if (!is_numeric($additional_block_charge_time))	$additional_block_charge_time = 0;
 
 		if (!is_numeric($this->freetimetocall_used))	$this->freetimetocall_used = 0;
-		if ($this -> debug_st)  echo "CALLDURATION: $callduration - freetimetocall_used=$this->freetimetocall_used\n\n";
-		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_CALCULCOST: K=$K - CALLDURATION:$callduration - freetimetocall_used=$this->freetimetocall_used]");
+		
+		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_CALCULCOST: K=$K - CALLDURATION:$callduration - freetimetocall_used=$this->freetimetocall_used - freetimetocall_left=".$this->freetimetocall_left[$K]."]");
 
 		$cost = 0;
 		$cost -= $connectcharge;
@@ -951,7 +956,7 @@ class RateEngine
 			$dialstatus = $this -> dialstatus;
 		}
 
-		$A2B -> debug( INFO, $agi, __FILE__, __LINE__, ":[sessiontime:$sessiontime - id_cc_package_offer:$id_cc_package_offer - package2apply:".$this ->package_to_apply[$K]."]\n\n\n\n\n\n\n\n");
+		$A2B -> debug( INFO, $agi, __FILE__, __LINE__, ":[sessiontime:$sessiontime - id_cc_package_offer:$id_cc_package_offer - package2apply:".$this ->package_to_apply[$K]."]\n\n");
 		
 		if ($sessiontime > 0) {
 			// HANDLE FREETIME BEFORE CALCULATE THE COST
@@ -992,7 +997,7 @@ class RateEngine
 				$QUERY_FIELS = 'id_cc_card, id_cc_package_offer, used_secondes';
 				$QUERY_VALUES = "'".$A2B -> id_card."', '$id_package_offer', '$this->freetimetocall_used'";
 				$id_card_package_offer = $A2B -> instance_table -> Add_table ($A2B -> DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_card_package_offer', 'id');
-				$A2B -> debug( INFO, $agi, __FILE__, __LINE__, ":[ID_CARD_PACKAGE_OFFER CREATED : $id_card_package_offer]:[$QUERY_VALUES]\n\n\n\n\n\n\n\n");
+				$A2B -> debug( INFO, $agi, __FILE__, __LINE__, ":[ID_CARD_PACKAGE_OFFER CREATED : $id_card_package_offer]:[$QUERY_VALUES]\n\n\n\n");
 				
 			} else {
 				
