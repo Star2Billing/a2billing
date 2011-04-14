@@ -104,20 +104,21 @@ A2BILLING INSTALLATION GUIDE
 
         At the end of this step you should have a a2billing tree structure that should look like:
             - /usr/local/src/a2billing/
-
-        | -- AGI
-        | -- CHANGELOG
-        | -- COPYING
-        | -- CallBack
-        | -- Cronjobs : Recurrent services run via crontab
-        | -- DataBase : Database Schema / DB Installation
-        | -- FEATURES_LIST
-        | -- a2billing.conf : Main Configuration file
-        | -- addons : Sounds and other addons
-        | -- admin : Admin UI
-        | -- agent : Agent UI
-        | -- customer : Customer UI
-        | -- webservice
+            
+        Files :
+            - AGI
+            - CHANGELOG
+            - COPYING
+            - CallBack
+            - Cronjobs : Recurrent services run via crontab
+            - DataBase : Database Schema / DB Installation
+            - FEATURES_LIST
+            - a2billing.conf : Main Configuration file
+            - addons : Sounds and other addons
+            - admin : Admin UI
+            - agent : Agent UI
+            - customer : Customer UI
+            - webservice
 
 
     2.2. Step 2: Prepare the Database
