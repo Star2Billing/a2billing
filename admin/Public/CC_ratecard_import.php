@@ -346,7 +346,8 @@ echo $CC_help_import_ratecard;
                       
 
 					  <?php echo gettext("Use the example below  to format the CSV file. Fields are separated by [,] or [;]");?><br/>
-					  <?php echo gettext("(dot) . is used for decimal format.");?>
+					  <?php echo gettext("(dot) . is used for decimal format.");?><br/>
+					  <?php echo gettext("Note that Dial-codes expressed in REGEX format cannot be imported, and must be entered manually via the Add Rate page.");?>
 
 
 					  <br/>
