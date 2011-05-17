@@ -104,8 +104,9 @@ class A2Billing {
 					"&fullhtmlpage=0&filter=prefix".
 					"$callplan_clause".
 					"&".$_SERVER['QUERY_STRING'];
+					#"&".$_SERVER['REDIRECT_QUERY_STRING']
 		// if you have some issue with the filter, you can try using REDIRECT_QUERY_STRING instead of QUERY_STRING
-	    
+		// This might be due to rewrite rules avoiding to get _SERVER['QUERY_STRING']
 		
 		$content = a2b_open_url ($api_url);
 		

@@ -213,14 +213,14 @@ for ($i = 0; $i < count($fltr); $i++) {
 			$FILTER_COUNTRY = true;
 			if (isset ($choose_country) && strlen($choose_country) != 0) {
 				add_clause($FG_TABLE_CLAUSE, "t7.destination REGEXP '^$choose_country'");
-				$current_page = 0;
+				#$current_page = 0;
 			}
 			break;
 		case "prefix" :
 			$FILTER_PREFIX = true;
 			if (isset ($searchpre) && strlen($searchpre) != 0) {
 				add_clause($FG_TABLE_CLAUSE, "t1.dialprefix REGEXP '^$searchpre'");
-				$current_page = 0;
+				#$current_page = 0;
 			}
 			break;
 	}
