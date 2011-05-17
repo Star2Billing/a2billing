@@ -152,7 +152,7 @@ if ((substr($page_url, 0, 7) != 'http://') && (substr($page_url, 0, 8) != 'https
 if (!isset ($lcr) || strlen($lcr) == 0)
 	$lcr = 0;
 
-$parameter_to_send = "column_name=$column_name&field_type=$field_type&filter=$filter&resulttitle=$resulttitle";
+$parameter_to_send = "column_name=$column_name&field_type=$field_type&filter=$filter&resulttitle=$resulttitle&";
 if (strpos($page_url, '?') === false) {
     if (strpos($page_url, 'column_name') === false)
         $page_url .= '?'.$parameter_to_send;
