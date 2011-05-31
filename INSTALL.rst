@@ -135,8 +135,8 @@ A2BILLING INSTALLATION GUIDE
             - User password is: a2billing
 
         After creating the database structure, we will create a set of tables and insert some initial basic configuration data
-            - mysql -u root -p mya2billing < DataBase/mysql-5.x/a2billing-schema-v1.7.0.sql
-            - mysql -u root -p mya2billing < UPDATE-a2billing-v1.7.0-to-v1.7.1.sql
+            - cd DataBase/mysql-5.x/
+            - ./install-db.sh
 
         **Checkpoint 1 :** Check that the database (my2billing) and that (97) tables have been created.
             - mysql -u root -p mya2billing

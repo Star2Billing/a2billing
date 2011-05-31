@@ -127,7 +127,7 @@ define ("TEXTCONTACT", gettext("This software has been created by Areski under A
 define ("EMAILCONTACT", "areski@gmail.com");
 
 // A2BILLING INFO  
-define ("COPYRIGHT", "A2Billing 1.9.3 (Cuprum), A2Billing is a ".'<a href="http://www.star2billing.com/solutions/voip-billing/" target="_blank">voip billing software</a>' . " licensed under the ".'<a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html" target="_blank">AGPL 3</a>' . ". <br/>" . "Copyright (C) 2004-2011 - Star2billing S.L. <a href=\"http://www.star2billing.com\" target=\"_blank\">http://www.star2billing.com/</a>");
+define ("COPYRIGHT", "A2Billing 1.9.4 (Cuprum), A2Billing is a ".'<a href="http://www.star2billing.com/solutions/voip-billing/" target="_blank">voip billing software</a>' . " licensed under the ".'<a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html" target="_blank">AGPL 3</a>' . ". <br/>" . "Copyright (C) 2004-2011 - Star2billing S.L. <a href=\"http://www.star2billing.com\" target=\"_blank\">http://www.star2billing.com/</a>");
 
 define ("CCMAINTITLE", gettext("A2Billing Portal"));
 
