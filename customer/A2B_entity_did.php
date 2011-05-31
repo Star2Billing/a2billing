@@ -157,7 +157,7 @@ if (!isset ($action_release) || $action_release == "confirm_release" || $action_
 		$validated = ($voip_call==1) ? 0 : 1;
 		
 		if ($voip_call==0)
-		    $destination = (intval($destination)) ? intval($destination) : 'no valid';
+		    $destination = (intval($destination) > 0) ? $destination : 'no valid';
 		
 		$QUERY = "INSERT INTO cc_did_destination (activated, id_cc_card, id_cc_did, destination, priority, voip_call, validated) VALUES ('1', '" . $_SESSION["card_id"] . "', '" . $choose_did . "', '" . $destination . "', '1', '" . $voip_call . "', '$validated')";
 		
