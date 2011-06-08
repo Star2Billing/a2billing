@@ -1913,7 +1913,7 @@ UPDATE cc_configuration SET configuration_value = 'False' WHERE configuration_ke
 ALTER TABLE cc_epayment_log CHANGE amount amount VARCHAR( 50 ) NOT NULL DEFAULT '0';
 ALTER TABLE cc_epayment_log_agent CHANGE amount amount VARCHAR( 50 ) NOT NULL DEFAULT '0';
 
-UPDATE cc_config SET config_value = 'id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy' WHERE config_key = 'card_export_field_list';
+UPDATE cc_config SET config_value = 'card.id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy' WHERE config_key = 'card_export_field_list';
 ALTER TABLE cc_tariffgroup CHANGE id_cc_package_offer id_cc_package_offer BIGINT( 20 ) NOT NULL DEFAULT '-1';
 
 ALTER TABLE cc_epayment_log ADD item_type VARCHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ,ADD item_id BIGINT NULL ;
