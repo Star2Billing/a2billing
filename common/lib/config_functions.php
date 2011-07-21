@@ -50,7 +50,7 @@ function agi_confx_title($handle=null)
 	}
 	$instance_table = new Table();
 
-	$QUERY =  "SELECT id, group_title, group_description FROM cc_config_group WHERE group_title like '%agi-conf%' ORDER BY id";
+	$QUERY = "SELECT id, group_title, group_description, SUBSTR(group_title,9,3)+0 AS idorder FROM cc_config_group WHERE group_title like '%agi-conf%' ORDER BY idorder";
 	$result = $instance_table -> SQLExec ($handle, $QUERY);
 	
 	if (is_array($result)) {
