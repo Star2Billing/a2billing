@@ -1743,18 +1743,39 @@ class A2Billing {
 	 */
 	function bill_did_aleg ($agi, $inst_listdestination, $b_leg_answeredtime = 0)
 	{
-	    
-	    $aleg_carrier_connect_charge = $inst_listdestination[11];
-        $aleg_carrier_cost_min = $inst_listdestination[12];
-        $aleg_retail_connect_charge = $inst_listdestination[13];
-        $aleg_retail_cost_min = $inst_listdestination[14];
+	$start_time=$this -> G_startime;
+	$stop_time=time();
+	$timeinterval=$inst_listdestination[19];
+	$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[bill_did_aleg]: START TIME peak=".$this -> calculate_time_condition($start_time,$timeinterval, "peak")." ,offpeak=".$this -> calculate_time_condition($start_time,$timeinterval, "offpeak")." ");
+	$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[bill_did_aleg]: STOP TIME peak=".$this -> calculate_time_condition($stop_time,$timeinterval, "peak")." ,offpeak=".$this -> calculate_time_condition($stop_time,$timeinterval, "offpeak")." ");
+	//TO DO - for now we use peak values only if whole call duration is inside a peak time interval. Should be devided in two parts - peek and off peak duration. May be later.
+        if ((($this -> calculate_time_condition($start_time,$timeinterval, "peak")) && !($this -> calculate_time_condition($start_time,$timeinterval, "offpeak"))) && (($this -> calculate_time_condition($stop_time,$timeinterval, "peak")) && !($this -> calculate_time_condition($stop_time,$timeinterval, "offpeak"))))
+	{
+		$this -> debug( INFO, $agi, __FILE__, __LINE__, "[bill_did_aleg]: We have PEAK time.");
+		$aleg_carrier_connect_charge = $inst_listdestination[11];
+		$aleg_carrier_cost_min = $inst_listdestination[12];
+		$aleg_retail_connect_charge = $inst_listdestination[13];
+		$aleg_retail_cost_min = $inst_listdestination[14];
+		
+		$aleg_carrier_initblock = $inst_listdestination[15];
+		$aleg_carrier_increment = $inst_listdestination[16];
+		$aleg_retail_initblock = $inst_listdestination[17];
+		$aleg_retail_increment = $inst_listdestination[18];
+		#TODO use the above variables to define the time2call
+	} else {
+		$this -> debug( INFO, $agi, __FILE__, __LINE__, "[bill_did_aleg]: We have OFF-PEAK time.");
+		$aleg_carrier_connect_charge = $inst_listdestination[20];
+		$aleg_carrier_cost_min = $inst_listdestination[21];
+		$aleg_retail_connect_charge = $inst_listdestination[22];
+		$aleg_retail_cost_min = $inst_listdestination[23];
+		
+		$aleg_carrier_initblock = $inst_listdestination[24];
+		$aleg_carrier_increment = $inst_listdestination[25];
+		$aleg_retail_initblock = $inst_listdestination[26];
+		$aleg_retail_increment = $inst_listdestination[27];
+		#TODO use the above variables to define the time2call
+	}	
 
-        $aleg_carrier_initblock = $inst_listdestination[15];
-        $aleg_carrier_increment = $inst_listdestination[16];
-        $aleg_retail_initblock = $inst_listdestination[17];
-        $aleg_retail_increment = $inst_listdestination[18];
-        #TODO use the above variables to define the time2call
-        
         $this -> debug( INFO, $agi, __FILE__, __LINE__, "[bill_did_aleg]:[aleg_carrier_connect_charge=$aleg_carrier_connect_charge;\
                                                                           aleg_carrier_cost_min=$aleg_carrier_cost_min;\
                                                                           aleg_retail_connect_charge=$aleg_retail_connect_charge;\
@@ -3571,6 +3592,200 @@ class A2Billing {
 		}
 		return $parameters;
 	}
+
+	function calculate_time_condition($now,$timeinterval,$type)
+	{
+		$week_range=array(
+		'mon' => 1,
+		'tue' => 2,
+		'wed' => 3,
+		'thu' => 4,
+		'fri' => 5,
+		'sat' => 6,
+		'sun' => 7
+		);
+		
+		$month_range=array(
+		'jan' => 1,
+		'feb' => 2,
+		'mar' => 3,
+		'apr' => 4,
+		'may' => 5,
+		'jun' => 6,
+		'jul' => 7,
+		'aug' => 8,
+		'sep' => 9,
+		'oct' => 10,
+		'nov' => 11,
+		'dec' => 12
+		);
+
+		if (empty($timeinterval)) return 1;
+
+		$cond_result = array();
+		$row_conditions=$this->extract_cond_values($timeinterval);
+		$x=0;
+		$cond_type="";
+		foreach ($row_conditions as $conditions){
+
+			/* Options */
+			if (!empty($conditions[4])){
+				switch ($conditions[4][0]){
+					case 0:
+						break;
+					case 1:
+						break;
+					case 2:
+						switch(strtolower($conditions[4][1])){
+							case "p":
+								// Peak
+								$cond_type = "peak";
+								break;
+							case "o":
+								// Off peak
+								$cond_type = "offpeak";
+								break;
+						}
+						break;
+					case 3:
+						// Default Peak
+						$cond_type = "peak";
+						break;
+					default:
+						// Default Peak
+						$cond_type = "peak";
+						break;
+				}
+			}
+			if ($type == $cond_type){
+				$cond_result[$x]=0;
+				/* Time */
+				switch ($conditions[0][0]){
+					case 0:
+						$i=0;
+						foreach ($conditions[0] as $condition){
+							if ($i>0) $conditions[0][$i]=strtotime($condition);
+							$i++;
+						}
+						if ($now >= $conditions[0][1] && $now <= $conditions[0][2]){
+							$cond_result[$x] = $cond_result[$x]+1;
+						}
+						break;
+					case 1:
+					case 2:
+						array_splice($conditions[0], 0, 1);
+						if (in_array(date("G:i",$now),$conditions[0])) $cond_result[$x] = $cond_result[$x]+1;
+						break;
+					case 3:
+						$cond_result[$x] = $cond_result[$x]+1;
+						break;
+				}
+				
+				/* Day of week */
+				switch ($conditions[1][0]){
+					case 0:
+						$day=date("N",$now);
+						if ($day >= $week_range[strtolower($conditions[1][1])] && $day <= $week_range[strtolower($conditions[1][2])]){
+							$cond_result[$x] = $cond_result[$x]+2;
+						}
+						break;
+					case 1:
+					case 2:
+						$day=strtolower(date("D",$now));
+						array_splice($conditions[1], 0, 1);
+						$i=0;
+						foreach ($conditions[1] as $condition){
+							$conditions[1][$i]=strtolower($condition);
+							$i++;
+						}
+						if (in_array($day,$conditions[1])) $cond_result[$x] = $cond_result[$x]+2;
+						break;
+					case 3:
+						$cond_result[$x] = $cond_result[$x]+2;
+						break;
+				}
+				
+				/* Day of month */
+				switch ($conditions[2][0]){
+					case 0:
+						$month_day=date("j",$now);
+						if ($month_day >= $conditions[2][1] && $month_day <= $conditions[2][2] ) {
+							$cond_result[$x] = $cond_result[$x]+4;
+						}
+						break;
+					case 1:
+					case 2:
+						$month_day=date("j",$now);
+						array_splice($conditions[2], 0, 1);
+						if (in_array($month_day,$conditions[2])) $cond_result[$x] = $cond_result[$x]+4;
+						break;
+					case 3:
+						$cond_result[$x] = $cond_result[$x]+4;
+						break;
+				}
+				
+				/* Month */
+				switch ($conditions[3][0]){
+					case 0:
+						$month=strtolower(date("n",$now));
+						if ($month >= $month_range[strtolower($conditions[3][1])] && $month <= $month_range[strtolower($conditions[3][2])] ) {
+							$cond_result[$x] = $cond_result[$x]+8;
+						}
+						break;
+					case 1:
+					case 2:	
+						$month=strtolower(date("M",$now));
+						array_splice($conditions[3], 0, 1);
+						$i=0;
+						foreach ($conditions[3] as $condition){
+							$conditions[3][$i]=strtolower($condition);
+							$i++;
+						}
+						if (in_array($month,$conditions[3])) $cond_result[$x] = $cond_result[$x]+8;
+						break;
+					case 3:
+						$cond_result[$x] = $cond_result[$x]+8;
+						break;
+				}
+				$x++;
+			}
+		}
+		$i=0;
+		$final_result_set=0;
+		foreach ($cond_result as $result){
+			if ($result == 15){
+				$final_result_set=$final_result_set+pow(2,$i);
+			}
+			$i++;
+		}
+		return $final_result_set;
+	}
+
+	function extract_cond_values($value){
+		$rows=explode("\n",$value);
+		$i=0;
+		foreach ($rows as $row){
+			$items=explode(";",trim($row));
+			$x=0;
+			foreach ($items as $item){
+				if (preg_match('/^([[:alnum:]]+|\d+:\d+)-([[:alnum:]]+|\d+:\d+)$/',$item,$intvals)){
+					$output[$i][$x]=array(0 => 0, 1 => $intvals[1], 2 => $intvals[2]);
+				} elseif (preg_match('/^([[:alnum:]]+|\d+:\d+)(,[[:alnum:]]+|,\d+:\d+)+$/',$item)){
+					$output[$i][$x]=array_merge(array(0 => 1),explode(',',$item));
+				} elseif (preg_match('/^([[:alnum:]]+|\d+:\d+)$/',$item)){
+					$output[$i][$x]=array(0 => 2, 1 => $item);
+				} elseif (preg_match('/^\*$/',$item)){
+					$output[$i][$x]=array(0 => 3);
+				} else {
+					$output[$i][$x]=array(0 => -1);
+				}
+			$x++;
+			}
+		$i++;
+		}
+		return $output;
+	}
+
 	
 };
 
