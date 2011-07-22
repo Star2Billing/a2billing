@@ -43,3 +43,5 @@ ALTER TABLE cc_did ADD aleg_carrier_increment_offp int(11) NOT NULL DEFAULT '0';
 ALTER TABLE cc_did ADD aleg_retail_initblock_offp int(11) NOT NULL DEFAULT '0';
 ALTER TABLE cc_did ADD aleg_retail_increment_offp int(11) NOT NULL DEFAULT '0';
 
+
+UPDATE cc_version SET version = '1.9.5';
