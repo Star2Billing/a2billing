@@ -47,7 +47,7 @@ if (!has_rights(ACX_CUSTOMER)) {
 
 getpost_ifset(array('nb_to_create', 'creditlimit', 'cardnum', 'addcredit', 'choose_tariff', 'gen_id', 'cardnum', 'choose_simultaccess', 
 	'choose_currency', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays', 'runservice', 'sip', 'iax',
-	'cardnumberlenght_list', 'tag', 'id_group', 'discount', 'id_seria', 'id_didgroup'));
+	'cardnumberlenght_list', 'tag', 'id_group', 'discount', 'id_seria', 'id_didgroup', 'vat', 'id_country'));
 
 
 $HD_Form->FG_FILTER_SEARCH_FORM = false;
@@ -121,7 +121,7 @@ if ($nbcard > 0 && $action == "generate" && $nb_error == 0) {
 
 	$FG_ADITION_SECOND_ADD_TABLE = "cc_card";
 	$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, activated, lastname, firstname, email, address, city, state, country, zipcode, phone, simultaccess, currency, typepaid, " .
-			"creditlimit, enableexpire, expirationdate, expiredays, uipass, runservice, tag,id_group, discount, id_seria, id_didgroup, sip_buddy, iax_buddy";
+			"creditlimit, enableexpire, expirationdate, expiredays, uipass, runservice, tag,id_group, discount, id_seria, id_didgroup, sip_buddy, iax_buddy, vat";
 
 	if (DB_TYPE != "postgres") {
 		$FG_ADITION_SECOND_ADD_FIELDS .= ",creationdate ";
@@ -154,9 +154,9 @@ if ($nbcard > 0 && $action == "generate" && $nb_error == 0) {
 			$addcredit = 0;
 		$passui_secret = MDP_NUMERIC(10);
 		
-		$FG_ADITION_SECOND_ADD_VALUE = "'$accountnumber', '$useralias', '$addcredit', '$choose_tariff', 't', '$gen_id', '', '', '', '', '', '', '', '', $choose_simultaccess, '$choose_currency', " .
+		$FG_ADITION_SECOND_ADD_VALUE = "'$accountnumber', '$useralias', '$addcredit', '$choose_tariff', 't', '$gen_id', '', '', '', '', '', '$id_country', '', '', $choose_simultaccess, '$choose_currency', " .
 					"$choose_typepaid, $creditlimit, $enableexpire, '$expirationdate', $expiredays, '$passui_secret', '$runservice', '$tag', '$id_group', '$discount', '$id_seria', " .
-					"'$id_didgroup', $sip_buddy, $iax_buddy";
+					"'$id_didgroup', $sip_buddy, $iax_buddy, '$vat'";
 
 		if (DB_TYPE != "postgres")
 			$FG_ADITION_SECOND_ADD_VALUE .= ", now() ";
@@ -224,6 +224,9 @@ $list_seria = $instance_table_seria->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAU
 
 $instance_table_didgroup = new Table("cc_didgroup", " id, didgroupname ");
 $list_didgroup = $instance_table_didgroup->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "didgroupname", "ASC", null, null, null, null);
+
+$instance_table_country = new Table("cc_country", " countrycode, countryname ");
+$list_country = $instance_table_country->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "countryname", "ASC", null, null, null, null);
 
 
 // FORM FOR THE GENERATION
@@ -391,6 +394,23 @@ $list_didgroup = $instance_table_didgroup->Get_list($HD_Form->DBHandle, $FG_TABL
 	<?php } ?>
 	</select>
 	<?php if($didgroup_error){ ?>
+		<img style="vertical-align:middle;" src="<?php echo Images_Path;?>/exclamation.png" />
+	<?php } ?>
+	
+	<br/>
+	<strong>19)</strong>
+	<?php echo gettext("VAT");?> : <input class="form_input_text"  name="vat" size="10" maxlength="10" <?php if(!empty($vat)) echo "value='$vat'"; ?> > 
+	
+	<br/>
+     <strong>20)</strong>
+	<?php echo gettext("COUNTRY");?> : 
+	<select NAME="id_country" size="1" class="form_input_select" >
+	<option value='0'><?php echo gettext("Choose a country");?></option>
+	<?php foreach ($list_country as $recordset){ ?>
+		<option class=input value='<?php echo $recordset[0]?>' <?php if($recordset[0]==$id_country) echo "selected"; ?> ><?php echo $recordset[1]?></option>
+	<?php } ?>
+	</select>
+	<?php if($country_error){ ?>
 		<img style="vertical-align:middle;" src="<?php echo Images_Path;?>/exclamation.png" />
 	<?php } ?>
 	

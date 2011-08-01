@@ -54,7 +54,7 @@ $HD_Form -> init();
 getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_status', 'upd_language', 'upd_tariff', 'upd_credit',
  	'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 
 	'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber','description',
-	'upd_id_group','upd_discount','upd_refill_type','upd_description','upd_id_seria'));
+	'upd_id_group','upd_discount','upd_refill_type','upd_description','upd_id_seria', 'upd_vat', 'upd_country'));
 
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)) {
@@ -140,7 +140,6 @@ if ($batchupdate == 1 && is_array($check)) {
 }
 
 
-
 if ($id!="" || !is_null($id)) {	
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
 }
@@ -217,7 +216,9 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 
 	$list_refill_type=Constants::getRefillType_List();
 	$list_refill_type["-1"]=array("NO REFILL","-1");
-	
+
+    $instance_table_country = new Table("cc_country", " countrycode, countryname ");
+    $list_country = $instance_table_country->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "countryname", "ASC", null, null, null, null);	
 	
 ?>
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
@@ -231,7 +232,7 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
         <tbody>
 		<form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 		<INPUT type="hidden" name="batchupdate" value="1">
-		<tr>		
+		<tr>
           <td align="left" class="bgcolor_001" >
 		  		<input name="check[upd_inuse]" type="checkbox" <?php if ($check["upd_inuse"]=="on") echo "checked"?>>
 		  </td>
@@ -412,14 +413,13 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
                 </select><br/>
           </td>
         </tr>
-
 		
 		<tr>
          <td align="left"  class="bgcolor_001">
                 <input name="check[upd_discount]" type="checkbox" <?php if ($check["upd_discount"]=="on") echo "checked"?> >
           </td>
           <td align="left" class="bgcolor_001">
-                15)&nbsp;<?php echo gettext("Set discount to");?>&nbsp;:
+                14)&nbsp;<?php echo gettext("Set discount to");?>&nbsp;:
                 <select NAME="upd_discount" size="1" class="form_input_select">
 					<option class=input value="0" ><?php echo gettext("NO DISCOUNT");?></option> 
                     <?php for($i=1;$i<99;$i++){ ?>
@@ -433,7 +433,7 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 	                <input name="check[upd_id_seria]" type="checkbox" <?php if ($check["upd_id_seria"]=="on") echo "checked"?> >
 	          </td>
 	          <td align="left" class="bgcolor_001">
-                    16)&nbsp;<?php echo gettext("Move to Seria");?>&nbsp;:
+                    15)&nbsp;<?php echo gettext("Move to Seria");?>&nbsp;:
                     <select NAME="upd_id_seria" size="1" class="form_input_select">
                             <?php
                              foreach ($list_seria as $recordset){
@@ -443,7 +443,33 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
                     </select><br/>
 	          </td>
         </tr>
-		
+		<tr>
+          <td align="left" class="bgcolor_001" >
+		  		<input name="check[upd_vat]" type="checkbox" <?php if ($check["upd_vat"]=="on") echo "checked"?>>
+		  </td>
+		  <td align="left"  class="bgcolor_001">
+				16)&nbsp;<?php echo gettext("VAT"); ?>&nbsp;: 
+				<input class="form_input_text"  name="upd_vat" size="10" maxlength="6" value="<?php if (isset($upd_vat)) echo $upd_vat;?>">
+				<br/>
+		  </td>
+		</tr>
+
+		<tr>
+		 <td align="left"  class="bgcolor_001">
+                <input name="check[upd_country]" type="checkbox" <?php if ($check["upd_country"]=="on") echo "checked"?> >
+          </td>
+          <td align="left" class="bgcolor_001">
+                17)&nbsp;<?php echo gettext("Country");?>&nbsp;:
+                <select NAME="upd_country" size="1" class="form_input_select">
+                        <?php
+                         foreach ($list_country as $recordset){
+                        ?>
+                                <option class=input value='<?php echo $recordset[0]?>'  <?php if ($upd_country==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]?></option>
+                        <?php } ?>
+                </select><br/>
+          </td>
+        </tr>
+        
 		<tr>		
 			<td align="right" class="bgcolor_001"></td>
 		 	<td align="right"  class="bgcolor_001">
