@@ -44,4 +44,8 @@ ALTER TABLE cc_did ADD aleg_retail_initblock_offp int(11) NOT NULL DEFAULT '0';
 ALTER TABLE cc_did ADD aleg_retail_increment_offp int(11) NOT NULL DEFAULT '0';
 
 
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES
+('LCR Mode', 'lcr_mode', '0', 'LCR Mode<br>0: Classic (Search the longer prefix of all ratecards, then LCR with all ratecards with this prefix)<br>1: Provider (LCR with the longer available prefix for every ratecard independently)<br>', 0, '', 'agi-conf1');
+
+
 UPDATE cc_version SET version = '1.9.5';

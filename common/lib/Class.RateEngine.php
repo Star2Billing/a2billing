@@ -198,13 +198,91 @@ class RateEngine
 			$result = array_slice ($result, $ind_stop_default, count($result)-$ind_stop_default);
 		}
 		
-		//1) REMOVE THOSE THAT HAVE A SMALLER DIALPREFIX
-		$max_len_prefix = strlen($result[0][7]);
-		for ($i=1;$i<count($result);$i++) {
-			if ( strlen($result[$i][7]) < $max_len_prefix) break;
-		}
-		$result = array_slice ($result, 0, $i);
 		
+        if ($A2B->agiconfig['lcr_mode'] == 0){
+            //1) REMOVE THOSE THAT HAVE A SMALLER DIALPREFIX
+            $max_len_prefix = strlen($result[0][7]);
+            for ($i=1;$i<count($result);$i++) {
+                if ( strlen($result[$i][7]) < $max_len_prefix) break;
+            }
+            $result = array_slice ($result, 0, $i);
+        } else if ( $A2B->agiconfig['lcr_mode'] == 1 ) {
+            //1) REMOVE THOSE THAT HAVE THE LOWEST COST
+            $myresult = array();
+            $myresult = $result;
+            $mysearchvalue = array();
+            if ($this->webui) $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: MYRESULT before sort \n".print_r($myresult, true));
+            // 3 - tariff plan, 5 - dialprefix
+            $myresult = $this -> array_csort($myresult,'3',SORT_NUMERIC,'5',SORT_NUMERIC,SORT_DESC);
+            if ($this->webui) $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: MYRESULT  after sort \n".print_r($myresult, true));
+            $countdelete = 0;
+            $resultcount = 0;
+            $mysearchvalue[$resultcount] = $myresult[0];
+            for ($ii=0;$ii<count($result)-1;$ii++){
+                $mysearchvalue[$resultcount] = $myresult[$ii];
+                if ($this->webui) {
+                    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: Begin for ii value ".$ii."]");
+                    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: MYSEARCHCVALUE \n".print_r($mysearchvalue,true)."]");
+                };
+                if (count($myresult)>0){
+                    foreach($myresult as $j=>$i){
+                        if ($this->webui) {
+                            $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: foreach J=".print_r($j, true));
+                            $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine:mysearchvalue[4]=".$mysearchvalue[$resultcount][4]);
+                            $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine:i[4]=".$i[4]);
+                            $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine:mysearchvalue[3]=".$mysearchvalue[$resultcount][3]);
+                            $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine:i[3]=".$i[3]);
+                            $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine:mysearchvalue[7]=".$mysearchvalue[$resultcount][7]);
+                            $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine:i[7]=".$i[7]);
+                        };
+                        if ($mysearchvalue[$resultcount][3] == $i[3] ) {
+                            if (strlen($mysearchvalue[$resultcount][7]) != strlen($i[7])) {
+                                unset($myresult[$j]);
+                                $countdelete = $countdelete+1;
+                                if ($this->webui) {
+                                    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: foreach: COUNTDELETE: ".$countdelete."]");
+                                    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: foreach: MYRESULT count after delete: ".count($myresult)."]");
+                                };
+                            };
+                        }
+                    } //end foreach
+                    $myresult = array_values($myresult);
+                    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: MYRESULT  after foreach \n".print_r($myresult, true));
+                    $resultcount++;
+                    if ($this->webui) {
+                        $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: Count MYRESULT after foreach=".count($myresult)."]");
+                        $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: RESULTCOUNT=".$resultcount."]");
+                    };
+                }
+                if ($this->webui) $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: End for II value ".$ii."]");
+            }  //end for
+            if ($this->webui) {
+                $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: COUNTDELETE=".$countdelete."]");
+                $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: MYRESULT  before unset \n".print_r($myresult, true));
+            };
+            if (count($result)>1 and $countdelete != 0) {
+                if ($this->webui) $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: LAST UNSET");
+                unset($mysearchvalue[$resultcount]);
+                foreach ($mysearchvalue as $key => $value) {
+                    if (is_null($value) or $value == "") {
+                        unset($mysearchvalue[$key]);
+                    }
+                }
+                $mysearchvalue = array_values($mysearchvalue);
+                unset($myresult);
+            };
+            if ($this->webui) {
+                $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: RESULTCOUNT".$resultcount."]");
+                $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: MYRESULT  after delete \n".print_r($myresult, true));
+                $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: MYSEARCHVALUE after delete \n".print_r($mysearchvalue, true));
+                $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: Count Total result after 4 ".count($myresult)."]");
+            };
+            if (count($result)>1 and $countdelete != 0) {
+                $result=$mysearchvalue;
+            };
+            unset($mysearchvalue);
+            if ($this->webui) $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[rate-engine: RESULT  after delete \n".print_r($result, true));
+        }
 		
 		//2) TAKE THE VALUE OF LCTYPE
 		//LCR : According to the buyer price	-0 	buyrate [col 6]
