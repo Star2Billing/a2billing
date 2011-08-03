@@ -1426,7 +1426,7 @@ class A2Billing {
 	
     function call_2did ($agi, &$RateEngine, $listdestination)
     {
-    	$card_number = $this -> username;
+    	$card_number = $this -> username; // username of the caller
         $nbused = $this -> nbused;
 		$res = 0;
         $connection_charge = $listdestination[0][8];
@@ -1493,6 +1493,7 @@ class A2Billing {
 			$this->destination 				= $inst_listdestination[10];
 			$this->username 				= $inst_listdestination[6];
 			$this->useralias 				= $inst_listdestination[7];
+			$this->id_card 				    = $inst_listdestination[28];
 			
             // CHECK IF DESTINATION IS SET
             if (strlen($inst_listdestination[4])==0)
