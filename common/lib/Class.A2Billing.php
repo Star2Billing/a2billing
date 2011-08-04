@@ -1481,6 +1481,7 @@ class A2Billing {
 		$username = $this->username;
 		$useralias = $this->useralias;
 		$set_inuse = $this->set_inuse;
+		$my_id_card = $this->id_card;
 		
 		foreach ($listdestination as $inst_listdestination) {
 			
@@ -1491,7 +1492,7 @@ class A2Billing {
 			$this->accountcode 				= $inst_listdestination[6];
 			$this->tariff 					= $inst_listdestination[3];
 			$this->destination 				= $inst_listdestination[10];
-			$this->username 				= $inst_listdestination[6];
+			$new_username 				    = $inst_listdestination[6];
 			$this->useralias 				= $inst_listdestination[7];
 			$this->id_card 				    = $inst_listdestination[28];
 			
@@ -1726,7 +1727,7 @@ class A2Billing {
 		if ($this->voicemail) {
 			if (($dialstatus =="CHANUNAVAIL") || ($dialstatus == "CONGESTION") || ($dialstatus == "NOANSWER") || ($dialstatus =="BUSY")) {
 				// The following section will send the caller to VoiceMail with the unavailable priority.\
-				$dest_username = $this->username;
+				$dest_username = $new_username;
 				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL ($dialstatus) - GOTO VOICEMAIL ($dest_username)");
 				
 				$vm_parameters = $this -> format_parameters ($dest_username.'|s');
@@ -1737,6 +1738,7 @@ class A2Billing {
 		$this->username = $username;
 		$this->useralias = $useralias;
 		$this->set_inuse = $set_inuse;
+		$this->id_card = $my_id_card;
 	}
 	
 	
