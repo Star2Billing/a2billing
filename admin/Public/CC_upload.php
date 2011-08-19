@@ -173,8 +173,6 @@ if ($method) {
 		rename($upload_dir . "/" . $file, $upload_dir . "/" . $to);
 		$_SESSION['message'] = "Renamed " . $file . " to " . $to;
 	}
-	// Redirect to the script again
-	Header("Location: " . $_SERVER['PHP_SELF'] . "?acc=$acc");
 }
 
 $smarty->display('main.tpl');

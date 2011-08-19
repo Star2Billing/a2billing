@@ -66,10 +66,10 @@ $G_instance_Query_trace = Query_trace::getInstance();
 $A2B = new A2Billing();
 
 // LOAD THE CONFIGURATION
-if (!isset($disable_load_conf) || !($disable_load_conf)) {
-	$res_load_conf = $A2B -> load_conf($agi, A2B_CONFIG_DIR."a2billing.conf", 1);
-	if (!$res_load_conf) exit;
-}
+//if (!isset($disable_load_conf) || !($disable_load_conf)) {
+$res_load_conf = $A2B -> load_conf($agi, A2B_CONFIG_DIR."a2billing.conf", 1);
+if (!$res_load_conf) exit;
+//}
 
 include (LIBDIR."common.defines.php");
 
@@ -188,13 +188,6 @@ define ("RETURN_URL_DISTANT_FORGETPASSWORD", isset($A2B->config["webcustomerui"]
 
 
 
-
-
-/*
- *		GLOBAL POST/GET VARIABLE
- */
-getpost_ifset (array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'ui_language', 'cssname', 'popup_select', 'popup_formname', 'popup_fieldname', 'exporttype', 'msg'));
-
 if (!isset($_SESSION)) {
 	session_start();
 }
@@ -267,4 +260,10 @@ include (LIBDIR."customer.help.php");
 
 define ("ENABLE_LOG", 0);
 
+//SQLi
+$DBHandle  = DbConnect();
+include (dirname(__FILE__)."/protect_sqli.php");
+
+// GLOBAL POST/GET VARIABLE
+getpost_ifset (array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'ui_language', 'cssname', 'popup_select', 'popup_formname', 'popup_fieldname', 'exporttype', 'msg'));
 

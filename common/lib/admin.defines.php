@@ -58,6 +58,7 @@ include (dirname(__FILE__)."/Class.NotificationsDAO.php");
 include (dirname(__FILE__)."/Class.Notification.php");
 include (dirname(__FILE__)."/Class.Mail.php");
 
+
 session_name("UIADMINSESSION");
 session_start();
 
@@ -97,10 +98,10 @@ $log = new Logger();
 
 
 // LOAD THE CONFIGURATION
-if (stripos($URI, "Public/index.php") === FALSE) {
-	$res_load_conf = $A2B -> load_conf($agi, A2B_CONFIG_DIR."a2billing.conf", 1);
-	if (!$res_load_conf) exit;
-}
+//if (stripos($URI, "Public/index.php") === FALSE) {
+$res_load_conf = $A2B -> load_conf($agi, A2B_CONFIG_DIR."a2billing.conf", 1);
+if (!$res_load_conf) exit;
+//}
 
 // Parameter to enable/disable the update of list of value in Config Edition
 define("LIST_OF_VALUES", false);
@@ -174,10 +175,6 @@ define ("SIP_IAX_INFO_HOST",isset($A2B->config['sip-iax-info']['sip_iax_info_hos
 define ("IAX_ADDITIONAL_PARAMETERS",isset($A2B->config['sip-iax-info']['iax_additional_parameters'])?$A2B->config['sip-iax-info']['iax_additional_parameters']:null);
 define ("SIP_ADDITIONAL_PARAMETERS",isset($A2B->config['sip-iax-info']['sip_additional_parameters'])?$A2B->config['sip-iax-info']['sip_additional_parameters']:null);
 
-/*
- *		GLOBAL POST/GET VARIABLE
- */
-getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'cssname', 'popup_select', 'popup_formname', 'popup_fieldname', 'ui_language', 'msg', 'section'));
 
 // Language Selection
 if (isset($ui_language)) {
@@ -244,6 +241,13 @@ if((stripos($URI, "Public/index.php") === FALSE) && isset($_SESSION["admin_id"])
 	$log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
 	$log = null;
 }
+
+//SQLi
+$DBHandle  = DbConnect();
+include (dirname(__FILE__)."/protect_sqli.php");
+
+// GLOBAL POST/GET VARIABLE
+getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'cssname', 'popup_select', 'popup_formname', 'popup_fieldname', 'ui_language', 'msg', 'section'));
 
 
 

@@ -79,11 +79,11 @@ $log = new Logger();
 //Enable Disable, list of values on page A2B_entity_config.php?form_action=ask-edit&id=1
 define("LIST_OF_VALUES",true);
 
-if (!isset($disable_load_conf) || !($disable_load_conf)) {
-	// SELECT THE FILES TO LOAD THE CONFIGURATION
-	$res_load_conf = $A2B -> load_conf($agi, A2B_CONFIG_DIR."a2billing.conf", 1);
-	if (!$res_load_conf) exit;
-}
+// LOAD THE CONFIGURATION
+//if (!isset($disable_load_conf) || !($disable_load_conf)) {
+$res_load_conf = $A2B -> load_conf($agi, A2B_CONFIG_DIR."a2billing.conf", 1);
+if (!$res_load_conf) exit;
+
 
 include (LIBDIR."common.defines.php");
 
@@ -189,12 +189,7 @@ define ("PG_DUMP", isset($A2B->config['backup']['pg_dump'])?$A2B->config['backup
 define ("MYSQL", isset($A2B->config['backup']['mysql'])?$A2B->config['backup']['mysql']:null);
 define ("PSQL", isset($A2B->config['backup']['psql'])?$A2B->config['backup']['psql']:null);
 
-		
-	
-/*
- *		GLOBAL POST/GET VARIABLE
- */
-getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'cssname', 'popup_select', 'popup_formname', 'popup_fieldname', 'ui_language', 'msg', 'section'));
+
 
 if (!isset($_SESSION)) {
 	session_start();
@@ -264,4 +259,11 @@ if((stripos($URI, "Public/index.php") === FALSE)&& isset($_SESSION["agent_id"]))
 	$log -> insertLogAgent($_SESSION["agent_id"], 1, "Page Visit", "Agent Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
 $log = null;
 }
+
+//SQLi
+$DBHandle  = DbConnect();
+include (dirname(__FILE__)."/protect_sqli.php");
+
+// GLOBAL POST/GET VARIABLE
+getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'cssname', 'popup_select', 'popup_formname', 'popup_fieldname', 'ui_language', 'msg', 'section'));
 
