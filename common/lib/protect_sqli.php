@@ -13,7 +13,7 @@ function recursive_filter($arr) {
     $newArr = array();
     foreach( $arr as $key => $value ) {
         if (is_array($value)) {
-            recursive_filter( $value );
+            $newArr[ $key ] = recursive_filter( $value );
         } else {
             if (filter_var($value, FILTER_SANITIZE_STRING) !== false) {
                 $newArr[ $key ] = $value;

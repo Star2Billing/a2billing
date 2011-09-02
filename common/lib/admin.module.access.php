@@ -35,7 +35,7 @@ $FG_DEBUG = 0;
 error_reporting(E_ALL & ~E_NOTICE);
 
 // Zone strings
-define ("MODULE_ACCESS_DOMAIN",		"A2Billing");
+define ("MODULE_ACCESS_DOMAIN",		"A2Billing - VoIP Billing Software");
 define ("MODULE_ACCESS_DENIED",		"./Access_denied.htm");
 
 
@@ -80,19 +80,8 @@ if (isset($_GET["logout"]) && $_GET["logout"]=="true") {
 	die();
 }
 
+getpost_ifset (array('pr_login', 'pr_password'));
 
-function access_sanitize_data($data)
-{
-	$lowerdata = strtolower ($data);
-	$data = str_replace('--', '', $data);
-	$data = str_replace("'", '', $data);
-	$data = str_replace('=', '', $data);
-	$data = str_replace(';', '', $data);
-	if (!(strpos($lowerdata, ' or ')===FALSE)){ return false;}
-	if (!(strpos($lowerdata, 'table')===FALSE)){ return false;}
-
-	return $data;
-}
 
 if ((!isset($_SESSION['pr_login']) || !isset($_SESSION['pr_password']) || !isset($_SESSION['rights']) || (isset($_POST["done"]) && $_POST["done"]=="submit_log") )){
 
@@ -102,17 +91,13 @@ if ((!isset($_SESSION['pr_login']) || !isset($_SESSION['pr_password']) || !isset
 	if ($_POST["done"]=="submit_log"){
 
 		$DBHandle  = DbConnect();
-
-		if ($FG_DEBUG == 1) echo "<br>1. ".$_POST["pr_login"].$_POST["pr_password"];
-		$_POST["pr_login"] = access_sanitize_data($_POST["pr_login"]);
-		$_POST["pr_password"] = access_sanitize_data($_POST["pr_password"]);
-
-		$return = login ($_POST["pr_login"], $_POST["pr_password"]);
+        
+		if ($FG_DEBUG == 1) echo "<br>1. ".$pr_login." - ".$pr_password;
+		
+		$return = login ($pr_login, $pr_password);
 
 		if ($FG_DEBUG == 1) print_r($return);
 		if ($FG_DEBUG == 1) echo "==>".$return[1];
-
-
 
 		if (!is_array($return) || $return[1]==0 ) {
 			header ("HTTP/1.0 401 Unauthorized");
@@ -139,11 +124,8 @@ if ((!isset($_SESSION['pr_login']) || !isset($_SESSION['pr_password']) || !isset
 			$pr_groupID = $return[3];
 		}
 
-		if ($_POST["pr_login"]) {
-
-			$pr_login = $_POST["pr_login"];
-			$pr_password = $_POST["pr_password"];
-
+		if ($pr_login) {
+			
 			if ($FG_DEBUG == 1) echo "<br>3. $pr_login-$pr_password-$rights-$conf_addcust";
 			$_SESSION["pr_login"]=$pr_login;
 			$_SESSION["pr_password"]=$pr_password;
@@ -174,6 +156,9 @@ function login ($user, $pass) {
 
 	$user = trim($user);
 	$pass = trim($pass);
+    $user = filter_var($user, FILTER_SANITIZE_STRING);
+    $pass = filter_var($pass, FILTER_SANITIZE_STRING);
+    
 	$pass_encoded= hash( 'whirlpool',$pass);
 	if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50) return false;
 	$QUERY = "SELECT userid, perms, confaddcust, groupid FROM cc_ui_authen WHERE login = '".$user."' AND pwd_encoded = '".$pass_encoded."'";

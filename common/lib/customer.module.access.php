@@ -32,10 +32,10 @@
 **/
 
 
-$FG_DEBUG = 0;
+$FG_DEBUG = 1;
 error_reporting(E_ALL & ~E_NOTICE);
 
-define ("MODULE_ACCESS_DOMAIN",		"CallingCard System");
+define ("MODULE_ACCESS_DOMAIN",		"A2Billing - VoIP Billing Software");
 define ("MODULE_ACCESS_DENIED",		"./Access_denied.htm");
 
 define ("ACX_ACCESS",						1);	
@@ -78,18 +78,7 @@ if (isset($_GET["logout"]) && $_GET["logout"]=="true") {
 	die();
 }
 	
-function access_sanitize_data($data)
-{
-	$lowerdata = strtolower ($data);
-	$data = str_replace('--', '', $data);	
-	$data = str_replace("'", '', $data);
-	$data = str_replace('=', '', $data);
-	$data = str_replace(';', '', $data);
-	if (!(strpos($lowerdata, ' or ')===FALSE)){ return false;}
-	if (!(strpos($lowerdata, 'table')===FALSE)){ return false;}
-
-	return $data;
-}
+getpost_ifset (array('pr_login', 'pr_password'));
 
 
 if ((!isset($_SESSION['pr_login']) || !isset($_SESSION['pr_password']) || !isset($_SESSION['cus_rights']) || (isset($_POST["done"]) && $_POST["done"]=="submit_log") )){
@@ -99,11 +88,9 @@ if ((!isset($_SESSION['pr_login']) || !isset($_SESSION['pr_password']) || !isset
 	if ($_POST["done"]=="submit_log") {
 		
 		$DBHandle  = DbConnect();
-		if ($FG_DEBUG == 1) echo "<br>1. ".$_POST["pr_login"].$_POST["pr_password"];
-		$_POST["pr_login"] = access_sanitize_data($_POST["pr_login"]);
-		$_POST["pr_password"] = access_sanitize_data($_POST["pr_password"]);
+		if ($FG_DEBUG == 1) echo "<br>1. ".$pr_login." - ".$pr_password;
 		
-		$return = login ($_POST["pr_login"], $_POST["pr_password"]);		
+		$return = login ($pr_login, $pr_password);
 		if ($FG_DEBUG == 1) print_r($return);
 		if ($FG_DEBUG == 1) echo "==>".$return[1];
 		
@@ -125,10 +112,9 @@ if ((!isset($_SESSION['pr_login']) || !isset($_SESSION['pr_password']) || !isset
 		}
 		
 		$cust_default_right=1;
-		if ($_POST["pr_login"]) {
+		if ($pr_login) {
 			
 			$pr_login = $return[0];
-			$pr_password = $_POST["pr_password"];
 			
 			if ($FG_DEBUG == 1)
 				echo "<br>3. $pr_login-$pr_password-$cus_rights";
@@ -165,12 +151,15 @@ function login ($user, $pass)
 	$user = trim($user);
 	$pass = trim($pass);
 	if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50) return false;
-	
+
+    $user = filter_var($user, FILTER_SANITIZE_STRING);
+    $pass = filter_var($pass, FILTER_SANITIZE_STRING);
+
 	$QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.id_didgroup, cc.tariff, cc.vat, ct.gmtoffset, cc.voicemail_permitted, " .
 			 "cc.voicemail_activated, cc_card_group.users_perms, cc.currency " .
 			 "FROM cc_card cc LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone LEFT JOIN cc_card_group ON cc_card_group.id=cc.id_group " .
 			 "WHERE (cc.email = '".$user."' OR cc.useralias = '".$user."') AND cc.uipass = '".$pass."'";
-			  
+			 
 	$res = $DBHandle -> Execute($QUERY);
 	
 	if (!$res) {
@@ -215,6 +204,7 @@ $ACXSUPPORT 				= has_rights (ACX_SUPPORT);
 $ACXNOTIFICATION 			= has_rights (ACX_NOTIFICATION);
 $ACXAUTODIALER 				= has_rights (ACX_AUTODIALER);
 $ACXSEERECORDING 			= has_rights (ACX_SEERECORDING);
+
 if (ACT_VOICEMAIL) {
     $ACXVOICEMAIL 				= $_SESSION["voicemail"];
 }
