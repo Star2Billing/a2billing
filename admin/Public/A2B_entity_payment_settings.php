@@ -59,12 +59,14 @@ if ($result == "success") {
 }
 $instance_sub_table = new Table("cc_payment_methods", "payment_filename");
 if (!empty ($id)) {
-	$paymentMethodID = $id;
+	$paymentMethodID = intval($id);
 } else {
 	exit (gettext("Payment module ID not found"));
 }
 
-$QUERY = " id = " . $paymentMethodID;
+$QUERY = " id = %u";
+$QUERY = sprintf($QUERY, $paymentMethodID);
+
 $DBHandle = DbConnect();
 $return = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
 $paymentMethod = substr($return[0][0], 0, strrpos($return[0][0], '.'));
