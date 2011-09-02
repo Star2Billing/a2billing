@@ -9,6 +9,22 @@ function array_map_recursive( $func, $arr ) {
     return $newArr;
 }
 
+function recursive_filter($arr) {
+    $newArr = array();
+    foreach( $arr as $key => $value ) {
+        if (is_array($value)) {
+            recursive_filter( $value );
+        } else {
+            if (filter_var($value, FILTER_SANITIZE_STRING) !== false) {
+                $newArr[ $key ] = $value;
+            } else {
+                $newArr[ $key ] = filter_var($value, FILTER_SANITIZE_STRING);
+            }
+        }
+    }
+    return $newArr;
+}
+
 // Clean up POST, GET, and COOKIES vars.
 if (!get_magic_quotes_gpc())
 {
@@ -30,6 +46,6 @@ else
     $_COOKIE  = array_map_recursive('addslashes', $_COOKIE);
 }
 
-
-
-
+$_POST = recursive_filter($_POST);
+$_GET  = recursive_filter($_GET);
+$_COOKIE  = recursive_filter($_COOKIE);
