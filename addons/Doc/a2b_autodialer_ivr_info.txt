@@ -19,7 +19,7 @@ on the IVR context.
 status => 0:Run, 1:onHold, 2: Stop
 
 
-So you will need a similar script as bellow on your dialplan :
+So you will need a similar script as below on your dialplan :
 
 
 ; We have to retrieve ${id_phonenumber} & ${id_campaign}

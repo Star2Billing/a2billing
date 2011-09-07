@@ -1185,7 +1185,7 @@ if ($profit > 500 && $rand_num==4 && SHOW_DONATION) {
 		
 			<center>
 				<b><font color="#A00000"><?php echo gettext("Thanks to A2Billing, you have made a profit of over 500 euro !");?></font></b><BR>
-					<?php echo gettext("Support A2Billing by clicking on the Donate button bellow :");?>  
+					<?php echo gettext("Support A2Billing by clicking on the Donate button below :");?>  
 				
 				<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 					<input type="hidden" name="cmd" value="_s-xclick">

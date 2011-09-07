@@ -1,6 +1,6 @@
 
 /* H1 class is used to set the style oh search title*/
-/* the class bellow are used to set the div parametres
+/* the class below are used to set the div parametres
 .title : for the div contained search title
 .serach : for the div contained the search form
 .result : for the div contained the result table
@@ -42,7 +42,7 @@ a:hover {
 	text-decoration: underline;
 }
 
-/* the class bellow are used to set the result table display styles
+/* the class below are used to set the result table display styles
 .table_title : for the head of the result table
 .tabletr_0 : for the no shaded tr
 .tabletr_1 : for the shaded tr
