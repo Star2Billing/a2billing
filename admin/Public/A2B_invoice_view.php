@@ -274,7 +274,7 @@ if(!$popup_select) {
          <?php foreach ($vat_array as $key => $val) { ?>
                  <tr class="vat">
                    <td class="one"></td>
-                   <td class="two"><?php echo gettext("VAT $key%:") ?></td>
+                   <td class="two"><?php echo gettext("VAT ") . "$key%:") ?></td>
                    <td class="three"><?php echo number_format(round(amount_convert($val),2),2)." $display_curr"; ?></td>
                  </tr> 
          <?php } ?>
@@ -296,7 +296,7 @@ if(!$popup_select) {
   <tfoot>
     <tr>
       <td colspan="3" class="footer">
-        <?php echo $company_name." | ".$address.", ".$zipcode." ".$city." ".$country." | VAT nr.".$vat_invoice; ?> 
+        <?php echo $company_name." | ".$address.", ".$zipcode." ".$city." ".$country." | ".gettext("VAT nr.").$vat_invoice; ?>
       </td>
     </tr> 
   </tfoot>
