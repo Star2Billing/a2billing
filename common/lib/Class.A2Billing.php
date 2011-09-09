@@ -1747,38 +1747,44 @@ class A2Billing {
 	 */
 	function bill_did_aleg ($agi, $inst_listdestination, $b_leg_answeredtime = 0)
 	{
-	$start_time=$this -> G_startime;
-	$stop_time=time();
-	$timeinterval=$inst_listdestination[19];
-	$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[bill_did_aleg]: START TIME peak=".$this -> calculate_time_condition($start_time,$timeinterval, "peak")." ,offpeak=".$this -> calculate_time_condition($start_time,$timeinterval, "offpeak")." ");
-	$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[bill_did_aleg]: STOP TIME peak=".$this -> calculate_time_condition($stop_time,$timeinterval, "peak")." ,offpeak=".$this -> calculate_time_condition($stop_time,$timeinterval, "offpeak")." ");
-	//TO DO - for now we use peak values only if whole call duration is inside a peak time interval. Should be devided in two parts - peek and off peak duration. May be later.
-        if ((($this -> calculate_time_condition($start_time,$timeinterval, "peak")) && !($this -> calculate_time_condition($start_time,$timeinterval, "offpeak"))) && (($this -> calculate_time_condition($stop_time,$timeinterval, "peak")) && !($this -> calculate_time_condition($stop_time,$timeinterval, "offpeak"))))
-	{
-		$this -> debug( INFO, $agi, __FILE__, __LINE__, "[bill_did_aleg]: We have PEAK time.");
-		$aleg_carrier_connect_charge = $inst_listdestination[11];
-		$aleg_carrier_cost_min = $inst_listdestination[12];
-		$aleg_retail_connect_charge = $inst_listdestination[13];
-		$aleg_retail_cost_min = $inst_listdestination[14];
+	    
+	    $start_time = $this -> G_startime;
+	    $stop_time = time();
+	    $timeinterval = $inst_listdestination[19];
+	    $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[bill_did_aleg]: START TIME peak=".$this -> calculate_time_condition($start_time,$timeinterval, "peak")." ,offpeak=".$this -> calculate_time_condition($start_time,$timeinterval, "offpeak")." ");
+	    $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[bill_did_aleg]: STOP TIME peak=".$this -> calculate_time_condition($stop_time,$timeinterval, "peak")." ,offpeak=".$this -> calculate_time_condition($stop_time,$timeinterval, "offpeak")." ");
+	    
+	    //TO DO - for now we use peak values only if whole call duration is inside a peak time interval. Should be devided in two parts - peek and off peak duration. May be later.
+        if ((($this -> calculate_time_condition($start_time,$timeinterval, "peak")) && 
+                !($this -> calculate_time_condition($start_time,$timeinterval, "offpeak"))) && 
+                (($this -> calculate_time_condition($stop_time,$timeinterval, "peak")) && 
+                !($this -> calculate_time_condition($stop_time,$timeinterval, "offpeak")))) {
+            # We have PEAK time
+		    $this -> debug( INFO, $agi, __FILE__, __LINE__, "[bill_did_aleg]: We have PEAK time.");
+		    $aleg_carrier_connect_charge = $inst_listdestination[11];
+		    $aleg_carrier_cost_min = $inst_listdestination[12];
+		    $aleg_retail_connect_charge = $inst_listdestination[13];
+		    $aleg_retail_cost_min = $inst_listdestination[14];
 		
-		$aleg_carrier_initblock = $inst_listdestination[15];
-		$aleg_carrier_increment = $inst_listdestination[16];
-		$aleg_retail_initblock = $inst_listdestination[17];
-		$aleg_retail_increment = $inst_listdestination[18];
-		#TODO use the above variables to define the time2call
-	} else {
-		$this -> debug( INFO, $agi, __FILE__, __LINE__, "[bill_did_aleg]: We have OFF-PEAK time.");
-		$aleg_carrier_connect_charge = $inst_listdestination[20];
-		$aleg_carrier_cost_min = $inst_listdestination[21];
-		$aleg_retail_connect_charge = $inst_listdestination[22];
-		$aleg_retail_cost_min = $inst_listdestination[23];
+		    $aleg_carrier_initblock = $inst_listdestination[15];
+		    $aleg_carrier_increment = $inst_listdestination[16];
+		    $aleg_retail_initblock = $inst_listdestination[17];
+		    $aleg_retail_increment = $inst_listdestination[18];
+		    #TODO use the above variables to define the time2call
+	    } else {
+	        #We have OFF-PEAK time
+		    $this -> debug( INFO, $agi, __FILE__, __LINE__, "[bill_did_aleg]: We have OFF-PEAK time.");
+		    $aleg_carrier_connect_charge = $inst_listdestination[20];
+		    $aleg_carrier_cost_min = $inst_listdestination[21];
+		    $aleg_retail_connect_charge = $inst_listdestination[22];
+		    $aleg_retail_cost_min = $inst_listdestination[23];
 		
-		$aleg_carrier_initblock = $inst_listdestination[24];
-		$aleg_carrier_increment = $inst_listdestination[25];
-		$aleg_retail_initblock = $inst_listdestination[26];
-		$aleg_retail_increment = $inst_listdestination[27];
-		#TODO use the above variables to define the time2call
-	}	
+		    $aleg_carrier_initblock = $inst_listdestination[24];
+		    $aleg_carrier_increment = $inst_listdestination[25];
+		    $aleg_retail_initblock = $inst_listdestination[26];
+		    $aleg_retail_increment = $inst_listdestination[27];
+		    #TODO use the above variables to define the time2call
+	    }	
 
         $this -> debug( INFO, $agi, __FILE__, __LINE__, "[bill_did_aleg]:[aleg_carrier_connect_charge=$aleg_carrier_connect_charge;\
                                                                           aleg_carrier_cost_min=$aleg_carrier_cost_min;\
@@ -1787,12 +1793,12 @@ class A2Billing {
                                                                           aleg_carrier_initblock=$aleg_carrier_initblock;\
                                                                           aleg_carrier_increment=$aleg_carrier_increment;\
                                                                           aleg_retail_initblock=$aleg_retail_initblock;\
-                                                                          aleg_retail_increment=$aleg_retail_increment]");
+                                                                          aleg_retail_increment=$aleg_retail_increment - b_leg_answeredtime=$b_leg_answeredtime]");
         
         $this -> dnid = $inst_listdestination[10];
         
         # if we add a new CDR for A-Leg
-        if (($aleg_carrier_connect_charge != 0) || ($aleg_carrier_cost_min != 0) || ($aleg_retail_connect_charge != 0) || ($aleg_retail_cost_min != 0)){
+        if (($aleg_carrier_connect_charge != 0) || ($aleg_carrier_cost_min != 0) || ($aleg_retail_connect_charge != 0) || ($aleg_retail_cost_min != 0)) {
             # duration of the call for the A-Leg is since the start date
             
             // SET CORRECTLY THE CALLTIME FOR THE 1st LEG
@@ -1808,7 +1814,11 @@ class A2Billing {
             
 		    # Carrier Minimum Duration and Billing Increment
 		    $aleg_carrier_callduration = $aleg_answeredtime;
-		    if ($aleg_carrier_callduration < $aleg_carrier_initblock) $aleg_carrier_callduration = $aleg_carrier_initblock;
+		    
+		    if ($aleg_carrier_callduration < $aleg_carrier_initblock) {
+		        $aleg_carrier_callduration = $aleg_carrier_initblock;
+		    }
+		    
 		    if (($aleg_carrier_increment > 0) && ($aleg_carrier_callduration > $aleg_carrier_initblock)) {
 			    $mod_sec = $aleg_carrier_callduration % $aleg_carrier_increment; // 12 = 30 % 18
 			    if ($mod_sec > 0) $aleg_carrier_callduration += ($aleg_carrier_increment - $mod_sec); // 30 += 18 - 12
@@ -1816,10 +1826,14 @@ class A2Billing {
 		    
 		    # Retail Minimum Duration and Billing Increment
 		    $aleg_retail_callduration = $aleg_answeredtime;
-		    if ($aleg_retail_callduration < $aleg_retail_initblock) $aleg_retail_callduration = $aleg_retail_initblock;
+		    
+		    if ($aleg_retail_callduration < $aleg_retail_initblock) {
+		        $aleg_retail_callduration = $aleg_retail_initblock;
+		    }
+		    
 		    if (($aleg_retail_increment > 0) && ($aleg_retail_callduration > $aleg_retail_initblock)) {
 			    $mod_sec = $aleg_retail_callduration % $aleg_retail_increment; // 12 = 30 % 18
-			    if ($mod_sec > 0) $aleg_retail_callduration += ($aleg_carrier_increment - $mod_sec); // 30 += 18 - 12
+			    if ($mod_sec > 0) $aleg_retail_callduration += ($aleg_retail_increment - $mod_sec); // 30 += 18 - 12
 		    }
 	        
             $aleg_carrier_cost = 0;
