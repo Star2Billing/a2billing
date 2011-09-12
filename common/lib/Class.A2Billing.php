@@ -577,7 +577,6 @@ class A2Billing {
 			$this->config["agi-conf$idconfig"]['currency_association_internal'][$cur_val[0]]=$cur_val[1];
 		}
 		
-		//if (!isset($this->config["agi-conf$idconfig"]['currency_cents_association']))	$this->config["agi-conf$idconfig"]['currency_cents_association'] = '';
 		if (isset($this->config["agi-conf$idconfig"]['currency_cents_association']) && strlen($this->config["agi-conf$idconfig"]['currency_cents_association']) > 0) {
 			$this->config["agi-conf$idconfig"]['currency_cents_association'] = explode(",",$this->config["agi-conf$idconfig"]['currency_cents_association']);
 			foreach($this->config["agi-conf$idconfig"]['currency_cents_association'] as $cur_val) {
