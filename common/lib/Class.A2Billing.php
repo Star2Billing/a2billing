@@ -1277,7 +1277,7 @@ class A2Billing {
 						$this -> debug( INFO, $agi, __FILE__, __LINE__, $command_mixmonitor);
 					}
 					
-					$max_long = 2147483647;
+					$max_long = 36000000; //Maximum 10 hours
 					$time2call = $this->agiconfig['max_call_call_2_did'];
 					$dialparams = $this->agiconfig['dialcommand_param_call_2did'];
 					$dialparams = str_replace("%timeout%", min($time2call * 1000, $max_long), $dialparams);
@@ -1512,7 +1512,7 @@ class A2Billing {
 					$this -> debug( INFO, $agi, __FILE__, __LINE__, $command_mixmonitor);
 				}
 				
-				$max_long = 2147483647; //Maximum value for long type in C++. This will be used to avoid overflow when sending large numbers to Asterisk
+				$max_long = 36000000; //Maximum 10 hours
                 if ($call_did_free) {
                     $this -> fct_say_time_2_call($agi,$time2call,0);
                     $dialparams = $this->agiconfig['dialcommand_param_call_2did'];

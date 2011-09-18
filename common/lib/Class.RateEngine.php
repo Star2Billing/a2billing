@@ -1244,7 +1244,7 @@ class RateEngine
 	*/
 	function rate_engine_performcall ($agi, $destination, &$A2B, $typecall=0) {
 
-		$max_long = 2147483647; //Maximum value for long type in C++. This will be used to avoid overflow when sending large numbers to Asterisk
+		$max_long = 36000000; //Maximum 10 hours
 		$old_destination = $destination;
 
 		for ($k=0;$k<count($this -> ratecard_obj);$k++) {
