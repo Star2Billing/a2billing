@@ -1324,10 +1324,12 @@ class A2Billing {
 										"[A2Billing] DID call friend: dialstatus : $dialstatus, answered time is ".$answeredtime." \n");
 					} elseif (($dialstatus  == "CHANUNAVAIL") || ($dialstatus  == "CONGESTION")) {
 						$answeredtime = 0;
-						if (count($listdestination)>$callcount) continue;
+						if (count($listdestination)>$callcount)
+							continue;
 					} else {
 						$agi-> stream_file('prepaid-callfollowme', '#');
-						if (count($listdestination) > $callcount) continue;
+						if (count($listdestination) > $callcount)
+							continue;
 					}
 					
 					if ($answeredtime >0) {
@@ -1383,8 +1385,11 @@ class A2Billing {
 						}
 						
 						$dialstatus = $RateEngine->dialstatus;
-						if (($RateEngine->dialstatus == "NOANSWER") || ($RateEngine->dialstatus == "BUSY") || 
-							($RateEngine->dialstatus == "CHANUNAVAIL") || ($RateEngine->dialstatus == "CONGESTION")) continue;
+						if (($RateEngine->dialstatus == "NOANSWER") || 
+							($RateEngine->dialstatus == "BUSY") || 
+							($RateEngine->dialstatus == "CHANUNAVAIL") || 
+							($RateEngine->dialstatus == "CONGESTION")) 
+							continue;
 						
 						if ($RateEngine->dialstatus == "CANCEL")
 							break;
