@@ -1489,7 +1489,8 @@ class RateEngine
 				$agi-> stream_file('prepaid-noanswer', '#');
 			} elseif ($this->dialstatus == "CANCEL") {
 				$this -> real_answeredtime = $this -> answeredtime = 0;
-			} elseif (($this->dialstatus  == "CHANUNAVAIL") || ($this->dialstatus  == "CONGESTION")) {
+			} elseif (($this->dialstatus  == "CHANUNAVAIL") || 
+					  ($this->dialstatus  == "CONGESTION")) {
 				$this -> real_answeredtime = $this -> answeredtime = 0;
 				// Check if we will failover for LCR/LCD prefix - better false for an exact billing on resell
 				if ($A2B->agiconfig['failover_lc_prefix']) {

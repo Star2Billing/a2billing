@@ -1178,10 +1178,11 @@ class A2Billing {
 			if (($dialstatus  == "CHANUNAVAIL") || ($dialstatus  == "CONGESTION"))
 				continue;
 			
-			if (strlen($this -> dialstatus_rev_list[$dialstatus])>0)
+			if (strlen($this -> dialstatus_rev_list[$dialstatus])>0) {
 				$terminatecauseid = $this -> dialstatus_rev_list[$dialstatus];
-			else
+			} else {
 				$terminatecauseid = 0;
+			}
 			
 			if ($answeredtime > 0) {
 				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_UPDATESYSTEM: usedratecard K=$K - (answeredtime=$answeredtime :: dialstatus=$dialstatus :: cost=$cost)]");
@@ -1198,8 +1199,11 @@ class A2Billing {
 		
 		if ($this->voicemail) {
 			
-			if (($dialstatus =="CHANUNAVAIL") || ($dialstatus == "CONGESTION") ||($dialstatus == "NOANSWER")) {
-				// The following section will send the caller to VoiceMail with the unavailable priority.
+			if (($dialstatus =="CHANUNAVAIL") || 
+				($dialstatus == "CONGESTION") ||
+				($dialstatus == "NOANSWER")) {
+				// The following section will send the caller to VoiceMail 
+				// with the unavailable priority.
 				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL UNAVAILABLE - GOTO VOICEMAIL ($dest_username)");
 				
 				$vm_parameters = $this -> format_parameters ($dest_username.'|u');
@@ -1309,7 +1313,7 @@ class A2Billing {
 						if ($this->agiconfig['busy_timeout'] > 0)
 							$res_busy = $agi->exec("Busy ".$this->agiconfig['busy_timeout']);
 						$agi-> stream_file('prepaid-isbusy', '#');
-						if (count($listdestination)>$callcount)
+						if (count($listdestination) > $callcount)
 							continue;
 					} elseif ($dialstatus == "NOANSWER") {
 						$answeredtime = 0;
