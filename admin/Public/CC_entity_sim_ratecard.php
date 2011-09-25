@@ -70,13 +70,13 @@ if ($called  && ($id_cc_card > 0 || $username > 0)) {
 		$num = 0;
 		$QUERY = "SELECT username, tariff, credit FROM cc_card where id='$id_cc_card'";
 		$resmax = $DBHandle -> Execute($QUERY);
-		if ($resmax)
+		if ($resmax) {
 			$num = $resmax -> RecordCount( );
-		
-		if ($num==0) {
-			echo gettext("Error card !!!"); exit();
 		}
-		
+		if ($num==0) {
+			echo gettext("Error card !!!");
+			exit();
+		}
 		for($i=0;$i<$num;$i++) {
 			$row [] =$resmax -> fetchRow();	
 		}
@@ -84,13 +84,13 @@ if ($called  && ($id_cc_card > 0 || $username > 0)) {
 		$A2B -> cardnumber = $row[0][0];
 		if ($FG_DEBUG == 1) echo "cardnumber = ".$row[0][0] ."<br>";
 		
-		if ($A2B -> callingcard_ivr_authenticate_light ($error_msg,$balance)){
+		if ($A2B -> callingcard_ivr_authenticate_light ($error_msg, $balance)){
 			if ($FG_DEBUG == 1) $RateEngine -> debug_st = 1;
 			
 			$RateEngine = new RateEngine();
 			$RateEngine -> webui = 0;
+
 			// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
-			
 			$A2B ->agiconfig['accountcode'] = $A2B -> cardnumber ;
 			$A2B ->agiconfig['use_dnid']=1;
 			$A2B ->agiconfig['say_timetocall']=0;						
