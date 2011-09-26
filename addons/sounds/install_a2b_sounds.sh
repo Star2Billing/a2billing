@@ -1,10 +1,31 @@
 #!/bin/bash
 
-#Use this line for RPM based systems as Fedora, CentOS, etc
-ast_sound=/var/lib/asterisk/sounds
 
-#Use this line for Debian based systems
-#ast_sound=/usr/share/asterisk/sounds
+# Identify Linux Distribution type
+if [ -f /etc/debian_version ] ; then
+    DIST='DEBIAN'
+elif [ -f /etc/redhat-release ] ; then
+    DIST='CENTOS'
+else
+    echo ""
+    echo "This Installer should be run on a CentOS or a Debian based system"
+    echo ""
+    exit 1
+fi
+
+
+
+case $DIST in
+    'DEBIAN')
+		ast_sound=/usr/share/asterisk/sounds
+	;;
+    'CENTOS')
+		ast_sound=/var/lib/asterisk/sounds
+	;;
+esac
+
+
+#Install audiofiles
 
 lang=en
 echo 
@@ -82,6 +103,4 @@ echo Copy $lang files in the right folder ...
 cp ./$lang/* $ast_sound/$lang/
 echo Copy $lang digits files in the right folder ...
 cp ./$lang/digits/* $ast_sound/$lang/digits/
-
-
 
