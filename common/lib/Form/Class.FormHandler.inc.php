@@ -1143,6 +1143,7 @@ class FormHandler
      */
 	function perform_action (&$form_action){
 		//security check
+		
 		switch ($form_action) {
 			case "ask-add":
 			case "add":
