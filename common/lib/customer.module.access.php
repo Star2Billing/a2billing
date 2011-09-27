@@ -32,7 +32,7 @@
 **/
 
 
-$FG_DEBUG = 1;
+$FG_DEBUG = 0;
 error_reporting(E_ALL & ~E_NOTICE);
 
 define ("MODULE_ACCESS_DOMAIN",		"A2Billing - VoIP Billing Software");
