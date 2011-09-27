@@ -74,6 +74,14 @@ class A2Billing {
     */
 	var $idconfig=1;
 
+	/**
+    * hangupdetected variables
+    *
+    * @var interger
+    * @access public
+    */
+	var $hangupdetected = false;
+
 
 	/**
     * cardnumber & CallerID variables
@@ -224,6 +232,10 @@ class A2Billing {
 		// $this -> DBHandle = $DBHandle;
 		
 		$this -> dialstatus_rev_list = Constants::getDialStatus_Revert_List();
+
+		if (function_exists('pcntl_signal')) {
+			pcntl_signal(SIGHUP, array(&$this,"Hangupsignal"));
+		}
 	}
 
 
@@ -234,6 +246,14 @@ class A2Billing {
 		$this -> ipaddress='';
 		$this -> rate='';
 		$this -> destination='';
+	}
+
+
+	/* Hangupsignal */
+	function Hangupsignal()
+	{
+		$this -> hangupdetected = true;
+		$this -> debug( INFO, null, __FILE__, __LINE__, "HANGUP DETECTED!\n");
 	}
 
 
@@ -257,9 +277,6 @@ class A2Billing {
 		}
 	}
 	
-	
-	
-
 	/*
 	 * Write log into file
 	 */
