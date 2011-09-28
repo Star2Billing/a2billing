@@ -65,6 +65,7 @@ ALTER TABLE  cc_iax_buddies CHANGE  host  host VARCHAR( 50 ) CHARACTER SET utf8 
 ALTER TABLE  cc_iax_buddies CHANGE  DEFAULTip  DEFAULTip CHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
 ALTER TABLE  cc_iax_buddies CHANGE  sourceaddress  sourceaddress VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT  '';
 
-
+-- Fix for long did destination
+ALTER TABLE cc_call CHANGE calledstation calledstation VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
 
 UPDATE cc_version SET version = '1.9.5';
