@@ -53,4 +53,18 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 
 UPDATE cc_config SET config_description='Asterisk Version Information, 1_1, 1_2, 1_4, 1_6, 1_8' WHERE config_key='asterisk_version';
 
+
+
+-- Prepare fields for IPV6
+ALTER TABLE  cc_sip_buddies CHANGE  DEFAULTip  DEFAULTip CHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
+ALTER TABLE  cc_sip_buddies CHANGE  host  host VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
+ALTER TABLE  cc_sip_buddies CHANGE  ipaddr  ipaddr CHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT  '';
+
+ALTER TABLE  cc_iax_buddies CHANGE  ipaddr  ipaddr CHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT  '';
+ALTER TABLE  cc_iax_buddies CHANGE  host  host VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
+ALTER TABLE  cc_iax_buddies CHANGE  DEFAULTip  DEFAULTip CHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
+ALTER TABLE  cc_iax_buddies CHANGE  sourceaddress  sourceaddress VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT  '';
+
+
+
 UPDATE cc_version SET version = '1.9.5';
