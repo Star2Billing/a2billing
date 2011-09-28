@@ -1760,7 +1760,6 @@ class A2Billing {
                         $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
                     }
 
-
                     if ($nbused>0) {
                             $firstuse= "";
                     } else {
@@ -1977,8 +1976,9 @@ class A2Billing {
                 }
             }
             if ($seconds>0 && ($this->agiconfig['disable_announcement_seconds']==0)) {
-                if ($minutes>0) $agi-> stream_file('vm-and', '#');
-
+                if ($minutes>0) {
+                	$agi-> stream_file('vm-and', '#');
+                }
                 if ($seconds==1) {
                     if ((strtolower($this ->current_language)=='ru')) {
 						$agi-> stream_file('digits/1f', '#');
@@ -2016,10 +2016,13 @@ class A2Billing {
 		}
 
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CURRENCY : $this->currency]");
-		if (!isset($currencies_list[strtoupper($this->currency)][2]) || !is_numeric($currencies_list[strtoupper($this->currency)][2])) $mycur = 1;
-		else $mycur = $currencies_list[strtoupper($this->currency)][2];
-		$credit_cur = $credit / $mycur;
+		if (!isset($currencies_list[strtoupper($this->currency)][2]) || !is_numeric($currencies_list[strtoupper($this->currency)][2])) {
+			$mycur = 1;
+		} else {
+			$mycur = $currencies_list[strtoupper($this->currency)][2];
+		}
 
+		$credit_cur = $credit / $mycur;
 		list($units, $cents)=preg_split('/[.]/', sprintf('%01.2f', $credit_cur));
 
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[BEFORE: $credit_cur SPRINTF : ".sprintf('%01.2f', $credit_cur)."]");
