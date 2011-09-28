@@ -1614,7 +1614,7 @@ class A2Billing {
 
                 if ($answeredtime > 0) {
 
-                    $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: FOLLOWME=$callcount - (answeredtime=$answeredtime :: dialstatus=$dialstatus :: cost=$cost)]");
+                    $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: FOLLOWME=$callcount - (answeredtime=$answeredtime :: dialstatus=$dialstatus :: call_did_free=$call_did_free)]");
 
                     if (strlen($this -> dialstatus_rev_list[$dialstatus])>0) {
 						$terminatecauseid = $this -> dialstatus_rev_list[$dialstatus];
@@ -1622,40 +1622,47 @@ class A2Billing {
 						$terminatecauseid = 0;
                     }
                     
-                    /* CDR B-LEG OF DID CALL */
-                    $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, ".
-                            " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
-                            "('".$this->uniqueid."', '".$this->channel."',  '".$this->id_card."', '".$this->hostname."',";
-                    $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-                    $QUERY .= ", '$answeredtime', '".$inst_listdestination[10]."', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' )";
+                    // User ONNet use $this->id_card
 
-                    $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
-                    $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
+                    // A-LEG below to the owner of the DID
+                    if ($call_did_free) {
+                    	//CALL2DID CDR is free
 
-                    //CALL2DID CDR if not free
-                    if (!$call_did_free) {
+	                    /* CDR A-LEG OF DID CALL */
+	                    $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, ".
+	                            " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
+	                            "('".$this->uniqueid."', '".$this->channel."',  '".$my_id_card."', '".$this->hostname."',";
+	                    $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
+	                    $QUERY .= ", '$answeredtime', '".$inst_listdestination[10]."', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' )";
+
+	                    $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+	                    $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
+	                    
+                    } else {
+
+                    	//CALL2DID CDR is not free
                         $cost = ($answeredtime/60) * abs($selling_rate) + abs($connection_charge);
                         
-                        /* CDR B-LEG OF DID CALL */
+                        /* CDR A-LEG OF DID CALL */
                         $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, ".
                                 " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
-                                "('".$this->uniqueid."', '".$this->channel."',  '".$this->id_card."', '".$this->hostname."',";
+                                "('".$this->uniqueid."', '".$this->channel."',  '".$my_id_card."', '".$this->hostname."',";
                         $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
                         $QUERY .= ", '$answeredtime', '". $listdestination[0][10]."', '$terminatecauseid', now(), '$cost', '0', '0', '0', '0', '$this->CallerID', '3' )";
 
                         $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
                         $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
-                        
-                        // Update the account
-                        if ($nbused > 0) {
-                            $firstuse = "";
-                        } else {
-                            $firstuse = "firstusedate=now(),";
-                        }
-                        $QUERY = "UPDATE cc_card SET credit= credit - ".a2b_round(abs($cost))." ,  lastuse=now(),$firstuse nbused=nbused+1 WHERE username='".$card_number."'";
-                        $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
-                        $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - UPDATE CARD: SQL: $QUERY]:[result:$result]");
                     }
+
+                    // Update the account
+                    if ($nbused > 0) {
+                        $firstuse = "";
+                    } else {
+                        $firstuse = "firstusedate=now(),";
+                    }
+                    $QUERY = "UPDATE cc_card SET credit= credit - ".a2b_round(abs($cost))." ,  lastuse=now(),$firstuse nbused=nbused+1 WHERE username='".$card_number."'";
+                    $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+                    $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - UPDATE CARD: SQL: $QUERY]:[result:$result]");
                     
                     // CC_DID & CC_DID_DESTINATION - cc_did.id, cc_did_destination.id
                     $QUERY = "UPDATE cc_did SET secondusedreal = secondusedreal + $answeredtime WHERE id='".$inst_listdestination[0]."'";
@@ -1666,8 +1673,9 @@ class A2Billing {
                     $result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
                     $this -> debug( INFO, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION]:[result:$result]");
                     
-                    #This is a call from user to DID, we dont want to charge the A-leg
-                    //$this -> bill_did_aleg ($agi, $listdestination[0], $answeredtime);
+                    #This is a call from user to DID
+                    #we will change the B-Leb using the did bill_did_aleg function
+                    $this -> bill_did_aleg ($agi, $listdestination[0], $answeredtime);
                     
                 }
 
@@ -1715,34 +1723,56 @@ class A2Billing {
                     $result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
                     $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION]:[result:$result]");
 
-                    // THEN STATUS IS ANSWER
-                    // ADD CDR
-                     //CALL2DID CDR if not free
-                    if (!$call_did_free) {
-                        $answeredtime = $RateEngine->answeredtime;
-                        $cost = ($answeredtime/60) * abs($selling_rate) + abs($connection_charge);
 
-                        //update card
+                    // ADDED 28 Sept 2011
+                    $answeredtime 	= $agi->get_variable("ANSWEREDTIME");
+	                $answeredtime 	= $answeredtime['data'];
+	                $dialstatus 	= $agi->get_variable("DIALSTATUS");
+	                $dialstatus 	= $dialstatus['data'];
+
+                    // A-LEG below to the owner of the DID
+                    if ($call_did_free) {
+                    	//CALL2DID CDR is free
+
+	                    /* CDR A-LEG OF DID CALL */
+	                    $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, ".
+	                            " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
+	                            "('".$this->uniqueid."', '".$this->channel."',  '".$my_id_card."', '".$this->hostname."',";
+	                    $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
+	                    $QUERY .= ", '$answeredtime', '".$inst_listdestination[10]."', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' )";
+
+	                    $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+	                    $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
+	                    
+                    } else {
+
+                    	//CALL2DID CDR is not free
+                        $cost = ($answeredtime/60) * abs($selling_rate) + abs($connection_charge);
+                        
+                        /* CDR A-LEG OF DID CALL */
                         $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, ".
                                 " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
-                                "('".$this->uniqueid."', '".$this->channel."',  '".$this->id_card."', '".$this->hostname."',";
+                                "('".$this->uniqueid."', '".$this->channel."',  '".$my_id_card."', '".$this->hostname."',";
                         $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
                         $QUERY .= ", '$answeredtime', '". $listdestination[0][10]."', '$terminatecauseid', now(), '$cost', '0', '0', '0', '0', '$this->CallerID', '3' )";
 
                         $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
                         $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
-                        if ($nbused>0) {
-                                $firstuse= "";
-                        } else {
-                               $firstuse= "firstusedate=now(),";
-                        }
-                        $QUERY = "UPDATE cc_card SET credit= credit - ".a2b_round(abs($cost))." ,  lastuse=now(),$firstuse nbused=nbused+1 WHERE username='".$card_number."'";
-                        $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
-                        $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - UPDATE CARD: SQL: $QUERY]:[result:$result]");
                     }
+
+
+                    if ($nbused>0) {
+                            $firstuse= "";
+                    } else {
+                           $firstuse= "firstusedate=now(),";
+                    }
+                    $QUERY = "UPDATE cc_card SET credit= credit - ".a2b_round(abs($cost))." ,  lastuse=now(),$firstuse nbused=nbused+1 WHERE username='".$card_number."'";
+                    $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+                    $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - UPDATE CARD: SQL: $QUERY]:[result:$result]");
+                    
                     
                     #This is a call from user to DID, we dont want to charge the A-leg
-                    //$this -> bill_did_aleg ($agi, $listdestination[0], $answeredtime);
+                    $this -> bill_did_aleg ($agi, $listdestination[0], $answeredtime);
                     
                     break;
                 }
