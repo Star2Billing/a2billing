@@ -108,14 +108,6 @@ class Realtime {
 									$line = "";
 									foreach ($codecs as $value)
 										$line .= trim($list_names[$i]) . '=' . $value . "\n";
-								} elseif (trim($list_names[$i]) == 'deny' || trim($list_names[$i]) == 'permit') {
-									$netmasks = explode(",", $data[$i +1]);
-									$line = "";
-									foreach ($netmasks as $value) {
-										if (!strpos($value, '/'))
-											$value .= '/255.255.255.255';
-										$line .= trim($list_names[$i]) . '=' . $value . "\n";
-									}
 								} else {
 									$line = (trim($list_names[$i]) . '=' . $data[$i +1] . "\n");
 								}
