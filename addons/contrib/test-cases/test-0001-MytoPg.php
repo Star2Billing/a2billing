@@ -328,18 +328,18 @@ $t[$i++] = array("MytoPg(): ADDDATE(1,3) from call-daily-load.php date clause",
 
 
 $t[$i++] = array("MytoPg(): AGI/a2billing.php callback spool",
-"INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account, callerid, timeout ) VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group', ADDDATE( CURRENT_TIMESTAMP, INTERVAL 1 SECOND ), '$account', '$callerid', '$timeout')",
-"INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account, callerid, timeout ) VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group', ( CURRENT_TIMESTAMP + INTERVAL '1 SECOND'), '$account', '$callerid', '$timeout')");
+"INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account, callerid, timeout ) VALUES ('', '', '', '', '', '', '', '', '', '', ADDDATE( CURRENT_TIMESTAMP, INTERVAL 1 SECOND ), '', '', '')",
+"INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account, callerid, timeout ) VALUES ('', '', '', '', '', '', '', '', '', '', ( CURRENT_TIMESTAMP + INTERVAL '1 SECOND'), '', '', '')");
 
 
 $t[$i++] = array("MytoPg(): admin/api/SOAP/callback-exec.php time clause",
-"SELECT '$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group', ADDDATE( CURRENT_TIMESTAMP, INTERVAL 1 SECOND ), '$account', '$callerid', '30000'",
-"SELECT '$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group', ( CURRENT_TIMESTAMP + INTERVAL '1 SECOND'), '$account', '$callerid', '30000'");
+"SELECT '', '', '', '', '', '', '', '', '', '', ADDDATE( CURRENT_TIMESTAMP, INTERVAL 1 SECOND ), '', '', '30000'",
+"SELECT '', '', '', '', '', '', '', '', '', '', ( CURRENT_TIMESTAMP + INTERVAL '1 SECOND'), '', '', '30000'");
 
 
 $t[$i++] = array("MytoPg(): admin/Public/graph_hourdetail.php date clause",
-" AND t1.starttime < '$fromstatsmonth_sday-$fromstatsday_sday ".$hourintervalplus.":00:00' AND t1.starttime >= '$fromstatsmonth_sday-$fromstatsday_sday ".$hourinterval.":00:00' ",
-" AND t1.starttime < '$fromstatsmonth_sday-$fromstatsday_sday ".$hourintervalplus.":00:00' AND t1.starttime >= '$fromstatsmonth_sday-$fromstatsday_sday ".$hourinterval.":00:00' ");
+" AND t1.starttime < '12-12 12:00:00' AND t1.starttime >= '12-12 00:00:00' ",
+" AND t1.starttime < '12-12 12:00:00' AND t1.starttime >= '12-12 00:00:00' ");
 
 
 
@@ -416,6 +416,9 @@ $t[$i++] = array("MytoPg(): Cast_date_part's timezone support and non-zero-padde
 //  (or for syslog:)  tail -F /var/log/messages | sed -e 's/>>>>/\n/g'
 $dbg = 0;		// 0: CPU hogs,  1: overview,  2: detail 3:more 4:all
 $times = 1;	// average time this many runs, >=30 for less jitter when optimising
+$fail = 0;	// count the number of test failures
+$pass = 0;	// count the number of test passes
+$res = '';	// a temporary holder for SQL results
 $total_time = 0;
 for ($i = 0;  $i < sizeof($t);  $i++) {
 	if ($dbg) print "\n";

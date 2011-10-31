@@ -45,6 +45,7 @@ class MytoPg {
 		$count = 0;
 		$slices = 0;
 		$d = '';
+		$matchpos = 0;
 
 		$start = microtime(true);
 		$old_length = strlen($q);
@@ -60,7 +61,7 @@ class MytoPg {
 				$f = preg_match("/".$this->mytopg[$i]."/i", substr($q, $pos), $match);
 
 				// there are no matches; use the remainder of the input verbatim
-				if ($f === FALSE) {
+				if (!$f) {
 					if ($dbg > 3) $d .= ">>>> Skipping from pos $pos";
 					$pos = strlen($q);
 					continue;
@@ -75,7 +76,7 @@ class MytoPg {
 				}
 
  				// we have a match;  process it and form the replacement text
- 				$matchpos = strpos($q, $match[2], $pos);
+ 				$matchpos = strpos($q, $match[0], $pos);
  				$matched = strtoupper($match[2]);
 				if ($dbg > 3) $d .= ">>>> Matched $match[2] at $matchpos";
 
@@ -88,7 +89,7 @@ class MytoPg {
 						// this is just a simple replacement,  nothing difficult
 						$new = $match[1].'~*'.$match[3];
 						$pos = $matchpos + strlen($match[1].$match[3]) + 2;
-						
+
 					} elseif ('TRUNCATE' == $matched) {
 						// this is just a simple replacement,  nothing difficult
 						$new = $match[1].'TRUNC'.$match[3];
@@ -122,8 +123,8 @@ class MytoPg {
 					// These are more difficult as we must find the matching
 					// closing bracket, and thus the whole braced expression
 					$end = $this -> Parse_helper('brace', $q, $matchpos, $dbg, $d);
-					$exp = substr($q, $matchpos+strlen($match[2].$match[3])+1, $end-$matchpos-strlen($match[2].$match[3])-1);
-					$remove = strlen($match[2].$match[3].$exp) + 2;
+					$exp = substr($q, $matchpos+strlen($match[0]), $end-$matchpos-strlen($match[0]));
+					$remove = strlen($match[0].$exp) + 1;
 
 					// split each element of this braced expression on comma
 					$rep = $this -> Parse_helper('split', $exp, ',', $dbg, $d);
@@ -138,24 +139,25 @@ class MytoPg {
 						foreach ($rep as &$value) {
 							// if a string literal contains '.',  add escaping
 							if (preg_match('/^\'.*[.].*\'$/', trim(ltrim($value)))) {
-								$value = ' E'.preg_replace('/([^\\])[.]/', '\1\\\\.', trim(ltrim($value)));
+								$value = preg_replace('/\'(.*)([.])(.*)\'/', ' E\'$1\\\\\\\$2$3\'', trim(ltrim($value)));
 							}
 						}
 						unset($value);
 						$new = "$match[1]REGEXP_REPLACE$match[3]("
 							.implode($rep, ',').", 'g')";
 						$pos = $matchpos + strlen($match[1].$match[3])+9;
-					
+
 					} elseif (preg_match('/(ADD|SUB)DATE|DATE_(ADD|SUB)/', $matched, $tmp)) {
 						// determine whether to add or subtract
-						if ($tmp[1] == 'SUB' || $tmp[2] == 'SUB') {
+						if ($tmp[1] == 'SUB' || (sizeof($tmp) > 2 && $tmp[2] == 'SUB')) {
 							$sign = ' - ';
 						} else {
 							$sign = ' + ';
 						}
 
 						// MySQL's ADD/SUBDATE has two possible syntaxes
-						$tmp = $this -> Parse_helper('split', ltrim($rep[1]), ' ', $dbg, $d);
+						$tmp = ltrim($rep[1]);
+						$tmp = $this -> Parse_helper('split', $tmp, ' ', $dbg, $d);
 						if ($dbg > 3) $d.=">>>> Found $match[2]$match[3]\$rep:>$rep[1]<\t>$rep[2]<\t>$rep[3]< , $tmp[0] '$tmp[1] $tmp[2]'";
 						if (sizeof($tmp) == 1) {
 							$rep[1] = "INTERVAL '$tmp[0] DAYS'";
@@ -170,7 +172,7 @@ class MytoPg {
 					} elseif ('SUBSTRING' == $matched) {
 						if ($dbg > 3) $d.=">>>> $match[2] : \$exp>$exp< \$rep[0-2]>$rep[0]<>$rep[1]<>$rep[2]<";
 						// if it looks like a field name containing time or date
-						if (preg_match('/\s*(\w*time|date\w*)\s/i*', $rep[0])) {
+						if (preg_match('/\s*(\w*time|date\w*)\s*/i', $rep[0])) {
 							if ($rep[1] == 1 && $rep[2] == 10) {
 								// rewrite as cast to datestamp
 								$new = "$match[1]$match[3]("
