@@ -61,7 +61,22 @@ if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-v')) {
 $agi = new AGI();
 
 
-if ($argc > 1 && is_numeric($argv[1]) && $argv[1] >= 0) {
+$optconfig = array();
+if ($argc > 1 && strstr($argv[1], "+")) {
+    /*
+    This change allows some configuration overrides on the AGI command-line by allowing the user to add them after the configuration number, like so:
+    exten => 0312345678,3,AGI(a2billing.php,"1+use_dnid=0&extracharge_did=12345")
+    */
+    //check for configuration overrides in the first argument
+    $idconfig = substr($argv[1], 0, strpos($argv[1],"+"));
+    $configstring = substr($argv[1], strpos($argv[1],"+")+1);
+    
+    foreach (explode("&",$configstring) as $conf) {
+        $var = substr($conf, 0, strpos($conf,"="));
+        $val = substr($conf, strpos($conf,"=")+1);
+        $optconfig[$var]=$val;
+    }
+}elseif ($argc > 1 && is_numeric($argv[1]) && $argv[1] >= 0) {
 	$idconfig = $argv[1];
 } else {
 	$idconfig = 1;
@@ -98,7 +113,7 @@ if ($argc > 5 && strlen($argv[5]) > 0) {
 }
 
 $A2B = new A2Billing();
-$A2B -> load_conf($agi, NULL, 0, $idconfig);
+$A2B -> load_conf($agi, NULL, 0, $idconfig, $optconfig);
 $A2B -> mode = $mode;
 $A2B -> G_startime = $G_startime;
 
