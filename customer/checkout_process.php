@@ -320,6 +320,7 @@ if ($customer_info[0] > 0 && $orderStatus == 2) {
 
 if ($id > 0 ) {
 	if (strcasecmp("invoice",$item_type)!=0) {
+	    #Payment not related to a Postpaid invoice
 	    $addcredit = $transaction_data[0][2]; 
 		$instance_table = new Table("cc_card", "username, id");
 		$param_update .= " credit = credit+'".$amount_without_vat."'";
@@ -409,7 +410,8 @@ if ($id > 0 ) {
 			
 		}
 	} else {
-		if($item_id>0) {
+	    #Payment related to a Postpaid invoice
+		if ($item_id > 0) {
 			$invoice_table = new Table('cc_invoice','reference');
 			$invoice_clause = "id = ".$item_id;
 			$result_invoice = $invoice_table->Get_list($DBHandle,$invoice_clause);
