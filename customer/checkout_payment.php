@@ -50,21 +50,20 @@ if (! has_rights (ACX_ACCESS)) {
 	die();
 }
 
-getpost_ifset(array (
-	'payment_error'
-));
+getpost_ifset(array ('payment_error'));
 
 
 $currencies_list = get_currencies();
 $two_currency = false;
-if (!isset($currencies_list[strtoupper($_SESSION['currency'])][2]) || !is_numeric($currencies_list[strtoupper($_SESSION['currency'])][2]) ){
+
+if ( !isset($currencies_list[strtoupper($_SESSION['currency'])][2]) || !is_numeric($currencies_list[strtoupper($_SESSION['currency'])][2]) ) {
 	$mycur = 1; 
-}else{ 
+} else { 
 	$mycur = $currencies_list[strtoupper($_SESSION['currency'])][2];
 	$display_currency =strtoupper($_SESSION['currency']);
-	if(strtoupper($_SESSION['currency'])!=strtoupper(BASE_CURRENCY))$two_currency=true;
+	if (strtoupper($_SESSION['currency'])!=strtoupper(BASE_CURRENCY))
+	    $two_currency=true;
 }
-
 
 
 $HD_Form = new FormHandler("cc_payment_methods","payment_method");
@@ -79,7 +78,7 @@ $HD_Form -> init();
 $static_amount = false;
 $amount=0;
 if($item_type == "invoice" && is_numeric($item_id)){
-	$table_invoice = new Table("cc_invoice","status,paid_status");
+	$table_invoice = new Table("cc_invoice", "status, paid_status");
 	$clause_invoice = "id = ".$item_id;
 	$result= $table_invoice -> Get_list($DBHandle,$clause_invoice);
 	if(is_array($result) && $result[0]['status']==1 && $result[0]['paid_status']==0 ){
@@ -89,7 +88,7 @@ if($item_type == "invoice" && is_numeric($item_id)){
 		$amount = $result[0][0];
 		$amount = ceil($amount*100)/100;
 		$static_amount = true;
-	}else{
+	} else{
 		Header ("Location: userinfo.php");
 		die;
 	}
@@ -98,8 +97,6 @@ if($item_type == "invoice" && is_numeric($item_id)){
 $smarty->display( 'main.tpl');
 
 $HD_Form -> create_toppage ($form_action);
-
-
 
 
 $payment_modules = new payment;
@@ -153,7 +150,7 @@ function rowOutEffect(object) {
 
 <br>
 <center>
-<?php 
+<?php
 	echo $PAYMENT_METHOD;
 ?>
 <br>
@@ -196,36 +193,35 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
       </tr>
       </table>
 <?php
-  }
+    }
 ?>
     <table class="infoBox" width="80%" cellspacing="0" cellpadding="2" align=center>
 
 <?php
-  $selection = $payment_modules->selection();
+    $selection = $payment_modules->selection();
   
-  if (sizeof($selection) > 1) {
+    if (sizeof($selection) > 1) {
 ?>
 
-           <tr height=10>
-                <td class="infoBoxHeading">&nbsp;</td>
-                <td class="infoBoxHeading" width="15%" valign="top" align="center"><b><?php echo "Please Select"; ?></b></td>
-                <td class="infoBoxHeading" width="10%" >&nbsp;</td>
-                <td class="infoBoxHeading"  width="75%" valign="top"><b><?php echo "Payment Method"; ?><b></td>
-
-           </tr>
+       <tr height=10>
+            <td class="infoBoxHeading">&nbsp;</td>
+            <td class="infoBoxHeading" width="15%" valign="top" align="center"><b><?php echo "Please Select"; ?></b></td>
+            <td class="infoBoxHeading" width="10%" >&nbsp;</td>
+            <td class="infoBoxHeading"  width="75%" valign="top"><b><?php echo "Payment Method"; ?><b></td>
+       </tr>
 <?php
-  } else {
+    } else {
 ?>
-          <tr>
-            <td>&nbsp;</td>
-            <td class="main" width="100%" colspan="3"><?php echo "This is currently the only payment method available to use on this order."; ?></td>
-          </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td class="main" width="100%" colspan="3"><?php echo "This is currently the only payment method available to use on this order."; ?></td>
+      </tr>
 
 <?php
-  }
+    }
 
-  $radio_buttons = 0;
-  for ($i=0, $n=sizeof($selection); $i<$n; $i++) {
+    $radio_buttons = 0;
+    for ($i=0, $n=sizeof($selection); $i<$n; $i++) {
 ?>
 
 
@@ -240,47 +236,47 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
       echo '             <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
     }
 ?>
-                <td >&nbsp;</td>
-                <td width="15%" align="center">
-                <?php
-				    if (sizeof($selection) > 1) {
-				      echo tep_draw_radio_field('payment', $selection[$i]['id']);
-				    } else {
-				      echo tep_draw_hidden_field('payment', $selection[$i]['id']);
-				    }
-				?>
-				</td>
-				<td width="10%" >&nbsp;</td>
-                <td width="75%" ><b><?php echo $selection[$i]['module']; ?></b></td>
-         </tr>
+            <td >&nbsp;</td>
+            <td width="15%" align="center">
+            <?php
+			    if (sizeof($selection) > 1) {
+			      echo tep_draw_radio_field('payment', $selection[$i]['id']);
+			    } else {
+			      echo tep_draw_hidden_field('payment', $selection[$i]['id']);
+			    }
+			?>
+			</td>
+			<td width="10%" >&nbsp;</td>
+            <td width="75%" ><b><?php echo $selection[$i]['module']; ?></b></td>
+       </tr>
       
 
-           <tr>
-            <td colspan="3">&nbsp;</td>
-            <td >
-                <table border="0" width="100%" cellspacing="0" cellpadding="2">
+       <tr>
+        <td colspan="3">&nbsp;</td>
+        <td >
+            <table border="0" width="100%" cellspacing="0" cellpadding="2">
 
 <?php
     if (isset($selection[$i]['error'])) {
 ?>
-          <tr>
+      <tr>
             <td class="main" ><?php echo $selection[$i]['error']; ?></td>
-          </tr>
+      </tr>
 <?php
     } elseif (isset($selection[$i]['fields']) && is_array($selection[$i]['fields'])) {
 ?>
-          <tr>
+      <tr>
             <td ><table border="0" cellspacing="0" cellpadding="2">
             
 <?php
       for ($j=0, $n2=sizeof($selection[$i]['fields']); $j<$n2; $j++) {
 ?>
-              <tr>
-                <td width="10">&nbsp;</td>
-                <td class="main"><?php echo $selection[$i]['fields'][$j]['title']; ?></td>
-                <td>&nbsp;</td>
-                <td class="main"><?php echo $selection[$i]['fields'][$j]['field']; ?></td>
-              </tr>
+          <tr>
+            <td width="10">&nbsp;</td>
+            <td class="main"><?php echo $selection[$i]['fields'][$j]['title']; ?></td>
+            <td>&nbsp;</td>
+            <td class="main"><?php echo $selection[$i]['fields'][$j]['field']; ?></td>
+          </tr>
 <?php
       }
 ?>

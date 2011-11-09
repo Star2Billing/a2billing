@@ -38,7 +38,7 @@ include ("./lib/customer.smarty.php");
 include ("./lib/support/classes/receipt.php");
 include ("./lib/support/classes/receiptItem.php");
 
-if (! has_rights (ACX_INVOICES)){
+if (! has_rights (ACX_INVOICES)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
@@ -47,8 +47,7 @@ if (! has_rights (ACX_INVOICES)){
 
 getpost_ifset(array('id'));
 
-if (empty($id))
-{
+if (empty($id)) {
 Header ("Location: A2B_entity_receipt.php?atmenu=payment&section=13");
 }
 
@@ -72,6 +71,7 @@ if (empty($card)) {
 	echo "Customer doesn't exist or is not correctly defined for this receipt !";
 	die();
 }
+
 $smarty->display('main.tpl');
 //Load receipt conf
 $invoice_conf_table = new Table('cc_invoice_conf','value');
@@ -174,7 +174,8 @@ if(!$popup_select){
   <tr class="two">
     <td colspan="3" class="receipt-details">
       <table class="receipt-details"> 
-        <tbody><tr>
+        <tbody>
+          <tr>
           <td class="one">
             <strong><?php echo gettext("Date"); ?></strong>
             <div><?php echo $receipt->getDate() ?></div>
@@ -186,8 +187,9 @@ if(!$popup_select){
             <div><?php echo $card['username'] ?></div>
           </td>
           <?php } ?>
-                 </tr>       
-      </tbody></table>
+          </tr>       
+        </tbody>
+      </table>
     </td>
   </tr>
   </thead>
@@ -225,26 +227,26 @@ if(!$popup_select){
 		$price = 0;
     	foreach ($items as $item){  
     	 	$price = $price + $item->getPrice();
-    	 } 
-    	
-    	 ?>
+    	}
+    ?>
     	
     <tr>
       <td colspan="3">
         <table class="total">
-         <tbody>
-         <tr class="inctotal">
-           <td class="one"></td>
-           <td class="two"><?php echo gettext("Total:") ?></td>
-           <td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(ceil(amount_convert($price)*100)/100,2)." $display_curr"; ?></div></div></td>
-         </tr>
-        </tbody></table>
+             <tbody>
+             <tr class="inctotal">
+               <td class="one"></td>
+               <td class="two"><?php echo gettext("Total:") ?></td>
+               <td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(ceil(amount_convert($price)*100)/100,2)." $display_curr"; ?></div></div></td>
+             </tr>
+            </tbody>
+        </table>
       </td>
     </tr>
     <tr>
     <td colspan="3" class="additional-information">
       <div class="receipt-description">
-      <?php echo $receipt->getDescription() ?>
+          <?php echo $receipt->getDescription() ?>
      </div></td>
     </tr>
   </tbody>
@@ -257,6 +259,6 @@ if(!$popup_select){
   </tfoot>
   </table></div>
 <?php
-$smarty->display('footer.tpl');
 
+$smarty->display('footer.tpl');
 

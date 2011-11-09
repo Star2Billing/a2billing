@@ -289,8 +289,8 @@ $nowDate = date("Y-m-d H:i:s");
 $pmodule = $transaction_data[0][4];
 
 $orderStatus = $payment_modules->get_OrderStatus();
-if(empty($item_type))
-	$transaction_type='balance';
+if (empty($item_type))
+	$transaction_type = 'balance';
 else
 	$transaction_type = $item_type;
 
