@@ -905,8 +905,7 @@ if ($mode == 'standard') {
 					$id_server_group = $A2B -> config["callback"]['id_server_group'];
 					$priority = 1;
 					$timeout = $A2B -> config["callback"]['timeout']*1000;
-					//$callerid = $A2B -> config["callback"]['callerid'];
-					$callerid = $A2B -> CallerID;
+					$callerid = $A2B -> config["callback"]['callerid'];
 					$application = '';
 					$account = $A2B -> accountcode;
 
