@@ -1253,21 +1253,18 @@ class A2Billing {
 	function call_did ($agi, &$RateEngine, $listdestination)
 	{
 		$res=0;
-
-		if ($this -> CC_TESTING) $this->destination = "kphone";
 		$this->agiconfig['say_balance_after_auth'] = 0;
 		$this->agiconfig['say_timetocall'] = 0;
-
-
-		if (($listdestination[0][2]==0) || ($listdestination[0][2]==2)) {
-			$doibill = 1;
-		} else {
-			$doibill = 0;
-		}
-
+        
 		$callcount=0;
 		foreach ($listdestination as $inst_listdestination) {
 			$callcount++;
+			
+		    if (($listdestination[0][2]==0) || ($listdestination[0][2]==2)) {
+			    $doibill = 1;
+		    } else {
+			    $doibill = 0;
+		    }
 
 			$this -> debug( INFO, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: FOLLOWME=$callcount (cardnumber:".$inst_listdestination[6]."|destination:".$inst_listdestination[4]."|tariff:".$inst_listdestination[3].")\n");
 
