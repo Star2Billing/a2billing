@@ -307,8 +307,8 @@ class Callback {
 				$status = 'PENDING';
 				$server_ip = 'localhost';
 				$num_attempt = 0;
-
-				$sep = ($A2B->config['global']['asterisk_version'] == "1_6")?',':'|';
+                
+				$sep = ($A2B->config['global']['asterisk_version'] == "1_2" || $A2B->config['global']['asterisk_version'] == "1_4")?'|':',';
 
 				$variable = "CALLED=$called".$sep."CALLING=$calling".$sep."CBID=$uniqueid".$sep."TARIFF=" . $A2B->tariff;
 

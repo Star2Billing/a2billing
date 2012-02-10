@@ -3660,7 +3660,7 @@ class A2Billing {
 	 */
 	function format_parameters ($parameters)
 	{
-		if ($this->agiconfig['asterisk_version'] == "1_6" || $this->agiconfig['asterisk_version'] == "1_8") {
+		if ($this->agiconfig['asterisk_version'] != "1_2" && $this->agiconfig['asterisk_version'] != "1_4") {
 			$parameters = str_replace("|", ',', $parameters);
 		}
 		return $parameters;

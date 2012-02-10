@@ -911,7 +911,7 @@ if ($mode == 'standard') {
 
 					$uniqueid = MDP_NUMERIC(5).'-'.MDP_STRING(7);
 					
-					$sep = ($A2B->config['global']['asterisk_version'] == "1_6" || $A2B->config['global']['asterisk_version'] == "1_8")?',':'|';
+					$sep = ($A2B->config['global']['asterisk_version'] == "1_2" || $A2B->config['global']['asterisk_version'] == "1_4")?'|':',';
 					
 					$variable = "IDCONF=$idconfig".$sep."CALLED=".$A2B ->destination.$sep.$CALLING_VAR.$sep.$MODE_VAR.$sep."CBID=$uniqueid".$sep."LEG=".$A2B -> username;
 					
@@ -1055,7 +1055,7 @@ if ($mode == 'standard') {
 
 					$uniqueid = MDP_NUMERIC(5).'-'.MDP_STRING(7);
 					
-					$sep = ($A2B->config['global']['asterisk_version'] == "1_6" || $A2B->config['global']['asterisk_version'] == "1_8")?',':'|';
+					$sep = ($A2B->config['global']['asterisk_version'] == "1_2" || $A2B->config['global']['asterisk_version'] == "1_4")?'|':',';
 					
 					$variable = "IDCONF=$idconfig".$sep."CALLED=".$A2B ->destination.$sep."MODE=ALL".$sep."CBID=$uniqueid".$sep."TARIFF=".$A2B ->tariff.$sep."LEG=".$A2B -> username;
 					
@@ -1397,7 +1397,7 @@ if ($mode == 'standard') {
                         $account = $A2B -> accountcode;
                         $uniqueid = $callback_uniqueid.'-'.MDP_NUMERIC(5);
                         
-                        $sep = ($A2B->config['global']['asterisk_version'] == "1_6" || $A2B->config['global']['asterisk_version'] == "1_8")?',':'|';
+                        $sep = ($A2B->config['global']['asterisk_version'] == "1_2" || $A2B->config['global']['asterisk_version'] == "1_4")?'|':',';
 
                         $variable = "CALLED=$inst_pn_member".$sep."CALLING=$inst_pn_member".$sep."CBID=$callback_uniqueid".$sep."TARIFF=$callback_tariff".$sep.
                                     "LEG=".$A2B -> accountcode.$sep."ACCOUNTCODE=".$A2B -> accountcode.$sep."ROOMNUMBER=".$room_number;
