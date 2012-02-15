@@ -168,7 +168,7 @@ $HD_Form -> AddEditElement (gettext("EMAIL TO SEND ALARM"),
 	"emailreport",
 	'$value',
 	"INPUT",
-	"size=30 maxlength=30",
+	"size=40 maxlength=40",
 	"1",
 	gettext("Insert the email to send the alarm"),
 	"" , "", "", "", "", "" , "yes", "");
