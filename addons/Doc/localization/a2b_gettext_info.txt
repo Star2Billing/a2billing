@@ -1,13 +1,12 @@
 ***************************************************************************************************
 *                                                                                                 *
-* a2billing 1.4 (c) AGPL 2003-2009                                                                *
+* a2billing 1.X (c) AGPL 2003-2012                                                                *
 * Documentation                                                                                   *
 *                                                                                                 *
 * Title: Localization tips                                                                        *
-* Date: April 2009                                                                                *
-* Version: 1.1                                                                                    *
+* Date: April 2012                                                                                *
+* Version: 1.X                                                                                    *
 * Author: AB                                                                                      *
-* Status: Draft                                                                                   *
 *                                                                                                 *
 ***************************************************************************************************
 
@@ -21,6 +20,9 @@ Contents
         1. Generation of the Portable Objects Files.
         2. Generation of Machine Object Files.
         3. Merging the PO Files
+        4. PO Files to translate
+        5. Contribute
+
 
 1. Generation of the Portable Objects Files
 
@@ -65,4 +67,21 @@ Contents
         this will generate a mo file.
 
 
+4. PO Files to Translate
 
+        A2Billing is composed of 3 web interfaces : Admin, Agent and Customer. Therefore each of them have a PO file
+
+        Admin : https://github.com/Star2Billing/a2billing/tree/master/common/admin_ui_locale
+
+        Agent UI : https://github.com/Star2Billing/a2billing/tree/master/common/agent_ui_locale
+
+        Customer UI : https://github.com/Star2Billing/a2billing/tree/master/common/cust_ui_locale
+
+
+5. Contribute
+
+        There is different ways to contribute on translations :
+        - Corrections : You can review the existing PO files in your own languages
+        - New Languages : You can download the english PO files (lang code en_US) and start new translation into your own language
+
+        Once you made a contribution you can send it over to the A2Billing Team at info@star2billing.com
