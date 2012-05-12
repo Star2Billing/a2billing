@@ -22,6 +22,3 @@ else
 $captcha = new captcha();
 $captcha->execute($code, $seed);	
 
-
-
-

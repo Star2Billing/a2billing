@@ -80,7 +80,15 @@ class captcha
 				$size	= mt_rand(8, 23);
 				$angle	= mt_rand(0, 360);
 				$x		= mt_rand(0, 360);
-				$y		= mt_rand(0, (int)($this->height - ($size / 5)));
+				#$y		= mt_rand(0, (int)($this->height - ($size / 5)));
+				#Patch from Arheops
+				$temp_a = (int)($size * 1.5);
+                $temp_b = (int)($this->height - ($size / 7));
+                if ($temp_a > $temp_b){
+                    $y = mt_rand($temp_b, $temp_a);
+                }else{
+                    $y = mt_rand($temp_a, $temp_b);
+                }
 				$color	= $func2($image, mt_rand(160, 224), mt_rand(160, 224), mt_rand(160, 224));
 				$text	= $chars_allowed[mt_rand(0, sizeof($chars_allowed) - 1)];				
 				imagettftext($image, $size, $angle, $x, $y, $color, $this->get_font(), $text);
