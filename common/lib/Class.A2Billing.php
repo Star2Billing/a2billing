@@ -1587,9 +1587,11 @@ class A2Billing {
 					$answeredtime = 0;
 					if ($this->agiconfig['busy_timeout'] > 0)
 						$res_busy = $agi->exec("Busy ".$this->agiconfig['busy_timeout']);
-					$agi-> stream_file('prepaid-isbusy', '#');
-					if (count($listdestination)>$callcount)
+					if (count($listdestination)>$callcount) {
 						continue;
+				    } else {
+				        $agi-> stream_file('prepaid-isbusy', '#');
+				    }
                 } elseif ($this->dialstatus == "NOANSWER") {
 					$answeredtime = 0;
 					$agi-> stream_file('prepaid-callfollowme', '#');
