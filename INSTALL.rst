@@ -149,13 +149,13 @@ A2BILLING INSTALLATION GUIDE
         The A2Billing configuration file (a2billing.conf) contains the basic information to connect to the a2billing database. Copy or make a symbolic link from
         /usr/local/src/a2billing/a2billing.conf to /etc/a2billing.conf
 
-        a2billing.conf -> /usr/local/src/asterisk2billing/a2billing.conf
+        a2billing.conf -> /usr/local/src/a2billing/a2billing.conf
 
         Option 1
         - cp /usr/local/src/a2billing/a2billing.conf /etc/
 
         Option 2
-        - ln -s /usr/local/src/asterisk2billing/a2billing.conf /etc/a2billing.conf
+        - ln -s /usr/local/src/a2billing/a2billing.conf /etc/a2billing.conf
 
         Open the file with your favorite text editor (vi is used in this example). If you are new to Linux, we recommend you to use the text editor Gedit.
         - vi /etc/a2billing.conf
