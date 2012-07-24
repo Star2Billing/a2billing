@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -38,7 +38,7 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse',
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
 'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list',
-'status', 'block', 'lock_pin', 'template_invoice', 'template_outstanding', 'description', 'voicemail_activated', 
+'status', 'block', 'lock_pin', 'template_invoice', 'template_outstanding', 'description', 'voicemail_activated',
 'voicemail_permitted','email_notification','credit_notification','notify_email', 'id_seria',
 'company_name' , 'company_website' , 'vat_rn' , 'traffic' , 'traffic_target','discount','restriction' ));
 
@@ -68,7 +68,7 @@ if (!($popup_select>=1)) {
 	$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_card_multi.php?stitle=Card&section=".$_SESSION["menu_section"];
 	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Generate Customers");
 	$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/user_multi_add.png" ;
-	
+
 	$HD_Form ->FG_LIST_ADDING_BUTTON2 = true;
 	$HD_Form ->FG_LIST_ADDING_BUTTON_LINK2 = "A2B_entity_card.php?form_action=ask-add&atmenu=card&stitle=Card&section=".$_SESSION["menu_section"];
 	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT2 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG2 = gettext("Add Customer");
@@ -116,7 +116,7 @@ foreach ($show_list_temp as $i => $value) {
 	if (!($pos === false)) {
 		$temp_ar = preg_split('/:/', $a);
 		$b = $temp_ar[1];
-		$a = strtolower(trim($temp_ar[0]));	
+		$a = strtolower(trim($temp_ar[0]));
 		if (strlen($a)>1) {
 		$show_list_sizes[$a] = $b;
 		}
@@ -129,7 +129,7 @@ $show_fields = array();
 $show_fields['id'] = array(gettext("ID"), "id", "3%", "center", "sort","", "", "", "", "", "", "");
 
 $show_fields['username'] = array(gettext("Account Number"), "username", "14%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
-if (!($popup_select>=1)) 
+if (!($popup_select>=1))
  $show_fields['useralias'] = array("<acronym title=\"WEB UI LOGIN\">".gettext("LOGIN")."</acronym>", "useralias", "12%", "center", "sort","", "", "", "", "", "", "");
 
 $show_fields['lastname'] = array(gettext("LASTNAME"), "lastname", "7%", "center", "sort", "20","", "", "", "", "", "");
@@ -159,7 +159,7 @@ if (!($popup_select>=1)) {
 	foreach ($show_list_temp as $i => $value) {
                 $show_list[$value] = $value;
 	}
-	
+
 	$FG_COL_QUERY = 'DISTINCT ';
 }
 $FG_COL_QUERY_FIELD = '';
@@ -306,21 +306,21 @@ $HD_Form -> FG_ADDITION = true;
 if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
-	
+
 	$maxi	= '';
 	$maxi2	= '';
 	$maxi3	= '';
-	
+
 	if (isset($form_action) && $form_action=="ask-add") {
 		if (!is_numeric($cardnumberlenght_list)) 	$cardnumberlenght_list = LEN_CARDNUMBER;
 		$array_card_generated  = gen_card_with_alias("cc_card", 0, $cardnumberlenght_list);
 		$maxi = "value='".$array_card_generated[0]."'";
 		$maxi2 = "value='".$array_card_generated[1]."'";
-		$pass = MDP_NUMERIC(10);
+		$pass = MDP_NUMERIC(5).MDP_STRING(15);
 		$maxi3 = "value='".$pass."'";
 		$default_initbalance = "value='0'";
 	}
-	
+
 	$HD_Form -> AddEditElement (gettext("ACCOUNT NUMBER"),
 				   "username",
 				   "",
@@ -329,8 +329,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "4",
 				   gettext("Insert the account number"),
 				   "" , "", "",	"", "" , "", "", '', null, null, gettext("Customer Information"));
-				   
-	
+
+
 	$HD_Form -> AddEditElement (gettext("WEBUI LOGIN"),
 				   "useralias",
 				   "",
@@ -339,8 +339,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "4",
 				   gettext("Insert the webui login"),
 				   "" , "", "",	"", "" , "", "", "");
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("WEBUI PASSWORD"),
 				   "uipass",
 				   '',
@@ -349,16 +349,16 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   gettext("Insert the password"),
 				   "" , "", "",	"", "", "",	"", gettext("Password for customer to access to the web interface and view the balance.") );
-	
+
 	if ($form_action =="ask-add" || $form_action=="add") {
 		$balance_access = "value = '0'";
 		$payment_status = "";
-		
+
 	} else {
 		$balance_access = 'readonly';
 		$payment_status= 'disabled="true" style="color: gray;" ';
 	}
-	
+
 	$HD_Form -> AddEditElement (gettext("BALANCE"),
 				   "credit",
 				   "",
@@ -367,8 +367,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "12",
 				   gettext("Insert the number of credit"),
 				   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
-	
-				   
+
+
 	$HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
 				   "id_group",
 				   "",
@@ -378,7 +378,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "cc_card_group",
 				   "name, id",
 				   "", "", "%1", "", "", "", "", "");
-			   
+
 	$HD_Form -> AddEditElement (gettext("SERIAL"),
 	               "id_seria",
 	               "",
@@ -388,8 +388,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 	               "cc_card_seria",
 	               "name, id",
 	               "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("LAST NAME"),
 				   "lastname",
 				   '$value',
@@ -398,7 +398,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "11",
 				   gettext("Insert the lastname of the customers"),
 				   "" , "", "",	"", "", "" , "NO", "", null, null, gettext("Personal Information"));
-	
+
 	$HD_Form -> AddEditElement (gettext("FIRST NAME"),
 				   "firstname",
 				   '$value',
@@ -407,8 +407,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "11",
 				   gettext("Insert the firstname of the customers"),
 				   "" , "", "",	"", "", "" , "NO", "");
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("EMAIL"),
 				   "email",
 				   '$value',
@@ -417,8 +417,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "1",
 				   gettext("Insert the email"),
 				   "" , "", "",	"", "", "" , "NO", "");
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("ADDRESS"),
 				   "address",
 				   '$value',
@@ -427,8 +427,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "0",
 				   gettext("Insert the address of the customers"),
 				   "" , "", "",	"", "", "" , "NO", "");
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("CITY"),
 				   "city",
 				   '$value',
@@ -437,8 +437,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "0",
 				   gettext("Insert the city"),
 				   "" , "", "",	"", "", "" , "NO", "");
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("STATE/PROVINCE"),
 				   "state",
 				   '$value',
@@ -447,11 +447,11 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "11",
 				   gettext("Insert the state"),
 				   "" , "", "",	"", "", "" , "NO", "");
-	
+
 	if ($form_action == 'ask-add') {
 		$country_default_val = 'USA';
 	}
-	
+
 	$HD_Form -> AddEditElement (gettext("COUNTRY"),
 				   "country",
 				   "$country_default_val",
@@ -461,7 +461,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "cc_country",
 				   "countryname, countrycode",
 				   "", "", "%1", "", "", "", '' );
-	
+
 	$HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
 				   "zipcode",
 				   '$value',
@@ -470,8 +470,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "0",
 				   gettext("Insert the zipcode"),
 				   "" , "", "",	"", "", "" , "NO", "");
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("PHONE NUMBER"),
 				   "phone",
 				   '$value',
@@ -480,8 +480,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "7",
 				   gettext("Insert the phone number of the customers"),
 				   "" , "", "",	"", "", "" , "NO", "");
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("FAX NUMBER"),
 				   "fax",
 				   '$value',
@@ -490,7 +490,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   gettext("Insert the fax number of the customers"),
 				   "" , "", "",	"", "", "" , "NO", "");
-	
+
 	$HD_Form -> AddEditElement (gettext("COMPANY NAME"),
 				   "company_name",
 				   '$value',
@@ -499,8 +499,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   gettext("Insert Company name of this customer"),
 				   "" , "", "",	"", "", "" , "NO", "");
-				   
-				   
+
+
 	$HD_Form -> AddEditElement (gettext("COMPANY WEBSITE"),
 				   "company_website",
 				   '$value',
@@ -509,11 +509,11 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   gettext("Insert the company website of this customer"),
 				   "" , "", "",	"", "", "" , "NO", "");
-	
+
 	if ($form_action != "edit") {
-		
+
 		$update_field_typepaid = 'typepaid ,';
-	
+
 		$HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
 					   "typepaid",
 					   "",
@@ -523,7 +523,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 					   "",
 					   "list" , "", "",	"", $typepaid_list, "%1", "", '', null, null, gettext("Customer Status") );
 	}
-	
+
 	$HD_Form -> AddEditElement (gettext("CALL PLAN"),
 				   "tariff",
 				   "",
@@ -533,8 +533,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "cc_tariffgroup",
 				   "tariffgroupname, id",
 				   "", "", "%1", "", gettext("Changing the call plan will result in the free minutes or free calls package being reset.") );
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("DIDGROUP"),
 				   "id_didgroup",
 				   "",
@@ -544,7 +544,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "cc_didgroup",
 				   "didgroupname, id",
 				   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
-	
+
 	$timezone_list = get_timezones();
 	$one_select = false;
 	foreach ($timezone_list as $key => $cur_value) {
@@ -556,15 +556,15 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 			}
 		}
 	}
-	
+
 	$HD_Form -> AddEditElement (gettext("TIMEZONE"),
 				   "id_timezone",
 				   "$timezone_default_val",
 				   "SELECT",
 				   "","","",
 				   "list" , "", "",	"", $timezone_list, "%1", "", "" );
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("LANGUAGE"),
 				   "language",
 				   "",
@@ -573,17 +573,17 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   "",
 				   "list" , "", "",	"", $language_list, "%1", "", "" );
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("CURRENCY"),
 				   "currency",
 				   "",
 				   "SELECT",
 				   "",
 				   "", "", "list" , "", "",	"", $currency_list, "%1", "", gettext("Currency used at the customer end.") );
-	
-	
-	
+
+
+
 	$HD_Form -> AddEditElement (gettext("STATUS"),
 				   "status",
 				   "",
@@ -624,8 +624,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   "",
 				   "list" , "", "",	"", $simultaccess_list, "%1", "", "" );
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("RUN SERVICE"),
 				   "runservice",
 				   '0',
@@ -634,8 +634,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   gettext("Choose if you want to enable the service recurring on this account"),
 				   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Apply recurring service to this account."));
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("CREDIT LIMIT"),
 				   "creditlimit",
 				   "",
@@ -644,9 +644,9 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "4",
 				   gettext("Insert the credit limit"),
 				   "" , "", "",	"", "", "", "NO-NULL", gettext("Credit limit is only used for the postpaid account."));
-	
-	
-	
+
+
+
 	$HD_Form -> AddEditElement (gettext("CREDIT LIMIT NOTIFICATION"),
 				   "credit_notification",
 				   '',
@@ -654,11 +654,11 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   "",
 				   "",
-				   "list" , "", "", "", $limits_notify_list , "%1", "", 
-				   gettext("currency : ").strtoupper(BASE_CURRENCY).'<BR>'.gettext("Low credit limit to alert the customer"), 
+				   "list" , "", "", "", $limits_notify_list , "%1", "",
+				   gettext("currency : ").strtoupper(BASE_CURRENCY).'<BR>'.gettext("Low credit limit to alert the customer"),
 				   "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>');
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("PERMITTED NOTIFICATIONS BY MAIL"),
 				   "notify_email",
 				   '0',
@@ -667,8 +667,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   gettext("Choose if you want to enable the notification by email for this account"),
 				   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the notification by mail for this account."));
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("EMAIL NOTIFICATION"),
 				   "email_notification",
 				   '$value',
@@ -677,8 +677,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "1",
 				   gettext("Insert the email to notify this customer"),
 				   "" , "", "",	"", "", "" , "NO", "");
-	
-	if (ACT_VOICEMAIL) { 
+
+	if (ACT_VOICEMAIL) {
 		$HD_Form -> AddEditElement (gettext("PERMITTED VOICEMAIL"),
 					   "voicemail_permitted",
 					   '1',
@@ -687,7 +687,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 					   "",
 					   gettext("Choose if you want to enable the voicemail functionality for this account"),
 					   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the voicemail functionality for this account."));
-		
+
 		$HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
 					   "voicemail_activated",
 					   '0',
@@ -697,7 +697,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 					   gettext("Customer can choose to enable the voicemail for this account"),
 					   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Customer can enable the voicemail for this account."));
 	}
-	
+
 	$HD_Form -> AddEditElement (gettext("CAMPAIGN"),
 				   "id_campaign",
 				   "",
@@ -707,8 +707,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "cc_campaign",
 				   "name, id",
 				   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("FIRST USE DATE"),
 				   "firstusedate",
 				   "",
@@ -717,8 +717,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   "the first use date",
 				   "" , "" , "", "", "", "", "NO-NULL", "", "", "res_display_dateformat");
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("ENABLE EXPIRY"),
 				   "enableexpire",
 				   "",
@@ -727,8 +727,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   "",
 				   "list" , "", "",	"", $expire_list, "%1", "", gettext("Select method of expiry for the account.") );
-	
-	
+
+
 	$comp_zero = $comp_date_plus='';
 	if (isset($form_action) && $form_action=="ask-add"){
 		$begin_date = date("Y");
@@ -738,7 +738,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 		$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
 		$comp_zero = "value='0'";
 	}
-	
+
 	$HD_Form -> AddEditElement (gettext("EXPIRY DATE"),
 				   "expirationdate",
 				   '$value',
@@ -747,9 +747,9 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "10",
 				   gettext("Insert the expiration date"),
 				   "" , "", "",	"", "", "", "NO-NULL", gettext("please use the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
-	
-	
-	
+
+
+
 	$HD_Form -> AddEditElement (gettext("EXPIRY DAYS"),
 				   "expiredays",
 				   "",
@@ -758,8 +758,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "4",
 				   gettext("Insert the number of days after which the account will expire"),
 				   "" , "", "",	"", "", "", "", gettext("The number of days after which the account will expire."));
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("CREATE SIP CONFIG"),
 				   "sip_buddy",
 				   '1',
@@ -768,8 +768,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   gettext("Choose if you want to enable the sip account"),
 				   "" , "", "" , "Yes :1, - No:0", "", "" , "", gettext("Create the SIP config automatically"));
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("CREATE IAX CONFIG"),
 				   "iax_buddy",
 				   '1',
@@ -778,7 +778,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   gettext("Choose if you want to enable the iax account"),
 				   "" , "", "" , "Yes :1, - No:0",  "", "" , "", gettext("Create the IAX config automatically"));
-	
+
 	$HD_Form -> AddEditElement (gettext("MAC ADDRESS"),
 				   "mac_addr",
 				   '$value',
@@ -787,8 +787,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   gettext("Insert the MAC address customers' device"),
 				   "" , "", "",	"", "", "" , "NO", gettext("FORMAT: 00-08-74-4C-7F-1D"));
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("IN USE"),
 				   "inuse",
 				   '$value',
@@ -797,7 +797,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   "",
 				   "" , "", "",	"", "", "", "NO", gettext("Updated to show the number of concurrent calls in use by this customer. If there are no currently no calls, and the system shows that there are, manually reset this field back to zero.") );
-	
+
 	$HD_Form -> AddEditElement (gettext("AUTOREFILL"),
 				   "autorefill",
 				   '0',
@@ -807,7 +807,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   gettext("Choose if you want to enable the autorefill on this account"),
 				   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Define if you want to authorize the autorefill to apply on this accout"),
 				   '', '', gettext("AUTOREFILL"));
-	
+
 	$HD_Form -> AddEditElement (gettext("INITIAL BALANCE"),
 				   "initialbalance",
 				   "",
@@ -816,9 +816,9 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "12",
 				   gettext("Insert the amount of the initial balance"),
 				   "" , "", "",	"", "", "",	"", gettext("The initial balance is used by autorefill to reset the current balance to this amount"));
-	
-	
-	
+
+
+
 	$HD_Form -> AddEditElement (gettext("INVOICE DAY"),
 				   "invoiceday",
 				   '$value',
@@ -826,15 +826,15 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   "",
 				   "",
-				   "list" , "", "",	"", $invoiceday_list, "%1", "", gettext("Define the day of the month when the system will generate the customer invoice."), 
+				   "list" , "", "",	"", $invoiceday_list, "%1", "", gettext("Define the day of the month when the system will generate the customer invoice."),
 				   '', '', gettext("Invoice Status"));
-	
-	
+
+
 	if ($form_action =="ask-add" || $form_action=="add") {
 		$vat_init = "value = '0'";
-		
+
 	}
-	
+
 	$HD_Form -> AddEditElement (gettext("VAT"),
 				   "vat",
 				   "",
@@ -843,8 +843,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "12",
 				   gettext("Insert the VAT"),
 				   "" , "", "",	"", "", "", "" , gettext("VAT to add on the invoice of this customer. it should be a decimal value '21' this will be for 21% of VAT!"));
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("VAT REGISTRATION NUMBER "),
 				   "vat_rn",
 				   '$value',
@@ -852,9 +852,9 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "size=40 maxlength=40",
 				   "",
 				   gettext("Insert the VAT registration number of this customer"),
-				   "" , "", "",	"", "", "" , "NO", "");			   
-	
-	
+				   "" , "", "",	"", "", "" , "NO", "");
+
+
 	$HD_Form -> AddEditElement (gettext("DISCOUNT"),
 	               "discount",
 	               "",
@@ -862,9 +862,9 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 	               "",
 	               "",
 	               "",
-	               "list" , "", "",     "", $discount_list, "%1", "", ""); 
-					
-	
+	               "list" , "", "",     "", $discount_list, "%1", "", "");
+
+
 	$HD_Form -> AddEditElement (gettext("TRAFFIC PER MONTH"),
 				   "traffic",
 				   '$value',
@@ -873,8 +873,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "4",
 				   gettext("Insert the traffic per month for this customer"),
 				   "" , "", "",	"", "", "" , "NO", "",
-				   '', '', gettext("TARGET TRAFFIC")); 
-	
+				   '', '', gettext("TARGET TRAFFIC"));
+
 	$HD_Form -> AddEditElement (gettext("TARGET TRAFFIC"),
 					"traffic_target",
 					'',
@@ -883,8 +883,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 					"",
 					gettext("Insert the target traffic description"),
 					"" , "", "", "", "" , "", "", "");
-	
-					
+
+
 	$HD_Form -> AddEditElement (gettext("RESTRICTION"),
 				   "restriction",
 				   "0",
@@ -893,8 +893,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   "",
 				   "list" , "", "",	"", $restriction_list, "%1", "", "",
-				   '', '', gettext("RESTRICTED NUMBERS")); 
-					
+				   '', '', gettext("RESTRICTED NUMBERS"));
+
 	$HD_Form -> AddEditElement (gettext("RESTRICTED NUMBERS"),
 				   "restrictednumber",
 				   '$value',
@@ -906,9 +906,9 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   "",
 				   "", "", "", "", "", "cc_restricted_phonenumber:number:number, id_card:id_card = %id::id_card:::::::0");
-	
-	
-				   
+
+
+
 	$HD_Form -> AddEditElement (gettext("CALLERID"),
 				   "callerid",
 				   '$value',
@@ -921,11 +921,11 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   "", "", "", "", "", "cc_callerid:cid:cid, cid, id_cc_card:id_cc_card = %id::id_cc_card:::::::0",
 				   '', gettext("CALLERID / CUSTOMER HISTORY"));
-					
-				   
-	
-	
-	
+
+
+
+
+
 	$HD_Form -> AddEditElement (gettext("CUSTOMER HISTORY"),
 				   "description",
 				   '$value',
@@ -937,7 +937,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   "",
 				   "", "", "", "", "", "cc_card_history:description:description,id_cc_card,datecreated:id_cc_card = %id::id_cc_card::2:::::0");
-	
+
 				   // cc_card_history:description:description,id_cc_card:id_cc_card = %id::id_cc_card
 				   // Above function will provid Has Many functionality
 				   // Each parameter is seperated by (:) notation
@@ -947,11 +947,11 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   // 3. Third will get all the columns (but first should be joining column)
 				   // 4. Fourth param generates the where cluase
 				   // 5. Last, Sixth param is the FK column
-	
+
 	$add_fields_voicemail = '';
 	if (ACT_VOICEMAIL)
 		$add_fields_voicemail = 'voicemail_permitted, voicemail_activated, ';
-	
+
 	$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, id_group, id_seria, lastname, firstname, email, '.
 			' address, city, state, country, zipcode, phone, fax,company_name, company_website, '.
 			$update_field_typepaid.' tariff, id_didgroup, id_timezone, language, currency, status, block, lock_pin, simultaccess,  runservice, creditlimit, ' .
@@ -959,59 +959,59 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 			' id_campaign, ' .
 			' firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, ' .
 			' autorefill, initialbalance, invoiceday, vat, vat_rn, discount, traffic, traffic_target, restriction' );
-	
-	
-	if(!isset($myusername)) 
+
+
+	if(!isset($myusername))
 		$myusername='';
-	
+
 	if ($form_action == "ask-edit") {
 		$table_card = new Table("cc_card","status");
 		$result_card = $table_card ->Get_list(DbConnect(),"id=$id");
 		$HD_Form -> FG_EDITION_HIDDEN_PARAM = "oldstatus";
 		$HD_Form -> FG_EDITION_HIDDEN_PARAM_VALUE = "".$result_card[0][0];
 	}
-	
-	
+
+
 	$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your")." ".$HD_Form->FG_INSTANCE_NAME;
 	$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
 	$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
-	
-	
+
+
 	$HD_Form -> FG_INTRO_TEXT_ADITION = '';
 	$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
-	
-	
+
+
 	$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 	$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on Confirm Data");
-	
+
 	$HD_Form -> FG_ADDITIONAL_FUNCTION_BEFORE_EDITION = 'change_card_lock';
-	
+
 	$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'processing_card_add';
 	$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_EDITION = 'create_status_log';
-	
+
 	if (isset($form_action) && $form_action=='delete' && USE_REALTIME) {
 		$card_table = new Table('cc_card','sip_buddy,iax_buddy');
 		$card_clause = "id = ".$id;
 		$card_result = $card_table -> Get_list(DbConnect(), $card_clause, 0);
 		$sip_buddy = $card_result[0]['sip_buddy'];
 		$iax_buddy = $card_result[0]['iax_buddy'];
-		if(($sip_buddy == 1) && ($iax_buddy == 1)) 
+		if(($sip_buddy == 1) && ($iax_buddy == 1))
 			$key = "sip_iax_changed";
-		elseif (($sip_buddy == 1) ) 
+		elseif (($sip_buddy == 1) )
 			$key = "sip_changed";
-		elseif ($iax_buddy == 1) 
+		elseif ($iax_buddy == 1)
 			$key = "iax_changed";
-		
+
 		if ($_SESSION["user_type"]=="ADMIN") {
 				$who= Notification::$ADMIN;$who_id=$_SESSION['admin_id'];
 		} elseif ($_SESSION["user_type"]=="AGENT") {
 			$who= Notification::$AGENT;$who_id=$_SESSION['agent_id'];
-		} else { 
+		} else {
 			$who=Notification::$UNKNOWN;$who_id=-1;
 		}
 		NotificationsDAO::AddNotification($key,Notification::$HIGH,$who,$who_id);
 	}
-	
+
 	$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?section=".$_SESSION["menu_section"]."&id=";
 	$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?section=".$_SESSION["menu_section"]."&id=";
 	$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?section=".$_SESSION["menu_section"]."&id=";

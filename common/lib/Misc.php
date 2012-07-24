@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -59,9 +59,9 @@ function a2b_decrypt($text, $key) {
  */
 function a2b_mail($to, $subject, $mail_content, $from = 'root@localhost', $fromname = '', $contenttype = 'multipart/alternative')
 {
-	
+
 	$mail = new PHPMailer(true);
-	
+
 	if (SMTP_SERVER) {
 		$mail->Mailer = "smtp";
 	} else {
@@ -85,7 +85,7 @@ function a2b_mail($to, $subject, $mail_content, $from = 'root@localhost', $fromn
 	$mail->AltBody = $mail_content; // Plain text body (for mail clients that cannot read 	HTML)
 	// if ContentType = multipart/alternative -> HTML will be send
 	$mail->ContentType = $contenttype;
-	
+
 	if (strpos($to, ',') > 0) {
 		foreach (explode(',', $to) as $toemail){
             $mail->AddAddress($toemail);
@@ -93,7 +93,7 @@ function a2b_mail($to, $subject, $mail_content, $from = 'root@localhost', $fromn
 	} else {
 	    $mail->AddAddress($to);
 	}
-	
+
 	try {
 		$mail->Send();
 	} catch (phpmailerException $e) {
@@ -236,14 +236,14 @@ function sanitize_data($input) {
 		}
 	} else {
 
-		// remove whitespaces (not a must though)  
+		// remove whitespaces (not a must though)
 		$input = trim($input);
 
 		$input = str_replace('--', '', $input);
 		$input = str_replace(';', '', $input);
 		$input = str_replace('#', '', $input);
 		$input = str_replace('/*', '', $input);
-		
+
 		#injection sql
 		$input = str_ireplace('HAVING', '', $input);
 		$input = str_ireplace('UNION', '', $input);
@@ -256,7 +256,7 @@ function sanitize_data($input) {
 		$input = str_ireplace('SELECT', '', $input);
 		$input = str_ireplace('UPDATE', '', $input);
 		#$input = str_ireplace('DELETE', '', $input);
-		
+
 		if (!(stripos($input, ' or 1') === FALSE)) {
 			return false;
 		}
@@ -268,7 +268,7 @@ function sanitize_data($input) {
 			$input = stripslashes($input);
 		}
 		$input = cleanInput($input);
-		
+
 		$output = addslashes($input);
 	}
 
@@ -351,7 +351,7 @@ function display_dateformat($mydate) {
  */
 function display_date_timestamp($timestamp){
 	echo date("m/d/Y H:i:s", $timestamp);
-}	
+}
 
 /*
  * function display_vm_callerid
@@ -359,7 +359,7 @@ function display_date_timestamp($timestamp){
 function display_vm_callerid($callerid_string){
 	$arr_spli = preg_split("/ /", $callerid_string);
 	echo str_replace('"',"", $arr_spli[0]);
-}	
+}
 
 
 
@@ -469,7 +469,7 @@ function linkonmonitorfile($value) {
 		}
 	}
 	if (!$find_record) return false;
-	
+
 	$myfile = base64_encode($myfile);
 	echo "<a target=_blank href=\"call-log-customers.php?download=file&file=" . $myfile . "\">";
 	echo '<img src="' . Images_Path . '/stock-mic.png" height="18" /></a>';
@@ -490,7 +490,7 @@ function linkonmonitorfile_customer($value) {
 		}
 	}
 	if (!$find_record) return false;
-	
+
 	$myfile = base64_encode($myfile);
 	echo "<a target=_blank href=\"call-history.php?download=file&file=" . $myfile . "\">";
 	echo '<img src="' . Images_Path . '/stock-mic.png" height="18" /></a>';
@@ -641,7 +641,7 @@ function MDP_NUMERIC($chrs = LEN_CARDNUMBER)
     for($i = 0; $i < $chrs; $i++){
         $myrand .= mt_rand(0,9);
     }
-    
+
     return $myrand;
 }
 
@@ -884,11 +884,11 @@ function get_timezones($handle = null, $clause = null) {
 		$handle = DbConnect();
 	}
 	$instance_table = new Table();
-	if (!is_null($clause)) 
-		$clause = 'WHERE '.$clause; 
+	if (!is_null($clause))
+		$clause = 'WHERE '.$clause;
 	$QUERY = "SELECT id, gmttime, gmtzone, gmtoffset FROM cc_timezone $clause ORDER by id";
 	$result = $instance_table->SQLExec($handle, $QUERY, 1, 300);
-	
+
 	if (is_array($result)) {
 		$num_cur = count($result);
 		for ($i = 0; $i < $num_cur; $i++) {
@@ -904,13 +904,13 @@ function get_timezones($handle = null, $clause = null) {
 }
 
 function display_GMT($currDate, $number, $fulldate = 1)
-{	
+{
 	$timezone_list = get_timezones(null, "gmttime = '".SERVER_GMT."'");
 	foreach ($timezone_list as $key => $timezone_list_val) {
 		$server_offset = $timezone_list_val[3];
 		break;
 	}
-	
+
 	$date_time_array = getdate(strtotime($currDate));
 	$hours = $date_time_array['hours'];
 	$minutes = $date_time_array['minutes'];
@@ -919,7 +919,7 @@ function display_GMT($currDate, $number, $fulldate = 1)
 	$day = $date_time_array['mday'];
 	$year = $date_time_array['year'];
 	$timestamp = mktime($hours, $minutes, $seconds, $month, $day, $year);
-	
+
 	$timestamp = $timestamp - ($server_offset - $number);
 	/*
 	if ($fulldate == 1) {
@@ -929,7 +929,7 @@ function display_GMT($currDate, $number, $fulldate = 1)
 	}
 	return $gmdate;
 	*/
-	
+
 	if ($fulldate == 1) {
 		$date = date("Y-m-d H:i:s", $timestamp);
 	} else {
@@ -1030,7 +1030,7 @@ function get_db_languages($handle = null) {
  */
 
 function archive_data($condition, $entity = "")
-{	
+{
 	$handle = DbConnect();
 	$instance_table = new Table();
 	if (!empty ($entity)) {
@@ -1073,7 +1073,7 @@ function do_field($sql, $fld, $dbfld) {
 	$fldtype = $fld . 'type';
 	global $$fld;
 	global $$fldtype;
-	
+
 	if ($$fld) {
 		if (strpos($sql, 'WHERE') > 0) {
 			$sql = "$sql AND ";
@@ -1114,7 +1114,7 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
 	$strong_currency = 'EUR';
 	$url = "http://download.finance.yahoo.com/d/quotes.csv?s=";
 	$return = "";
-	
+
 	$QUERY = "SELECT id, currency, basecurrency FROM cc_currencies ORDER BY id";
 	$old_currencies = $instance_table->SQLExec($DBHandle, $QUERY);
 
@@ -1172,7 +1172,7 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
 				return gettext("At least one of the entries in the CSV file isn't a number.") . ' ' . gettext('Currency update ABORTED.');
 			}
 		}
-		
+
 		// Find base_currency's value in $strong_currency to help avoid Yahoo's
 		// early truncation,  and therefore win back a lot of accuracy
 		$base_value = $currencies[$index_base_currency];
@@ -1250,7 +1250,7 @@ function generate_invoice_reference() {
 	$invoice_conf_table = new Table('cc_invoice_conf', 'value');
 	$conf_clause = "key_val = 'count_$year'";
 	$result = $invoice_conf_table->Get_list($handle, $conf_clause, 0);
-	
+
 	if (is_array($result) && !empty ($result[0][0])) {
 		$count = $result[0][0];
 		if (!is_numeric($count)) {
@@ -1339,13 +1339,13 @@ function mt_get()
     list($usec, $sec) = explode(" ", microtime());
     return ((float)$usec + (float)$sec);
 }
- 
+
 // mt_start: starts the microtime counter
 function mt_start()
 {
     global $mt_time; $mt_time = mt_get();
 }
- 
+
 // mt_end: calculates the elapsed time
 function mt_end($len=4)
 {
@@ -1376,8 +1376,8 @@ function open_url($url)
     $string = ob_get_contents();
 
     ob_end_clean();
-   
-    return $string;    
+
+    return $string;
 }
 
 
@@ -1387,22 +1387,22 @@ function open_url($url)
 function retrieve_rates_callplan($callplan_id, $DBHandle)
 {
     $instance_table = new Table();
-    
+
     $QUERY = "SELECT DISTINCT cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, cc_ratecard.rateinitial, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.initblock, " .
     		"cc_ratecard.connectcharge, cc_ratecard.id_trunk , cc_ratecard.idtariffplan , cc_ratecard.id FROM cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id " .
     		"INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id WHERE cc_tariffgroup.id= '$callplan_id' " .
     		"AND cc_ratecard.rateinitial = (SELECT min(c1.rateinitial) FROM cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id " .
     		"INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) LEFT JOIN cc_ratecard AS c1 ON c1.idtariffplan=cc_tariffplan.id WHERE cc_tariffgroup.id= '$callplan_id' " .
     		"AND cc_ratecard.dialprefix=c1.dialprefix) ORDER BY destination ASC";
-	
+
 	$result = $instance_table -> SQLExec ($DBHandle, $QUERY, 1, 3600); // cached for 1hour
-	
+
 	if (!is_array($result)) {
 	    return false;
 	}
-	
+
 	return $result;
-	
+
 }
 
 /*
@@ -1412,16 +1412,16 @@ function check_cp()
 {
 	$randn = rand(1, 10);
 	$ret_val = ($randn == 5)? 1 : 0;
-	
+
 	$pos_star = strpos(COPYRIGHT, 'star2billing');
 	if ($pos_star === false) {
 		return $ret_val;
 	}
 	$pageURL = get_curPageURL();
     $pos = strpos($pageURL, 'phpsysinfo');
-    
+
     if ($pos === false) {
-        
+
         $footer_content = file_get_contents("templates/default/footer.tpl");
 
         $pos_copyright = strpos($footer_content, '$COPYRIGHT');
@@ -1489,7 +1489,7 @@ function addRealMonth($timeStamp)
 
 
 function Display_Login_Button ($DBHandle, $id) {
-	
+
 	$inst_table = new Table("cc_card", "useralias, uipass");
 	$FG_TABLE_CLAUSE = "id = $id";
 	$list_card_info = $inst_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE);
