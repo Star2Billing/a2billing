@@ -6,10 +6,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2009 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -28,8 +28,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 /***************************************************************************
@@ -42,8 +42,8 @@
  *  The sample above will run the script every day of each month at 6AM
 	crontab -e
 	0 6 * * * php /usr/local/a2billing/Cronjobs/a2billing_invoice_cront.php
-	
-	
+
+
 	field	 allowed values
 	-----	 --------------
 	minute	 0-59
@@ -51,7 +51,7 @@
 	day of month	 1-31
 	month	 1-12 (or names, see below)
 	day of week	 0-7 (0 or 7 is Sun, or use names)
-	
+
 ****************************************************************************/
 
 set_time_limit(0);
@@ -153,7 +153,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				continue;
 			}
 
-			//find the last billing 
+			//find the last billing
 			$card_id = $Customer['id'];
 			$date_now = date("Y-m-d");
 			if (empty ($Customer['vat']) || !is_numeric($Customer['vat']))
@@ -165,7 +165,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 			$billing_table = new Table('cc_billing_customer', 'id, date, id_invoice');
 			$clause_last_billing = "id_card = " . $card_id;
 			$result = $billing_table->Get_list($A2B->DBHandle, $clause_last_billing, "date", "desc");
-			
+
 			$call_table = new Table('cc_call', ' COALESCE(SUM(sessionbill),0)');
 			$clause_call_billing = "card_id = " . $card_id . " AND ";
 			$clause_charge = "id_cc_card = " . $card_id . " AND ";
@@ -176,7 +176,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 			if (is_array($result) && !empty ($result[0][0])) {
 				if ($verbose_level >= 1)
 					echo "\n Find the last billing -> Id card : " . $result[0][0];
-				
+
 				$clause_call_billing .= "stoptime >= '" . $result[0][1] . "' AND ";
 				$clause_charge .= "creationdate >= '" . $result[0][1] . "' AND  ";
 				$desc_billing = "Calls cost between the " . $result[0][1] . " and " . $date_now;
@@ -214,7 +214,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 			$clause_call_billing .= "stoptime < '" . $date_now . "' ";
 			$clause_charge .= "creationdate < '" . $date_now . "' ";
 			$result = $call_table->Get_list($A2B->DBHandle, $clause_call_billing);
-			
+
 			// COMMON BEHAVIOUR FOR PREPAID AND POSTPAID -> GENERATE A RECEIPT FOR THE CALLS OF THE LAST PERIOD
 			if (is_array($result) && is_numeric($result[0][0])) {
 				$amount_calls = $result[0][0];
@@ -228,7 +228,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$id_receipt = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 				if ($verbose_level >= 2)
 						echo "\n Add Receipt for the call of the last period :> " . $value_insert;
-				
+
 				if (!empty ($id_receipt) && is_numeric($id_receipt)) {
 					$description = $desc_billing;
 					$field_insert = " id_receipt, price, description, id_ext, type_ext";
@@ -239,7 +239,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 						echo "\n Add Receipt Items for the call of the last period :> " . $value_insert;
 				}
 			}
-			
+
 			// GENERATE RECEIPT FOR CHARGE ALREADY PAID
 			$table_charge = new Table("cc_charge", "*");
 			$result = $table_charge->Get_list($A2B->DBHandle, $clause_charge . " AND charged_status = 1");
@@ -252,7 +252,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$id_receipt = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 				if ($verbose_level >= 2)
 					echo "\n Add Receipt for the charges already paid :> " . $value_insert;
-				
+
 				if (!empty ($id_receipt) && is_numeric($id_receipt)) {
 					foreach ($result as $charge) {
 						$description = gettext("CHARGE :") . $charge['description'];
@@ -285,7 +285,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$id_invoice = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 				if ($verbose_level >= 2)
 					echo "\n Add Invoice for the unpaid charges :> " . $value_insert;
-				
+
 				if (!empty ($id_invoice) && is_numeric($id_invoice)) {
 					$last_invoice = $id_invoice;
 					foreach ($result as $charge) {
@@ -302,7 +302,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 					}
 				}
 			}
-			
+
 			// POSTPAID BILLING
 			if ($Customer['typepaid'] == 1 && is_numeric($Customer['credit']) && ($Customer['credit']+$lastpostpaid_amount) < 0) {
 				// GENERATE AN INVOICE TO COMPLETE THE BALANCE
@@ -336,7 +336,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 						echo "\n Add Invoice Item :> " . $value_insert;
 				}
 			}
-			
+
 			if (!empty($last_invoice)) {
 			    $param_update_billing = "id_invoice = '".$last_invoice."'";
 			    $clause_update_billing = " id= ".$id_billing;
@@ -344,7 +344,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 			    if ($verbose_level >= 2)
 					echo "\n Update Billing :> " . $param_update_billing . " WHERE " . $clause_update_billing;
 			}
-			
+
 			// Send a mail for invoice to pay
 			if (!empty($last_invoice)) {
 			    $total = round($total,2);
@@ -364,10 +364,10 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 		            	echo "Sent mail error : ".$error_msg;
 		        }
 			}
-			
+
 			if ($verbose_level >= 2)
 				echo "\n Go to next Customer";
-			
+
 		} // END foreach($resmax as $Customer)
 	}
 }

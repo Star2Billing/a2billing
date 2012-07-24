@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2009 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -54,7 +54,7 @@ $callback = new SOAP_Client($endpoint);
 echo "<hr>#############   Request CallBack   ############# <br/><hr/>";
 $method = 'Request';
 
-$params = array('security_key' => md5($security_key), 
+$params = array('security_key' => md5($security_key),
                 'pn_calledparty' => '0034650784355', 'pn_destination' => '00341111122444', 'callerid' => '0034650555555', 'callback_time' => '', 'uniqueid' => '', 'accountnumber' => '6098593343');
 $ans = $callback -> call($method, $params);
 
