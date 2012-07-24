@@ -48,7 +48,7 @@ if (! has_rights (ACX_INVOICING)) {
 /***********************************************************************************/
 
 $DBHandle  = DbConnect();
-if($form_action=="ask-update") {
+if($form_action=="ask-modif") {
 	
 	getpost_ifset(array('company_name','address','zipcode','country','city','phone','fax','email','vat','web','display_account'));
 	
@@ -159,7 +159,7 @@ $display_account=$result[0][0];
 ?>
 
 <br>
-<form method="post" action="<?php  echo $_SERVER["PHP_SELF"]."?form_action=ask-update"?>" name="frmPass">
+<form method="post" action="<?php  echo $_SERVER["PHP_SELF"]."?form_action=ask-modif"?>" name="frmPass">
 <table width="100%">
 	<tr>
 		<td align="center" valign="middle">

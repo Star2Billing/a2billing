@@ -49,7 +49,7 @@ getpost_ifset(array('NewPassword','OldPassword'));
 
 $DBHandle  = DbConnect();
 
-if ($form_action=="ask-update") {
+if ($form_action=="ask-modif") {
 	
 	check_demo_mode();
 	
@@ -100,7 +100,7 @@ function CheckPassword()
 </script>
 
 <?php
-if ($form_action=="ask-update")
+if ($form_action=="ask-modif")
 {
 	
 
@@ -122,7 +122,7 @@ if(is_array($result_check)){
 } }
 ?>
 <br>
-<form method="post" action="<?php  echo $_SERVER["PHP_SELF"]."?form_action=ask-update"?>" name="frmPass">
+<form method="post" action="<?php  echo $_SERVER["PHP_SELF"]."?form_action=ask-modif"?>" name="frmPass">
 <center>
 <table class="changepassword_maintable" align=center width="300">
 <tr class="bgcolor_009">

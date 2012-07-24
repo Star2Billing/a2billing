@@ -59,7 +59,7 @@ $DBHandle  = DbConnect();
 /////$QUERY = "INSERT INTO cc_callerid (id_cc_card, cid) VALUES ('".$_SESSION["card_id"]."', '".$add_callerid."')";
 //////$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 
-if($form_action=="ask-update")
+if($form_action=="ask-modif")
 {
     $instance_sub_table = new Table('cc_agent',"id");
     $QUERY = "UPDATE cc_agent SET secret= '".$NewSecret."' WHERE ( ID = ".$_SESSION["agent_id"]."  ) ";
@@ -77,7 +77,7 @@ $smarty->display( 'main.tpl');
 echo $CC_help_secret_change."<br>";
 
 
-if ($form_action=="ask-update")
+if ($form_action=="ask-modif")
 {
 	
 
@@ -99,7 +99,7 @@ if(is_array($result_check)){
 } }
 ?>
 <br>
-<form method="post" action="<?php  echo $_SERVER["PHP_SELF"]."?form_action=ask-update"?>" name="frmPass">
+<form method="post" action="<?php  echo $_SERVER["PHP_SELF"]."?form_action=ask-modif"?>" name="frmPass">
 <center>
 <table class="changepassword_maintable" align=center width="300">
 <tr class="bgcolor_009">

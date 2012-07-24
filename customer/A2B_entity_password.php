@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -51,11 +51,11 @@ getpost_ifset(array('NewPassword','OldPassword'));
 
 $DBHandle  = DbConnect();
 
-if($form_action=="ask-update") {
+if ($form_action=="ask-modif") {
     $instance_sub_table = new Table('cc_card',"id");
     $check_old_pwd = "id = '".$_SESSION["card_id"]."' AND uipass = '$OldPassword'";
     $result_check=$instance_sub_table -> Get_list ($DBHandle,$check_old_pwd);
-    if(is_array($result_check)) {
+    if (is_array($result_check)) {
 	    $QUERY = "UPDATE cc_card SET  uipass= '".$NewPassword."' WHERE ( ID = ".$_SESSION["card_id"]." ) ";
 	    $result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY, 0);
 	    // update Session password
@@ -104,7 +104,7 @@ function CheckPassword()
 <br>
 <center>
 <?php
-if ($form_action=="ask-update") {
+if ($form_action=="ask-modif") {
 	if(is_array($result_check)) {
 		echo '<font color="green">'.gettext("Your password is updated successfully.").'</font><br>';
 	} else {
@@ -113,7 +113,7 @@ if ($form_action=="ask-update") {
 }
 ?>
 
-<form method="post" action="<?php  echo $_SERVER["PHP_SELF"]."?form_action=ask-update"?>" name="frmPass">
+<form method="post" action="<?php  echo $_SERVER["PHP_SELF"]."?form_action=ask-modif"?>" name="frmPass">
 <table class="changepassword_maintable" align=center>
 <tr class="bgcolor_009">
     <td align=left colspan=2><b><font color="#ffffff">- <?php echo gettext("Change Password")?>&nbsp; -</b></td>

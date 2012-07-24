@@ -49,7 +49,8 @@ getpost_ifset(array (
 ));
 
 $DBHandle = DbConnect();
-if ($form_action == "ask-update") {
+echo $form_action;
+if ($form_action == "ask-modif") {
 
 	check_demo_mode();
 
@@ -105,7 +106,7 @@ function CheckPassword()
 
 <?php
 
-if ($form_action == "ask-update") {
+if ($form_action == "ask-modif") {
 
 	if (isset ($result)) {
 ?>
@@ -130,7 +131,8 @@ alert("<?php echo gettext("System is failed to update your password.")?>");
 }
 ?>
 <br>
-<form method="post" action="<?php  echo $_SERVER["PHP_SELF"]."?form_action=ask-update"?>" name="frmPass">
+<form method="post" action="<?php  echo $_SERVER["PHP_SELF"]?>" name="frmPass">
+    <input type="hidden" name="form_action" value="ask-modif"/>
 <center>
 <table class="changepassword_maintable" align=center>
 <tr class="bgcolor_009">
