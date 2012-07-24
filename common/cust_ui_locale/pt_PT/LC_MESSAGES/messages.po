@@ -1,5 +1,5 @@
 # A2Billing Customer Panel - PO File.
-# Copyright (C) 2004-2009 A2BILLING
+# Copyright (C) 2004-2012 A2BILLING
 # This file is distributed under the same license as the PACKAGE package.
 # ARESKI <areski@gmail.com>.
 msgid ""

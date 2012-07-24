@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,   
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  * 
- * @copyright   Copyright (C) 2004-2009 - Star2billing S.L. 
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -38,7 +38,7 @@
 * @package    Table
 * @author     Arezqui Belaid <areski _atl_ gmail com>
 * @author     Steve Dommett <steve@st4vs.net>
-* @copyright  2004-2009 A2Billing
+* @copyright  2004-2012 A2Billing
 * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
 * @version    CVS: $Id:$
 * @since      File available since Release 1.0
