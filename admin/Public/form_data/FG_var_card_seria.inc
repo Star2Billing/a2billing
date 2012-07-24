@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,10 +27,9 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
-
 
 
 getpost_ifset(array('id', 'name', 'description'));
@@ -66,7 +65,7 @@ $HD_Form -> AddViewElement(gettext("SEQUENCE NUMBER"), "value", "15%", "center",
 $HD_Form -> FieldViewElement ( 'id, name, description, value');
 
 
-$HD_Form -> CV_NO_FIELDS  = gettext("NO SERIES CREATED!"); 
+$HD_Form -> CV_NO_FIELDS  = gettext("NO SERIES CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -76,12 +75,12 @@ $HD_Form -> FG_ADDITION = true;
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = false;
 
-$HD_Form -> AddEditElement ( gettext("NAME"),	
-				"name",	'$value',	
+$HD_Form -> AddEditElement ( gettext("NAME"),
+				"name",	'$value',
 				"INPUT",
 				"size=30 maxlength=40",
 				"0",
-				gettext("Insert the Seria name"), 
+				gettext("Insert the Seria name"),
 				"" , "", "",	"", "", "", "", "" );
 
 
@@ -110,5 +109,3 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-
-
