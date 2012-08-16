@@ -61,8 +61,9 @@ $HD_Form -> FG_FK_EDITION_CLAUSE = array(" id_component ");
 
 $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some tickets using this Support Component! Please comfirm that you really want to remove this Support Component? ");
 
-$user_type = Constants::getComponentUserTypeList();
-$activated_list = Constants::getActivationList();
+$cnts=new Constants();
+$user_type = $cnts->getComponentUserTypeList();
+$activated_list = $cnts->getActivationList();
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "20%", "center", "sort");

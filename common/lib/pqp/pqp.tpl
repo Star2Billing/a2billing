@@ -257,7 +257,7 @@
 	<table id="pqp-footer" cellspacing="0">
 		<tr>
 			<td class="credit">
-				<a href="http://particletree.com/features/php-quick-profiler/" target="_blank">
+				<a href="http://particletree.com" target="_blank">
 				<strong>PHP</strong> 
 				<b class="green">Q</b><b class="blue">u</b><b class="purple">i</b><b class="orange">c</b><b class="red">k</b>
 				Profiler</a></td>

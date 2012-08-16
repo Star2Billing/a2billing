@@ -38,9 +38,9 @@ class sysinfo {
 		
 		$distro_info = execute_program('lsb_release','-a 2> /dev/null', false);  // We have the '2> /dev/null' because Ubuntu gives an error on this command which causes the distro to be unknown
 		if ( $distro_info != 'ERROR') {
-			$distro_tmp = split("\n",$distro_info);
+			$distro_tmp = preg_split("/\n/",$distro_info);
 			foreach( $distro_tmp as $info ) {
-				$info_tmp = split(':', $info, 2);
+				$info_tmp = preg_split('/:/', $info, 2);
 				$distro[ $info_tmp[0] ] = trim($info_tmp[1]);
 			}
 			if( !isset( $list[$distro['Distributor ID']] ) ){

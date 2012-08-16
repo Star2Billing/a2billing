@@ -10,7 +10,7 @@ class Constants
 		return $reverted_arr;
 	}
 	
-	public static function getMsgTypeList(){
+	public function getMsgTypeList(){
 		$msgtype_list = array();
 		$msgtype_list["0"] = array( gettext("INFO"),"0","msg_info");
 		$msgtype_list["1"] = array( gettext("SUCCESS"),"1","msg_success");
@@ -19,7 +19,7 @@ class Constants
 		return $msgtype_list;
 	}
 
-	public static function getLanguagesList(){
+	public function getLanguagesList(){
 		$language_list = array();
 		$language_list["0"] = array( gettext("ENGLISH"), "en");
 		$language_list["1"] = array( gettext("SPANISH"), "es");
@@ -29,11 +29,11 @@ class Constants
 		return $language_list;
 	}
 	
-	public static function getLanguagesRevertList() {
+	public function getLanguagesRevertList() {
 		return Constants::reverse_array(Constants::getLanguagesList());
 	}
 	
-	public static function getLanguages(){
+	public function getLanguages(){
 		$language_list = array();
 		$language_list["en"] = array( gettext("ENGLISH"));
 		$language_list["es"] = array( gettext("SPANISH"));
@@ -43,14 +43,14 @@ class Constants
 		return $language_list;
 	}
 	
-	public static function getRestrictionList(){
+	public function getRestrictionList(){
 		$restriction_list = array();
 		$restriction_list["0"] = array( gettext("NONE RESTRICTION USED"), "0");
 		$restriction_list["1"] = array( gettext("CAN'T CALL RESTRICTED NUMBERS"), "1");
 		$restriction_list["2"] = array( gettext("CAN ONLY CALL RESTRICTED NUMBERS"),  "2");
 		return $restriction_list;
 	}
-	public static function getComponentUserTypeList(){
+	public function getComponentUserTypeList(){
 		$usertype_list = array();
 		$usertype_list["0"] = array( gettext("CUSTOMERS"), "0");
 		$usertype_list["1"] = array( gettext("AGENTS"), "1");
@@ -58,14 +58,14 @@ class Constants
 		return $usertype_list;
 	}
 	
-	public static function getYesNoList(){
+	public function getYesNoList(){
 		$yesno = array();
 		$yesno["1"] = array( gettext("Yes"), "1");
 		$yesno["0"] = array( gettext("No"), "0");
 		return $yesno;
 	}	
 
-	public static function getCallbackStatusList(){
+	public function getCallbackStatusList(){
 		$status_list = array();
 		$status_list["PENDING"] = array( gettext("PENDING"), "PENDING");
 		$status_list["SENT"] = array( gettext("SENT"), "SENT");
@@ -74,7 +74,7 @@ class Constants
 		return $status_list;
 	}	
 	
-	public static function getPeriodsList(){
+	public function getPeriodsList(){
 	  	$period_list = array();
 		$period_list["1"]  = array( "Hourly", "1");
 		$period_list["2"]  = array( "Daily", "2");
@@ -83,18 +83,18 @@ class Constants
 		return $period_list;
 	}
 
-	public static function getActivationList(){
+	public  function getActivationList(){
 		$actived_list = array();
 		$actived_list["0"] = array( gettext("Inactive"), "0");
 		$actived_list["1"] = array( gettext("Active"), "1");
 		return $actived_list;
 	}
 
-	public static function getActivation_Revert_List(){
+	public  function getActivation_Revert_List(){
 		return Constants::reverse_array(Constants::getActivationList());
 	}
 
-	public static function getActivationTrueFalseList(){
+	public  function getActivationTrueFalseList(){
 		$actived_list = array();
 		$actived_list["t"] = array( "Active", "t");
 		$actived_list["f"] = array( "Inactive", "f");
@@ -138,7 +138,8 @@ class Constants
 	}
 	
 	public static function getPaidTypeList_Revert_List(){
-		return Constants::reverse_array(Constants::getPaidTypeList());
+	        $cnts = new Constants();
+		return $cnts->reverse_array($cnts->getPaidTypeList());
 	}
 
 	public static function getExpirationList(){
@@ -333,7 +334,8 @@ class Constants
 	}
 	
 	public static function getCardStatus_Revert_List() {
-		return Constants::reverse_array(Constants::getCardStatus_List());
+	        $cnts=new Constants();
+		return $cnts->reverse_array(Constants::getCardStatus_List());
 	}
 	
 	public static function getCardStatus_Acronym_List(){
@@ -377,7 +379,8 @@ class Constants
 	}
 	
 	public static function getCardAccess_Revert_List() {
-		return Constants::reverse_array(Constants::getCardAccess_List());
+	        $cnts= new Constants();
+		return $cnts->reverse_array(Constants::getCardAccess_List());
 	}
 	
 	public static function getCardExpire_List(){

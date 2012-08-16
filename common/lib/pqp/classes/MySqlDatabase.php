@@ -4,7 +4,7 @@
 
  Title : PHP Quick Profiler MySQL Class
  Author : Created by Ryan Campbell
- URL : http://particletree.com/features/php-quick-profiler/
+ URL : http://particletree.com
 
  Last Updated : April 22, 2009
 
@@ -13,7 +13,9 @@
 
 - - - - - - - - - - - - - - - - - - - - - */
 
-class MySqlDatabase {
+require_once('PqpDatabase.Interface.php');
+
+class MySqlDatabase implements PqpDatabase {
 
 	private $host;			
 	private $user;		
@@ -74,7 +76,7 @@ class MySqlDatabase {
 	          	DEBUGGING
 	------------------------------------*/
 	
-	function logQuery($sql, $start) {
+	public function logQuery($sql, $start) {
 		$query = array(
 				'sql' => $sql,
 				'time' => ($this->getTime() - $start)*1000
@@ -82,7 +84,7 @@ class MySqlDatabase {
 		array_push($this->queries, $query);
 	}
 	
-	function getTime() {
+	public function getTime() {
 		$time = microtime();
 		$time = explode(' ', $time);
 		$time = $time[1] + $time[0];
