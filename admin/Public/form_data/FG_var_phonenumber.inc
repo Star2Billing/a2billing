@@ -52,8 +52,9 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/telephone_add.png" ;
 
 
 // TODO Integrate a generic LIST to Framework
-$actived_list = Constants::getActivationList();
-$actived_list_r = Constants::getActivation_Revert_List();
+$cnts  = new Constants();
+$actived_list = $cnts->getActivationList();
+$actived_list_r = $cnts->getActivation_Revert_List();
 
 $HD_Form -> AddViewElement(gettext("PHONEBOOK"), "id_phonebook", "15%", "center", "sort", "15", "lie", "cc_phonebook", "name", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("PHONENUMBER"), "number", "10%", "center", "sort", "26");
