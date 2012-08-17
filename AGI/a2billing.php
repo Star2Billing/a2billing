@@ -39,13 +39,13 @@ if (function_exists('pcntl_signal')) {
 
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
-include (dirname(__FILE__) . "/lib/Class.Table.php");
-include (dirname(__FILE__) . "/lib/Class.A2Billing.php");
-include (dirname(__FILE__) . "/lib/Class.RateEngine.php");
-include (dirname(__FILE__) . "/lib/phpagi/phpagi.php");
-include (dirname(__FILE__) . "/lib/phpagi/phpagi-asmanager.php");
-include (dirname(__FILE__) . "/lib/Misc.php");
-include (dirname(__FILE__) . "/lib/interface/constants.php");
+include(dirname(__FILE__) . "/lib/Class.Table.php");
+include(dirname(__FILE__) . "/lib/Class.A2Billing.php");
+include(dirname(__FILE__) . "/lib/Class.RateEngine.php");
+include(dirname(__FILE__) . "/lib/phpagi/phpagi.php");
+include(dirname(__FILE__) . "/lib/phpagi/phpagi-asmanager.php");
+include(dirname(__FILE__) . "/lib/Misc.php");
+include(dirname(__FILE__) . "/lib/interface/constants.php");
 
 $charge_callback = 0;
 $G_startime = time();
@@ -86,16 +86,16 @@ if ($dynamic_idconfig = intval($agi->get_variable("IDCONF", true))) {
     $idconfig = $dynamic_idconfig;
 }
 
-if ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'did')                            $mode = 'did';
-elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'callback')                $mode = 'callback';
-elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'cid-callback')            $mode = 'cid-callback';
-elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'cid-prompt-callback')        $mode = 'cid-prompt-callback';
-elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'all-callback')            $mode = 'all-callback';
-elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'voucher')                    $mode = 'voucher';
-elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'campaign-callback')        $mode = 'campaign-callback';
-elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'conference-moderator')    $mode = 'conference-moderator';
-elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'conference-member')        $mode = 'conference-member';
-else                                                                                $mode = 'standard';
+if ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'did')                      $mode = 'did';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'callback')             $mode = 'callback';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'cid-callback')         $mode = 'cid-callback';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'cid-prompt-callback')  $mode = 'cid-prompt-callback';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'all-callback')         $mode = 'all-callback';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'voucher')              $mode = 'voucher';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'campaign-callback')    $mode = 'campaign-callback';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'conference-moderator') $mode = 'conference-moderator';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'conference-member')    $mode = 'conference-member';
+else                                                                             $mode = 'standard';
 
 // get the area code for the cid-callback, all-callback and cid-prompt-callback
 if ($argc > 3 && strlen($argv[3]) > 0) {
@@ -125,11 +125,11 @@ $A2B->debug(INFO, $agi, __FILE__, __LINE__, "MODE : $mode");
 $A2B->CC_TESTING = isset($A2B->agiconfig['debugshell']) && $A2B->agiconfig['debugshell'];
 //$A2B->CC_TESTING = true;
 
-define ("DB_TYPE", isset($A2B->config["database"]['dbtype'])?$A2B->config["database"]['dbtype']:null);
-define ("SMTP_SERVER", isset($A2B->config['global']['smtp_server'])?$A2B->config['global']['smtp_server']:null);
-define ("SMTP_HOST", isset($A2B->config['global']['smtp_host'])?$A2B->config['global']['smtp_host']:null);
-define ("SMTP_USERNAME", isset($A2B->config['global']['smtp_username'])?$A2B->config['global']['smtp_username']:null);
-define ("SMTP_PASSWORD", isset($A2B->config['global']['smtp_password'])?$A2B->config['global']['smtp_password']:null);
+define("DB_TYPE", isset($A2B->config["database"]['dbtype']) ? $A2B->config["database"]['dbtype'] : null);
+define("SMTP_SERVER", isset($A2B->config['global']['smtp_server']) ? $A2B->config['global']['smtp_server'] : null);
+define("SMTP_HOST", isset($A2B->config['global']['smtp_host']) ? $A2B->config['global']['smtp_host'] : null);
+define("SMTP_USERNAME", isset($A2B->config['global']['smtp_username']) ? $A2B->config['global']['smtp_username'] : null);
+define("SMTP_PASSWORD", isset($A2B->config['global']['smtp_password']) ? $A2B->config['global']['smtp_password'] : null);
 
 
 // TEST DID
@@ -141,25 +141,25 @@ $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "AGI Request:\n" . print_r($agi->re
 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[INFO : $agi_version]");
 
 /* GET THE AGI PARAMETER */
-$A2B->get_agi_request_parameter ($agi);
+$A2B->get_agi_request_parameter($agi);
 
 if (!$A2B->DbConnect()) {
     $agi->stream_file('prepaid-final', '#');
     exit;
 }
 
-define ("WRITELOG_QUERY", true);
+define("WRITELOG_QUERY", true);
 $instance_table = new Table();
-$A2B->set_instance_table ($instance_table);
+$A2B->set_instance_table($instance_table);
 
 //GET CURRENCIES FROM DATABASE
 $QUERY = "SELECT id, currency, name, value FROM cc_currencies ORDER BY id";
-$result = $A2B->instance_table->SQLExec ($A2B->DBHandle, $QUERY, 1, 300);
+$result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY, 1, 300);
 
 if (is_array($result)) {
     $num_cur = count($result);
     for ($i = 0; $i < $num_cur; $i++) {
-        $currencies_list[$result[$i][1]] = array (1 => $result[$i][2], 2 => $result[$i][3]);
+        $currencies_list[$result[$i][1]] = array(1=>$result[$i][2], 2=>$result[$i][3]);
     }
 }
 
@@ -182,7 +182,7 @@ if ($mode == 'standard') {
         $status_channel = 4;
     }
 
-    $A2B->play_menulanguage ($agi);
+    $A2B->play_menulanguage($agi);
 
     // Play intro message
     if (strlen($A2B->agiconfig['intro_prompt']) > 0) {
@@ -223,7 +223,7 @@ if ($mode == 'standard') {
             if ($A2B->agiconfig['ivr_enable_locking_option'] == 1) {
                 $QUERY = "SELECT block, lock_pin FROM cc_card WHERE username = '{$A2B->username}'";
                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[QUERY] : " . $QUERY);
-                $result = $A2B->instance_table->SQLExec ($A2B->DBHandle, $QUERY);
+                $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
 
                 // Check if the locking option is enabled for this account
                 if ($result[0][0] == 1 && strlen($result[0][1]) > 0) {
@@ -271,7 +271,7 @@ if ($mode == 'standard') {
                                     FROM cc_card c
                                     WHERE username = '{$A2B->username}'
                                     LIMIT 1";
-                        $result = $A2B->instance_table->SQLExec ($A2B->DBHandle, $QUERY);
+                        $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
                         $card_info = $result[0];
                         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[QUERY] : " . $QUERY);
 
@@ -293,12 +293,12 @@ if ($mode == 'standard') {
                                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[INFORMATION MENU]");
                                 $res_dtmf = $agi->menu($info_menu, 5000);
 
-                                switch ($res_dtmf) {
+                                switch($res_dtmf) {
                                 case 1 :
 
                                     $QUERY = "SELECT starttime FROM cc_call
                                         WHERE card_id = {$A2B->id_card} ORDER BY starttime DESC LIMIT 1";
-                                    $result = $A2B->instance_table->SQLExec ($A2B->DBHandle, $QUERY);
+                                    $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
                                     $lastcall_info = $result[0];
                                     if (is_array($lastcall_info)) {
                                         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[INFORMATION MENU]:[OPTION 1]");
@@ -385,7 +385,7 @@ if ($mode == 'standard') {
                             switch ($res_dtmf) {
                             case 1 :
                                 $QUERY = "UPDATE cc_card SET block = 1, lock_pin = '{$lock_pin}', lock_date = NOW() WHERE username = '{$A2B->username}'";
-                                $A2B->instance_table->SQLExec ($A2B->DBHandle, $QUERY);
+                                $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
                                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[QUERY]:[$QUERY]");
                                 $agi->stream_file('prepaid-locking-accepted', '#'); // Your locking code has been accepted
                                 $return = TRUE;
@@ -478,7 +478,7 @@ if ($mode == 'standard') {
                                             FROM cc_speeddial, cc_card WHERE cc_speeddial.id_cc_card = cc_card.id
                                             AND cc_card.id = " . $A2B->id_card . " AND cc_speeddial.speeddial = " . $speeddial_number . "";
                                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
-                                $result = $A2B->instance_table->SQLExec ($A2B->DBHandle, $QUERY);
+                                $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
                                 $id_speeddial = $result[0][1];
                                 if (is_array($result)) {
                                     $agi->say_number($speeddial_number);
@@ -522,7 +522,7 @@ if ($mode == 'standard') {
                                             $QUERY = "UPDATE cc_speeddial SET phone = '" . $assigned_number . "' WHERE id = " . $id_speeddial;
 
                                         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
-                                        $result = $A2B->instance_table->SQLExec ($A2B->DBHandle, $QUERY);
+                                        $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
                                         $agi->stream_file("prepaid-speeddial-saved"); //The speed dial number has been successfully saved.
                                         $return_mainmenu = TRUE;
                                         break;
@@ -542,7 +542,7 @@ if ($mode == 'standard') {
 
                 if ($A2B->agiconfig['sip_iax_pstn_direct_call'] == 1) {
 
-                    if ($A2B->agiconfig['use_dnid'] == 1 && !in_array ($A2B->dnid, $A2B->agiconfig['no_auth_dnid']) && strlen($A2B->dnid) > 2 && $i == 0) {
+                    if ($A2B->agiconfig['use_dnid'] == 1 && !in_array($A2B->dnid, $A2B->agiconfig['no_auth_dnid']) && strlen($A2B->dnid) > 2 && $i == 0) {
 
                         $A2B->destination = $A2B->dnid;
 
@@ -588,7 +588,7 @@ if ($mode == 'standard') {
 
                 if ($ans == 1) {
                     // PERFORM THE CALL
-                    $result_callperf = $RateEngine->rate_engine_performcall ($agi, $A2B->destination, $A2B);
+                    $result_callperf = $RateEngine->rate_engine_performcall($agi, $A2B->destination, $A2B);
 
                     if (!$result_callperf) {
                         $prompt = "prepaid-dest-unreachable";
@@ -598,7 +598,7 @@ if ($mode == 'standard') {
                     $RateEngine->rate_engine_updatesystem($A2B, $agi, $A2B->destination);
 
                     if ($A2B->agiconfig['say_balance_after_call'] == 1) {
-                        $A2B->fct_say_balance ($agi, $A2B->credit);
+                        $A2B->fct_say_balance($agi, $A2B->credit);
                     }
                     $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, '[a2billing account stop]');
 
@@ -623,7 +623,7 @@ if ($mode == 'standard') {
                     $QUERY .= ") ORDER BY priority ASC";
 
                     $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
-                    $result = $A2B->instance_table->SQLExec ($A2B->DBHandle, $QUERY);
+                    $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
 
                     if (is_array($result)) {
                         //On Net
@@ -683,7 +683,7 @@ if ($mode == 'standard') {
         $QUERY .= ") ORDER BY priority ASC";
 
         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
-        $result = $A2B->instance_table->SQLExec ($A2B->DBHandle, $QUERY);
+        $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $result);
 
         if (is_array($result)) {
@@ -705,7 +705,7 @@ if ($mode == 'standard') {
         $status_channel = 4;
     }
 
-    $A2B->play_menulanguage ($agi);
+    $A2B->play_menulanguage($agi);
     /************************* PLAY INTRO MESSAGE ************************/
     if (strlen($A2B->agiconfig['intro_prompt']) > 0) $agi->stream_file($A2B->agiconfig['intro_prompt'], '#');
 
@@ -738,7 +738,7 @@ if ($mode == 'standard') {
 
 // MODE CAMPAIGN-CALLBACK
 } elseif ($mode == 'campaign-callback'){
-    $A2B->update_callback_campaign ($agi);
+    $A2B->update_callback_campaign($agi);
 
 // MODE cid-callback & cid-prompt-callback
 } elseif ($mode == 'cid-callback' || $mode == 'cid-prompt-callback') {
@@ -790,7 +790,7 @@ if ($mode == 'standard') {
             if ($resfindrate != 0) {
                 //$RateEngine->debug_st = 1;
                 $res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
-                //echo ("RES_ALL_CALCULTIMEOUT ::> $res_all_calcultimeout");
+                //echo("RES_ALL_CALCULTIMEOUT ::> $res_all_calcultimeout");
 
                 if ($res_all_calcultimeout) {
 
@@ -863,14 +863,14 @@ if ($mode == 'standard') {
                         $usetrunk_failover = 0;
                     }
 
-                    $prefix            = $RateEngine->ratecard_obj[0][$usetrunk + 1];
-                    $tech            = $RateEngine->ratecard_obj[0][$usetrunk + 2];
-                    $ipaddress        = $RateEngine->ratecard_obj[0][$usetrunk + 3];
-                    $removeprefix    = $RateEngine->ratecard_obj[0][$usetrunk + 4];
+                    $prefix         = $RateEngine->ratecard_obj[0][$usetrunk + 1];
+                    $tech           = $RateEngine->ratecard_obj[0][$usetrunk + 2];
+                    $ipaddress      = $RateEngine->ratecard_obj[0][$usetrunk + 3];
+                    $removeprefix   = $RateEngine->ratecard_obj[0][$usetrunk + 4];
                     $timeout        = $RateEngine->ratecard_obj[0]['timeout'];
-                    $callbackrate    = $RateEngine->ratecard_obj[0]['callbackrate'];
-                    $failover_trunk    = $RateEngine->ratecard_obj[0][40 + $usetrunk_failover];
-                    $addparameter    = $RateEngine->ratecard_obj[0][42 + $usetrunk_failover];
+                    $callbackrate   = $RateEngine->ratecard_obj[0]['callbackrate'];
+                    $failover_trunk = $RateEngine->ratecard_obj[0][40 + $usetrunk_failover];
+                    $addparameter   = $RateEngine->ratecard_obj[0][42 + $usetrunk_failover];
 
                     $destination = $A2B->destination;
                     if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
@@ -911,7 +911,7 @@ if ($mode == 'standard') {
 
                     $uniqueid = MDP_NUMERIC(5) . '-' . MDP_STRING(7);
 
-                    $sep = ($A2B->config['global']['asterisk_version'] == "1_2" || $A2B->config['global']['asterisk_version'] == "1_4")?'|':', ';
+                    $sep = ($A2B->config['global']['asterisk_version'] == "1_2" || $A2B->config['global']['asterisk_version'] == "1_4") ? '|' : ', ';
 
                     $variable = "IDCONF=$idconfig" . $sep . "CALLED=" . $A2B->destination . $sep . $CALLING_VAR . $sep . $MODE_VAR . $sep . "CBID=$uniqueid" . $sep . "LEG=" . $A2B->username;
 
@@ -1009,13 +1009,13 @@ if ($mode == 'standard') {
                         $usetrunk_failover = 0;
                     }
 
-                    $prefix            = $RateEngine->ratecard_obj[0][$usetrunk + 1];
-                    $tech            = $RateEngine->ratecard_obj[0][$usetrunk + 2];
-                    $ipaddress        = $RateEngine->ratecard_obj[0][$usetrunk + 3];
-                    $removeprefix    = $RateEngine->ratecard_obj[0][$usetrunk + 4];
+                    $prefix         = $RateEngine->ratecard_obj[0][$usetrunk + 1];
+                    $tech           = $RateEngine->ratecard_obj[0][$usetrunk + 2];
+                    $ipaddress      = $RateEngine->ratecard_obj[0][$usetrunk + 3];
+                    $removeprefix   = $RateEngine->ratecard_obj[0][$usetrunk + 4];
                     $timeout        = $RateEngine->ratecard_obj[0]['timeout'];
-                    $failover_trunk    = $RateEngine->ratecard_obj[0][40 + $usetrunk_failover];
-                    $addparameter    = $RateEngine->ratecard_obj[0][42 + $usetrunk_failover];
+                    $failover_trunk = $RateEngine->ratecard_obj[0][40 + $usetrunk_failover];
+                    $addparameter   = $RateEngine->ratecard_obj[0][42 + $usetrunk_failover];
 
                     $destination = $A2B->destination;
                     if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
@@ -1055,7 +1055,7 @@ if ($mode == 'standard') {
 
                     $uniqueid = MDP_NUMERIC(5) . '-' . MDP_STRING(7);
 
-                    $sep = ($A2B->config['global']['asterisk_version'] == "1_2" || $A2B->config['global']['asterisk_version'] == "1_4")?'|':', ';
+                    $sep = ($A2B->config['global']['asterisk_version'] == "1_2" || $A2B->config['global']['asterisk_version'] == "1_4") ? '|' : ', ';
 
                     $variable = "IDCONF=$idconfig" . $sep . "CALLED=" . $A2B->destination . $sep . "MODE=ALL" . $sep . "CBID=$uniqueid" . $sep . "TARIFF=" . $A2B->tariff . $sep . "LEG=" . $A2B->username;
 
@@ -1107,7 +1107,7 @@ if ($mode == 'standard') {
         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[ANSWER CALL]');
         $agi->answer();
         $status_channel = 6;
-        $A2B->play_menulanguage ($agi);
+        $A2B->play_menulanguage($agi);
 
         // PLAY INTRO FOR CALLBACK
         if (strlen($A2B->config["callback"]['callback_audio_intro']) > 0) {
@@ -1116,15 +1116,15 @@ if ($mode == 'standard') {
     } else {
         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[NO ANSWER CALL]');
         $status_channel = 4;
-        $A2B->play_menulanguage ($agi);
+        $A2B->play_menulanguage($agi);
     }
 
-    $called_party = $agi->get_variable("CALLED", true);
-    $calling_party = $agi->get_variable("CALLING", true);
-    $callback_mode = $agi->get_variable("MODE", true);
-    $callback_tariff = $agi->get_variable("TARIFF", true);
+    $called_party      = $agi->get_variable("CALLED", true);
+    $calling_party     = $agi->get_variable("CALLING", true);
+    $callback_mode     = $agi->get_variable("MODE", true);
+    $callback_tariff   = $agi->get_variable("TARIFF", true);
     $callback_uniqueid = $agi->get_variable("CBID", true);
-    $callback_leg = $agi->get_variable("LEG", true);
+    $callback_leg      = $agi->get_variable("LEG", true);
 
     // |MODEFROM=ALL-CALLBACK|TARIFF=" . $A2B->tariff;
     $A2B->extension = $A2B->dnid = $A2B->destination = $calling_party;
@@ -1202,7 +1202,7 @@ if ($mode == 'standard') {
 
             if ($A2B->callingcard_ivr_authorize($agi, $RateEngine, $i) == 1) {
                 // PERFORM THE CALL
-                $result_callperf = $RateEngine->rate_engine_performcall ($agi, $A2B->destination, $A2B);
+                $result_callperf = $RateEngine->rate_engine_performcall($agi, $A2B->destination, $A2B);
                 if (!$result_callperf) {
                     $prompt = "prepaid-dest-unreachable";
                     $agi->stream_file($prompt, '#');
@@ -1212,7 +1212,7 @@ if ($mode == 'standard') {
                 $RateEngine->rate_engine_updatesystem($A2B, $agi, $A2B->destination);
 
                 if ($A2B->agiconfig['say_balance_after_call'] == 1) {
-                    $A2B->fct_say_balance ($agi, $A2B->credit);
+                    $A2B->fct_say_balance($agi, $A2B->credit);
                 }
 
                 $charge_callback = 1;
@@ -1248,17 +1248,17 @@ if ($mode == 'standard') {
         $status_channel = 4;
     }
 
-    $A2B->play_menulanguage ($agi);
+    $A2B->play_menulanguage($agi);
 
-    $called_party = $agi->get_variable("CALLED", true);
-    $calling_party = $agi->get_variable("CALLING", true);
-    $callback_mode = $agi->get_variable("MODE", true);
-    $callback_tariff = $agi->get_variable("TARIFF", true);
-    $callback_uniqueid = $agi->get_variable("CBID", true);
-    $callback_leg = $agi->get_variable("LEG", true);
-    $accountcode = $agi->get_variable("ACCOUNTCODE", true);
+    $called_party =       $agi->get_variable("CALLED", true);
+    $calling_party =      $agi->get_variable("CALLING", true);
+    $callback_mode =      $agi->get_variable("MODE", true);
+    $callback_tariff =    $agi->get_variable("TARIFF", true);
+    $callback_uniqueid =  $agi->get_variable("CBID", true);
+    $callback_leg =       $agi->get_variable("LEG", true);
+    $accountcode =        $agi->get_variable("ACCOUNTCODE", true);
     $phonenumber_member = $agi->get_variable("PN_MEMBER", true);
-    $room_number = $agi->get_variable("ROOMNUMBER", true);
+    $room_number =        $agi->get_variable("ROOMNUMBER", true);
 
     $A2B->debug(INFO, $agi, __FILE__, __LINE__, "[CALLBACK]:[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff | CBID=$callback_uniqueid | LEG=$callback_leg | ACCOUNTCODE=$accountcode | PN_MEMBER=$phonenumber_member | ROOMNUMBER=$room_number]");
 
@@ -1353,13 +1353,13 @@ if ($mode == 'standard') {
                             $usetrunk_failover = 0;
                         }
 
-                        $prefix            = $RateEngine->ratecard_obj[0][$usetrunk + 1];
-                        $tech            = $RateEngine->ratecard_obj[0][$usetrunk + 2];
-                        $ipaddress        = $RateEngine->ratecard_obj[0][$usetrunk + 3];
-                        $removeprefix    = $RateEngine->ratecard_obj[0][$usetrunk + 4];
+                        $prefix         = $RateEngine->ratecard_obj[0][$usetrunk + 1];
+                        $tech           = $RateEngine->ratecard_obj[0][$usetrunk + 2];
+                        $ipaddress      = $RateEngine->ratecard_obj[0][$usetrunk + 3];
+                        $removeprefix   = $RateEngine->ratecard_obj[0][$usetrunk + 4];
                         $timeout        = $RateEngine->ratecard_obj[0]['timeout'];
-                        $failover_trunk    = $RateEngine->ratecard_obj[0][40 + $usetrunk_failover];
-                        $addparameter    = $RateEngine->ratecard_obj[0][42 + $usetrunk_failover];
+                        $failover_trunk = $RateEngine->ratecard_obj[0][40 + $usetrunk_failover];
+                        $addparameter   = $RateEngine->ratecard_obj[0][42 + $usetrunk_failover];
 
                         $destination = $A2B->destination;
                         if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
@@ -1397,7 +1397,7 @@ if ($mode == 'standard') {
                         $account = $A2B->accountcode;
                         $uniqueid = $callback_uniqueid . '-' . MDP_NUMERIC(5);
 
-                        $sep = ($A2B->config['global']['asterisk_version'] == "1_2" || $A2B->config['global']['asterisk_version'] == "1_4")?'|':', ';
+                        $sep = ($A2B->config['global']['asterisk_version'] == "1_2" || $A2B->config['global']['asterisk_version'] == "1_4") ? '|' : ', ';
 
                         $variable = "CALLED=$inst_pn_member" . $sep . "CALLING=$inst_pn_member" . $sep . "CBID=$callback_uniqueid" . $sep . "TARIFF=$callback_tariff" . $sep.
                                     "LEG=" . $A2B->accountcode . $sep . "ACCOUNTCODE=" . $A2B->accountcode . $sep . "ROOMNUMBER=" . $room_number;
@@ -1465,16 +1465,16 @@ if ($mode == 'standard') {
         $status_channel = 4;
     }
 
-    $A2B->play_menulanguage ($agi);
+    $A2B->play_menulanguage($agi);
 
-    $called_party = $agi->get_variable("CALLED", true);
-    $calling_party = $agi->get_variable("CALLING", true);
-    $callback_mode = $agi->get_variable("MODE", true);
-    $callback_tariff = $agi->get_variable("TARIFF", true);
+    $called_party      = $agi->get_variable("CALLED", true);
+    $calling_party     = $agi->get_variable("CALLING", true);
+    $callback_mode     = $agi->get_variable("MODE", true);
+    $callback_tariff   = $agi->get_variable("TARIFF", true);
     $callback_uniqueid = $agi->get_variable("CBID", true);
-    $callback_leg = $agi->get_variable("LEG", true);
-    $accountcode = $agi->get_variable("ACCOUNTCODE", true);
-    $room_number = $agi->get_variable("ROOMNUMBER", true);
+    $callback_leg      = $agi->get_variable("LEG", true);
+    $accountcode       = $agi->get_variable("ACCOUNTCODE", true);
+    $room_number       = $agi->get_variable("ROOMNUMBER", true);
 
     $A2B->debug(INFO, $agi, __FILE__, __LINE__, "[CALLBACK]:[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff | CBID=$callback_uniqueid | LEG=$callback_leg | ACCOUNTCODE=$accountcode | ROOMNUMBER=$room_number]");
 
@@ -1635,8 +1635,8 @@ if ($mode != 'cid-callback' && $mode != 'all-callback') {
 if (isset($send_reminder) && $send_reminder == 1 && $A2B->agiconfig['send_reminder'] == 1) {
 
     if (strlen($A2B->cardholder_email) > 5) {
-        include_once (dirname(__FILE__) . "/lib/mail/class.phpmailer.php");
-        include_once (dirname(__FILE__) . "/lib/Class.Mail.php");
+        include_once(dirname(__FILE__) . "/lib/mail/class.phpmailer.php");
+        include_once(dirname(__FILE__) . "/lib/Class.Mail.php");
 
         try {
             $mail = new Mail(Mail::$TYPE_REMINDERCALL, $A2B->id_card);
