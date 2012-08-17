@@ -63,10 +63,14 @@ if (!defined('PID')) {
 }
 
 // CHECK IF THE CRONT PROCESS IS ALREADY RUNNING
-if (ProcessHandler :: isActive()) {
+
+
+$prcHandler = new ProcessHandler();
+
+if ($prcHandler->isActive()) {
 	die(); // Already running!
 } else {
-	ProcessHandler :: activate();
+	$prcHandler->activate();
 }
 
 $FG_DEBUG = 0;
