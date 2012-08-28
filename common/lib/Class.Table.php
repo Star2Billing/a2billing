@@ -199,7 +199,7 @@ class Table {
 				return false;
 			}
 
-			for($i = 0; $i < $num; $i++) {
+			for ($i = 0; $i < $num; $i++) {
 				$row[] =$res->fetchRow();
 			}
 
@@ -253,7 +253,7 @@ class Table {
 			$QUERY = str_replace("%LIMIT%", $sql_limit, $QUERY);
 		}
 
-		$res = $this->ExecuteQuery ($DBHandle, $QUERY, $cache);
+		$res = $this->ExecuteQuery($DBHandle, $QUERY, $cache);
 		if (!$res) return false;
 
 		$num = $res->RecordCount();
@@ -261,7 +261,7 @@ class Table {
 			return 0;
 		}
 
-		for($i = 0; $i < $num; $i++) {
+		for ($i = 0; $i < $num; $i++) {
 			$row[] = $res->fetchRow();
 		}
 
@@ -321,13 +321,13 @@ class Table {
 			if (DB_TYPE == "postgres") {
 
 				$oid = $DBHandle->Insert_ID();
-				if ($oid <= 0 || $oid == ''){
-					return (true);
+				if ($oid <= 0 || $oid == '') {
+					return(true);
 				}
 				$sql = 'SELECT ' . $id_name . ' FROM ' . $this->table . ' WHERE oid = \'' . $oid . '\'';
 				$res = $DBHandle->Execute($sql);
 				if (!$res) {
-					return (false);
+					return(false);
 				}
 				$row[] = $res->fetchRow();
 				if ($this->debug_st)
@@ -356,12 +356,12 @@ class Table {
 		$QUERY = "UPDATE " . $this->table . " SET " . trim($param_update) . " WHERE " . trim($clause);
 		$res = $this->ExecuteQuery($DBHandle, $QUERY, 0);
 
-		return ($res);
+		return($res);
 	}
 
 
 
-	function Delete_table ($DBHandle, $clause, $func_table = null)
+	function Delete_table($DBHandle, $clause, $func_table = null)
 	{
 
 		if ($func_table != "")

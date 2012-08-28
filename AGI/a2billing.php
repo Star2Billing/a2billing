@@ -265,7 +265,7 @@ if ($mode == 'standard') {
             if ($A2B->agiconfig['ivr_enable_account_information'] == 1) {
                     $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, " [GET ACCOUNT INFORMATION]");
                     $res_dtmf = $agi->get_data('prepaid-press4-info', 5000, 1, '#'); //Press 4 to get information about your account
-                    if ($res_dtmf ['result'] == "4") {
+                    if ($res_dtmf['result'] == "4") {
 
                         $QUERY = "SELECT UNIX_TIMESTAMP(c.lastuse) as lastuse, UNIX_TIMESTAMP(c.lock_date) as lock_date, UNIX_TIMESTAMP(c.firstusedate) as firstuse
                                     FROM cc_card c
@@ -344,7 +344,7 @@ if ($mode == 'standard') {
 
                                 }
                                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[TRY : $try]");
-                            } while($return && $try < 0);
+                            } while ($return && $try < 0);
                         }
                     }
             }
@@ -355,7 +355,7 @@ if ($mode == 'standard') {
                 $return = FALSE;
                 $res_dtmf = $agi->get_data('prepaid-press5-lock', 5000, 1, '#'); //Press 5 to lock your account
 
-                if ($res_dtmf ['result'] == 5) {
+                if ($res_dtmf['result'] == 5) {
                     for ($ind_lock = 0; $ind_lock <= 3; $ind_lock++) {
 
                         $res_dtmf = $agi->get_data('prepaid-enter-code-lock-account', 3000, 10, '#'); //Please, Enter the code you want to use to lock your
@@ -449,8 +449,8 @@ if ($mode == 'standard') {
 
             if ($A2B->agiconfig['ivr_voucher'] == 1) {
                 $res_dtmf = $agi->get_data('prepaid-refill_card_with_voucher', 5000, 1);
-                $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "RES REFILL CARD VOUCHER DTMF : " . $res_dtmf ["result"]);
-                $A2B->ivr_voucher = $res_dtmf ["result"];
+                $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "RES REFILL CARD VOUCHER DTMF : " . $res_dtmf["result"]);
+                $A2B->ivr_voucher = $res_dtmf["result"];
                 if ((isset($A2B->ivr_voucher)) && ($A2B->ivr_voucher == $A2B->agiconfig['ivr_voucher_prefixe'])) {
                     $vou_res = $A2B->refill_card_with_voucher($agi, $i);
                 }
@@ -463,7 +463,7 @@ if ($mode == 'standard') {
 
                     $res_dtmf = $agi->get_data("prepaid-press9-new-speeddial", 5000, 1); //Press 9 to add a new Speed Dial
 
-                    if ($res_dtmf ["result"] == 9) {
+                    if ($res_dtmf["result"] == 9) {
                         $try_enter_speeddial = 0;
                         do {
                             $try_enter_speeddial++;
@@ -504,7 +504,7 @@ if ($mode == 'standard') {
                                     if ($try_phonenumber < 3) $return_phonenumber = TRUE;
                                     else $return_mainmenu;
 
-                                } while($return_phonenumber);
+                                } while ($return_phonenumber);
 
                                 if (!empty($res_dtmf["result"]) && is_numeric($res_dtmf["result"]) && $res_dtmf["result"] > 0) {
                                     $assigned_number = $res_dtmf["result"];
@@ -549,8 +549,8 @@ if ($mode == 'standard') {
                     } elseif ($i == 0) {
                         $prompt_enter_dest = $A2B->agiconfig['file_conf_enter_destination'];
                         $res_dtmf = $agi->get_data($prompt_enter_dest, 4000, 20);
-                        $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "RES sip_iax_pstndirect_call DTMF : " . $res_dtmf ["result"]);
-                        $A2B->destination = $res_dtmf ["result"];
+                        $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "RES sip_iax_pstndirect_call DTMF : " . $res_dtmf["result"]);
+                        $A2B->destination = $res_dtmf["result"];
                     }
 
                     if ((strlen($A2B->destination) > 0)
@@ -571,8 +571,8 @@ if ($mode == 'standard') {
                     }
                 } else {
                     $res_dtmf = $agi->get_data('prepaid-sipiax-press9', 4000, 1);
-                    $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "RES SIP_IAX_FRIEND DTMF : " . $res_dtmf ["result"]);
-                    $A2B->sip_iax_buddy = $res_dtmf ["result"];
+                    $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "RES SIP_IAX_FRIEND DTMF : " . $res_dtmf["result"]);
+                    $A2B->sip_iax_buddy = $res_dtmf["result"];
                 }
             }
 
@@ -663,7 +663,7 @@ if ($mode == 'standard') {
     $mydnid = $agi->request['agi_extension'];
     if ($A2B->CC_TESTING) $mydnid = '11111111';
 
-    if (strlen($mydnid) > 0){
+    if (strlen($mydnid) > 0) {
         $A2B->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - [CallerID=" . $A2B->CallerID . "]:[DID=" . $mydnid . "]");
 
         $QUERY = "SELECT cc_did.id, cc_did_destination.id, billingtype, tariff, destination, voip_call, username, useralias, connection_charge, selling_rate, did, ".
@@ -694,9 +694,9 @@ if ($mode == 'standard') {
     }
 
 // MOVE VOUCHER TO LET CUSTOMER ONLY REFILL
-} elseif ($mode == 'voucher'){
+} elseif ($mode == 'voucher') {
 
-    if ($A2B->agiconfig['answer_call'] == 1){
+    if ($A2B->agiconfig['answer_call'] == 1) {
         $A2B->debug(INFO, $agi, __FILE__, __LINE__, '[ANSWER CALL]');
         $agi->answer();
         $status_channel = 6;
@@ -720,7 +720,7 @@ if ($mode == 'standard') {
         for ($k = 0; $k < 3; $k++) {
             $vou_res = $A2B->refill_card_with_voucher($agi, null);
             $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "VOUCHER RESULT = $vou_res");
-            if ($vou_res == 1){
+            if ($vou_res == 1) {
                 break;
             } else {
                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher fail] ");
@@ -737,7 +737,7 @@ if ($mode == 'standard') {
     exit();
 
 // MODE CAMPAIGN-CALLBACK
-} elseif ($mode == 'campaign-callback'){
+} elseif ($mode == 'campaign-callback') {
     $A2B->update_callback_campaign($agi);
 
 // MODE cid-callback & cid-prompt-callback
@@ -808,8 +808,8 @@ if ($mode == 'standard') {
                             // GET THE DESTINATION NUMBER
                             $prompt_enter_dest = $A2B->agiconfig['file_conf_enter_destination'];
                             $res_dtmf = $agi->get_data($prompt_enter_dest, 6000, 20);
-                            $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : " . $res_dtmf ["result"]);
-                            $outbound_destination = $res_dtmf ["result"];
+                            $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : " . $res_dtmf["result"]);
+                            $outbound_destination = $res_dtmf["result"];
 
                             if ($A2B->agiconfig['cid_prompt_callback_confirm_phonenumber'] == 1) {
                                 $agi->stream_file('prepaid-the-number-u-dialed-is', '#'); //Your locking code is
@@ -819,7 +819,7 @@ if ($mode == 'standard') {
                                 do {
                                     $subtry++;
                                     //= CONFIRM THE DESTINATION NUMBER
-                                    $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[MENU OF CONFIRM (" . $res_dtmf ["result"] . ")]");
+                                    $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[MENU OF CONFIRM (" . $res_dtmf["result"] . ")]");
                                     $res_dtmf = $agi->get_data('prepaid-re-enter-press1-confirm', 4000, 1);
                                     if ($subtry >= 3) {
                                         if ($A2B->set_inuse == 1)
@@ -827,12 +827,12 @@ if ($mode == 'standard') {
                                         $agi->hangup();
                                         exit();
                                     }
-                                } while ($res_dtmf ["result"] != '1' && $res_dtmf ["result"] != '2');
+                                } while ($res_dtmf["result"] != '1' && $res_dtmf["result"] != '2');
 
                                 // Check the result
-                                if ($res_dtmf ["result"] == '1') {
+                                if ($res_dtmf["result"] == '1') {
                                     $return = TRUE;
-                                } elseif ($res_dtmf ["result"] == '2') {
+                                } elseif ($res_dtmf["result"] == '2') {
                                     $return = FALSE;
                                 }
 
@@ -840,7 +840,7 @@ if ($mode == 'standard') {
                             } else {
                                 $return = FALSE;
                             }
-                        } while($return && $try < 3);
+                        } while ($return && $try < 3);
 
                         if (strlen($outbound_destination) <= 0) {
                             if ($A2B->set_inuse == 1)
@@ -880,10 +880,10 @@ if ($mode == 'standard') {
                     $ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
                     $ipaddress = str_replace("%dialingnumber%", $prefix . $destination, $ipaddress);
 
-                    if ($pos_dialingnumber !== false){
+                    if ($pos_dialingnumber !== false) {
                         $dialstr = "$tech/$ipaddress";
                     } else {
-                        if ($A2B->agiconfig['switchdialcommand'] == 1){
+                        if ($A2B->agiconfig['switchdialcommand'] == 1) {
                             $dialstr = "$tech/$prefix$destination@$ipaddress";
                         } else {
                             $dialstr = "$tech/$ipaddress/$prefix$destination";
@@ -915,7 +915,7 @@ if ($mode == 'standard') {
 
                     $variable = "IDCONF=$idconfig" . $sep . "CALLED=" . $A2B->destination . $sep . $CALLING_VAR . $sep . $MODE_VAR . $sep . "CBID=$uniqueid" . $sep . "LEG=" . $A2B->username;
 
-                    foreach($callbackrate as $key => $value){
+                    foreach ($callbackrate as $key => $value) {
                         $variable .= $sep . strtoupper($key) . '=' . $value;
                     }
                     //pass the tariff if it was passed in
@@ -928,7 +928,7 @@ if ($mode == 'standard') {
                     $server_ip = 'localhost';
                     $num_attempt = 0;
 
-                    if (is_numeric($A2B->config["callback"]['sec_wait_before_callback']) && $A2B->config["callback"]['sec_wait_before_callback'] >= 1){
+                    if (is_numeric($A2B->config["callback"]['sec_wait_before_callback']) && $A2B->config["callback"]['sec_wait_before_callback'] >= 1) {
                         $sec_wait_before_callback = $A2B->config["callback"]['sec_wait_before_callback'];
                     } else {
                         $sec_wait_before_callback = 1;
@@ -938,7 +938,7 @@ if ($mode == 'standard') {
                     $res = $A2B->DBHandle->Execute($QUERY);
                     $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK-ALL : INSERT CALLBACK REQUEST IN SPOOL : QUERY=$QUERY]");
 
-                    if (!$res){
+                    if (!$res) {
                         $error_msg= "Cannot insert the callback request in the spool!";
                         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK-ALL : CALLED=" . $A2B->destination . " | $error_msg]");
                     }
@@ -997,9 +997,9 @@ if ($mode == 'standard') {
                 //$RateEngine->debug_st = 1;
                 $res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
 
-                if ($res_all_calcultimeout){
+                if ($res_all_calcultimeout) {
                     // MAKE THE CALL
-                    if ($RateEngine->ratecard_obj[0][34] != '-1'){
+                    if ($RateEngine->ratecard_obj[0][34] != '-1') {
                         $usetrunk = 34;
                         $usetrunk_failover = 1;
                         $RateEngine->usedtrunk = $RateEngine->ratecard_obj[$k][34];
@@ -1036,7 +1036,7 @@ if ($mode == 'standard') {
                     }
 
                     //ADDITIONAL PARAMETER %dialingnumber%, %cardnumber%
-                    if (strlen($addparameter) > 0){
+                    if (strlen($addparameter) > 0) {
                         $addparameter = str_replace("%cardnumber%", $A2B->cardnumber, $addparameter);
                         $addparameter = str_replace("%dialingnumber%", $prefix . $destination, $addparameter);
                         $dialstr .= $addparameter;
@@ -1265,7 +1265,7 @@ if ($mode == 'standard') {
 
     $error_settings = False;
     $room_number = intval($room_number);
-    if ($room_number <= 0){
+    if ($room_number <= 0) {
         $error_settings = True;
     }
 
@@ -1274,7 +1274,7 @@ if ($mode == 'standard') {
     } else {
         $list_pn_member = preg_split("/[\s;]+/", $phonenumber_member);
 
-        if (count($list_pn_member) == 0){
+        if (count($list_pn_member) == 0) {
             $error_settings = True;
         }
     }
@@ -1330,7 +1330,7 @@ if ($mode == 'standard') {
             }
 
             // find the route and Initiate new callback for all the members
-            foreach ($list_pn_member as $inst_pn_member){
+            foreach ($list_pn_member as $inst_pn_member) {
                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[Spool Callback for the PhoneNumber ' . $inst_pn_member . ']');
                 $A2B->extension = $A2B->dnid = $A2B->destination = $inst_pn_member;
 
@@ -1341,9 +1341,9 @@ if ($mode == 'standard') {
                     //$RateEngine->debug_st = 1;
                     $res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
 
-                    if ($res_all_calcultimeout){
+                    if ($res_all_calcultimeout) {
                         // MAKE THE CALL
-                        if ($RateEngine->ratecard_obj[0][34] != '-1'){
+                        if ($RateEngine->ratecard_obj[0][34] != '-1') {
                             $usetrunk = 34;
                             $usetrunk_failover = 1;
                             $RateEngine->usedtrunk = $RateEngine->ratecard_obj[$k][34];
@@ -1380,7 +1380,7 @@ if ($mode == 'standard') {
                         }
 
                         //ADDITIONAL PARAMETER %dialingnumber%, %cardnumber%
-                        if (strlen($addparameter) > 0){
+                        if (strlen($addparameter) > 0) {
                             $addparameter = str_replace("%cardnumber%", $A2B->cardnumber, $addparameter);
                             $addparameter = str_replace("%dialingnumber%", $prefix . $destination, $addparameter);
                             $dialstr .= $addparameter;
@@ -1481,7 +1481,7 @@ if ($mode == 'standard') {
 
     $error_settings = False;
     $room_number = intval($room_number);
-    if ($room_number <= 0){
+    if ($room_number <= 0) {
         $error_settings = True;
     }
 

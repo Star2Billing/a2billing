@@ -90,7 +90,7 @@ $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "AGI Request:\n" . print_r($agi->re
 
 
 /* GET THE AGI PARAMETER */
-$A2B->get_agi_request_parameter ($agi);
+$A2B->get_agi_request_parameter($agi);
 
 if (!$A2B->DbConnect()) {
     $agi->stream_file('prepaid-final', '#');

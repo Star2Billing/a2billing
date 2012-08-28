@@ -273,7 +273,7 @@ class A2Billing {
 
         // LOG INTO FILE
         if ($this->agiconfig['logging_level'] >= $level) {
-            $this->write_log ($buffer_debug, 1, "[file:$file - line:$line - uniqueid:" . $this->uniqueid . "]:");
+            $this->write_log($buffer_debug, 1, "[file:$file - line:$line - uniqueid:" . $this->uniqueid . "]:");
         }
     }
 
@@ -290,7 +290,7 @@ class A2Billing {
 
             $this->BUFFER .= $string_log;
             if (!$tobuffer || $this->CC_TESTING) {
-                error_log ($this->BUFFER, 3, $this->log_file);
+                error_log($this->BUFFER, 3, $this->log_file);
                 $this->BUFFER = '';
             }
         }
@@ -299,7 +299,7 @@ class A2Billing {
     /*
     * set the DB handler
     */
-    function set_dbhandler ($DBHandle)
+    function set_dbhandler($DBHandle)
     {
         $this->DBHandle = $DBHandle;
     }
@@ -307,7 +307,7 @@ class A2Billing {
     /*
     * set_instance_table
     */
-    function set_instance_table ($instance_table)
+    function set_instance_table($instance_table)
     {
         $this->instance_table = $instance_table;
     }
@@ -330,17 +330,17 @@ class A2Billing {
 
         /*  We don't need to do this twice.  load_conf_db() will do it
         // If optconfig is specified, stuff vals and vars into 'a2billing' config array.
-        foreach($optconfig as $var=>$val) {
+        foreach ($optconfig as $var=>$val) {
             $this->config["agi-conf$idconfig"][$var] = $val;
         }*/
 
         // conf for the database connection
         if (!isset($this->config['database']['hostname'])) $this->config['database']['hostname'] = 'localhost';
-        if (!isset($this->config['database']['port']))     $this->config['database']['port'] = '5432';
-        if (!isset($this->config['database']['user']))     $this->config['database']['user'] = 'postgres';
+        if (!isset($this->config['database']['port']))     $this->config['database']['port']     = '5432';
+        if (!isset($this->config['database']['user']))     $this->config['database']['user']     = 'postgres';
         if (!isset($this->config['database']['password'])) $this->config['database']['password'] = '';
-        if (!isset($this->config['database']['dbname']))   $this->config['database']['dbname'] = 'a2billing';
-        if (!isset($this->config['database']['dbtype']))   $this->config['database']['dbtype'] = 'postgres';
+        if (!isset($this->config['database']['dbname']))   $this->config['database']['dbname']   = 'a2billing';
+        if (!isset($this->config['database']['dbtype']))   $this->config['database']['dbtype']   = 'postgres';
 
         return $this->load_conf_db($agi, NULL, 0, $idconfig, $optconfig);
     }
@@ -387,7 +387,7 @@ class A2Billing {
         $this->DbDisconnect($this->DBHandle);
 
         // If optconfig is specified, stuff vals and vars into 'a2billing' config array.
-        foreach($optconfig as $var=>$val)
+        foreach ($optconfig as $var=>$val)
         {
             $this->config["agi-conf$idconfig"][$var] = $val;
         }
@@ -395,13 +395,13 @@ class A2Billing {
         // add default values to config for uninitialized values
         //Card Number Length Code
         $card_length_range = isset($this->config['global']['interval_len_cardnumber'])?$this->config['global']['interval_len_cardnumber']:null;
-        $this->cardnumber_range = $this->splitable_data ($card_length_range);
+        $this->cardnumber_range = $this->splitable_data($card_length_range);
 
         if (is_array($this->cardnumber_range) && ($this->cardnumber_range[0] >= 4))
         {
-            define ("CARDNUMBER_LENGTH_MIN", $this->cardnumber_range[0]);
-            define ("CARDNUMBER_LENGTH_MAX", $this->cardnumber_range[count($this->cardnumber_range) - 1]);
-            define ("LEN_CARDNUMBER", CARDNUMBER_LENGTH_MIN);
+            define("CARDNUMBER_LENGTH_MIN", $this->cardnumber_range[0]);
+            define("CARDNUMBER_LENGTH_MAX", $this->cardnumber_range[count($this->cardnumber_range) - 1]);
+            define("LEN_CARDNUMBER", CARDNUMBER_LENGTH_MIN);
         }
         else
         {
@@ -508,29 +508,29 @@ class A2Billing {
         if (!isset($this->config['notifications']['delay_notifications']))  $this->config['notifications']['delay_notifications'] = '1';
 
         // conf for the log-files
-        if (isset($this->config['log-files']['agi']) && strlen ($this->config['log-files']['agi']) > 1)
+        if (isset($this->config['log-files']['agi']) && strlen($this->config['log-files']['agi']) > 1)
         {
             $this->log_file = $this->config['log-files']['agi'];
         }
-        define ("LOGFILE_CRONT_ALARM",           isset($this->config['log-files']['cront_alarm'])           ? $this->config['log-files']['cront_alarm'] : null);
-        define ("LOGFILE_CRONT_AUTOREFILL",      isset($this->config['log-files']['cront_autorefill'])      ? $this->config['log-files']['cront_autorefill'] : null);
-        define ("LOGFILE_CRONT_BATCH_PROCESS",   isset($this->config['log-files']['cront_batch_process'])   ? $this->config['log-files']['cront_batch_process'] : null);
-        define ("LOGFILE_CRONT_ARCHIVE_DATA",    isset($this->config['log-files']['cront_archive_data'])    ? $this->config['log-files']['cront_archive_data'] : null);
-        define ("LOGFILE_CRONT_BILL_DIDUSE",     isset($this->config['log-files']['cront_bill_diduse'])     ? $this->config['log-files']['cront_bill_diduse'] : null);
-        define ("LOGFILE_CRONT_SUBSCRIPTIONFEE", isset($this->config['log-files']['cront_subscriptionfee']) ? $this->config['log-files']['cront_subscriptionfee'] : null);
-        define ("LOGFILE_CRONT_CURRENCY_UPDATE", isset($this->config['log-files']['cront_currency_update']) ? $this->config['log-files']['cront_currency_update'] : null);
-        define ("LOGFILE_CRONT_INVOICE",         isset($this->config['log-files']['cront_invoice'])         ? $this->config['log-files']['cront_invoice'] : null);
-        define ("LOGFILE_CRONT_CHECKACCOUNT",    isset($this->config['log-files']['cront_check_account'])   ? $this->config['log-files']['cront_check_account'] : null);
+        define("LOGFILE_CRONT_ALARM",           isset($this->config['log-files']['cront_alarm'])           ? $this->config['log-files']['cront_alarm'] : null);
+        define("LOGFILE_CRONT_AUTOREFILL",      isset($this->config['log-files']['cront_autorefill'])      ? $this->config['log-files']['cront_autorefill'] : null);
+        define("LOGFILE_CRONT_BATCH_PROCESS",   isset($this->config['log-files']['cront_batch_process'])   ? $this->config['log-files']['cront_batch_process'] : null);
+        define("LOGFILE_CRONT_ARCHIVE_DATA",    isset($this->config['log-files']['cront_archive_data'])    ? $this->config['log-files']['cront_archive_data'] : null);
+        define("LOGFILE_CRONT_BILL_DIDUSE",     isset($this->config['log-files']['cront_bill_diduse'])     ? $this->config['log-files']['cront_bill_diduse'] : null);
+        define("LOGFILE_CRONT_SUBSCRIPTIONFEE", isset($this->config['log-files']['cront_subscriptionfee']) ? $this->config['log-files']['cront_subscriptionfee'] : null);
+        define("LOGFILE_CRONT_CURRENCY_UPDATE", isset($this->config['log-files']['cront_currency_update']) ? $this->config['log-files']['cront_currency_update'] : null);
+        define("LOGFILE_CRONT_INVOICE",         isset($this->config['log-files']['cront_invoice'])         ? $this->config['log-files']['cront_invoice'] : null);
+        define("LOGFILE_CRONT_CHECKACCOUNT",    isset($this->config['log-files']['cront_check_account'])   ? $this->config['log-files']['cront_check_account'] : null);
 
-        define ("LOGFILE_API_ECOMMERCE",         isset($this->config['log-files']['api_ecommerce'])         ? $this->config['log-files']['api_ecommerce'] : null);
-        define ("LOGFILE_API_CALLBACK",          isset($this->config['log-files']['api_callback'])          ? $this->config['log-files']['api_callback'] : null);
-        define ("LOGFILE_PAYPAL",                isset($this->config['log-files']['paypal'])                ? $this->config['log-files']['paypal'] : null);
-        define ("LOGFILE_EPAYMENT",              isset($this->config['log-files']['epayment'])              ? $this->config['log-files']['epayment'] : null);
+        define("LOGFILE_API_ECOMMERCE",         isset($this->config['log-files']['api_ecommerce'])         ? $this->config['log-files']['api_ecommerce'] : null);
+        define("LOGFILE_API_CALLBACK",          isset($this->config['log-files']['api_callback'])          ? $this->config['log-files']['api_callback'] : null);
+        define("LOGFILE_PAYPAL",                isset($this->config['log-files']['paypal'])                ? $this->config['log-files']['paypal'] : null);
+        define("LOGFILE_EPAYMENT",              isset($this->config['log-files']['epayment'])              ? $this->config['log-files']['epayment'] : null);
 
 
         // conf for the AGI
         if (!isset($this->config["agi-conf$idconfig"]['play_audio'])) $this->config["agi-conf$idconfig"]['play_audio'] = 1;
-        define ("PLAY_AUDIO", $this->config["agi-conf$idconfig"]['play_audio']);
+        define("PLAY_AUDIO", $this->config["agi-conf$idconfig"]['play_audio']);
 
         if (!isset($this->config["agi-conf$idconfig"]['verbosity_level']))    $this->config["agi-conf$idconfig"]['verbosity_level'] = 0;
         if (!isset($this->config["agi-conf$idconfig"]['logging_level']))      $this->config["agi-conf$idconfig"]['logging_level'] = 3;
@@ -589,14 +589,14 @@ class A2Billing {
 
         if (!isset($this->config["agi-conf$idconfig"]['currency_association'])) $this->config["agi-conf$idconfig"]['currency_association'] = 'all:credit';
         $this->config["agi-conf$idconfig"]['currency_association'] = explode(",", $this->config["agi-conf$idconfig"]['currency_association']);
-        foreach($this->config["agi-conf$idconfig"]['currency_association'] as $cur_val) {
+        foreach ($this->config["agi-conf$idconfig"]['currency_association'] as $cur_val) {
             $cur_val = explode(":", $cur_val);
             $this->config["agi-conf$idconfig"]['currency_association_internal'][$cur_val[0]] = $cur_val[1];
         }
 
         if (isset($this->config["agi-conf$idconfig"]['currency_cents_association']) && strlen($this->config["agi-conf$idconfig"]['currency_cents_association']) > 0) {
             $this->config["agi-conf$idconfig"]['currency_cents_association'] = explode(",", $this->config["agi-conf$idconfig"]['currency_cents_association']);
-            foreach($this->config["agi-conf$idconfig"]['currency_cents_association'] as $cur_val) {
+            foreach ($this->config["agi-conf$idconfig"]['currency_cents_association'] as $cur_val) {
                 $cur_val = explode(":", $cur_val);
                 $this->config["agi-conf$idconfig"]['currency_cents_association_internal'][$cur_val[0]] = $cur_val[1];
             }
@@ -652,7 +652,7 @@ class A2Billing {
     /*
     * Function to create a menu to select the language
     */
-    function play_menulanguage ($agi)
+    function play_menulanguage($agi)
     {
         // MENU LANGUAGE
         if ($this->agiconfig['play_menulanguage'] == 1) {
@@ -670,9 +670,9 @@ class A2Billing {
                 $i++;
             }
 
-            $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RES Menu Language DTMF : " . $res_dtmf ["result"]);
+            $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RES Menu Language DTMF : " . $res_dtmf["result"]);
 
-            $this->languageselected = $res_dtmf ["result"];
+            $this->languageselected = $res_dtmf["result"];
 
             if ($this->languageselected > 0 && $this->languageselected <= sizeof($list_prompt_menulang)) {
                 $language = $list_prompt_menulang[$this->languageselected - 1];
@@ -772,7 +772,7 @@ class A2Billing {
             $QUERY = "UPDATE cc_card SET inuse = inuse - 1, credit = credit + $upd_balance WHERE username = '" . $this->username . "'";
             $this->set_inuse = 0;
         }
-        if (!$this->CC_TESTING) $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+        if (!$this->CC_TESTING) $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[QUERY USING CARD UPDATE::> " . $QUERY . "]");
         return 0;
     }
@@ -791,7 +791,7 @@ class A2Billing {
         } else {
             if ($this->credit <= -$this->creditlimit) {
                 $QUERY = "SELECT id_cc_package_offer FROM cc_tariffgroup WHERE id = " . $this->tariff ;
-                $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
+                $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
                 if (!empty($result[0][0])) {
                     $id_package_groupe = $result[0][0];
                     if ($id_package_groupe > 0) {
@@ -822,10 +822,10 @@ class A2Billing {
         /************** ASK DESTINATION ******************/
         $prompt_enter_dest = $this->agiconfig['file_conf_enter_destination'];
 
-        $this->debug(DEBUG, $agi, __FILE__, __LINE__, "use_dnid:" . $this->agiconfig['use_dnid'] . " && (!in_array:" . in_array ($this->dnid, $this->agiconfig['no_auth_dnid']) . ") && len_dnid:(" . strlen($this->dnid) . " || len_exten:" . strlen($this->extension). " ) && (try_num:$try_num)");
+        $this->debug(DEBUG, $agi, __FILE__, __LINE__, "use_dnid:" . $this->agiconfig['use_dnid'] . " && (!in_array:" . in_array($this->dnid, $this->agiconfig['no_auth_dnid']) . ") && len_dnid:(" . strlen($this->dnid) . " || len_exten:" . strlen($this->extension). " ) && (try_num:$try_num)");
 
         // CHECK IF USE_DNID IF NOT GET THE DESTINATION NUMBER
-        if (($this->agiconfig['use_dnid'] == 1) && (!in_array ($this->dnid, $this->agiconfig['no_auth_dnid'])) && (strlen($this->dnid) >= 1 || strlen($this->extension) >= 1) && $try_num == 0) {
+        if (($this->agiconfig['use_dnid'] == 1) && (!in_array($this->dnid, $this->agiconfig['no_auth_dnid'])) && (strlen($this->dnid) >= 1 || strlen($this->extension) >= 1) && $try_num == 0) {
             if ($this->extension == 's') {
                 $this->destination = $this->dnid;
             } else {
@@ -839,8 +839,8 @@ class A2Billing {
                 $res_dtmf = $agi->get_data($prompt_enter_dest, 6000, 20);
             }
 
-            $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : " . $res_dtmf ["result"]);
-            $this->destination = $res_dtmf ["result"];
+            $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : " . $res_dtmf["result"]);
+            $this->destination = $res_dtmf["result"];
         }
 
         //REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
@@ -856,10 +856,10 @@ class A2Billing {
 
             $QUERY = "SELECT * FROM cc_restricted_phonenumber WHERE id_card = '" . $this->id_card . "' AND '" . $this->destination . "' LIKE number";
             if ($this->removeinterprefix) {
-                $QUERY .= " OR '". $this->apply_rules ($this->destination) . "' LIKE number";
+                $QUERY .= " OR '". $this->apply_rules($this->destination) . "' LIKE number";
             }
             $QUERY .= " LIMIT 1";
-            $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
+            $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
 
             if ($this->restriction == 1) {
                 // NOT ALLOW TO CALL RESTRICTED NUMBERS
@@ -883,7 +883,7 @@ class A2Billing {
         //REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
         if (strlen($this->destination) <= 2 && is_numeric($this->destination) && $this->destination >= 0) {
             $QUERY = "SELECT phone FROM cc_speeddial WHERE id_cc_card = '" . $this->id_card . "' AND speeddial = '" . $this->destination . "'";
-            $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
+            $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
             if (is_array($result)) $this->destination = $result[0][0];
             $this->debug(INFO, $agi, __FILE__, __LINE__, "SPEEDIAL REPLACE DESTINATION ::> " . $this->destination);
         }
@@ -905,17 +905,17 @@ class A2Billing {
             }
             $QUERY .= ")";
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
-            $result_did = $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
-            if (is_array($result_did)&& !empty($result_did[0][0]) && !empty($result_did[0][1]))
+            $result_did = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
+            if (is_array($result_did) && !empty($result_did[0][0]) && !empty($result_did[0][1]))
                 $iscall2did = true;
         }
 
         $this->debug(INFO, $agi, __FILE__, __LINE__, "DESTINATION ::> " . $this->destination);
 
         if (!$iscall2did) {
-            $this->destination = $this->apply_add_countryprefixto ($this->destination);
+            $this->destination = $this->apply_add_countryprefixto($this->destination);
 
-            if ($this->removeinterprefix) $this->destination = $this->apply_rules ($this->destination);
+            if ($this->removeinterprefix) $this->destination = $this->apply_rules($this->destination);
 
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RULES APPLY ON DESTINATION ::> " . $this->destination);
 
@@ -928,14 +928,14 @@ class A2Billing {
             // this is hardcoded for now but we might have a setting in a2billing.conf for the combination
             if ($this->destination == '*0') {
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[SAY BALANCE ::> " . $this->credit . "]");
-                $this->fct_say_balance ($agi, $this->credit);
+                $this->fct_say_balance($agi, $this->credit);
 
                 // Retrieve this customer's FT2C package details
                 $QUERY = "SELECT freetimetocall, label, packagetype, billingtype, startday, id_cc_package_offer " .
                         "FROM cc_card RIGHT JOIN cc_tariffgroup ON cc_tariffgroup.id = cc_card.tariff " .
                         "RIGHT JOIN cc_package_offer ON cc_package_offer.id = cc_tariffgroup.id_cc_package_offer " .
                         "WHERE cc_card.id = '" . $this->id_card . "'";
-                $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
+                $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
                 if (is_array($result) && ($result[0][0] > 0)) {
                         $freetime = $result[0][0];
                         $label = $result[0][1];
@@ -1086,12 +1086,12 @@ class A2Billing {
     {
         $res = 0;
 
-        if (($this->agiconfig['use_dnid'] == 1) && (!in_array ($this->dnid, $this->agiconfig['no_auth_dnid'])) && (strlen($this->dnid) > 2)) {
+        if (($this->agiconfig['use_dnid'] == 1) && (!in_array($this->dnid, $this->agiconfig['no_auth_dnid'])) && (strlen($this->dnid) > 2)) {
             $this->destination = $this->dnid;
         } else {
             $res_dtmf = $agi->get_data('prepaid-sipiax-enternumber', 6000, $this->config['global']['len_aliasnumber'], '#');
-            $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : " . $res_dtmf ["result"]);
-            $this->destination = $res_dtmf ["result"];
+            $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : " . $res_dtmf["result"]);
+            $this->destination = $res_dtmf["result"];
 
             if ($this->destination <= 0) {
                 return -1;
@@ -1105,7 +1105,7 @@ class A2Billing {
         $iax_buddies = 0;
 
         $QUERY = "SELECT name, cc_card.username FROM cc_iax_buddies, cc_card WHERE cc_iax_buddies.id_cc_card = cc_card.id AND useralias = '" . $this->destination . "'";
-        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
+        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, $result);
 
         if (is_array($result) && count($result) > 0) {
@@ -1116,7 +1116,7 @@ class A2Billing {
 
         $card_alias = $this->destination;
         $QUERY = "SELECT name, cc_card.username FROM cc_sip_buddies, cc_card WHERE cc_sip_buddies.id_cc_card = cc_card.id AND useralias = '" . $this->destination . "'";
-        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
+        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RESULT : " . print_r($result, true));
 
         if (is_array($result) && count($result) > 0) {
@@ -1143,7 +1143,7 @@ class A2Billing {
 
             if ($this->agiconfig['record_call'] == 1) {
                 $command_mixmonitor = "MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b";
-                $command_mixmonitor = $this->format_parameters ($command_mixmonitor);
+                $command_mixmonitor = $this->format_parameters($command_mixmonitor);
                 $myres = $agi->exec($command_mixmonitor);
                 $this->debug(INFO, $agi, __FILE__, __LINE__, $command_mixmonitor);
             }
@@ -1209,7 +1209,7 @@ class A2Billing {
                 $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
                 $QUERY .= ", '$answeredtime', '" . $card_alias . "', '$terminatecauseid', now(), '0', '0', '0', '0', '$this->CallerID', '1' )";
 
-                $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                 return 1;
             }
         }
@@ -1223,7 +1223,7 @@ class A2Billing {
                 // with the unavailable priority.
                 $this->debug(INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL UNAVAILABLE - GOTO VOICEMAIL ($dest_username)");
 
-                $vm_parameters = $this->format_parameters ($dest_username . '|u');
+                $vm_parameters = $this->format_parameters($dest_username . '|u');
                 $agi->exec(VoiceMail, $vm_parameters);
             }
 
@@ -1231,7 +1231,7 @@ class A2Billing {
                 // The following section will send the caller to VoiceMail with the busy priority.
                 $this->debug(INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL BUSY - GOTO VOICEMAIL ($dest_username)");
 
-                $vm_parameters = $this->format_parameters ($dest_username . '|b');
+                $vm_parameters = $this->format_parameters($dest_username . '|b');
                 $agi->exec(VoiceMail, $vm_parameters);
             }
         }
@@ -1250,7 +1250,7 @@ class A2Billing {
 
     *  @return 1 if Ok ; -1 if error
     **/
-    function call_did ($agi, &$RateEngine, $listdestination)
+    function call_did($agi, &$RateEngine, $listdestination)
     {
         $res = 0;
         $this->agiconfig['say_balance_after_auth'] = 0;
@@ -1290,7 +1290,7 @@ class A2Billing {
                     // RUN MIXMONITOR TO RECORD CALL
                     if ($this->agiconfig['record_call'] == 1) {
                         $command_mixmonitor = "MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b";
-                        $command_mixmonitor = $this->format_parameters ($command_mixmonitor);
+                        $command_mixmonitor = $this->format_parameters($command_mixmonitor);
                         $myres = $agi->exec($command_mixmonitor);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, $command_mixmonitor);
                     }
@@ -1366,19 +1366,19 @@ class A2Billing {
                         $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
                         $QUERY .= ", '$answeredtime', '" . $inst_listdestination[4] . "', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' )";
 
-                        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
 
                         // CC_DID & CC_DID_DESTINATION - cc_did.id, cc_did_destination.id
                         $QUERY = "UPDATE cc_did SET secondusedreal = secondusedreal + $answeredtime WHERE id = '" . $inst_listdestination[0] . "'";
-                        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, "[UPDATE DID]:[result:$result]");
 
                         $QUERY = "UPDATE cc_did_destination SET secondusedreal = secondusedreal + $answeredtime WHERE id = '" . $inst_listdestination[1] . "'";
-                        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION]:[result:$result]");
 
-                        $this->bill_did_aleg ($agi, $inst_listdestination, $answeredtime);
+                        $this->bill_did_aleg($agi, $inst_listdestination, $answeredtime);
 
                         return 1;
                     }
@@ -1395,7 +1395,7 @@ class A2Billing {
                     if ($this->callingcard_ivr_authorize($agi, $RateEngine, 0) == 1) {
 
                         // PERFORM THE CALL
-                        $result_callperf = $RateEngine->rate_engine_performcall ($agi, $this->destination, $this);
+                        $result_callperf = $RateEngine->rate_engine_performcall($agi, $this->destination, $this);
                         if (!$result_callperf) {
                             $prompt = "prepaid-callfollowme";
                             $agi->stream_file($prompt, '#');
@@ -1416,14 +1416,14 @@ class A2Billing {
                         $RateEngine->rate_engine_updatesystem($this, $agi, $this->destination, $doibill, 1);
                         // CC_DID & CC_DID_DESTINATION - cc_did.id, cc_did_destination.id
                         $QUERY = "UPDATE cc_did SET secondusedreal = secondusedreal + " . $RateEngine->answeredtime . " WHERE id = '" . $inst_listdestination[0] . "'";
-                        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[UPDATE DID]:[result:$result]");
 
                         $QUERY = "UPDATE cc_did_destination SET secondusedreal = secondusedreal + " . $RateEngine->answeredtime . " WHERE id = '" . $inst_listdestination[1] . "'";
-                        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION]:[result:$result]");
 
-                        $this->bill_did_aleg ($agi, $inst_listdestination, $RateEngine->answeredtime);
+                        $this->bill_did_aleg($agi, $inst_listdestination, $RateEngine->answeredtime);
 
                         // THEN STATUS IS ANSWER
                         break;
@@ -1439,14 +1439,14 @@ class A2Billing {
                 $dest_username = $this->username;
                 $this->debug(INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL ($dialstatus) - GOTO VOICEMAIL ($dest_username)");
 
-                $vm_parameters = $this->format_parameters ($dest_username . '|s');
+                $vm_parameters = $this->format_parameters($dest_username . '|s');
                 $agi->exec(VoiceMail, $vm_parameters);
             }
         }
     }
 
 
-    function call_2did ($agi, &$RateEngine, $listdestination)
+    function call_2did($agi, &$RateEngine, $listdestination)
     {
         $card_number = $this->username; // username of the caller
         $nbused = $this->nbused;
@@ -1530,7 +1530,7 @@ class A2Billing {
                 // RUN MIXMONITOR TO RECORD CALL
                 if ($this->agiconfig['record_call'] == 1) {
                     $command_mixmonitor = "MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b";
-                    $command_mixmonitor = $this->format_parameters ($command_mixmonitor);
+                    $command_mixmonitor = $this->format_parameters($command_mixmonitor);
                     $myres = $agi->exec($command_mixmonitor);
                     $this->debug(INFO, $agi, __FILE__, __LINE__, $command_mixmonitor);
                 }
@@ -1557,7 +1557,7 @@ class A2Billing {
 
                     if ($this->agiconfig['record_call'] == 1) {
                         $command_mixmonitor = "MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b";
-                        $command_mixmonitor = $this->format_parameters ($command_mixmonitor);
+                        $command_mixmonitor = $this->format_parameters($command_mixmonitor);
                         $myres = $agi->exec($command_mixmonitor);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, $command_mixmonitor);
                     }
@@ -1634,7 +1634,7 @@ class A2Billing {
                         $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
                         $QUERY .= ", '$answeredtime', '" . $inst_listdestination[10] . "', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' )";
 
-                        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
 
                     } else {
@@ -1649,7 +1649,7 @@ class A2Billing {
                         $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
                         $QUERY .= ", '$answeredtime', '". $listdestination[0][10] . "', '$terminatecauseid', now(), '$cost', '0', '0', '0', '0', '$this->CallerID', '3' )";
 
-                        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
                     }
 
@@ -1660,21 +1660,21 @@ class A2Billing {
                         $firstuse = "firstusedate = now(),";
                     }
                     $QUERY = "UPDATE cc_card SET credit= credit - " . a2b_round(abs($cost)) . " , lastuse = now(), $firstuse nbused = nbused + 1 WHERE username = '" . $card_number . "'";
-                    $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                    $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                     $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - UPDATE CARD: SQL: $QUERY]:[result:$result]");
 
                     // CC_DID & CC_DID_DESTINATION - cc_did.id, cc_did_destination.id
                     $QUERY = "UPDATE cc_did SET secondusedreal = secondusedreal + $answeredtime WHERE id = '" . $inst_listdestination[0] . "'";
-                    $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                    $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                     $this->debug(INFO, $agi, __FILE__, __LINE__, "[UPDATE DID]:[result:$result]");
 
                     $QUERY = "UPDATE cc_did_destination SET secondusedreal = secondusedreal + $answeredtime WHERE id = '" . $inst_listdestination[1] . "'";
-                    $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                    $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                     $this->debug(INFO, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION]:[result:$result]");
 
                     #This is a call from user to DID
                     #we will change the B-Leb using the did bill_did_aleg function
-                    $this->bill_did_aleg ($agi, $listdestination[0], $answeredtime);
+                    $this->bill_did_aleg($agi, $listdestination[0], $answeredtime);
 
                 }
 
@@ -1696,7 +1696,7 @@ class A2Billing {
                     $this->fct_say_time_2_call($agi, $this->timeout, $selling_rate);
 
                     // PERFORM THE CALL
-                    $result_callperf = $RateEngine->rate_engine_performcall ($agi, $this->destination, $this);
+                    $result_callperf = $RateEngine->rate_engine_performcall($agi, $this->destination, $this);
                     if (!$result_callperf) {
                         $prompt = "prepaid-callfollowme";
                         $agi->stream_file($prompt, '#');
@@ -1715,11 +1715,11 @@ class A2Billing {
 
                     // CC_DID & CC_DID_DESTINATION - cc_did.id, cc_did_destination.id
                     $QUERY = "UPDATE cc_did SET secondusedreal = secondusedreal + " . $RateEngine->answeredtime . " WHERE id = '" . $inst_listdestination[0] . "'";
-                    $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                    $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                     $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[UPDATE DID]:[result:$result]");
 
                     $QUERY = "UPDATE cc_did_destination SET secondusedreal = secondusedreal + " . $RateEngine->answeredtime . " WHERE id = '" . $inst_listdestination[1] . "'";
-                    $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                    $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                     $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION]:[result:$result]");
 
 
@@ -1740,7 +1740,7 @@ class A2Billing {
                         $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
                         $QUERY .= ", '$answeredtime', '" . $inst_listdestination[10] . "', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' )";
 
-                        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
 
                     } else {
@@ -1755,7 +1755,7 @@ class A2Billing {
                         $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
                         $QUERY .= ", '$answeredtime', '". $listdestination[0][10] . "', '$terminatecauseid', now(), '$cost', '0', '0', '0', '0', '$this->CallerID', '3' )";
 
-                        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
                     }
 
@@ -1765,12 +1765,12 @@ class A2Billing {
                         $firstuse= "firstusedate = now(),";
                     }
                     $QUERY = "UPDATE cc_card SET credit= credit - " . a2b_round(abs($cost)) . " , lastuse = now(), $firstuse nbused = nbused + 1 WHERE username = '" . $card_number . "'";
-                    $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                    $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                     $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - UPDATE CARD: SQL: $QUERY]:[result:$result]");
 
 
                     #This is a call from user to DID, we dont want to charge the A-leg
-                    $this->bill_did_aleg ($agi, $listdestination[0], $answeredtime);
+                    $this->bill_did_aleg($agi, $listdestination[0], $answeredtime);
 
                     break;
                 }
@@ -1783,7 +1783,7 @@ class A2Billing {
                 $dest_username = $new_username;
                 $this->debug(INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL ($dialstatus) - GOTO VOICEMAIL ($dest_username)");
 
-                $vm_parameters = $this->format_parameters ($dest_username . '|s');
+                $vm_parameters = $this->format_parameters($dest_username . '|s');
                 $agi->exec(VoiceMail, $vm_parameters);
             }
         }
@@ -1798,7 +1798,7 @@ class A2Billing {
     /*
     * Function to bill the A-Leg on DID Calls
     */
-    function bill_did_aleg ($agi, $inst_listdestination, $b_leg_answeredtime = 0)
+    function bill_did_aleg($agi, $inst_listdestination, $b_leg_answeredtime = 0)
     {
 
         $start_time = $this->G_startime;
@@ -1923,13 +1923,13 @@ class A2Billing {
                         "'" . $this->dnid . "'" .
                         ")";
 
-            $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+            $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
             $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
 
             if ($aleg_retail_cost != 0) {
                 // update card
                 $QUERY = "UPDATE cc_card SET credit= credit - " . a2b_round($aleg_retail_cost) . " WHERE username = '" . $this->username . "'";
-                $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                 $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - (id_card=" . $this->id_card . ") UPDATE CARD: SQL: $QUERY]:[result:$result]");
             }
         }
@@ -1951,7 +1951,7 @@ class A2Billing {
         }
 
         if ($this->agiconfig['say_rateinitial'] == 1) {
-            $this->fct_say_rate ($agi, $rate);
+            $this->fct_say_rate($agi, $rate);
         }
 
         if ($this->agiconfig['say_timetocall'] == 1) {
@@ -2006,7 +2006,7 @@ class A2Billing {
     *  @param float $credit
     *  @return nothing
     **/
-    function fct_say_balance ($agi, $credit, $fromvoucher = 0)
+    function fct_say_balance($agi, $credit, $fromvoucher = 0)
     {
         global $currencies_list;
 
@@ -2117,7 +2117,7 @@ class A2Billing {
     *  @param float $rate
     *  @return nothing
     **/
-    function fct_say_rate ($agi, $rate)
+    function fct_say_rate($agi, $rate)
     {
         global $currencies_list;
 
@@ -2212,7 +2212,7 @@ class A2Billing {
 
     *  @return 1 if Ok ; -1 if error
     **/
-    function refill_card_with_voucher ($agi, $try_num)
+    function refill_card_with_voucher($agi, $try_num)
     {
         global $currencies_list;
 
@@ -2228,8 +2228,8 @@ class A2Billing {
         }
         $timetowait = ($this->config['global']['len_voucher'] < 6) ? 8000 : 20000;
         $res_dtmf = $agi->get_data('prepaid-voucher_enter_number', $timetowait, $this->config['global']['len_voucher'], '#');
-        $this->debug(DEBUG, $agi, __FILE__, __LINE__, "VOUCHERNUMBER RES DTMF : " . $res_dtmf ["result"]);
-        $this->vouchernumber = $res_dtmf ["result"];
+        $this->debug(DEBUG, $agi, __FILE__, __LINE__, "VOUCHERNUMBER RES DTMF : " . $res_dtmf["result"]);
+        $this->vouchernumber = $res_dtmf["result"];
         if ($this->vouchernumber <= 0) {
             return -1;
         }
@@ -2238,11 +2238,11 @@ class A2Billing {
 
         $QUERY = "SELECT voucher, credit, activated, tag, currency, expirationdate FROM cc_voucher WHERE expirationdate >= CURRENT_TIMESTAMP AND activated = 't' AND voucher = '" . $this->vouchernumber . "'";
 
-        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
+        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[VOUCHER SELECT: $QUERY]\n" . print_r($result, true));
 
         if ($result[0][0] == $this->vouchernumber) {
-            if (!isset ($currencies_list[strtoupper($result[0][4])][2])) {
+            if (!isset($currencies_list[strtoupper($result[0][4])][2])) {
                 $this->debug(ERROR, $agi, __FILE__, __LINE__, "System Error : No currency table complete !!!");
                 return -1;
             } else {
@@ -2250,16 +2250,16 @@ class A2Billing {
                 $this->add_credit = $result[0][1] * $currencies_list[strtoupper($result[0][4])][2];
                 $QUERY = "UPDATE cc_voucher SET activated = 'f', usedcardnumber = '" . $this->accountcode . "', used = 1, usedate = now() WHERE voucher = '" . $this->vouchernumber . "'";
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "QUERY UPDATE VOUCHER: $QUERY");
-                $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
 
                 // UPDATE THE CARD AND THE CREDIT PROPERTY OF THE CLASS
                 $QUERY = "UPDATE cc_card SET credit = credit + '" . $this->add_credit . "' WHERE username = '" . $this->accountcode . "'";
-                $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                 $this->credit += $this->add_credit;
 
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "QUERY UPDATE CARD: $QUERY");
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, ' The Voucher ' . $this->vouchernumber . ' has been used, We added ' . $this->add_credit/$mycur . ' ' . strtoupper($this->currency) . ' of credit on your account!');
-                $this->fct_say_balance ($agi, $this->add_credit, 1);
+                $this->fct_say_balance($agi, $this->add_credit, 1);
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[VOUCHER REFILL CARD: $QUERY]");
                 return 1;
             }
@@ -2281,10 +2281,10 @@ class A2Billing {
     function MDP($chrs = 10)
     {
         $pwd = "";
-        mt_srand ((double) microtime() * 1000000);
+        mt_srand((double)microtime() * 1000000);
         while (strlen($pwd) < $chrs)
         {
-            $chr = chr(mt_rand (0, 255));
+            $chr = chr(mt_rand(0, 255));
             if (preg_match("/^[0-9]$/i", $chr))
                 $pwd = $pwd . $chr;
         };
@@ -2380,7 +2380,7 @@ class A2Billing {
                 "WHERE $CLAUSE_DATE AND id_cc_card = '$id_cc_card' AND id_cc_package_offer = '$id_cc_package_offer' ";
 
         $this->instance_table = new Table();
-        $pack_result = $this->instance_table->SQLExec ($DBHandle, $QUERY);
+        $pack_result = $this->instance_table->SQLExec($DBHandle, $QUERY);
 
         if ($pack_result && is_array($pack_result)) {
             $result = $pack_result[0];
@@ -2395,7 +2395,7 @@ class A2Billing {
     /*
     * Function apply_rules to the phonenumber : Remove internation prefix
     */
-    function apply_rules ($phonenumber)
+    function apply_rules($phonenumber)
     {
         if (is_array($this->agiconfig['international_prefixes']) && (count($this->agiconfig['international_prefixes']) > 0)) {
             foreach ($this->agiconfig['international_prefixes'] as $testprefix) {
@@ -2413,7 +2413,7 @@ class A2Billing {
     /*
     * Function apply_add_countryprefixto the phonenumber
     */
-    function apply_add_countryprefixto ($phonenumber)
+    function apply_add_countryprefixto($phonenumber)
     {
         if ($this->agiconfig['local_dialing_addcountryprefix'] == 1) {
 
@@ -2444,7 +2444,7 @@ class A2Billing {
                 " JOIN cc_card ON cc_callerid.id_cc_card = cc_card.id " .
                 " WHERE (cc_callerid.activated = 1 OR cc_callerid.activated = 't') AND cc_card.username = '" . $this->username . "' ";
             $QUERY .= "ORDER BY 1";
-            $result1 = $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
+            $result1 = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, print_r($result1, true));
         }
 
@@ -2458,11 +2458,11 @@ class A2Billing {
                 " AND cc_card.username = '" . $this->username . "' " .
                 " AND cc_did_destination.validated = 1";
             $QUERY .= "ORDER BY 1";
-            $result2 = $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
+            $result2 = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, print_r($result2, true));
         }
         if (count($result1) > 0 || count($result2) > 0)
-            $result = array_merge ((array) $result1, (array) $result2);
+            $result = array_merge((array) $result1, (array)$result2);
 
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RESULT MERGE->" . print_r($result, true));
 
@@ -2515,10 +2515,10 @@ class A2Billing {
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[UPDATE CallerID]");
 
             $res_dtmf = $agi->get_data('prepaid-enter-cid', 6000, 20);
-            $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : " . $res_dtmf ["result"]);
+            $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : " . $res_dtmf["result"]);
 
-            if (strlen($res_dtmf ["result"]) > 0 && is_numeric($res_dtmf ["result"])) {
-                $agi->set_callerid($res_dtmf ["result"]);
+            if (strlen($res_dtmf["result"]) > 0 && is_numeric($res_dtmf["result"])) {
+                $agi->set_callerid($res_dtmf["result"]);
             }
         }
 
@@ -2538,7 +2538,7 @@ class A2Billing {
         $query_rate = "SELECT cc_campaign_config.flatrate, cc_campaign_config.context FROM cc_card,cc_card_group,cc_campaignconf_cardgroup,cc_campaign_config , cc_campaign WHERE cc_card.id = $userid AND cc_card.id_group = cc_card_group.id AND cc_campaignconf_cardgroup.id_card_group = cc_card_group.id AND cc_campaignconf_cardgroup.id_campaign_config = cc_campaign_config.id AND cc_campaign.id = $campaign_id AND cc_campaign.id_campaign_config = cc_campaign_config.id";
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[QUERY SEARCH CAMPAIGN CONFIG : " . $query_rate);
 
-        $result_rate = $this->instance_table->SQLExec ($this->DBHandle, $query_rate);
+        $result_rate = $this->instance_table->SQLExec($this->DBHandle, $query_rate);
 
         $cost = 0;
         if ($result_rate) {
@@ -2558,7 +2558,7 @@ class A2Billing {
         //update balance
         $QUERY = "UPDATE cc_card SET credit= credit $signe " . a2b_round(abs($cost)) . ", lastuse = now() WHERE username = '" . $username . "'";
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[UPDATE CARD : " . $QUERY);
-        $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
+        $this->instance_table->SQLExec($this->DBHandle, $QUERY);
 
         //dial other context
         $agi->set_variable('CALLERID(name)', $phonenumber_id . ',' . $campaign_id);
@@ -2572,7 +2572,7 @@ class A2Billing {
         $QUERY_CALL .= "DATE_SUB(CURRENT_TIMESTAMP, INTERVAL $duration SECOND )";
 
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[INSERT CAMPAIGN CALL : " . $QUERY_CALL);
-        $this->instance_table->SQLExec ($this->DBHandle, $QUERY_CALL);
+        $this->instance_table->SQLExec($this->DBHandle, $QUERY_CALL);
 
     }
 
@@ -2603,7 +2603,7 @@ class A2Billing {
                     " LEFT JOIN cc_tariffgroup ON cc_card.tariff = cc_tariffgroup.id " .
                     " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
                     " WHERE cc_callerid.cid = '" . $this->CallerID . "'";
-            $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
+            $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, print_r($result, true));
 
             if (!is_array($result)) {
@@ -2620,7 +2620,7 @@ class A2Billing {
                             $agi->stream_file($prompt, '#');
                             return -2;
                         }
-                        $card_gen = $this->MDP ($this->agiconfig['cid_auto_create_card_len']);
+                        $card_gen = $this->MDP($this->agiconfig['cid_auto_create_card_len']);
                         $numrow = 0;
                         $resmax = $this->DBHandle->Execute("SELECT username FROM $FG_TABLE_NAME where username = '$card_gen'");
                         if ($resmax)
@@ -2628,8 +2628,8 @@ class A2Billing {
                         if ($numrow != 0) continue;
                         break;
                     }
-                    $card_alias = $this->MDP ($this->agiconfig['cid_auto_create_card_len']);
-                    $uipass = $this->MDP (5);
+                    $card_alias = $this->MDP($this->agiconfig['cid_auto_create_card_len']);
+                    $uipass = $this->MDP(5);
                     $ttcard = ($this->agiconfig['cid_auto_create_card_typepaid'] == "POSTPAID") ? 1 : 0;
 
                     //CREATE A CARD
@@ -2641,14 +2641,14 @@ class A2Billing {
                         $QUERY_VALUES .= " , '$this->group_id'";
                     }
 
-                    $result = $this->instance_table->Add_table ($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_card', 'id');
+                    $result = $this->instance_table->Add_table($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_card', 'id');
                     $this->debug(INFO, $agi, __FILE__, __LINE__, "[CARDNUMBER: $card_gen]:[CARDID CREATED : $result]");
 
                     //CREATE A CARD AND AN INSTANCE IN CC_CALLERID
                     $QUERY_FIELS = 'cid, id_cc_card';
                     $QUERY_VALUES = "'" . $this->CallerID . "','$result'";
 
-                    $result = $this->instance_table->Add_table ($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_callerid');
+                    $result = $this->instance_table->Add_table($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_callerid');
                     if (!$result) {
                         $this->debug(ERROR, $agi, __FILE__, __LINE__, "[CALLERID CREATION ERROR TABLE cc_callerid]");
                         $prompt = "prepaid-auth-fail";
@@ -2765,7 +2765,7 @@ class A2Billing {
                         $this->status = 5;
                         $QUERY = "UPDATE cc_card SET status = '5' WHERE id = '" . $this->id_card . "'";
                         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[QUERY UPDATE : $QUERY]");
-                        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                     }
 
                 }
@@ -2815,7 +2815,7 @@ class A2Billing {
 
         $prompt_entercardnum= "prepaid-enter-pin-number";
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, ' - Account code ::> ' . $this->accountcode);
-        if (strlen ($this->accountcode) >= 1 && !$authentication) {
+        if (strlen($this->accountcode) >= 1 && !$authentication) {
             $this->username = $this->cardnumber = $this->accountcode;
             for ($i = 0; $i <= 0; $i++) {
 
@@ -2830,7 +2830,7 @@ class A2Billing {
                                 " LEFT JOIN cc_tariffgroup ON tariff = cc_tariffgroup.id " .
                                 " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
                                 " WHERE username = '" . $this->cardnumber . "'";
-                    $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
+                    $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
                     $this->debug(DEBUG, $agi, __FILE__, __LINE__, ' - Retrieve account info SQL ::> ' . $QUERY);
 
                     if (!is_array($result)) {
@@ -2848,7 +2848,7 @@ class A2Billing {
                             }
                             $QUERY = " SELECT cid, id_cc_card, activated FROM cc_callerid "
                                     . " WHERE cc_callerid.cid = '" . $this->CallerID . "' AND cc_callerid.id_cc_card = '" . $result[0][22] . "'";
-                            $result_check_cid = $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
+                            $result_check_cid = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
                             $this->debug(DEBUG, $agi, __FILE__, __LINE__, $result_check_cid);
 
                             if (!is_array($result_check_cid)) {
@@ -2935,7 +2935,7 @@ class A2Billing {
                         $this->status = 5;
                         $QUERY = "UPDATE cc_card SET status = '5' WHERE id = '" . $this->id_card . "'";
                         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[QUERY UPDATE : $QUERY]");
-                        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                     }
 
                 }
@@ -2998,8 +2998,8 @@ class A2Billing {
                 $res = 0;
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "Requesting DTMF, CARDNUMBER_LENGTH_MAX " . CARDNUMBER_LENGTH_MAX);
                 $res_dtmf = $agi->get_data($prompt_entercardnum, 6000, CARDNUMBER_LENGTH_MAX);
-                $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : " . $res_dtmf ["result"]);
-                $this->cardnumber = $res_dtmf ["result"];
+                $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : " . $res_dtmf["result"]);
+                $this->cardnumber = $res_dtmf["result"];
 
                 if ($this->CC_TESTING) $this->cardnumber = "2222222222";
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "CARDNUMBER ::> " . $this->cardnumber);
@@ -3026,7 +3026,7 @@ class A2Billing {
                             " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
                             " WHERE username = '" . $this->cardnumber . "'";
 
-                $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
+                $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, print_r($result, true));
 
                 if (!is_array($result)) {
@@ -3046,7 +3046,7 @@ class A2Billing {
                         $QUERY = " SELECT cid, id_cc_card, activated FROM cc_callerid "
                                 . " WHERE cc_callerid.cid = '" . $this->CallerID . "' AND cc_callerid.id_cc_card = '" . $result[0][23] . "'";
 
-                        $result_check_cid = $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
+                        $result_check_cid = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
                         $this->debug(DEBUG, $agi, __FILE__, __LINE__, print_r($result_check_cid, true));
 
                         if (!is_array($result_check_cid)) {
@@ -3136,7 +3136,7 @@ class A2Billing {
                         $this->status = 5;
                         $QUERY = "UPDATE cc_card SET status = '5' WHERE id = '" . $this->id_card . "'";
                         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[QUERY UPDATE : $QUERY]");
-                        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                     }
                 }
 
@@ -3144,7 +3144,7 @@ class A2Billing {
                 if ($this->agiconfig['cid_enable'] == 1 && $this->agiconfig['cid_auto_assign_card_to_cid'] == 1 && is_numeric($this->CallerID) && $this->CallerID > 0 && $this->ask_other_cardnumber != 1 && $this->update_callerid != 1) {
 
                     $QUERY = "SELECT count(*) FROM cc_callerid WHERE id_cc_card = '$the_card_id'";
-                    $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 1);
+                    $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 1);
 
                     // CHECK IF THE AMOUNT OF CALLERID IS LESS THAN THE LIMIT
                     if ($result[0][0] < $this->config["webcustomerui"]['limit_callerid']) {
@@ -3153,7 +3153,7 @@ class A2Billing {
                         $QUERY_VALUES = "'" . $this->CallerID . "','$the_card_id'";
 
                         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CREATE AN INSTANCE IN CC_CALLERID -  QUERY_VALUES:$QUERY_VALUES, QUERY_FIELS:$QUERY_FIELS]");
-                        $result = $this->instance_table->Add_table ($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_callerid');
+                        $result = $this->instance_table->Add_table($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_callerid');
 
                         if (!$result) {
                             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CALLERID CREATION ERROR TABLE cc_callerid]");
@@ -3172,7 +3172,7 @@ class A2Billing {
                     $this->ask_other_cardnumber = 0;
                     $QUERY = "UPDATE cc_callerid SET id_cc_card = '$the_card_id' WHERE cid = '" . $this->CallerID . "'";
                     $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[QUERY UPDATE : $QUERY]");
-                    $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                    $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                 }
 
                 if (strlen($prompt) > 0) {
@@ -3193,7 +3193,7 @@ class A2Billing {
 
             if ($this->agiconfig['say_balance_after_auth'] == 1) {
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[A2Billing] SAY BALANCE : $this->credit \n");
-                $this->fct_say_balance ($agi, $this->credit);
+                $this->fct_say_balance($agi, $this->credit);
             }
 
         } else if ($res == -2) {
@@ -3229,8 +3229,8 @@ class A2Billing {
             $res = 0;
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "Requesting DTMF, CARDNUMBER_LENGTH_MAX " . CARDNUMBER_LENGTH_MAX);
             $res_dtmf = $agi->get_data($prompt_entercardnum, 6000, CARDNUMBER_LENGTH_MAX);
-            $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : " . $res_dtmf ["result"]);
-            $this->cardnumber = $res_dtmf ["result"];
+            $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : " . $res_dtmf["result"]);
+            $this->cardnumber = $res_dtmf["result"];
 
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "CARDNUMBER ::> " . $this->cardnumber);
 
@@ -3256,7 +3256,7 @@ class A2Billing {
                         " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
                         " WHERE username = '" . $this->cardnumber . "'";
 
-            $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
+            $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, print_r($result, true));
 
             if (!is_array($result)) {
@@ -3336,7 +3336,7 @@ class A2Billing {
                         $this->status = 5;
                         $QUERY = "UPDATE cc_card SET status = '5' WHERE id = '" . $this->id_card . "'";
                         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[QUERY UPDATE : $QUERY]");
-                        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                 }
             }
 
@@ -3360,7 +3360,7 @@ class A2Billing {
 
 
 
-    function callingcard_ivr_authenticate_light (&$error_msg, $simbalance) {
+    function callingcard_ivr_authenticate_light(&$error_msg, $simbalance) {
 
         $res = 0;
         $QUERY = "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, creditlimit, language, removeinterprefix, redial, enableexpire, " .
@@ -3370,7 +3370,7 @@ class A2Billing {
                     " FROM cc_card LEFT JOIN cc_tariffgroup ON tariff = cc_tariffgroup.id " .
                     " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
                     " WHERE username = '" . $this->cardnumber . "'";
-        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
+        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
 
         if (!is_array($result)) {
             $error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' . gettext("Error : Authentication Failed !!!") . '</b></font><br>';
@@ -3474,7 +3474,7 @@ class A2Billing {
 
         foreach ($arr_splitable_deck as $arr_value) {
 
-            $arr_value = trim ($arr_value);
+            $arr_value = trim($arr_value);
             $arr_value_explode = explode(":", $arr_value, 2);
             if (count($arr_value_explode) > 1) {
                 if (is_numeric($arr_value_explode[0]) && is_numeric($arr_value_explode[1])) {
@@ -3493,7 +3493,7 @@ class A2Billing {
             return false;
 
         $QUERY = "SELECT sum(sessiontime), count(*) FROM cc_call WHERE card_id = '" . $this->id_card . "'";
-        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY);
+        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[DECK SWITCH - Start]" . print_r($result, true));
         $sessiontime_for_card = $result[0][0];
         $calls_for_card = $result[0][1];
@@ -3520,7 +3520,7 @@ class A2Billing {
                 // UPDATE CARD
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[DECK SWITCH] : UPDATE CARD TO CALLPLAN ID = " . $arr_value_deck_callplan[$ind_deck]);
                 $QUERY = "UPDATE cc_card SET tariff = '" . $arr_value_deck_callplan[$ind_deck] . "' WHERE id = '" . $this->id_card . "'";
-                $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+                $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
 
                 $this->tariff = $arr_value_deck_callplan[$ind_deck];
             }
@@ -3610,11 +3610,11 @@ class A2Billing {
     * used by parameter like interval_len_cardnumber : 8-10, 12-18, 20
     * it will build an array with the different interval
     */
-    function splitable_data ($splitable_value)
+    function splitable_data($splitable_value)
     {
         $arr_splitable_value = explode(",", $splitable_value);
         foreach ($arr_splitable_value as $arr_value) {
-            $arr_value = trim ($arr_value);
+            $arr_value = trim($arr_value);
             $arr_value_explode = explode("-", $arr_value, 2);
             if (count($arr_value_explode) > 1) {
                 if (is_numeric($arr_value_explode[0]) && is_numeric($arr_value_explode[1]) && $arr_value_explode[0] < $arr_value_explode[1]) {
@@ -3643,13 +3643,13 @@ class A2Billing {
             return;
         }
         $QUERY = "UPDATE cc_card SET redial = '{$number}' WHERE username = '" . $this->accountcode . "'";
-        $result = $this->instance_table->SQLExec ($this->DBHandle, $QUERY, 0);
+        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[SAVING DESTINATION FOR REDIAL: SQL: {$QUERY}]:[result: {$result}]");
     }
 
     function run_dial($agi, $dialstr)
     {
-        $dialstr = $this->format_parameters ($dialstr);
+        $dialstr = $this->format_parameters($dialstr);
 
         // Run dial command
         $res_dial = $agi->exec("DIAL $dialstr");
@@ -3660,7 +3660,7 @@ class A2Billing {
     /*
     * This function to set the parameters separator according the asterisk version
     */
-    function format_parameters ($parameters)
+    function format_parameters($parameters)
     {
         if ($this->agiconfig['asterisk_version'] != "1_2" && $this->agiconfig['asterisk_version'] != "1_4") {
             $parameters = str_replace("|", ',', $parameters);
@@ -3701,17 +3701,17 @@ class A2Billing {
         $row_conditions = $this->extract_cond_values($timeinterval);
         $x = 0;
         $cond_type = "";
-        foreach ($row_conditions as $conditions){
+        foreach ($row_conditions as $conditions) {
 
             /* Options */
-            if (!empty($conditions[4])){
-                switch ($conditions[4][0]){
+            if (!empty($conditions[4])) {
+                switch ($conditions[4][0]) {
                     case 0:
                         break;
                     case 1:
                         break;
                     case 2:
-                        switch(strtolower($conditions[4][1])){
+                        switch(strtolower($conditions[4][1])) {
                             case "p":
                                 // Peak
                                 $cond_type = "peak";
@@ -3732,17 +3732,17 @@ class A2Billing {
                         break;
                 }
             }
-            if ($type == $cond_type){
+            if ($type == $cond_type) {
                 $cond_result[$x] = 0;
                 /* Time */
-                switch ($conditions[0][0]){
+                switch ($conditions[0][0]) {
                     case 0:
                         $i = 0;
-                        foreach ($conditions[0] as $condition){
+                        foreach ($conditions[0] as $condition) {
                             if ($i > 0) $conditions[0][$i] = strtotime($condition);
                             $i++;
                         }
-                        if ($now >= $conditions[0][1] && $now <= $conditions[0][2]){
+                        if ($now >= $conditions[0][1] && $now <= $conditions[0][2]) {
                             $cond_result[$x] = $cond_result[$x] + 1;
                         }
                         break;
@@ -3757,10 +3757,10 @@ class A2Billing {
                 }
 
                 /* Day of week */
-                switch ($conditions[1][0]){
+                switch ($conditions[1][0]) {
                     case 0:
                         $day = date("N", $now);
-                        if ($day >= $week_range[strtolower($conditions[1][1])] && $day <= $week_range[strtolower($conditions[1][2])]){
+                        if ($day >= $week_range[strtolower($conditions[1][1])] && $day <= $week_range[strtolower($conditions[1][2])]) {
                             $cond_result[$x] = $cond_result[$x] + 2;
                         }
                         break;
@@ -3769,7 +3769,7 @@ class A2Billing {
                         $day = strtolower(date("D", $now));
                         array_splice($conditions[1], 0, 1);
                         $i = 0;
-                        foreach ($conditions[1] as $condition){
+                        foreach ($conditions[1] as $condition) {
                             $conditions[1][$i] = strtolower($condition);
                             $i++;
                         }
@@ -3781,7 +3781,7 @@ class A2Billing {
                 }
 
                 /* Day of month */
-                switch ($conditions[2][0]){
+                switch ($conditions[2][0]) {
                     case 0:
                         $month_day = date("j", $now);
                         if ($month_day >= $conditions[2][1] && $month_day <= $conditions[2][2]) {
@@ -3800,7 +3800,7 @@ class A2Billing {
                 }
 
                 /* Month */
-                switch ($conditions[3][0]){
+                switch ($conditions[3][0]) {
                     case 0:
                         $month = strtolower(date("n", $now));
                         if ($month >= $month_range[strtolower($conditions[3][1])] && $month <= $month_range[strtolower($conditions[3][2])]) {
@@ -3812,7 +3812,7 @@ class A2Billing {
                         $month = strtolower(date("M", $now));
                         array_splice($conditions[3], 0, 1);
                         $i = 0;
-                        foreach ($conditions[3] as $condition){
+                        foreach ($conditions[3] as $condition) {
                             $conditions[3][$i] = strtolower($condition);
                             $i++;
                         }
@@ -3827,8 +3827,8 @@ class A2Billing {
         }
         $i = 0;
         $final_result_set = 0;
-        foreach ($cond_result as $result){
-            if ($result == 15){
+        foreach ($cond_result as $result) {
+            if ($result == 15) {
                 $final_result_set = $final_result_set + pow(2, $i);
             }
             $i++;
@@ -3836,20 +3836,20 @@ class A2Billing {
         return $final_result_set;
     }
 
-    function extract_cond_values($value){
+    function extract_cond_values($value) {
         $rows = explode("\n", $value);
         $i = 0;
-        foreach ($rows as $row){
+        foreach ($rows as $row) {
             $items = explode(";", trim($row));
             $x = 0;
-            foreach ($items as $item){
-                if (preg_match('/^([[:alnum:]]+|\d+:\d+)-([[:alnum:]]+|\d+:\d+)$/', $item, $intvals)){
+            foreach ($items as $item) {
+                if (preg_match('/^([[:alnum:]]+|\d+:\d+)-([[:alnum:]]+|\d+:\d+)$/', $item, $intvals)) {
                     $output[$i][$x] = array(0 => 0, 1 => $intvals[1], 2 => $intvals[2]);
-                } elseif (preg_match('/^([[:alnum:]]+|\d+:\d+)(,[[:alnum:]]+|,\d+:\d+)+$/', $item)){
+                } elseif (preg_match('/^([[:alnum:]]+|\d+:\d+)(,[[:alnum:]]+|,\d+:\d+)+$/', $item)) {
                     $output[$i][$x] = array_merge(array(0 => 1), explode(',', $item));
-                } elseif (preg_match('/^([[:alnum:]]+|\d+:\d+)$/', $item)){
+                } elseif (preg_match('/^([[:alnum:]]+|\d+:\d+)$/', $item)) {
                     $output[$i][$x] = array(0 => 2, 1 => $item);
-                } elseif (preg_match('/^\*$/', $item)){
+                } elseif (preg_match('/^\*$/', $item)) {
                     $output[$i][$x] = array(0 => 3);
                 } else {
                     $output[$i][$x] = array(0 => -1);
