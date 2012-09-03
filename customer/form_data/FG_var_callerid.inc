@@ -40,9 +40,10 @@ $HD_Form = new FormHandler("cc_callerid", gettext("CallerID"));
 
 $HD_Form -> FG_DEBUG = 0;
 
+$cnts = new Constants();
 
-$actived_list = Constants::getActivationTrueFalseList();
-$yesno = Constants::getYesNoList();
+$actived_list = $cnts->getActivationTrueFalseList();
+$yesno = $cnts->getYesNoList();
 
 
 $HD_Form -> AddViewElement(gettext("CALLERID"), "cid", "25%", "center", "sort");

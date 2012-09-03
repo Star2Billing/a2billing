@@ -46,11 +46,13 @@ $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 $HD_Form -> FG_ADDITION = true;
 
-$actived_list = Constants::getActivationList();
-$billingtype_list = Constants::getBillingTypeList();
+$cnts = new Constants();
+
+$actived_list = $cnts->getActivationList();
+$billingtype_list = $cnts->getBillingTypeList();
 
 // -- billtype: 0 = fix per month + dialoutrate, 1= fix per month, 2 = dialoutrate, 3 = free
-$billingtype_list_short = Constants::getBillingTypeShortList();
+$billingtype_list_short = $cnts->getBillingTypeShortList();
 
 $priority_list = array();
 for ($k=1;$k<=5;$k++) {
