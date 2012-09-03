@@ -8,8 +8,8 @@
  *
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright Copyright (C) 2004-2010 - Star2billing S.L. 
+ *
+ * @copyright Copyright (C) 2004-2010 - Star2billing S.L.
  * @author    Belaid Arezqui <areski@gmail.com>
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package   A2Billing
@@ -28,8 +28,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 declare(ticks = 1);
@@ -47,12 +47,8 @@ include(dirname(__FILE__) . "/lib/phpagi/phpagi-asmanager.php");
 include(dirname(__FILE__) . "/lib/Misc.php");
 include(dirname(__FILE__) . "/lib/interface/constants.php");
 
-
 $G_startime = time();
-
-// Create AGI instance
 $agi = new AGI();
-
 
 if ($argc > 1 && is_numeric($argv[1]) && $argv[1] >= 0) {
     $idconfig = $argv[1];
@@ -64,19 +60,17 @@ if ($dynamic_idconfig = intval($agi->get_variable("IDCONF", true))) {
     $idconfig = $dynamic_idconfig;
 }
 
-if ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'saydid') $mode = 'saydid';
-else $mode = 'standard';
-
-
+if ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'saydid') {
+    $mode = 'saydid';
+} else {
+    $mode = 'standard';
+}
 
 $A2B = new A2Billing();
 $A2B->load_conf($agi, NULL, 0, $idconfig);
-
 $A2B->agiconfig['verbosity_level'] = 4;
 $A2B->agiconfig['logging_level'] = 0;
-
 $A2B->debug(INFO, $agi, __FILE__, __LINE__, "START MORNITORING");
-
 
 define("DB_TYPE", isset($A2B->config["database"]['dbtype']) ? $A2B->config["database"]['dbtype'] : null);
 define("SMTP_SERVER", isset($A2B->config['global']['smtp_server']) ? $A2B->config['global']['smtp_server'] : null);
@@ -84,10 +78,8 @@ define("SMTP_HOST", isset($A2B->config['global']['smtp_host']) ? $A2B->config['g
 define("SMTP_USERNAME", isset($A2B->config['global']['smtp_username']) ? $A2B->config['global']['smtp_username'] : null);
 define("SMTP_PASSWORD", isset($A2B->config['global']['smtp_password']) ? $A2B->config['global']['smtp_password'] : null);
 
-
 // Print header
 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "AGI Request:\n" . print_r($agi->request, true));
-
 
 /* GET THE AGI PARAMETER */
 $A2B->get_agi_request_parameter($agi);
@@ -101,9 +93,7 @@ define("WRITELOG_QUERY", false);
 $instance_table = new Table();
 $A2B->set_instance_table($instance_table);
 
-
 $agi->answer();
-
 
 if ($mode == 'standard') {
 
@@ -126,15 +116,12 @@ if ($mode == 'standard') {
         exit;
     }
 
-
     for ($i = 0; $i < 10; $i++) {
-
         $res_dtmf = $agi->get_data('prepaid-enter-dialcode', 6000, 3);
         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : " . $res_dtmf["result"]);
         $dial_code = $res_dtmf["result"];
 
         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "Dial code : $dial_code");
-
         if (!intval($dial_code)) {
             continue;
         }
@@ -160,7 +147,6 @@ if ($mode == 'standard') {
 
         } elseif ($arr_monitor[$dial_code]["query_type"] == "2") {
             // SHELL SCRIPT
-
             $shellscript = $arr_monitor[$dial_code]["query"];
 
             // check for bad hack
@@ -171,7 +157,6 @@ if ($mode == 'standard') {
             exec(SCRIPT_CONFIG_DIR . $shellscript . " 2> /dev/null", $output);
 
             $get_result = $output[0];
-
         }
 
         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "SAY RESULT (" . $arr_monitor[$dial_code]["result_type"] . "): $get_result");
@@ -194,13 +179,12 @@ if ($mode == 'standard') {
             $res_say = $agi->exec("SayDigits " . $get_result);
         }
 
-        if (!$res_say)
+        if (!$res_say) {
             break;
-
+        }
     }
 
 } elseif ($mode == 'saydid') {
-
     $accountcode = $agi->request['agi_accountcode'];
 
     $QUERY = "SELECT did FROM cc_did LEFT JOIN cc_card ON cc_card.id=cc_did.iduser WHERE cc_card.username='$accountcode'";
@@ -211,15 +195,9 @@ if ($mode == 'standard') {
         $agi->espeak('There is No Phone number provisioned.', '#');
     } else {
         $did = $result[0][0];
-
         $agi->espeak("Your Phone number is ", '#');
-
         $res_say = $agi->exec("SayDigits " . $did);
     }
-
 }
 
-
 $agi->hangup();
-
-

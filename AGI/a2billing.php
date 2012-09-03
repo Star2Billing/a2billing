@@ -6,7 +6,7 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform, 
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
  * @copyright   Copyright (C) 2004-2011 - Star2billing S.L.
@@ -21,7 +21,7 @@
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful, 
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
@@ -56,10 +56,7 @@ if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-v')) {
     exit;
 }
 
-
-/********** CREATE THE AGI INSTANCE + ANSWER THE CALL **********/
 $agi = new AGI();
-
 
 $optconfig = array();
 if ($argc > 1 && strstr($argv[1], "+")) {
@@ -117,10 +114,8 @@ $A2B->load_conf($agi, NULL, 0, $idconfig, $optconfig);
 $A2B->mode = $mode;
 $A2B->G_startime = $G_startime;
 
-
 $A2B->debug(INFO, $agi, __FILE__, __LINE__, "IDCONFIG : $idconfig");
 $A2B->debug(INFO, $agi, __FILE__, __LINE__, "MODE : $mode");
-
 
 $A2B->CC_TESTING = isset($A2B->agiconfig['debugshell']) && $A2B->agiconfig['debugshell'];
 //$A2B->CC_TESTING = true;
@@ -131,13 +126,8 @@ define("SMTP_HOST", isset($A2B->config['global']['smtp_host']) ? $A2B->config['g
 define("SMTP_USERNAME", isset($A2B->config['global']['smtp_username']) ? $A2B->config['global']['smtp_username'] : null);
 define("SMTP_PASSWORD", isset($A2B->config['global']['smtp_password']) ? $A2B->config['global']['smtp_password'] : null);
 
-
-// TEST DID
-// if ($A2B->CC_TESTING) $mode = 'did';
-
 // Print header
 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "AGI Request:\n" . print_r($agi->request, true));
-
 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[INFO : $agi_version]");
 
 /* GET THE AGI PARAMETER */
@@ -172,7 +162,6 @@ if ($A2B->CC_TESTING) {
 
 
 if ($mode == 'standard') {
-
     if ($A2B->agiconfig['answer_call'] == 1) {
         $A2B->debug(INFO, $agi, __FILE__, __LINE__, '[ANSWER CALL]');
         $agi->answer();
@@ -194,18 +183,16 @@ if ($mode == 'standard') {
 
     // CALL AUTHENTICATE AND WE HAVE ENOUGH CREDIT TO GO AHEAD
     if ($cia_res == 0) {
-
         // RE-SET THE CALLERID
         $A2B->callingcard_auto_setcallerid($agi);
 
         for ($i = 0; $i < $A2B->agiconfig['number_try']; $i++) {
-
             $RateEngine->Reinit();
             $A2B->Reinit();
 
             // RETRIEVE THE CHANNEL STATUS AND LOG : STATUS - CREIT - MIN_CREDIT_2CALL
             $stat_channel = $agi->channel_status($A2B->channel);
-            $A2B->debug(INFO, $agi, __FILE__, __LINE__, '[CHANNEL STATUS : ' . $stat_channel["result"] . ' = ' . $stat_channel["data"] . ']' . 
+            $A2B->debug(INFO, $agi, __FILE__, __LINE__, '[CHANNEL STATUS : ' . $stat_channel["result"] . ' = ' . $stat_channel["data"] . ']' .
                 "\n[CREDIT : " . $A2B->credit . "][CREDIT MIN_CREDIT_2CALL : " . $A2B->agiconfig['min_credit_2call'] . "]");
 
             // CHECK IF THE CHANNEL IS UP
@@ -263,90 +250,80 @@ if ($mode == 'standard') {
             }
 
             if ($A2B->agiconfig['ivr_enable_account_information'] == 1) {
-                    $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, " [GET ACCOUNT INFORMATION]");
-                    $res_dtmf = $agi->get_data('prepaid-press4-info', 5000, 1, '#'); //Press 4 to get information about your account
-                    if ($res_dtmf['result'] == "4") {
+                $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, " [GET ACCOUNT INFORMATION]");
+                $res_dtmf = $agi->get_data('prepaid-press4-info', 5000, 1, '#'); //Press 4 to get information about your account
+                if ($res_dtmf['result'] == "4") {
 
-                        $QUERY = "SELECT UNIX_TIMESTAMP(c.lastuse) as lastuse, UNIX_TIMESTAMP(c.lock_date) as lock_date, UNIX_TIMESTAMP(c.firstusedate) as firstuse
-                                    FROM cc_card c
-                                    WHERE username = '{$A2B->username}'
-                                    LIMIT 1";
-                        $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
-                        $card_info = $result[0];
-                        $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[QUERY] : " . $QUERY);
+                    $QUERY = "SELECT UNIX_TIMESTAMP(c.lastuse) as lastuse, UNIX_TIMESTAMP(c.lock_date) as lock_date, UNIX_TIMESTAMP(c.firstusedate) as firstuse
+                                FROM cc_card c
+                                WHERE username = '{$A2B->username}'
+                                LIMIT 1";
+                    $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
+                    $card_info = $result[0];
+                    $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[QUERY] : " . $QUERY);
 
-                        if (is_array($card_info)) {
-                            $try = 0;
-                            do {
-                                $try++;
-                                $return = FALSE;
+                    if (is_array($card_info)) {
+                        $try = 0;
+                        do {
+                            $try++;
+                            $return = FALSE;
 
-                                //================================================================================================================
-                                //= INFORMATION MENU
-                                //================================================================================================================
-                                $info_menu['1'] = 'prepaid-press1-listen-lastcall'; //Press 1 to listen the time and duration of the last call
-                                $info_menu['2'] = 'prepaid-press2-listen-accountlocked'; //Press 2 to time and date when the account last has been locked
-                                $info_menu['3'] = 'prepaid-press3-listen-firstuse'; //Press 3 to date of when the account was first in use
-                                $info_menu['9'] = 'prepaid-press9-listen-exit-infomenu'; //Press 9 to exit information menu
-                                $info_menu['*'] = 'prepaid-pressdisconnect'; //Press * to disconnect
-                                //================================================================================================================
-                                $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[INFORMATION MENU]");
-                                $res_dtmf = $agi->menu($info_menu, 5000);
+                            # INFORMATION MENU
+                            $info_menu['1'] = 'prepaid-press1-listen-lastcall'; //Press 1 to listen the time and duration of the last call
+                            $info_menu['2'] = 'prepaid-press2-listen-accountlocked'; //Press 2 to time and date when the account last has been locked
+                            $info_menu['3'] = 'prepaid-press3-listen-firstuse'; //Press 3 to date of when the account was first in use
+                            $info_menu['9'] = 'prepaid-press9-listen-exit-infomenu'; //Press 9 to exit information menu
+                            $info_menu['*'] = 'prepaid-pressdisconnect'; //Press * to disconnect
+                            //================================================================================================================
+                            $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[INFORMATION MENU]");
+                            $res_dtmf = $agi->menu($info_menu, 5000);
 
-                                switch($res_dtmf) {
-                                case 1 :
-
-                                    $QUERY = "SELECT starttime FROM cc_call
-                                        WHERE card_id = {$A2B->id_card} ORDER BY starttime DESC LIMIT 1";
-                                    $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
-                                    $lastcall_info = $result[0];
-                                    if (is_array($lastcall_info)) {
-                                        $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[INFORMATION MENU]:[OPTION 1]");
-                                        $agi->stream_file('prepaid-lastcall', '#'); //Your last call was made
-                                        $agi->exec("SayUnixTime {$card_info['lastuse']}");
-                                        $agi->stream_file('prepaid-call-duration', '#'); //the duration of the call was
-                                        $agi->say_number($card_info['sessiontime']);
-                                        $agi->stream_file('seconds', '#');
-                                    } else {
-                                        $agi->stream_file('prepaid-no-call', '#'); //No call has been made
-                                    }
-                                    $return = TRUE;
-                                    break;
-
-                                case 2 :
-
-                                    if ($card_info['lock_date']) {
-                                        $agi->stream_file('prepaid-account-has-locked', '#'); //Your Account has been locked the
-                                        $agi->exec("SayUnixTime {$card_info['lock_date']}");
-                                    } else {
-                                        $agi->stream_file('prepaid-account-nolocked', '#'); //Your account is not locked
-                                    }
-                                    $return = TRUE;
-                                    break;
-
-                                case 3 :
-                                    $agi->stream_file('prepaid-account-firstused', '#'); //Your Account has been used for the first time the
-                                    $agi->exec("SayUnixTime {$card_info['firstuse']}");
-                                    $return = TRUE;
-                                    break;
-
-                                case 9 :
-                                    $return = FALSE;
-                                    break;
-
-                                case '*' :
-                                    $agi->stream_file('prepaid-final', '#');
-                                    if ($A2B->set_inuse == 1)
-                                        $A2B->callingcard_acct_start_inuse($agi, 0);
-                                    $agi->hangup();
-                                    exit();
-                                    break;
-
+                            switch($res_dtmf) {
+                            case 1 :
+                                $QUERY = "SELECT starttime FROM cc_call
+                                    WHERE card_id = {$A2B->id_card} ORDER BY starttime DESC LIMIT 1";
+                                $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
+                                $lastcall_info = $result[0];
+                                if (is_array($lastcall_info)) {
+                                    $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[INFORMATION MENU]:[OPTION 1]");
+                                    $agi->stream_file('prepaid-lastcall', '#'); //Your last call was made
+                                    $agi->exec("SayUnixTime {$card_info['lastuse']}");
+                                    $agi->stream_file('prepaid-call-duration', '#'); //the duration of the call was
+                                    $agi->say_number($card_info['sessiontime']);
+                                    $agi->stream_file('seconds', '#');
+                                } else {
+                                    $agi->stream_file('prepaid-no-call', '#'); //No call has been made
                                 }
-                                $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[TRY : $try]");
-                            } while ($return && $try < 0);
-                        }
+                                $return = TRUE;
+                                break;
+                            case 2 :
+                                if ($card_info['lock_date']) {
+                                    $agi->stream_file('prepaid-account-has-locked', '#'); //Your Account has been locked the
+                                    $agi->exec("SayUnixTime {$card_info['lock_date']}");
+                                } else {
+                                    $agi->stream_file('prepaid-account-nolocked', '#'); //Your account is not locked
+                                }
+                                $return = TRUE;
+                                break;
+                            case 3 :
+                                $agi->stream_file('prepaid-account-firstused', '#'); //Your Account has been used for the first time the
+                                $agi->exec("SayUnixTime {$card_info['firstuse']}");
+                                $return = TRUE;
+                                break;
+                            case 9 :
+                                $return = FALSE;
+                                break;
+                            case '*' :
+                                $agi->stream_file('prepaid-final', '#');
+                                if ($A2B->set_inuse == 1)
+                                    $A2B->callingcard_acct_start_inuse($agi, 0);
+                                $agi->hangup();
+                                exit();
+                            }
+                            $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[TRY : $try]");
+                        } while ($return && $try < 0);
                     }
+                }
             }
 
             if ($A2B->agiconfig['ivr_enable_locking_option'] == 1) {
@@ -357,12 +334,12 @@ if ($mode == 'standard') {
 
                 if ($res_dtmf['result'] == 5) {
                     for ($ind_lock = 0; $ind_lock <= 3; $ind_lock++) {
-
                         $res_dtmf = $agi->get_data('prepaid-enter-code-lock-account', 3000, 10, '#'); //Please, Enter the code you want to use to lock your
                         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[res_dtmf = " . $res_dtmf['result'] . "]");
 
-                        if (strlen($res_dtmf['result']) > 0 && is_int(intval($res_dtmf['result'])))
+                        if (strlen($res_dtmf['result']) > 0 && is_int(intval($res_dtmf['result']))) {
                             break;
+                        }
                     }
 
                     if (strlen($res_dtmf['result']) > 0 && is_int(intval($res_dtmf['result']))) {
@@ -372,9 +349,7 @@ if ($mode == 'standard') {
                         $lock_pin = $res_dtmf['result'];
 
                         if (strlen($lock_pin) > 0) {
-                            //================================================================================================================
-                            //= MENU OF LOCK
-                            //================================================================================================================
+                            # MENU OF LOCK
                             $lock_menu['1'] = 'prepaid-listen-press1-confirmation-lock'; //Do you want to proceed and lock your account, then press 1 ?
                             $lock_menu['9'] = 'prepaid-press9-listen-exit-lockmenu'; //Press 9 to exit lock menu
                             $lock_menu['*'] = 'prepaid-pressdisconnect'; //Press * to disconnect
@@ -390,18 +365,15 @@ if ($mode == 'standard') {
                                 $agi->stream_file('prepaid-locking-accepted', '#'); // Your locking code has been accepted
                                 $return = TRUE;
                                 break;
-
                             case 9 :
                                 $return = FALSE;
                                 break;
-
                             case '*' :
                                 $agi->stream_file('prepaid-final', '#');
                                 if ($A2B->set_inuse == 1)
                                     $A2B->callingcard_acct_start_inuse($agi, 0);
                                 $agi->hangup();
                                 exit();
-                                break;
                             }
                         }
                     }
@@ -411,7 +383,6 @@ if ($mode == 'standard') {
             $A2B->debug(INFO, $agi, __FILE__, __LINE__, "TARIFF ID->". $A2B->tariff);
 
             if (!$A2B->enough_credit_to_call()) {
-
                 // SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL
                 $prompt = "prepaid-no-enough-credit-stop";
                 $agi->stream_file($prompt, '#');
@@ -419,8 +390,9 @@ if ($mode == 'standard') {
 
                 if (($A2B->agiconfig['notenoughcredit_cardnumber'] == 1) && (($i + 1)< $A2B->agiconfig['number_try'])) {
 
-                    if ($A2B->set_inuse == 1)
+                    if ($A2B->set_inuse == 1) {
                         $A2B->callingcard_acct_start_inuse($agi, 0);
+                    }
 
                     $A2B->agiconfig['cid_enable'] = 0;
                     $A2B->agiconfig['use_dnid'] = 0;
@@ -530,13 +502,15 @@ if ($mode == 'standard') {
                                 }
                             }
 
-                            if ($try_enter_speeddial < 3) $return_enter_speeddial = TRUE;
-                            else $return_mainmenu = TRUE;
+                            if ($try_enter_speeddial < 3) {
+                                $return_enter_speeddial = TRUE;
+                            } else {
+                                $return_mainmenu = TRUE;
+                            }
                         } while ($return_enter_speeddial);
                     }
                 } while ($return_mainmenu);
             }
-
 
             if ($A2B->agiconfig['sip_iax_friends'] == 1) {
 
@@ -639,13 +613,10 @@ if ($mode == 'standard') {
     } else {
         $A2B->debug(WARN, $agi, __FILE__, __LINE__, "[AUTHENTICATION FAILED (cia_res:" . $cia_res . ")]");
     }
-
-    /**************** SAY GOODBYE ***************/
+    # SAY GOODBYE
     if ($A2B->agiconfig['say_goodbye'] == 1) $agi->stream_file('prepaid-final', '#');
 
-
 // MODE DID
-
 } elseif ($mode == 'did') {
 
     if ($A2B->agiconfig['answer_call'] == 1) {
@@ -654,8 +625,6 @@ if ($mode == 'standard') {
     } else {
         $A2B->debug(INFO, $agi, __FILE__, __LINE__, '[NO ANSWER CALL]');
     }
-    // TODO
-    // CRONT TO CHARGE MONTLY
 
     $RateEngine->Reinit();
     $A2B->Reinit();
@@ -706,7 +675,7 @@ if ($mode == 'standard') {
     }
 
     $A2B->play_menulanguage($agi);
-    /************************* PLAY INTRO MESSAGE ************************/
+    # PLAY INTRO MESSAGE
     if (strlen($A2B->agiconfig['intro_prompt']) > 0) $agi->stream_file($A2B->agiconfig['intro_prompt'], '#');
 
     if (strlen($A2B->CallerID) > 1 && is_numeric($A2B->CallerID)) {
@@ -1556,11 +1525,7 @@ if ($mode == 'standard') {
     } else {
         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[AUTHENTICATION FAILED (cia_res:" . $cia_res . ")]");
     }
-
 }
-
-
-
 
 // CHECK IF WE HAVE TO CHARGE CALLBACK
 if ($charge_callback) {
@@ -1622,14 +1587,11 @@ if ($charge_callback) {
 
 }// END if ($charge_callback)
 
-
-// END
 if ($mode != 'cid-callback' && $mode != 'all-callback') {
     $agi->hangup();
 } elseif ($A2B->agiconfig['answer_call'] == 1) {
     $agi->hangup();
 }
-
 
 // SEND MAIL REMINDER WHEN CREDIT IS TOO LOW
 if (isset($send_reminder) && $send_reminder == 1 && $A2B->agiconfig['send_reminder'] == 1) {
@@ -1651,6 +1613,5 @@ if ($A2B->set_inuse == 1) {
     $A2B->callingcard_acct_start_inuse($agi, 0);
 }
 
-/************** END OF THE APPLICATION ****************/
+# End
 $A2B->write_log("[exit]", 0);
-

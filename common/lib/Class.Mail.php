@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Rachid <rachid.belaid@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -28,8 +28,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 class A2bMailException extends Exception {
@@ -43,7 +43,7 @@ class Mail {
 	private $from_email = '';
 	private $from_name = '';
 	private $to_email = '';
-	
+
 	//mail type
 	static public $TYPE_PAYMENT = 'payment';
 	static public $TYPE_REMINDER = 'reminder';
@@ -81,7 +81,7 @@ class Mail {
 	//Used by mail type = modify_ticket
 	static public $TICKET_COMMENT_CREATOR_KEY = '$comment_creator$';
 	static public $TICKET_COMMENT_DESCRIPTION_KEY = '$comment_description$';
-	
+
 	//Used by mail type = did_paid
 	static public $BALANCE_REMAINING_KEY = '$balance_remaining$';
 
@@ -128,9 +128,9 @@ class Mail {
 	static public $SYSTEM_CURRENCY = '$base_currency$';
 
 	function __construct($type, $id_card = null, $lg = null, $msg = null, $title = null)
-	{		
+	{
 		$DBHandle = Connection::GetDBHandler();
-		
+
 		if (!empty ($type)) {
 			$tmpl_table = new Table("cc_templatemail", "*");
 			$tmpl_clause = " mailtype = '$type'";
@@ -230,22 +230,22 @@ class Mail {
 	{
 		return $this->from_email;
 	}
-	
+
 	function getToEmail()
 	{
 		return $this->to_email;
 	}
-	
+
 	function getMessage()
 	{
 		return $this->message;
 	}
-	
+
 	function AddToMessage($msg)
 	{
 		$this->message = $this->message . $msg;
 	}
-	
+
 	function getTitle()
 	{
 		return $this->title;
@@ -255,7 +255,7 @@ class Mail {
 	{
 		return $this->from_name;
 	}
-	
+
 	function setFromEmail($from_email)
 	{
 		$this->from_email = $from_email;
@@ -265,17 +265,17 @@ class Mail {
 	{
 		$this->title = $title;
 	}
-	
+
 	function setMessage($message)
 	{
 		$this->message = $message;
 	}
-	
+
 	function setToEmail($to_email)
 	{
 		$this->to_email = $to_email;
 	}
-	
+
 	function setFromName($from_name)
 	{
 		$this->from_name = $from_name;
@@ -291,7 +291,7 @@ class Mail {
 		} catch (phpmailerException $e) {
         	throw new A2bMailException("Error sent mail : ".$e->getMessage()."\n");
         }
-		
+
 	}
 
 }
