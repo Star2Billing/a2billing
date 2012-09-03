@@ -4,7 +4,7 @@
 
  Title : Sample Landing page for PHP Quick Profiler Class
  Author : Created by Ryan Campbell
- URL : http://particletree.com/features/php-quick-profiler/
+ URL : http://particletree.com
 
  Last Updated : April 22, 2009
 
@@ -16,13 +16,12 @@
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 require_once('classes/PhpQuickProfiler.php');
-//require_once('classes/MySqlDatabase.php');
+require_once('classes/MySqlDatabase.php');
 
 class PQPExample {
 	
 	private $profiler;
 	private $db = '';
-	private $debugMode = true;
 	
 	public function __construct() {
 		$this->profiler = new PhpQuickProfiler(PhpQuickProfiler::getMicroTime());
@@ -105,7 +104,7 @@ class PQPExample {
 	}
 	
 	public function __destruct() {
-		if ($this->debugMode == true) $this->profiler->display($this->db);
+		$this->profiler->display($this->db);
 	}
 	
 }
@@ -114,6 +113,7 @@ $pqp = new PQPExample();
 $pqp->init();
 
 ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -159,7 +159,6 @@ strong a{
 }
 </style>
 
-</head>
 <body>
 
 <div id="box">

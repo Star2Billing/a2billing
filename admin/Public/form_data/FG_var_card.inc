@@ -75,12 +75,14 @@ if (!($popup_select>=1)) {
 	$HD_Form ->FG_LIST_ADDING_BUTTON_IMG2 = Images_Path ."/user_add.png" ;
 }
 
-$language_list = Constants::getLanguagesList();
-$language_list_r = Constants::getLanguagesRevertList();
-$discount_list  = Constants::getDiscount_List();
-$simultaccess_list = Constants::getCardAccess_List();
-$simultaccess_list_r = Constants::getCardAccess_Revert_List();
-$limits_notify_list = Constants::getLimitNotify_List($A2B);
+$cnts= new Constants();
+
+$language_list = $cnts->getLanguagesList();
+$language_list_r = $cnts->getLanguagesRevertList();
+$discount_list  = $cnts->getDiscount_List();
+$simultaccess_list = $cnts->getCardAccess_List();
+$simultaccess_list_r = $cnts->getCardAccess_Revert_List();
+$limits_notify_list = $cnts->getLimitNotify_List($A2B);
 
 $currency_list = array();
 $currency_list_r = array();
@@ -93,15 +95,15 @@ foreach($currencies_list as $key => $cur_value) {
 	$currency_list_key[$key][0] = $key;
 }
 
-$restriction_list = Constants::getRestrictionList();
-$cardstatus_list = Constants::getCardStatus_List();
-$cardstatus_list_r = Constants::getCardStatus_Revert_List();
-$cardstatus_list_acronym = Constants::getCardStatus_Acronym_List();
-$typepaid_list = Constants::getPaidTypeList();
-$typepaid_list_r = Constants::getPaidTypeList_Revert_List();
-$expire_list = Constants::getCardExpire_List();
-$yesno = Constants::getYesNoList();
-$invoiceday_list = Constants::getInvoiceDay_List();
+$restriction_list = $cnts->getRestrictionList();
+$cardstatus_list = $cnts->getCardStatus_List();
+$cardstatus_list_r = $cnts->getCardStatus_Revert_List();
+$cardstatus_list_acronym = $cnts->getCardStatus_Acronym_List();
+$typepaid_list = $cnts->getPaidTypeList();
+$typepaid_list_r = $cnts->getPaidTypeList_Revert_List();
+$expire_list = $cnts->getCardExpire_List();
+$yesno = $cnts->getYesNoList();
+$invoiceday_list = $cnts->getInvoiceDay_List();
 
 
 // Search for the field to display on the show list

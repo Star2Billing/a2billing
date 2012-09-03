@@ -47,7 +47,9 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_subscription.php?form_actio
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add SUBSCRIPTION SERVICE");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/script.png" ;
 
-$actived_list = Constants::getActivationList();
+$cnts = new Constants();
+
+$actived_list = $cnts->getActivationList();
 
 $daynumber_list = array();
 for ($k=1;$k<=20;$k++)

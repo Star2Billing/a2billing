@@ -65,12 +65,13 @@ if (!defined('PID')) {
 }
 
 // CHECK IF THE CRONT PROCESS IS ALREADY RUNNING
-if (ProcessHandler :: isActive()) {
-	die(); // Already running!
-} else {
-	ProcessHandler :: activate();
-}
-
+$pH= new ProcessHandler();
+if ($pH->isActive()) {
+        die(); // Already running!
+        } else {
+                $pH->activate();
+                }
+                
 
 $verbose_level = 0;
 $groupcard = 5000;

@@ -34,8 +34,8 @@ echo ---------------------------------------------------
 echo creating relevant folders : $ast_sound/$lang
 echo creating relevant folders : $ast_sound/$lang/digits
 
-mkdir $ast_sound/$lang
-mkdir $ast_sound/$lang/digits
+mkdir -p $ast_sound/$lang
+mkdir -p $ast_sound/$lang/digits
 echo Copy $lang files in the right folder ...
 
 cp ./$lang/* $ast_sound/$lang/
@@ -49,8 +49,8 @@ echo ---------------------------------------------------
 echo creating relevant folders : $ast_sound/$lang
 echo creating relevant folders : $ast_sound/$lang/digits
 
-mkdir $ast_sound/$lang
-mkdir $ast_sound/$lang/digits
+mkdir -p $ast_sound/$lang
+mkdir -p $ast_sound/$lang/digits
 echo Copy $lang files in the right folder ...
 
 cp ./$lang/* $ast_sound/$lang/
@@ -64,8 +64,8 @@ echo ---------------------------------------------------
 echo creating relevant folders : $ast_sound/$lang
 echo creating relevant folders : $ast_sound/$lang/digits
 
-mkdir $ast_sound/$lang
-mkdir $ast_sound/$lang/digits
+mkdir -p $ast_sound/$lang
+mkdir -p $ast_sound/$lang/digits
 echo Copy $lang files in the right folder ...
 
 cp ./$lang/* $ast_sound/$lang/
@@ -80,8 +80,8 @@ echo ---------------------------------------------------
 echo creating relevant folders : $ast_sound/$lang
 echo creating relevant folders : $ast_sound/$lang/digits
 
-mkdir $ast_sound/$lang
-mkdir $ast_sound/$lang/digits
+mkdir -p $ast_sound/$lang
+mkdir -p $ast_sound/$lang/digits
 echo Copy $lang files in the right folder ...
 
 cp ./$lang/* $ast_sound/$lang/
@@ -96,8 +96,8 @@ echo ---------------------------------------------------
 echo creating relevant folders : $ast_sound/$lang
 echo creating relevant folders : $ast_sound/$lang/digits
 
-mkdir $ast_sound/$lang
-mkdir $ast_sound/$lang/digits
+mkdir -p $ast_sound/$lang
+mkdir -p $ast_sound/$lang/digits
 echo Copy $lang files in the right folder ...
 
 cp ./$lang/* $ast_sound/$lang/

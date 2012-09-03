@@ -63,8 +63,8 @@ $musiconhold_list[] = array( "No MusicOnHold", "");
 for ($i=1;$i<=NUM_MUSICONHOLD_CLASS;$i++){
 	$musiconhold_list[]  = array( "MUSICONHOLD CLASS ACC_$i", "acc_$i");
 }
-
-$yesno = Constants::getYesNoList();
+$cnts = new Constants();
+$yesno = $cnts->getYesNoList();
 
 if ($popup_select) $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "17%", "center", "sort", "20");

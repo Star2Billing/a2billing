@@ -52,7 +52,8 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " name";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
-$actived_list = Constants::getActivationList();
+$cnts= new Constants();
+$actived_list = $cnts->getActivationList();
 if ($form_action=="ask-edit") {
 	$DBHandle  = DbConnect();
 	$instance_table = new Table("cc_campaign", "id_card");
