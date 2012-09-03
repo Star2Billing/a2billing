@@ -6,10 +6,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -28,8 +28,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 /***************************************************************************
@@ -40,7 +40,7 @@
  *
 	crontab -e
 	0 * * * * php //usr/local/a2billing/Cronjobs/a2billing_alarm.php
-	
+
 	field	 allowed values
 	-----	 --------------
 	minute	 		0-59
@@ -48,8 +48,8 @@
 	day of month	1-31
 	month	 		1-12 (or names, see below)
 	day of week	 	0-7 (0 or 7 is Sun, or use names)
-	
-	
+
+
 ****************************************************************************/
 
 set_time_limit(0);
@@ -101,12 +101,12 @@ if (!is_array($result)) {
 	write_log(LOGFILE_CRONT_ALARM, basename(__FILE__) . ' line:' . __LINE__ . "[ No Alarm to run]");
 	exit ();
 }
-// 0 id, 1 name, 2 period, 3 type, 4 maxvalue, 5 minvalue, 6 id_trunk, 7 status, 8 numberofrun, 9 datecreate, 10 datelastrun, 11 emailreport 
+// 0 id, 1 name, 2 period, 3 type, 4 maxvalue, 5 minvalue, 6 id_trunk, 7 status, 8 numberofrun, 9 datecreate, 10 datelastrun, 11 emailreport
 
 $oneday = 60 * 60 * 24;
 $groupcalls = 5000;
 
-// BROWSE THROUGH THE ALARMS 
+// BROWSE THROUGH THE ALARMS
 foreach ($result as $myalarm) {
 	$SQL_CLAUSE = "";
 	$timestamp_lastsend = strtotime($myalarm[10]);
@@ -283,10 +283,10 @@ foreach ($result as $myalarm) {
 		// SEND REPORT
 		if (($send_alarm) && (strlen($myalarm[7]) > 0)) {
 			$mail_subject = "A2BILLING ALARM : REPORT";
-			
+
 			$mail_content = "ALARM NAME = " . $myalarm[1];
 			$mail_content .= $content;
-			
+
 			try {
 		        $mail = new Mail(null, null, null, $mail_content, $mail_subject);
 		        $mail -> send($myalarm[11]);

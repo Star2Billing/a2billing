@@ -9,11 +9,9 @@ PATH=/bin:/usr/bin:/sbin:/usr/sbin
 DAEMON=/usr/bin/a2b_callback_daemon
 PIDFILE=/var/run/$NAME.pid
 
-
 trap "" 1
 export LANG=C
 export PATH
-
 
 set -e
 if [ -x $DAEMON ] ; then
@@ -24,7 +22,6 @@ else
 fi
 
 . /lib/lsb/init-functions
-
 
 status() {
 	plist=`ps auxw | grep "$DAEMON" | grep -v grep | awk '{print $2}' | tr '\012' ' '`
@@ -37,14 +34,13 @@ status() {
 	fi
 }
 
-
 case "$1" in
   start)
   	if status > /dev/null; then
 		echo "$DESC is already running. Use restart."
 		exit 0
 	fi
-	
+
   	log_daemon_msg " Starting $NAME  : $NAME"
     if start-stop-daemon --start --quiet --oknodo --pidfile $PIDFILE --exec $DAEMON; then
 	    echo `ps axf | grep -v grep | grep $DAEMON | head -n1 | awk '{print $1}'` > $PIDFILE
@@ -52,7 +48,7 @@ case "$1" in
 	else
 		log_end_msg 1
 	fi
-	
+
     ;;
 
   stop)
@@ -64,12 +60,12 @@ case "$1" in
 		log_end_msg 1
 	fi
     ;;
-  
+
   status)
         status
         exit $?
         ;;
-    
+
   reload-config)
     log_daemon_msg "Reloading $NAME configuration"
     if start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE --signal HUP --exec $DAEMON; then
@@ -83,14 +79,14 @@ case "$1" in
     log_daemon_msg "Restarting $NAME"
     if start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE --oknodo --exec $DAEMON  --retry 30; then
     	rm -rf $PIDFILE 2> /dev/null
-    	
-		if start-stop-daemon --start --quiet --oknodo --make-pidfile --pidfile $PIDFILE --exec $DAEMON; then 
+
+		if start-stop-daemon --start --quiet --oknodo --make-pidfile --pidfile $PIDFILE --exec $DAEMON; then
 			echo `ps axf | grep -v grep | grep $DAEMON | head -n1 | awk '{print $1}'` > $PIDFILE
 			log_end_msg 0
 		else
 			log_end_msg 1
 		fi
-		
+
     else
 		log_end_msg 1
 	fi
@@ -106,6 +102,5 @@ case "$1" in
     exit 1
     ;;
 esac
-
 
 exit 0

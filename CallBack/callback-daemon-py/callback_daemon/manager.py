@@ -13,21 +13,21 @@ This module provides a Python API for interfacing with the asterisk manager.
       print "Recieved shutdown event"
       manager.close()
       # we could analize the event and reconnect here
-      
+
    def handle_event(event, manager):
       print "Recieved event: %s" % event.name
-   
+
    manager = asterisk.manager.Manager()
    try:
        # connect to the manager
        try:
-          manager.connect('host') 
+          manager.connect('host')
           manager.login('user', 'secret')
 
            # register some callbacks
            manager.register_event('Shutdown', handle_shutdown) # shutdown
            manager.register_event('*', handle_event)           # catch all
-           
+
            # get a status report
            response = manager.status()
 
@@ -41,7 +41,7 @@ This module provides a Python API for interfacing with the asterisk manager.
        except asterisk.manager.ManagerException, reason:
           print "Error: %s" % reason
           sys.exit(1)
-          
+
    finally:
       # remember to clean up
       manager.close()
@@ -63,16 +63,16 @@ from time import sleep
 
 EOL = '\r\n'
 
-class ManagerMsg(object): 
+class ManagerMsg(object):
     """A manager interface message"""
     def __init__(self, response):
         self.response = response  # the raw response, straight from the horse's mouth
         self.data = ''
         self.headers = {}
-        
+
         # parse the response
         self.parse(response)
-        
+
         if not self.headers:
             # Bad app not returning any headers.  Let's fake it
             # this could also be the inital greeting
@@ -89,7 +89,8 @@ class ManagerMsg(object):
         for line in response.readlines():
             line = line.rstrip()  # strip trailing whitespace
 
-            if not line: continue  # don't process if this is not a message
+            if not line:
+                continue  # don't process if this is not a message
 
             # locate the ':' in our message, if there is one
             if line.find(':') > -1:
@@ -139,7 +140,7 @@ class Event(object):
 
         # get the event name
         self.name = message.get_header('Event')
-    
+
     def has_header(self, hname):
         """Check for a header"""
         return self.headers.has_key(hname)
@@ -147,11 +148,11 @@ class Event(object):
     def get_header(self, hname):
         """Return the specfied header"""
         return self.headers[hname]
-    
+
     def __getitem__(self, hname):
         """Return the specfied header"""
         return self.headers[hname]
-    
+
     def __repr__(self):
         return self.headers['Event']
 
@@ -163,7 +164,7 @@ class Manager(object):
         self._sock = None     # our socket
         self._connected = threading.Event()
         self._running = threading.Event()
-        
+
         # our hostname
         self.hostname = socket.gethostname()
 
@@ -180,11 +181,11 @@ class Manager(object):
         # sequence stuff
         self._seqlock = threading.Lock()
         self._seq = 0
-       
+
         # some threads
         self.message_thread = threading.Thread(target=self.message_loop)
         self.event_dispatch_thread = threading.Thread(target=self.event_dispatch)
-        
+
         self.message_thread.setDaemon(True)
         self.event_dispatch_thread.setDaemon(True)
 
@@ -206,11 +207,11 @@ class Manager(object):
         finally:
             self._seq += 1
             self._seqlock.release()
-        
+
     def send_action(self, cdict={}, **kwargs):
         """
         Send a command to the manager
-        
+
         If a list is passed to the cdict argument, each item in the list will
         be sent to asterisk under the same header in the following manner:
 
@@ -227,7 +228,7 @@ class Manager(object):
 
         if not self._connected.isSet():
             raise ManagerException("Not connected")
-        
+
         # fill in our args
         cdict.update(kwargs)
 
@@ -252,7 +253,7 @@ class Manager(object):
             self._sock.sendall(command)
         except socket.error, (errno, reason):
             raise ManagerSocketException(errno, reason)
-        
+
         self._reswaiting.insert(0,1)
         response = self._response_queue.get()
         self._reswaiting.pop(0)
@@ -277,8 +278,8 @@ class Manager(object):
                     # read a message
                     while self._connected.isSet():
                         line = []
-     
-                        # read a line, one char at a time 
+
+                        # read a line, one char at a time
                         while self._connected.isSet():
                             c = self._sock.recv(1)
 
@@ -286,7 +287,7 @@ class Manager(object):
                                 self._sock.close()
                                 self._connected.clear()
                                 break
-                            
+
                             line.append(c)  # append the character to our line
 
                             # is this the end of a line?
@@ -307,7 +308,7 @@ class Manager(object):
                         if line == EOL:
                             break
 
-                        # check to see if this is the greeting line    
+                        # check to see if this is the greeting line
                         if line.find('/') >= 0 and line.find(':') < 0:
                             self.title = line.split('/')[0].strip() # store the title of the manager we are connecting to
                             self.version = line.split('/')[1].strip() # store the version of the manager we are connecting to
@@ -326,7 +327,7 @@ class Manager(object):
                     self._message_queue.put(StringIO(''.join(lines)))
                 else:
                     self._message_queue.put(None)
-    
+
     def register_event(self, event, function):
         """
         Register a callback for the specfied event.
@@ -389,7 +390,7 @@ class Manager(object):
         finally:
             # wait for our data receiving thread to exit
             t.join()
-                            
+
 
     def event_dispatch(self):
         """This thread is responsible fore dispatching events"""
@@ -402,14 +403,14 @@ class Manager(object):
             # if we got None as an event, we are finished
             if not ev:
                 break
-            
+
             # dispatch our events
 
             # first build a list of the functions to execute
             callbacks = self._event_callbacks.get(ev.name, [])
             callbacks.extend(self._event_callbacks.get('*', []))
 
-            # now execute the functions  
+            # now execute the functions
             for callback in callbacks:
                if callback(ev, self):
                   break
@@ -447,11 +448,11 @@ class Manager(object):
 
     def close(self):
         """Shutdown the connection to the manager"""
-        
+
         # if we are still running, logout
         if self._running.isSet() and self._connected.isSet():
             self.logoff()
-         
+
         if self._running.isSet():
             # put None in the message_queue to kill our threads
             self._message_queue.put(None)
@@ -463,21 +464,21 @@ class Manager(object):
             if threading.currentThread() != self.event_dispatch_thread:
                 # wait for the dispatch thread to exit
                 self.event_dispatch_thread.join()
-            
+
         self._running.clear()
 
 
     def login(self, username, secret):
         """Login to the manager, throws ManagerAuthException when login fails"""
-           
+
         cdict = {'Action':'Login'}
         cdict['Username'] = username
         cdict['Secret'] = secret
         response = self.send_action(cdict)
-        
+
         if response.get_header('Response') == 'Error':
            raise ManagerAuthException(response.get_header('Message'))
-        
+
         return response
 
     def ping(self):
@@ -491,20 +492,20 @@ class Manager(object):
 
         cdict = {'Action':'Logoff'}
         response = self.send_action(cdict)
- 
+
         # Clear connection
         self._sock.close()
         self._connected.clear()
- 
+
         return response
 
     def hangup(self, channel):
         """Hanup the specfied channel"""
-    
+
         cdict = {'Action':'Hangup'}
         cdict['Channel'] = channel
         response = self.send_action(cdict)
-        
+
         return response
 
     def status(self, channel = ''):
@@ -513,12 +514,12 @@ class Manager(object):
         cdict = {'Action':'Status'}
         cdict['Channel'] = channel
         response = self.send_action(cdict)
-        
+
         return response
 
     def redirect(self, channel, exten, priority='1', extra_channel='', context=''):
         """Redirect a channel"""
-    
+
         cdict = {'Action':'Redirect'}
         cdict['Channel'] = channel
         cdict['Exten'] = exten
@@ -526,7 +527,7 @@ class Manager(object):
         if context:   cdict['Context']  = context
         if extra_channel: cdict['ExtraChannel'] = extra_channel
         response = self.send_action(cdict)
-        
+
         return response
 
     def originate(self, channel, exten, context='', priority='', timeout='', caller_id='', async=False, account='', application='', data='', variables={}, ActionID=''):
@@ -549,18 +550,18 @@ class Manager(object):
         # if variables: cdict['Variable'] = '|'.join(['='.join((str(key), str(value))) for key, value in variables.items()])
         #if variables: cdict['Variable'] = ['='.join((str(key), str(value))) for key, value in variables.items()]
         if variables: cdict['Variable'] = variables
-        
+
         response = self.send_action(cdict)
-        
+
         return response
 
     def mailbox_status(self, mailbox):
         """Get the status of the specfied mailbox"""
-     
+
         cdict = {'Action':'MailboxStatus'}
         cdict['Mailbox'] = mailbox
         response = self.send_action(cdict)
-        
+
         return response
 
     def command(self, command):
@@ -569,7 +570,7 @@ class Manager(object):
         cdict = {'Action':'Command'}
         cdict['Command'] = command
         response = self.send_action(cdict)
-        
+
         return response
 
     def extension_state(self, exten, context):
@@ -579,12 +580,12 @@ class Manager(object):
         cdict['Exten'] = exten
         cdict['Context'] = context
         response = self.send_action(cdict)
-        
+
         return response
 
     def absolute_timeout(self, channel, timeout):
         """Set an absolute timeout on a channel"""
-        
+
         cdict = {'Action':'AbsoluteTimeout'}
         cdict['Channel'] = channel
         cdict['Timeout'] = timeout

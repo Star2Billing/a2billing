@@ -143,9 +143,9 @@ class Daemon(object):
     def on_sigterm(self, signalnum, frame):
         """Handle segterm by treating as a keyboard interrupt"""
         raise KeyboardInterrupt('SIGTERM')
-    
+
     def on_sigpipe(self, signalnum, frame):
-        """ Python installs a small number of signal handlers by default: SIGPIPE is ignored 
+        """ Python installs a small number of signal handlers by default: SIGPIPE is ignored
             (so write errors on pipes and sockets can be reported as ordinary Python exceptions) """
         #raise KeyboardInterrupt('SIGPIPE')
         #raise KeyboardInterrupt('SIGTERM')
