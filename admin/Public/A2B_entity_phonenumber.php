@@ -168,8 +168,8 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 	$FG_TABLE_CLAUSE = "";
 	$list_phonebook = $instance_table_tariff -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
 	$nb_phonebook = count($list_phonebook);
-	
-	$actived_list = Constants::getActivationList();
+	$cnts = new Constants();
+	$actived_list = $cnts->getActivationList();
 	
 ?>
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->

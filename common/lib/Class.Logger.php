@@ -47,7 +47,8 @@ class Logger
 		$DB_Handle = DBConnect();
 		$table_log = new Table();		
 		$pageName = basename($pageName);
-		$pageName    = array_shift(explode('?', $pageName));		
+		$interName    = explode('?', $pageName);		
+		$pageName = array_shift($interName);
 		$description = str_replace("'", "", $description);
 		$str_submitted_fields = explode(',', $param_add_fields);
 		$str_submitted_values = explode(',', $param_add_value);
@@ -72,7 +73,8 @@ class Logger
 		$DB_Handle = DBConnect();
 		$table_log = new Table();		
 		$pageName = basename($pageName);
-		$pageName    = array_shift(explode('?', $pageName));		
+		$interName    = explode('?', $pageName);		
+		$pageName = array_shift($interName);
 		$description = str_replace("'", "", $description);
 		$str_submitted_fields = explode(',', $param_update);		
 		$num_records = count($str_submitted_fields);

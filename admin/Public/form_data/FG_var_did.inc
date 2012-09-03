@@ -53,7 +53,9 @@ $actived_list = Constants::getActivationList();
 $billingtype_list = Constants::getBillingTypeList();
 // -- billtype: 0 = fix per month + dialoutrate, 1= fix per month, 2 = dialoutrate, 3 = free
 $billingtype_list_short = Constants::getBillingTypeShortList();
-$yesno = Constants::getYesNoList();
+
+$cnts= new Constants();
+$yesno = $cnts->getYesNoList();
 
 
 $HD_Form -> AddViewElement(gettext("DID"), "did", "15%", "center", "sort");
