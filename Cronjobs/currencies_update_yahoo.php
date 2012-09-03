@@ -6,10 +6,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -28,8 +28,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 /***************************************************************************
@@ -39,7 +39,7 @@
  *
 	crontab -e
 	0 6 * * * php /usr/local/a2billing/Cronjobs/currencies_update_yahoo.php
-	
+
 	field	 allowed values
 	-----	 --------------
 	minute	 		0-59
@@ -47,7 +47,7 @@
 	day of month	1-31
 	month	 		1-12 (or names, see below)
 	day of week	 	0-7 (0 or 7 is Sun, or use names)
-	
+
 	The sample above will run the script every day at 6AM
 
 ****************************************************************************/
@@ -75,7 +75,7 @@ if ($prcHandler->isActive()) {
 
 $FG_DEBUG = 0;
 $A2B = new A2Billing();
-$A2B -> load_conf($agi, DEFAULT_A2BILLING_CONFIG, 1);	
+$A2B -> load_conf($agi, DEFAULT_A2BILLING_CONFIG, 1);
 
 // DEFINE FOR THE DATABASE CONNECTION
 define ("BASE_CURRENCY", strtoupper($A2B->config["global"]['base_currency']));

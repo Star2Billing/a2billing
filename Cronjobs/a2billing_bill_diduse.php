@@ -6,10 +6,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -28,21 +28,21 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 /***************************************************************************
  *            a2billing_bill_diduse.php
  *
  *  Usage : this script will browse all the DID that are reserve and check if the customer need to pay for it
- *	bill them or warn them per email to know if they want to pay in order to keep their DIDs 
+ *	bill them or warn them per email to know if they want to pay in order to keep their DIDs
  *
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
 	crontab -e
 	0 2 * * * php /usr/local/a2billing/Cronjobs/a2billing_bill_diduse.php
-	
+
 	field	 allowed values
 	-----	 --------------
 	minute	 		0-59
@@ -50,7 +50,7 @@
 	day of month	1-31
 	month	 		1-12 (or names, see below)
 	day of week	 	0-7 (0 or 7 is Sun, or use names)
-	
+
 ****************************************************************************/
 
 set_time_limit(0);
@@ -70,7 +70,7 @@ if ($pH->isActive()) {
         } else {
                 $pH->activate();
                 }
-                
+
 
 $verbose_level = 0;
 
@@ -133,7 +133,7 @@ foreach ($result as $mydids) {
 	} else {
 		$new_card = false;
 	}
-	
+
 	// mail variable for user notification
 	$user_mail_adrr = '';
 	$mail_user = false;
@@ -155,42 +155,42 @@ foreach ($result as $mydids) {
 		echo "Time now :" . time() . " - timestamp_datetopay=$timestamp_datetopay\n";
 		echo "day_remaining=$day_remaining <=" . (intval($daytopay) * $oneday) . "\n";
 	}
-	
+
 	if ($day_remaining >= 0) {
 		if ($day_remaining <= (intval($daytopay) * $oneday)) {
 
-			//type of user prepaid 
+			//type of user prepaid
 			if ($mydids['reminded'] == 0) {
 				// THE USER HAVE TO PAY FOR HIS DID NOW
-				
+
 				if (($mydids['credit'] + $mydids['typepaid'] * $mydids['creditlimit']) >= $mydids['fixrate']) {
-					
-					// USER HAVE ENOUGH CREDIT TO PAY FOR THE DID 
+
+					// USER HAVE ENOUGH CREDIT TO PAY FOR THE DID
 					$QUERY = "UPDATE cc_card SET credit = credit - '" . $mydids[3] . "' WHERE id=" . $mydids[4];
 					$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
 					if ($verbose_level >= 1)
 						echo "==> UPDATE CARD QUERY: 	$QUERY\n";
-					
+
 					$QUERY = "UPDATE cc_did_use set month_payed = month_payed + 1 WHERE id_did = '" . $mydids[0] .
 							 "' AND activated = 1 AND ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') ";
 					if ($verbose_level >= 1)
 						echo "==> UPDATE DID USE QUERY: 	$QUERY\n";
 					$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
-					
-					$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, description, chargetype, id_cc_did, charged_status) VALUES ('" . 
+
+					$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, description, chargetype, id_cc_did, charged_status) VALUES ('" .
 					            $mydids[4] . "', '" . $mydids[3] . "', '" . $mydids[7] . "', '2','" . $mydids[0] . "',1)";
-					
+
 					if ($verbose_level >= 1)
 						echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
-					
+
 					$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
-					
+
 					$mail_user = true;
 					$mail = new Mail(Mail::$TYPE_DID_PAID,$mydids[4] );
 					$mail -> replaceInEmail(Mail::$BALANCE_REMAINING_KEY,$mydids[5] - $mydids[3]);
 					$mail -> replaceInEmail(Mail::$DID_NUMBER_KEY,$mydids[7]);
 					$mail -> replaceInEmail(Mail::$DID_COST_KEY,$mydids[3]);
-					
+
 				} else {
 					// USER DONT HAVE ENOUGH CREDIT TO PAY FOR THE DID - WE WILL WARN HIM
 
@@ -231,9 +231,9 @@ foreach ($result as $mydids) {
 					$mail -> replaceInEmail(Mail::$DID_NUMBER_KEY,$mydids[7]);
 					$mail -> replaceInEmail(Mail::$DID_COST_KEY,$mydids[3]);
 					$mail -> replaceInEmail(Mail::$BALANCE_REMAINING_KEY, $mydids[5]);
-					
+
 					//insert charge
-					$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, description, chargetype, id_cc_did, invoiced_status) VALUES ('" . 
+					$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, description, chargetype, id_cc_did, invoiced_status) VALUES ('" .
 					            $mydids[4] . "', '" . $mydids[3] . "', '" . $mydids[7] . "','2','" . $mydids[0] . "','1')";
 					if ($verbose_level >= 1)
 						echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
@@ -246,9 +246,9 @@ foreach ($result as $mydids) {
 						echo "==> UPDATE DID USE QUERY: $QUERY\n";
 				}
 			}
-			
+
 		} else {
-			// RELEASE THE DID 
+			// RELEASE THE DID
 			$QUERY = "UPDATE cc_did set iduser = 0, reserved = 0 WHERE id='" . $mydids[0] . "'";
 			if ($verbose_level >= 1)
 				echo "==> UPDATE DID QUERY: 	$QUERY\n";
@@ -276,10 +276,10 @@ foreach ($result as $mydids) {
 			$mail -> replaceInEmail(Mail::$BALANCE_REMAINING_KEY, $mydids[5]);
 		}
 	}
-	
+
 	$user_mail_adrr = $mydids[6];
 	$user_card_id = $mydids[4];
-	
+
 	if (!is_null($mail )&& $mail_user && strlen($user_mail_adrr) > 5) {
         try {
 	    	$mail -> send($user_mail_adrr);
@@ -289,7 +289,7 @@ foreach ($result as $mydids) {
         	write_log(LOGFILE_CRONT_BILL_DIDUSE, basename(__FILE__) . ' line:' . __LINE__ . "[Sent mail failed : $e]");
         }
 	}
-	
+
 }
 write_log(LOGFILE_CRONT_BILL_DIDUSE, basename(__FILE__) . ' line:' . __LINE__ . "[Service DIDUSE finish]");
 

@@ -6,10 +6,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -28,8 +28,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 /***************************************************************************
@@ -38,16 +38,16 @@
  *  Fri Oct 21 11:51 2008
  *  Copyright  2008  A2Billing
  *  ADD THIS SCRIPT IN A CRONTAB JOB
- * 
- *  Description : 
+ *
+ *  Description :
  *  This script will read the sqlite Database and import the CDR to the main DB
  *  The import is processed by block in order to optimize the queries
- * 
+ *
  *
 	crontab -e
 	* / 15 * * * * php /usr/local/a2billing/Cronjobs/a2billing_batch_cache.php
-	
-	
+
+
 	field	 allowed values
 	-----	 --------------
 	minute	 		0-59
@@ -58,7 +58,7 @@
 
 	#Run command every 5 minutes during 6-13 hours
 	* / 5 6-13 * * mon-fri test.script    !!! no space between * / 5
-	 
+
 ****************************************************************************/
 
 set_time_limit(0);
@@ -78,7 +78,7 @@ if ($pH->isActive()) {
         } else {
                 $pH->activate();
                 }
-                
+
 $verbose_level = 1;
 $nb_record = 100;
 $wait_time = 10;

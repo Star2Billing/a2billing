@@ -6,10 +6,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -28,23 +28,23 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 /***************************************************************************
  *            a2billing_batch_process_alt.php
- * 
+ *
  *  Copyright  2009 @  Arheops & Areski Belaid
  *  ADD THIS SCRIPT IN A CRONTAB JOB
- * 
- *  Description : 
+ *
+ *  Description :
  *  This script will take care of the recurring service.
  *
  *
 	crontab -e
 	0 12 * * * php /usr/local/a2billing/Cronjobs/a2billing_batch_process.php
-	
+
 	field	 allowed values
 	-----	 --------------
 	minute	 		0-59
@@ -52,7 +52,7 @@
 	day of month	1-31
 	month	 		1-12 (or names, see below)
 	day of week	 	0-7 (0 or 7 is Sun, or use names)
-	
+
 ****************************************************************************/
 
 set_time_limit(0);
@@ -72,7 +72,7 @@ if ($pH->isActive()) {
         } else {
                 $pH->activate();
                 }
-                
+
 $verbose_level = 0;
 $groupcard = 1000;
 $groupwait = 10; // number of second to wait if more then  groupcard updates done
@@ -114,20 +114,20 @@ if (!is_array($result)) {
 	exit ();
 }
 
-// 0 id, 1 name, 2 amount, 3 period, 4 rule, 5 daynumber, 6 stopmode,  7 maxnumbercycle, 8 status, 9 numberofrun, 
+// 0 id, 1 name, 2 amount, 3 period, 4 rule, 5 daynumber, 6 stopmode,  7 maxnumbercycle, 8 status, 9 numberofrun,
 // 10 datecreate, 11 datelastrun, 12 emailreport, 13 totalcredit, 14 totalcardperform, 15 dialplan 16 operate_mode
 
 write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[Number of card found : $nb_card]");
 
 // mail variable for user notification
 
-// BROWSE THROUGH THE SERVICES 
+// BROWSE THROUGH THE SERVICES
 foreach ($result as $myservice) {
-	
+
 	$totalcardperform = 0;
 	$totalcredit = 0;
 	$timestamp_lastsend = $myservice[11]; // 4 aug 1PM
-	
+
 	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[Service : " . $myservice[1] . " ]");
 	$filters 		= '';
 	$service_name 	= $myservice[1];
@@ -143,8 +143,8 @@ foreach ($result as $myservice) {
 	$filter			= '';
 	if ($verbose_level >= 1)
 		echo "[ rule $rule  $rule_day ]";
-			
-	// RULES  
+
+	// RULES
 	if ($rule == 3) {
 		$filter .= " -- card last run date <= period
 		 		AND UNIX_TIMESTAMP(servicelastrun) <= UNIX_TIMESTAMP(CURRENT_TIMESTAMP) - $oneday * $period \n";
@@ -175,24 +175,24 @@ foreach ($result as $myservice) {
 	$first_usedate = " AND firstusedate IS NOT NULL AND firstusedate>'1984-01-01 00:00:00'";
 	if ($use_group == 0) {
 		$sql = "SELECT id, credit, nbservice, lastuse, username, servicelastrun, email
-				 		FROM cc_card , cc_cardgroup_service WHERE id_group = id_card_group AND id_service = " . $myservice[0] . 
+				 		FROM cc_card , cc_cardgroup_service WHERE id_group = id_card_group AND id_service = " . $myservice[0] .
 						" $first_usedate AND runservice=1 $filter \n";
 	} else {
 		$sql = "SELECT id, credit, nbservice, lastuse, username, servicelastrun, email
 		                 FROM cc_card WHERE runservice=1 $first_usedate $filter \n";
 	}
-	
+
 	if ($verbose_level >= 1)
 		echo "==> SELECT CARD QUERY : $sql\n";
 
 	$result_card = $instance_table->SQLExec($A2B->DBHandle, $sql);
 	$instance_table->SQLExec($A2B->DBHandle, "begin;");
 	$query_count=0;
-	
+
 	foreach ($result_card as $mycard) {
-		
+
 		$query_count=$query_count+1;
-		
+
 		if($query_count>=$groupcard) {
 			$instance_table->SQLExec($A2B->DBHandle, "commit");
 			if ($verbose_level >= 1)
@@ -201,10 +201,10 @@ foreach ($result as $myservice) {
 			$instance_table->SQLExec($A2B->DBHandle, "begin;");
 			$query_count=0;
 		}
-		
+
 		if ($verbose_level >= 1)
 			print_r($mycard);
-		
+
 		$card_id = $mycard[0];
 		if ($verbose_level >= 1)
 			echo "------>>>  ID = $card_id - CARD =" . $mycard[4] . " - BALANCE =" . $mycard[1] . " \n";
@@ -225,7 +225,7 @@ foreach ($result as $myservice) {
 			$credit_sql = " credit-$amount ";
 			$refill_amount = $amount;
 		}
-		
+
 		if ($refill_amount > 0) {
 			$QUERY = "INSERT INTO cc_logrefill (credit,card_id,description,refill_type) VALUES (-$refill_amount,$card_id,'Recurrent $service_name ',2)";
 			if ($verbose_level >= 1)
@@ -235,7 +235,7 @@ foreach ($result as $myservice) {
 			}
 			$totalcredit += $refill_amount;
 		}
-		
+
 		$QUERY = "UPDATE cc_card SET nbservice=nbservice+1, credit= $credit_sql, servicelastrun=now() WHERE id=" . $mycard[0];
 		if ($run) {
 			$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
@@ -244,7 +244,7 @@ foreach ($result as $myservice) {
 			echo "==> UPDATE CARD QUERY: 	$QUERY\n";
 		$totalcardperform++;
 	}
-	
+
 	$instance_table->SQLExec($A2B->DBHandle, "commit");
 
 	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[Service finish]");
@@ -260,24 +260,24 @@ foreach ($result as $myservice) {
 
 	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[Service report : 'totalcardperform=$totalcardperform', 'totalcredit=$totalcredit']");
 
-	// UPDATE THE SERVICE		
+	// UPDATE THE SERVICE
 	$QUERY = "UPDATE cc_service SET datelastrun=now(), numberofrun=numberofrun+1, totalcardperform=totalcardperform+" . $totalcardperform .
 			 ", totalcredit = totalcredit + '" . $totalcredit . "' WHERE id=" . $myservice[0];
-	
+
 	if ($run)
 		$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
-	
+
 	if ($verbose_level >= 1)
 		echo "==> SERVICE UPDATE QUERY: 	$QUERY\n";
 
 	// SEND REPORT
 	if (strlen($myservice[12]) > 0) {
 		$mail_subject = "RECURRING SERVICES : REPORT";
-		
+
 		$mail_content = "SERVICE NAME = " . $myservice[1];
 		$mail_content .= "\n\nTotal card updated = " . $totalcardperform;
 		$mail_content .= "\nTotal credit removed = " . $totalcredit;
-		
+
         try {
             $mail = new Mail(null, null, null, $mail_content, $mail_subject);
             $mail -> send($myservice[12]);

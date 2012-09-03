@@ -6,10 +6,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -28,20 +28,20 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 /***************************************************************************
  *            a2billing_autorefill.php
  *
  *  Fri June 29 2006
- *  A2Billing Copyright  2006 
+ *  A2Billing Copyright  2006
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
 	crontab -e
 	0 10 21 * * php /usr/local/a2billing/Cronjobs/a2billing_autorefill.php
-	
+
 	field	 allowed values
 	-----	 --------------
 	minute	 		0-59
@@ -49,9 +49,9 @@
 	day of month	1-31
 	month	 		1-12 (or names, see below)
 	day of week	 	0-7 (0 or 7 is Sun, or use names)
-	
+
 	The sample above will run the script every 21 of each month at 10AM
-	
+
 ****************************************************************************/
 
 set_time_limit(0);
@@ -71,7 +71,7 @@ if ($pH->isActive()) {
         } else {
                 $pH->activate();
                 }
-                
+
 
 $verbose_level = 0;
 $groupcard = 5000;
@@ -172,11 +172,11 @@ write_log(LOGFILE_CRONT_AUTOREFILL, basename(__FILE__) . ' line:' . __LINE__ . "
 // SEND REPORT
 if (strlen($A2B->config["webui"]["email_admin"]) > 4 && preg_match("/^[[:alnum:]][a-z0-9_.-]*@[a-z0-9.-]+\.[a-z]{2,4}$/i", $A2B->config["webui"]["email_admin"])) {
 	$mail_subject = "A2BILLING AUTO REFILL : REPORT";
-	
+
 	$mail_content = "AUTO REFILL";
 	$mail_content .= "\n\nTotal card updated = " . $totalcardperform;
 	$mail_content .= "\nTotal credit added = " . $totalcredit;
-	
+
     try {
         $mail = new Mail(null, null, null, $mail_content, $mail_subject);
         $mail -> send($A2B->config["webui"]["email_admin"]);

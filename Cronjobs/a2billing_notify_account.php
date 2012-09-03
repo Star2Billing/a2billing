@@ -1,16 +1,15 @@
 #!/usr/bin/php -q
 <?php
 
-
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -29,8 +28,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 /***************************************************************************
@@ -74,7 +73,7 @@ if ($pH->isActive()) {
         } else {
                 $pH->activate();
                 }
-                
+
 $verbose_level = 0;
 $groupcard = 5000;
 
@@ -174,7 +173,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot find a template mail for reminder]");
 				exit;
 			}
-			
+
 			try {
 				if (strlen($mycard['email_notification']) > 0)
 					$mail->send($mycard['email_notification']);
@@ -200,7 +199,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 	            	echo "$error_msg\n";
 	            write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . $mycard['email_notification']." - $error_msg");
 	        }
-	        
+
 		} //endif check the email not null
 	}
 	// Little bit of rest

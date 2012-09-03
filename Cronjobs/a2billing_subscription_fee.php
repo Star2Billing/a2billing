@@ -6,10 +6,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -28,8 +28,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 /***************************************************************************
@@ -42,7 +42,7 @@
  *
 	crontab -e
 	0 6 * * * php /usr/local/a2billing/Cronjobs/a2billing_subscription_fee.php
-	
+
 	field	 allowed values
 	-----	 --------------
 	minute	 		0-59
@@ -50,7 +50,7 @@
 	day of month	1-31
 	month	 		1-12 (or names, see below)
 	day of week	 	0-7 (0 or 7 is Sun, or use names)
-	
+
 	The sample above will run the script every 21 of each month at 10AM
 
 ****************************************************************************/
@@ -72,7 +72,7 @@ if ($pH->isActive()) {
         } else {
                 $pH->activate();
                 }
-                
+
 $verbose_level = 1;
 
 $groupcard = 5000;
@@ -136,18 +136,18 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 	} else {
 		$sql .= " LIMIT " . $page * $groupcard . ", $groupcard";
 	}
-	
+
     $result_subscriptions = $instance_table->SQLExec($A2B->DBHandle, $sql);
 
     foreach ($result_subscriptions as $subscription) {
         $service_id = $subscription['service_id'];
-        
+
         if (!is_array($service_array[$service_id])) $service_array[$service_id] = array("totalcardperform" => 0 , "totalcredit" => 0 );
 
         $action = "";
 
         switch ($subscription['paid_status']) {
-			
+
             case 0:
                 //firstuse : billed
                 $action = "bill";
@@ -182,7 +182,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
                 if ($unix_now>$unix_limit){
                     $action = "unpaid";
                 }
-                
+
                 break;
 
             case 2:
@@ -191,7 +191,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
                 $unix_now = strtotime(date("d-m-Y"));
                 if ($unix_now>=$unix_limit){
                     $action = "bill";
-                
+
                     $unix_startdate = strtotime($subscription['startdate']);
                     $last_run = date("Y-m-d");
 
@@ -223,7 +223,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
         }
 
         switch ($action) {
-			
+
             case "bill" :
                 //select card
                 $table_card = new Table('cc_card','*');
@@ -240,13 +240,13 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 					// USER HAVE ENOUGH CREDIT TO PAY FOR THE DID
                     $service_array[$service_id]['totalcardperform']++;
                     $service_array[$service_id]['totalcredit']+= $subscription['fee'];
-                    
+
                     $QUERY = "UPDATE cc_card SET credit=credit-'" . $subscription['fee'] . "' WHERE id=" . $card['id'];
                     $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
                     if ($verbose_level >= 1)
 						echo "==> UPDATE CARD QUERY: 	$QUERY\n";
 
-					$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_card_subscription, charged_status, description) VALUES ('" . 
+					$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_card_subscription, charged_status, description) VALUES ('" .
 					            $card['id'] . "', '" . $subscription['fee']  . "', '3','" . $subscription['card_subscription_id'] . "',1, '" . $subscription['product_name'] . "')";
                     if ($verbose_level >= 1)
 						echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
@@ -338,7 +338,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
                 $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
                 if ($verbose_level >= 1)
 					echo "==> UPDATE CARD QUERY: 	$QUERY\n";
-				
+
                 $QUERY = "UPDATE cc_card_subscription SET paid_status = 3 WHERE id=" . $subscription['card_subscription_id'];
                 if ($verbose_level >= 1)
 					echo "==> UPDATE SUBSCRIPTION QUERY: 	$QUERY\n";
@@ -358,7 +358,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
                 }
                 break;
         }
-        
+
     }
 
     sleep(10);

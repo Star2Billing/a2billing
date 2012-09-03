@@ -71,7 +71,7 @@ if ($pH->isActive()) {
         } else {
                 $pH->activate();
                 }
-                
+
 
 //Flag to show the debuging information
 $verbose_level = 0;
