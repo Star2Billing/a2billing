@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 include ("./lib/customer.defines.php");
@@ -45,7 +45,7 @@ if ($sess_id =="") {
     exit();
 }
 
-if($transactionID == "") {	
+if($transactionID == "") {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." NO TRANSACTION ID PROVIDED IN REQUEST");
     exit();
 }
@@ -118,25 +118,28 @@ switch($transaction_data[0][4])
 		foreach ($_POST as $vkey => $Value) {
 			$req .= "&" . $vkey . "=" . urlencode ($Value);
 		}
-		
-		$header .= "POST /cgi-bin/webscr HTTP/1.0\r\n";
-		$header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+
+
+		// Headers PayPal system to validate
+		$header .="POST /cgi-bin/webscr HTTP/1.1\r\n";
+		$header .="Content-Type: application/x-www-form-urlencoded\r\n";
+		$header .="Host: www.paypal.com\r\n";
 		$header .= "Content-Length: " . strlen ($req) . "\r\n\r\n";
 		for ($i = 1; $i <=3; $i++) {
 			write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-OPENDING HTTP CONNECTION TO ".PAYPAL_VERIFY_URL);
 			$fp = fsockopen (PAYPAL_VERIFY_URL, 443, $errno, $errstr, 30);
-			if($fp) {	
+			if($fp) {
 				break;
 			} else {
 				write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." -Try#".$i." Failed to open HTTP Connection : ".$errstr.". Error Code: ".$errno);
 				sleep(3);
 			}
-		}		
+		}
 		if (!$fp) {
 			write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-Failed to open HTTP Connection: ".$errstr.". Error Code: ".$errno);
 			exit();
 		} else {
-			fputs ($fp, $header . $req);			
+			fputs ($fp, $header . $req);
 			$flag_ver = 0;
 			while (!feof($fp)) {
 				$res = fgets ($fp, 1024);
@@ -144,45 +147,45 @@ switch($transaction_data[0][4])
 				if (strcmp ($res, "VERIFIED") == 0) {
 					write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-PAYPAL Transaction Verification Status: Verified ");
 					$flag_ver = 1;
-				}				
+				}
 			}
 			if ($flag_ver == 0) {
 				write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-PAYPAL Transaction Verification Status: Failed \nreq=$req\n$gather_res");
 				$security_verify = false;
 			}
 		}
-		fclose ($fp);	
+		fclose ($fp);
 		break;
-		
+
 	case "moneybookers":
 		$currAmount = $transaction_data[0][2];
 		$sec_string = $merchant_id.$transaction_id.strtoupper(md5(MONEYBOOKERS_SECRETWORD)).$mb_amount.$mb_currency.$status;
 		$sig_string = strtoupper(md5($sec_string));
-		
+
 		if($sig_string == $md5sig) {
 			write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-MoneyBookers Transaction Verification Status: Verified | md5sig =".$md5sig." Reproduced Signature = ".$sig_string." Generated String = ".$sec_string);
 		} else {
 			write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-MoneyBookers Transaction Verification Status: Failed | md5sig =".$md5sig." Reproduced Signature = ".$sig_string." Generated String = ".$sec_string);
-			$security_verify = false;			
+			$security_verify = false;
 		}
 		$currCurrency = $currency;
 		break;
-		
+
 	case "authorizenet":
 		$currAmount = $transaction_data[0][2];
 		$currCurrency = BASE_CURRENCY;
 		break;
-		
+
 	case "plugnpay":
-		
+
 		if (substr($card_number,0,4) != substr($transaction_data[0][6],0,4)) {
 			write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- PlugNPay Error : First 4digits of the card doesn't match with the one stored.");
 		}
-		
+
 		$currCurrency 		= BASE_CURRENCY;
 		$currAmount 		= $transaction_data[0][2];
 		$currAmount_usd		= convert_currency($currencies_list, $currAmount, BASE_CURRENCY, 'USD');
-		
+
 		$pnp_post_values = array(
 	        'publisher-name' => MODULE_PAYMENT_PLUGNPAY_LOGIN,
 	        'mode'           => 'auth',
@@ -199,35 +202,35 @@ switch($transaction_data[0][4])
 		    'card-name'      => $transaction_data[0][5],
 		    'card-amount'    => $currAmount_usd,
 		    'card-exp'       => $transaction_data[0][7],
-		    'cc-cvv'         => $transaction_data[0][10] 
+		    'cc-cvv'         => $transaction_data[0][10]
 	    );
 	    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- PlugNPay Value Sent : \n\n".print_r($pnp_post_values, true));
-	    
+
 		// init curl handle
 		$pnp_ch = curl_init(PLUGNPAY_PAYMENT_URL);
 		curl_setopt($pnp_ch, CURLOPT_RETURNTRANSFER, 1);
 		$http_query = http_build_query( $pnp_post_values );
 		curl_setopt($pnp_ch, CURLOPT_POSTFIELDS, $http_query);
 		#curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);  // Upon problem, uncomment for additional Windows 2003 compatibility
-		
+
 		// perform ssl post
 		$pnp_result_page = curl_exec($pnp_ch);
 		parse_str( $pnp_result_page, $pnp_transaction_array );
-		
+
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- PlugNPay Result : \n\n".print_r($pnp_transaction_array, true));
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- RESULT : ".$pnp_transaction_array['FinalStatus']);
-		
+
 		// $pnp_transaction_array['FinalStatus'] = 'badcard';
 		//echo "<pre>".print_r ($pnp_transaction_array, true)."</pre>";
-		
+
 		$transaction_detail = serialize($pnp_transaction_array);
 		break;
-		
+
 	case 'iridium':
         $currCurrency           = BASE_CURRENCY;
         $currAmount             = $transaction_data[0][2];
 		break;
-		
+
 	default:
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-NO SUCH EPAYMENT FOUND");
 		exit();
@@ -254,7 +257,7 @@ if ($security_verify == false) {
     $mail->replaceInEmail(Mail::$TIME_KEY,date("y-m-d H:i:s"));
     $mail->replaceInEmail(Mail::$PAYMENTGATEWAY_KEY, $transaction_data[0][4]);
     $mail->replaceInEmail(Mail::$ITEM_AMOUNT_KEY, $amount_paid.$currCurrency);
-    
+
 	// Add Post information / useful to track down payment transaction without having to log
 	$mail->AddToMessage("\n\n\n\n"."-POST Var \n".print_r($_POST, true));
 	$mail->send(ADMIN_EMAIL);
@@ -321,13 +324,13 @@ if ($customer_info[0] > 0 && $orderStatus == 2) {
 if ($id > 0 ) {
 	if (strcasecmp("invoice",$item_type)!=0) {
 	    #Payment not related to a Postpaid invoice
-	    $addcredit = $transaction_data[0][2]; 
+	    $addcredit = $transaction_data[0][2];
 		$instance_table = new Table("cc_card", "username, id");
 		$param_update .= " credit = credit+'".$amount_without_vat."'";
 		$FG_EDITION_CLAUSE = " id='$id'";
 		$instance_table -> Update_table ($DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Update_table cc_card : $param_update - CLAUSE : $FG_EDITION_CLAUSE");
-		
+
 		$table_transaction = new Table();
 		$result_agent = $table_transaction -> SQLExec($DBHandle,"SELECT cc_card_group.id_agent FROM cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card.id = $id");
 		if (is_array($result_agent) && !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent']>0 ) {
@@ -337,19 +340,19 @@ if ($id > 0 ) {
 			$id_agent = null;
 			$id_agent_insert = "NULL";
 		}
-		
+
 		$field_insert = "date, credit, card_id, description, agent_id";
 		$value_insert = "'$nowDate', '".$amount_without_vat."', '$id', '".$transaction_data[0][4]."',$id_agent_insert";
 		$instance_sub_table = new Table("cc_logrefill", $field_insert);
 		$id_logrefill = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null, 'id');
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logrefill : $field_insert - VALUES $value_insert");
-		
+
 		$field_insert = "date, payment, card_id, id_logrefill, description, agent_id";
 		$value_insert = "'$nowDate', '".$amount_paid."', '$id', '$id_logrefill', '".$transaction_data[0][4]."',$id_agent_insert ";
 		$instance_sub_table = new Table("cc_logpayment", $field_insert);
 		$id_payment = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
-		
+
 		//ADD an INVOICE
 		$reference = generate_invoice_reference();
 		$field_insert = "date, id_card, title ,reference, description,status,paid_status";
@@ -377,7 +380,7 @@ if ($id > 0 ) {
 		//END INVOICE
 
 		// Agent commision
-		// test if this card have a agent		
+		// test if this card have a agent
 		if (!empty($id_agent)) {
 
 			//test if the agent exist and get its commission
@@ -407,7 +410,7 @@ if ($id > 0 ) {
 				$table_agent -> Update_table ($DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
 				write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Update_table cc_agent : $param_update_agent - CLAUSE : $clause_update_agent");
 			}
-			
+
 		}
 	} else {
 	    #Payment related to a Postpaid invoice
@@ -415,10 +418,10 @@ if ($id > 0 ) {
 			$invoice_table = new Table('cc_invoice','reference');
 			$invoice_clause = "id = ".$item_id;
 			$result_invoice = $invoice_table->Get_list($DBHandle,$invoice_clause);
-			
+
 			if (is_array($result_invoice) && sizeof($result_invoice)==1) {
 				$reference =$result_invoice[0][0];
-				
+
 				$field_insert = "date, payment, card_id, description";
 				$value_insert = "'$nowDate', '".$amount_paid."', '$id', '(".$transaction_data[0][4].") ".gettext('Invoice Payment Ref: ')."$reference '";
 				$instance_sub_table = new Table("cc_logpayment", $field_insert);
@@ -467,7 +470,7 @@ if ($id > 0 ) {
 								$QUERY = "UPDATE cc_card SET status=1 WHERE id=$id";
                                 $result = $instance_table->SQLExec($DBHandle, $QUERY, 0);
 								write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY : $QUERY - RESULT : $result");
-                                
+
 								$QUERY = "UPDATE cc_card_subscription SET paid_status = 2, startdate = '$startdate' ,limit_pay_date = '$next_limite_pay_date', 	next_billing_date ='$next_bill_date' WHERE id=" . $item -> getExtId();
                                 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY : $QUERY");
 								$instance_table->SQLExec($DBHandle, $QUERY, 0);
@@ -537,7 +540,7 @@ write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID
 // CHECK IF THE EMAIL ADDRESS IS CORRECT
 if (preg_match("/^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+[.](([a-z]{2,3})|([a-z]{3}[.]{1}[a-z]{2}))$/i", $customer_info["email"])) {
 	// FIND THE TEMPLATE APPROPRIATE
-	
+
     try {
         $mail = new Mail(Mail::$TYPE_PAYMENT,$id);
         write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-SENDING EMAIL TO CUSTOMER ".$customer_info["email"]);
@@ -547,19 +550,19 @@ if (preg_match("/^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z
         $mail->replaceInEmail(Mail::$PAYMENT_METHOD_KEY,$pmodule);
         $mail->replaceInEmail(Mail::$PAYMENT_STATUS_KEY,$statusmessage);
         $mail->send($customer_info["email"]);
-        
+
         write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-SENDING EMAIL TO CUSTOMER ".$customer_info["email"]);
         write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"."- MAILTO:".$customer_info["email"]."-Sub=".$mail->getTitle()." , mtext=".$mail->getMessage());
-        
+
         // Add Post information / useful to track down payment transaction without having to log
 		$mail->AddToMessage("\n\n\n\n"."-POST Var \n".print_r($_POST, true));
         $mail->setTitle("COPY FOR ADMIN : ".$mail->getTitle());
         $mail->send(ADMIN_EMAIL);
-        
+
     } catch (A2bMailException $e) {
         write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO EMAIL TEMPLATE FOUND");
     }
-	
+
 } else {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Customer : no email info !!!");
 }
@@ -575,5 +578,5 @@ if ($transaction_data[0][4]=='plugnpay') {
 	Header ("Location: userinfo.php");
 	die;
 }
-	
+
 
