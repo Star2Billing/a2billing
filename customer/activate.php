@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -81,8 +81,9 @@ if (isset ($key) && $list[0][8] != "1") {
 if ($list[0][8] != "1" && isset ($result) && $result != null) {
 
 	list ($username, $lastname, $firstname, $email, $uipass, $credit, $cardalias, $loginkey, $status, $idcard) = $list[0];
-	if ($FG_DEBUG == 1)
+	if ($FG_DEBUG == 1) {
 		echo "<br/># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #<br/>";
+	}
 
 	try {
 		$mail = new Mail(Mail :: $TYPE_SIGNUPCONFIRM, $idcard);
@@ -94,8 +95,6 @@ if ($list[0][8] != "1" && isset ($result) && $result != null) {
 	} catch (A2bMailException $e) {
 		echo "Error : sent mail!";
 	}
-	
-
 ?>
 
 <blockquote>
@@ -109,11 +108,11 @@ if ($list[0][8] != "1" && isset ($result) && $result != null) {
 			  <?php echo gettext("To login to your account :"); ?><br/>
 			  <?php echo gettext("Your card alias (login) is "); ?> <b><font color="#00AA00"><?php echo $list[0][6]; ?></font></b><br/>
 			  <?php echo gettext("Your password is "); ?> <b><font color="#00AA00"><?php echo $list[0][4]; ?></font></b><br/>
-			</h3>	  
-			
+			</h3>
+
 			<br/><br/>
 	<?php echo gettext("Follow the link to access your account : ").'<a href="'.$A2B->config["signup"]['urlcustomerinterface'].'">'.$A2B->config["signup"]['urlcustomerinterface']."</a><br/>"; ?>
-		
+
 </div>
 </blockquote>
 
@@ -150,7 +149,7 @@ if( $list[0][9] == "1") {
 <br/><br/><br/><br/>
 <br/><br/><br/><br/>
 </center>
-   
+
 
 <?php
 }
