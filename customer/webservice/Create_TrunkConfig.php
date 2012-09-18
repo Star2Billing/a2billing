@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,16 +27,17 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
+exit();
 
 
 /*
 Result :
     SIP & IAX CONFIGURATION
-	
+
 Parameters :
 	activation_code : Concatenation of Customer's Account code + '_' + Customer's password
 	html : to display with <pre> tag
@@ -63,46 +64,46 @@ if (isset($html)) echo "</pre>";
 
 /*
  *		Function for the Service Callback : it will call a phonenumber and redirect it into the BCB application
- */ 
+ */
 function Service_Create_TrunkConfig($activation_code)
 {
-	
+
 	$DBHandle = DbConnect();
 	$table_instance = new Table();
-	
-	if (!$DBHandle) {			
+
+	if (!$DBHandle) {
 		write_log(LOGFILE_API_CALLBACK, basename(__FILE__).' line:'.__LINE__." ERROR CONNECT DB");
 		return array('500', ' ERROR - CONNECT DB ');
 	}
-	
+
 	list($accountnumber, $password) = (preg_split("{_}",$activation_code,2));
-	
+
 	$QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.id_didgroup, cc.tariff, cc.vat, ct.gmtoffset, cc.voicemail_permitted, " .
 			 "cc.voicemail_activated, cc_card_group.users_perms, cc.currency " .
 			 "FROM cc_card cc LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone LEFT JOIN cc_card_group ON cc_card_group.id=cc.id_group " .
 			 "WHERE cc.username = '".$accountnumber."' AND cc.uipass = '".$password."'";
 	$res = $DBHandle -> Execute($QUERY);
-	
+
 	if (!$res) {
 		return array('400', ' ERROR - AUTHENTICATE CODE');
 	}
 	$row [] = $res -> fetchRow();
 	$card_id = $row[0][3];
-	
+
 	if (!$card_id || $card_id < 0) {
 		return array('400', ' ERROR - AUTHENTICATE CODE');
 	}
-	
+
 	$QUERY_IAX = "SELECT iax.id, iax.username, iax.secret, iax.disallow, iax.allow, iax.type, iax.host, iax.context FROM cc_iax_buddies iax WHERE iax.id_cc_card = $card_id";
 	$QUERY_SIP = "SELECT sip.id, sip.username, sip.secret, sip.disallow, sip.allow, sip.type, sip.host, sip.context FROM cc_sip_buddies sip WHERE sip.id_cc_card = $card_id";
-    
+
     $iax_data = $table_instance->SQLExec ($DBHandle, $QUERY_IAX);
     $sip_data = $table_instance->SQLExec ($DBHandle, $QUERY_SIP);
 
     //Additonal parameters
     $additional_sip = explode("|", SIP_ADDITIONAL_PARAMETERS);
     $additional_iax = explode("|", IAX_ADDITIONAL_PARAMETERS);
-    
+
     // SIP
 	$Config_output = "#PROTOCOL:SIP#\n#SIP-TRUNK-CONFIG-START#\n[trunkname]\n";
 	$Config_output .= "username=".$sip_data[0][1]."\n";
@@ -120,7 +121,7 @@ function Service_Create_TrunkConfig($activation_code)
 	    }
     }
 	$Config_output .= "#SIP-TRUNK-CONFIG-END#\n\n";
-	
+
 	// IAX
 	$Config_output .= "#PROTOCOL:IAX#\n#IAX-TRUNK-CONFIG-START#\n[trunkname]\n";
 	$Config_output .= "username=".$iax_data[0][1]."\n";
@@ -138,9 +139,9 @@ function Service_Create_TrunkConfig($activation_code)
 	    }
     }
 	$Config_output .= "#IAX-TRUNK-CONFIG-END#\n\n";
-	
+
 	return array($Config_output, '200 -- Config OK');
-	
+
 }
 
 
