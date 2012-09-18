@@ -41,8 +41,7 @@ Parameters :
 	html : to display with <pre> tag
 
 Usage :
-    http://localhost/trunk/customer/webservice/Create_TrunkConfig.php?activation_code=XXXXXXXXXXX
-    http://localhost/~areski/svn/asterisk2billing/trunk/customer/webservice/Create_TrunkConfig.php?activation_code=6098593343_12345&html=1
+    http://localhost/customer/webservice/Create_TrunkConfig.php?activation_code=XXXXXXXXXXX
 */
 
 

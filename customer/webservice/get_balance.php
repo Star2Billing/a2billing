@@ -43,7 +43,7 @@ Parameters :
 	html : to display with <pre> tag
 
 Usage :
-    http://localhost/trunk/customer/webservice/get_balance.php?username=XXXXXXXXXXX&password=XXXXXXXXXXX&html=1
+    http://localhost/customer/webservice/get_balance.php?username=XXXXXXXXXXX&password=XXXXXXXXXXX&html=1
 */
 
 include ("../lib/customer.defines.php");
