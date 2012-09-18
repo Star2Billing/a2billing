@@ -46,8 +46,6 @@ Usage :
     http://localhost/trunk/customer/webservice/get_balance.php?username=XXXXXXXXXXX&password=XXXXXXXXXXX&html=1
 */
 
-exit();
-
 include ("../lib/customer.defines.php");
 
 
