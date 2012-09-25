@@ -70,49 +70,49 @@ class iridium
               }
 
         if (isset($_SESSION["agent_id"]) && !empty($_SESSION["agent_id"])) {
-                    $QUERY = "SELECT login as username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, '1', currency FROM cc_agent WHERE id = '".$_SESSION["agent_id"]."'";
+                $QUERY = "SELECT login as username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, '1', currency FROM cc_agent WHERE id = '".$_SESSION["agent_id"]."'";
             } elseif (isset($_SESSION["card_id"]) && !empty($_SESSION["card_id"])) {
-                    $QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, status, currency FROM cc_card WHERE id = '".$_SESSION["card_id"]."'";
+                $QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, status, currency FROM cc_card WHERE id = '".$_SESSION["card_id"]."'";
             } else {
-                    echo "ERROR";
-                    die();
+                echo "ERROR";
+                die();
             }
 
-               $DBHandle  = DbConnect();
-               $resmax = $DBHandle -> query($QUERY);
-               $numrow = $resmax -> numRows();
-               if ($numrow == 0) {exit();}
-               $customer_info =$resmax -> fetchRow();
-               if ($customer_info [12] != "1") {
-                           exit();
-               }
-        $name = $customer_info['firstname'] . ' ' . $customer_info['lastname'];
-        $addr1 = $customer_info['address'];
-        $addr2 = $customer_info['city'];
-        $addr3 = $customer_info['state'];
-        $phone = $customer_info['phone'];
-        $postcode = $customer_info['zipcode'];
-        $countrycode = $customer_info['country'];
-        $QUERY = "select countryname from cc_country where countrycode = '$countrycode'";
-        $resmax = $DBHandle -> query($QUERY);
-                $numrow = $resmax -> numRows();
-        $cid = -1 ;
-                if ($numrow == 0) {
-            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__. " Country not found" );
-        } else {
-                       $country_info =$resmax -> fetchRow();
-            $country = $country_info['countryname'];
-            for ($i = 0; $i < sizeof($countries); $i++) {
-                if ( ($country == $countries[$i]['text']) ) {
-                    $cid = $countries[$i]['id'];
+            $DBHandle  = DbConnect();
+            $resmax = $DBHandle -> query($QUERY);
+            $numrow = $resmax -> numRows();
+            if ($numrow == 0) {exit();}
+            $customer_info =$resmax -> fetchRow();
+            if ($customer_info [12] != "1") {
+                       exit();
+            }
+            $name = $customer_info['firstname'] . ' ' . $customer_info['lastname'];
+            $addr1 = $customer_info['address'];
+            $addr2 = $customer_info['city'];
+            $addr3 = $customer_info['state'];
+            $phone = $customer_info['phone'];
+            $postcode = $customer_info['zipcode'];
+            $countrycode = $customer_info['country'];
+            $QUERY = "select countryname from cc_country where countrycode = '$countrycode'";
+            $resmax = $DBHandle -> query($QUERY);
+            $numrow = $resmax -> numRows();
+            $cid = -1 ;
+            if ($numrow == 0) {
+                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__. " Country not found" );
+            } else {
+                $country_info =$resmax -> fetchRow();
+                $country = $country_info['countryname'];
+                for ($i = 0; $i < sizeof($countries); $i++) {
+                    if ( ($country == $countries[$i]['text']) ) {
+                        $cid = $countries[$i]['id'];
+                    }
                 }
             }
-        }
 
-              $selection = array('id' => $this->code,
-            'module' => $this->title . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $this->get_cc_images(),
-            'fields' => array( array('title' => MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_OWNER,
-            'field' => tep_draw_input_field('CardName', $name). ' (Override the default values if different )') ,
+            $selection = array('id' => $this->code,
+                'module' => $this->title . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $this->get_cc_images(),
+                'fields' => array( array('title' => MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_OWNER,
+                'field' => tep_draw_input_field('CardName', $name). ' (Override the default values if different )') ,
             array ('title' => MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_ADDR1,
                                 'field' => tep_draw_input_field('Addr1', $addr1)),
             array ('title' => MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_ADDR2,
@@ -140,7 +140,7 @@ class iridium
 
          ));
 
-     return $selection;
+    return $selection;
     /*
      array ('title' => MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_DOB,
                                 'field' => tep_draw_pull_down_menu('DOB_day', $dom) . '&nbsp;' .
@@ -166,32 +166,31 @@ class iridium
              $errornumber = 0;
              $error = $ccErrors [$errornumber];
              $result = false;
-      }
+    }
 
-        $checksum = 0;
-        $j = 1;
-        for ($i = strlen($cardNo) - 1; $i >= 0; $i--) {
-              $calc = $cardNo{$i} * $j;
-              if ($calc > 9) {
-                $checksum = $checksum + 1;
-                $calc = $calc - 10;
-              }
-              $checksum = $checksum + $calc;
-              if ($j ==1) {$j = 2;} else {$j = 1;};
+    $checksum = 0;
+    $j = 1;
+    for ($i = strlen($cardNo) - 1; $i >= 0; $i--) {
+        $calc = $cardNo{$i} * $j;
+        if ($calc > 9) {
+            $checksum = $checksum + 1;
+            $calc = $calc - 10;
         }
-        if ($checksum % 10 != 0) {
-             $errornumber = 1;
-             $error = $ccErrors [$errornumber];
-             $result = false;
-        }
+        $checksum = $checksum + $calc;
+        if ($j ==1) {$j = 2;} else {$j = 1;};
+    }
+    if ($checksum % 10 != 0) {
+        $errornumber = 1;
+        $error = $ccErrors [$errornumber];
+        $result = false;
+    }
 
     if ( ($result == false) ) {
         $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&CardName=' . urlencode($_POST['CardName']) . '&ExpiryDateMonth=' . $_POST['ExpiryDateMonth'] . '&ExpiryDateYear=' . $_POST['ExpiryDateYear'];
         $payment_error_return .= '&amount=' . $_POST['amount'].'&item_name=' . $_POST['item_name'].'&item_number=' . $_POST['item_number'];
         $payment_error_return .= '&item_id='.$_POST['item_id'].'&item_type='.$_POST['item_type'];
         //tep_redirect(tep_href_link("checkout_payment.php", $payment_error_return, 'SSL', true, false));
-
-      }
+    }
 
         return false;
     }

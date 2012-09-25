@@ -11,7 +11,7 @@
  * Doxygen is a documentation generation tool and can be downloaded from http://doxygen.org/
  */
 
-/**
+/*
     \mainpage
 
      @version v4.991 16 Oct 2008  (c) 2000-2008 John Lim (jlim#natsoft.com). All rights reserved.
@@ -855,7 +855,7 @@
         }
     }
 
-    /**
+    /*
         Improved method of initiating a transaction. Used together with CompleteTrans().
         Advantages include:
 
@@ -883,7 +883,7 @@
     }
 
 
-    /**
+    /*
         Used together with StartTrans() to end a transaction. Monitors connection
         for sql errors, and will commit or rollback as appropriate.
 
@@ -931,7 +931,7 @@
         $this->_transOK = false;
     }
 
-    /**
+    /*
         Check if transaction has failed, only for Smart Transactions.
     */
     public function HasFailedTrans()
