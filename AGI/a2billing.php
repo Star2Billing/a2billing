@@ -160,7 +160,6 @@ if ($A2B->CC_TESTING) {
     $accountcode = '2222222222';
 }
 
-
 if ($mode == 'standard') {
     if ($A2B->agiconfig['answer_call'] == 1) {
         $A2B->debug(INFO, $agi, __FILE__, __LINE__, '[ANSWER CALL]');
@@ -278,7 +277,7 @@ if ($mode == 'standard') {
                             $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[INFORMATION MENU]");
                             $res_dtmf = $agi->menu($info_menu, 5000);
 
-                            switch($res_dtmf) {
+                            switch ($res_dtmf) {
                             case 1 :
                                 $QUERY = "SELECT starttime FROM cc_call
                                     WHERE card_id = {$A2B->id_card} ORDER BY starttime DESC LIMIT 1";
@@ -576,7 +575,7 @@ if ($mode == 'standard') {
                     }
                     $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, '[a2billing account stop]');
 
-                } else if ($ans == "2DID") {
+                } elseif ($ans == "2DID") {
 
                     $A2B->debug(INFO, $agi, __FILE__, __LINE__, "[ CALL OF THE SYSTEM - [DID=" . $A2B->destination . "]");
 
@@ -888,8 +887,7 @@ if ($mode == 'standard') {
                         $variable .= $sep . strtoupper($key) . '=' . $value;
                     }
                     //pass the tariff if it was passed in
-                    if (strlen($cid_1st_leg_tariff_id) > 0)
-                    {
+                    if (strlen($cid_1st_leg_tariff_id) > 0) {
                         $variable .= $sep . 'TARIFF=' . $cid_1st_leg_tariff_id;
                     }
 
@@ -1063,7 +1061,6 @@ if ($mode == 'standard') {
     } else {
         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK-CALLERID : CALLED=" . $A2B->destination . " | error callerid]");
     }
-
 
 // MODE CALLBACK
 } elseif ($mode == 'callback') {
@@ -1541,8 +1538,7 @@ if ($charge_callback) {
     $cia_res = $A2B->callingcard_ivr_authenticate($agi);
 
     //overrides the tariff for the user with the one passed in.
-    if (strlen($callback_tariff) > 0)
-    {
+    if (strlen($callback_tariff) > 0) {
         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "*** Tariff override **** Changing from " . $A2B->tariff . " to " . $callback_tariff . " cia_res=$cia_res");
         $A2B->tariff = $callback_tariff;
     }
