@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,24 +27,20 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
-
-include ("../lib/agent.defines.php");
-include ("../lib/agent.module.access.php");
-include ("../lib/agent.smarty.php");
-
-
+include '../lib/agent.defines.php';
+include '../lib/agent.module.access.php';
+include '../lib/agent.smarty.php';
 
 getpost_ifset(array( 'tariffplan', 'group','task'));
-
 
 $FG_DEBUG = 0;
 
 $DBHandle  = DbConnect();
-	
+
 $instance_table_tariffname = new Table("cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup", "id, tariffgroupname");
 
 $FG_TABLE_CLAUSE = "id_agent = ".$_SESSION['agent_id'];
@@ -59,19 +55,14 @@ $list_group = $instance_table_group -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "i
 
 $disabled =false;
 
-
-
-
-if($task=="generate" && !empty($tariffplan) && !empty($group)){
-	$code = gen_card('cc_agent_signup',10,'code');
-	$table_signup = new Table('cc_agent_signup');
-	$fields = "code,id_agent,id_tariffgroup,id_group";
-	$values =  "'$code','".$_SESSION['agent_id']."', '$tariffplan','$group'";
-	$result_insert = $table_signup -> Add_table($DBHandle,$values,$fields);
-	if($result_insert)$URL = $A2B->config['signup']['urlcustomerinterface']."signup.php?key=$code";
+if ($task=="generate" && !empty($tariffplan) && !empty($group)) {
+    $code = gen_card('cc_agent_signup',10,'code');
+    $table_signup = new Table('cc_agent_signup');
+    $fields = "code,id_agent,id_tariffgroup,id_group";
+    $values =  "'$code','".$_SESSION['agent_id']."', '$tariffplan','$group'";
+    $result_insert = $table_signup -> Add_table($DBHandle,$values,$fields);
+    if($result_insert)$URL = $A2B->config['signup']['urlcustomerinterface']."signup.php?key=$code";
 }
-
-
 
 ?>
 <?php
@@ -81,140 +72,135 @@ $smarty->display('main.tpl');
 <script type="text/javascript">
 <!--
 
+function submit_form(form)
+{
+    if ((form.tariffplan.value.length < 1)||(form.group.value.length < 1)) {
+        return (false);
+    }
 
-function submit_form(form){
-	if ((form.tariffplan.value.length < 1)||(form.group.value.length < 1)){
-		return (false);
-	}
-
-    document.forms["form"].elements["task"].value = "generate";	
+    document.forms["form"].elements["task"].value = "generate";
     document.form.submit();
 }
 
 //-->
 </script>
 
-
 <?php
-	echo $CC_help_generate_signup;
+    echo $CC_help_generate_signup;
 ?>
 <center>
-		<b><?php echo gettext("Create signup url for a specific agent, customer group and Call Plan.");?>.</b><br/><br/>
-		<table width="95%" border="0" cellspacing="2" align="center" class="records">
-			
-              <form name="form" enctype="multipart/form-data" action="A2B_signup_agent.php" method="post">
-				
-				<tr> 
-                  <td colspan="2" align=center> 
-				  <?php echo gettext("Choose the Call Plan to use");?> :
-				  <select id="tariff" NAME="tariffplan" size="1"  style="width=250" class="form_input_select" >
-								<option value=''><?php echo gettext("Choose a Call Plan");?></option>
-							
-								<?php					 
-								 foreach ($list_tariffname as $recordset){ 						 
-								?>
-									<option class=input value='<?php  echo $recordset['id']?>' <?php if ($recordset['id']==$tariffplan) echo "selected";?>><?php echo $recordset[1]?></option>                        
-								<?php 	 }
-								?>
-						</select>	
-						<br><br>
-				   <?php echo gettext("Choose the Customer group to use");?> :
-				  <select id="group" NAME="group" size="1"  style="width=250" class="form_input_select" >
-							  <option value=''><?php echo gettext("Choose a Customer Group");?></option>
-								<?php					 
-								 foreach ($list_group as $recordset){
-								?>
-									<option class=input value='<?php  echo $recordset['id']?>' <?php if ($recordset[0]==$group) echo "selected";?>><?php echo $recordset[1]?></option>                        
-								<?php 	 }
-								?>
-						</select>	
-						<br>
-						</br>
-				  				  
-				
-				</td>
-				</tr>
-               <tr>
-					<td  colspan="2"> 
-						 &nbsp;   
-	                 </td>
-				</tr>
-                <tr> 
-                 <td  width="50%" align="center"> 
-						<a class="cssbutton_big"  href="A2B_entity_signup_agent.php?section=2">
-							<?php echo gettext("RETURN TO URL KEY LIST"); ?>
-						</a>  
-                  </td>
-                  <td  align="center" width="50%"> 
-                  	  <input type="hidden" name="task" value="">
-					  <input id="generate" type="button" value="<?php echo gettext('ADD URL KEY');?>" onFocus=this.select() class="form_input_button_disabled" name="submit1" onClick="submit_form(this.form);" disabled="true" />
-					   </p>     
-                  </td>
-                </tr>
-				<tr>
-					<td  colspan="2"> 
-						 &nbsp;   
-	                 </td>
-				</tr>
-				
-                <tr> 
-                  <td colspan="2"  align="left"> 
+        <b><?php echo gettext("Create signup url for a specific agent, customer group and Call Plan.");?>.</b><br/><br/>
+        <table width="95%" border="0" cellspacing="2" align="center" class="records">
 
-						<div id="result" >
-						 
-						 <?php if(!empty($URL)){ ?>
-						 <span style="font-family: sans-serif" > 
-						 <b>
-						 	<a href="<?php echo $URL;?>"> <?php 	echo gettext("URL")."";?> <img src="<?php echo Images_Path."/link.png"?>" border="0" style="vertical-align:bottom;" title="<?php echo gettext("Link to the URL")?>" alt="<?php echo  gettext("Link to the URL")?>"></a>
-						 	<?php
-						 	echo " : ".$URL;	echo "</b><br>"; ?>
-						   </span>
-						<?php  }  ?>
-						
-						</div>
-					  
+              <form name="form" enctype="multipart/form-data" action="A2B_signup_agent.php" method="post">
+
+                <tr>
+                  <td colspan="2" align=center>
+                  <?php echo gettext("Choose the Call Plan to use");?> :
+                  <select id="tariff" NAME="tariffplan" size="1"  style="width=250" class="form_input_select" >
+                                <option value=''><?php echo gettext("Choose a Call Plan");?></option>
+
+                                <?php
+                                 foreach ($list_tariffname as $recordset) {
+                                ?>
+                                    <option class=input value='<?php  echo $recordset['id']?>' <?php if ($recordset['id']==$tariffplan) echo "selected";?>><?php echo $recordset[1]?></option>
+                                <?php 	 }
+                                ?>
+                        </select>
+                        <br><br>
+                   <?php echo gettext("Choose the Customer group to use");?> :
+                  <select id="group" NAME="group" size="1"  style="width=250" class="form_input_select" >
+                              <option value=''><?php echo gettext("Choose a Customer Group");?></option>
+                                <?php
+                                 foreach ($list_group as $recordset) {
+                                ?>
+                                    <option class=input value='<?php  echo $recordset['id']?>' <?php if ($recordset[0]==$group) echo "selected";?>><?php echo $recordset[1]?></option>
+                                <?php 	 }
+                                ?>
+                        </select>
+                        <br>
+                        </br>
+
+                </td>
+                </tr>
+               <tr>
+                    <td  colspan="2">
+                         &nbsp;
+                     </td>
+                </tr>
+                <tr>
+                 <td  width="50%" align="center">
+                        <a class="cssbutton_big"  href="A2B_entity_signup_agent.php?section=2">
+                            <?php echo gettext("RETURN TO URL KEY LIST"); ?>
+                        </a>
+                  </td>
+                  <td  align="center" width="50%">
+                        <input type="hidden" name="task" value="">
+                      <input id="generate" type="button" value="<?php echo gettext('ADD URL KEY');?>" onFocus=this.select() class="form_input_button_disabled" name="submit1" onClick="submit_form(this.form);" disabled="true" />
+                       </p>
                   </td>
                 </tr>
-               
+                <tr>
+                    <td  colspan="2">
+                         &nbsp;
+                     </td>
+                </tr>
+
+                <tr>
+                  <td colspan="2"  align="left">
+
+                        <div id="result" >
+
+                         <?php if (!empty($URL)) { ?>
+                         <span style="font-family: sans-serif" >
+                         <b>
+                             <a href="<?php echo $URL;?>"> <?php 	echo gettext("URL")."";?> <img src="<?php echo Images_Path."/link.png"?>" border="0" style="vertical-align:bottom;" title="<?php echo gettext("Link to the URL")?>" alt="<?php echo  gettext("Link to the URL")?>"></a>
+                             <?php
+                             echo " : ".$URL;	echo "</b><br>"; ?>
+                           </span>
+                        <?php  }  ?>
+
+                        </div>
+
+                  </td>
+                </tr>
+
               </form>
             </table>
 </center>
 
 <?php
-	$smarty->display('footer.tpl');
+    $smarty->display('footer.tpl');
 ?>
 
-
 <script type="text/javascript">
-	
 
-function checkgenerate(){
-
+function checkgenerate()
+{
  var test = true;
   test = test && ($('#tariff').val().length>0);
   test = test && ($('#group').val().length>0);
-  if(test){
-   	$('#generate').removeAttr("disabled");
-   	$('#generate').attr("class","form_input_button");
-   }
-  else{ 
-  	$('#generate').attr("disabled", true);
-  	$('#generate').attr("class","form_input_button_disabled");
-  	}
+  if (test) {
+       $('#generate').removeAttr("disabled");
+       $('#generate').attr("class","form_input_button");
+   } else {
+      $('#generate').attr("disabled", true);
+      $('#generate').attr("class","form_input_button_disabled");
+      }
 }
 
 $(document).ready(function () {
-	$('#selectagent').change(function () {
-			  document.form.method="GET";
-	          $('form').submit();
-	        });
-	$('#group').change(function () {
-			   checkgenerate();
-			   $('#result').empty();
-	        });
-	$('#tariff').change(function () {
-			   checkgenerate();
-			   $('#result').empty();
-	        });
+    $('#selectagent').change(function () {
+              document.form.method="GET";
+              $('form').submit();
+            });
+    $('#group').change(function () {
+               checkgenerate();
+               $('#result').empty();
+            });
+    $('#tariff').change(function () {
+               checkgenerate();
+               $('#result').empty();
+            });
 });
 </script>

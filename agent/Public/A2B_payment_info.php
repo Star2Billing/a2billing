@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,27 +27,25 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
+include '../lib/agent.defines.php';
+include '../lib/agent.module.access.php';
+include '../lib/agent.smarty.php';
 
-include ("../lib/agent.defines.php");
-include ("../lib/agent.module.access.php");
-include ("../lib/agent.smarty.php");
-
-if (! has_rights (ACX_BILLING)) { 
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
+if (! has_rights (ACX_BILLING)) {
+    Header ("HTTP/1.0 401 Unauthorized");
+    Header ("Location: PP_error.php?c=accessdenied");
+    die();
 }
 
 getpost_ifset(array('id'));
 
 if (empty($id)) {
-	header("Location: A2B_entity_payment.php?atmenu=payment&section=2");
+    header("Location: A2B_entity_payment.php?atmenu=payment&section=2");
 }
-
 
 $DBHandle  = DbConnect();
 
@@ -57,7 +55,7 @@ $payment_result = $payment_table -> Get_list($DBHandle, $payment_clause, 0);
 $payment = $payment_result[0];
 
 if (empty($payment)) {
-	header("Location: A2B_entity_payment.php?atmenu=payment&section=2");
+    header("Location: A2B_entity_payment.php?atmenu=payment&section=2");
 }
 
 // #### HEADER SECTION
@@ -68,78 +66,77 @@ $smarty->display('main.tpl');
 <br/>
 <table style="width : 80%;" class="editform_table1">
    <tr>
-   		<th colspan="2" background="../Public/templates/default/images/background_cells.gif">
-   			<?php echo gettext("PAYMENT INFO") ?>
-   		</th>	
+           <th colspan="2" background="../Public/templates/default/images/background_cells.gif">
+               <?php echo gettext("PAYMENT INFO") ?>
+           </th>
    </tr>
    <tr height="20px">
-		<td  class="form_head">
-			<?php echo gettext("ACCOUNT NUMBER") ?> :
-		</td>
-		<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-			<?php 
-			if (has_rights (ACX_CUSTOMER)) { 
-				echo infocustomer_id($payment['card_id']);
-			}else{
-				echo nameofcustomer_id($payment['card_id']);
-			}	
-			?> 
-		</td>
+        <td  class="form_head">
+            <?php echo gettext("ACCOUNT NUMBER") ?> :
+        </td>
+        <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+            <?php
+            if (has_rights (ACX_CUSTOMER)) {
+                echo infocustomer_id($payment['card_id']);
+            } else {
+                echo nameofcustomer_id($payment['card_id']);
+            }
+            ?>
+        </td>
    </tr>
    <tr height="20px">
-		<td  class="form_head">
-			<?php echo gettext("AMOUNT") ?> :
-		</td>
-		<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-			<?php echo $payment['payment']." ".strtoupper(BASE_CURRENCY);?> 
-		</td>
+        <td  class="form_head">
+            <?php echo gettext("AMOUNT") ?> :
+        </td>
+        <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+            <?php echo $payment['payment']." ".strtoupper(BASE_CURRENCY);?>
+        </td>
    </tr>
-   	<tr height="20px">
-		<td  class="form_head">
-			<?php echo gettext("CREATION DATE") ?> :
-		</td>
-		<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-			<?php echo $payment['date']?> 
-		</td>
-	</tr>
+       <tr height="20px">
+        <td  class="form_head">
+            <?php echo gettext("CREATION DATE") ?> :
+        </td>
+        <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+            <?php echo $payment['date']?>
+        </td>
+    </tr>
    <tr height="20px">
-		<td  class="form_head">
-			<?php echo gettext("PAYMENT TYPE") ?> :
-		</td>
-		<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-			<?php 
-			$list_type = Constants::getRefillType_List();
-			echo $list_type[$payment['payment_type']][0];?> 
-		</td>
+        <td  class="form_head">
+            <?php echo gettext("PAYMENT TYPE") ?> :
+        </td>
+        <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+            <?php
+            $list_type = Constants::getRefillType_List();
+            echo $list_type[$payment['payment_type']][0];?>
+        </td>
    </tr>
    <tr height="20px">
-		<td  class="form_head">
-			<?php echo gettext("DESCRIPTION ") ?> :
-		</td>
-		<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-			<?php echo $payment['description']?> 
-		</td>
-	</tr>
-   	<?php if(!empty($payment['id_logrefill'])){ ?>
-   	<tr height="20px">
-		<td  class="form_head">
-			<?php echo gettext("LINK REFILL") ?> :
-		</td>
-		<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-			<a href="A2B_refill_info.php?id=<?php echo $payment['id_logrefill']?>"> <img src="<?php echo Images_Path."/link.png"?>" border="0" title="<?php echo gettext("Link to the refill")?>" alt="<?php echo  gettext("Link to the refill")?>"></a>
-		</td>
-	</tr>
-   	<?php } ?>
-   					
+        <td  class="form_head">
+            <?php echo gettext("DESCRIPTION ") ?> :
+        </td>
+        <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+            <?php echo $payment['description']?>
+        </td>
+    </tr>
+       <?php if (!empty($payment['id_logrefill'])) { ?>
+       <tr height="20px">
+        <td  class="form_head">
+            <?php echo gettext("LINK REFILL") ?> :
+        </td>
+        <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+            <a href="A2B_refill_info.php?id=<?php echo $payment['id_logrefill']?>"> <img src="<?php echo Images_Path."/link.png"?>" border="0" title="<?php echo gettext("Link to the refill")?>" alt="<?php echo  gettext("Link to the refill")?>"></a>
+        </td>
+    </tr>
+       <?php } ?>
+
  </table>
  <br/>
 <div style="width : 80%; text-align : right; margin-left:auto;margin-right:auto;" >
- 	<a class="cssbutton_big"  href="A2B_entity_payment.php?atmenu=payment&section=2">
-		<img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/>
-		<?php echo gettext("PAYMENTS LIST"); ?>
-	</a>
+     <a class="cssbutton_big"  href="A2B_entity_payment.php?atmenu=payment&section=2">
+        <img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/>
+        <?php echo gettext("PAYMENTS LIST"); ?>
+    </a>
 </div>
-<?php 
+<?php
 
 $smarty->display( 'footer.tpl');
-

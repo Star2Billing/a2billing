@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,21 +27,19 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
-
-include ("./lib/customer.defines.php");
-include ("./lib/customer.module.access.php");
-include ("./lib/Form/Class.FormHandler.inc.php");
-include ("./lib/epayment/includes/general.php");
-include ("./lib/epayment/includes/configure.php");
-include ("./lib/epayment/includes/html_output.php");
+include './lib/customer.defines.php';
+include './lib/customer.module.access.php';
+include './lib/Form/Class.FormHandler.inc.php';
+include './lib/epayment/includes/general.php';
+include './lib/epayment/includes/configure.php';
+include './lib/epayment/includes/html_output.php';
 $popup_select = 1;
-include ("./lib/customer.smarty.php");
+include './lib/customer.smarty.php';
 //include("./lib/epayment/includes/PP_header.php");
-
 
 getpost_ifset(array('errcode'));
 
@@ -61,29 +59,28 @@ $smarty->display( 'main.tpl');
 </tr>
 <tr>
     <td align=center colspan=2>
-	<?php echo gettext("Thank you for your purchase")?>
-	&nbsp;
+    <?php echo gettext("Thank you for your purchase")?>
+    &nbsp;
     <?php
-      switch($errcode)
-      {
+      switch ($errcode) {
           case -2:
-		  	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR TRANSACTION FAILED");
+              write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR TRANSACTION FAILED");
             echo gettext("We are sorry your transaction is failed. Please try later or check your provided information.");
           break;
           case -1:
-		  	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR TRANSACTION DENIED");
+              write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR TRANSACTION DENIED");
             echo gettext("We are sorry your transaction is denied. Please try later or check your provided information.");
           break;
           case 0:
-		  	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR TRANSACTION PENDING");
+              write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR TRANSACTION PENDING");
             echo gettext("We are sorry your transaction is pending.");
           break;
           case 1:
-		  	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR TRANSACTION INPROGRESS");
+              write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR TRANSACTION INPROGRESS");
             echo gettext("Your transaction is in progress.");
           break;
           case 2:
-		  	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." TRANSACTION SUCCESSFUL");
+              write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." TRANSACTION SUCCESSFUL");
             echo gettext("Your transaction was successful.");
           break;
       }
@@ -99,7 +96,6 @@ $smarty->display( 'main.tpl');
 </tr>
 
 </table>
-<?php 
+<?php
 // #### FOOTER SECTION
 $smarty->display( 'footer.tpl');
-?>

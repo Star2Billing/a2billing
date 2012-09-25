@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,28 +27,27 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
+include '../lib/agent.defines.php';
+include '../lib/agent.module.access.php';
+include '../lib/Form/Class.FormHandler.inc.php';
+include './form_data/FG_var_signup_agent.inc';
+include '../lib/agent.smarty.php';
 
-include ("../lib/agent.defines.php");
-include ("../lib/agent.module.access.php");
-include ("../lib/Form/Class.FormHandler.inc.php");
-include ("./form_data/FG_var_signup_agent.inc");
-include ("../lib/agent.smarty.php");
-
-if (! has_rights (ACX_SIGNUP)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+if (! has_rights (ACX_SIGNUP)) {
+       Header ("HTTP/1.0 401 Unauthorized");
+       Header ("Location: PP_error.php?c=accessdenied");
+       die();
 }
 
 ?>
 <style type="text/css">
-	 #sexyBG { display: none; position: absolute; background: #000; opacity: 0.5; -moz-opacity: 0.5; -khtml-opacity: 0.5; filter: alpha(opacity=40); width: 100%; height: 100%; top: 0; left: 0; z-index: 99; }
-	#sexyBOX { padding-top:15px;display: none; position: absolute; background: #FCFCFC; color: #333; font-size: 14px; text-align: center; border: 1px solid #111; top: 200px; z-index: 100; }
-	.sexyX { margin-top:15px; font-size: 12px; color: #636D61; padding: 4px 0; border-top: 1px solid #636D61; background: #BDE5F8; }
+     #sexyBG { display: none; position: absolute; background: #000; opacity: 0.5; -moz-opacity: 0.5; -khtml-opacity: 0.5; filter: alpha(opacity=40); width: 100%; height: 100%; top: 0; left: 0; z-index: 99; }
+    #sexyBOX { padding-top:15px;display: none; position: absolute; background: #FCFCFC; color: #333; font-size: 14px; text-align: center; border: 1px solid #111; top: 200px; z-index: 100; }
+    .sexyX { margin-top:15px; font-size: 12px; color: #636D61; padding: 4px 0; border-top: 1px solid #636D61; background: #BDE5F8; }
 </style>
 <script type="text/javascript">
 var msg = '<?php echo gettext('click outside box to close'); ?>';
@@ -71,12 +70,11 @@ if (!isset($action)) $action = $form_action;
 
 $list = $HD_Form -> perform_action($form_action);
 
-
 // #### HEADER SECTION
 $smarty->display('main.tpl'); ?>
 <div id="sexyBG"></div>
 <div id="sexyBOX" onmousedown="document.onclick=function(){};" onmouseup="setTimeout('sexyTOG()',1);"></div>
-<?php 
+<?php
 
 // #### HELP SECTION
 echo $CC_help_signup_agent;
@@ -88,4 +86,3 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
-
