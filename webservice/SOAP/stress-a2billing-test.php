@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,18 +27,15 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
-include ("../lib/Class.SOAP-function.php");
-
+include '../lib/Class.SOAP-function.php';
 
 $security_key = md5(API_SECURITY_KEY);
 
 $webservice = new SOAP_A2Billing();
-
-
 
 // Instance
 $instance = 'VillageTelco_wgov-4942';
@@ -62,7 +59,6 @@ $country = 'USA';
 // #Account
 $units = 1;
 
-
 $method = 'Create_Customer';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
@@ -71,14 +67,5 @@ $arr_result = $webservice -> $method ($security_key, $instance, $id_callplan, $i
 $time_end = microtime(true);
 $time = $time_end - $time_start;
 
-
 print_r ($arr_result);
 echo (">>>>>>> RUNNING TIME = $time secs\n\n\n");
-
-
-
-
-
-
-
-

@@ -31,24 +31,19 @@
  *
 **/
 
-
-
 /*
  * 	USAGE : http://localhost/webservice/SOAP/test-callbackexec.php
  */
 
-include ("../lib/admin.defines.php");
-require('SOAP/Client.php');
+include '../lib/admin.defines.php';
+require 'SOAP/Client.php';
 
 $security_key = API_SECURITY_KEY;
-
 
 $endpoint = 'http://localhost/~areski/svn/asterisk2billing/trunk/webservice/SOAP/soap-a2billing-server.php';
 
 // Create SOAP Client
 $callback = new SOAP_Client($endpoint);
-
-
 
 echo "<hr>#############   GET COUNTRIES   ############# <br/><hr/> <pre>";
 $method = 'Get_Countries';
@@ -65,7 +60,6 @@ $params = array('security_key' => md5($security_key), 'provisioning_uri' => "htt
 $ans = $callback -> call($method, $params);
 print_r(unserialize($ans[0]));
 
-
 echo "<hr>#############   GET LANGUAGE   ############# <br/><hr/> <pre>";
 $method = 'Get_Languages';
 
@@ -73,8 +67,4 @@ $params = array('security_key' => md5($security_key));
 $ans = $callback -> call($method, $params);
 print_r(unserialize($ans[0]));
 
-
-
 exit;
-
-

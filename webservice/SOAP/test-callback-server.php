@@ -31,24 +31,20 @@
  *
 **/
 
-
-
 /*
  * 	USAGE : http://localhost/webservice/SOAP/test-callbackexec.php
  */
 
 $disable_check_cp = true;
-include ("../lib/admin.defines.php");
-require('SOAP/Client.php');
+include '../lib/admin.defines.php';
+require 'SOAP/Client.php';
 
 $security_key = API_SECURITY_KEY;
-
 
 $endpoint = 'http://localhost/~areski/svn/asterisk2billing/trunk/webservice/SOAP/soap-callback-server.php';
 
 // Create SOAP Client
 $callback = new SOAP_Client($endpoint);
-
 
 /*
 echo "<hr>#############   Request CallBack   ############# <br/><hr/>";
@@ -63,8 +59,6 @@ print_r($ans);
 $insert_id_callback = $ans[0];
 */
 
-
-
 echo "<hr>#############   Check Status  ############# <br/><hr>";
 $method = 'Status';
 $params = array('security_key' => md5($security_key), 'id' => $insert_id_callback);
@@ -72,7 +66,3 @@ $params = array('security_key' => md5($security_key), 'id' => $insert_id_callbac
 $ans = $callback -> call($method, $params);
 
 print_r($ans);
-
-
-
-

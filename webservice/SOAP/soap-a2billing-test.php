@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,17 +27,15 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
-include ("../lib/Class.SOAP-function.php");
-
+include '../lib/Class.SOAP-function.php';
 
 $security_key = md5(API_SECURITY_KEY);
 
 $webservice = new SOAP_A2Billing();
-
 
 $method = 'Reload_Asterisk_SIP_IAX';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
@@ -52,7 +50,6 @@ $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key);
 print_r ($arr_result);
 
-
 //$instance = 'VillageTelco_rmsu-2114';
 $instance_name = 'VillageTelco';
 $uri_trunk = 'http://www.call-labs.com/Create_TrunkConfig.php';
@@ -62,8 +59,6 @@ $uri_rate = 'http://www.call-labs.com/Get_Rates.php';
 $activation_code = '54wefdsf$3Z';
 $margin = 0.2;
 
-
-
 $method = 'Get_Subscription_Signup';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
@@ -71,7 +66,6 @@ $arr_result = $webservice -> $method ($security_key);
 
 echo "##".$arr_result[0]."##";
 var_dump (unserialize($arr_result[0]));
-
 
 $method = 'Set_Setting';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
@@ -85,17 +79,13 @@ $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key, 'base_country');
 print_r ($arr_result);
 
-
-
 $method = 'Get_Languages';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key);
 print_r ($arr_result);
 
-
 // BUILD TEST SUIT FOR CLASS SOAP FUNCTION
-
 
 $method = 'Authenticate_Admin';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
@@ -103,20 +93,17 @@ $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key, 'admin', 'admin');
 print_r ($arr_result);
 
-
 $method = 'Set_AdminPwd';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key, 'admin', 'admin');
 print_r ($arr_result);
 
-
 $method = 'Write_Notification';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key, 'admin', 'Test SOAP Notification : '.date("Y/m/d G:i:s", mktime()), 1);
 print_r ($arr_result);
-
 
 $method = 'Create_Instance';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
@@ -126,13 +113,11 @@ print_r ($arr_result);
 $instance = $arr_result[0];
 echo "instance => $instance \n-----------------------\n\n";
 
-
 $method = 'Set_InstanceDescription';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key, $instance, 'hello here');
 print_r ($arr_result);
-
 
 $method = 'Set_InstanceProvisioning';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
@@ -140,14 +125,11 @@ $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key, $instance, 'test1|test2|ko');
 print_r ($arr_result);
 
-
 $method = 'Get_CustomerGroups';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key);
 print_r ($arr_result);
-
-
 
 $method = 'Get_Currencies';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
@@ -155,21 +137,17 @@ $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key);
 print_r ($arr_result);
 
-
 $method = 'Get_Currencies_value';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key, 'usd');
 print_r (unserialize($arr_result[0]));
 
-
-
 $method = 'Get_Countries';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key);
 print_r ($arr_result);
-
 
 $method = 'Set_Setting';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
@@ -216,7 +194,7 @@ $arr_result = $webservice -> $method ($security_key, $instance, $id_ratecard);
 print_r ($arr_result);
 $id_callplan = $arr_result[0];
 
-// VOUCHER CREATION 
+// VOUCHER CREATION
 $credit = 3;
 $units = 10;
 $currency = 'EUR';
@@ -226,9 +204,6 @@ echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key, $credit, $units, $currency);
 print_r ($arr_result);
-
-
-
 
 // Customer
 $id_callplan = 223;
@@ -245,8 +220,6 @@ $sip_buddy = $iax_buddy = 1;
 $language = 'en';
 $voicemail_enabled = 1;
 
-
-
 $method = 'Create_Customer';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
@@ -259,8 +232,6 @@ foreach (unserialize($arr_result[0]) as $arr_result_val) {
 }
 print_r ($arr_id_card);
 
-
-
 // VALIDATE DID
 $did_prefix = '600';
 
@@ -270,8 +241,7 @@ $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key, $did_prefix);
 print_r ($arr_result);
 
-
-// DID CREATION 
+// DID CREATION
 $rate = 1.4;
 $connection_charge = 0;
 $did_suffix = '8700';
@@ -295,8 +265,6 @@ $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key, $instance, $uri_trunk, $activation_code, $provider_name);
 print_r ($arr_result);
 
-
-
 $method = 'Get_Rates';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
@@ -305,8 +273,7 @@ print_r ($arr_result);
 
 $arr_rates = $arr_result[0];
 
-
-// CREATE RATES 
+// CREATE RATES
 
 $method = 'Create_Rates';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
@@ -314,17 +281,10 @@ $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key, $instance, $arr_rates);
 print_r ($arr_result);
 
-
-// UPDATE RATES 
+// UPDATE RATES
 
 $method = 'Update_Rates';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key, $instance, $arr_rates);
 print_r ($arr_result);
-
-
-
-
-
-

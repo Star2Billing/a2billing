@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,11 +27,9 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
-
-
 
 /*
    * @return string
@@ -53,29 +51,23 @@ function open_url($url)
     $string = ob_get_contents();
 
     ob_end_clean();
-   
-    return $string;    
+
+    return $string;
 }
-
-
 
 $private_key = "Ae87v56zzl34v";
 $private_key_md5 = md5($private_key);
 
 $api_url = "http://localhost/~areski/svn/asterisk2billing/trunk/webservice/display_ratecard.php?" .
-			"key=$private_key_md5" .
-			"&page_url=http://localhost/~areski/svn/asterisk2billing/trunk/webservice/sample_display_ratecard.php" .
-			"&field_to_display=t1.destination,t1.dialprefix,t1.rateinitial" .
-			"&column_name=Destination,Prefix,Rate/Min&field_type=,,money" .
-			"&fullhtmlpage=1&filter=countryname,prefix".
-			"&".$_SERVER['QUERY_STRING'];
+            "key=$private_key_md5" .
+            "&page_url=http://localhost/~areski/svn/asterisk2billing/trunk/webservice/sample_display_ratecard.php" .
+            "&field_to_display=t1.destination,t1.dialprefix,t1.rateinitial" .
+            "&column_name=Destination,Prefix,Rate/Min&field_type=,,money" .
+            "&fullhtmlpage=1&filter=countryname,prefix".
+            "&".$_SERVER['QUERY_STRING'];
 
-
-
-// ----------------- USAGE ------------------------- 
+// ----------------- USAGE -------------------------
 
 #usage:
 $content = open_url ($api_url);
 print ($content);
-
-
