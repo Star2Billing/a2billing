@@ -31,23 +31,19 @@
  *
 **/
 
-
-include ("lib/customer.defines.php");
-include ("lib/customer.module.access.php");
-include ("lib/customer.smarty.php");
-
+include 'lib/customer.defines.php';
+include 'lib/customer.module.access.php';
+include 'lib/customer.smarty.php';
 
 if (!has_rights (ACX_PASSWORD)) {
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");
-	die();
+    Header ("HTTP/1.0 401 Unauthorized");
+    Header ("Location: PP_error.php?c=accessdenied");
+    die();
 }
 
 /***********************************************************************************/
 
-
 getpost_ifset(array('NewPassword','OldPassword'));
-
 
 $DBHandle  = DbConnect();
 
@@ -56,10 +52,10 @@ if ($form_action=="ask-modif") {
     $check_old_pwd = "id = '".$_SESSION["card_id"]."' AND uipass = '$OldPassword'";
     $result_check=$instance_sub_table -> Get_list ($DBHandle,$check_old_pwd);
     if (is_array($result_check)) {
-	    $QUERY = "UPDATE cc_card SET  uipass= '".$NewPassword."' WHERE ( ID = ".$_SESSION["card_id"]." ) ";
-	    $result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY, 0);
-	    // update Session password
-	    $_SESSION["pr_password"] = $NewPassword;
+        $QUERY = "UPDATE cc_card SET  uipass= '".$NewPassword."' WHERE ( ID = ".$_SESSION["card_id"]." ) ";
+        $result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY, 0);
+        // update Session password
+        $_SESSION["pr_password"] = $NewPassword;
     }
 }
 // #### HEADER SECTION
@@ -72,28 +68,28 @@ echo $CC_help_password_change."<br>";
 <script language="JavaScript">
 function CheckPassword()
 {
-    if(document.frmPass.NewPassword.value =='')
-    {
+    if (document.frmPass.NewPassword.value =='') {
         alert('<?php echo gettext("No value in New Password entered")?>');
         document.frmPass.NewPassword.focus();
+
         return false;
     }
-    if(document.frmPass.CNewPassword.value =='')
-    {
+    if (document.frmPass.CNewPassword.value =='') {
         alert('<?php echo gettext("No Value in Confirm New Password entered")?>');
         document.frmPass.CNewPassword.focus();
+
         return false;
     }
-    if(document.frmPass.NewPassword.value.length < 5)
-    {
+    if (document.frmPass.NewPassword.value.length < 5) {
         alert('<?php echo gettext("Password length should be greater than or equal to 5")?>');
         document.frmPass.NewPassword.focus();
+
         return false;
     }
-    if(document.frmPass.CNewPassword.value != document.frmPass.NewPassword.value)
-    {
+    if (document.frmPass.CNewPassword.value != document.frmPass.NewPassword.value) {
         alert('<?php echo gettext("Value mismatch, New Password should be equal to Confirm New Password")?>');
         document.frmPass.NewPassword.focus();
+
         return false;
     }
 
@@ -105,11 +101,11 @@ function CheckPassword()
 <center>
 <?php
 if ($form_action=="ask-modif") {
-	if(is_array($result_check)) {
-		echo '<font color="green">'.gettext("Your password is updated successfully.").'</font><br>';
-	} else {
-		echo '<font color="red">'.gettext("Your old password is wrong.").'</font><br>';
-	}
+    if (is_array($result_check)) {
+        echo '<font color="green">'.gettext("Your password is updated successfully.").'</font><br>';
+    } else {
+        echo '<font color="red">'.gettext("Your old password is wrong.").'</font><br>';
+    }
 }
 ?>
 
@@ -143,7 +139,6 @@ if ($form_action=="ask-modif") {
     <td align=left colspan=2>&nbsp;</td>
 </tr>
 
-
 </table>
 </center>
 <script language="JavaScript">
@@ -158,4 +153,3 @@ document.frmPass.NewPassword.focus();
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
-

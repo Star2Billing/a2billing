@@ -31,22 +31,20 @@
  *
 **/
 
-
-
 /*
 Result :
     Get the Customer's Balance
 
 Parameters :
-	username : Customer's Account code
-	password : Customer's password
-	html : to display with <pre> tag
+    username : Customer's Account code
+    password : Customer's password
+    html : to display with <pre> tag
 
 Usage :
     http://localhost/customer/webservice/get_balance.php?username=XXXXXXXXXXX&password=XXXXXXXXXXX&html=1
 */
 
-include ("../lib/customer.defines.php");
+include '../lib/customer.defines.php';
 
 
 getpost_ifset(array('username', 'password', 'html'));
@@ -63,30 +61,31 @@ if (isset($html)) echo "</pre>";
  */
 function Service_Get_Balance($accountnumber, $password)
 {
-	$DBHandle = DbConnect();
-	$table_instance = new Table();
+    $DBHandle = DbConnect();
+    $table_instance = new Table();
 
-	if (!$DBHandle) {
-		write_log(LOGFILE_API_CALLBACK, basename(__FILE__).' line:'.__LINE__." ERROR CONNECT DB");
-		return array('500', ' ERROR - CONNECT DB ');
-	}
+    if (!$DBHandle) {
+        write_log(LOGFILE_API_CALLBACK, basename(__FILE__).' line:'.__LINE__." ERROR CONNECT DB");
 
-	$QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.currency " .
-			 "FROM cc_card cc " .
-			 "WHERE cc.username = '".$accountnumber."' AND cc.uipass = '".$password."'";
-	$res = $DBHandle -> Execute($QUERY);
+        return array('500', ' ERROR - CONNECT DB ');
+    }
 
-	if (!$res) {
-		return array('400', ' ERROR - AUTHENTICATE CODE');
-	}
-	$row [] = $res -> fetchRow();
-	$card_id = $row[0][3];
+    $QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.currency " .
+             "FROM cc_card cc " .
+             "WHERE cc.username = '".$accountnumber."' AND cc.uipass = '".$password."'";
+    $res = $DBHandle -> Execute($QUERY);
 
-	if (!$card_id || $card_id < 0) {
-		return array('400', ' ERROR - AUTHENTICATE CODE');
-	}
+    if (!$res) {
+        return array('400', ' ERROR - AUTHENTICATE CODE');
+    }
+    $row [] = $res -> fetchRow();
+    $card_id = $row[0][3];
 
-	$balance = $row[0][1];
+    if (!$card_id || $card_id < 0) {
+        return array('400', ' ERROR - AUTHENTICATE CODE');
+    }
 
-	return array($balance, '200 -- Rates OK');
+    $balance = $row[0][1];
+
+    return array($balance, '200 -- Rates OK');
 }

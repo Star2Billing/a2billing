@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,34 +27,33 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
-
-include ("./lib/customer.defines.php");
+include './lib/customer.defines.php';
 
 getpost_ifset (array('id', 'key', 'payment_gross','payment_status', 'txn_type','payer_email'));
 
 $log = "\nREQUEST RECURRING PAYMENT:\n";
 $log .= "GET:\n";
 foreach ($_GET as $vkey => $Value) {
-	$log .= $vkey . " = " . $Value . "\n";
+    $log .= $vkey . " = " . $Value . "\n";
 }
 $log .= "POST:\n";
 foreach ($_POST as $vkey => $Value) {
-	$log .= $vkey . " = " . $Value . "\n";
+    $log .= $vkey . " = " . $Value . "\n";
 }
 
 write_log(LOGFILE_EPAYMENT, basename(__FILE__) . ' line:' . __LINE__ . "$log");
 
 if ($payment_status != "Completed" || $txn_type != "subscr_payment") {
-	die();
+    die();
 }
 
 $req = 'cmd=_notify-validate';
 foreach ($_POST as $vkey => $Value) {
-	$req .= "&" . $vkey . "=" . urlencode($Value);
+    $req .= "&" . $vkey . "=" . urlencode($Value);
 }
 
 $header .= "POST /cgi-bin/webscr HTTP/1.0\r\n";
@@ -62,35 +61,35 @@ $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
 $header .= "Content-Length: " . strlen($req) . "\r\n\r\n";
 
 for ($i = 1; $i <= 3; $i++) {
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__) . ' line:' . __LINE__ . "-OPENDING HTTP CONNECTION TO " . PAYPAL_VERIFY_URL);
-	$fp = fsockopen(PAYPAL_VERIFY_URL, 443, $errno, $errstr, 30);
-	if ($fp) {
-		break;
-	} else {
-		write_log(LOGFILE_EPAYMENT, basename(__FILE__) . ' line:' . __LINE__ . " -Try#" . $i . " Failed to open HTTP Connection : " . $errstr . ". Error Code: " . $errno);
-		sleep(3);
-	}
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__) . ' line:' . __LINE__ . "-OPENDING HTTP CONNECTION TO " . PAYPAL_VERIFY_URL);
+    $fp = fsockopen(PAYPAL_VERIFY_URL, 443, $errno, $errstr, 30);
+    if ($fp) {
+        break;
+    } else {
+        write_log(LOGFILE_EPAYMENT, basename(__FILE__) . ' line:' . __LINE__ . " -Try#" . $i . " Failed to open HTTP Connection : " . $errstr . ". Error Code: " . $errno);
+        sleep(3);
+    }
 }
 
 if (!$fp) {
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__) . ' line:' . __LINE__ . "-Failed to open HTTP Connection: " . $errstr . ". Error Code: " . $errno);
-	exit ();
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__) . ' line:' . __LINE__ . "-Failed to open HTTP Connection: " . $errstr . ". Error Code: " . $errno);
+    exit ();
 } else {
-	fputs($fp, $header . $req);
-	$flag_ver = 0;
-	while (!feof($fp)) {
-		$res = fgets($fp, 1024);
-		$gather_res .= $res;
-		if (strcmp($res, "VERIFIED") == 0) {
-			write_log(LOGFILE_EPAYMENT, basename(__FILE__) . ' line:' . __LINE__ . "-PAYPAL Transaction Verification Status: Verified ");
-			$flag_ver = 1;
-		}
-	}
-	write_log("/var/log/a2billing/test.log", "\nREQUEST:\n$gather_res");
-	if ($flag_ver == 0) {
-		write_log(LOGFILE_EPAYMENT, basename(__FILE__) . ' line:' . __LINE__ . "-PAYPAL Transaction Verification Status: Failed \nreq=$req\n$gather_res");
-		$security_verify = false;
-	}
+    fputs($fp, $header . $req);
+    $flag_ver = 0;
+    while (!feof($fp)) {
+        $res = fgets($fp, 1024);
+        $gather_res .= $res;
+        if (strcmp($res, "VERIFIED") == 0) {
+            write_log(LOGFILE_EPAYMENT, basename(__FILE__) . ' line:' . __LINE__ . "-PAYPAL Transaction Verification Status: Verified ");
+            $flag_ver = 1;
+        }
+    }
+    write_log("/var/log/a2billing/test.log", "\nREQUEST:\n$gather_res");
+    if ($flag_ver == 0) {
+        write_log(LOGFILE_EPAYMENT, basename(__FILE__) . ' line:' . __LINE__ . "-PAYPAL Transaction Verification Status: Failed \nreq=$req\n$gather_res");
+        $security_verify = false;
+    }
 }
 fclose($fp);
 $DBHandle = DbConnect();
@@ -99,8 +98,8 @@ $card_clause = "id = $id";
 $result = $table_card->Get_list($DBHandle, $card_clause);
 
 if (!is_array($result)) {
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__) . ' line:' . __LINE__ . "-PAYPAL Reccurring Payment Failed : card id( $id ) not found");
-	die();
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__) . ' line:' . __LINE__ . "-PAYPAL Reccurring Payment Failed : card id( $id ) not found");
+    die();
 }
 
 $card = $result[0];
@@ -114,10 +113,10 @@ $email = $result[0]['email'];
 $newkey = securitykey(EPAYMENT_TRANSACTION_KEY, $username . "^" . $id . "^" . $useralias . "^" . $creationdate);
 
 if ($newkey == $key) {
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__) . ' line:' . __LINE__ . "----------- Transaction Key Verified ------------");
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__) . ' line:' . __LINE__ . "----------- Transaction Key Verified ------------");
 } else {
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__) . ' line:' . __LINE__ . "----NEW KEY =" . $newkey . " OLD KEY= " . $key . " ------- Transaction Key Verification Failed:" . $transaction_data[0][8] . "^" . $transactionID . "^" . $transaction_data[0][2] . "^" . $transaction_data[0][1] . " ------------\n");
-	exit ();
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__) . ' line:' . __LINE__ . "----NEW KEY =" . $newkey . " OLD KEY= " . $key . " ------- Transaction Key Verification Failed:" . $transaction_data[0][8] . "^" . $transactionID . "^" . $transaction_data[0][2] . "^" . $transaction_data[0][1] . " ------------\n");
+    exit ();
 }
 
 $amount_paid = $payment_gross;
@@ -161,12 +160,12 @@ $id_invoice = $instance_table->Add_table($DBHandle, $value_insert, null, null, "
 
 //load vat of this card
 if (!empty ($id_invoice) && is_numeric($id_invoice)) {
-	$amount = $amount_without_vat;
-	$description = gettext("Automated Refill : recurring payment");
-	$field_insert = "date, id_invoice ,price,vat, description";
-	$instance_table = new Table("cc_invoice_item", $field_insert);
-	$value_insert = " '$date' , '$id_invoice', '$amount','$VAT','$description' ";
-	$instance_table->Add_table($DBHandle, $value_insert, null, null, "id");
+    $amount = $amount_without_vat;
+    $description = gettext("Automated Refill : recurring payment");
+    $field_insert = "date, id_invoice ,price,vat, description";
+    $instance_table = new Table("cc_invoice_item", $field_insert);
+    $value_insert = " '$date' , '$id_invoice', '$amount','$VAT','$description' ";
+    $instance_table->Add_table($DBHandle, $value_insert, null, null, "id");
 }
 
 //link payment to this invoice
@@ -182,23 +181,22 @@ $table_transaction = new Table();
 $result_agent = $table_transaction->SQLExec($DBHandle, "SELECT cc_card_group.id_agent FROM cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card.id = $id");
 
 if (is_array($result_agent) && !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent'] > 0) {
-	//test if the agent exist and get its commission
-	$id_agent = $result_agent[0]['id_agent'];
-	$agent_table = new Table("cc_agent", "commission");
-	$agent_clause = "id = " . $id_agent;
-	$result_agent = $agent_table->Get_list($DBHandle, $agent_clause);
+    //test if the agent exist and get its commission
+    $id_agent = $result_agent[0]['id_agent'];
+    $agent_table = new Table("cc_agent", "commission");
+    $agent_clause = "id = " . $id_agent;
+    $result_agent = $agent_table->Get_list($DBHandle, $agent_clause);
 
-	if (is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission'] > 0) {
-		$field_insert = "id_payment, id_card, amount,description,id_agent";
-		$commission = ceil(($amount_paid * ($result_agent[0]['commission']) / 100) * 100) / 100;
-		$description_commission = gettext("AUTOMATICALY GENERATED COMMISSION!");
-		$description_commission .= "\nID CARD : " . $id;
-		$description_commission .= "\nID PAYMENT : " . $id_payment;
-		$description_commission .= "\nPAYMENT AMOUNT: " . $amount_paid;
-		$description_commission .= "\nCOMMISSION APPLIED: " . $result_agent[0]['commission'];
-		$value_insert = "'" . $id_payment . "', '$id', '$commission','$description_commission','$id_agent'";
-		$commission_table = new Table("cc_agent_commission", $field_insert);
-		$id_commission = $commission_table->Add_table($DBHandle, $value_insert, null, null, "id");
-	}
+    if (is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission'] > 0) {
+        $field_insert = "id_payment, id_card, amount,description,id_agent";
+        $commission = ceil(($amount_paid * ($result_agent[0]['commission']) / 100) * 100) / 100;
+        $description_commission = gettext("AUTOMATICALY GENERATED COMMISSION!");
+        $description_commission .= "\nID CARD : " . $id;
+        $description_commission .= "\nID PAYMENT : " . $id_payment;
+        $description_commission .= "\nPAYMENT AMOUNT: " . $amount_paid;
+        $description_commission .= "\nCOMMISSION APPLIED: " . $result_agent[0]['commission'];
+        $value_insert = "'" . $id_payment . "', '$id', '$commission','$description_commission','$id_agent'";
+        $commission_table = new Table("cc_agent_commission", $field_insert);
+        $id_commission = $commission_table->Add_table($DBHandle, $value_insert, null, null, "id");
+    }
 }
-

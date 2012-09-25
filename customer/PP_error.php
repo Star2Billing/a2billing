@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,14 +27,13 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
-
-include ("lib/customer.defines.php");
+include 'lib/customer.defines.php';
 session_destroy();
-include ("lib/customer.smarty.php");
+include 'lib/customer.smarty.php';
 
 $smarty->display('header.tpl');
 
@@ -52,30 +51,29 @@ $error["accessdenied"] = gettext("Sorry, you don't have access to this page !");
 <div class="block-updesign">
 
 <div id="login-wrapper" class="login-border-up">
-	<div class="login-border-down">
-	<div class="login-border-center">
-	<table>
-		<tr>
-			<td class="login-title" colspan="2">
-				<font size="3"> <?php echo gettext("ERROR PAGE");?> </font>
-			</td>
-		</tr>
-		<tr>
-			<td width="70px" align="center">
-				<img src="<?php echo KICON_PATH;?>/system-config-rootpassword.png">
-			</td>
-			<td align="center">
-				<b><font size="é"><?php echo $error[$c]?></font></b>
-			</td>
-		</tr>
+    <div class="login-border-down">
+    <div class="login-border-center">
+    <table>
+        <tr>
+            <td class="login-title" colspan="2">
+                <font size="3"> <?php echo gettext("ERROR PAGE");?> </font>
+            </td>
+        </tr>
+        <tr>
+            <td width="70px" align="center">
+                <img src="<?php echo KICON_PATH;?>/system-config-rootpassword.png">
+            </td>
+            <td align="center">
+                <b><font size="é"><?php echo $error[$c]?></font></b>
+            </td>
+        </tr>
     </table>
-      	<div style="text-align:right;padding-right:10px;" >
-	      	<a href="index.php" ><?php echo gettext("GO TO LOGIN PAGE"); ?>&nbsp;<img src="<?php echo Images_Path; ?>/key_go.png"> </a>
-      	</div>
-	</div>
-	
+          <div style="text-align:right;padding-right:10px;" >
+              <a href="index.php" ><?php echo gettext("GO TO LOGIN PAGE"); ?>&nbsp;<img src="<?php echo Images_Path; ?>/key_go.png"> </a>
+          </div>
+    </div>
 
-	</div>
+    </div>
 </div>
 
 </div>

@@ -31,22 +31,19 @@
  *
 **/
 
-
 /*
 Result :
     SIP & IAX CONFIGURATION
 
 Parameters :
-	activation_code : Concatenation of Customer's Account code + '_' + Customer's password
-	html : to display with <pre> tag
+    activation_code : Concatenation of Customer's Account code + '_' + Customer's password
+    html : to display with <pre> tag
 
 Usage :
     http://localhost/customer/webservice/Create_TrunkConfig.php?activation_code=XXXXXXXXXXX
 */
 
-
-include ("../lib/customer.defines.php");
-
+include '../lib/customer.defines.php';
 
 getpost_ifset(array('activation_code', 'html'));
 
@@ -65,34 +62,35 @@ if (isset($html)) echo "</pre>";
 function Service_Create_TrunkConfig($activation_code)
 {
 
-	$DBHandle = DbConnect();
-	$table_instance = new Table();
+    $DBHandle = DbConnect();
+    $table_instance = new Table();
 
-	if (!$DBHandle) {
-		write_log(LOGFILE_API_CALLBACK, basename(__FILE__).' line:'.__LINE__." ERROR CONNECT DB");
-		return array('500', ' ERROR - CONNECT DB ');
-	}
+    if (!$DBHandle) {
+        write_log(LOGFILE_API_CALLBACK, basename(__FILE__).' line:'.__LINE__." ERROR CONNECT DB");
 
-	list($accountnumber, $password) = (preg_split("{_}",$activation_code,2));
+        return array('500', ' ERROR - CONNECT DB ');
+    }
 
-	$QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.id_didgroup, cc.tariff, cc.vat, ct.gmtoffset, cc.voicemail_permitted, " .
-			 "cc.voicemail_activated, cc_card_group.users_perms, cc.currency " .
-			 "FROM cc_card cc LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone LEFT JOIN cc_card_group ON cc_card_group.id=cc.id_group " .
-			 "WHERE cc.username = '".$accountnumber."' AND cc.uipass = '".$password."'";
-	$res = $DBHandle -> Execute($QUERY);
+    list($accountnumber, $password) = (preg_split("{_}",$activation_code,2));
 
-	if (!$res) {
-		return array('400', ' ERROR - AUTHENTICATE CODE');
-	}
-	$row [] = $res -> fetchRow();
-	$card_id = $row[0][3];
+    $QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.id_didgroup, cc.tariff, cc.vat, ct.gmtoffset, cc.voicemail_permitted, " .
+             "cc.voicemail_activated, cc_card_group.users_perms, cc.currency " .
+             "FROM cc_card cc LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone LEFT JOIN cc_card_group ON cc_card_group.id=cc.id_group " .
+             "WHERE cc.username = '".$accountnumber."' AND cc.uipass = '".$password."'";
+    $res = $DBHandle -> Execute($QUERY);
 
-	if (!$card_id || $card_id < 0) {
-		return array('400', ' ERROR - AUTHENTICATE CODE');
-	}
+    if (!$res) {
+        return array('400', ' ERROR - AUTHENTICATE CODE');
+    }
+    $row [] = $res -> fetchRow();
+    $card_id = $row[0][3];
 
-	$QUERY_IAX = "SELECT iax.id, iax.username, iax.secret, iax.disallow, iax.allow, iax.type, iax.host, iax.context FROM cc_iax_buddies iax WHERE iax.id_cc_card = $card_id";
-	$QUERY_SIP = "SELECT sip.id, sip.username, sip.secret, sip.disallow, sip.allow, sip.type, sip.host, sip.context FROM cc_sip_buddies sip WHERE sip.id_cc_card = $card_id";
+    if (!$card_id || $card_id < 0) {
+        return array('400', ' ERROR - AUTHENTICATE CODE');
+    }
+
+    $QUERY_IAX = "SELECT iax.id, iax.username, iax.secret, iax.disallow, iax.allow, iax.type, iax.host, iax.context FROM cc_iax_buddies iax WHERE iax.id_cc_card = $card_id";
+    $QUERY_SIP = "SELECT sip.id, sip.username, sip.secret, sip.disallow, sip.allow, sip.type, sip.host, sip.context FROM cc_sip_buddies sip WHERE sip.id_cc_card = $card_id";
 
     $iax_data = $table_instance->SQLExec ($DBHandle, $QUERY_IAX);
     $sip_data = $table_instance->SQLExec ($DBHandle, $QUERY_SIP);
@@ -102,44 +100,37 @@ function Service_Create_TrunkConfig($activation_code)
     $additional_iax = explode("|", IAX_ADDITIONAL_PARAMETERS);
 
     // SIP
-	$Config_output = "#PROTOCOL:SIP#\n#SIP-TRUNK-CONFIG-START#\n[trunkname]\n";
-	$Config_output .= "username=".$sip_data[0][1]."\n";
-	$Config_output .= "type=friend\n";
-	$Config_output .= "secret=".$sip_data[0][2]."\n";
-	$Config_output .= "host=".$sip_data[0][6]."\n";
-	$Config_output .= "context=".$sip_data[0][7]."\n";
-	$Config_output .= "disallow=all\n";
-	$Config_output .= "allow=".SIP_IAX_INFO_ALLOWCODEC."\n";
-	if (count($additional_sip) > 0)
-    {
-	    for ($i = 0; $i< count($additional_sip); $i++)
-	    {
-	        $Config_output .= trim($additional_sip[$i]).chr(10);
-	    }
+    $Config_output = "#PROTOCOL:SIP#\n#SIP-TRUNK-CONFIG-START#\n[trunkname]\n";
+    $Config_output .= "username=".$sip_data[0][1]."\n";
+    $Config_output .= "type=friend\n";
+    $Config_output .= "secret=".$sip_data[0][2]."\n";
+    $Config_output .= "host=".$sip_data[0][6]."\n";
+    $Config_output .= "context=".$sip_data[0][7]."\n";
+    $Config_output .= "disallow=all\n";
+    $Config_output .= "allow=".SIP_IAX_INFO_ALLOWCODEC."\n";
+    if (count($additional_sip) > 0) {
+        for ($i = 0; $i< count($additional_sip); $i++) {
+            $Config_output .= trim($additional_sip[$i]).chr(10);
+        }
     }
-	$Config_output .= "#SIP-TRUNK-CONFIG-END#\n\n";
+    $Config_output .= "#SIP-TRUNK-CONFIG-END#\n\n";
 
-	// IAX
-	$Config_output .= "#PROTOCOL:IAX#\n#IAX-TRUNK-CONFIG-START#\n[trunkname]\n";
-	$Config_output .= "username=".$iax_data[0][1]."\n";
-	$Config_output .= "type=friend\n";
-	$Config_output .= "secret=".$iax_data[0][2]."\n";
-	$Config_output .= "host=".$iax_data[0][6]."\n";
-	$Config_output .= "context=".$iax_data[0][7]."\n";
-	$Config_output .= "disallow=all\n";
-	$Config_output .= "allow=".SIP_IAX_INFO_ALLOWCODEC."\n";
-	if (count($additional_iax) > 0)
-    {
-	    for ($i = 0; $i< count($additional_iax); $i++)
-	    {
-	        $Config_output .= trim($additional_iax[$i]).chr(10);
-	    }
+    // IAX
+    $Config_output .= "#PROTOCOL:IAX#\n#IAX-TRUNK-CONFIG-START#\n[trunkname]\n";
+    $Config_output .= "username=".$iax_data[0][1]."\n";
+    $Config_output .= "type=friend\n";
+    $Config_output .= "secret=".$iax_data[0][2]."\n";
+    $Config_output .= "host=".$iax_data[0][6]."\n";
+    $Config_output .= "context=".$iax_data[0][7]."\n";
+    $Config_output .= "disallow=all\n";
+    $Config_output .= "allow=".SIP_IAX_INFO_ALLOWCODEC."\n";
+    if (count($additional_iax) > 0) {
+        for ($i = 0; $i< count($additional_iax); $i++) {
+            $Config_output .= trim($additional_iax[$i]).chr(10);
+        }
     }
-	$Config_output .= "#IAX-TRUNK-CONFIG-END#\n\n";
+    $Config_output .= "#IAX-TRUNK-CONFIG-END#\n\n";
 
-	return array($Config_output, '200 -- Config OK');
+    return array($Config_output, '200 -- Config OK');
 
 }
-
-
-

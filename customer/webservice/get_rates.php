@@ -31,27 +31,25 @@
  *
 **/
 
-
-
 /*
 Result :
     Send the Customer's Rates using the LCR/LCD Logic
 
 Parameters :
-	activation_code : Concatenation of Customer's Account code + '_' + Customer's password
-	html : to display with <pre> tag
+    activation_code : Concatenation of Customer's Account code + '_' + Customer's password
+    html : to display with <pre> tag
 
 Usage :
     http://localhost/customer/webservice/Get_Rates.php?activation_code=XXXXXXXXXXX
 */
 
-include ("../lib/customer.defines.php");
+include '../lib/customer.defines.php';
 
 
 getpost_ifset(array('activation_code', 'html'));
 
 if ($activation_code) {
-	$activation_code = trim($activation_code);
+    $activation_code = trim($activation_code);
 }
 
 $rates = Service_Get_Rates($activation_code);
@@ -66,55 +64,53 @@ if (isset($html)) echo "</pre>";
 function Service_Get_Rates($activation_code)
 {
 
-	$DBHandle = DbConnect();
-	$table_instance = new Table();
+    $DBHandle = DbConnect();
+    $table_instance = new Table();
 
-	if (!$DBHandle) {
-		write_log(LOGFILE_API_CALLBACK, basename(__FILE__).' line:'.__LINE__." ERROR CONNECT DB");
-		return array('500', ' ERROR - CONNECT DB ');
-	}
+    if (!$DBHandle) {
+        write_log(LOGFILE_API_CALLBACK, basename(__FILE__).' line:'.__LINE__." ERROR CONNECT DB");
 
-	list($accountnumber, $password) = (preg_split("{_}",$activation_code,2));
+        return array('500', ' ERROR - CONNECT DB ');
+    }
 
-	$QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.id_didgroup, cc.tariff, cc.vat, ct.gmtoffset, cc.voicemail_permitted, " .
-			 "cc.voicemail_activated, cc_card_group.users_perms, cc.currency " .
-			 "FROM cc_card cc LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone LEFT JOIN cc_card_group ON cc_card_group.id=cc.id_group " .
-			 "WHERE cc.username = '".$accountnumber."' AND cc.uipass = '".$password."'";
-	$res = $DBHandle -> Execute($QUERY);
+    list($accountnumber, $password) = (preg_split("{_}",$activation_code,2));
 
-	if (!$res) {
-		return array('400', ' ERROR - AUTHENTICATE CODE');
-	}
-	$row [] = $res -> fetchRow();
-	$card_id = $row[0][3];
+    $QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.id_didgroup, cc.tariff, cc.vat, ct.gmtoffset, cc.voicemail_permitted, " .
+             "cc.voicemail_activated, cc_card_group.users_perms, cc.currency " .
+             "FROM cc_card cc LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone LEFT JOIN cc_card_group ON cc_card_group.id=cc.id_group " .
+             "WHERE cc.username = '".$accountnumber."' AND cc.uipass = '".$password."'";
+    $res = $DBHandle -> Execute($QUERY);
 
-	if (!$card_id || $card_id < 0) {
-		return array('400', ' ERROR - AUTHENTICATE CODE');
-	}
+    if (!$res) {
+        return array('400', ' ERROR - AUTHENTICATE CODE');
+    }
+    $row [] = $res -> fetchRow();
+    $card_id = $row[0][3];
 
-	$QUERY = "SELECT SQL_CALC_FOUND_ROWS dialprefix, destination, MIN(rateinitial) as rateinitial FROM cc_callplan_lcr WHERE tariffgroup_id = '220' ".
-	         "GROUP BY dialprefix ORDER BY destination ASC LIMIT 0,50000";
+    if (!$card_id || $card_id < 0) {
+        return array('400', ' ERROR - AUTHENTICATE CODE');
+    }
 
-	$res = $DBHandle -> Execute($QUERY);
+    $QUERY = "SELECT SQL_CALC_FOUND_ROWS dialprefix, destination, MIN(rateinitial) as rateinitial FROM cc_callplan_lcr WHERE tariffgroup_id = '220' ".
+             "GROUP BY dialprefix ORDER BY destination ASC LIMIT 0,50000";
 
-	$num = 0;
+    $res = $DBHandle -> Execute($QUERY);
+
+    $num = 0;
     if ($res)
-	    $num = $res->RecordCount();
+        $num = $res->RecordCount();
 
     if (!$num) {
-	    return array('400', ' ERROR - NO RATES FOUND');
+        return array('400', ' ERROR - NO RATES FOUND');
     }
 
     $rates = '';
     $arr_rates = array();
     for ($i = 0; $i < $num; $i++) {
-	    $arr_rates[$i] = $res->fetchRow();
-	    $rates .= '"'.$arr_rates[$i]['destination'].'","'.$arr_rates[$i]['dialprefix'].'","'.$arr_rates[$i]['rateinitial']."\"\n";
+        $arr_rates[$i] = $res->fetchRow();
+        $rates .= '"'.$arr_rates[$i]['destination'].'","'.$arr_rates[$i]['dialprefix'].'","'.$arr_rates[$i]['rateinitial']."\"\n";
     }
 
-	return array($rates, '200 -- Rates OK');
+    return array($rates, '200 -- Rates OK');
 
 }
-
-
-

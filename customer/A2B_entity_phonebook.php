@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,42 +27,40 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
-
-include ("./lib/customer.defines.php");
-include ("./lib/customer.module.access.php");
-include ("./lib/Form/Class.FormHandler.inc.php");
-include ("./form_data/FG_var_phonebook.inc");
-include ("lib/customer.smarty.php");
+include './lib/customer.defines.php';
+include './lib/customer.module.access.php';
+include './lib/Form/Class.FormHandler.inc.php';
+include './form_data/FG_var_phonebook.inc';
+include 'lib/customer.smarty.php';
 
 if (!has_rights(ACX_AUTODIALER)) {
-	Header("HTTP/1.0 401 Unauthorized");
-	Header("Location: PP_error.php?c=accessdenied");
-	die();
+    Header("HTTP/1.0 401 Unauthorized");
+    Header("Location: PP_error.php?c=accessdenied");
+    die();
 }
 
 getpost_ifset(array (
-	'popup_select',
-	'popup_formname',
-	'popup_fieldname'
+    'popup_select',
+    'popup_formname',
+    'popup_fieldname'
 ));
-
 
 $HD_Form->setDBHandler(DbConnect());
 
 $HD_Form->init();
 
 if ($id != "" || !is_null($id)) {
-	$HD_Form->FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form->FG_EDITION_CLAUSE);
+    $HD_Form->FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form->FG_EDITION_CLAUSE);
 }
 
 if (!isset ($form_action))
-	$form_action = "list"; //ask-add
+    $form_action = "list"; //ask-add
 if (!isset ($action))
-	$action = $form_action;
+    $action = $form_action;
 
 $list = $HD_Form->perform_action($form_action);
 
@@ -79,5 +77,4 @@ $HD_Form->create_form($form_action, $list, $id = null);
 
 // #### FOOTER SECTION
 if (!$popup_select)
-	$smarty->display('footer.tpl');
-	
+    $smarty->display('footer.tpl');
