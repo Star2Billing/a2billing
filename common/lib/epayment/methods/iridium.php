@@ -48,26 +48,26 @@ class iridium
 
     public function selection()
     {
-              global $order;
+        global $order;
 
         $countries = get_countries();
 
-              for ($i=1; $i<13; $i++) {
-                $expires_month[] = array('id' => sprintf('%02d', $i), 'text' => strftime('%B',mktime(0,0,0,$i,1,2000)));
-              }
+        for ($i=1; $i<13; $i++) {
+            $expires_month[] = array('id' => sprintf('%02d', $i), 'text' => strftime('%B',mktime(0,0,0,$i,1,2000)));
+        }
 
-              for ($i=1; $i<32; $i++) {
-                $dom[] = array('id' => sprintf('%02d', $i), 'text' => sprintf('%02d', $i));
-              }
+        for ($i=1; $i<32; $i++) {
+            $dom[] = array('id' => sprintf('%02d', $i), 'text' => sprintf('%02d', $i));
+        }
 
-              $today = getdate();
-                  for ($i=$today['year']; $i < $today['year']+10; $i++) {
-                $expires_year[] = array('id' => strftime('%y',mktime(0,0,0,1,1,$i)), 'text' => strftime('%Y',mktime(0,0,0,1,1,$i)));
-              }
+        $today = getdate();
+        for ($i=$today['year']; $i < $today['year']+10; $i++) {
+            $expires_year[] = array('id' => strftime('%y',mktime(0,0,0,1,1,$i)), 'text' => strftime('%Y',mktime(0,0,0,1,1,$i)));
+        }
 
-              for ($i=$today['year']-10; $i <= $today['year']; $i++) {
-                $starts_year[] = array('id' => strftime('%y',mktime(0,0,0,1,1,$i)), 'text' => strftime('%Y',mktime(0,0,0,1,1,$i)));
-              }
+        for ($i=$today['year']-10; $i <= $today['year']; $i++) {
+            $starts_year[] = array('id' => strftime('%y',mktime(0,0,0,1,1,$i)), 'text' => strftime('%Y',mktime(0,0,0,1,1,$i)));
+        }
 
         if (isset($_SESSION["agent_id"]) && !empty($_SESSION["agent_id"])) {
                 $QUERY = "SELECT login as username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, '1', currency FROM cc_agent WHERE id = '".$_SESSION["agent_id"]."'";
@@ -81,10 +81,12 @@ class iridium
             $DBHandle  = DbConnect();
             $resmax = $DBHandle -> query($QUERY);
             $numrow = $resmax -> numRows();
-            if ($numrow == 0) {exit();}
+            if ($numrow == 0) {
+                exit();
+            }
             $customer_info =$resmax -> fetchRow();
             if ($customer_info [12] != "1") {
-                       exit();
+                exit();
             }
             $name = $customer_info['firstname'] . ' ' . $customer_info['lastname'];
             $addr1 = $customer_info['address'];
@@ -150,47 +152,47 @@ class iridium
 
     public function pre_confirmation_check()
     {
-    global $_POST, $cvv;
+        global $_POST, $cvv;
 
         //include(dirname(__FILE__).'/../classes/cc_validation.php');
         //$cc_validation = new cc_validation();
-    $cardNo = $_POST['CardNumber'];
+        $cardNo = $_POST['CardNumber'];
         //$result = $cc_validation->validate($cardNo, $_POST['ExpiryDateMonth'], $_POST['ExpiryDateYear'], $_POST['CV2'], '');
-    $result = true;
+        $result = true;
 
         $error = '';
-      $ccErrors [0] = "Credit card number has invalid format";
-      $ccErrors [1] = "Credit card number is invalid";
+        $ccErrors [0] = "Credit card number has invalid format";
+        $ccErrors [1] = "Credit card number is invalid";
 
-    if (!preg_match('/^[0-9]{13,19}$/i',$cardNo)) {
-             $errornumber = 0;
-             $error = $ccErrors [$errornumber];
-             $result = false;
-    }
-
-    $checksum = 0;
-    $j = 1;
-    for ($i = strlen($cardNo) - 1; $i >= 0; $i--) {
-        $calc = $cardNo{$i} * $j;
-        if ($calc > 9) {
-            $checksum = $checksum + 1;
-            $calc = $calc - 10;
+        if (!preg_match('/^[0-9]{13,19}$/i',$cardNo)) {
+            $errornumber = 0;
+            $error = $ccErrors [$errornumber];
+            $result = false;
         }
-        $checksum = $checksum + $calc;
-        if ($j ==1) {$j = 2;} else {$j = 1;};
-    }
-    if ($checksum % 10 != 0) {
-        $errornumber = 1;
-        $error = $ccErrors [$errornumber];
-        $result = false;
-    }
 
-    if ( ($result == false) ) {
-        $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&CardName=' . urlencode($_POST['CardName']) . '&ExpiryDateMonth=' . $_POST['ExpiryDateMonth'] . '&ExpiryDateYear=' . $_POST['ExpiryDateYear'];
-        $payment_error_return .= '&amount=' . $_POST['amount'].'&item_name=' . $_POST['item_name'].'&item_number=' . $_POST['item_number'];
-        $payment_error_return .= '&item_id='.$_POST['item_id'].'&item_type='.$_POST['item_type'];
-        //tep_redirect(tep_href_link("checkout_payment.php", $payment_error_return, 'SSL', true, false));
-    }
+        $checksum = 0;
+        $j = 1;
+        for ($i = strlen($cardNo) - 1; $i >= 0; $i--) {
+            $calc = $cardNo{$i} * $j;
+            if ($calc > 9) {
+                $checksum = $checksum + 1;
+                $calc = $calc - 10;
+            }
+            $checksum = $checksum + $calc;
+            if ($j ==1) {$j = 2;} else {$j = 1;};
+        }
+        if ($checksum % 10 != 0) {
+            $errornumber = 1;
+            $error = $ccErrors [$errornumber];
+            $result = false;
+        }
+
+        if ( ($result == false) ) {
+            $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&CardName=' . urlencode($_POST['CardName']) . '&ExpiryDateMonth=' . $_POST['ExpiryDateMonth'] . '&ExpiryDateYear=' . $_POST['ExpiryDateYear'];
+            $payment_error_return .= '&amount=' . $_POST['amount'].'&item_name=' . $_POST['item_name'].'&item_number=' . $_POST['item_number'];
+            $payment_error_return .= '&item_id='.$_POST['item_id'].'&item_type='.$_POST['item_type'];
+            //tep_redirect(tep_href_link("checkout_payment.php", $payment_error_return, 'SSL', true, false));
+        }
 
         return false;
     }
@@ -200,69 +202,68 @@ class iridium
         return false;
     }
 
-   public function threeDSecureAuth($mdMerchantDetails, $rgeplRequestGatewayEntryPointList, $CrossReference, $PaRES)
-   {
-     $tdsidThreeDSecureInputData = new ThreeDSecureInputData($CrossReference, $PaRES);
-     $tdsaThreeDSecureAuthentication = new ThreeDSecureAuthentication($rgeplRequestGatewayEntryPointList, 1, null, $mdMerchantDetails, $tdsidThreeDSecureInputData, "Some data to be passed out");
-     $boTransactionProcessed = $tdsaThreeDSecureAuthentication->processTransaction($goGatewayOutput, $tomTransactionOutputMessage);
+    public function threeDSecureAuth($mdMerchantDetails, $rgeplRequestGatewayEntryPointList, $CrossReference, $PaRES)
+    {
+        $tdsidThreeDSecureInputData = new ThreeDSecureInputData($CrossReference, $PaRES);
+        $tdsaThreeDSecureAuthentication = new ThreeDSecureAuthentication($rgeplRequestGatewayEntryPointList, 1, null, $mdMerchantDetails, $tdsidThreeDSecureInputData, "Some data to be passed out");
+        $boTransactionProcessed = $tdsaThreeDSecureAuthentication->processTransaction($goGatewayOutput, $tomTransactionOutputMessage);
 
-     if ($boTransactionProcessed == false) {
-          // could not communicate with the payment gateway
-          $Message = "Couldn't communicate with payment gateway";
-        $retCode = -2;
-     } else {
-          switch ($goGatewayOutput->getStatusCode()) {
+        if ($boTransactionProcessed == false) {
+            // could not communicate with the payment gateway
+            $Message = "Couldn't communicate with payment gateway";
+            $retCode = -2;
+        } else {
+            switch ($goGatewayOutput->getStatusCode()) {
 
-           case 0:
+            case 0:
                 // status code of 0 - means transaction successful
                 $Message = $goGatewayOutput->getMessage();
             write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__.$Message );
                 $retCode = 2;
                 break;
-           case 5:
+            case 5:
                 // status code of 5 - means transaction declined
                 $Message = $goGatewayOutput->getMessage();
-            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__.$Message );
-            $retCode = -2;
+                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__.$Message );
+                $retCode = -2;
                 break;
-           case 20:
+            case 20:
                 // status code of 20 - means duplicate transaction
                 $Message = $goGatewayOutput->getMessage();
-            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__.$Message );
+                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__.$Message );
                 if ($goGatewayOutput->getPreviousTransactionResult()->getStatusCode()->getValue() == 0) {
-                $retCode = 2;
+                    $retCode = 2;
                 } else {
-                $retCode = -2;
-                   }
+                    $retCode = -2;
+                }
                 $PreviousTransactionMessage = $goGatewayOutput->getPreviousTransactionResult()->getMessage();
                 break;
-           case 30:
+            case 30:
                 // status code of 30 - means an error occurred
                 $Message = $goGatewayOutput->getMessage();
                 if ($goGatewayOutput->getErrorMessages()->getCount() > 0) {
-                     $Message = $Message."<br /><ul>";
-                     for ($LoopIndex = 0; $LoopIndex < $goGatewayOutput->getErrorMessages()->getCount(); $LoopIndex++) {
-                          $Message = $Message."<li>".$goGatewayOutput->getErrorMessages()->getAt($LoopIndex)."</li>";
-                     }
-                     $Message = $Message."</ul>";
-                $retCode = -2;
+                    $Message = $Message."<br /><ul>";
+                    for ($LoopIndex = 0; $LoopIndex < $goGatewayOutput->getErrorMessages()->getCount(); $LoopIndex++) {
+                        $Message = $Message."<li>".$goGatewayOutput->getErrorMessages()->getAt($LoopIndex)."</li>";
+                    }
+                    $Message = $Message."</ul>";
+                    $retCode = -2;
                 }
-            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__.$Message );
+                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__.$Message );
                 break;
-           default:
+            default:
                 // unhandled status code
                 $Message=$goGatewayOutput->getMessage();
-            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__.$Message );
-            $retCode = -2;
+                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__.$Message );
+                $retCode = -2;
                 break;
-          }
-
-     }
+        }
+    }
 
     return $retCode;
-   }
+}
 
-    public function process_payment()
+public function process_payment()
     {
     foreach ($_POST as $field => $value) {
         $$field = $value;
