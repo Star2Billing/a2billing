@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,18 +27,17 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
-
-include_once ("../../lib/admin.defines.php");
-include_once ("../../lib/admin.module.access.php");
+include_once '../../lib/admin.defines.php';
+include_once '../../lib/admin.module.access.php';
 
 if (!has_rights(ACX_DASHBOARD)) {
-	Header("HTTP/1.0 401 Unauthorized");
-	Header("Location: PP_error.php?c=accessdenied");
-	die();
+    Header("HTTP/1.0 401 Unauthorized");
+    Header("Location: PP_error.php?c=accessdenied");
+    die();
 }
 
 $DBHandle = DbConnect();
@@ -71,24 +70,24 @@ $result_count_suspended = $result[0][0];
 ?>
 
 <?php echo gettext("Total Number of Accounts ");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > <?php echo $result_count_all; ?> </font> <br/>
-<?php if($result_count_actived>0){ ?>	
+<?php if ($result_count_actived>0) { ?>
   <?php echo gettext("Total Number of Active Accounts ");?>&nbsp;:&nbsp;<?php echo $result_count_actived; ?><br/>
 <?php } ?>
-<?php if($result_count_cancelled>0){ ?>
-	<?php echo gettext("Cancelled Accounts ");?>&nbsp;:&nbsp;<?php echo $result_count_cancelled; ?><br/>
+<?php if ($result_count_cancelled>0) { ?>
+    <?php echo gettext("Cancelled Accounts ");?>&nbsp;:&nbsp;<?php echo $result_count_cancelled; ?><br/>
 <?php } ?>
-<?php if($result_count_new>0){ ?> 	
-	<?php echo gettext("New Accounts ");?>&nbsp;:&nbsp;<?php echo $result_count_new; ?><br/>
+<?php if ($result_count_new>0) { ?>
+    <?php echo gettext("New Accounts ");?>&nbsp;:&nbsp;<?php echo $result_count_new; ?><br/>
 <?php } ?>
-<?php if($result_count_waiting>0){ ?>
- 	<?php echo gettext("Account not yet Activated");?>&nbsp;:&nbsp;<?php echo $result_count_waiting; ?><br/>
+<?php if ($result_count_waiting>0) { ?>
+     <?php echo gettext("Account not yet Activated");?>&nbsp;:&nbsp;<?php echo $result_count_waiting; ?><br/>
 <?php } ?>
-<?php if($result_count_reserved>0){ ?>
-  	<?php echo gettext("Accounts Reserved");?>&nbsp;:&nbsp;<?php echo $result_count_reserved; ?><br/>
+<?php if ($result_count_reserved>0) { ?>
+      <?php echo gettext("Accounts Reserved");?>&nbsp;:&nbsp;<?php echo $result_count_reserved; ?><br/>
 <?php } ?>
-<?php if($result_count_expired>0){ ?>
-	<?php echo gettext("Accounts Expired");?>&nbsp;:&nbsp;<?php echo $result_count_expired; ?><br/>
+<?php if ($result_count_expired>0) { ?>
+    <?php echo gettext("Accounts Expired");?>&nbsp;:&nbsp;<?php echo $result_count_expired; ?><br/>
 <?php } ?>
-<?php if($result_count_suspended>0){ ?>
-	<?php echo gettext("Accounts Suspended ");?>&nbsp;:<?php echo $result_count_suspended; ?><br/>
-<?php } ?>
+<?php if ($result_count_suspended>0) { ?>
+    <?php echo gettext("Accounts Suspended ");?>&nbsp;:<?php echo $result_count_suspended; ?><br/>
+<?php }

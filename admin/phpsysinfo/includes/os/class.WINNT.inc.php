@@ -1,4 +1,4 @@
-<?php 
+<?php
 // phpSysInfo - A PHP System Information Script
 // http://phpsysinfo.sourceforge.net/
 // This program is free software; you can redistribute it and/or
@@ -15,15 +15,16 @@
 // WINNT implementation written by Carl C. Longnecker, longneck@iname.com
 // $Id: class.WINNT.inc.php,v 1.25 2007/03/07 20:21:27 bigmichi1 Exp $
 
-class sysinfo {
+class sysinfo
+{
   // $wmi holds the COM object that we pull all the WMI data from
-  var $wmi; 
+  public $wmi;
 
   // $wmidevices holds all devices, which are in the system
-  var $wmidevices;
+  public $wmidevices;
 
   // this constructor initialis the $wmi object
-  function sysinfo ()
+  public function sysinfo ()
   {
     // don't set this params for local connection, it will not work
     $strHostname = '';
@@ -32,18 +33,19 @@ class sysinfo {
 
     // initialize the wmi object
     $objLocator = new COM("WbemScripting.SWbemLocator");
-    if($strHostname == "") {
+    if ($strHostname == "") {
         $this->wmi = $objLocator->ConnectServer();
-      } else{
+      } else {
         $this->wmi = $objLocator->ConnectServer($strHostname, "rootcimv2", "$strHostname\$strUser", $strPassword);
       }
-  } 
+  }
 
   // private function for getting a list of values in the specified context, optionally filter this list, based on the list from second parameter
-  function _GetWMI($strClass, $strValue = array() ) {
+  public function _GetWMI($strClass, $strValue = array() )
+  {
     $objWEBM = $this->wmi->Get($strClass);
 
-    if( PHP_VERSION < 5 ) {
+    if (PHP_VERSION < 5) {
       $objProp = $objWEBM->Properties_;
       $arrProp = $objProp->Next($objProp->Count);
       $objWEBMCol = $objWEBM->Instances_();
@@ -53,83 +55,89 @@ class sysinfo {
       $arrWEBMCol = $objWEBM->Instances_();
     }
 
-    foreach($arrWEBMCol as $objItem)
-    {
+    foreach ($arrWEBMCol as $objItem) {
         @reset($arrProp);
         $arrInstance = array();
-        foreach($arrProp as $propItem)
-        {
+        foreach ($arrProp as $propItem) {
             eval("\$value = \$objItem->" .$propItem->Name .";");
-            if( empty( $strValue ) ) {
+            if ( empty( $strValue ) ) {
               $arrInstance[$propItem->Name] = trim($value);
             } else {
-              if( in_array( $propItem->Name, $strValue ) ) {
+              if ( in_array( $propItem->Name, $strValue ) ) {
                 $arrInstance[$propItem->Name] = trim($value);
               }
             }
         }
         $arrData[] = $arrInstance;
     }
+
     return $arrData;
   }
 
   // private function for getting different device types from the system
-  function _devicelist ( $strType ) {
-    if( empty( $this->wmidevices ) ) {
+  public function _devicelist ( $strType )
+  {
+    if ( empty( $this->wmidevices ) ) {
       $this->wmidevices = $this->_GetWMI( "Win32_PnPEntity", array( "Name", "PNPDeviceID" ) );
     }
 
     $list = array();
-    foreach ( $this->wmidevices as $device ) {
+    foreach ($this->wmidevices as $device) {
       if ( substr( $device["PNPDeviceID"], 0, strpos( $device["PNPDeviceID"], "\\" ) + 1 ) == ( $strType . "\\" ) ) {
         $list[] = $device["Name"];
-      } 
+      }
     }
 
     return $list;
   }
-  
+
   // get our apache SERVER_NAME or vhost
-  function vhostname () {
+  public function vhostname ()
+  {
     if (! ($result = getenv('SERVER_NAME'))) {
       $result = 'N.A.';
-    } 
+    }
+
     return $result;
-  } 
+  }
 
   // get the IP address of our vhost name
-  function vip_addr () {
+  public function vip_addr ()
+  {
     return gethostbyname($this->vhostname());
   }
 
   // get our canonical hostname
-  function chostname ()
+  public function chostname ()
   {
     $buffer = $this->_GetWMI( "Win32_ComputerSystem", array( "Name" ) );
     $result = $buffer[0]["Name"];
+
     return gethostbyaddr(gethostbyname($result));
   }
 
   // get the IP address of our canonical hostname
-  function ip_addr ()
+  public function ip_addr ()
   {
     $buffer = $this->_GetWMI( "Win32_ComputerSystem", array( "Name" ) );
     $result = $buffer[0]["Name"];
+
     return gethostbyname($result);
   }
 
-  function kernel ()
+  public function kernel ()
   {
     $buffer = $this->_GetWMI( "Win32_OperatingSystem", array( "Version", "ServicePackMajorVersion" ) );
     $result = $buffer[0]["Version"];
-    if( $buffer[0]["ServicePackMajorVersion"] > 0 ) {
+    if ($buffer[0]["ServicePackMajorVersion"] > 0) {
       $result .= " SP" . $buffer[0]["ServicePackMajorVersion"];
     }
+
     return $result;
-  } 
+  }
 
   // get the time the system is running
-  function uptime ()
+  public function uptime ()
   {
     $result = 0;
     $buffer = $this->_GetWMI( "Win32_OperatingSystem", array( "LastBootUpTime", "LocalDateTime" ) );
@@ -154,32 +162,34 @@ class sysinfo {
     $result = $localtime - $boottime;
 
     return $result;
-  } 
+  }
 
   // count the users, which are logged in
-  function users ()
+  public function users ()
   {
-    if( stristr( $this->kernel(), "2000 P" ) ) return "N.A."; 
+    if( stristr( $this->kernel(), "2000 P" ) ) return "N.A.";
     $buffer = $this->_GetWMI( "Win32_PerfRawData_TermService_TerminalServices", array( "TotalSessions" ) );
+
     return $buffer[0]["TotalSessions"];
-  } 
+  }
 
   // get the load of the processors
-  function loadavg ($bar = false)
+  public function loadavg ($bar = false)
   {
     $buffer = $this->_GetWMI( "Win32_Processor", array( "LoadPercentage" ) );
     $cpuload = array();
-    for( $i = 0; $i < count( $buffer ); $i++ ) {
+    for ( $i = 0; $i < count( $buffer ); $i++ ) {
       $cpuload['avg'][] = $buffer[$i]["LoadPercentage"];
     }
     if ($bar) {
       $cpuload['cpupercent'] = array_sum( $cpuload['avg'] ) / count( $buffer );
     }
+
     return $cpuload;
-  } 
+  }
 
   // get some informations about the cpu's
-  function cpu_info ()
+  public function cpu_info ()
   {
     $buffer = $this->_GetWMI( "Win32_Processor", array( "Name", "L2CacheSize", "CurrentClockSpeed", "ExtClock" ) );
     $results["cpus"] = 0;
@@ -189,84 +199,91 @@ class sysinfo {
       $results["cache"] = $cpu["L2CacheSize"];
       $results["cpuspeed"] = $cpu["CurrentClockSpeed"];
       $results["busspeed"] = $cpu["ExtClock"];
-    } 
+    }
+
     return $results;
-  } 
+  }
 
   // get the pci devices from the system
-  function pci ()
+  public function pci ()
   {
     $pci = $this->_devicelist( "PCI" );
+
     return $pci;
-  } 
+  }
 
   // get the ide devices from the system
-  function ide ()
+  public function ide ()
   {
     $buffer = $this->_devicelist( "IDE" );
     $ide = array();
-    foreach ( $buffer as $device ) {
+    foreach ($buffer as $device) {
         $ide[]['model'] = $device;
-    } 
+    }
+
     return $ide;
-  } 
+  }
 
   // get the scsi devices from the system
-  function scsi ()
+  public function scsi ()
   {
     $scsi = $this->_devicelist( "SCSI" );
+
     return $scsi;
-  } 
+  }
 
   // get the usb devices from the system
-  function usb ()
+  public function usb ()
   {
     $usb = $this->_devicelist( "USB" );
+
     return $usb;
-  } 
+  }
 
   // get the sbus devices from the system - currently not called
-  function sbus ()
+  public function sbus ()
   {
     $sbus = $this->_devicelist( "SBUS" );
+
     return $sbus;
-  } 
+  }
 
-	// get the netowrk devices and rx/tx bytes
-	function network () {
-		$results = array();
-		$buffer = $this->_GetWMI( "Win32_PerfRawData_Tcpip_NetworkInterface" );
-		foreach( $buffer as $device ) {
-			$dev_name = $device["Name"];
-			// http://msdn.microsoft.com/library/default.asp?url=/library/en-us/wmisdk/wmi/win32_perfrawdata_tcpip_networkinterface.asp
-			// there is a possible bug in the wmi interfaceabout uint32 and uint64: http://www.ureader.com/message/1244948.aspx, so that
-			// magative numbers would occour, try to calculate the nagative value from total - positive number
-			
-			if( $device["BytesSentPersec"] < 0) {
-				$results[$dev_name]['tx_bytes'] = $device["BytesTotalPersec"] - $device["BytesReceivedPersec"];
-			} else {
-				$results[$dev_name]['tx_bytes'] = $device["BytesSentPersec"];
-			}
-			if( $device["BytesReceivedPersec"] < 0 ) {
-				$results[$dev_name]['rx_bytes'] = $device["BytesTotalPersec"] - $device["BytesSentPersec"];
-			} else {
-				$results[$dev_name]['rx_bytes'] = $device["BytesReceivedPersec"];
-			}
-			
-			$results[$dev_name]['rx_packets'] = $device["PacketsReceivedPersec"];
-			$results[$dev_name]['tx_packets'] = $device["PacketsSentPersec"];
-			
-			$results[$dev_name]['rx_errs'] = $device["PacketsReceivedErrors"];
-			$results[$dev_name]['rx_drop'] = $device["PacketsReceivedDiscarded"];
-			
-			$results[$dev_name]['errs'] = $device["PacketsReceivedErrors"];
-			$results[$dev_name]['drop'] = $device["PacketsReceivedDiscarded"];
-		}
-		
-		return $results;
-	} 
+    // get the netowrk devices and rx/tx bytes
+    public function network ()
+    {
+        $results = array();
+        $buffer = $this->_GetWMI( "Win32_PerfRawData_Tcpip_NetworkInterface" );
+        foreach ($buffer as $device) {
+            $dev_name = $device["Name"];
+            // http://msdn.microsoft.com/library/default.asp?url=/library/en-us/wmisdk/wmi/win32_perfrawdata_tcpip_networkinterface.asp
+            // there is a possible bug in the wmi interfaceabout uint32 and uint64: http://www.ureader.com/message/1244948.aspx, so that
+            // magative numbers would occour, try to calculate the nagative value from total - positive number
 
-  function memory ()
+            if ($device["BytesSentPersec"] < 0) {
+                $results[$dev_name]['tx_bytes'] = $device["BytesTotalPersec"] - $device["BytesReceivedPersec"];
+            } else {
+                $results[$dev_name]['tx_bytes'] = $device["BytesSentPersec"];
+            }
+            if ($device["BytesReceivedPersec"] < 0) {
+                $results[$dev_name]['rx_bytes'] = $device["BytesTotalPersec"] - $device["BytesSentPersec"];
+            } else {
+                $results[$dev_name]['rx_bytes'] = $device["BytesReceivedPersec"];
+            }
+
+            $results[$dev_name]['rx_packets'] = $device["PacketsReceivedPersec"];
+            $results[$dev_name]['tx_packets'] = $device["PacketsSentPersec"];
+
+            $results[$dev_name]['rx_errs'] = $device["PacketsReceivedErrors"];
+            $results[$dev_name]['rx_drop'] = $device["PacketsReceivedDiscarded"];
+
+            $results[$dev_name]['errs'] = $device["PacketsReceivedErrors"];
+            $results[$dev_name]['drop'] = $device["PacketsReceivedDiscarded"];
+        }
+
+        return $results;
+    }
+
+  public function memory ()
   {
     $buffer = $this->_GetWMI( "Win32_LogicalMemoryConfiguration", array( "TotalPhysicalMemory" ) );
     $results['ram']['total'] = $buffer[0]["TotalPhysicalMemory"];
@@ -293,13 +310,14 @@ class sysinfo {
       $results['swap']['used'] += $results['devswap'][$k]['used'];
       $results['swap']['free'] += $results['devswap'][$k]['free'];
       $k += 1;
-    } 
+    }
     $results['swap']['percent'] = ceil( $results['swap']['used'] / $results['swap']['total'] * 100 );
+
     return $results;
-  } 
+  }
 
   // get the filesystem informations
-  function filesystems ()
+  public function filesystems ()
   {
      $typearray = array("Unknown", "No Root Directory", "Removeable Disk",
         "Local Disk", "Network Drive", "Compact Disc", "RAM Disk");
@@ -312,7 +330,7 @@ class sysinfo {
     $buffer = $this->_GetWMI( "Win32_LogicalDisk" , array( "Name", "Size", "FreeSpace", "FileSystem", "DriveType", "MediaType" ) );
 
     $k = 0;
-    foreach ( $buffer as $filesystem ) {
+    foreach ($buffer as $filesystem) {
       if ( hide_mount( $filesystem["Name"] ) ) {
         continue;
       }
@@ -325,20 +343,20 @@ class sysinfo {
       $results[$k]['disk'] = $typearray[$filesystem["DriveType"]];
       if ( $filesystem["MediaType"] != ""  && $filesystem["DriveType"] == 2 ) $results[$k]['disk'] .= " (" . $floppyarray[$filesystem["MediaType"]] . ")";
       $k += 1;
-    } 
-    return $results;
-  } 
+    }
 
-  function distro ()
+    return $results;
+  }
+
+  public function distro ()
   {
     $buffer = $this->_GetWMI( "Win32_OperatingSystem", array( "Caption" ) );
-    return $buffer[0]["Caption"];
-  } 
 
-  function distroicon ()
+    return $buffer[0]["Caption"];
+  }
+
+  public function distroicon ()
   {
     return 'xp.gif';
-  } 
-} 
-
-?>
+  }
+}

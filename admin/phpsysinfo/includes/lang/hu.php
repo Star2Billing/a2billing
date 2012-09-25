@@ -74,7 +74,7 @@ $text['gb']             = 'GB';
 
 $text['none']           = 'nincs';
 
-$text['capacity']       = 'Kapacítás'; 
+$text['capacity']       = 'Kapacítás';
 
 $text['template']       = 'Sablon';
 $text['language']       = 'Nyelv';
@@ -86,7 +86,7 @@ $text['gen_time']       = 'on %b %d, %Y at %I:%M %p';
 $text['days']           = 'nap';
 $text['hours']          = 'óra';
 $text['minutes']        = 'perc';
-  
+
 $text['temperature']    = 'Temperature';
 $text['voltage']        = 'Voltage';
 $text['fans']           = 'Fans';
@@ -104,5 +104,3 @@ $text['rpm_mark']       = 'RPM';
 $text['app']		= 'Kernel + applications';
 $text['buffers']	= 'Buffers';
 $text['cached']		= 'Cached';
-
-?>

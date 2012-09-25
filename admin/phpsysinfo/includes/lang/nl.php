@@ -20,9 +20,8 @@
 // $Id: nl.php,v 1.23 2007/02/18 19:11:31 bigmichi1 Exp $
 
 if (PHP_OS == 'WINNT') {
-  $text['locale']         = 'dutch'; // (windows) 
-}
-else {	
+  $text['locale']         = 'dutch'; // (windows)
+} else {
   $text['locale']         = 'nl-NL'; // (Linux and friends(?))
 }
 
@@ -78,7 +77,7 @@ $text['gb']             = 'GB';
 $text['none']           = 'geen';
 
 $text['capacity']       = 'Capaciteit';
-  
+
 $text['template']       = 'Opmaak-model';
 $text['language']       = 'Taal';
 $text['submit']         = 'Toepassen';
@@ -88,7 +87,7 @@ $text['gen_time']       = 'op %d %B %Y, om %H:%M';
 $text['days']           = 'dagen';
 $text['hours']          = 'uren';
 $text['minutes']        = 'minuten';
-  
+
 $text['temperature']    = 'Temperatuur';
 $text['voltage']        = 'Voltage';
 $text['fans']           = 'Fans';
@@ -108,4 +107,3 @@ $text['buffers']	= 'Buffers';
 $text['cached']		= 'Cached';
 
 $text['connections']    = 'Established Network Connections';
-?>

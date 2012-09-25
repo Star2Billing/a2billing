@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,31 +27,27 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
+include '../lib/admin.defines.php';
+include '../lib/admin.module.access.php';
+include '../lib/admin.smarty.php';
+include '../lib/support/classes/receipt.php';
+include '../lib/support/classes/receiptItem.php';
 
-include ("../lib/admin.defines.php");
-include ("../lib/admin.module.access.php");
-include ("../lib/admin.smarty.php");
-include ("../lib/support/classes/receipt.php");
-include ("../lib/support/classes/receiptItem.php");
-
-if (! has_rights (ACX_INVOICING)){
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");
-	die();
+if (! has_rights (ACX_INVOICING)) {
+    Header ("HTTP/1.0 401 Unauthorized");
+    Header ("Location: PP_error.php?c=accessdenied");
+    die();
 }
-
 
 getpost_ifset(array('id','curr'));
 
-if (empty($id))
-{
+if (empty($id)) {
 Header ("Location: A2B_entity_invoice.php?atmenu=payment&section=13");
 }
-
 
 $receipt = new Receipt($id);
 $items = $receipt->loadItems();
@@ -63,8 +59,8 @@ $card_result = $card_table -> Get_list($DBHandle, $card_clause, 0);
 $card = $card_result[0];
 
 if (empty($card)) {
-	echo "Customer doesn't exist or is not correctly defined for this invoice !";
-	die();
+    echo "Customer doesn't exist or is not correctly defined for this invoice !";
+    die();
 }
 $smarty->display('main.tpl');
 //Load invoice conf
@@ -116,60 +112,60 @@ $display_account = $result[0][0];
 //Currencies check
 
 $currencies_list = get_currencies();
-if (!isset($currencies_list[strtoupper($curr)][2]) || !is_numeric($currencies_list[strtoupper($curr)][2])) {$mycur = 1;$display_curr=strtoupper(BASE_CURRENCY);}
-else {$mycur = $currencies_list[strtoupper($curr)][2];$display_curr=strtoupper($curr);}
+if (!isset($currencies_list[strtoupper($curr)][2]) || !is_numeric($currencies_list[strtoupper($curr)][2])) {$mycur = 1;$display_curr=strtoupper(BASE_CURRENCY);} else {$mycur = $currencies_list[strtoupper($curr)][2];$display_curr=strtoupper($curr);}
 
-function amount_convert($amount){
-	global $mycur;
-	return $amount/$mycur;
+function amount_convert($amount)
+{
+    global $mycur;
+
+    return $amount/$mycur;
 }
 
-if(!$popup_select){
+if (!$popup_select) {
 ?>
 <a href="javascript:;" onClick="MM_openBrWindow('<?php echo $PHP_SELF ?>?popup_select=1&id=<?php echo $id ?><?php if(!empty($curr)) echo "&curr=".$curr; ?>','','scrollbars=yes,resizable=yes,width=700,height=500')" > <img src="../Public/templates/default/images/printer.png" title="Print" alt="Print" border="0"></a>
 &nbsp;&nbsp;
-<?php if(strtoupper(BASE_CURRENCY)!=strtoupper($card['currency'])){ ?>
+<?php if (strtoupper(BASE_CURRENCY)!=strtoupper($card['currency'])) { ?>
 
+    <select id="currency" class="form_input_select" name="curr" onChange="openURL('<?php echo $_SERVER['PHP_SELF']."?id=$id"?>')">
+        <option value="<?php echo BASE_CURRENCY;?>" <?php if(BASE_CURRENCY==$curr) echo "selected";?>  ><?php echo gettext('SYSTEM CURRENCY')." : ".strtoupper(BASE_CURRENCY); ?> </option>
+        <option value="<?php echo $card['currency'];?>" <?php if($card['currency']==$curr) echo "selected";?>   ><?php echo gettext('CUSTOMER CURRENCY')." : ".strtoupper($card['currency']); ?></option>
+    </select>
 
-	<select id="currency" class="form_input_select" name="curr" onChange="openURL('<?php echo $_SERVER['PHP_SELF']."?id=$id"?>')">
-		<option value="<?php echo BASE_CURRENCY;?>" <?php if(BASE_CURRENCY==$curr) echo "selected";?>  ><?php echo gettext('SYSTEM CURRENCY')." : ".strtoupper(BASE_CURRENCY); ?> </option>
-		<option value="<?php echo $card['currency'];?>" <?php if($card['currency']==$curr) echo "selected";?>   ><?php echo gettext('CUSTOMER CURRENCY')." : ".strtoupper($card['currency']); ?></option>
-	</select>
-	
 <script language="JavaScript" type="text/JavaScript">
 <!--
 
 function openURL(theLINK)
 {
-      // redirect browser to the grabbed value (hopefully a URL)	  
+      // redirect browser to the grabbed value (hopefully a URL)
       self.location.href = theLINK + "&curr="+$('#currency').val();
 }
 
 //-->
 </script>
-	
+
 <?php
-	}	
+    }
 }
 ?>
 
 <div class="receipt-wrapper">
   <table class="receipt-table">
   <thead>
-  <tr class="one">  
+  <tr class="one">
     <td class="one">
      <h1><?php echo gettext("RECEIPT"); ?></h1>
      <div class="client-wrapper">
-     	<div class="company-name break"><?php echo $card['company_name'] ?></div>
-     	<div class="fullname"><?php echo $card['lastname']." ".$card['firstname'] ?></div>
-       	<div class="address"><span class="street"><?php echo $card['address'] ?></span> </div>
-       	<div class="zipcode-city"><span class="zipcode"><?php echo $card['zipcode'] ?></span> <span class="city"><?php echo $card['city'] ?></span></div>
-      	<div class="country break"><?php echo $card['country'] ?></div>
-       	<div class="vat-number"><?php echo gettext("VAT nr.")." : ".$card['VAT_RN']; ?></div>
+         <div class="company-name break"><?php echo $card['company_name'] ?></div>
+         <div class="fullname"><?php echo $card['lastname']." ".$card['firstname'] ?></div>
+           <div class="address"><span class="street"><?php echo $card['address'] ?></span> </div>
+           <div class="zipcode-city"><span class="zipcode"><?php echo $card['zipcode'] ?></span> <span class="city"><?php echo $card['city'] ?></span></div>
+          <div class="country break"><?php echo $card['country'] ?></div>
+           <div class="vat-number"><?php echo gettext("VAT nr.")." : ".$card['VAT_RN']; ?></div>
      </div>
     </td>
     <td class="two">
-    
+
     </td>
     <td class="three">
      <div class="supplier-wrapper">
@@ -186,20 +182,20 @@ function openURL(theLINK)
   </tr>
   <tr class="two">
     <td colspan="3" class="receipt-details">
-      <table class="receipt-details"> 
+      <table class="receipt-details">
         <tbody><tr>
           <td class="one">
             <strong><?php echo gettext("Date"); ?></strong>
             <div><?php echo $receipt->getDate() ?></div>
           </td>
-         
-          <?php if($display_account==1){ ?>
+
+          <?php if ($display_account==1) { ?>
           <td class="three">
-          	<strong><?php echo gettext("Client Account Number"); ?></strong>
+              <strong><?php echo gettext("Client Account Number"); ?></strong>
             <div><?php echo $card['username'] ?></div>
           </td>
           <?php } ?>
-                 </tr>       
+                 </tr>
       </tbody></table>
     </td>
   </tr>
@@ -210,45 +206,44 @@ function openURL(theLINK)
         <table class="items">
           <tbody>
           <tr class="one">
-	          <th style="text-align:left;" width="20%"><?php echo gettext("Date"); ?></th>
-	          <th class="description" width="60%"><?php echo gettext("Description"); ?></th>
-	          
-	          <th width="20%" ><?php echo gettext("Cost"); ?></th>
+              <th style="text-align:left;" width="20%"><?php echo gettext("Date"); ?></th>
+              <th class="description" width="60%"><?php echo gettext("Description"); ?></th>
+
+              <th width="20%" ><?php echo gettext("Cost"); ?></th>
           </tr>
-          <?php 
+          <?php
           $i=0;
-          foreach ($items as $item){ ?>
-			<tr style="vertical-align:top;" class="<?php if($i%2==0) echo "odd"; else echo "even";?>" >
-				<td style="text-align:left;">
-					<?php echo $item->getDate(); ?>
-				</td>
-				<td class="description">
-					<?php echo $item->getDescription(); ?>
-				</td>
-				<td align="right">
-					<?php echo number_format(round(amount_convert($item->getPrice()),2),2); ?>
-				</td>
-				
-			</tr>  
-			 <?php  $i++;} ?>	
-          
-          
-        </tbody></table>        
+          foreach ($items as $item) { ?>
+            <tr style="vertical-align:top;" class="<?php if($i%2==0) echo "odd"; else echo "even";?>" >
+                <td style="text-align:left;">
+                    <?php echo $item->getDate(); ?>
+                </td>
+                <td class="description">
+                    <?php echo $item->getDescription(); ?>
+                </td>
+                <td align="right">
+                    <?php echo number_format(round(amount_convert($item->getPrice()),2),2); ?>
+                </td>
+
+            </tr>
+             <?php  $i++;} ?>
+
+        </tbody></table>
       </td>
     </tr>
     <?php
-		$price = 0;
-    	foreach ($items as $item){  
-    	 	$price = $price + $item->getPrice();
-    	 } 
-    	
-    	 ?>
-    	
+        $price = 0;
+        foreach ($items as $item) {
+             $price = $price + $item->getPrice();
+         }
+
+         ?>
+
     <tr>
       <td colspan="3">
         <table class="total">
          <tbody>
-        
+
          <tr class="inctotal">
            <td class="one"></td>
            <td class="two"><?php echo gettext("Total :") ?></td>
@@ -267,14 +262,11 @@ function openURL(theLINK)
   <tfoot>
     <tr>
       <td colspan="3" class="footer">
-        <?php echo $company_name." | ".$address.", ".$zipcode." ".$city." ".$country." | VAT nr.".$vat_invoice; ?> 
+        <?php echo $company_name." | ".$address.", ".$zipcode." ".$city." ".$country." | VAT nr.".$vat_invoice; ?>
       </td>
-    </tr> 
+    </tr>
   </tfoot>
   </table></div>
 
 <?php
 $smarty->display('footer.tpl');
-
-
-

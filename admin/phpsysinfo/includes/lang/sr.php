@@ -73,7 +73,7 @@ $text['gb']             = 'GB';
 
 $text['none']           = 'ezer ez';
 
-$text['capacity']       = 'Капацитет'; 
+$text['capacity']       = 'Капацитет';
 
 $text['template']       = 'Tемплат';
 $text['language']       = 'Језик';
@@ -85,7 +85,7 @@ $text['gen_time']       = 'on %b %d, %Y at %I:%M %p';
 $text['days']           = 'Дани';
 $text['hours']          = 'Сати';
 $text['minutes']        = 'Минути';
-  
+
 $text['temperature']    = 'Температура';
 $text['voltage']        = 'Напајање';
 $text['fans']           = 'Вентилатори';
@@ -103,5 +103,3 @@ $text['rpm_mark']       = 'RPM';
 $text['app']		= 'Kernel + applications';
 $text['buffers']	= 'Buffers';
 $text['cached']		= 'Cached';
-
-?>

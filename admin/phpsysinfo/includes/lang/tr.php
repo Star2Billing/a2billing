@@ -84,7 +84,7 @@ $text['gen_time']       = 'on %b %d, %Y at %I:%M %p';
 $text['days']           = 'gün';
 $text['hours']          = 'saat';
 $text['minutes']        = 'dakika';
-  
+
 $text['temperature']    = 'Temperature';
 $text['voltage']        = 'Voltage';
 $text['fans']           = 'Fans';
@@ -102,5 +102,3 @@ $text['rpm_mark']       = 'RPM';
 $text['app']		= 'Kernel + applications';
 $text['buffers']	= 'Buffers';
 $text['cached']		= 'Cached';
-
-?>

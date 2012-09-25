@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,30 +27,27 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
-
 // Common includes
-include ("../lib/admin.defines.php");
-include ("../lib/admin.module.access.php");
-include ("../lib/admin.smarty.php");
+include '../lib/admin.defines.php';
+include '../lib/admin.module.access.php';
+include '../lib/admin.smarty.php';
 //include ("../lib/Class.Table.php");
 
 set_time_limit(0);
 
-
 if (! has_rights (ACX_DID)) {
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");
-	die();
+    Header ("HTTP/1.0 401 Unauthorized");
+    Header ("Location: PP_error.php?c=accessdenied");
+    die();
 }
 
 $FG_DEBUG = 0;
 $DBHandle  = DbConnect();
 $my_max_file_size = (int) MY_MAX_FILE_SIZE_IMPORT;
-
 
 $instance_table_tariffname = new Table("cc_didgroup", "id, didgroupname");
 $FG_TABLE_CLAUSE = "";
@@ -60,43 +57,42 @@ $instance_table_country = new Table("cc_country", "id, countryname");
 $list_countryname = $instance_table_country  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "countryname", "ASC", null, null, null, null);
 $nb_countryname = count($list_countryname);
 
-
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
 echo $CC_help_import_did;
 
-
 ?>
 
 <script language="JavaScript">
 <!--
-function sendtofield(form){
+function sendtofield(form)
+{
+    if (form.listemail.value.length < 5) {
+        alert ('<?php echo addslashes(gettext("Insert emails on the Field!")); ?>');
+        form.listemail.focus ();
 
-	if (form.listemail.value.length < 5){
-		alert ('<?php echo addslashes(gettext("Insert emails on the Field!")); ?>');
-		form.listemail.focus ();
-		return (false);
-	}
+        return (false);
+    }
 
     document.forms["prefs"].elements["task"].value = "field";
-	document.forms[0].submit();
+    document.forms[0].submit();
 }
 
-function sendtoupload(form){
+function sendtoupload(form)
+{
+    if (form.the_file.value.length < 2) {
+        alert ('<?php echo addslashes(gettext("Please, you must first select a file !")); ?>');
+        form.the_file.focus ();
 
-	if (form.the_file.value.length < 2){
-		alert ('<?php echo addslashes(gettext("Please, you must first select a file !")); ?>');
-		form.the_file.focus ();
-		return (false);
-	}
+        return (false);
+    }
 
     return true;
 }
 
 //-->
 </script>
-
 
 <script language="JavaScript" type="text/javascript">
 <!--
@@ -147,7 +143,7 @@ function removeSource()
 function moveSourceUp()
 {
     var sel = document.prefs.selected_search_sources.selectedIndex;
-	//var sel = document.prefs["selected_search_sources[]"].selectedIndex;
+    //var sel = document.prefs["selected_search_sources[]"].selectedIndex;
 
     if (sel == -1 || document.prefs.selected_search_sources.length <= 2) return;
 
@@ -169,7 +165,7 @@ function moveSourceUp()
         for (i = 0; i < tmp.length; i++) {
             if (i + 1 == sel - 1) {
                 document.prefs.selected_search_sources[i + 1] = tmp[i + 1];
-            } else if (i + 1 == sel) {
+            } elseif (i + 1 == sel) {
                 document.prefs.selected_search_sources[i + 1] = tmp[i - 1];
             } else {
                 document.prefs.selected_search_sources[i + 1] = tmp[i];
@@ -214,7 +210,7 @@ function moveSourceDown()
         for (i = 0; i < tmp.length; i++) {
             if (i + 1 == sel) {
                 document.prefs.selected_search_sources[i + 1] = tmp[i + 1];
-            } else if (i + 1 == sel + 1) {
+            } elseif (i + 1 == sel + 1) {
                 document.prefs.selected_search_sources[i + 1] = tmp[i - 1];
             } else {
                 document.prefs.selected_search_sources[i + 1] = tmp[i];
@@ -227,50 +223,48 @@ function moveSourceDown()
     resetHidden();
 }
 
-
 // -->
 </script>
-     
+
 <center>
-		<b><?php echo gettext("New DID have to be imported from a CSV file.");?>.</b></br></br>
-		<table width="95%" border="0" cellspacing="2" align="center" class="records">
+        <b><?php echo gettext("New DID have to be imported from a CSV file.");?>.</b></br></br>
+        <table width="95%" border="0" cellspacing="2" align="center" class="records">
 
               <form name="prefs" enctype="multipart/form-data" action="A2B_entity_did_import_analyse.php" method="post">
 
-				<tr>
+                <tr>
                   <td colspan="2" align=center>
-				  <?php echo gettext("Choose a DIDGroup to use");?> :
-				  <select NAME="didgroup" size="1"  class="form_input_select"  style="width=250">
-								<option value=''><?php echo gettext("Choose a DIDGroup");?></option>
+                  <?php echo gettext("Choose a DIDGroup to use");?> :
+                  <select NAME="didgroup" size="1"  class="form_input_select"  style="width=250">
+                                <option value=''><?php echo gettext("Choose a DIDGroup");?></option>
 
-								<?php
-								 foreach ($list_tariffname as $recordset){
-								?>
-									<option class=input value='<?php  echo $recordset[0]?>-:-<?php  echo $recordset[1]?>' <?php if ($recordset[0]==$didgroup) echo "selected";?>><?php echo $recordset[1]?></option>
-								<?php 	 }
-								?>
-						</select>
-						<br>
+                                <?php
+                                 foreach ($list_tariffname as $recordset) {
+                                ?>
+                                    <option class=input value='<?php  echo $recordset[0]?>-:-<?php  echo $recordset[1]?>' <?php if ($recordset[0]==$didgroup) echo "selected";?>><?php echo $recordset[1]?></option>
+                                <?php 	 }
+                                ?>
+                        </select>
+                        <br>
                         <br>
                         <?php echo gettext("Choose a Country to use");?> :
                         <select NAME="countryID" size="1" class="form_input_select" style="width=250">
-								<option value=''><?php echo gettext("Choose a Country");?></option>
+                                <option value=''><?php echo gettext("Choose a Country");?></option>
 
-								<?php
-								 foreach ($list_countryname as $recordset){
-								?>
-									<option class=input value='<?php  echo $recordset[0]?>-:-<?php  echo $recordset[1]?>' <?php if ($recordset[0]== $countryID) echo "selected";?>><?php echo $recordset[1]?></option>
-								<?php 	 }
-								?>
-						</select>
-						<br><br>
+                                <?php
+                                 foreach ($list_countryname as $recordset) {
+                                ?>
+                                    <option class=input value='<?php  echo $recordset[0]?>-:-<?php  echo $recordset[1]?>' <?php if ($recordset[0]== $countryID) echo "selected";?>><?php echo $recordset[1]?></option>
+                                <?php 	 }
+                                ?>
+                        </select>
+                        <br><br>
 
-
-				<?php echo gettext("These fields are mandatory");?><br>
+                <?php echo gettext("These fields are mandatory");?><br>
 
 <select  name="bydefault" multiple="multiple" size="2" class="form_input_select" width="40">
-	<option value="bb1"><?php echo gettext("DID");?></option>
-	<option value="bb2"><?php echo gettext("FIXRATE");?></option>
+    <option value="bb1"><?php echo gettext("DID");?></option>
+    <option value="bb2"><?php echo gettext("FIXRATE");?></option>
 </select>
 <br/><br/>
 
@@ -281,14 +275,14 @@ function moveSourceDown()
     <tbody><tr>
         <td>
             <select name="unselected_search_sources" multiple="multiple" size="5" class="form_input_select" width="50" onchange="deselectHeaders()">
-				<option value=""><?php echo gettext("Unselected Fields...");?></option>
-				<option value="activated"><?php echo gettext("activated");?></option>
-				<option value="startingdate"><?php echo gettext("startingdate");?></option>
-				<option value="expirationdate"><?php echo gettext("expirationdate");?></option>
-				<option value="billingtype"><?php echo gettext("billingtype");?></option>
+                <option value=""><?php echo gettext("Unselected Fields...");?></option>
+                <option value="activated"><?php echo gettext("activated");?></option>
+                <option value="startingdate"><?php echo gettext("startingdate");?></option>
+                <option value="expirationdate"><?php echo gettext("expirationdate");?></option>
+                <option value="billingtype"><?php echo gettext("billingtype");?></option>
 
-	down_black
-			</select>
+    down_black
+            </select>
         </td>
 
         <td>
@@ -298,8 +292,8 @@ function moveSourceDown()
         </td>
         <td>
             <select name="selected_search_sources" multiple="multiple" size="5" class="form_input_select" width="50" onchange="deselectHeaders();">
-				<option value=""><?php echo gettext("Selected Fields...");?></option>
-			</select>
+                <option value=""><?php echo gettext("Selected Fields...");?></option>
+            </select>
         </td>
 
         <td>
@@ -310,27 +304,24 @@ function moveSourceDown()
     </tr>
 </tbody></table>
 
-
-
-				</td></tr>
+                </td></tr>
 
                 <tr>
                   <td colspan="2">
                     <div align="center"><span class="textcomment">
 
-					  <?php echo gettext("Use the example below  to format the CSV file. Fields are separated by [,] or [;]");?><br/>
-					  <?php echo gettext("(dot) . is used for decimal format.");?>
-					  <br/>
-					  <a href="importsamples.php?sample=did_Complex" target="superframe"><?php echo gettext("Complex Sample");?></a> -
-					  <a href="importsamples.php?sample=did_Simple" target="superframe"> <?php echo gettext("Simple Sample");?></a>
+                      <?php echo gettext("Use the example below  to format the CSV file. Fields are separated by [,] or [;]");?><br/>
+                      <?php echo gettext("(dot) . is used for decimal format.");?>
+                      <br/>
+                      <a href="importsamples.php?sample=did_Complex" target="superframe"><?php echo gettext("Complex Sample");?></a> -
+                      <a href="importsamples.php?sample=did_Simple" target="superframe"> <?php echo gettext("Simple Sample");?></a>
                       </span></div>
 
+                        <center>
+                            <iframe name="superframe" src="importsamples.php?sample=did_Simple" BGCOLOR=white	width=600 height=80 marginWidth=10 marginHeight=10  frameBorder=1  scrolling=yes>
 
-						<center>
-							<iframe name="superframe" src="importsamples.php?sample=did_Simple" BGCOLOR=white	width=600 height=80 marginWidth=10 marginHeight=10  frameBorder=1  scrolling=yes>
-
-							</iframe>
-						</center>
+                            </iframe>
+                        </center>
 
                   </td>
                 </tr>
@@ -356,4 +347,3 @@ function moveSourceDown()
 <?php
 
 $smarty->display('footer.tpl');
-

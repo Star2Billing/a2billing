@@ -22,15 +22,15 @@
  *          Rob Birkinshaw <robert.birkinshaw@utah.edu>
  */
 
-// add for a2billing 
-include_once ("../lib/admin.defines.php");
-include_once ("../lib/admin.module.access.php");
-include_once ("../lib/admin.smarty.php");
+// add for a2billing
+include_once '../lib/admin.defines.php';
+include_once '../lib/admin.module.access.php';
+include_once '../lib/admin.smarty.php';
 
-if (! has_rights (ACX_ADMINISTRATOR)){ 
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
+if (! has_rights (ACX_ADMINISTRATOR)) {
+    Header ("HTTP/1.0 401 Unauthorized");
+    Header ("Location: PP_error.php?c=accessdenied");
+    die();
 }
 
 class Open_Conf_HTML
@@ -58,7 +58,6 @@ var $_OC_HTML_right_menu_list = array(""=>"");
 var $_OC_HTML_headerbar = array(""=>"");
 var $_OC_HTML_colspan = "3";
 
-
 //////////////////////////////////////////////////////////
 /**
  * Access functions
@@ -71,30 +70,28 @@ var $_OC_HTML_colspan = "3";
  *
  */
 //////////////////////////////////////////////////////////
-    function OC_HTML_setTitle($newvalue) { $this->_OC_HTML_title=$newvalue; }
-    function OC_HTML_setLogo($newvalue) { $this->_OC_HTML_logo=$newvalue; }
-    function OC_HTML_setPageTitle($newvalue) { $this->_OC_HTML_page_title=$newvalue; }
-    function OC_HTML_setDescription($newvalue) { $this->_OC_HTML_description=$newvalue; }
-    function OC_HTML_setKeywords($newvalue) { $this->_OC_HTML_keywords=$newvalue; }
-    function OC_HTML_setWebmaster($newvalue) { $this->_OC_HTML_webmaster=$newvalue; }
-    function OC_HTML_setDisclaimer($newvalue) { $this->_OC_HTML_disclaimer=$newvalue; }
-    function OC_HTML_setLogoLink($newvalue) { $this->_OC_HTML_logo_link=$newvalue; }
-    function OC_HTML_setMenuList($newvalue) { $this->_OC_HTML_menu_list=$newvalue; }
-    function OC_HTML_setRightMenuList($newvalue) { $this->_OC_HTML_right_menu_list=$newvalue; }
-    function OC_HTML_setHeaderBar($newvalue) { $this->_OC_HTML_headerbar=($newvalue); }
-    function OC_HTML_setFooterText($newvalue) { $this->_OC_HTML_footer_text=$newvalue; }
-    function OC_HTML_setTextareaRows($newvalue) { $this->_OC_HTML_textarea_rows=$newvalue; }
-    function OC_HTML_setImagesDir($newvalue)
+    public function OC_HTML_setTitle($newvalue) { $this->_OC_HTML_title=$newvalue; }
+    public function OC_HTML_setLogo($newvalue) { $this->_OC_HTML_logo=$newvalue; }
+    public function OC_HTML_setPageTitle($newvalue) { $this->_OC_HTML_page_title=$newvalue; }
+    public function OC_HTML_setDescription($newvalue) { $this->_OC_HTML_description=$newvalue; }
+    public function OC_HTML_setKeywords($newvalue) { $this->_OC_HTML_keywords=$newvalue; }
+    public function OC_HTML_setWebmaster($newvalue) { $this->_OC_HTML_webmaster=$newvalue; }
+    public function OC_HTML_setDisclaimer($newvalue) { $this->_OC_HTML_disclaimer=$newvalue; }
+    public function OC_HTML_setLogoLink($newvalue) { $this->_OC_HTML_logo_link=$newvalue; }
+    public function OC_HTML_setMenuList($newvalue) { $this->_OC_HTML_menu_list=$newvalue; }
+    public function OC_HTML_setRightMenuList($newvalue) { $this->_OC_HTML_right_menu_list=$newvalue; }
+    public function OC_HTML_setHeaderBar($newvalue) { $this->_OC_HTML_headerbar=($newvalue); }
+    public function OC_HTML_setFooterText($newvalue) { $this->_OC_HTML_footer_text=$newvalue; }
+    public function OC_HTML_setTextareaRows($newvalue) { $this->_OC_HTML_textarea_rows=$newvalue; }
+    public function OC_HTML_setImagesDir($newvalue)
     {
         $this->_OC_HTML_images_dir=$newvalue . "/";
     }
-    function OC_HTML_set3Pane($newvalue)
+    public function OC_HTML_set3Pane($newvalue)
     {
         $this->_OC_HTML_3pane = $newvalue;
         $this->_OC_HTML_colspan = "5";
     }
-
-
 
  //////////////////////////////////////////////////////////
  /**
@@ -108,7 +105,7 @@ var $_OC_HTML_colspan = "3";
   *
   */
 //////////////////////////////////////////////////////////
-    function OC_HTML_doHtmlHeading($heading)
+    public function OC_HTML_doHtmlHeading($heading)
     {
         ?>
             <h2><?php echo $heading?></h2>
@@ -128,7 +125,7 @@ var $_OC_HTML_colspan = "3";
  *
  */
 //////////////////////////////////////////////////////////
-    function OC_HTML_doHtmlUrl($url, $name)
+    public function OC_HTML_doHtmlUrl($url, $name)
     { // output URL as link and br
         ?>
             <br><a href="<?php echo $url?>"><?php echo$name?></a><br>
@@ -147,18 +144,16 @@ var $_OC_HTML_colspan = "3";
   *
   */
 //////////////////////////////////////////////////////////
-    function OC_HTML_doSideMenu()
+    public function OC_HTML_doSideMenu()
     {
-        if (func_num_args() == 1)
-        {
+        if (func_num_args() == 1) {
             $this->_OC_HTML_menu_list = func_get_arg (0);
         }
         ?>
             <td valign="top">
             <table width="100%" cellpadding="2" cellspacing="2">
         <?php
-            foreach ($this->_OC_HTML_menu_list as $name => $value)
-            {
+            foreach ($this->_OC_HTML_menu_list as $name => $value) {
                 echo "<tr><td><a href=\"" . $value . "\" class=\"menuSide\">" . $name . "</a></td></tr>\n";
             }
         ?>
@@ -180,15 +175,14 @@ var $_OC_HTML_colspan = "3";
    *
    */
 //////////////////////////////////////////////////////////
-    function OC_HTML_doRightMenu()
+    public function OC_HTML_doRightMenu()
     {
         ?>
             </td><td>&nbsp;</td>
             <td valign="top">
             <table width="100%" cellpadding="2" cellspacing="2">
         <?php
-        foreach ($this->_OC_HTML_right_menu_list as $name => $value)
-        {
+        foreach ($this->_OC_HTML_right_menu_list as $name => $value) {
             echo "<tr><td><a href=\"" . $value . "\" class=\"menuSide\">" . $name . "</a></td></tr>\n";
         }
         ?>
@@ -209,10 +203,9 @@ var $_OC_HTML_colspan = "3";
    *
    */
 //////////////////////////////////////////////////////////
-    function OC_HTML_doHtmlHeader()
+    public function OC_HTML_doHtmlHeader()
     {
-        if (func_num_args() == 1)
-        {
+        if (func_num_args() == 1) {
             $this->_OC_HTML_headerbar = func_get_arg (0);
         }
         ?>
@@ -327,17 +320,15 @@ var $_OC_HTML_colspan = "3";
    *
    */
 //////////////////////////////////////////////////////////
-    function OC_HTML_doHtmlHeader_a2billing($smarty)
+    public function OC_HTML_doHtmlHeader_a2billing($smarty)
     {
-        if (func_num_args() == 1)
-        {
+        if (func_num_args() == 1) {
             //$this->_OC_HTML_headerbar = func_get_arg (0);
         }
-		
-		// #### HEADER SECTION
-		$smarty->display('main.tpl');
-		
-		
+
+        // #### HEADER SECTION
+        $smarty->display('main.tpl');
+
         ?>
         <style type="text/css">
             <!--
@@ -398,7 +389,7 @@ var $_OC_HTML_colspan = "3";
             textarea {overflow-x: hidden; overflow-y: scroll}
             -->
             </style>
-			
+
             <table width="100%" border="0" cellspacing="5" cellpadding="0">
                 <tr>
                     <td colspan="<?php echo  $this->_OC_HTML_colspan ?>">
@@ -428,8 +419,6 @@ var $_OC_HTML_colspan = "3";
         <?php
     }
 
-
-
  //////////////////////////////////////////////////////////
  /**
     * OC_HTML_doHtmlFooter
@@ -442,7 +431,7 @@ var $_OC_HTML_colspan = "3";
     *
     */
 //////////////////////////////////////////////////////////
-    function OC_HTML_doHtmlFooter()
+    public function OC_HTML_doHtmlFooter()
     {
     ?>
         <!-- page footer -->
@@ -470,8 +459,7 @@ var $_OC_HTML_colspan = "3";
         </html>
     <?php
     }
-	
-	
+
  //////////////////////////////////////////////////////////
  /**
     * OC_HTML_doHtmlFooter_a2billing
@@ -484,11 +472,11 @@ var $_OC_HTML_colspan = "3";
     *
     */
 //////////////////////////////////////////////////////////
-    function OC_HTML_doHtmlFooter_a2billing($smarty)
+    public function OC_HTML_doHtmlFooter_a2billing($smarty)
     {
-		
-		?>
-		 <!-- page footer -->
+
+        ?>
+         <!-- page footer -->
             </td>
             </tr>
             <tr>
@@ -497,12 +485,11 @@ var $_OC_HTML_colspan = "3";
             <td><img src="<?php echo $this->_OC_HTML_images_dir ?>spacer.gif" alt="spacer" width="540" height="1"></td>
             <?php if($this->_OC_HTML_3pane) echo "<td></td><td><img src=\"$this->_OC_HTML_images_dir" . "spacer.gif\" alt=\"spacer\" width=\"125\" height=\"1\"></td>" ?>
             </tr>
-            
+
         </table>
-    	<?php
-		$smarty->display('footer.tpl');
-    }	
-	
+        <?php
+        $smarty->display('footer.tpl');
+    }
 
 //////////////////////////////////////////////////////////
  /**
@@ -516,10 +503,9 @@ var $_OC_HTML_colspan = "3";
     *
     */
 //////////////////////////////////////////////////////////
-    function OC_HTML_doHeaderBar()
+    public function OC_HTML_doHeaderBar()
     {
-        foreach ($this->_OC_HTML_headerbar as $name => $value)
-        {
+        foreach ($this->_OC_HTML_headerbar as $name => $value) {
             echo "<td><a href=\"" . $value . "\">" . $name . "</a></td>\n";
         }
     }
@@ -536,20 +522,16 @@ var $_OC_HTML_colspan = "3";
     *
     */
 //////////////////////////////////////////////////////////
-    function OC_HTML_doYesNo($group,$value)
+    public function OC_HTML_doYesNo($group,$value)
     {
-        if($value == 1)
-        {
+        if ($value == 1) {
             echo "<input type=\"radio\" name=\"" . $group . "\" value=\"1\" checked > Yes\n";
             echo "<input type=\"radio\" name=\"" . $group . "\" value=\"0\" > No\n";
-        }
-        else
-        {
+        } else {
             echo "<input type=\"radio\" name=\"" . $group . "\" value=\"1\" > Yes\n";
             echo "<input type=\"radio\" name=\"" . $group . "\" value=\"0\" checked > No\n";
         }
     }
-
 
   //////////////////////////////////////////////////////////
    /**
@@ -564,12 +546,13 @@ var $_OC_HTML_colspan = "3";
       *
       */
 //////////////////////////////////////////////////////////
-    function OC_HTML_showTimestat($start)
+    public function OC_HTML_showTimestat($start)
     {
         $end = microtime();
         $start = explode(" ",$start);
         $end = explode(" ",$end);
         $diff = ($end[0] + $end[1]) - ($start[0] + $start[1]);
+
         return round($diff,4);
     }
 
@@ -592,9 +575,9 @@ var $_OC_HTML_colspan = "3";
       *
       */
 //////////////////////////////////////////////////////////
-    function OC_HTML_doConfigurationForm($file,$section,$theItems,$md5)
+    public function OC_HTML_doConfigurationForm($file,$section,$theItems,$md5)
     {
-	$action = $_SERVER['PHP_SELF']."?file=$file";
+    $action = $_SERVER['PHP_SELF']."?file=$file";
         ?>
 
             <form  name="section_form" method="post" action="<?php echo $action ?>">
@@ -615,8 +598,8 @@ var $_OC_HTML_colspan = "3";
             <!--
             var TRange=null
 
-            function findString (str) {
-
+            function findString (str)
+            {
             var strFound;
 
             if (navigator.appName.indexOf("Microsoft")!=-1) {
@@ -634,8 +617,7 @@ var $_OC_HTML_colspan = "3";
             if (strFound) TRange.select()
             }
             if (!strFound) alert ("String '"+str+"' not found!")
-            }
-            else alert ("Browser does not support this feature.")
+            } else alert ("Browser does not support this feature.")
             }
             //-->
             </script>
@@ -643,5 +625,3 @@ var $_OC_HTML_colspan = "3";
         <?php
     }
 }
-
-?>

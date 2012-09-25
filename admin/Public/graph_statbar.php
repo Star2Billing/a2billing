@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,10 +27,9 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
-
 
 include_once (dirname(__FILE__) . "/../lib/admin.defines.php");
 include_once (dirname(__FILE__) . "/../lib/admin.module.access.php");
@@ -38,15 +37,14 @@ include_once (dirname(__FILE__) . "/jpgraph_lib/jpgraph.php");
 include_once (dirname(__FILE__) . "/jpgraph_lib/jpgraph_bar.php");
 
 if (!has_rights(ACX_CALL_REPORT)) {
-	Header("HTTP/1.0 401 Unauthorized");
-	Header("Location: PP_error.php?c=accessdenied");
-	die();
+    Header("HTTP/1.0 401 Unauthorized");
+    Header("Location: PP_error.php?c=accessdenied");
+    die();
 }
 
 $FG_DEBUG = 0;
 
 getpost_ifset(array('min_call', 'fromstatsday_sday', 'days_compare', 'fromstatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'dst', 'src', 'clid', 'userfieldtype', 'userfield', 'accountcodetype', 'accountcode', 'customer', 'entercustomer', 'enterprovider', 'entertrunk', 'enterratecard', 'entertariffgroup'));
-
 
 $FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk";
 
@@ -63,8 +61,6 @@ $FG_TABLE_COL[]=array (gettext("IAX/SIP"), "sipiax", "6%", "center", "SORT",  ""
 $FG_TABLE_COL[]=array (gettext("InitialRate"), "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
-
-
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 
@@ -76,107 +72,106 @@ $FG_NB_TABLE_COL = count($FG_TABLE_COL);
 $instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
 if (is_null($order) || is_null($sens)) {
-	$order = $FG_TABLE_DEFAULT_ORDER;
-	$sens = $FG_TABLE_DEFAULT_SENS;
+    $order = $FG_TABLE_DEFAULT_ORDER;
+    $sens = $FG_TABLE_DEFAULT_SENS;
 }
 
 getpost_ifset(array (
-	'before',
-	'after'
+    'before',
+    'after'
 ));
 
 $SQLcmd = '';
 $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
 
 if ($before) {
-	if (strpos($SQLcmd, 'WHERE') > 0) {
-		$SQLcmd = "$SQLcmd AND ";
-	} else {
-		$SQLcmd = "$SQLcmd WHERE ";
-	}
-	$SQLcmd = "$SQLcmd starttime <'" . $before . "'";
+    if (strpos($SQLcmd, 'WHERE') > 0) {
+        $SQLcmd = "$SQLcmd AND ";
+    } else {
+        $SQLcmd = "$SQLcmd WHERE ";
+    }
+    $SQLcmd = "$SQLcmd starttime <'" . $before . "'";
 }
 if ($after) {
-	if (strpos($SQLcmd, 'WHERE') > 0) {
-		$SQLcmd = "$SQLcmd AND ";
-	} else {
-		$SQLcmd = "$SQLcmd WHERE ";
-	}
-	$SQLcmd = "$SQLcmd starttime >'" . $after . "'";
+    if (strpos($SQLcmd, 'WHERE') > 0) {
+        $SQLcmd = "$SQLcmd AND ";
+    } else {
+        $SQLcmd = "$SQLcmd WHERE ";
+    }
+    $SQLcmd = "$SQLcmd starttime >'" . $after . "'";
 }
 
 $date_clause = '';
 
 $min_call = intval($min_call);
 if (($min_call != 0) && ($min_call != 1))
-	$min_call = 0;
+    $min_call = 0;
 
 if (!isset ($fromstatsday_sday)) {
-	$fromstatsday_sday = date("d");
-	$fromstatsmonth_sday = date("Y-m");
+    $fromstatsday_sday = date("d");
+    $fromstatsmonth_sday = date("Y-m");
 }
 
 if (isset ($customer) && ($customer > 0)) {
-	if (strlen($SQLcmd) > 0)
-		$SQLcmd .= " AND ";
-	else
-		$SQLcmd .= " WHERE ";
-	$SQLcmd .= " card_id='$customer' ";
+    if (strlen($SQLcmd) > 0)
+        $SQLcmd .= " AND ";
+    else
+        $SQLcmd .= " WHERE ";
+    $SQLcmd .= " card_id='$customer' ";
 } else {
-	if (isset ($entercustomer) && ($entercustomer > 0)) {
-		if (strlen($SQLcmd) > 0)
-			$SQLcmd .= " AND ";
-		else
-			$SQLcmd .= " WHERE ";
-		$SQLcmd .= " card_id='$entercustomer' ";
-	}
+    if (isset ($entercustomer) && ($entercustomer > 0)) {
+        if (strlen($SQLcmd) > 0)
+            $SQLcmd .= " AND ";
+        else
+            $SQLcmd .= " WHERE ";
+        $SQLcmd .= " card_id='$entercustomer' ";
+    }
 }
 if ($_SESSION["is_admin"] == 1) {
-	if (isset ($enterprovider) && $enterprovider > 0) {
-		if (strlen($SQLcmd) > 0)
-			$SQLcmd .= " AND ";
-		else
-			$SQLcmd .= " WHERE ";
-		$SQLcmd .= " t3.id_provider = '$enterprovider' ";
-	}
-	if (isset ($entertrunk) && $entertrunk > 0) {
-		if (strlen($SQLcmd) > 0)
-			$SQLcmd .= " AND ";
-		else
-			$SQLcmd .= " WHERE ";
-		$SQLcmd .= " t3.id_trunk = '$entertrunk' ";
-	}
-	if (isset ($entertariffgroup) && $entertariffgroup > 0) {
-		if (strlen($SQLcmd) > 0)
-			$SQLcmd .= " AND ";
-		else
-			$SQLcmd .= " WHERE ";
-		$SQLcmd .= "t1.id_tariffgroup = '$entertariffgroup'";
-	}
-	if (isset ($enterratecard) && $enterratecard > 0) {
-		if (strlen($SQLcmd) > 0)
-			$SQLcmd .= " AND ";
-		else
-			$SQLcmd .= " WHERE ";
-		$SQLcmd .= "t1.id_ratecard = '$enterratecard'";
-	}
+    if (isset ($enterprovider) && $enterprovider > 0) {
+        if (strlen($SQLcmd) > 0)
+            $SQLcmd .= " AND ";
+        else
+            $SQLcmd .= " WHERE ";
+        $SQLcmd .= " t3.id_provider = '$enterprovider' ";
+    }
+    if (isset ($entertrunk) && $entertrunk > 0) {
+        if (strlen($SQLcmd) > 0)
+            $SQLcmd .= " AND ";
+        else
+            $SQLcmd .= " WHERE ";
+        $SQLcmd .= " t3.id_trunk = '$entertrunk' ";
+    }
+    if (isset ($entertariffgroup) && $entertariffgroup > 0) {
+        if (strlen($SQLcmd) > 0)
+            $SQLcmd .= " AND ";
+        else
+            $SQLcmd .= " WHERE ";
+        $SQLcmd .= "t1.id_tariffgroup = '$entertariffgroup'";
+    }
+    if (isset ($enterratecard) && $enterratecard > 0) {
+        if (strlen($SQLcmd) > 0)
+            $SQLcmd .= " AND ";
+        else
+            $SQLcmd .= " WHERE ";
+        $SQLcmd .= "t1.id_ratecard = '$enterratecard'";
+    }
 }
 
 if (DB_TYPE == "postgres") {
-	if (isset ($fromstatsday_sday) && isset ($fromstatsmonth_sday))
-		$date_clause .= " AND starttime < date'$fromstatsmonth_sday-$fromstatsday_sday'+ INTERVAL '1 DAY' AND starttime >= '$fromstatsmonth_sday-$fromstatsday_sday'";
+    if (isset ($fromstatsday_sday) && isset ($fromstatsmonth_sday))
+        $date_clause .= " AND starttime < date'$fromstatsmonth_sday-$fromstatsday_sday'+ INTERVAL '1 DAY' AND starttime >= '$fromstatsmonth_sday-$fromstatsday_sday'";
 } else {
-	if (isset ($fromstatsday_sday) && isset ($fromstatsmonth_sday))
-		$date_clause .= " AND starttime < ADDDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL 1 DAY) AND starttime >= '$fromstatsmonth_sday-$fromstatsday_sday'";
+    if (isset ($fromstatsday_sday) && isset ($fromstatsmonth_sday))
+        $date_clause .= " AND starttime < ADDDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL 1 DAY) AND starttime >= '$fromstatsmonth_sday-$fromstatsday_sday'";
 }
 
 //-- $date_clause=" AND calldate < date'$fromstatsmonth_sday-$fromstatsday_sday'+ INTERVAL '1 DAY' AND calldate >= '$fromstatsmonth_sday-$fromstatsday_sday 12:00:00'";
 
 if (strpos($SQLcmd, 'WHERE') > 0) {
-	$FG_TABLE_CLAUSE = substr($SQLcmd, 6) . $date_clause;
-}
-elseif (strpos($date_clause, 'AND') > 0) {
-	$FG_TABLE_CLAUSE = substr($date_clause, 5);
+    $FG_TABLE_CLAUSE = substr($SQLcmd, 6) . $date_clause;
+} elseif (strpos($date_clause, 'AND') > 0) {
+    $FG_TABLE_CLAUSE = substr($date_clause, 5);
 }
 
 $list_total = $instance_table_graph->Get_list($DBHandle, $FG_TABLE_CLAUSE, 't1.starttime', 'ASC', null, null, null, null);
@@ -187,25 +182,25 @@ $table_graph = array ();
 $table_graph_hours = array ();
 $numm = 0;
 foreach ($list_total as $recordset) {
-	$numm++;
-	$mydate = substr($recordset[0], 0, 10);
-	$mydate_hours = substr($recordset[0], 0, 13);
-	//echo "$mydate<br>";
-	if (is_array($table_graph_hours[$mydate_hours])) {
-		$table_graph_hours[$mydate_hours][0]++;
-		$table_graph_hours[$mydate_hours][1] = $table_graph_hours[$mydate_hours][1] + $recordset[1];
-	} else {
-		$table_graph_hours[$mydate_hours][0] = 1;
-		$table_graph_hours[$mydate_hours][1] = $recordset[1];
-	}
+    $numm++;
+    $mydate = substr($recordset[0], 0, 10);
+    $mydate_hours = substr($recordset[0], 0, 13);
+    //echo "$mydate<br>";
+    if (is_array($table_graph_hours[$mydate_hours])) {
+        $table_graph_hours[$mydate_hours][0]++;
+        $table_graph_hours[$mydate_hours][1] = $table_graph_hours[$mydate_hours][1] + $recordset[1];
+    } else {
+        $table_graph_hours[$mydate_hours][0] = 1;
+        $table_graph_hours[$mydate_hours][1] = $recordset[1];
+    }
 
-	if (is_array($table_graph[$mydate])) {
-		$table_graph[$mydate][0]++;
-		$table_graph[$mydate][1] = $table_graph[$mydate][1] + $recordset[1];
-	} else {
-		$table_graph[$mydate][0] = 1;
-		$table_graph[$mydate][1] = $recordset[1];
-	}
+    if (is_array($table_graph[$mydate])) {
+        $table_graph[$mydate][0]++;
+        $table_graph[$mydate][1] = $table_graph[$mydate][1] + $recordset[1];
+    } else {
+        $table_graph[$mydate][0] = 1;
+        $table_graph[$mydate][1] = $recordset[1];
+    }
 }
 
 //print_r($table_graph_hours);
@@ -215,10 +210,10 @@ $mmax = 0;
 $totalcall == 0;
 $totalminutes = 0;
 foreach ($table_graph as $tkey => $data) {
-	if ($mmax < $data[1])
-		$mmax = $data[1];
-	$totalcall += $data[0];
-	$totalminutes += $data[1];
+    if ($mmax < $data[1])
+        $mmax = $data[1];
+    $totalcall += $data[0];
+    $totalminutes += $data[1];
 }
 
 /************************************************/
@@ -239,48 +234,48 @@ $table_colors[] = "green@0.3";
 $table_colors[] = "blue@0.3";
 $table_colors[] = "red@0.3";
 
-$jour = substr($datax1[0], 8, 2); //le jour courant 
+$jour = substr($datax1[0], 8, 2); //le jour courant
 $legend[0] = substr($datax1[0], 0, 10); //l
 
 //print_r ($table_graph_hours);
 // Create the graph to compare the day
-// extract all minutes/nb call for each hours 
+// extract all minutes/nb call for each hours
 foreach ($table_graph_hours as $key => $value) {
 
-	$jour_suivant = substr($key, 8, 2);
+    $jour_suivant = substr($key, 8, 2);
 
-	if ($jour_suivant != $jour) {
-		$nbday++;
-		$legend[$nbday] = substr($key, 0, 10);
-		$jour = $jour_suivant;
-	}
+    if ($jour_suivant != $jour) {
+        $nbday++;
+        $legend[$nbday] = substr($key, 0, 10);
+        $jour = $jour_suivant;
+    }
 
-	$heure = intval(substr($key, 11, 2));
+    $heure = intval(substr($key, 11, 2));
 
-	if ($min_call == 0)
-		$div = 1;
-	else
-		$div = 60;
+    if ($min_call == 0)
+        $div = 1;
+    else
+        $div = 60;
 
-	$tableau_value[$nbday][$heure] = $value[$min_call] / $div;
+    $tableau_value[$nbday][$heure] = $value[$min_call] / $div;
 }
 
 // je remplie les cases vide par des 0
 for ($i = 0; $i <= $nbday; $i++)
-	for ($j = 0; $j < 24; $j++)
-		if (!isset ($tableau_value[$i][$j]))
-			$tableau_value[$i][$j] = 0;
+    for ($j = 0; $j < 24; $j++)
+        if (!isset ($tableau_value[$i][$j]))
+            $tableau_value[$i][$j] = 0;
 
-//Je remplace les 0 par null pour pour les heures 
+//Je remplace les 0 par null pour pour les heures
 $i = 23;
 while ($tableau_value[$nbday][$i] == 0) {
-	$tableau_value[$nbday][$i] = null;
-	$i--;
+    $tableau_value[$nbday][$i] = null;
+    $i--;
 }
 
 foreach ($datay1 as $tkey => $data) {
-	$dataz1[] = $data[1];
-	$dataz2[] = $data[0];
+    $dataz1[] = $data[1];
+    $dataz2[] = $data[0];
 
 }
 /*$datay1 = array(2,6,7,12,13,18);
@@ -346,20 +341,19 @@ $graph->legend->SetAbsPos(15, 130, 'right', 'bottom');
 
 for ($indgraph = 0; $indgraph <= $nbday; $indgraph++) {
 
-	$bplot[$indgraph] = new BarPlot($tableau_value[$indgraph]);
+    $bplot[$indgraph] = new BarPlot($tableau_value[$indgraph]);
 
-	$bplot[$indgraph]->SetColor($table_colors[$indgraph]);
-	$bplot[$indgraph]->SetWeight(2);
-	$bplot[$indgraph]->SetFillColor('orange');
-	$bplot[$indgraph]->SetShadow();
-	$bplot[$indgraph]->value->Show();
+    $bplot[$indgraph]->SetColor($table_colors[$indgraph]);
+    $bplot[$indgraph]->SetWeight(2);
+    $bplot[$indgraph]->SetFillColor('orange');
+    $bplot[$indgraph]->SetShadow();
+    $bplot[$indgraph]->value->Show();
 
-	$bplot[$indgraph]->SetLegend($legend[$indgraph]);
+    $bplot[$indgraph]->SetLegend($legend[$indgraph]);
 
-	$graph->Add($bplot[$indgraph]);
+    $graph->Add($bplot[$indgraph]);
 
 }
 
 // Output the graph
 $graph->Stroke();
-

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // phpSysInfo - A PHP System Information Script
 // http://phpsysinfo.sourceforge.net/
@@ -24,30 +24,35 @@ if (!defined('IN_PHPSYSINFO')) {
 
 require_once(APP_ROOT . '/includes/os/class.BSD.common.inc.php');
 
-class sysinfo extends bsd_common {
-  var $cpu_regexp   = "";
-  var $scsi_regexp1 = "";
-  var $scsi_regexp2 = "";
-  var $cpu_regexp2  = "";
-  
+class sysinfo extends bsd_common
+{
+  public $cpu_regexp   = "";
+  public $scsi_regexp1 = "";
+  public $scsi_regexp2 = "";
+  public $cpu_regexp2  = "";
+
   // Our contstructor
   // this function is run on the initialization of this class
-  function sysinfo () {
+  public function sysinfo ()
+  {
     $this->bsd_common();
     $this->cpu_regexp = "CPU: (.*) \((.*)-MHz (.*)\)";
     $this->scsi_regexp1 = "^(.*): <(.*)> .*SCSI.*device";
     $this->scsi_regexp2 = "^(da[0-9]): (.*)MB ";
     $this->cpu_regexp2 = "/(.*) ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)/";
-  } 
+  }
 
-  function get_sys_ticks () {
+  public function get_sys_ticks ()
+  {
     $s = explode(' ', $this->grab_key('kern.boottime'));
     $a = preg_replace('/{ /', '', $s[3]);
     $sys_ticks = time() - $a;
-    return $sys_ticks;
-  } 
 
-  function network () {
+    return $sys_ticks;
+  }
+
+  public function network ()
+  {
     $netstat = execute_program('netstat', '-nibd | grep Link');
     $lines = preg_split("/\n/", $netstat);
     $results = array();
@@ -82,18 +87,22 @@ class sysinfo extends bsd_common {
 
           $results[$ar_buf[0]]['errs'] = $ar_buf[5] + $ar_buf[8];
           $results[$ar_buf[0]]['drop'] = $ar_buf[11];
-        } 
-      } 
-    } 
-    return $results;
-  } 
+        }
+      }
+    }
 
-  function distroicon () {
+    return $results;
+  }
+
+  public function distroicon ()
+  {
     $result = 'FreeBSD.png';
+
     return($result);
   }
-  
-  function memory_additional($results) {
+
+  public function memory_additional($results)
+  {
     $pagesize = $this->grab_key("hw.pagesize");
     $results['ram']['cached'] = $this->grab_key("vm.stats.vm.v_cache_count") * $pagesize / 1024;
     $results['ram']['cached_percent'] = round( $results['ram']['cached'] * 100 / $results['ram']['total']);
@@ -101,8 +110,7 @@ class sysinfo extends bsd_common {
     $results['ram']['app_percent'] = round( $results['ram']['app'] * 100 / $results['ram']['total']);
     $results['ram']['buffers'] = $results['ram']['used'] - $results['ram']['app'] - $results['ram']['cached'];
     $results['ram']['buffers_percent'] = round( $results['ram']['buffers'] * 100 / $results['ram']['total']);
+
     return $results;
   }
-} 
-
-?>
+}

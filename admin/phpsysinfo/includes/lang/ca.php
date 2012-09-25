@@ -85,7 +85,7 @@ $text['gen_time']       = 'on %b %d, %Y at %I:%M %p';
 $text['days']        = 'dies';
 $text['hours']       = 'hores';
 $text['minutes']     = 'minuts';
-  
+
 $text['temperature']    = 'Temperature';
 $text['voltage']        = 'Voltage';
 $text['fans']           = 'Fans';
@@ -105,4 +105,3 @@ $text['buffers']	= 'Buffers';
 $text['cached']		= 'Cached';
 
 $text['connections']	= 'Established Network Connections';
-?>

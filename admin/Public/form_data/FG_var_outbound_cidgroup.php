@@ -13,8 +13,6 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_outbound_cidgroup.php?atmen
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add CallerID Group");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/server_connect.png" ;
 
-
-
 // Code Here for Deleting the Dependent Records
 // Dependent Tables
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;
@@ -28,15 +26,12 @@ $HD_Form -> FG_FK_EDITION_CLAUSE = array(" outbound_cid_group ");
 
 $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some CID using this CID Group! Please comfirm that you really want to remove this CID Group ? ");
 
-
-
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DIDGROUP NAME"), "group_name", "20%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATION DATE"), "creationdate", "20%", "center", "sort", "30", "", "", "", "", "display_dateformat");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
 $HD_Form -> FieldViewElement ('id, group_name, creationdate');
-
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
@@ -48,34 +43,26 @@ $HD_Form -> FG_DELETION = true;
 $HD_Form -> FG_ADDITION = true;
 
 $HD_Form -> AddEditElement (gettext("CIDGROUPNAME"),
-	"group_name",
-	'$value',
-	"INPUT",
-	"size=30 maxlength=70",
-	"9",
-	gettext("Insert the CID Group Name "),
-	"" , "", "", "", "" , "" , "" , "");
-
+    "group_name",
+    '$value',
+    "INPUT",
+    "size=30 maxlength=70",
+    "9",
+    gettext("Insert the CID Group Name "),
+    "" , "", "", "", "" , "" , "" , "");
 
 $HD_Form -> FieldEditElement ('group_name');
-
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the DID Group");
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
-
 $HD_Form -> FG_INTRO_TEXT_ADITION = '';
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
-
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
 
-
-
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-
-

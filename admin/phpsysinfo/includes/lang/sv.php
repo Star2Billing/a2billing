@@ -74,7 +74,7 @@ $text['gb']             = 'GB';
 $text['none']           = 'inga';
 
 $text['capacity']       = 'Kapacitet';
-  
+
 $text['template']       = 'Mall';
 $text['language']       = 'Språk';
 $text['submit']         = 'Skicka';
@@ -85,7 +85,7 @@ $text['minutes']        = 'minuter';
 $text['created']        = 'Skapat av';
 $text['locale']         = 'en_US';
 $text['gen_time']       = 'on %b %d, %Y at %I:%M %p';
-  
+
 $text['temperature']    = 'Temperature';
 $text['voltage']        = 'Voltage';
 $text['fans']           = 'Fans';
@@ -105,4 +105,3 @@ $text['buffers']	= 'Buffers';
 $text['cached']		= 'Cached';
 
 $text['connections']    = 'Established Network Connections';
-?>

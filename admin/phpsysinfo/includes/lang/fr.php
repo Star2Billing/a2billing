@@ -70,7 +70,7 @@ $text['gb']             = 'Go';
 $text['none']           = 'aucun';
 
 $text['capacity']       = 'Capacit&eacute;';
-  
+
 $text['template']       = 'Mod&egrave;le ';
 $text['language']       = 'Langue ';
 $text['submit']         = 'Valider';
@@ -101,4 +101,3 @@ $text['buffers']	= 'Buffers';
 $text['cached']		= 'Cached';
 
 $text['connections']    = 'Established Network Connections';
-?>

@@ -72,7 +72,7 @@ $text['gb']             = 'GB';
 
 $text['none']           = 'none';
 
-$text['capacity']       = 'Capacity'; 
+$text['capacity']       = 'Capacity';
 
 $text['template']       = 'Template';
 $text['language']       = 'Language';
@@ -102,5 +102,3 @@ $text['rpm_mark']       = 'RPM';
 $text['app']		= 'Kernel + applications';
 $text['buffers']	= 'Buffers';
 $text['cached']		= 'Cached';
-
-?>

@@ -1,15 +1,14 @@
-<?php 
+<?php
 
-// add for a2billing 
-include_once ("../lib/admin.defines.php");
-include_once ("../lib/admin.module.access.php");
-include_once ("../lib/admin.smarty.php");
+// add for a2billing
+include_once '../lib/admin.defines.php';
+include_once '../lib/admin.module.access.php';
+include_once '../lib/admin.smarty.php';
 
-if (! has_rights (ACX_ADMINISTRATOR)){ 
-	echo "Error loading phpSysInfo!";
-	die();	   
+if (! has_rights (ACX_ADMINISTRATOR)) {
+    echo "Error loading phpSysInfo!";
+    die();
 }
-
 
 // phpSysInfo - A PHP System Information Script
 // http://phpsysinfo.sourceforge.net/
@@ -119,5 +118,3 @@ $showerrors = true;
 // $temperatureformat = "c-f";	// both shown first celsius and fahrenheit in braces
 // $temperatureformat = "f-c";	// both shown first fahrenheit and celsius in braces
 $temperatureformat = "c";
-
-?>

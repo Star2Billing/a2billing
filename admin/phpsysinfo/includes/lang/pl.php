@@ -78,7 +78,7 @@ $text['template']       = 'Szablon';
 $text['language']       = 'Jêzyk';
 $text['submit']         = 'Wy¶lij';
 $text['created']        = 'Utworzone przez';
-$text['locale']         = 'pl_PL'; 
+$text['locale']         = 'pl_PL';
 $text['gen_time']       = " %e %b %Y o godzinie %T";
 
 $text['days']           = 'dni';
@@ -104,4 +104,3 @@ $text['buffers']	= 'Buffers';
 $text['cached']		= 'Cached';
 
 $text['connections']    = 'Established Network Connections';
-?>

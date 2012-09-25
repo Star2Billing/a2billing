@@ -1,4 +1,4 @@
-<?php 
+<?php
 // phpSysInfo - A PHP System Information Script
 // http://phpsysinfo.sourceforge.net/
 // This program is free software; you can redistribute it and/or
@@ -35,29 +35,29 @@ if ( file_exists( APP_ROOT . '/includes/os/class.' . PHP_OS . '.inc.php' ) ) {
 
 if (!extension_loaded('xml')) {
   $error->addError('extension_loaded(xml)', 'phpsysinfo requires the xml module for php to work', __LINE__, __FILE__);
-} 
+}
 if (!extension_loaded('pcre')) {
   $error->addError('extension_loaded(pcre)', 'phpsysinfo requires the pcre module for php to work', __LINE__, __FILE__);
-} 
+}
 
 if (!file_exists(APP_ROOT . '/config.php')) {
   $error->addError('file_exists(config.php)', 'config.php does not exist in the phpsysinfo directory.', __LINE__, __FILE__);
-} else { 
+} else {
   require_once(APP_ROOT . '/config.php'); 			// get the config file
 }
 
 if ( !empty( $sensor_program ) ) {
   $sensor_program = basename( $sensor_program );
-  if( !file_exists( APP_ROOT . '/includes/mb/class.' . $sensor_program . '.inc.php' ) ) {
+  if ( !file_exists( APP_ROOT . '/includes/mb/class.' . $sensor_program . '.inc.php' ) ) {
     $error->addError('include(class.' . htmlspecialchars($sensor_program, ENT_QUOTES) . '.inc.php)', 'specified sensor programm is not supported', __LINE__, __FILE__ );
-  } 
-} 
+  }
+}
 
 if ( !empty( $hddtemp_avail ) && $hddtemp_avail != "tcp" && $hddtemp_avail != "suid" ) {
   $error->addError('include(class.hddtemp.inc.php)', 'bad configuration in config.php for $hddtemp_avail', __LINE__, __FILE__ );
 }
 
-if( $error->ErrorsExist() ) {
+if ( $error->ErrorsExist() ) {
   echo $error->ErrorsAsHTML();
   exit;
 }
@@ -82,7 +82,7 @@ if (isset($_POST['template'])) {
 } elseif (isset($_COOKIE['template'])) {
   $template = $_COOKIE['template'];
 } else {
-  $template = $default_template; 
+  $template = $default_template;
 }
 
 // check to see if we have a random
@@ -116,7 +116,7 @@ if ($template == "wml") {
   $lng = $_COOKIE['lng'];
 } else {
   $lng = $default_lng;
-} 
+}
 
 if ($lng == 'browser') {
   // see if the browser knows the right languange.
@@ -151,7 +151,7 @@ if (file_exists(APP_ROOT . '/includes/lang/' . $lng . '.php')) {
 define('TEMPLATE_SET', $template);
 require_once( APP_ROOT . '/includes/os/class.' . PHP_OS . '.inc.php' );
 $sysinfo = new sysinfo;
-if( !empty( $sensor_program ) ) {
+if ( !empty( $sensor_program ) ) {
   require_once(APP_ROOT . '/includes/mb/class.' . $sensor_program . '.inc.php');
   $mbinfo = new mbinfo;
 }
@@ -196,7 +196,7 @@ if (TEMPLATE_SET == 'xml') {
 } elseif (TEMPLATE_SET == 'wml') {
   require_once(APP_ROOT . '/includes/XPath.class.php');
   $XPath = new XPath();
-  $XPath->importFromString($xml); 
+  $XPath->importFromString($xml);
 
   header("Content-type: text/vnd.wap.wml; charset=iso-8859-1");
   header("");
@@ -223,7 +223,7 @@ if (TEMPLATE_SET == 'xml') {
   echo wml_network();
   echo wml_memory();
   echo wml_filesystem();
-  
+
   $temp = "";
   if (!empty($sensor_program)) {
     echo wml_mbfans();
@@ -243,12 +243,12 @@ if (TEMPLATE_SET == 'xml') {
 
 //  if (PHPGROUPWARE != 1) {
     require_once(APP_ROOT . '/includes/class.Template.inc.php'); // template library
-//  } 
+//  }
   // fire up the template engine
   $tpl = new Template(APP_ROOT . '/templates/' . TEMPLATE_SET);
-  $tpl->set_file(array('form' => 'form.tpl')); 
+  $tpl->set_file(array('form' => 'form.tpl'));
   // print out a box of information
-  function makebox ($title, $content)
+  public function makebox ($title, $content)
   {
     if (empty($content)) {
       return "";
@@ -261,13 +261,14 @@ if (TEMPLATE_SET == 'xml') {
       $t->set_var('content', $content);
       $t->set_var('webpath', $webpath);
       $t->set_var('text_dir', $textdir['direction']);
+
       return $t->parse('out', 'box');
-    } 
-  } 
+    }
+  }
   // Fire off the XPath class
   require_once(APP_ROOT . '/includes/XPath.class.php');
   $XPath = new XPath();
-  $XPath->importFromString($xml); 
+  $XPath->importFromString($xml);
   // let the page begin.
   require_once(APP_ROOT . '/includes/system_header.php');
 
@@ -306,16 +307,14 @@ if (TEMPLATE_SET == 'xml') {
   if ( $error->ErrorsExist() && isset($showerrors) && $showerrors ) {
     $tpl->set_var('errors', makebox("ERRORS", $error->ErrorsAsHTML() ));
   }
-  
+
   // parse our the template
-  $tpl->pfp('out', 'form'); 
- 
+  $tpl->pfp('out', 'form');
+
   // finally our print our footer
 //  if (PHPGROUPWARE == 1) {
 //    $phpgw->common->phpgw_footer();
 //  } else {
   require_once(APP_ROOT . '/includes/system_footer.php');
-//  } 
-} 
-
-?>
+//  }
+}

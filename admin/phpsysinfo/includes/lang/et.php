@@ -71,7 +71,7 @@ $text['gb']             = 'GB';
 $text['none']           = 'puudub';
 
 $text['capacity']       = 'H&otilde;ivatus';
-  
+
 $text['template']       = 'Mall';
 $text['language']       = 'Keel';
 $text['submit']         = 'Kehtesta';
@@ -82,7 +82,7 @@ $text['gen_time']       = 'on %b %d, %Y at %I:%M %p';
 $text['days']           = 'p&auml;eva';
 $text['hours']          = 'tundi';
 $text['minutes']        = 'minutit';
-  
+
 $text['temperature']    = 'Temperatuur';
 $text['voltage']        = 'Pinge';
 $text['fans']           = 'Ventilaatorid';
@@ -102,4 +102,3 @@ $text['buffers']	= 'Puhvrid';
 $text['cached']		= 'Vahem&auml;lus';
 
 $text['connections']    = 'Established Network Connections';
-?>

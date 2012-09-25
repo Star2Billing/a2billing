@@ -74,7 +74,7 @@ $text['gb']             = 'GB';
 
 $text['none']           = '-';
 
-$text['capacity']       = 'Χωρητικότητα'; 
+$text['capacity']       = 'Χωρητικότητα';
 
 $text['template']       = 'Θέμα';
 $text['language']       = 'Γλώσσα';
@@ -86,7 +86,7 @@ $text['gen_time']       = 'on %b %d, %Y at %I:%M %p';
 $text['days']           = 'μέρες';
 $text['hours']          = 'ώρες';
 $text['minutes']        = 'λεπτά';
-  
+
 $text['temperature']    = 'Temperature';
 $text['voltage']        = 'Voltage';
 $text['fans']           = 'Fans';
@@ -104,5 +104,3 @@ $text['rpm_mark']       = 'RPM';
 $text['app']		= 'Kernel + applications';
 $text['buffers']	= 'Buffers';
 $text['cached']		= 'Cached';
-
-?>

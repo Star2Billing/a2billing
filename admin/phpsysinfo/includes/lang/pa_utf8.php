@@ -74,7 +74,7 @@ $text['gb']             = 'ਗੈਬਾ';
 
 $text['none']           = 'ਕੋਈ ਨਹੀਂ';
 
-$text['capacity']       = 'ਸਮੱਰਥਾ'; 
+$text['capacity']       = 'ਸਮੱਰਥਾ';
 
 $text['template']       = 'ਨਮੂਨਾ';
 $text['language']       = 'ਭਾਸ਼ਾ';
@@ -104,5 +104,3 @@ $text['rpm_mark']       = 'RPM';
 $text['app']            = 'Kernel + applications';
 $text['buffers']        = 'Buffers';
 $text['cached']         = 'Cached';
-
-?>

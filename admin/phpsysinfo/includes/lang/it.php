@@ -71,7 +71,7 @@ $text['gb']             = 'GB';
 $text['none']           = 'none';
 
 $text['capacity']       = 'Capacità';
-  
+
 $text['template']       = 'Template';
 $text['language']       = 'Lingua';
 $text['submit']         = 'Invia';
@@ -82,7 +82,7 @@ $text['gen_time']       = 'on %b %d, %Y at %I:%M %p';
 $text['days']           = 'giorni';
 $text['hours']          = 'ore';
 $text['minutes']        = 'minuti';
-  
+
 $text['temperature']    = 'Temperature';
 $text['voltage']        = 'Voltage';
 $text['fans']           = 'Fans';
@@ -102,4 +102,3 @@ $text['buffers']	= 'Buffers';
 $text['cached']		= 'Cached';
 
 $text['connections']    = 'Established Network Connections';
-?>

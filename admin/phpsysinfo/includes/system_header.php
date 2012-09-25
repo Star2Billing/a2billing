@@ -1,4 +1,4 @@
-<?php 
+<?php
 /***************************************************************************
  *   Copyright (C) 2006 by phpSysInfo - A PHP System Information Script    *
  *   http://phpsysinfo.sourceforge.net/                                    *
@@ -21,17 +21,17 @@
 
 // $Id: system_header.php,v 1.30 2007/02/11 15:57:17 bigmichi1 Exp $
 
-if( ! defined( 'IN_PHPSYSINFO' ) ) {
-	die( "No Hacking" );
+if ( ! defined( 'IN_PHPSYSINFO' ) ) {
+    die( "No Hacking" );
 }
 
 setlocale( LC_ALL, $text['locale'] );
 global $XPath;
 
 header( "Cache-Control: no-cache, must-revalidate" );
-if( ! isset( $charset ) ) {
-	$charset = "iso-8859-1";
-} 
+if ( ! isset( $charset ) ) {
+    $charset = "iso-8859-1";
+}
 header( "Content-Type: text/html; charset=" . $charset );
 
 echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n";
@@ -41,15 +41,13 @@ echo created_by();
 echo "<head>\n";
 echo "\t<title>" . $text['title'], " -- ", $XPath->getData('/phpsysinfo/Vitals/Hostname'), " --</title>\n";
 echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=" . $charset . "\">";
-if( file_exists( APP_ROOT . "/templates/" . $template . "/" . $template . ".css" ) ) {
-	echo "\t<link rel=\"stylesheet\" type=\"text/css\" href=\"" . $webpath . "templates/" . $template . "/" . $template . ".css\">\n";
+if ( file_exists( APP_ROOT . "/templates/" . $template . "/" . $template . ".css" ) ) {
+    echo "\t<link rel=\"stylesheet\" type=\"text/css\" href=\"" . $webpath . "templates/" . $template . "/" . $template . ".css\">\n";
 }
 echo "</head>\n";
 
-if( file_exists( APP_ROOT . "/templates/" . $template . "/images/" . $template . "_background.gif" ) ) {
-	echo "<body background=\"" . $webpath . "templates/" . $template . "/images/" . $template . "_background.gif\">";
+if ( file_exists( APP_ROOT . "/templates/" . $template . "/images/" . $template . "_background.gif" ) ) {
+    echo "<body background=\"" . $webpath . "templates/" . $template . "/images/" . $template . "_background.gif\">";
 } else {
-	echo "<body>\n";
+    echo "<body>\n";
 }
-
-?>

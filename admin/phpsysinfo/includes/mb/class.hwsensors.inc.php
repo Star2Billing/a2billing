@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // phpSysInfo - A PHP System Information Script
 // http://phpsysinfo.sourceforge.net/
@@ -19,62 +19,68 @@
 
 // $Id: class.hwsensors.inc.php,v 1.4 2006/05/20 17:01:07 bigmichi1 Exp $
 
-class mbinfo {
-    var $lines;
+class mbinfo
+{
+    public $lines;
 
-    function mbinfo() {
+    public function mbinfo()
+    {
         $this->lines = execute_program('sysctl', '-w hw.sensors');
-	$this->lines = explode("\n", $this->lines);
+    $this->lines = explode("\n", $this->lines);
     }
 
-    function temperature() {
-	$ar_buf = array();
-	$results = array();
+    public function temperature()
+    {
+    $ar_buf = array();
+    $results = array();
 
-        foreach( $this->lines as $line ) {
-    	    $ar_buf = preg_split("/[\s,]+/", $line);
-	    if( isset( $ar_buf[3] ) && $ar_buf[2] == 'temp') {
-    		$results[$j]['label'] = $ar_buf[1];
-    		$results[$j]['value'] = $ar_buf[3];
-    		$results[$j]['limit'] = '70.0';
-    		$results[$j]['percent'] = $results[$j]['value'] * 100 / $results[$j]['limit'];
-    		$j++;
-	    }
-	}
-	return $results;
+        foreach ($this->lines as $line) {
+            $ar_buf = preg_split("/[\s,]+/", $line);
+        if ( isset( $ar_buf[3] ) && $ar_buf[2] == 'temp') {
+            $results[$j]['label'] = $ar_buf[1];
+            $results[$j]['value'] = $ar_buf[3];
+            $results[$j]['limit'] = '70.0';
+            $results[$j]['percent'] = $results[$j]['value'] * 100 / $results[$j]['limit'];
+            $j++;
+        }
     }
 
-    function fans() {
-	$ar_buf = array();
-	$results = array();
-
-	foreach( $this->lines as $line ) {
-	    $ar_buf = preg_split("/[\s,]+/", $line );
-	    if( isset( $ar_buf[3] ) && $ar_buf[2] == 'fanrpm') {
-    		$results[$j]['label'] = $ar_buf[1];
-    		$results[$j]['value'] = $ar_buf[3];
-    		$j++;
-    	    }
-	}
-	return $results;
+    return $results;
     }
 
-    function voltage() {
-	$ar_buf = array();
-	$results = array();
+    public function fans()
+    {
+    $ar_buf = array();
+    $results = array();
 
-	foreach( $this->lines as $line ) {
-	    $ar_buf = preg_split("/[\s,]+/", $line );
-    	    if ( isset( $ar_buf[3] ) && $ar_buf[2] == 'volts_dc') {
-    		$results[$j]['label'] = $ar_buf[1];
-    		$results[$j]['value'] = $ar_buf[3];
-		$results[$j]['min'] = '0.00';
-    		$results[$j]['max'] = '0.00';
-    		$j++;
-    	    }
-	}
-	return $results;
+    foreach ($this->lines as $line) {
+        $ar_buf = preg_split("/[\s,]+/", $line );
+        if ( isset( $ar_buf[3] ) && $ar_buf[2] == 'fanrpm') {
+            $results[$j]['label'] = $ar_buf[1];
+            $results[$j]['value'] = $ar_buf[3];
+            $j++;
+            }
+    }
+
+    return $results;
+    }
+
+    public function voltage()
+    {
+    $ar_buf = array();
+    $results = array();
+
+    foreach ($this->lines as $line) {
+        $ar_buf = preg_split("/[\s,]+/", $line );
+            if ( isset( $ar_buf[3] ) && $ar_buf[2] == 'volts_dc') {
+            $results[$j]['label'] = $ar_buf[1];
+            $results[$j]['value'] = $ar_buf[3];
+        $results[$j]['min'] = '0.00';
+            $results[$j]['max'] = '0.00';
+            $j++;
+            }
+    }
+
+    return $results;
     }
 }
-
-?>

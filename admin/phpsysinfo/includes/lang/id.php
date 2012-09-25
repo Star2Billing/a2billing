@@ -73,7 +73,7 @@ $text['gb']             = 'GB';
 
 $text['none']           = 'tidak ditemukan';
 
-$text['capacity']       = 'Kapasitas'; 
+$text['capacity']       = 'Kapasitas';
 
 $text['template']       = 'Template';
 $text['language']       = 'Bahasa';
@@ -85,7 +85,7 @@ $text['gen_time']       = 'on %b %d, %Y at %I:%M %p';
 $text['days']           = 'hari';
 $text['hours']          = 'jam';
 $text['minutes']        = 'menit';
-  
+
 $text['temperature']    = 'Temperature';
 $text['voltage']        = 'Voltage';
 $text['fans']           = 'Fans';
@@ -103,5 +103,3 @@ $text['rpm_mark']       = 'RPM';
 $text['app']		= 'Kernel + applications';
 $text['buffers']	= 'Buffers';
 $text['cached']		= 'Cached';
-
-?>

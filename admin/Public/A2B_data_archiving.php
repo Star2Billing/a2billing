@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,20 +27,19 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
-
-include ("../lib/admin.defines.php");
-include ("../lib/admin.module.access.php");
-include ("../lib/Form/Class.FormHandler.inc.php");
-include ("../lib/admin.smarty.php");
+include '../lib/admin.defines.php';
+include '../lib/admin.module.access.php';
+include '../lib/Form/Class.FormHandler.inc.php';
+include '../lib/admin.smarty.php';
 
 if (! has_rights (ACX_MAINTENANCE)) {
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");
-	die();
+    Header ("HTTP/1.0 401 Unauthorized");
+    Header ("Location: PP_error.php?c=accessdenied");
+    die();
 }
 
 check_demo_mode();
@@ -63,7 +62,6 @@ $language_list_r["0"] = array("en", gettext("ENGLISH"));
 $language_list_r["1"] = array("es", gettext("SPANISH"));
 $language_list_r["2"] = array("fr", gettext("FRENCH"));
 
-
 $simultaccess_list = array();
 $simultaccess_list["0"] = array( gettext("INDIVIDUAL ACCESS"), "0");
 $simultaccess_list["1"] = array( gettext("SIMULTANEOUS ACCESS"), "1");
@@ -72,18 +70,16 @@ $simultaccess_list_r = array();
 $simultaccess_list_r["0"] = array( "0", gettext("INDIVIDUAL ACCESS"));
 $simultaccess_list_r["1"] = array( "1", gettext("SIMULTANEOUS ACCESS"));
 
-
 $currency_list = array();
 $currency_list_r = array();
 $indcur=0;
 
 $currencies_list = get_currencies();
-foreach($currencies_list as $key => $cur_value) {
-	$currency_list[$key]  = array( $cur_value[1].' ('.$cur_value[2].')', $key);
-	$currency_list_r[$key]  = array( $key, $cur_value[1]);
-	$currency_list_key[$key][0] = $key;
+foreach ($currencies_list as $key => $cur_value) {
+    $currency_list[$key]  = array( $cur_value[1].' ('.$cur_value[2].')', $key);
+    $currency_list_r[$key]  = array( $key, $cur_value[1]);
+    $currency_list_key[$key][0] = $key;
 }
-
 
 $cardstatus_list = array();
 $cardstatus_list["0"]  = array( gettext("CANCELLED"), "0");
@@ -101,7 +97,6 @@ $cardstatus_list_r["3"]  = array("3", gettext("WAITING-MAILCONFIRMATION"));
 $cardstatus_list_r["4"]  = array("4", gettext("RESERVED"));
 $cardstatus_list_r["5"]  = array("5", gettext("EXPIRED"));
 
-
 $cardstatus_list_acronym = array();
 $cardstatus_list_acronym["0"]  = array( gettext("<acronym title=\"CANCELLED\">".gettext("CANCEL")."</acronym>"), "0");
 $cardstatus_list_acronym["1"]  = array( gettext("<acronym title=\"ACTIVE\">".gettext("ACTIV")."</acronym>"), "1");
@@ -109,7 +104,6 @@ $cardstatus_list_acronym["2"]  = array( gettext("<acronym title=\"NEW\">".gettex
 $cardstatus_list_acronym["3"]  = array( gettext("<acronym title=\"WAITING-MAILCONFIRMATION\">".gettext("WAIT")."</acronym>"), "3");
 $cardstatus_list_acronym["4"]  = array( gettext("<acronym title=\"RESERVED\">".gettext("RESERV")."</acronym>"), "4");
 $cardstatus_list_acronym["5"]  = array( gettext("<acronym title=\"EXPIRED\">".gettext("EXPIR")."</acronym>"), "5");
-
 
 $typepaid_list = array();
 $typepaid_list["0"]  = array( gettext("PREPAID CARD"), "0");
@@ -121,7 +115,6 @@ $expire_list["1"]  = array( gettext("EXPIRE DATE"), "1");
 $expire_list["2"]  = array( gettext("EXPIRE DAYS SINCE FIRST USE"), "2");
 $expire_list["3"]  = array( gettext("EXPIRE DAYS SINCE CREATION"), "3");
 
-
 $actived_list = array();
 $actived_list["t"] = array( gettext("On"), "t");
 $actived_list["f"] = array( gettext("Off"), "f");
@@ -132,7 +125,7 @@ $yesno["0"] = array( gettext("No"), "0");
 
 $invoiceday_list = array();
 for ($k=0;$k<=28;$k++)
-	$invoiceday_list["$k"]  = array( "$k", "$k");
+    $invoiceday_list["$k"]  = array( "$k", "$k");
 
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = FALSE;
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
@@ -152,7 +145,6 @@ $FG_COL_QUERY='id, username, credit, lastname, status, language, inuse, currency
 
 $HD_Form -> FieldViewElement ($FG_COL_QUERY);
 
-
 $HD_Form -> CV_NO_FIELDS  = gettext("NO CUSTOMER SEARCHED!");
 $HD_Form -> FG_LIMITE_DISPLAY = 30;
 
@@ -160,7 +152,6 @@ $HD_Form -> FG_FILTER_SEARCH_FORM = true;
 $HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for cards created.');
 $HD_Form -> FG_FILTER_SEARCH_1_TIME = true;
 $HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('Creation date');
-
 
 $HD_Form -> FG_FILTER_SEARCH_1_TIME_BIS = true;
 $HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT_BIS = gettext('FIRST USE DATE');
@@ -198,9 +189,9 @@ $nb_customer = 0;
 /***********************************************************************************/
 getpost_ifset(array('archive', 'id'));
 
-if(isset($archive) && !empty($archive)){
-	$condition = $HD_Form -> FG_TABLE_CLAUSE;
-    if (strlen($condition) && strpos($condition,'WHERE') === false){
+if (isset($archive) && !empty($archive)) {
+    $condition = $HD_Form -> FG_TABLE_CLAUSE;
+    if (strlen($condition) && strpos($condition,'WHERE') === false) {
         $condition = " WHERE $condition";
     }
     echo "condition : $condition";
@@ -218,17 +209,17 @@ $list = $HD_Form -> perform_action($form_action);
 $smarty->display('main.tpl');
 echo $CC_help_data_archive;
 
-if(!isset($submit)){?>
+if (!isset($submit)) {?>
 <script language="JavaScript" src="javascript/card.js"></script>
 <div class="toggle_hide2show">
-<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH CUSTOMERS");?> </font></a><?php if(!empty($_SESSION['entity_archiving_selection'])){ ?>&nbsp;(<font style="color:#EE6564;" > <?php echo gettext("search activated"); ?> </font> ) <?php } ?></center>
-	<div class="tohide" style="display:none;">
+<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH CUSTOMERS");?> </font></a><?php if (!empty($_SESSION['entity_archiving_selection'])) { ?>&nbsp;(<font style="color:#EE6564;" > <?php echo gettext("search activated"); ?> </font> ) <?php } ?></center>
+    <div class="tohide" style="display:none;">
 
 <?php
 $HD_Form -> create_search_form();
 ?>
 
-	</div>
+    </div>
 </div>
 
 <?php }
@@ -237,33 +228,31 @@ $HD_Form -> create_search_form();
 <center>
 <FORM name="frm_archive" id="frm_archive" method="post" action="A2B_call_archiving.php">
 <table class="bar-status" width="50%" border="0" cellspacing="1" cellpadding="2" align="center">
-			<tbody>			
-			<tr>
-				<td width="30%" align="left" valign="top" class="bgcolor_004">					
-					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("ARCHIVING OPTIONS");?></font>
-				</td>				
-				<td width="70%" align="CENTER" class="bgcolor_005">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center"><tr>
-				  <td class="fontstyle_searchoptions">
-				<select name="archiveselect" class="form_input_select" onchange="form.submit();">
-				<option value="" ><?php echo gettext("Customer Archiving");?></option>
-				<option value="" ><?php echo gettext("Calls Archiving");?></option>
-				</select>
-					</td>					
-				</tr></table></td>
-			</tr>			
-		</tbody></table>
+            <tbody>
+            <tr>
+                <td width="30%" align="left" valign="top" class="bgcolor_004">
+                    <font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("ARCHIVING OPTIONS");?></font>
+                </td>
+                <td width="70%" align="CENTER" class="bgcolor_005">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center"><tr>
+                  <td class="fontstyle_searchoptions">
+                <select name="archiveselect" class="form_input_select" onchange="form.submit();">
+                <option value="" ><?php echo gettext("Customer Archiving");?></option>
+                <option value="" ><?php echo gettext("Calls Archiving");?></option>
+                </select>
+                    </td>
+                </tr></table></td>
+            </tr>
+        </tbody></table>
 </FORM>
 </center>
 
-<?php 	
+<?php
 
-if(isset($archive) && !empty($archive)){
-	$HD_Form -> CV_NO_FIELDS = "";
-	print "<div align=\"center\">".$archive_message."</div>";
-}	
+if (isset($archive) && !empty($archive)) {
+    $HD_Form -> CV_NO_FIELDS = "";
+    print "<div align=\"center\">".$archive_message."</div>";
+}
 $HD_Form -> create_form ($form_action, $list, $id=null);
 
-
 $smarty->display('footer.tpl');
-

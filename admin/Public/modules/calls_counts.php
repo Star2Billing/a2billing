@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,18 +27,17 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
-
-include_once ("../../lib/admin.defines.php");
-include_once ("../../lib/admin.module.access.php");
+include_once '../../lib/admin.defines.php';
+include_once '../../lib/admin.module.access.php';
 
 if (!has_rights(ACX_DASHBOARD)) {
-	Header("HTTP/1.0 401 Unauthorized");
-	Header("Location: PP_error.php?c=accessdenied");
-	die();
+    Header("HTTP/1.0 401 Unauthorized");
+    Header("Location: PP_error.php?c=accessdenied");
+    die();
 }
 $checkdate = date("Y-m-d");
 $DBHandle = DbConnect();
@@ -58,21 +57,21 @@ $result_count_congested = 0;
 $result_count_busy = 0;
 $result_count_chanunavail = 0;
 
-foreach ($result as $res_row){
-	if ($res_row[0]==1)
-		$result_count_answered = $res_row[1];
-	if ($res_row[0]==2)
-		$result_count_busy = $res_row[1];
-	if ($res_row[0]==3)
-		$result_count_noanswer = $res_row[1];
-	if ($res_row[0]==4)
-		$result_count_cancelled = $res_row[1];
-	if ($res_row[0]==5)
-		$result_count_congested = $res_row[1];	
-	if ($res_row[0]==6)
-		$result_count_chanunavail = $res_row[1];
-	
-	$result_count_all = $result_count_all + $res_row[1];
+foreach ($result as $res_row) {
+    if ($res_row[0]==1)
+        $result_count_answered = $res_row[1];
+    if ($res_row[0]==2)
+        $result_count_busy = $res_row[1];
+    if ($res_row[0]==3)
+        $result_count_noanswer = $res_row[1];
+    if ($res_row[0]==4)
+        $result_count_cancelled = $res_row[1];
+    if ($res_row[0]==5)
+        $result_count_congested = $res_row[1];
+    if ($res_row[0]==6)
+        $result_count_chanunavail = $res_row[1];
+
+    $result_count_all = $result_count_all + $res_row[1];
 }
 
 $result = $table->SQLExec($DBHandle, $QUERY_COUNT_CALL_BILL);
@@ -93,16 +92,14 @@ $result_count_calls_profit = $result_count_calls_sell-$result_count_calls_buy;
 
 <br/>
 
-<?php echo gettext("Sell");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
-<?php if($result_count_calls_sell == null){echo "0";}else{ echo $result_count_calls_sell;} ?> </font>&nbsp;<?php echo $A2B->config["global"]["base_currency"];?> <br/>
-	
-<?php echo gettext("Cost");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
-<?php if($result_count_calls_buy == null){echo "0";}else{ echo $result_count_calls_buy;} ?> </font>&nbsp;<?php echo $A2B->config["global"]["base_currency"];?>  <br/>
+<?php echo gettext("Sell");?>&nbsp;:&nbsp; <font style="color:#EE6564;" >
+<?php if ($result_count_calls_sell == null) {echo "0";} else { echo $result_count_calls_sell;} ?> </font>&nbsp;<?php echo $A2B->config["global"]["base_currency"];?> <br/>
 
-<?php echo gettext("Profit");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
-<?php if($result_count_calls_profit == null){echo "0";}else{ echo $result_count_calls_profit;} ?> </font>&nbsp;<?php echo $A2B->config["global"]["base_currency"];?>  <br/>
+<?php echo gettext("Cost");?>&nbsp;:&nbsp; <font style="color:#EE6564;" >
+<?php if ($result_count_calls_buy == null) {echo "0";} else { echo $result_count_calls_buy;} ?> </font>&nbsp;<?php echo $A2B->config["global"]["base_currency"];?>  <br/>
 
-<?php echo gettext("Duration");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
-<?php if($result_count_calls_times == null){echo "0";}else{ echo $result_count_calls_times;} ?> </font>&nbsp;<?php echo gettext("sec");?>  <br/>
+<?php echo gettext("Profit");?>&nbsp;:&nbsp; <font style="color:#EE6564;" >
+<?php if ($result_count_calls_profit == null) {echo "0";} else { echo $result_count_calls_profit;} ?> </font>&nbsp;<?php echo $A2B->config["global"]["base_currency"];?>  <br/>
 
-
+<?php echo gettext("Duration");?>&nbsp;:&nbsp; <font style="color:#EE6564;" >
+<?php if ($result_count_calls_times == null) {echo "0";} else { echo $result_count_calls_times;} ?> </font>&nbsp;<?php echo gettext("sec");?>  <br/>

@@ -73,7 +73,7 @@ $text['gb']             = 'GB';
 $text['none']           = 'ingen';
 
 $text['capacity']       = 'Kapacitet';
-  
+
 $text['template']       = 'Skabelon';
 $text['language']       = 'Sprog';
 $text['submit']         = 'Okay';
@@ -84,7 +84,7 @@ $text['gen_time']       = 'on %b %d, %Y at %I:%M %p';
 $text['days']           = 'dage';
 $text['hours']          = 'timer';
 $text['minutes']        = 'minutter';
-  
+
 $text['temperature']    = 'Temperature';
 $text['voltage']        = 'Voltage';
 $text['fans']           = 'Fans';
@@ -104,4 +104,3 @@ $text['buffers']	= 'Buffers';
 $text['cached']		= 'Cached';
 
 $text['connections']    = 'Established Network Connections';
-?>

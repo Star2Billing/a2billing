@@ -73,7 +73,7 @@ $text['gb']             = 'GB';
 
 $text['none']           = 'ありません';
 
-$text['capacity']       = '容量'; 
+$text['capacity']       = '容量';
 
 $text['template']       = 'デザイン選択';
 $text['language']       = '言語';
@@ -104,5 +104,3 @@ $text['cached']		= 'Cached';
 
 $text['locale']         = 'en_US';
 $text['gen_time']       = 'on %b %d, %Y at %I:%M %p';
-
-?>

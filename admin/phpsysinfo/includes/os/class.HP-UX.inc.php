@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // phpSysInfo - A PHP System Information Script
 // http://phpsysinfo.sourceforge.net/
@@ -19,35 +19,44 @@
 
 // $Id: class.HP-UX.inc.php,v 1.20 2007/02/18 18:59:54 bigmichi1 Exp $
 
-class sysinfo {
+class sysinfo
+{
   // get our apache SERVER_NAME or vhost
-  function vhostname () {
+  public function vhostname ()
+  {
     if (! ($result = getenv('SERVER_NAME'))) {
       $result = 'N.A.';
-    } 
+    }
+
     return $result;
-  } 
+  }
   // get the IP address of our vhost name
-  function vip_addr () {
+  public function vip_addr ()
+  {
     return gethostbyname($this->vhostname());
   }
   // get our canonical hostname
-  function chostname () {
+  public function chostname ()
+  {
     return execute_program('hostname');
-  } 
+  }
   // get the IP address of our canonical hostname
-  function ip_addr () {
+  public function ip_addr ()
+  {
     if (!($result = getenv('SERVER_ADDR'))) {
       $result = gethostbyname($this->chostname());
-    } 
+    }
+
     return $result;
-  } 
+  }
 
-  function kernel () {
+  public function kernel ()
+  {
     return execute_program('uname', '-srvm');
-  } 
+  }
 
-  function uptime () {
+  public function uptime ()
+  {
     $result = 0;
     $ar_buf = array();
 
@@ -57,18 +66,21 @@ class sysinfo {
       $hours = $ar_buf[2];
       $days = $ar_buf[1];
       $result = $days * 86400 + $hours * 3600 + $min * 60;
-    } 
+    }
 
     return $result;
-  } 
+  }
 
-  function users () {
+  public function users ()
+  {
     $who = preg_split('/=/', execute_program('who', '-q'));
     $result = $who[1];
-    return $result;
-  } 
 
-  function loadavg ($bar = false) {
+    return $result;
+  }
+
+  public function loadavg ($bar = false)
+  {
     $ar_buf = array();
 
     $buf = execute_program('uptime');
@@ -77,19 +89,21 @@ class sysinfo {
       $results['avg'] = array($ar_buf[1], $ar_buf[2], $ar_buf[3]);
     } else {
       $results['avg'] = array('N.A.', 'N.A.', 'N.A.');
-    } 
-    return $results;
-  } 
+    }
 
-  function cpu_info () {
+    return $results;
+  }
+
+  public function cpu_info ()
+  {
     $results = array();
     $ar_buf = array();
 
     $bufr = rfts( '/proc/cpuinfo' );
-    if( $bufr != "ERROR" ) {
+    if ($bufr != "ERROR") {
       $bufe = explode( "\n", $bufr );
-      foreach( $bufe as $buf ) {
-        list($key, $value) = preg_split('/\s+:\s+/', trim($buf), 2); 
+      foreach ($bufe as $buf) {
+        list($key, $value) = preg_split('/\s+:\s+/', trim($buf), 2);
         // All of the tags here are highly architecture dependant.
         // the only way I could reconstruct them for machines I don't
         // have is to browse the kernel source.  So if your arch isn't
@@ -140,10 +154,10 @@ class sysinfo {
           case 'processor':
             $results['cpus'] += 1;
             break;
-        } 
-      } 
+        }
+      }
       fclose($fd);
-    } 
+    }
 
     $keys = array_keys($results);
     $keys2be = array('model', 'cpuspeed', 'cache', 'bogomips', 'cpus');
@@ -151,59 +165,63 @@ class sysinfo {
     while ($ar_buf = each($keys2be)) {
       if (! in_array($ar_buf[1], $keys)) {
         $results[$ar_buf[1]] = 'N.A.';
-      } 
-    } 
-    return $results;
-  } 
+      }
+    }
 
-  function pci () {
+    return $results;
+  }
+
+  public function pci ()
+  {
     $results = array();
 
     $bufr = rfts( '/proc/pci' );
-    if( $bufr != "ERROR" ) {
+    if ($bufr != "ERROR") {
       $bufe = explode( "\n", $bufr );
-      foreach( $bufe as $buf ) {
+      foreach ($bufe as $buf) {
         if (preg_match('/Bus/', $buf)) {
           $device = true;
           continue;
-        } 
+        }
 
         if ($device) {
           list($key, $value) = preg_split('/: /', $buf, 2);
 
           if (!preg_match('/bridge/i', $key) && !preg_match('/USB/i', $key)) {
             $results[] = preg_replace('/\([^\)]+\)\.$/', '', trim($value));
-          } 
+          }
           $device = false;
-        } 
+        }
       }
-    } 
+    }
     asort($results);
-    return $results;
-  } 
 
-  function ide () {
+    return $results;
+  }
+
+  public function ide ()
+  {
     $results = array();
 
     $bufd = gdc( '/proc/ide' );
 
-    foreach( $bufd as $file ) {
+    foreach ($bufd as $file) {
       if (preg_match('/^hd/', $file)) {
-        $results[$file] = array(); 
+        $results[$file] = array();
         // Check if device is CD-ROM (CD-ROM capacity shows as 1024 GB)
-	$buf = rfts( "/proc/ide/" . $file . "/media", 1 );
-	if( $buf != "ERROR" ) {
+    $buf = rfts( "/proc/ide/" . $file . "/media", 1 );
+    if ($buf != "ERROR") {
           $results[$file]['media'] = trim( $buf );
           if ($results[$file]['media'] == 'disk') {
             $results[$file]['media'] = 'Hard Disk';
-          } 
+          }
           if ($results[$file]['media'] == 'cdrom') {
             $results[$file]['media'] = 'CD-ROM';
-          } 
-        } 
+          }
+        }
 
-	$buf = rfts( "/proc/ide/" . $file . "/model", 1 );
-	if( $buf != "ERROR" ) {
+    $buf = rfts( "/proc/ide/" . $file . "/model", 1 );
+    if ($buf != "ERROR") {
           $results[$file]['model'] = trim( $buf );
           if (preg_match('/WDC/', $results[$file]['model'])) {
             $results[$file]['manufacture'] = 'Western Digital';
@@ -213,23 +231,25 @@ class sysinfo {
             $results[$file]['manufacture'] = 'Fujitsu';
           } else {
             $results[$file]['manufacture'] = 'Unknown';
-          } 
-        } 
+          }
+        }
 
-	$buf = rfts( "/proc/ide/" . $file . "/capacity", 1 );
-	if( $buf != "ERROR" ) {
+    $buf = rfts( "/proc/ide/" . $file . "/capacity", 1 );
+    if ($buf != "ERROR") {
           $results[$file]['capacity'] = trim( $buf );
           if ($results[$file]['media'] == 'CD-ROM') {
             unset($results[$file]['capacity']);
-          } 
-        } 
-      } 
-    } 
+          }
+        }
+      }
+    }
     asort($results);
-    return $results;
-  } 
 
-  function scsi () {
+    return $results;
+  }
+
+  public function scsi ()
+  {
     $results = array();
     $dev_vendor = '';
     $dev_model = '';
@@ -238,16 +258,16 @@ class sysinfo {
     $s = 1;
 
     $bufr = rfts( '/proc/scsi/scsi' );
-    if( $bufr != "ERROR" ) {
+    if ($bufr != "ERROR") {
       $bufe = explode( "\n", $bufr );
-      foreach( $bufe as $buf ) {
+      foreach ($bufe as $buf) {
         if (preg_match('/Vendor/', $buf)) {
           preg_match('/Vendor: (.*) Model: (.*) Rev: (.*)/i', $buf, $dev);
           list($key, $value) = preg_split('/: /', $buf, 2);
           $dev_str = $value;
           $get_type = 1;
           continue;
-        } 
+        }
 
         if ($get_type) {
           preg_match('/Type:\s+(\S+)/i', $buf, $dev_type);
@@ -255,49 +275,55 @@ class sysinfo {
           $results[$s]['media'] = "Hard Disk";
           $s++;
           $get_type = 0;
-        } 
+        }
       }
-    } 
+    }
     asort($results);
-    return $results;
-  } 
 
-  function usb () {
+    return $results;
+  }
+
+  public function usb ()
+  {
     $results = array();
     $devstring = 0;
     $devnum = -1;
 
     $bufr = rfts( '/proc/bus/usb/devices' );
-    if( $bufr != "ERROR" ) {
+    if ($bufr != "ERROR") {
       $bufe = explode( "\n", $bufr );
-      foreach( $bufe as $buf ) {
+      foreach ($bufe as $buf) {
         if (preg_match('/^T/', $buf)) {
           $devnum += 1;
-        } 
+        }
         if (preg_match('/^S/', $buf)) {
           $devstring = 1;
-        } 
+        }
 
         if ($devstring) {
           list($key, $value) = preg_split('/: /', $buf, 2);
           list($key, $value2) = preg_split('/=/', $value, 2);
           $results[$devnum] .= " " . trim($value2);
           $devstring = 0;
-        } 
+        }
       }
-    } 
-    return $results;
-  } 
+    }
 
-  function sbus () {
+    return $results;
+  }
+
+  public function sbus ()
+  {
     $results = array();
     $_results[0] = "";
     // TODO. Nothing here yet. Move along.
     $results = $_results;
+
     return $results;
   }
 
-  function network () {
+  public function network ()
+  {
     $netstat = execute_program('netstat', '-ni | tail -n +2');
     $lines = preg_split("/\n/", $netstat);
     $results = array();
@@ -318,19 +344,21 @@ class sysinfo {
 
         $results[$ar_buf[0]]['errs'] = $ar_buf[5] + $ar_buf[7];
         $results[$ar_buf[0]]['drop'] = $ar_buf[8];
-      } 
-    } 
+      }
+    }
+
     return $results;
-  } 
-  function memory () {
+  }
+  public function memory ()
+  {
     $results['ram'] = array();
     $results['swap'] = array();
     $results['devswap'] = array();
 
     $bufr = rfts( '/proc/meminfo' );
-    if( $bufr != "ERROR" ) {
+    if ($bufr != "ERROR") {
       $bufe = explode( "\n", $bufr );
-      foreach( $bufe as $buf ) {
+      foreach ($bufe as $buf) {
         if (preg_match('/Mem:\s+(.*)$/', $buf, $ar_buf)) {
           $ar_buf = preg_split('/\s+/', $ar_buf[1], 6);
 
@@ -339,11 +367,11 @@ class sysinfo {
           $results['ram']['free'] = $ar_buf[2] / 1024;
           $results['ram']['shared'] = $ar_buf[3] / 1024;
           $results['ram']['buffers'] = $ar_buf[4] / 1024;
-          $results['ram']['cached'] = $ar_buf[5] / 1024; 
+          $results['ram']['cached'] = $ar_buf[5] / 1024;
           // I don't like this since buffers and cache really aren't
           // 'used' per say, but I get too many emails about it.
           $results['ram']['percent'] = round(($results['ram']['used'] * 100) / $results['ram']['total']);
-        } 
+        }
 
         if (preg_match('/Swap:\s+(.*)$/', $buf, $ar_buf)) {
           $ar_buf = preg_split('/\s+/', $ar_buf[1], 3);
@@ -351,10 +379,10 @@ class sysinfo {
           $results['swap']['total'] = $ar_buf[0] / 1024;
           $results['swap']['used'] = $ar_buf[1] / 1024;
           $results['swap']['free'] = $ar_buf[2] / 1024;
-          $results['swap']['percent'] = round(($ar_buf[1] * 100) / $ar_buf[0]); 
+          $results['swap']['percent'] = round(($ar_buf[1] * 100) / $ar_buf[0]);
           // Get info on individual swap files
-	  $swaps = rfts( '/proc/swaps' );
-	  if( $swaps != "ERROR" ) {
+      $swaps = rfts( '/proc/swaps' );
+      if ($swaps != "ERROR") {
             $swapdevs = preg_split("/\n/", $swaps);
 
             for ($i = 1, $max = (sizeof($swapdevs) - 1); $i < $max; $i++) {
@@ -365,16 +393,18 @@ class sysinfo {
               $results['devswap'][$i - 1]['used'] = $ar_buf[3];
               $results['devswap'][$i - 1]['free'] = ($results['devswap'][$i - 1]['total'] - $results['devswap'][$i - 1]['used']);
               $results['devswap'][$i - 1]['percent'] = round(($ar_buf[3] * 100) / $ar_buf[2]);
-            } 
+            }
             break;
-	  }
-        } 
-      } 
-    } 
-    return $results;
-  } 
+      }
+        }
+      }
+    }
 
-  function filesystems () {
+    return $results;
+  }
+
+  public function filesystems ()
+  {
     $df = execute_program('df', '-kP');
     $mounts = preg_split("/\n/", $df);
     $fstype = array();
@@ -386,7 +416,7 @@ class sysinfo {
     while (list(, $line) = each($lines)) {
       $a = preg_split('/ /', $line);
       $fsdev[$a[0]] = $a[4];
-    } 
+    }
 
     for ($i = 1, $j = 0, $max = sizeof($mounts); $i < $max; $i++) {
       $ar_buf = preg_split("/\s+/", $mounts[$i], 6);
@@ -405,19 +435,22 @@ class sysinfo {
       $results[$j]['mount'] = $ar_buf[5];
       ($fstype[$ar_buf[5]]) ? $results[$j]['fstype'] = $fstype[$ar_buf[5]] : $results[$j]['fstype'] = $fsdev[$ar_buf[0]];
       $j++;
-    } 
+    }
+
     return $results;
-  } 
-  
-  function distro () {
-    $result = 'HP-UX';  	
+  }
+
+  public function distro ()
+  {
+    $result = 'HP-UX';
+
     return($result);
   }
 
-  function distroicon () {
+  public function distroicon ()
+  {
     $result = 'unknown.png';
+
     return($result);
   }
-} 
-
-?>
+}

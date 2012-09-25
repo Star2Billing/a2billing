@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // phpSysInfo - A PHP System Information Script
 // http://phpsysinfo.sourceforge.net/
@@ -24,25 +24,28 @@ if (!defined('IN_PHPSYSINFO')) {
 
 require_once(APP_ROOT . "/includes/common_functions.php");
 
-class mbinfo {
-  var $lines;
+class mbinfo
+{
+  public $lines;
 
-  function mbinfo() {
+  public function mbinfo()
+  {
    $lines = execute_program("sensors", "");
-   // Martijn Stolk: Dirty fix for misinterpreted output of sensors, 
+   // Martijn Stolk: Dirty fix for misinterpreted output of sensors,
    // where info could come on next line when the label is too long.
    $lines = str_replace(":\n", ":", $lines);
    $lines = str_replace("\n\n", "\n", $lines);
    $this->lines = explode("\n", $lines);
   }
-  
-  function temperature() {
+
+  public function temperature()
+  {
     $ar_buf = array();
     $results = array();
 
     $sensors_value = $this->lines;
 
-    foreach($sensors_value as $line) {
+    foreach ($sensors_value as $line) {
       $data = array();
       if (preg_match("/(.*):(.*)\((.*)=(.*),(.*)=(.*)\)(.*)/", $line, $data)) ;
       elseif (preg_match("/(.*):(.*)\((.*)=(.*)\)(.*)/", $line, $data)) ;
@@ -59,7 +62,7 @@ class mbinfo {
     }
 
     $i = 0;
-    foreach($ar_buf as $line) {
+    foreach ($ar_buf as $line) {
       unset($data);
       if (preg_match("/(.*):(.*).C[ ]*\((.*)=(.*).C,(.*)=(.*).C\)(.*)\)/", $line, $data)) ;
       elseif (preg_match("/(.*):(.*).C[ ]*\((.*)=(.*).C,(.*)=(.*).C\)(.*)/", $line, $data)) ;
@@ -75,23 +78,25 @@ class mbinfo {
         $results[$i]['limit'] = isset($data[4]) ? trim($data[4]) : "+75";
         $results[$i]['perce'] = isset($data[6]) ? trim($data[6]) : "+75";
       }
-      if ($results[$i]['limit'] < $results[$i]['perce']) {	 	
-         $results[$i]['limit'] = $results[$i]['perce'];	 	
-       }      
+      if ($results[$i]['limit'] < $results[$i]['perce']) {
+         $results[$i]['limit'] = $results[$i]['perce'];
+       }
       $i++;
     }
 
     asort($results);
+
     return array_values($results);
   }
 
-  function fans() {
+  public function fans()
+  {
     $ar_buf = array();
     $results = array();
 
     $sensors_value = $this->lines;
 
-    foreach($sensors_value as $line) {
+    foreach ($sensors_value as $line) {
       $data = array();
       if (preg_match("/(.*):(.*)\((.*)=(.*),(.*)=(.*)\)(.*)/", $line, $data));
       elseif (preg_match("/(.*):(.*)\((.*)=(.*)\)(.*)/", $line, $data));
@@ -101,18 +106,18 @@ class mbinfo {
         $temp = explode(" ", trim($data[2]));
         if (count($temp) == 1)
           $temp = explode("\xb0", trim($data[2]));
-	if(isset($temp[1])) {
+    if (isset($temp[1])) {
           switch ($temp[1]) {
             case "RPM":
               array_push($ar_buf, $line);
               break;
           }
-	}
+    }
       }
     }
 
     $i = 0;
-    foreach($ar_buf as $line) {
+    foreach ($ar_buf as $line) {
       unset($data);
       if (preg_match("/(.*):(.*) RPM  \((.*)=(.*) RPM,(.*)=(.*)\)(.*)\)/", $line, $data));
       elseif (preg_match("/(.*):(.*) RPM  \((.*)=(.*) RPM,(.*)=(.*)\)(.*)/", $line, $data));
@@ -126,20 +131,22 @@ class mbinfo {
     }
 
     asort($results);
+
     return array_values($results);
   }
 
-  function voltage() {
+  public function voltage()
+  {
     $ar_buf = array();
     $results = array();
 
     $sensors_value = $this->lines;
 
-    foreach($sensors_value as $line) {
+    foreach ($sensors_value as $line) {
       $data = array();
       if (preg_match("/(.*):(.*)\((.*)=(.*),(.*)=(.*)\)(.*)/", $line, $data));
       else preg_match("/(.*):(.*)/", $line, $data);
-      
+
       if (count($data) > 1) {
         $temp = explode(" ", trim($data[2]));
         if (count($temp) == 1)
@@ -149,18 +156,18 @@ class mbinfo {
             case "V":
               array_push($ar_buf, $line);
               break;
-	  }
+      }
         }
       }
     }
 
     $i = 0;
-    foreach($ar_buf as $line) {
+    foreach ($ar_buf as $line) {
       unset($data);
       if (preg_match("/(.*):(.*) V  \((.*)=(.*) V,(.*)=(.*) V\)(.*)\)/", $line, $data));
       elseif (preg_match("/(.*):(.*) V  \((.*)=(.*) V,(.*)=(.*) V\)(.*)/", $line, $data));
       else preg_match("/(.*):(.*) V$/", $line, $data);
-      if(isset($data[1])) {
+      if (isset($data[1])) {
         $results[$i]['label'] = trim($data[1]);
         $results[$i]['value'] = trim($data[2]);
         $results[$i]['min'] = isset($data[4]) ? trim($data[4]) : 0;
@@ -168,8 +175,7 @@ class mbinfo {
         $i++;
       }
     }
+
     return $results;
   }
 }
-
-?>

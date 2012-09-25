@@ -21,45 +21,49 @@
 
 // $Id: class.mbmon.inc.php,v 1.5 2007/02/18 19:11:31 bigmichi1 Exp $
 
-class mbinfo {
-	var $lines;
+class mbinfo
+{
+    public $lines;
 
-  function temperature() {
+  public function temperature()
+  {
     $results = array();
 
-	if (!isset($this->lines) ) {
-	    $this->lines = explode("\n", execute_program('mbmon', '-c 1 -r'));
-	}
+    if (!isset($this->lines) ) {
+        $this->lines = explode("\n", execute_program('mbmon', '-c 1 -r'));
+    }
 
     $i = 0;
-    foreach($this->lines as $line) {
+    foreach ($this->lines as $line) {
       if (preg_match('/^(TEMP\d*)\s*:\s*(.*)$/D', $line, $data)) {
         if ($data[2]<>'0') {
           $results[$i]['label'] = $data[1];
           $results[$i]['limit'] = '70.0';
-	  if($data[2] > 250) {
-	    $results[$i]['value'] = 0;
-	    $results[$i]['percent'] = 0;
-	  } else {
+      if ($data[2] > 250) {
+        $results[$i]['value'] = 0;
+        $results[$i]['percent'] = 0;
+      } else {
             $results[$i]['value'] = $data[2];
             $results[$i]['percent'] = $results[$i]['value'] * 100 / $results[$i]['limit'];
-	  }
+      }
           $i++;
         }
       }
     }
+
     return $results;
   }
 
-  function fans() {
+  public function fans()
+  {
     $results = array();
 
-	if (!isset($this->lines) ) {
-	    $this->lines = explode("\n", execute_program('mbmon', '-c 1 -r'));
-	}
+    if (!isset($this->lines) ) {
+        $this->lines = explode("\n", execute_program('mbmon', '-c 1 -r'));
+    }
 
     $i = 0;
-    foreach($this->lines as $line) {
+    foreach ($this->lines as $line) {
       if (preg_match('/^(FAN\d*)\s*:\s*(.*)$/D', $line, $data)) {
         if ($data[2]<>'0') {
           $results[$i]['label'] = $data[1];
@@ -69,18 +73,20 @@ class mbinfo {
         }
       }
     }
+
     return $results;
   }
 
-  function voltage() {
+  public function voltage()
+  {
     $results = array();
 
-	if (!isset($this->lines) ) {
-	    $this->lines = explode("\n", execute_program('mbmon', '-c 1 -r'));
-	}
+    if (!isset($this->lines) ) {
+        $this->lines = explode("\n", execute_program('mbmon', '-c 1 -r'));
+    }
 
     $i = 0;
-    foreach($this->lines as $line) {
+    foreach ($this->lines as $line) {
       if (preg_match('/^(V.*)\s*:\s*(.*)$/D', $line, $data)) {
         if ($data[2]<>'+0.00') {
           $results[$i]['label'] = $data[1];
@@ -95,5 +101,3 @@ class mbinfo {
     return $results;
   }
 }
-
-?>

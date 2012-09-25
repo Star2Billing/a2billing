@@ -76,7 +76,7 @@ $text['gb']             = 'جيغا بايت GB';
 
 $text['none']           = 'بدون';
 
-$text['capacity']       = 'سعه'; 
+$text['capacity']       = 'سعه';
 
 $text['template']       = 'بنيه';
 $text['language']       = 'لغه';
@@ -107,4 +107,3 @@ $text['cached']		= 'Cached';
 
 $text['locale']		= 'en_US';
 $text['gen_time']       = 'on %b %d, %Y at %I:%M %p';
-?>

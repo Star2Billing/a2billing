@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,16 +27,16 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
-include_once ('../../lib/admin.defines.php');
-include_once ('../../lib/admin.module.access.php');
+include_once '../../lib/admin.defines.php';
+include_once '../../lib/admin.module.access.php';
 
 if (!has_rights(ACX_DASHBOARD)) {
-	Header("HTTP/1.0 401 Unauthorized");
-	Header("Location: PP_error.php?c=accessdenied");
-	die();
+    Header("HTTP/1.0 401 Unauthorized");
+    Header("Location: PP_error.php?c=accessdenied");
+    die();
 }
 
 exec("lsb_release -d 2> /dev/null", $output);
@@ -51,11 +51,11 @@ $UI = $info_tmp[0].' '.$info_tmp[1];
 
 $UI_path = '';
 $info_tmp = preg_split('#//#', $_SERVER["SCRIPT_FILENAME"]);
-foreach($info_tmp as $value){
-	if($value != 'admin')
-		$UI_path .= $value . '/';
-	else
-		break;
+foreach ($info_tmp as $value) {
+    if($value != 'admin')
+        $UI_path .= $value . '/';
+    else
+        break;
 }
 
 $DBHandle = DbConnect();
@@ -88,5 +88,3 @@ $server_name = $_SERVER['SERVER_NAME'];
 <?php echo gettext("You Ip Address");?>&nbsp;:&nbsp;<font style="text-decoration: underline"><?php echo $ip_address; ?></font><br/>
 
 <?php echo gettext("MYSQL");?>&nbsp;:&nbsp;<?php echo $mysql; ?><br/>
-
-

@@ -73,7 +73,7 @@ $text['gb']             = 'GB';
 $text['none']           = 'nėra';
 
 $text['capacity']       = 'Talpa';
-  
+
 $text['template']       = 'Šablonas';
 $text['language']       = 'Kalba';
 $text['submit']         = 'Atnaujinti';
@@ -106,5 +106,3 @@ $text['connections']    = 'Established Network Connections';
 
 $text['locale']         = 'en_US';
 $text['gen_time']       = 'on %b %d, %Y at %I:%M %p';
-
-?>

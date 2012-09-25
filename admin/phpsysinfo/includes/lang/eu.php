@@ -72,7 +72,7 @@ $text['gb']             = 'GB';
 
 $text['none']           = 'ezer ez';
 
-$text['capacity']       = 'Kapazitatea'; 
+$text['capacity']       = 'Kapazitatea';
 
 $text['template']       = 'Txantiloia';
 $text['language']       = 'Langoaia';
@@ -84,7 +84,7 @@ $text['gen_time']       = 'on %b %d, %Y at %I:%M %p';
 $text['days']           = 'egun';
 $text['hours']          = 'ordu';
 $text['minutes']        = 'minutu';
-  
+
 $text['temperature']    = 'Temperature';
 $text['voltage']        = 'Voltage';
 $text['fans']           = 'Fans';
@@ -102,5 +102,3 @@ $text['rpm_mark']       = 'RPM';
 $text['app']		= 'Kernel + applications';
 $text['buffers']	= 'Buffers';
 $text['cached']		= 'Cached';
-
-?>

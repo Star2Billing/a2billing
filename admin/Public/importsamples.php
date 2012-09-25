@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,11 +27,9 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
-
-
 
 $cardSample_Simple = "1321321321, 12312323325, Churchill, 12, Churchill, Winston, 1, 1
 <br>1435345345, 12312323444, Raumon, 12, Raumon, Carrette, 1, 1
@@ -52,7 +50,6 @@ $ratecardSample_Complex = "33, France, 1.01, 30, 6, 1.23, 30, 6, 0.12, 0, 0.12, 
 <br>44, UK, 0.54, 30, 10, 0.78, 30, 6, 0.06, 0, 0.06, 0.85, 120, 0, 0,0,0,0,  0,0,0,0, 2005-02-10 21:23:55, 2005-04-15 10:00:00, 1,10079,tag4,1080,720,1.5,15
 <br>44, UK, 0.54, 30, 10, 0.89, 30, 6, 0.10, 0, 0.06, 0.94, 120, 0, 0,0,0,0,  0,0,0,0, 2005-04-15 10:00:00, 0, 1,2000,tag5,1440,960,2.0,20";
 
-
 $didSample_Simple = "2001, 103<br>2002, 104<br>2003, 108<br>2004, 105";
 
 $didSample_Complex = "200, 12, 1, 2006-07-17 19:48:07, 2031-07-17 19:48:07, 1
@@ -70,8 +67,7 @@ $phonebookSample_Complex = "003247354343, Jean Pest, advertissing
 
 echo "<font size=\"1\">";
 if (isset($_GET["sample"])) {
-    switch($_GET["sample"])
-    {
+    switch ($_GET["sample"]) {
         case "Card_Simple":
         echo $cardSample_Simple;
         break;
@@ -91,11 +87,11 @@ if (isset($_GET["sample"])) {
         case "did_Simple":
         echo $didSample_Simple;
         break;
-        
+
         case "did_Complex":
         echo $didSample_Complex;
         break;
-        
+
         case "Phonebook_Simple":
         echo $phonebookSample_Simple;
         break;
@@ -107,7 +103,7 @@ if (isset($_GET["sample"])) {
         default:
         echo "No sample defined!";
         break;
-        
+
     }
 }
 echo "</font>";

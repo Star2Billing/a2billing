@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // phpSysInfo - A PHP System Information Script
 // http://phpsysinfo.sourceforge.net/
@@ -19,10 +19,12 @@
 
 // $Id: class.healthd.inc.php,v 1.6 2007/02/18 19:11:31 bigmichi1 Exp $
 
-class mbinfo {
-    var $lines;
+class mbinfo
+{
+    public $lines;
 
-  function temperature() {
+  public function temperature()
+  {
     $ar_buf = array();
     $results = array();
 
@@ -44,10 +46,12 @@ class mbinfo {
     $results[2]['value'] = $ar_buf[3];
     $results[2]['limit'] = '70.0';
     $results[2]['percent'] = $results[2]['value'] * 100 / $results[2]['limit'];
-    return $results;
-  } 
 
-  function fans() {
+    return $results;
+  }
+
+  public function fans()
+  {
     $ar_buf = array();
     $results = array();
 
@@ -68,9 +72,10 @@ class mbinfo {
     $results[2]['min'] = '3000';
 
     return $results;
-  } 
+  }
 
-  function voltage() {
+  public function voltage()
+  {
     $ar_buf = array();
     $results = array();
 
@@ -110,7 +115,5 @@ class mbinfo {
     $results[6]['max'] = '0.00';
 
     return $results;
-  } 
-} 
-
-?>
+  }
+}

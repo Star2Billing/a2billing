@@ -70,7 +70,7 @@ $text['gb']             = 'GB';
 
 $text['none']           = 'ekkert';
 
-$text['capacity']       = 'Heildarstærð'; 
+$text['capacity']       = 'Heildarstærð';
 
 $text['template']       = 'Sniðmát';
 $text['language']       = 'Tungumál';
@@ -82,7 +82,7 @@ $text['gen_time']       = 'þann %d.%m.%Y kl. %H:%M';
 $text['days']           = 'dagar';
 $text['hours']          = 'klukkustundir';
 $text['minutes']        = 'mínútur';
-  
+
 $text['temperature']    = 'Hitastig';
 $text['voltage']        = 'Volt';
 $text['fans']           = 'Viftur';
@@ -102,4 +102,3 @@ $text['buffers']	= 'Buffers';
 $text['cached']		= 'Cached';
 
 $text['connections']    = 'Established Network Connections';
-?>
