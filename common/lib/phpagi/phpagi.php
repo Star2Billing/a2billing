@@ -1622,7 +1622,8 @@
         $parse = explode(' ', trim($str));
         $in_token = false;
         foreach ($parse as $token) {
-          if ($in_token) // we previously hit a token starting with ')' but not ending in ') {'
+          if ($in_token) // we previously hit a token starting with ')' but not ending in ')
+          {
             $ret['data'] .= ' ' . trim($token, '() ');
             if($token{strlen($token)-1} == ')') $in_token = false;
           } elseif ($token{0} == '(') {
@@ -1720,8 +1721,8 @@
  * @param integer $line line number of error
  * @param array $context variables in the current scope
  */
-  public function phpagi_error_handler($level, $message, $file, $line, $context)
-  {
+function phpagi_error_handler($level, $message, $file, $line, $context)
+{
     if(ini_get('error_reporting') == 0) return; // this happens with an @
 
     @syslog(LOG_WARNING, $file . '[' . $line . ']: ' . $message);

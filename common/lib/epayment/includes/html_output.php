@@ -1,8 +1,8 @@
 <?php
 
-////
+
 // The HTML href link wrapper function
-  public function tep_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true, $search_engine_safe = true)
+function tep_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true, $search_engine_safe = true)
   {
     global $request_type, $session_started, $SID;
 
@@ -62,7 +62,7 @@
 
 ////
 // The HTML image wrapper function
-  public function tep_image($src, $alt = '', $width = '', $height = '', $parameters = '')
+  function tep_image($src, $alt = '', $width = '', $height = '', $parameters = '')
   {
     if ( (empty($src) || ($src == DIR_WS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
       return false;
@@ -107,7 +107,7 @@
 ////
 // The HTML form submit button wrapper function
 // Outputs a button in the selected language
-  public function tep_image_submit($image, $alt = '', $parameters = '')
+  function tep_image_submit($image, $alt = '', $parameters = '')
   {
     global $language;
 
@@ -124,7 +124,7 @@
 
 ////
 // Output a function button in the selected language
-  public function tep_image_button($image, $alt = '', $parameters = '')
+  function tep_image_button($image, $alt = '', $parameters = '')
   {
     global $language;
 
@@ -133,14 +133,14 @@
 
 ////
 // Output a separator either through whitespace, or with an image
-  public function tep_draw_separator($image = 'pixel_black.gif', $width = '100%', $height = '1')
+  function tep_draw_separator($image = 'pixel_black.gif', $width = '100%', $height = '1')
   {
     return tep_image(DIR_WS_IMAGES . $image, '', $width, $height);
   }
 
 ////
 // Output a form
-  public function tep_draw_form($name, $action, $method = 'post', $parameters = '', $payment = '')
+  function tep_draw_form($name, $action, $method = 'post', $parameters = '', $payment = '')
   {
       if (strtoupper($payment)=='PAYPAL') {
           // $target = ' target="paypal" ';
@@ -156,7 +156,7 @@
 
 ////
 // Output a form input field
-  public function tep_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true)
+  function tep_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true)
   {
     $field = '<input class="form_input_text" type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
 
@@ -175,14 +175,14 @@
 
 ////
 // Output a form password field
-  public function tep_draw_password_field($name, $value = '', $parameters = 'maxlength="40"')
+  function tep_draw_password_field($name, $value = '', $parameters = 'maxlength="40"')
   {
     return tep_draw_input_field($name, $value, $parameters, 'password', false);
   }
 
 ////
 // Output a selection field - alias function for tep_draw_checkbox_field() and tep_draw_radio_field()
-  public function tep_draw_selection_field($name, $type, $value = '', $checked = false, $parameters = '')
+  function tep_draw_selection_field($name, $type, $value = '', $checked = false, $parameters = '')
   {
     $selection = '<input type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
 
@@ -201,21 +201,21 @@
 
 ////
 // Output a form checkbox field
-  public function tep_draw_checkbox_field($name, $value = '', $checked = false, $parameters = '')
+  function tep_draw_checkbox_field($name, $value = '', $checked = false, $parameters = '')
   {
     return tep_draw_selection_field($name, 'checkbox', $value, $checked, $parameters);
   }
 
 ////
 // Output a form radio field
-  public function tep_draw_radio_field($name, $value = '', $checked = false, $parameters = '')
+  function tep_draw_radio_field($name, $value = '', $checked = false, $parameters = '')
   {
     return tep_draw_selection_field($name, 'radio', $value, $checked, $parameters);
   }
 
 ////
 // Output a form textarea field
-  public function tep_draw_textarea_field($name, $wrap, $width, $height, $text = '', $parameters = '', $reinsert_value = true)
+  function tep_draw_textarea_field($name, $wrap, $width, $height, $text = '', $parameters = '', $reinsert_value = true)
   {
     $field = '<textarea name="' . tep_output_string($name) . '" wrap="' . tep_output_string($wrap) . '" cols="' . tep_output_string($width) . '" rows="' . tep_output_string($height) . '"';
 
@@ -236,7 +236,7 @@
 
 ////
 // Output a form hidden field
-  public function tep_draw_hidden_field($name, $value = '', $parameters = '')
+  function tep_draw_hidden_field($name, $value = '', $parameters = '')
   {
     $field = "\n".'<input type="hidden" name="' . tep_output_string($name) . '"';
 
@@ -255,7 +255,7 @@
 
 ////
 // Hide form elements
-  public function tep_hide_session_id()
+  function tep_hide_session_id()
   {
     global $session_started, $SID;
 
@@ -266,7 +266,7 @@
 
 ////
 // Output a form pull down menu
-  public function tep_draw_pull_down_menu($name, $values, $default = '', $parameters = '', $required = false)
+  function tep_draw_pull_down_menu($name, $values, $default = '', $parameters = '', $required = false)
   {
     $field = '<select class="form_input_select" name="' . tep_output_string($name) . '"';
 
@@ -292,7 +292,7 @@
 
 ////
 // Creates a pull-down list of countries
-  public function tep_get_country_list($name, $selected = '', $parameters = '')
+  function tep_get_country_list($name, $selected = '', $parameters = '')
   {
     $countries_array = array(array('id' => '', 'text' => PULL_DOWN_DEFAULT));
     $countries = tep_get_countries();

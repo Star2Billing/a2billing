@@ -35,7 +35,7 @@
 
     public $vars;
 
-    public function php3session()
+    function php3session()
     {
       $this->mod_name = $this->save_handler;
       $this->vars = array();
@@ -46,7 +46,7 @@
   {
     public $open_func, $close_func, $read_func, $write_func, $destroy_func, $gc_func;
 
-    public function open($save_path, $sess_name)
+    function open($save_path, $sess_name)
     {
       $func = $this->open_func;
       if (function_exists($func)) {
@@ -56,7 +56,7 @@
       return true;
     }
 
-    public function close($save_path, $sess_name)
+    function close($save_path, $sess_name)
     {
       $func = $this->close_func;
       if (function_exists($func)) {
@@ -66,21 +66,21 @@
       return true;
     }
 
-    public function read($sess_id)
+    function read($sess_id)
     {
       $func = $this->read_func;
 
       return $func($sess_id);
     }
 
-    public function write($sess_id, $val)
+    function write($sess_id, $val)
     {
       $func = $this->write_func;
 
       return $func($sess_id, $val);
     }
 
-    public function destroy($sess_id)
+    function destroy($sess_id)
     {
       $func = $this->destroy_func;
       if (function_exists($func)) {
@@ -90,7 +90,7 @@
       return true;
     }
 
-    public function gc($max_lifetime)
+    function gc($max_lifetime)
     {
       $func = $this->gc_func;
       if (function_exists($func)) {
@@ -103,17 +103,17 @@
 
   class php3session_files
   {
-    public function open($save_path, $sess_name)
+    function open($save_path, $sess_name)
     {
       return true;
     }
 
-    public function close()
+    function close()
     {
       return true;
     }
 
-    public function read($sess_id)
+    function read($sess_id)
     {
       global $session;
 
@@ -130,7 +130,7 @@
       return $val;
     }
 
-    public function write($sess_id, $val)
+    function write($sess_id, $val)
     {
       global $session;
 
@@ -143,7 +143,7 @@
       return true;
     }
 
-    public function destroy($sess_id)
+    function destroy($sess_id)
     {
       global $session;
 
@@ -153,7 +153,7 @@
       return true;
     }
 
-    public function gc($max_lifetime)
+    function gc($max_lifetime)
     {
 // We return true, since all cleanup should be handled by
 // an external entity (i.e. find -ctime x | xargs rm)
@@ -161,12 +161,12 @@
     }
   }
 
-  public function _session_create_id()
+  function _session_create_id()
   {
     return md5(uniqid(microtime()));
   }
 
-  public function _session_cache_limiter()
+  function _session_cache_limiter()
   {
     global $session;
 
@@ -194,7 +194,7 @@
     }
   }
 
-  public function _php_encode()
+  function _php_encode()
   {
     global $session;
 
@@ -207,7 +207,7 @@
     return $ret;
   }
 
-  public function _php_decode($data)
+  function _php_decode($data)
   {
     global $session;
 
@@ -224,7 +224,7 @@
     }
   }
 
-  public function _wddx_encode($data)
+  function _wddx_encode($data)
   {
     global $session;
 
@@ -233,12 +233,12 @@
     return $ret;
   }
 
-  public function _wddx_decode($data)
+  function _wddx_decode($data)
   {
     return wddx_deserialize($data);
   }
 
-  public function session_name($name = '')
+  function session_name($name = '')
   {
     global $session;
 
@@ -249,7 +249,7 @@
     $session->name = $name;
   }
 
-  public function session_set_save_handler($open, $close, $read, $write, $destroy, $gc)
+  function session_set_save_handler($open, $close, $read, $write, $destroy, $gc)
   {
     global $session, $php3session_user;
 
@@ -263,7 +263,7 @@
     $session->mod_name = 'php3session_user';
   }
 
-  public function session_module_name($name = '')
+  function session_module_name($name = '')
   {
     global $session;
 
@@ -274,7 +274,7 @@
     $session->mod_name = $name;
   }
 
-  public function session_save_path($path = '')
+  function session_save_path($path = '')
   {
     global $session;
 
@@ -285,7 +285,7 @@
     $session->save_path = $path;
   }
 
-  public function session_id($id = '')
+  function session_id($id = '')
   {
     global $session;
 
@@ -296,7 +296,7 @@
     $session->id = $id;
   }
 
-  public function session_register($var)
+  function session_register($var)
   {
     global $session;
 
@@ -307,7 +307,7 @@
     $session->vars[] = trim($var);
   }
 
-  public function session_unregister($var)
+  function session_unregister($var)
   {
     global $session;
 
@@ -319,7 +319,7 @@
     }
   }
 
-  public function session_is_registered($var)
+  function session_is_registered($var)
   {
     global $session;
 
@@ -332,7 +332,7 @@
     return false;
   }
 
-  public function session_encode()
+  function session_encode()
   {
     global $session;
 
@@ -342,7 +342,7 @@
     return $ret;
   }
 
-  public function session_decode($data)
+  function session_decode($data)
   {
     global $session;
 
@@ -352,7 +352,7 @@
     return $ret;
   }
 
-  public function session_start()
+  function session_start()
   {
     global $session, $SID, $HTTP_COOKIE_VARS, $_GET, $_POST;
 
@@ -480,7 +480,7 @@
     return true;
   }
 
-  public function session_destroy()
+  function session_destroy()
   {
     global $session;
 
@@ -499,7 +499,7 @@
     return true;
   }
 
-  public function session_close()
+  function session_close()
   {
     global $session, $SID;
 

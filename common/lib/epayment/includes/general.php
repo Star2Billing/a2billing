@@ -4,7 +4,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Stop from parsing any further PHP code
-  public function tep_exit()
+  function tep_exit()
   {
    tep_session_close();
    exit();
@@ -12,7 +12,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Redirect to another page or site
-  public function tep_redirect($url)
+  function tep_redirect($url)
   {
     if ( (strstr($url, "\n") != false) || (strstr($url, "\r") != false) ) {
       tep_redirect(tep_href_link(FILENAME_DEFAULT, '', 'NONSSL', false));
@@ -31,12 +31,12 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Parse the data used in the html tags to ensure the tags will not break
-  public function tep_parse_input_field_data($data, $parse)
+  function tep_parse_input_field_data($data, $parse)
   {
     return strtr(trim($data), $parse);
   }
 
-  public function tep_output_string($string, $translate = false, $protected = false)
+  function tep_output_string($string, $translate = false, $protected = false)
   {
     if ($protected == true) {
       return htmlspecialchars($string);
@@ -49,12 +49,12 @@ include_once (dirname(__FILE__)."/sessions.php");
     }
   }
 
-  public function tep_output_string_protected($string)
+  function tep_output_string_protected($string)
   {
     return tep_output_string($string, false, true);
   }
 
-  public function tep_sanitize_string($string)
+  function tep_sanitize_string($string)
   {
     $string = preg_replace('/ +/', ' ', trim($string));
 
@@ -63,7 +63,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Return a random row from a database query
-  public function tep_random_select($query)
+  function tep_random_select($query)
   {
     $random_product = '';
     $random_query = tep_db_query($query);
@@ -80,7 +80,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 ////
 // Return a product's name
 // TABLES: products
-  public function tep_get_products_name($product_id, $language = '')
+  function tep_get_products_name($product_id, $language = '')
   {
     global $languages_id;
 
@@ -95,7 +95,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 ////
 // Return a product's special price (returns nothing if there is no offer)
 // TABLES: products
-  public function tep_get_products_special_price($product_id)
+  function tep_get_products_special_price($product_id)
   {
     $product_query = tep_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . (int) $product_id . "' and status");
     $product = tep_db_fetch_array($product_query);
@@ -106,7 +106,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 ////
 // Return a product's stock
 // TABLES: products
-  public function tep_get_products_stock($products_id)
+  function tep_get_products_stock($products_id)
   {
     $products_id = tep_get_prid($products_id);
     $stock_query = tep_db_query("select products_quantity from " . TABLE_PRODUCTS . " where products_id = '" . (int) $products_id . "'");
@@ -118,7 +118,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 ////
 // Check if the required stock is available
 // If insufficent stock is available return an out of stock message
-  public function tep_check_stock($products_id, $products_quantity)
+  function tep_check_stock($products_id, $products_quantity)
   {
     $stock_left = tep_get_products_stock($products_id) - $products_quantity;
     $out_of_stock = '';
@@ -132,7 +132,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Break a word in a string if it is longer than a specified length ($len)
-  public function tep_break_string($string, $len, $break_char = '-')
+  function tep_break_string($string, $len, $break_char = '-')
   {
     $l = 0;
     $output = '';
@@ -155,7 +155,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Return all HTTP GET variables, except those passed as a parameter
-  public function tep_get_all_get_params($exclude_array = '')
+  function tep_get_all_get_params($exclude_array = '')
   {
     global $_GET;
 
@@ -177,7 +177,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 ////
 // Returns an array with countries
 // TABLES: countries
-  public function tep_get_countries($countries_id = '', $with_iso_codes = false)
+  function tep_get_countries($countries_id = '', $with_iso_codes = false)
   {
     $countries_array = array();
     if (tep_not_null($countries_id)) {
@@ -205,14 +205,14 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Alias function to tep_get_countries, which also returns the countries iso codes
-  public function tep_get_countries_with_iso_codes($countries_id)
+  function tep_get_countries_with_iso_codes($countries_id)
   {
     return tep_get_countries($countries_id, true);
   }
 
 ////
 // Generate a path to categories
-  public function tep_get_path($current_category_id = '')
+  function tep_get_path($current_category_id = '')
   {
     global $cPath_array;
 
@@ -252,7 +252,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Returns the clients browser
-  public function tep_browser_detect($component)
+  function tep_browser_detect($component)
   {
     global $HTTP_USER_AGENT;
 
@@ -261,7 +261,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Alias function to tep_get_countries()
-  public function tep_get_country_name($country_id)
+  function tep_get_country_name($country_id)
   {
     $country_array = tep_get_countries($country_id);
 
@@ -271,7 +271,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 ////
 // Returns the zone (State/Province) name
 // TABLES: zones
-  public function tep_get_zone_name($country_id, $zone_id, $default_zone)
+  function tep_get_zone_name($country_id, $zone_id, $default_zone)
   {
     $zone_query = tep_db_query("select zone_name from " . TABLE_ZONES . " where zone_country_id = '" . (int) $country_id . "' and zone_id = '" . (int) $zone_id . "'");
     if (tep_db_num_rows($zone_query)) {
@@ -286,7 +286,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 ////
 // Returns the zone (State/Province) code
 // TABLES: zones
-  public function tep_get_zone_code($country_id, $zone_id, $default_zone)
+  function tep_get_zone_code($country_id, $zone_id, $default_zone)
   {
     $zone_query = tep_db_query("select zone_code from " . TABLE_ZONES . " where zone_country_id = '" . (int) $country_id . "' and zone_id = '" . (int) $zone_id . "'");
     if (tep_db_num_rows($zone_query)) {
@@ -300,7 +300,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Wrapper function for round()
-  public function tep_round($number, $precision)
+  function tep_round($number, $precision)
   {
     if (strpos($number, '.') && (strlen(substr($number, strpos($number, '.')+1)) > $precision)) {
       $number = substr($number, 0, strpos($number, '.') + 1 + $precision + 1);
@@ -324,7 +324,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 ////
 // Returns the tax rate for a zone / class
 // TABLES: tax_rates, zones_to_geo_zones
-  public function tep_get_tax_rate($class_id, $country_id = -1, $zone_id = -1)
+  function tep_get_tax_rate($class_id, $country_id = -1, $zone_id = -1)
   {
     global $customer_zone_id, $customer_country_id;
 
@@ -354,7 +354,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 ////
 // Return the tax description for a zone / class
 // TABLES: tax_rates;
-  public function tep_get_tax_description($class_id, $country_id, $zone_id)
+  function tep_get_tax_description($class_id, $country_id, $zone_id)
   {
     $tax_query = tep_db_query("select tax_description from " . TABLE_TAX_RATES . " tr left join " . TABLE_ZONES_TO_GEO_ZONES . " za on (tr.tax_zone_id = za.geo_zone_id) left join " . TABLE_GEO_ZONES . " tz on (tz.geo_zone_id = tr.tax_zone_id) where (za.zone_country_id is null or za.zone_country_id = '0' or za.zone_country_id = '" . (int) $country_id . "') and (za.zone_id is null or za.zone_id = '0' or za.zone_id = '" . (int) $zone_id . "') and tr.tax_class_id = '" . (int) $class_id . "' order by tr.tax_priority");
     if (tep_db_num_rows($tax_query)) {
@@ -372,7 +372,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Add tax to a products price
-  public function tep_add_tax($price, $tax)
+  function tep_add_tax($price, $tax)
   {
     global $currencies;
 
@@ -384,7 +384,7 @@ include_once (dirname(__FILE__)."/sessions.php");
   }
 
 // Calculates Tax rounding the result
-  public function tep_calculate_tax($price, $tax)
+  function tep_calculate_tax($price, $tax)
   {
     global $currencies;
 
@@ -394,7 +394,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 ////
 // Return the number of products in a category
 // TABLES: products, products_to_categories, categories
-  public function tep_count_products_in_category($category_id, $include_inactive = false)
+  function tep_count_products_in_category($category_id, $include_inactive = false)
   {
     $products_count = 0;
     if ($include_inactive == true) {
@@ -418,7 +418,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 ////
 // Return true if the category has subcategories
 // TABLES: categories
-  public function tep_has_category_subcategories($category_id)
+  function tep_has_category_subcategories($category_id)
   {
     $child_category_query = tep_db_query("select count(*) as count from " . TABLE_CATEGORIES . " where parent_id = '" . (int) $category_id . "'");
     $child_category = tep_db_fetch_array($child_category_query);
@@ -433,7 +433,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 ////
 // Returns the address_format_id for the given country
 // TABLES: countries;
-  public function tep_get_address_format_id($country_id)
+  function tep_get_address_format_id($country_id)
   {
     $address_format_query = tep_db_query("select address_format_id as format_id from " . TABLE_COUNTRIES . " where countries_id = '" . (int) $country_id . "'");
     if (tep_db_num_rows($address_format_query)) {
@@ -448,7 +448,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 ////
 // Return a formatted address
 // TABLES: address_format
-  public function tep_address_format($address_format_id, $address, $html, $boln, $eoln)
+  function tep_address_format($address_format_id, $address, $html, $boln, $eoln)
   {
     $address_format_query = tep_db_query("select address_format as format from " . TABLE_ADDRESS_FORMAT . " where address_format_id = '" . (int) $address_format_id . "'");
     $address_format = tep_db_fetch_array($address_format_query);
@@ -521,7 +521,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 ////
 // Return a formatted address
 // TABLES: customers, address_book
-  public function tep_address_label($customers_id, $address_id = 1, $html = false, $boln = '', $eoln = "\n")
+  function tep_address_label($customers_id, $address_id = 1, $html = false, $boln = '', $eoln = "\n")
   {
     $address_query = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_company as company, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . (int) $customers_id . "' and address_book_id = '" . (int) $address_id . "'");
     $address = tep_db_fetch_array($address_query);
@@ -531,13 +531,13 @@ include_once (dirname(__FILE__)."/sessions.php");
     return tep_address_format($format_id, $address, $html, $boln, $eoln);
   }
 
-  public function tep_row_number_format($number)
+  function tep_row_number_format($number)
   {
     if ( ($number < 10) && (substr($number, 0, 1) != '0') ) $number = '0' . $number;
     return $number;
   }
 
-  public function tep_get_categories($categories_array = '', $parent_id = '0', $indent = '')
+  function tep_get_categories($categories_array = '', $parent_id = '0', $indent = '')
   {
     global $languages_id;
 
@@ -556,7 +556,7 @@ include_once (dirname(__FILE__)."/sessions.php");
     return $categories_array;
   }
 
-  public function tep_get_manufacturers($manufacturers_array = '')
+  function tep_get_manufacturers($manufacturers_array = '')
   {
     if (!is_array($manufacturers_array)) $manufacturers_array = array();
 
@@ -571,7 +571,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 ////
 // Return all subcategory IDs
 // TABLES: categories
-  public function tep_get_subcategories(&$subcategories_array, $parent_id = 0)
+  function tep_get_subcategories(&$subcategories_array, $parent_id = 0)
   {
     $subcategories_query = tep_db_query("select categories_id from " . TABLE_CATEGORIES . " where parent_id = '" . (int) $parent_id . "'");
     while ($subcategories = tep_db_fetch_array($subcategories_query)) {
@@ -584,7 +584,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 // Output a raw date string in the selected locale date format
 // $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
-  public function tep_date_long($raw_date)
+  function tep_date_long($raw_date)
   {
     if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
 
@@ -602,7 +602,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 // Output a raw date string in the selected locale date format
 // $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
 // NOTE: Includes a workaround for dates before 01/01/1970 that fail on windows servers
-  public function tep_date_short($raw_date)
+  function tep_date_short($raw_date)
   {
     if ( ($raw_date == '0000-00-00 00:00:00') || empty($raw_date) ) return false;
 
@@ -622,7 +622,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Parse search string into indivual objects
-  public function tep_parse_search_string($search_str = '', &$objects)
+  function tep_parse_search_string($search_str = '', &$objects)
   {
     $search_str = trim(strtolower($search_str));
 
@@ -774,7 +774,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Check date
-  public function tep_checkdate($date_to_check, $format_string, &$date_array)
+  function tep_checkdate($date_to_check, $format_string, &$date_array)
   {
     $separator_idx = -1;
 
@@ -880,7 +880,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Check if year is a leap year
-  public function tep_is_leap_year($year)
+  function tep_is_leap_year($year)
   {
     if ($year % 100 == 0) {
       if ($year % 400 == 0) return true;
@@ -893,7 +893,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Return table heading with sorting capabilities
-  public function tep_create_sort_heading($sortby, $colnum, $heading)
+  function tep_create_sort_heading($sortby, $colnum, $heading)
   {
     global $PHP_SELF;
 
@@ -911,7 +911,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 ////
 // Recursively go through the categories and retreive all parent categories IDs
 // TABLES: categories
-  public function tep_get_parent_categories(&$categories, $categories_id)
+  function tep_get_parent_categories(&$categories, $categories_id)
   {
     $parent_categories_query = tep_db_query("select parent_id from " . TABLE_CATEGORIES . " where categories_id = '" . (int) $categories_id . "'");
     while ($parent_categories = tep_db_fetch_array($parent_categories_query)) {
@@ -926,7 +926,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 ////
 // Construct a category path to the product
 // TABLES: products_to_categories
-  public function tep_get_product_path($products_id)
+  function tep_get_product_path($products_id)
   {
     $cPath = '';
 
@@ -950,7 +950,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Return a product ID with attributes
-  public function tep_get_uprid($prid, $params)
+  function tep_get_uprid($prid, $params)
   {
     if (is_numeric($prid)) {
       $uprid = $prid;
@@ -1009,7 +1009,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Return a product ID from a product ID with attributes
-  public function tep_get_prid($uprid)
+  function tep_get_prid($uprid)
   {
     $pieces = explode('{', $uprid);
 
@@ -1022,7 +1022,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Return a customer greeting
-  public function tep_customer_greeting()
+  function tep_customer_greeting()
   {
     global $customer_id, $customer_first_name;
 
@@ -1049,7 +1049,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 // $from_email_adress The eMail address of the sender,
 //                    e.g. info@mytepshop.com
 
-  public function tep_mail($to_name, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address)
+  function tep_mail($to_name, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address)
   {
     if (SEND_EMAILS != 'true') return false;
 
@@ -1071,7 +1071,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Check if product has attributes
-  public function tep_has_product_attributes($products_id)
+  function tep_has_product_attributes($products_id)
   {
     $attributes_query = tep_db_query("select count(*) as count from " . TABLE_PRODUCTS_ATTRIBUTES . " where products_id = '" . (int) $products_id . "'");
     $attributes = tep_db_fetch_array($attributes_query);
@@ -1085,14 +1085,14 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Get the number of times a word/character is present in a string
-  public function tep_word_count($string, $needle)
+  function tep_word_count($string, $needle)
   {
     $temp_array = preg_split('/'.$needle.'/', $string);
 
     return sizeof($temp_array);
   }
 
-  public function tep_count_modules($modules = '')
+  function tep_count_modules($modules = '')
   {
     $count = 0;
 
@@ -1113,17 +1113,17 @@ include_once (dirname(__FILE__)."/sessions.php");
     return $count;
   }
 
-  public function tep_count_payment_modules()
+  function tep_count_payment_modules()
   {
     return tep_count_modules(MODULE_PAYMENT_INSTALLED);
   }
 
-  public function tep_count_shipping_modules()
+  function tep_count_shipping_modules()
   {
     return tep_count_modules(MODULE_SHIPPING_INSTALLED);
   }
 
-  public function tep_create_random_value($length, $type = 'mixed')
+  function tep_create_random_value($length, $type = 'mixed')
   {
     if ( ($type != 'mixed') && ($type != 'chars') && ($type != 'digits')) return false;
 
@@ -1146,7 +1146,7 @@ include_once (dirname(__FILE__)."/sessions.php");
     return $rand_value;
   }
 
-  public function tep_array_to_string($array, $exclude = '', $equals = '=', $separator = '&')
+  function tep_array_to_string($array, $exclude = '', $equals = '=', $separator = '&')
   {
     if (!is_array($exclude)) $exclude = array();
 
@@ -1164,7 +1164,7 @@ include_once (dirname(__FILE__)."/sessions.php");
     return $get_string;
   }
 
-  public function tep_not_null($value)
+  function tep_not_null($value)
   {
     if (is_array($value)) {
       if (sizeof($value) > 0) {
@@ -1183,7 +1183,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Output the tax percentage with optional padded decimals
-  public function tep_display_tax_value($value, $padding = TAX_DECIMAL_PLACES)
+  function tep_display_tax_value($value, $padding = TAX_DECIMAL_PLACES)
   {
     if (strpos($value, '.')) {
       $loop = true;
@@ -1219,7 +1219,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 ////
 // Checks to see if the currency code exists as a currency
 // TABLES: currencies
-  public function tep_currency_exists($code)
+  function tep_currency_exists($code)
   {
     $code = tep_db_prepare_input($code);
 
@@ -1231,14 +1231,14 @@ include_once (dirname(__FILE__)."/sessions.php");
     }
   }
 
-  public function tep_string_to_int($string)
+  function tep_string_to_int($string)
   {
     return (int) $string;
   }
 
 ////
 // Parse and secure the cPath parameter values
-  public function tep_parse_category_path($cPath)
+  function tep_parse_category_path($cPath)
   {
 // make sure the category IDs are integers
     $cPath_array = array_map('tep_string_to_int', explode('_', $cPath));
@@ -1257,9 +1257,9 @@ include_once (dirname(__FILE__)."/sessions.php");
 
 ////
 // Return a random value
-  public function tep_rand($min = null, $max = null)
+  function tep_rand($min = null, $max = null)
   {
-    public static $seeded;
+    static $seeded;
 
     if (!isset($seeded)) {
       mt_srand((double) microtime()*1000000);
@@ -1277,12 +1277,12 @@ include_once (dirname(__FILE__)."/sessions.php");
     }
   }
 
-  public function tep_setcookie($name, $value = '', $expire = 0, $path = '/', $domain = '', $secure = 0)
+  function tep_setcookie($name, $value = '', $expire = 0, $path = '/', $domain = '', $secure = 0)
   {
     setcookie($name, $value, $expire, $path, (tep_not_null($domain) ? $domain : ''), $secure);
   }
 
-  public function tep_get_ip_address()
+  function tep_get_ip_address()
   {
     if (isset($_SERVER)) {
       if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -1305,7 +1305,7 @@ include_once (dirname(__FILE__)."/sessions.php");
     return $ip;
   }
 
-  public function tep_count_customer_orders($id = '', $check_session = true)
+  function tep_count_customer_orders($id = '', $check_session = true)
   {
     global $customer_id;
 
@@ -1329,7 +1329,7 @@ include_once (dirname(__FILE__)."/sessions.php");
     return $orders_check['total'];
   }
 
-  public function tep_count_customer_address_book_entries($id = '', $check_session = true)
+  function tep_count_customer_address_book_entries($id = '', $check_session = true)
   {
     global $customer_id;
 
@@ -1354,7 +1354,7 @@ include_once (dirname(__FILE__)."/sessions.php");
   }
 
 // nl2br() prior PHP 4.2.0 did not convert linefeeds on all OSs (it only converted \n)
-  public function tep_convert_linefeeds($from, $to, $string)
+  function tep_convert_linefeeds($from, $to, $string)
   {
     if ((PHP_VERSION < "4.0.5") && is_array($from)) {
       return preg_replace('/(' . implode('|', $from) . ')/', $to, $string);
@@ -1363,7 +1363,7 @@ include_once (dirname(__FILE__)."/sessions.php");
     }
   }
 
-  public function tep_db_prepare_input($string)
+  function tep_db_prepare_input($string)
   {
     if (is_string($string)) {
       return trim(stripslashes($string));
@@ -1381,7 +1381,7 @@ include_once (dirname(__FILE__)."/sessions.php");
 
    ////
 // Alias function for Store configuration values in the Administration Tool
-  public function tep_cfg_select_option($select_array, $key_value, $key = '')
+  function tep_cfg_select_option($select_array, $key_value, $key = '')
   {
     $string = '';
 
