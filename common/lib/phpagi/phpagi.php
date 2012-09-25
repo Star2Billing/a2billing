@@ -1729,80 +1729,77 @@ function phpagi_error_handler($level, $message, $file, $line, $context)
 
     global $phpagi_error_handler_email;
     if (function_exists('mail') && !is_null($phpagi_error_handler_email)) { // generate email debugging information
-      // decode error level
-      switch ($level) {
-        case E_WARNING:
-        case E_USER_WARNING:
-          $level = "Warning";
-          break;
-        case E_NOTICE:
-        case E_USER_NOTICE:
-          $level = "Notice";
-          break;
-        case E_USER_ERROR:
-          $level = "Error";
-          break;
-      }
+        // decode error level
+        switch ($level) {
+            case E_WARNING:
+            case E_USER_WARNING:
+                $level = "Warning";
+                break;
+            case E_NOTICE:
+            case E_USER_NOTICE:
+                $level = "Notice";
+                break;
+            case E_USER_ERROR:
+                $level = "Error";
+                break;
+        }
 
-      // build message
-      $basefile = basename($file);
-      $subject = "$basefile/$line/$level: $message";
-      $message = "$level: $message in $file on line $line\n\n";
+        // build message
+        $basefile = basename($file);
+        $subject = "$basefile/$line/$level: $message";
+        $message = "$level: $message in $file on line $line\n\n";
 
-      if(function_exists('mysql_errno') && strpos(' '.strtolower($message), 'mysql'))
-        $message .= 'MySQL error ' . mysql_errno() . ": " . mysql_error() . "\n\n";
+        if(function_exists('mysql_errno') && strpos(' '.strtolower($message), 'mysql'))
+            $message .= 'MySQL error ' . mysql_errno() . ": " . mysql_error() . "\n\n";
 
-      // figure out who we are
-      if (function_exists('socket_create')) {
-        $addr = NULL;
-        $port = 80;
-        $socket = @socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
-        @socket_connect($socket, '64.0.0.0', $port);
-        @socket_getsockname($socket, $addr, $port);
-        @socket_close($socket);
-        $message .= "\n\nIP Address: $addr\n";
-      }
+        // figure out who we are
+        if (function_exists('socket_create')) {
+            $addr = NULL;
+            $port = 80;
+            $socket = @socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
+            @socket_connect($socket, '64.0.0.0', $port);
+            @socket_getsockname($socket, $addr, $port);
+            @socket_close($socket);
+            $message .= "\n\nIP Address: $addr\n";
+        }
 
-      // include variables
-      $message .= "\n\nContext:\n" . print_r($context, true);
-      $message .= "\n\nGLOBALS:\n" . print_r($GLOBALS, true);
-      $message .= "\n\nBacktrace:\n" . print_r(debug_backtrace(), true);
+        // include variables
+        $message .= "\n\nContext:\n" . print_r($context, true);
+        $message .= "\n\nGLOBALS:\n" . print_r($GLOBALS, true);
+        $message .= "\n\nBacktrace:\n" . print_r(debug_backtrace(), true);
 
-      // include code fragment
-      if (file_exists($file)) {
-        $message .= "\n\n$file:\n";
-        $code = @file($file);
-        for($i = max(0, $line - 10); $i < min($line + 10, count($code)); $i++)
-          $message .= ($i + 1)."\t$code[$i]";
-      }
+        // include code fragment
+        if (file_exists($file)) {
+            $message .= "\n\n$file:\n";
+            $code = @file($file);
+            for($i = max(0, $line - 10); $i < min($line + 10, count($code)); $i++) {
+                $message .= ($i + 1)."\t$code[$i]";
+            }
+        }
 
-      // make sure message is fully readable (convert unprintable chars to hex representation)
-      $ret = '';
-      for ($i = 0; $i < strlen($message); $i++) {
-        $c = ord($message{$i});
-        if($c == 10 || $c == 13 || $c == 9)
-          $ret .= $message{$i};
-        elseif($c < 16)
-          $ret .= '\x0' . dechex($c);
-        elseif($c < 32 || $c > 127)
-          $ret .= '\x' . dechex($c);
-        else
-          $ret .= $message{$i};
-      }
-      $message = $ret;
+        // make sure message is fully readable (convert unprintable chars to hex representation)
+        $ret = '';
+        for ($i = 0; $i < strlen($message); $i++) {
+            $c = ord($message{$i});
+            if($c == 10 || $c == 13 || $c == 9)
+            $ret .= $message{$i};
+            elseif($c < 16)
+            $ret .= '\x0' . dechex($c);
+            elseif($c < 32 || $c > 127)
+            $ret .= '\x' . dechex($c);
+            else
+            $ret .= $message{$i};
+        }
+        $message = $ret;
 
-      // send the mail if less than 5 errors
-      static $mailcount = 0;
-      if($mailcount < 5)
-        @mail($phpagi_error_handler_email, $subject, $message);
-      $mailcount++;
+        // send the mail if less than 5 errors
+        static $mailcount = 0;
+        if($mailcount < 5)
+            @mail($phpagi_error_handler_email, $subject, $message);
+        $mailcount++;
     }
-  }
-  $phpagi_error_handler_email = NULL;
-
-
-
-
+}
+$phpagi_error_handler_email = NULL;
 
 
 /*
