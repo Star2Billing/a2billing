@@ -2420,7 +2420,6 @@ class A2Billing
 
         if (strlen($this->CallerID) == 0) {
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CID_SANITIZE - CID: NO CID]");
-
             return '';
         }
         $QUERY = "";
@@ -2449,8 +2448,10 @@ class A2Billing
             $result2 = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, print_r($result2, true));
         }
-        if (count($result1) > 0 || count($result2) > 0)
+
+        if (count($result1) > 0 || count($result2) > 0) {
             $result = array_merge((array) $result1, (array) $result2);
+        }
 
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RESULT MERGE->" . print_r($result, true));
 
@@ -2478,11 +2479,18 @@ class A2Billing
         // AUTO SetCallerID
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[AUTO SetCallerID]");
         if ($this->agiconfig['auto_setcallerid'] == 1) {
+
             if (strlen($this->agiconfig['force_callerid']) >= 1) {
                 $agi->set_callerid($this->agiconfig['force_callerid']);
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[EXEC SetCallerID : " . $this->agiconfig['force_callerid'] . "]");
+
             } elseif (strlen($this->CallerID) >= 1) {
-                $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[REQUESTED SetCallerID : " . $this->CallerID . "]");
+                if ($this->CallerID == $this->accountcode) {
+                    $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[Overwrite callerID security : " . $this->CallerID . "]");
+                    $this->CallerID = '';
+                } else {
+                    $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[REQUESTED SetCallerID : " . $this->CallerID . "]");
+                }
 
                 // IF REQUIRED, VERIFY THAT THE CALLERID IS LEGAL
                 $cid_sanitized = $this->CallerID;
