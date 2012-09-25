@@ -10,16 +10,18 @@
   Released under the GNU General Public License
 */
 
-  class tableBlock {
-    var $table_border = '0';
-    var $table_width = '100%';
-    var $table_cellspacing = '0';
-    var $table_cellpadding = '2';
-    var $table_parameters = '';
-    var $table_row_parameters = '';
-    var $table_data_parameters = '';
+  class tableBlock
+  {
+    public $table_border = '0';
+    public $table_width = '100%';
+    public $table_cellspacing = '0';
+    public $table_cellpadding = '2';
+    public $table_parameters = '';
+    public $table_row_parameters = '';
+    public $table_data_parameters = '';
 
-    function tableBlock($contents) {
+    public function tableBlock($contents)
+    {
       $tableBox_string = '';
 
       $form_set = false;
@@ -73,8 +75,6 @@
       $tableBox_string .= '</table>' . "\n";
 
       if ($form_set == true) $tableBox_string .= '</form>' . "\n";
-
       return $tableBox_string;
     }
   }
-?>

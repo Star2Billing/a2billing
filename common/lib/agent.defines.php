@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,15 +27,14 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 define ("PHP_QUICK_PROFILER", false);
 // Include PHP-Quick-Profiler
-require_once('PhpQuickProfiler.php');
+require_once 'PhpQuickProfiler.php';
 $profiler = new PhpQuickProfiler(PhpQuickProfiler::getMicroTime());
-
 
 define ("WRITELOG_QUERY",false);
 define ("FSROOT", substr(dirname(__FILE__),0,-3));
@@ -43,7 +42,7 @@ define ("LIBDIR", FSROOT."lib/");
 
 include (FSROOT."lib/interface/constants.php");
 include_once (dirname(__FILE__)."/Class.A2Billing.php");
-require_once ('adodb/adodb.inc.php'); // AdoDB
+require_once 'adodb/adodb.inc.php'; // AdoDB
 include_once (dirname(__FILE__)."/Class.Table.php");
 include_once (dirname(__FILE__)."/Class.Connection.php");
 include_once (dirname(__FILE__)."/Class.Realtime.php");
@@ -65,7 +64,6 @@ $G_instance_Query_trace = Query_trace::getInstance();
 define('CC_OWNER_MIN_LENGTH', '2');
 define('CC_NUMBER_MIN_LENGTH', '15');
 
-
 // A2B INSTANCE
 $A2B = new A2Billing();
 
@@ -73,7 +71,7 @@ define ("ENABLE_LOG", 1);
 include (FSROOT."lib/Class.Logger.php");
 $log = new Logger();
 
-// The system will not log for Public/index.php and 
+// The system will not log for Public/index.php and
 // signup/index.php
 
 //Enable Disable, list of values on page A2B_entity_config.php?form_action=ask-edit&id=1
@@ -84,15 +82,13 @@ define("LIST_OF_VALUES",true);
 $res_load_conf = $A2B -> load_conf($agi, A2B_CONFIG_DIR."a2billing.conf", 1);
 if (!$res_load_conf) exit;
 
-
 include (LIBDIR."common.defines.php");
 
 // COPYRIGHT
-define ("LCMODAL", check_cp());	
+define ("LCMODAL", check_cp());
 
 // Define a demo mode
 define("DEMO_MODE", false);
-
 
 define ("LEN_ALIASNUMBER", isset($A2B->config['global']['len_aliasnumber'])?$A2B->config['global']['len_aliasnumber']:null);
 define ("LEN_VOUCHER", isset($A2B->config['global']['len_voucher'])?$A2B->config['global']['len_voucher']:null);
@@ -108,7 +104,7 @@ define ("API_SECURITY_KEY", isset($A2B->config['webui']['api_security_key'])?$A2
 // WEB DEFINE FROM THE A2BILLING.CONF FILE
 define ("EMAIL_ADMIN", isset($A2B->config['webui']['email_admin'])?$A2B->config['webui']['email_admin']:'root@localhost');
 define ("NUM_MUSICONHOLD_CLASS", isset($A2B->config['webui']['num_musiconhold_class'])?$A2B->config['webui']['num_musiconhold_class']:null);
-define ("SHOW_HELP", isset($A2B->config['webui']['show_help'])?$A2B->config['webui']['show_help']:null);	
+define ("SHOW_HELP", isset($A2B->config['webui']['show_help'])?$A2B->config['webui']['show_help']:null);
 define ("MY_MAX_FILE_SIZE_IMPORT", isset($A2B->config['webui']['my_max_file_size_import'])?$A2B->config['webui']['my_max_file_size_import']:null);
 define ("DIR_STORE_MOHMP3",isset($A2B->config['webui']['dir_store_mohmp3'])?$A2B->config['webui']['dir_store_mohmp3']:null);
 define ("DIR_STORE_AUDIO", isset($A2B->config['webui']['dir_store_audio'])?$A2B->config['webui']['dir_store_audio']:null);
@@ -117,7 +113,7 @@ $file_ext_allow = is_array($A2B->config['webui']['file_ext_allow'])?$A2B->config
 $file_ext_allow_musiconhold = is_array($A2B->config['webui']['file_ext_allow_musiconhold'])?$A2B->config['webui']['file_ext_allow_musiconhold']:null;
 define ("LINK_AUDIO_FILE", isset($A2B->config['webui']['link_audio_file'])?$A2B->config['webui']['link_audio_file']:null);
 define ("MONITOR_PATH", isset($A2B->config['webui']['monitor_path'])?$A2B->config['webui']['monitor_path']:null);
-define ("MONITOR_FORMATFILE", isset($A2B->config['webui']['monitor_formatfile'])?$A2B->config['webui']['monitor_formatfile']:null); 
+define ("MONITOR_FORMATFILE", isset($A2B->config['webui']['monitor_formatfile'])?$A2B->config['webui']['monitor_formatfile']:null);
 define ("SHOW_ICON_INVOICE", isset($A2B->config['webui']['show_icon_invoice'])?$A2B->config['webui']['show_icon_invoice']:null);
 define ("SHOW_TOP_FRAME", isset($A2B->config['webui']['show_top_frame'])?$A2B->config['webui']['show_top_frame']:null);
 define ("ADVANCED_MODE", isset($A2B->config['webui']['advanced_mode'])?$A2B->config['webui']['advanced_mode']:null);
@@ -127,9 +123,8 @@ define ("CARD_EXPORT_FIELD_LIST", isset($A2B->config['webui']['card_export_field
 define ("RATE_EXPORT_FIELD_LIST", isset($A2B->config['webui']['rate_export_field_list'])?$A2B->config['webui']['rate_export_field_list']:null);
 define ("VOUCHER_EXPORT_FIELD_LIST", isset($A2B->config['webui']['voucher_export_field_list'])?$A2B->config['webui']['voucher_export_field_list']:null);
 
-
 define('ERROR_NO_PAYMENT_MODULE_SELECTED', gettext('Please select a payment method for your order.'));
-//CC	
+//CC
 define('MODULE_PAYMENT_CC_TEXT_TITLE', gettext('Credit Card'));
 define('MODULE_PAYMENT_CC_TEXT_DESCRIPTION', gettext('Credit Card Test Info').':<br><br>CC#: 4111111111111111<br>'.gettext('Expiry: Any'));
 define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_TYPE', gettext('Credit Card Type').':');
@@ -166,8 +161,7 @@ define ("EPAYMENT_TRANSACTION_KEY", isset($A2B->config["epayment_method"]['trans
 define ("PAYPAL_VERIFY_URL", isset($A2B->config["epayment_method"]['paypal_verify_url'])?$A2B->config["epayment_method"]['paypal_verify_url']:null);
 define ("MONEYBOOKERS_SECRETWORD", isset($A2B->config["epayment_method"]['moneybookers_secretword'])?$A2B->config["epayment_method"]['moneybookers_secretword']:null);
 
-
-// PAYPAL	
+// PAYPAL
 define ("PAYPAL_EMAIL", isset($A2B->config['paypal']['paypal_email'])?$A2B->config['paypal']['paypal_email']:null);
 define ("PAYPAL_FROM_EMAIL",isset( $A2B->config['paypal']['from_email'])?$A2B->config['paypal']['from_email']:null);
 define ("PAYPAL_FROM_NAME", isset($A2B->config['paypal']['from_name'])?$A2B->config['paypal']['from_name']:null);
@@ -177,8 +171,7 @@ define ("PAYPAL_ITEM_NAME", isset($A2B->config['paypal']['item_name'])?$A2B->con
 define ("PAYPAL_CURRENCY_CODE", isset($A2B->config['paypal']['currency_code'])?$A2B->config['paypal']['currency_code']:null);
 define ("PAYPAL_NOTIFY_URL", isset($A2B->config['paypal']['notify_url'])?$A2B->config['paypal']['notify_url']:null);
 define ("PAYPAL_PURCHASE_AMOUNT", isset($A2B->config['paypal']['purchase_amount'])?$A2B->config['paypal']['purchase_amount']:null);
-define ("PAYPAL_FEES", isset($A2B->config['paypal']['paypal_fees'])?$A2B->config['paypal']['paypal_fees']:null); 
-
+define ("PAYPAL_FEES", isset($A2B->config['paypal']['paypal_fees'])?$A2B->config['paypal']['paypal_fees']:null);
 
 // BACKUP
 define ("BACKUP_PATH", isset($A2B->config['backup']['backup_path'])?$A2B->config['backup']['backup_path']:null);
@@ -189,51 +182,48 @@ define ("PG_DUMP", isset($A2B->config['backup']['pg_dump'])?$A2B->config['backup
 define ("MYSQL", isset($A2B->config['backup']['mysql'])?$A2B->config['backup']['mysql']:null);
 define ("PSQL", isset($A2B->config['backup']['psql'])?$A2B->config['backup']['psql']:null);
 
-
-
 if (!isset($_SESSION)) {
-	session_start();
+    session_start();
 }
- 
+
 // Language Selection
 if (isset($ui_language)) {
-	$_SESSION["ui_language"] = $ui_language;
-	setcookie  ("ui_language", $ui_language);
+    $_SESSION["ui_language"] = $ui_language;
+    setcookie  ("ui_language", $ui_language);
 } elseif (!isset($_SESSION["ui_language"])) {
-    if(!isset($_COOKIE["ui_language"])) 
-    	$_SESSION["ui_language"]='english';
-    else 
-    	$_SESSION["ui_language"]=$_COOKIE["ui_language"];
+    if(!isset($_COOKIE["ui_language"]))
+        $_SESSION["ui_language"]='english';
+    else
+        $_SESSION["ui_language"]=$_COOKIE["ui_language"];
 }
 
 define ("LANGUAGE", $_SESSION["ui_language"]);
 define ("BINDTEXTDOMAIN", '../../common/agent_ui_locale');
-require("languageSettings.php");
+require 'languageSettings.php';
 SetLocalLanguage();
 
 // Open menu
 if (!empty($section)) {
-	$_SESSION["menu_section"] = $section;
+    $_SESSION["menu_section"] = $section;
 }
 
 getpost_ifset(array('cssname'));
-	
-if(isset($cssname) && $cssname != "")
-{
-	$_SESSION["stylefile"] = $cssname;
-}
-	
-if(isset($cssname) && $cssname != "") {
-	if ($_SESSION["stylefile"]!=$cssname){
-		foreach (glob("./templates_c/*.*") as $filename) {
-			unlink($filename);
-		}
-	}
-	$_SESSION["stylefile"] = $cssname;		
+
+if (isset($cssname) && $cssname != "") {
+    $_SESSION["stylefile"] = $cssname;
 }
 
-if(!isset($_SESSION["stylefile"]) || $_SESSION["stylefile"]=='') {
-	$_SESSION["stylefile"]='default';
+if (isset($cssname) && $cssname != "") {
+    if ($_SESSION["stylefile"]!=$cssname) {
+        foreach (glob("./templates_c/*.*") as $filename) {
+            unlink($filename);
+        }
+    }
+    $_SESSION["stylefile"] = $cssname;
+}
+
+if (!isset($_SESSION["stylefile"]) || $_SESSION["stylefile"]=='') {
+    $_SESSION["stylefile"]='default';
 }
 
 //Images Path
@@ -249,14 +239,12 @@ include (LIBDIR."agent.help.php");
 define ("CAPTCHA_ENABLE", isset($A2B->config["signup"]['enable_captcha'])?$A2B->config["signup"]['enable_captcha']:0);
 define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reload_asterisk_if_sipiax_created'])?$A2B->config["signup"]['reload_asterisk_if_sipiax_created']:0);
 
-
-
 define ("EPAYMENT_PURCHASE_AMOUNT", isset($A2B->config['epayment_method']['purchase_amount_agent'])?$A2B->config['epayment_method']['purchase_amount_agent']:"100");
 
 $URI = $_SERVER['REQUEST_URI'];
 
-if((stripos($URI, "Public/index.php") === FALSE)&& isset($_SESSION["agent_id"])) {
-	$log -> insertLogAgent($_SESSION["agent_id"], 1, "Page Visit", "Agent Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+if ((stripos($URI, "Public/index.php") === FALSE)&& isset($_SESSION["agent_id"])) {
+    $log -> insertLogAgent($_SESSION["agent_id"], 1, "Page Visit", "Agent Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
 $log = null;
 }
 
@@ -266,4 +254,3 @@ include (dirname(__FILE__)."/protect_sqli.php");
 
 // GLOBAL POST/GET VARIABLE
 getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'cssname', 'popup_select', 'popup_formname', 'popup_fieldname', 'ui_language', 'msg', 'section'));
-

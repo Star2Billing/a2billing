@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
@@ -42,9 +42,7 @@ require_once SMARTY_DIR . 'Smarty.class.php';
 
 $smarty = new Smarty;
 
-
 $skin_name = $_SESSION["stylefile"];
-
 
 $smarty->template_dir = TEMPLATE_DIR . $skin_name.'/';
 $smarty->compile_dir = TEMPLATE_C_DIR;
@@ -74,42 +72,36 @@ $smarty->assign("ACXNOTIFICATION", $ACXNOTIFICATION);
 $smarty->assign("ACXAUTODIALER", $ACXAUTODIALER);
 $smarty->assign("ACXVOICEMAIL", $ACXVOICEMAIL);
 
-
-if($exporttype != "" && $exporttype != "html") {
-	$smarty->assign("EXPORT", 1);
+if ($exporttype != "" && $exporttype != "html") {
+    $smarty->assign("EXPORT", 1);
 } else {
-	$smarty->assign("EXPORT", 0);
+    $smarty->assign("EXPORT", 0);
 }
 
 getpost_ifset(array('section'));
 
-if(!empty($section)) {
-	$_SESSION["menu_section"] = $section;
+if (!empty($section)) {
+    $_SESSION["menu_section"] = $section;
 } else {
-	$section = $_SESSION["menu_section"];
+    $section = $_SESSION["menu_section"];
 }
 $smarty->assign("section", $section);
 
 $smarty->assign("SKIN_NAME", $skin_name);
 // if it is a pop window
 if (!is_numeric($popup_select)) {
-	$popup_select=0;
+    $popup_select=0;
 }
 // for menu
 $smarty->assign("popupwindow", $popup_select);
 
 if (!empty($msg)) {
-	switch($msg){
-		case "nodemo": 	$smarty->assign("MAIN_MSG", '<center><b><font color="red">'.gettext("This option is not available on the Demo!").'</font></b></center><br>');
-	}
+    switch ($msg) {
+        case "nodemo": 	$smarty->assign("MAIN_MSG", '<center><b><font color="red">'.gettext("This option is not available on the Demo!").'</font></b></center><br>');
+    }
 }
-
 
 // OPTION FOR THE MENU
 $smarty->assign("A2Bconfig", $A2B->config);
 
-
 $smarty->assign("PAGE_SELF", $PHP_SELF);
-
-
-

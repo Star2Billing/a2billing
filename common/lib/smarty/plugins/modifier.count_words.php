@@ -5,7 +5,6 @@
  * @subpackage plugins
  */
 
-
 /**
  * Smarty count_words modifier plugin
  *
@@ -29,5 +28,3 @@ function smarty_modifier_count_words($string)
 }
 
 /* vim: set expandtab: */
-
-?>

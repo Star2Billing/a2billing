@@ -30,12 +30,13 @@ function smarty_core_run_insert_handler($params, &$smarty)
                                                              $smarty->_plugins['insert'][$_name][2],
                                                              !empty($params['args']['script']) ? true : false);
         }
+
         return $smarty->_smarty_md5."{insert_cache $_arg_string}".$smarty->_smarty_md5;
     } else {
         if (isset($params['args']['script'])) {
             $_params = array('resource_name' => $smarty->_dequote($params['args']['script']));
             require_once(SMARTY_CORE_DIR . 'core.get_php_resource.php');
-            if(!smarty_core_get_php_resource($_params, $smarty)) {
+            if (!smarty_core_get_php_resource($_params, $smarty)) {
                 return false;
             }
 
@@ -67,5 +68,3 @@ function smarty_core_run_insert_handler($params, &$smarty)
 }
 
 /* vim: set expandtab: */
-
-?>

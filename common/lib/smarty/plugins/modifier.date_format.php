@@ -50,9 +50,8 @@ function smarty_modifier_date_format($string, $format = '%b %e, %Y', $default_da
         }
         $format = str_replace($_win_from, $_win_to, $format);
     }
+
     return strftime($format, $timestamp);
 }
 
 /* vim: set expandtab: */
-
-?>

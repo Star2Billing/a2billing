@@ -23,7 +23,7 @@ function smarty_core_write_cache_file($params, &$smarty)
 
     // put timestamp in cache header
     $smarty->_cache_info['timestamp'] = time();
-    if ($smarty->cache_lifetime > -1){
+    if ($smarty->cache_lifetime > -1) {
         // expiration set
         $smarty->_cache_info['expires'] = $smarty->_cache_info['timestamp'] + $smarty->cache_lifetime;
     } else {
@@ -37,10 +37,10 @@ function smarty_core_write_cache_file($params, &$smarty)
         // and replace it by a single nocache-tag
         // this new nocache-tag will be replaced by dynamic contents in
         // smarty_core_process_compiled_includes() on a cache-read
-        
+
         $match_count = count($match[0]);
         $results = preg_split('!(\{/?nocache\:[0-9a-f]{32}#\d+\})!', $params['results'], -1, PREG_SPLIT_DELIM_CAPTURE);
-        
+
         $level = 0;
         $j = 0;
         for ($i=0, $results_count = count($results); $i < $results_count && $j < $match_count; $i++) {
@@ -72,13 +72,15 @@ function smarty_core_write_cache_file($params, &$smarty)
     } else {
         // use local cache file
 
-        if(!@is_writable($smarty->cache_dir)) {
+        if (!@is_writable($smarty->cache_dir)) {
             // cache_dir not writable, see if it exists
-            if(!@is_dir($smarty->cache_dir)) {
+            if (!@is_dir($smarty->cache_dir)) {
                 $smarty->trigger_error('the $cache_dir \'' . $smarty->cache_dir . '\' does not exist, or is not a directory.', E_USER_ERROR);
+
                 return false;
             }
             $smarty->trigger_error('unable to write to $cache_dir \'' . realpath($smarty->cache_dir) . '\'. Be sure $cache_dir is writable by the web server user.', E_USER_ERROR);
+
             return false;
         }
 
@@ -87,10 +89,9 @@ function smarty_core_write_cache_file($params, &$smarty)
         $_params = array('filename' => $_cache_file, 'contents' => $params['results'], 'create_dirs' => true);
         require_once(SMARTY_CORE_DIR . 'core.write_file.php');
         smarty_core_write_file($_params, $smarty);
+
         return true;
     }
 }
 
 /* vim: set expandtab: */
-
-?>

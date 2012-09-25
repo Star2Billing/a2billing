@@ -5,7 +5,6 @@
  * @subpackage plugins
  */
 
-
 /**
  * Smarty {html_table} function plugin
  *
@@ -23,7 +22,7 @@
  *         - tr_attr = table row attributes (arrays are cycled)
  *         - td_attr = table cell attributes (arrays are cycled)
  *         - trailpad = value to pad trailing cells with
- *         - caption = text for caption element 
+ *         - caption = text for caption element
  *         - vdir = vertical direction (default: "down", means top-to-bottom)
  *         - hdir = horizontal direction (default: "right", means left-to-right)
  *         - inner = inner loop (default "cols": print $loop line by line,
@@ -62,13 +61,14 @@ function smarty_function_html_table($params, &$smarty)
 
     if (!isset($params['loop'])) {
         $smarty->trigger_error("html_table: missing 'loop' parameter");
+
         return;
     }
 
     foreach ($params as $_key=>$_value) {
         switch ($_key) {
             case 'loop':
-                $$_key = (array)$_value;
+                $$_key = (array) $_value;
                 break;
 
             case 'cols':
@@ -79,14 +79,14 @@ function smarty_function_html_table($params, &$smarty)
                     $cols = explode(',', $_value);
                     $cols_count = count($cols);
                 } elseif (!empty($_value)) {
-                    $cols_count = (int)$_value;
+                    $cols_count = (int) $_value;
                 } else {
                     $cols_count = $cols;
                 }
                 break;
 
             case 'rows':
-                $$_key = (int)$_value;
+                $$_key = (int) $_value;
                 break;
 
             case 'table_attr':
@@ -95,7 +95,7 @@ function smarty_function_html_table($params, &$smarty)
             case 'vdir':
             case 'inner':
             case 'caption':
-                $$_key = (string)$_value;
+                $$_key = (string) $_value;
                 break;
 
             case 'tr_attr':
@@ -157,21 +157,19 @@ function smarty_function_html_table($params, &$smarty)
     }
     $output .= "</tbody>\n";
     $output .= "</table>\n";
-    
+
     return $output;
 }
 
-function smarty_function_html_table_cycle($name, $var, $no) {
-    if(!is_array($var)) {
+function smarty_function_html_table_cycle($name, $var, $no)
+{
+    if (!is_array($var)) {
         $ret = $var;
     } else {
         $ret = $var[$no % count($var)];
     }
-    
+
     return ($ret) ? ' '.$ret : '';
 }
 
-
 /* vim: set expandtab: */
-
-?>

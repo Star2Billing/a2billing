@@ -65,7 +65,7 @@ function smarty_function_config_load($params, &$smarty)
         else
             $_compile_file = $smarty->_get_compile_path($_file_path);
 
-        if($smarty->force_compile || !file_exists($_compile_file)) {
+        if ($smarty->force_compile || !file_exists($_compile_file)) {
             $_compile = true;
         } elseif ($smarty->compile_check) {
             $_params = array('resource_name' => $_file,
@@ -77,9 +77,9 @@ function smarty_function_config_load($params, &$smarty)
             $_compile = false;
         }
 
-        if($_compile) {
+        if ($_compile) {
             // compile config file
-            if(!is_object($smarty->_conf_obj)) {
+            if (!is_object($smarty->_conf_obj)) {
                 require_once SMARTY_DIR . $smarty->config_class . '.class.php';
                 $smarty->_conf_obj = new $smarty->config_class();
                 $smarty->_conf_obj->overwrite = $smarty->config_overwrite;
@@ -97,7 +97,7 @@ function smarty_function_config_load($params, &$smarty)
             $smarty->_conf_obj->set_file_contents($_file, $_params['source_content']);
             $_config_vars = array_merge($smarty->_conf_obj->get($_file),
                     $smarty->_conf_obj->get($_file, $_section));
-            if(function_exists('var_export')) {
+            if (function_exists('var_export')) {
                 $_output = '<?php $_config_vars = ' . var_export($_config_vars, true) . '; ?>';
             } else {
                 $_output = '<?php $_config_vars = unserialize(\'' . strtr(serialize($_config_vars),array('\''=>'\\\'', '\\'=>'\\\\')) . '\'); ?>';
@@ -119,7 +119,7 @@ function smarty_function_config_load($params, &$smarty)
         if ($_scope == 'parent') {
                 $smarty->_config[1]['vars'] = @array_merge($smarty->_config[1]['vars'], $_config_vars);
                 $smarty->_config[1]['files'][$_file] = true;
-        } else if ($_scope == 'global') {
+        } elseif ($_scope == 'global') {
             for ($i = 1, $for_max = count($smarty->_config); $i < $for_max; $i++) {
                 $smarty->_config[$i]['vars'] = @array_merge($smarty->_config[$i]['vars'], $_config_vars);
                 $smarty->_config[$i]['files'][$_file] = true;
@@ -138,5 +138,3 @@ function smarty_function_config_load($params, &$smarty)
 }
 
 /* vim: set expandtab: */
-
-?>

@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 $FG_DEBUG = 0;
@@ -37,7 +37,6 @@ error_reporting(E_ALL & ~E_NOTICE);
 // Zone strings
 define ("MODULE_ACCESS_DOMAIN",		"A2Billing - VoIP Billing Software");
 define ("MODULE_ACCESS_DENIED",		"./Access_denied.htm");
-
 
 define ("ACX_CUSTOMER",					1);
 define ("ACX_BILLING",					2);			// 1 << 1
@@ -68,115 +67,114 @@ define ("ACX_MODIFY_AGENTS",			16777216);	// 1 << 24
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 //echo "PHP_AUTH_USER : $PHP_AUTH_USER";
 
-
 if (isset($_GET["logout"]) && $_GET["logout"]=="true") {
-	$log = new Logger();
-	$log -> insertLog($_SESSION["admin_id"], 1, "USER LOGGED OUT", "User Logged out from website", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
-	$log = null;
-	session_destroy();
-	$rights=0;
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: index.php");
-	die();
+    $log = new Logger();
+    $log -> insertLog($_SESSION["admin_id"], 1, "USER LOGGED OUT", "User Logged out from website", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+    $log = null;
+    session_destroy();
+    $rights=0;
+    Header ("HTTP/1.0 401 Unauthorized");
+    Header ("Location: index.php");
+    die();
 }
 
 getpost_ifset (array('pr_login', 'pr_password'));
 
+if ((!isset($_SESSION['pr_login']) || !isset($_SESSION['pr_password']) || !isset($_SESSION['rights']) || (isset($_POST["done"]) && $_POST["done"]=="submit_log") )) {
 
-if ((!isset($_SESSION['pr_login']) || !isset($_SESSION['pr_password']) || !isset($_SESSION['rights']) || (isset($_POST["done"]) && $_POST["done"]=="submit_log") )){
+    if ($FG_DEBUG == 1) echo "<br>0. HERE WE ARE";
 
-	if ($FG_DEBUG == 1) echo "<br>0. HERE WE ARE";
+    if ($_POST["done"]=="submit_log") {
 
+        $DBHandle  = DbConnect();
 
-	if ($_POST["done"]=="submit_log"){
+        if ($FG_DEBUG == 1) echo "<br>1. ".$pr_login." - ".$pr_password;
 
-		$DBHandle  = DbConnect();
-        
-		if ($FG_DEBUG == 1) echo "<br>1. ".$pr_login." - ".$pr_password;
-		
-		$return = login ($pr_login, $pr_password);
+        $return = login ($pr_login, $pr_password);
 
-		if ($FG_DEBUG == 1) print_r($return);
-		if ($FG_DEBUG == 1) echo "==>".$return[1];
+        if ($FG_DEBUG == 1) print_r($return);
+        if ($FG_DEBUG == 1) echo "==>".$return[1];
 
-		if (!is_array($return) || $return[1]==0 ) {
-			header ("HTTP/1.0 401 Unauthorized");
-			Header ("Location: index.php?error=1");
-			die();
-		}
-		// if groupID egal 1, this user is a root
+        if (!is_array($return) || $return[1]==0 ) {
+            header ("HTTP/1.0 401 Unauthorized");
+            Header ("Location: index.php?error=1");
+            die();
+        }
+        // if groupID egal 1, this user is a root
 
-		if ($return[3]==0){
-			$admin_id = $return[0];
-			$return = true;
-			$rights = 33554431;
-			$is_admin = 1;
-			$pr_groupID = $return[3];
-		}else{
-			$pr_reseller_ID = $return[0];
-			$admin_id = $return[0];
-			$rights = $return[1];
-			if ($return[3]==1) $is_admin=1;
-			else $is_admin=0;
+        if ($return[3]==0) {
+            $admin_id = $return[0];
+            $return = true;
+            $rights = 33554431;
+            $is_admin = 1;
+            $pr_groupID = $return[3];
+        } else {
+            $pr_reseller_ID = $return[0];
+            $admin_id = $return[0];
+            $rights = $return[1];
+            if ($return[3]==1) $is_admin=1;
+            else $is_admin=0;
 
-			if ($return[3] == 3) $pr_reseller_ID = $return[4];
+            if ($return[3] == 3) $pr_reseller_ID = $return[4];
 
-			$pr_groupID = $return[3];
-		}
+            $pr_groupID = $return[3];
+        }
 
-		if ($pr_login) {
-			
-			if ($FG_DEBUG == 1) echo "<br>3. $pr_login-$pr_password-$rights-$conf_addcust";
-			$_SESSION["pr_login"]=$pr_login;
-			$_SESSION["pr_password"]=$pr_password;
-			$_SESSION["rights"]=$rights;
-			$_SESSION["is_admin"]=$is_admin;
-			$_SESSION["user_type"] = "ADMIN";
-			$_SESSION["pr_reseller_ID"]=$pr_reseller_ID;
-			$_SESSION["pr_groupID"]=$pr_groupID;
-			$_SESSION["admin_id"] = $admin_id;
-			$log = new Logger();
-			$log -> insertLog($admin_id, 1, "User Logged In", "User Logged in to website", '', $_SERVER['REMOTE_ADDR'], 'PP_Intro.php','');
-			$log = null;
-		}
+        if ($pr_login) {
 
-	} else {
-		$rights=0;
+            if ($FG_DEBUG == 1) echo "<br>3. $pr_login-$pr_password-$rights-$conf_addcust";
+            $_SESSION["pr_login"]=$pr_login;
+            $_SESSION["pr_password"]=$pr_password;
+            $_SESSION["rights"]=$rights;
+            $_SESSION["is_admin"]=$is_admin;
+            $_SESSION["user_type"] = "ADMIN";
+            $_SESSION["pr_reseller_ID"]=$pr_reseller_ID;
+            $_SESSION["pr_groupID"]=$pr_groupID;
+            $_SESSION["admin_id"] = $admin_id;
+            $log = new Logger();
+            $log -> insertLog($admin_id, 1, "User Logged In", "User Logged in to website", '', $_SERVER['REMOTE_ADDR'], 'PP_Intro.php','');
+            $log = null;
+        }
 
-	}
+    } else {
+        $rights=0;
+
+    }
 
 }
-
 
 // 					FUNCTIONS
 //////////////////////////////////////////////////////////////////////////////
 
-function login ($user, $pass) {
-	global $DBHandle;
+function login ($user, $pass)
+{
+    global $DBHandle;
 
-	$user = trim($user);
-	$pass = trim($pass);
+    $user = trim($user);
+    $pass = trim($pass);
     $user = filter_var($user, FILTER_SANITIZE_STRING);
     $pass = filter_var($pass, FILTER_SANITIZE_STRING);
-    
-	$pass_encoded= hash( 'whirlpool',$pass);
-	if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50) return false;
-	$QUERY = "SELECT userid, perms, confaddcust, groupid FROM cc_ui_authen WHERE login = '".$user."' AND pwd_encoded = '".$pass_encoded."'";
 
-	$res = $DBHandle -> Execute($QUERY);
+    $pass_encoded= hash( 'whirlpool',$pass);
+    if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50) return false;
+    $QUERY = "SELECT userid, perms, confaddcust, groupid FROM cc_ui_authen WHERE login = '".$user."' AND pwd_encoded = '".$pass_encoded."'";
 
-	if (!$res) {
-		$errstr = $DBHandle->ErrorMsg();
-		return (false);
-	}
+    $res = $DBHandle -> Execute($QUERY);
 
-	$row [] =$res -> fetchRow();
-	return ($row[0]);
+    if (!$res) {
+        $errstr = $DBHandle->ErrorMsg();
+
+        return (false);
+    }
+
+    $row [] =$res -> fetchRow();
+
+    return ($row[0]);
 }
 
-
-function has_rights ($condition) {
-	return ($_SESSION["rights"] & $condition);
+function has_rights ($condition)
+{
+    return ($_SESSION["rights"] & $condition);
 }
 
 $ACXACCESS 				= ($_SESSION["rights"] > 0) ? true : false;
@@ -204,8 +202,4 @@ $ACXMODIFY_CUSTOMERS 	= has_rights (ACX_MODIFY_CUSTOMERS);
 $ACXDELETE_NOTIFICATIONS= has_rights (ACX_DELETE_NOTIFICATIONS);
 $ACXDELETE_CDR			= has_rights (ACX_DELETE_CDR);
 
-
 if(isset($_SESSION["admin_id"]))$NEW_NOTIFICATION = NotificationsDAO::IfNewNotification($_SESSION["admin_id"]);
-
-
-

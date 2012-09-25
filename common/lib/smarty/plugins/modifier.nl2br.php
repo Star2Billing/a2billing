@@ -5,7 +5,6 @@
  * @subpackage plugins
  */
 
-
 /**
  * Smarty plugin
  *
@@ -31,5 +30,3 @@ function smarty_modifier_nl2br($string)
 }
 
 /* vim: set expandtab: */
-
-?>

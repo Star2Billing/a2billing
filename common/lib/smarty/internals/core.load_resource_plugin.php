@@ -59,6 +59,7 @@ function smarty_core_load_resource_plugin($params, &$smarty)
             $_plugin_func = 'smarty_resource_' . $params['type'] . '_' . $_op;
             if (!function_exists($_plugin_func)) {
                 $smarty->_trigger_fatal_error("[plugin] function $_plugin_func() not found in $_plugin_file", null, null, __FILE__, __LINE__);
+
                 return;
             } else {
                 $_resource_funcs[] = $_plugin_func;
@@ -70,5 +71,3 @@ function smarty_core_load_resource_plugin($params, &$smarty)
 }
 
 /* vim: set expandtab: */
-
-?>

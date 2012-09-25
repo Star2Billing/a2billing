@@ -46,16 +46,15 @@ define('WARN',  2);
 define('INFO',  3);
 define('DEBUG', 4);
 
-class A2Billing {
-
-
+class A2Billing
+{
     /**
     * Config variables
     *
     * @var array
     * @access public
     */
-    var $config;
+    public $config;
 
     /**
     * Config AGI variables
@@ -64,7 +63,7 @@ class A2Billing {
     * @var array
     * @access public
     */
-    var $agiconfig;
+    public $agiconfig;
 
     /**
     * IDConfig variables
@@ -72,7 +71,7 @@ class A2Billing {
     * @var interger
     * @access public
     */
-    var $idconfig = 1;
+    public $idconfig = 1;
 
     /**
     * hangupdetected variables
@@ -80,8 +79,7 @@ class A2Billing {
     * @var interger
     * @access public
     */
-    var $hangupdetected = false;
-
+    public $hangupdetected = false;
 
     /**
     * cardnumber & CallerID variables
@@ -89,9 +87,8 @@ class A2Billing {
     * @var string
     * @access public
     */
-    var $cardnumber;
-    var $CallerID;
-
+    public $cardnumber;
+    public $CallerID;
 
     /**
     * Buffer variables
@@ -99,8 +96,7 @@ class A2Billing {
     * @var string
     * @access public
     */
-    var $BUFFER;
-
+    public $BUFFER;
 
     /**
     * DBHandle variables
@@ -108,8 +104,7 @@ class A2Billing {
     * @var object
     * @access public
     */
-    var $DBHandle;
-
+    public $DBHandle;
 
     /**
     * instance_table variables
@@ -117,7 +112,7 @@ class A2Billing {
     * @var object
     * @access public
     */
-    var $instance_table;
+    public $instance_table;
 
     /**
     * store the file name to store the logs
@@ -125,8 +120,7 @@ class A2Billing {
     * @var string
     * @access public
     */
-    var $log_file = '';
-
+    public $log_file = '';
 
     /**
     * request AGI variables
@@ -135,82 +129,81 @@ class A2Billing {
     * @access public
     */
 
-    var $channel;
-    var $uniqueid;
-    var $accountcode;
-    var $dnid;
-    var $extension;
+    public $channel;
+    public $uniqueid;
+    public $accountcode;
+    public $dnid;
+    public $extension;
 
     // from apply_rules, if a prefix is removed we keep it to track exactly what the user introduce
 
-    var $myprefix;
-    var $ipaddress;
-    var $rate;
-    var $destination;
-    var $sip_iax_buddy;
-    var $credit;
-    var $tariff;
-    var $active;
-    var $status;
-    var $hostname = '';
-    var $currency = 'usd';
+    public $myprefix;
+    public $ipaddress;
+    public $rate;
+    public $destination;
+    public $sip_iax_buddy;
+    public $credit;
+    public $tariff;
+    public $active;
+    public $status;
+    public $hostname = '';
+    public $currency = 'usd';
 
-    var $groupe_mode = false;
-    var $groupe_id = '';
-    var $mode = '';
-    var $timeout;
-    var $newdestination;
-    var $tech;
-    var $prefix;
-    var $username;
+    public $groupe_mode = false;
+    public $groupe_id = '';
+    public $mode = '';
+    public $timeout;
+    public $newdestination;
+    public $tech;
+    public $prefix;
+    public $username;
 
-    var $typepaid = 0;
-    var $removeinterprefix = 1;
-    var $restriction = 1;
-    var $redial;
-    var $nbused = 0;
+    public $typepaid = 0;
+    public $removeinterprefix = 1;
+    public $restriction = 1;
+    public $redial;
+    public $nbused = 0;
 
-    var $enableexpire;
-    var $expirationdate;
-    var $expiredays;
-    var $firstusedate;
-    var $creationdate;
+    public $enableexpire;
+    public $expirationdate;
+    public $expiredays;
+    public $firstusedate;
+    public $creationdate;
 
-    var $creditlimit = 0;
+    public $creditlimit = 0;
 
-    var $languageselected;
-    var $current_language;
+    public $languageselected;
+    public $current_language;
 
-
-    var $cardholder_lastname;
-    var $cardholder_firstname;
-    var $cardholder_email;
-    var $cardholder_uipass;
-    var $id_campaign;
-    var $id_card;
-    var $useralias;
-    var $countryprefix;
+    public $cardholder_lastname;
+    public $cardholder_firstname;
+    public $cardholder_email;
+    public $cardholder_uipass;
+    public $id_campaign;
+    public $id_card;
+    public $useralias;
+    public $countryprefix;
 
     // Start time of the Script
-    var $G_startime;
+    public $G_startime;
 
     // Enable voicemail for this card. For DID and SIP/IAX call
-    var $voicemail = 0;
+    public $voicemail = 0;
 
     // Flag to know that we ask for an othercardnumber when for instance we doesnt have enough credit to make a call
-    var $ask_other_cardnumber = 0;
-    var $update_callerid = 0;
+    public $ask_other_cardnumber = 0;
+    public $update_callerid = 0;
 
-    var $ivr_voucher;
-    var $vouchernumber;
-    var $add_credit;
+    public $ivr_voucher;
+    public $vouchernumber;
+    public $add_credit;
 
-    var $cardnumber_range;
+    public $cardnumber_range;
 
     // Define if we have changed the status of the card
-    var $set_inuse = 0;
+    public $set_inuse = 0;
 
-    var $callback_beep_to_enter_destination = False;
+    public $callback_beep_to_enter_destination = False;
 
     /**
     * CC_TESTING variables
@@ -219,14 +212,13 @@ class A2Billing {
     * @var interger
     * @access public
     */
-    var $CC_TESTING;
+    public $CC_TESTING;
 
     // List of dialstatus
-    var $dialstatus_rev_list;
-
+    public $dialstatus_rev_list;
 
     /* CONSTRUCTOR */
-    function A2Billing()
+    public function A2Billing()
     {
         // $this->agiconfig['debug'] = true;
         // $this->DBHandle = $DBHandle;
@@ -238,9 +230,8 @@ class A2Billing {
         }
     }
 
-
     /* Init */
-    function Reinit()
+    public function Reinit()
     {
         $this->myprefix = '';
         $this->ipaddress = '';
@@ -248,21 +239,19 @@ class A2Billing {
         $this->destination = '';
     }
 
-
     /* Hangupsignal */
-    function Hangupsignal()
+    public function Hangupsignal()
     {
         $this->hangupdetected = true;
         $this->debug(INFO, null, __FILE__, __LINE__, "HANGUP DETECTED!\n");
     }
-
 
     /*
     * Debug
     *
     * usage : $A2B->debug(INFO, $agi, __FILE__, __LINE__, $buffer_debug);
     */
-    function debug($level, $agi, $file, $line, $buffer_debug)
+    public function debug($level, $agi, $file, $line, $buffer_debug)
     {
         $file = basename($file);
 
@@ -280,7 +269,7 @@ class A2Billing {
     /*
     * Write log into file
     */
-    function write_log($output, $tobuffer = 1, $line_file_info = '')
+    public function write_log($output, $tobuffer = 1, $line_file_info = '')
     {
         //$tobuffer = 0;
 
@@ -299,7 +288,7 @@ class A2Billing {
     /*
     * set the DB handler
     */
-    function set_dbhandler($DBHandle)
+    public function set_dbhandler($DBHandle)
     {
         $this->DBHandle = $DBHandle;
     }
@@ -307,7 +296,7 @@ class A2Billing {
     /*
     * set_instance_table
     */
-    function set_instance_table($instance_table)
+    public function set_instance_table($instance_table)
     {
         $this->instance_table = $instance_table;
     }
@@ -315,7 +304,7 @@ class A2Billing {
     /*
     * load_conf
     */
-    function load_conf(&$agi, $config = NULL, $webui = 0, $idconfig = 1, $optconfig = array())
+    public function load_conf(&$agi, $config = NULL, $webui = 0, $idconfig = 1, $optconfig = array())
     {
         $this->idconfig = $idconfig;
         // load config
@@ -341,14 +330,13 @@ class A2Billing {
         if (!isset($this->config['database']['password'])) $this->config['database']['password'] = '';
         if (!isset($this->config['database']['dbname']))   $this->config['database']['dbname']   = 'a2billing';
         if (!isset($this->config['database']['dbtype']))   $this->config['database']['dbtype']   = 'postgres';
-
         return $this->load_conf_db($agi, NULL, 0, $idconfig, $optconfig);
     }
 
     /*
     * Load config from Database
     */
-    function load_conf_db(&$agi, $config = NULL, $webui = 0, $idconfig = 1, $optconfig = array())
+    public function load_conf_db(&$agi, $config = NULL, $webui = 0, $idconfig = 1, $optconfig = array())
     {
         $this->idconfig = $idconfig;
         // load config
@@ -358,28 +346,22 @@ class A2Billing {
         $config_res = $config_table->Get_list($this->DBHandle, "");
         if (!$config_res) {
             echo 'Error : cannot load conf : load_conf_db';
+
             return false;
         }
 
-        foreach ($config_res as $conf)
-        {
+        foreach ($config_res as $conf) {
             // FOR DEBUG
             /*if ($conf['cfgkey'] == 'sip_iax_pstn_direct_call_prefix') {
                 $this->debug(INFO, $agi, __FILE__, __LINE__, "\n\n conf :" . $conf['cfgkey']);
                 $this->debug(INFO, $agi, __FILE__, __LINE__, "\n\n conf :" . $conf['cfgvalue']);
             }*/
-            if ($conf['cfgtype'] == 0) // if its type is text
-            {
+            if ($conf['cfgtype'] == 0) { // if its type is text
                 $this->config[$conf['cfggname']][$conf['cfgkey']] = $conf['cfgvalue'];
-            }
-            elseif ($conf['cfgtype'] == 1) // if its type is boolean
-            {
-                if (strtoupper($conf['cfgvalue']) == "YES" || $conf['cfgvalue'] == 1 || strtoupper($conf['cfgvalue']) == "TRUE") // if equal to 'yes'
-                {
+            } elseif ($conf['cfgtype'] == 1) { // if its type is boolean
+                if (strtoupper($conf['cfgvalue']) == "YES" || $conf['cfgvalue'] == 1 || strtoupper($conf['cfgvalue']) == "TRUE") { // if equal to 'yes'
                     $this->config[$conf['cfggname']][$conf['cfgkey']] = 1;
-                }
-                else // if equal to 'no'
-                {
+                } else { // if equal to 'no'
                     $this->config[$conf['cfggname']][$conf['cfgkey']] = 0;
                 }
             }
@@ -387,8 +369,7 @@ class A2Billing {
         $this->DbDisconnect($this->DBHandle);
 
         // If optconfig is specified, stuff vals and vars into 'a2billing' config array.
-        foreach ($optconfig as $var=>$val)
-        {
+        foreach ($optconfig as $var=>$val) {
             $this->config["agi-conf$idconfig"][$var] = $val;
         }
 
@@ -397,14 +378,11 @@ class A2Billing {
         $card_length_range = isset($this->config['global']['interval_len_cardnumber'])?$this->config['global']['interval_len_cardnumber']:null;
         $this->cardnumber_range = $this->splitable_data($card_length_range);
 
-        if (is_array($this->cardnumber_range) && ($this->cardnumber_range[0] >= 4))
-        {
+        if (is_array($this->cardnumber_range) && ($this->cardnumber_range[0] >= 4)) {
             define("CARDNUMBER_LENGTH_MIN", $this->cardnumber_range[0]);
             define("CARDNUMBER_LENGTH_MAX", $this->cardnumber_range[count($this->cardnumber_range) - 1]);
             define("LEN_CARDNUMBER", CARDNUMBER_LENGTH_MIN);
-        }
-        else
-        {
+        } else {
             echo gettext("Invalid card number lenght defined in configuration.");
             exit;
         }
@@ -508,8 +486,7 @@ class A2Billing {
         if (!isset($this->config['notifications']['delay_notifications']))  $this->config['notifications']['delay_notifications'] = '1';
 
         // conf for the log-files
-        if (isset($this->config['log-files']['agi']) && strlen($this->config['log-files']['agi']) > 1)
-        {
+        if (isset($this->config['log-files']['agi']) && strlen($this->config['log-files']['agi']) > 1) {
             $this->log_file = $this->config['log-files']['agi'];
         }
         define("LOGFILE_CRONT_ALARM",           isset($this->config['log-files']['cront_alarm'])           ? $this->config['log-files']['cront_alarm'] : null);
@@ -620,7 +597,6 @@ class A2Billing {
         // Print out on CLI for debug purpose
         if (!$webui) $this->debug(DEBUG, $agi, __FILE__, __LINE__, 'A2Billing AGI internal configuration:');
         if (!$webui) $this->debug(DEBUG, $agi, __FILE__, __LINE__, print_r($this->agiconfig, true));
-
         return true;
     }
 
@@ -633,15 +609,13 @@ class A2Billing {
     * @param string $str
     * @param integer $vbl verbose level
     */
-    function conlog($str, $vbl = 1)
+    public function conlog($str, $vbl = 1)
     {
         global $agi;
         static $busy = false;
 
-        if ($this->agiconfig['debug'] != false)
-        {
-            if (!$busy) // no conlogs inside conlog!!!
-            {
+        if ($this->agiconfig['debug'] != false) {
+            if (!$busy) { // no conlogs inside conlog!!!
                 $busy = true;
                 if (isset($agi)) $agi->verbose($str, $vbl);
                 $busy = false;
@@ -652,7 +626,7 @@ class A2Billing {
     /*
     * Function to create a menu to select the language
     */
-    function play_menulanguage($agi)
+    public function play_menulanguage($agi)
     {
         // MENU LANGUAGE
         if ($this->agiconfig['play_menulanguage'] == 1) {
@@ -663,8 +637,7 @@ class A2Billing {
                 $res_dtmf = $agi->get_data("menu_" . $lg_value, 500, 1);
                 if (!empty($res_dtmf["result"]) && is_numeric($res_dtmf["result"]) && $res_dtmf["result"] > 0) break;
 
-                if ($i == sizeof($list_prompt_menulang)) {$res_dtmf = $agi->get_data("num_" . $lg_value . "_" . $i, 3000, 1);}
-                else {$res_dtmf = $agi->get_data("num_" . $lg_value . "_" . $i, 1000, 1);}
+                if ($i == sizeof($list_prompt_menulang)) {$res_dtmf = $agi->get_data("num_" . $lg_value . "_" . $i, 3000, 1);} else {$res_dtmf = $agi->get_data("num_" . $lg_value . "_" . $i, 1000, 1);}
 
                 if (!empty($res_dtmf["result"]) && is_numeric($res_dtmf["result"]) && $res_dtmf["result"] > 0) break;
                 $i++;
@@ -720,7 +693,7 @@ class A2Billing {
     /*
     * intialize evironement variables from the agi values
     */
-    function get_agi_request_parameter($agi)
+    public function get_agi_request_parameter($agi)
     {
         $this->CallerID    = $agi->request['agi_callerid'];
         $this->channel     = $agi->request['agi_channel'];
@@ -740,7 +713,7 @@ class A2Billing {
     /*
     * function to find the cid number
     */
-    function isolate_cid()
+    public function isolate_cid()
     {
         $pos_lt = strpos($this->CallerID, '<');
         $pos_gt = strpos($this->CallerID, '>');
@@ -757,7 +730,7 @@ class A2Billing {
     /*
     * function would set when the card is used or when it release
     */
-    function callingcard_acct_start_inuse($agi, $inuse)
+    public function callingcard_acct_start_inuse($agi, $inuse)
     {
         $upd_balance = 0;
         if (is_numeric($this->agiconfig['dial_balance_reservation'])) {
@@ -774,13 +747,14 @@ class A2Billing {
         }
         if (!$this->CC_TESTING) $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[QUERY USING CARD UPDATE::> " . $QUERY . "]");
+
         return 0;
     }
 
     /*
     * function enough_credit_to_call
     */
-    function enough_credit_to_call()
+    public function enough_credit_to_call()
     {
         if ($this->typepaid == 0) {
             if ($this->credit < $this->agiconfig['min_credit_2call'] || $this->credit < 0) {
@@ -815,7 +789,7 @@ class A2Billing {
     *  @param float $credit
     *  @return 1 if Ok ; -1 if error
     **/
-    function callingcard_ivr_authorize($agi, &$RateEngine, $try_num, $call2did = false)
+    public function callingcard_ivr_authorize($agi, &$RateEngine, $try_num, $call2did = false)
     {
         $res = 0;
 
@@ -867,6 +841,7 @@ class A2Billing {
                     // NUMBER NOT AUHTORIZED
                     $this->debug(INFO, $agi, __FILE__, __LINE__, "[NUMBER NOT AUHTORIZED - NOT ALLOW TO CALL RESTRICTED NUMBERS]");
                     $agi->stream_file('prepaid-not-authorized-phonenumber', '#');
+
                     return -1;
                 }
             } else {
@@ -875,6 +850,7 @@ class A2Billing {
                     //NUMBER NOT AUHTORIZED
                     $this->debug(INFO, $agi, __FILE__, __LINE__, "[NUMBER NOT AUHTORIZED - ALLOW TO CALL ONLY RESTRICTED NUMBERS]");
                     $agi->stream_file('prepaid-not-authorized-phonenumber', '#');
+
                     return -1;
                 }
             }
@@ -1011,6 +987,7 @@ class A2Billing {
                                 $agi->stream_file('weeks', '#');
                         }
                 }
+
                 return -1;
             }
 
@@ -1040,6 +1017,7 @@ class A2Billing {
             if ($resfindrate == 0) {
                 $prompt = "prepaid-dest-unreachable";
                 $agi->stream_file($prompt, '#');
+
                 return -1;
             }
             // CHECKING THE TIMEOUT
@@ -1049,6 +1027,7 @@ class A2Billing {
             if (!$res_all_calcultimeout) {
                 $prompt = "prepaid-no-enough-credit";
                 $agi->stream_file($prompt, '#');
+
                 return -1;
             }
 
@@ -1069,6 +1048,7 @@ class A2Billing {
         } else {  //END if is not a call to DID
             //it s call to did
             $this->save_redial_number($agi, $this->destination);
+
             return "2DID";
         }
     }
@@ -1082,7 +1062,7 @@ class A2Billing {
     *  @param integer $try_num
     *  @return 1 if Ok ; -1 if error
     **/
-    function call_sip_iax_buddy($agi, &$RateEngine, $try_num)
+    public function call_sip_iax_buddy($agi, &$RateEngine, $try_num)
     {
         $res = 0;
 
@@ -1127,11 +1107,11 @@ class A2Billing {
 
         if (!$sip_buddies && !$iax_buddies) {
             $agi->stream_file('prepaid-sipiax-num-nomatch', '#');
+
             return -1;
         }
 
-        for ($k = 0; $k < $sip_buddies + $iax_buddies; $k++)
-        {
+        for ($k = 0; $k < $sip_buddies + $iax_buddies; $k++) {
             if ($k == 0 && $sip_buddies) {
                 $this->tech = 'SIP';
                 $this->destination= $destsip;
@@ -1210,6 +1190,7 @@ class A2Billing {
                 $QUERY .= ", '$answeredtime', '" . $card_alias . "', '$terminatecauseid', now(), '0', '0', '0', '0', '$this->CallerID', '1' )";
 
                 $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
+
                 return 1;
             }
         }
@@ -1250,7 +1231,7 @@ class A2Billing {
 
     *  @return 1 if Ok ; -1 if error
     **/
-    function call_did($agi, &$RateEngine, $listdestination)
+    public function call_did($agi, &$RateEngine, $listdestination)
     {
         $res = 0;
         $this->agiconfig['say_balance_after_auth'] = 0;
@@ -1445,8 +1426,7 @@ class A2Billing {
         }
     }
 
-
-    function call_2did($agi, &$RateEngine, $listdestination)
+    public function call_2did($agi, &$RateEngine, $listdestination)
     {
         $card_number = $this->username; // username of the caller
         $nbused = $this->nbused;
@@ -1722,7 +1702,6 @@ class A2Billing {
                     $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                     $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION]:[result:$result]");
 
-
                     // ADDED 28 Sept 2011
                     $answeredtime = $agi->get_variable("ANSWEREDTIME");
                     $answeredtime = $answeredtime['data'];
@@ -1768,7 +1747,6 @@ class A2Billing {
                     $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                     $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - UPDATE CARD: SQL: $QUERY]:[result:$result]");
 
-
                     #This is a call from user to DID, we dont want to charge the A-leg
                     $this->bill_did_aleg($agi, $listdestination[0], $answeredtime);
 
@@ -1794,11 +1772,10 @@ class A2Billing {
         $this->id_card = $my_id_card;
     }
 
-
     /*
     * Function to bill the A-Leg on DID Calls
     */
-    function bill_did_aleg($agi, $inst_listdestination, $b_leg_answeredtime = 0)
+    public function bill_did_aleg($agi, $inst_listdestination, $b_leg_answeredtime = 0)
     {
 
         $start_time = $this->G_startime;
@@ -1936,7 +1913,7 @@ class A2Billing {
     }
 
 
-    function fct_say_time_2_call($agi, $timeout, $rate = 0)
+    public function fct_say_time_2_call($agi, $timeout, $rate = 0)
     {
         // set destination and timeout
         // say 'you have x minutes and x seconds'
@@ -1947,6 +1924,7 @@ class A2Billing {
         if (!($minutes > 0) && !($seconds > 10)) {
             $prompt = "prepaid-no-enough-credit";
             $agi->stream_file($prompt, '#');
+
             return -1;
         }
 
@@ -2006,7 +1984,7 @@ class A2Billing {
     *  @param float $credit
     *  @return nothing
     **/
-    function fct_say_balance($agi, $credit, $fromvoucher = 0)
+    public function fct_say_balance($agi, $credit, $fromvoucher = 0)
     {
         global $currencies_list;
 
@@ -2117,7 +2095,7 @@ class A2Billing {
     *  @param float $rate
     *  @return nothing
     **/
-    function fct_say_rate($agi, $rate)
+    public function fct_say_rate($agi, $rate)
     {
         global $currencies_list;
 
@@ -2212,7 +2190,7 @@ class A2Billing {
 
     *  @return 1 if Ok ; -1 if error
     **/
-    function refill_card_with_voucher($agi, $try_num)
+    public function refill_card_with_voucher($agi, $try_num)
     {
         global $currencies_list;
 
@@ -2244,6 +2222,7 @@ class A2Billing {
         if ($result[0][0] == $this->vouchernumber) {
             if (!isset($currencies_list[strtoupper($result[0][4])][2])) {
                 $this->debug(ERROR, $agi, __FILE__, __LINE__, "System Error : No currency table complete !!!");
+
                 return -1;
             } else {
                 // DISABLE THE VOUCHER
@@ -2261,16 +2240,17 @@ class A2Billing {
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, ' The Voucher ' . $this->vouchernumber . ' has been used, We added ' . $this->add_credit/$mycur . ' ' . strtoupper($this->currency) . ' of credit on your account!');
                 $this->fct_say_balance($agi, $this->add_credit, 1);
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[VOUCHER REFILL CARD: $QUERY]");
+
                 return 1;
             }
-        }
-        else
-        {
+        } else {
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[VOUCHER REFILL ERROR: " . $this->vouchernumber . " Voucher not avaible or dosn't exist]");
             $agi->stream_file('voucher_does_not_exist');
+
             return -1;
         }
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[VOUCHER REFILL CARD LOG END]");
+
         return 1;
     }
 
@@ -2278,16 +2258,16 @@ class A2Billing {
     /*
     * Function to generate a cardnumber
     */
-    function MDP($chrs = 10)
+    public function MDP($chrs = 10)
     {
         $pwd = "";
-        mt_srand((double)microtime() * 1000000);
-        while (strlen($pwd) < $chrs)
-        {
+        mt_srand((double) microtime() * 1000000);
+        while (strlen($pwd) < $chrs) {
             $chr = chr(mt_rand(0, 255));
             if (preg_match("/^[0-9]$/i", $chr))
                 $pwd = $pwd . $chr;
         };
+
         return $pwd;
     }
 
@@ -2302,8 +2282,8 @@ class A2Billing {
     *  @return integer number of seconds used of FT2C package so far in this period
     **/
 
-    function number_free_calls_used($DBHandle, $id_cc_card, $id_cc_package_offer, $billingtype, $startday) {
-
+    public function number_free_calls_used($DBHandle, $id_cc_card, $id_cc_package_offer, $billingtype, $startday)
+    {
         if ($billingtype == 0) {
             // PROCESSING FOR MONTHLY
             // if > last day of the month
@@ -2334,6 +2314,7 @@ class A2Billing {
         } else {
             $number_calls_used = 0;
         }
+
         return $number_calls_used;
 
     }
@@ -2349,7 +2330,7 @@ class A2Billing {
     *  @param integer $startday
     *  @return integer number of seconds used of FT2C package so far in this period
     **/
-    function FT2C_used_seconds($DBHandle, $id_cc_card, $id_cc_package_offer, $billingtype, $startday)
+    public function FT2C_used_seconds($DBHandle, $id_cc_card, $id_cc_package_offer, $billingtype, $startday)
     {
         if ($billingtype == 0) {
             // PROCESSING FOR MONTHLY
@@ -2388,6 +2369,7 @@ class A2Billing {
         } else {
             $freetimetocall_used = 0;
         }
+
         return $freetimetocall_used;
     }
 
@@ -2395,25 +2377,27 @@ class A2Billing {
     /*
     * Function apply_rules to the phonenumber : Remove internation prefix
     */
-    function apply_rules($phonenumber)
+    public function apply_rules($phonenumber)
     {
         if (is_array($this->agiconfig['international_prefixes']) && (count($this->agiconfig['international_prefixes']) > 0)) {
             foreach ($this->agiconfig['international_prefixes'] as $testprefix) {
                 if (substr($phonenumber, 0, strlen($testprefix)) == $testprefix) {
                     $this->myprefix = $testprefix;
+
                     return substr($phonenumber, strlen($testprefix));
                 }
             }
         }
 
         $this->myprefix = '';
+
         return $phonenumber;
     }
 
     /*
     * Function apply_add_countryprefixto the phonenumber
     */
-    function apply_add_countryprefixto($phonenumber)
+    public function apply_add_countryprefixto($phonenumber)
     {
         if ($this->agiconfig['local_dialing_addcountryprefix'] == 1) {
 
@@ -2421,6 +2405,7 @@ class A2Billing {
                 return $this->countryprefix . substr($phonenumber, 1);
             }
         }
+
         return $phonenumber;
     }
 
@@ -2429,12 +2414,13 @@ class A2Billing {
     * Function callingcard_cid_sanitize : Ensure the caller is allowed to use their claimed CID.
     * Returns: clean CID value, possibly empty.
     */
-    function callingcard_cid_sanitize($agi)
+    public function callingcard_cid_sanitize($agi)
     {
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CID_SANITIZE - CID:" . $this->CallerID . "]");
 
         if (strlen($this->CallerID) == 0) {
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CID_SANITIZE - CID: NO CID]");
+
             return '';
         }
         $QUERY = "";
@@ -2464,27 +2450,30 @@ class A2Billing {
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, print_r($result2, true));
         }
         if (count($result1) > 0 || count($result2) > 0)
-            $result = array_merge((array) $result1, (array)$result2);
+            $result = array_merge((array) $result1, (array) $result2);
 
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RESULT MERGE->" . print_r($result, true));
 
         if (!is_array($result)) {
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CID_SANITIZE - CID: NO DATA]");
+
             return '';
         }
         for ($i = 0; $i < count($result); $i++) {
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CID_SANITIZE - CID COMPARING: " . substr($result[$i][0], strlen($this->CallerID) * -1) . " to " . $this->CallerID . "]");
             if (substr($result[$i][0], strlen($this->CallerID) * -1) == $this->CallerID) {
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CID_SANITIZE - CID: " . $result[$i][0] . "]");
+
                 return $result[$i][0];
             }
         }
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CID_SANITIZE - CID UNIQUE RESULT: " . $result[0][0] . "]");
+
         return $result[0][0];
     }
 
 
-    function callingcard_auto_setcallerid($agi)
+    public function callingcard_auto_setcallerid($agi)
     {
         // AUTO SetCallerID
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[AUTO SetCallerID]");
@@ -2527,7 +2516,7 @@ class A2Billing {
     }
 
 
-    function update_callback_campaign($agi)
+    public function update_callback_campaign($agi)
     {
         $now = time();
         $username = $agi->get_variable("USERNAME", true);
@@ -2579,7 +2568,7 @@ class A2Billing {
     }
 
 
-    function callingcard_ivr_authenticate($agi)
+    public function callingcard_ivr_authenticate($agi)
     {
         $authentication = false;
         $prompt = '';
@@ -2620,6 +2609,7 @@ class A2Billing {
                             $prompt = "prepaid-auth-fail";
                             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[StreamFile : $prompt]");
                             $agi->stream_file($prompt, '#');
+
                             return -2;
                         }
                         $card_gen = $this->MDP($this->agiconfig['cid_auto_create_card_len']);
@@ -2656,6 +2646,7 @@ class A2Billing {
                         $prompt = "prepaid-auth-fail";
                         $this->debug(DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
                         $agi->stream_file($prompt, '#');
+
                         return -2;
                     }
 
@@ -2799,7 +2790,7 @@ class A2Billing {
                         $this->accountcode = ''; $callerID_enable = 0;
                         $this->ask_other_cardnumber = 1;
                         $this->update_callerid = 1;
-                    }else {
+                    } else {
                         return -2;
                     }
                 } else {
@@ -3162,6 +3153,7 @@ class A2Billing {
                             $prompt = "prepaid-auth-fail";
                             $this->debug(DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
                             $agi->stream_file($prompt, '#');
+
                             return -2;
                         }
                     } else {
@@ -3198,7 +3190,7 @@ class A2Billing {
                 $this->fct_say_balance($agi, $this->credit);
             }
 
-        } else if ($res == -2) {
+        } elseif ($res == -2) {
             $agi->stream_file($prompt, '#');
         } else {
             $res = -1;
@@ -3208,7 +3200,7 @@ class A2Billing {
     }
 
 
-    function callingcard_ivr_authenticate_minimum($agi)
+    public function callingcard_ivr_authenticate_minimum($agi)
     {
         $prompt = '';
         $res = 0;
@@ -3351,7 +3343,7 @@ class A2Billing {
         }//end for
         if (($retries < 3) && $res == 0) {
             $this->callingcard_acct_start_inuse($agi, 1);
-        } else if ($res == -2) {
+        } elseif ($res == -2) {
             $agi->stream_file($prompt, '#');
         } else {
             $res = -1;
@@ -3362,8 +3354,8 @@ class A2Billing {
 
 
 
-    function callingcard_ivr_authenticate_light(&$error_msg, $simbalance) {
-
+    public function callingcard_ivr_authenticate_light(&$error_msg, $simbalance)
+    {
         $res = 0;
         $QUERY = "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, creditlimit, language, removeinterprefix, redial, enableexpire, " .
                     " UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), " .
@@ -3376,6 +3368,7 @@ class A2Billing {
 
         if (!is_array($result)) {
             $error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' . gettext("Error : Authentication Failed !!!") . '</b></font><br>';
+
             return 0;
         }
         //If we receive a positive value from the rate simulator, we simulate with that initial balance. If we receive <=0 we use the value retrieved from the account
@@ -3416,18 +3409,21 @@ class A2Billing {
         // CHECK IF ENOUGH CREDIT TO CALL
         if (!$this->enough_credit_to_call()) {
             $error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' . gettext("Error : Not enough credit to call !!!") . '</b></font><br>';
+
             return 0;
         }
 
         // CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
         if ($this->status != "1") {
             $error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' . gettext("Error : Card is not active!!!") . '</b></font><br>';
+
             return 0;
         }
 
         // CHECK IF THE CARD IS USED
         if (($isused > 0) && ($simultaccess != 1)) {
             $error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' . gettext("Error : Card is actually in use!!!") . '</b></font><br>';
+
             return 0;
         }
 
@@ -3437,6 +3433,7 @@ class A2Billing {
                 // expire date
                 if (intval($this->expirationdate - time()) < 0) { // CARD EXPIRED :(
                     $error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' . gettext("Error : Card have expired!!!") . '</b></font><br>';
+
                     return 0;
                 }
 
@@ -3445,6 +3442,7 @@ class A2Billing {
                 $date_will_expire = $this->firstusedate + (60 * 60 * 24 * $this->expiredays);
                 if (intval($date_will_expire - time()) < 0) { // CARD EXPIRED :(
                 $error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' . gettext("Error : Card have expired!!!") . '</b></font><br>';
+
                 return 0;
             }
 
@@ -3453,6 +3451,7 @@ class A2Billing {
                 $date_will_expire = $this->creationdate + (60 * 60 * 24 * $this->expiredays);
                 if (intval($date_will_expire - time()) < 0) { // CARD EXPIRED :(
                     $error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' . gettext("Error : Card have expired!!!") . '</b></font><br>';
+
                     return 0;
                 }
             }
@@ -3467,7 +3466,7 @@ class A2Billing {
     * to switch the Callplan from a customer : callplan_deck_minute_threshold
     *
     */
-    function deck_switch($agi)
+    public function deck_switch($agi)
     {
         if (strpos($this->agiconfig['callplan_deck_minute_threshold'], ',') === false)
             return false;
@@ -3527,6 +3526,7 @@ class A2Billing {
                 $this->tariff = $arr_value_deck_callplan[$ind_deck];
             }
         }
+
         return true;
     }
 
@@ -3535,11 +3535,11 @@ class A2Billing {
     * Function DbConnect
     * Returns: true / false if connection has been established
     */
-    function DbConnect()
+    public function DbConnect()
     {
         $ADODB_CACHE_DIR = '/tmp';
         /* $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC; */
-        require_once('adodb/adodb.inc.php');
+        require_once 'adodb/adodb.inc.php';
 
         if ($this->config['database']['dbtype'] == "postgres") {
             $datasource = 'pgsql://' . $this->config['database']['user'] . ':' . $this->config['database']['password'] . '@' . $this->config['database']['hostname'] . '/' . $this->config['database']['dbname'];
@@ -3560,7 +3560,7 @@ class A2Billing {
     * Function DbReConnect
     * Returns: true / false if connection has been established
     */
-    function DbReConnect($agi)
+    public function DbReConnect($agi)
     {
         $res = $this->DBHandle->Execute("select 1");
         if (!$res) {
@@ -3595,13 +3595,14 @@ class A2Billing {
         } else {
             $res->Close();
         }
+
         return true;
     }
 
     /*
     * Function DbDisconnect
     */
-    function DbDisconnect()
+    public function DbDisconnect()
     {
         $this->DBHandle->disconnect();
     }
@@ -3612,7 +3613,7 @@ class A2Billing {
     * used by parameter like interval_len_cardnumber : 8-10, 12-18, 20
     * it will build an array with the different interval
     */
-    function splitable_data($splitable_value)
+    public function splitable_data($splitable_value)
     {
         $arr_splitable_value = explode(",", $splitable_value);
         foreach ($arr_splitable_value as $arr_value) {
@@ -3636,10 +3637,11 @@ class A2Billing {
 
         $arr_value_to_import = array_unique($arr_value_to_import);
         sort($arr_value_to_import);
+
         return $arr_value_to_import;
     }
 
-    function save_redial_number($agi, $number)
+    public function save_redial_number($agi, $number)
     {
         if (($this->mode == 'did') || ($this->mode == 'callback')) {
             return;
@@ -3649,7 +3651,7 @@ class A2Billing {
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[SAVING DESTINATION FOR REDIAL: SQL: {$QUERY}]:[result: {$result}]");
     }
 
-    function run_dial($agi, $dialstr)
+    public function run_dial($agi, $dialstr)
     {
         $dialstr = $this->format_parameters($dialstr);
 
@@ -3662,15 +3664,16 @@ class A2Billing {
     /*
     * This function to set the parameters separator according the asterisk version
     */
-    function format_parameters($parameters)
+    public function format_parameters($parameters)
     {
         if ($this->agiconfig['asterisk_version'] != "1_2" && $this->agiconfig['asterisk_version'] != "1_4") {
             $parameters = str_replace("|", ',', $parameters);
         }
+
         return $parameters;
     }
 
-    function calculate_time_condition($now, $timeinterval, $type)
+    public function calculate_time_condition($now, $timeinterval, $type)
     {
         $week_range = array(
         'mon' => 1,
@@ -3713,7 +3716,7 @@ class A2Billing {
                     case 1:
                         break;
                     case 2:
-                        switch(strtolower($conditions[4][1])) {
+                        switch (strtolower($conditions[4][1])) {
                             case "p":
                                 // Peak
                                 $cond_type = "peak";
@@ -3835,10 +3838,12 @@ class A2Billing {
             }
             $i++;
         }
+
         return $final_result_set;
     }
 
-    function extract_cond_values($value) {
+    public function extract_cond_values($value)
+    {
         $rows = explode("\n", $value);
         $i = 0;
         foreach ($rows as $row) {
@@ -3860,10 +3865,8 @@ class A2Billing {
             }
         $i++;
         }
+
         return $output;
     }
 
-
 };
-
-

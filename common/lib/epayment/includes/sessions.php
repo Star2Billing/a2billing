@@ -5,15 +5,18 @@
       $SESS_LIFE = 1440;
     }
 
-    function _sess_open($save_path, $session_name) {
+    function _sess_open($save_path, $session_name)
+    {
       return true;
     }
 
-    function _sess_close() {
+    function _sess_close()
+    {
       return true;
     }
 
-    function _sess_read($key) {
+    function _sess_read($key)
+    {
       $value_query = tep_db_query("select value from " . TABLE_SESSIONS . " where sesskey = '" . tep_db_input($key) . "' and expiry > '" . time() . "'");
       $value = tep_db_fetch_array($value_query);
 
@@ -24,7 +27,8 @@
       return false;
     }
 
-    function _sess_write($key, $val) {
+    function _sess_write($key, $val)
+    {
       global $SESS_LIFE;
 
       $expiry = time() + $SESS_LIFE;
@@ -40,11 +44,13 @@
       }
     }
 
-    function _sess_destroy($key) {
+    function _sess_destroy($key)
+    {
       return tep_db_query("delete from " . TABLE_SESSIONS . " where sesskey = '" . tep_db_input($key) . "'");
     }
 
-    function _sess_gc($maxlifetime) {
+    function _sess_gc($maxlifetime)
+    {
       tep_db_query("delete from " . TABLE_SESSIONS . " where expiry < '" . time() . "'");
 
       return true;
@@ -53,7 +59,8 @@
     session_set_save_handler('_sess_open', '_sess_close', '_sess_read', '_sess_write', '_sess_destroy', '_sess_gc');
   }
 
-  function tep_session_start() {
+  function tep_session_start()
+  {
     global $_GET, $_POST, $HTTP_COOKIE_VARS;
 
     $sane_session_id = true;
@@ -87,7 +94,8 @@
     return session_start();
   }
 
-  function tep_session_register($variable) {
+  function tep_session_register($variable)
+  {
     global $session_started;
 
     if ($session_started == true) {
@@ -97,15 +105,18 @@
     }
   }
 
-  function tep_session_is_registered($variable) {
+  function tep_session_is_registered($variable)
+  {
     return session_is_registered($variable);
   }
 
-  function tep_session_unregister($variable) {
+  function tep_session_unregister($variable)
+  {
     return session_unregister($variable);
   }
 
-  function tep_session_id($sessid = '') {
+  function tep_session_id($sessid = '')
+  {
     if (!empty($sessid)) {
       return session_id($sessid);
     } else {
@@ -113,15 +124,17 @@
     }
   }
 
-  function tep_session_name($name = '') {
+  function tep_session_name($name = '')
+  {
     if (!empty($name)) {
       return session_name($name);
     } else {
       return session_name();
     }
   }
-  
-  function tep_session_close() {
+
+  function tep_session_close()
+  {
     if (PHP_VERSION >= '4.0.4') {
       return session_write_close();
     } elseif (function_exists('session_close')) {
@@ -129,11 +142,13 @@
     }
   }
 
-  function tep_session_destroy() {
+  function tep_session_destroy()
+  {
     return session_destroy();
   }
 
-  function tep_session_save_path($path = '') {
+  function tep_session_save_path($path = '')
+  {
     if (!empty($path)) {
       return session_save_path($path);
     } else {
@@ -141,7 +156,8 @@
     }
   }
 
-  function tep_session_recreate() {
+  function tep_session_recreate()
+  {
     if (PHP_VERSION >= 4.1) {
       $session_backup = $_SESSION;
 
@@ -159,4 +175,3 @@
       unset($session_backup);
     }
   }
-?>

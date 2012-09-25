@@ -41,7 +41,8 @@ class iam_csvdump
     * @return String A CSV String. It returns an empty string if there Array is empty (NULL)
     * @todo Add param "fill to fit max length"?
     */
-    function arrayToCsvString($array, $separator=';', $trim='both', $removeEmptyLines=TRUE) {
+    public function arrayToCsvString($array, $separator=';', $trim='both', $removeEmptyLines=TRUE)
+    {
     if (!is_array($array) || empty($array)) return '';
 
     switch ($trim) {
@@ -74,12 +75,14 @@ class iam_csvdump
         }
         $ret[] = join($separator, $subArr);
       }
+
       return join("\n", $ret);
     } else {
       while (list(,$val) = each($array)) {
         $val   = $this->_valToCsvHelper($val, $separator, $trimFunction);
         $ret[] = $val;
       }
+
       return join($separator, $ret);
     }
     }
@@ -93,7 +96,8 @@ class iam_csvdump
     * @return String
     * @see    arrayToCsvString()
     */
-    function _valToCsvHelper($val, $separator, $trimFunction) {
+    public function _valToCsvHelper($val, $separator, $trimFunction)
+    {
     if ($trimFunction) $val = $trimFunction($val);
     //If there is a separator (;) or a quote (") or a linebreak in the string, we need to quote it.
     $needQuote = FALSE;
@@ -114,10 +118,11 @@ class iam_csvdump
         break;
       }
     } while (FALSE);
-    
+
     if ($needQuote) {
       $val = '"' . $val . '"';
     }
+
     return $val;
     }
 
@@ -126,20 +131,15 @@ class iam_csvdump
     * @access private
     * @return String A String containing the End Of Line Sequence corresponding to the client's OS
     */
-    function _define_newline()
+    public function _define_newline()
     {
          $unewline = "\r\n";
 
-         if (strstr(strtolower($_SERVER["HTTP_USER_AGENT"]), 'win'))
-         {
+         if (strstr(strtolower($_SERVER["HTTP_USER_AGENT"]), 'win')) {
             $unewline = "\r\n";
-         }
-         else if (strstr(strtolower($_SERVER["HTTP_USER_AGENT"]), 'mac'))
-         {
+         } elseif (strstr(strtolower($_SERVER["HTTP_USER_AGENT"]), 'mac')) {
             $unewline = "\r";
-         }
-         else
-         {
+         } else {
             // $unewline = "\n";
          }
 
@@ -151,40 +151,25 @@ class iam_csvdump
     * @access private
     * @return String A String containing the Browser's type or brand
     */
-    function _get_browser_type()
+    public function _get_browser_type()
     {
         $USER_BROWSER_AGENT="";
 
-        if (preg_match('/OPERA/i', strtoupper($_SERVER["HTTP_USER_AGENT"]))) 
-        {
+        if (preg_match('/OPERA/i', strtoupper($_SERVER["HTTP_USER_AGENT"]))) {
             $USER_BROWSER_AGENT='OPERA';
-        }
-        else if (preg_match('/MSIE/i',strtoupper($_SERVER["HTTP_USER_AGENT"])))
-        {
+        } elseif (preg_match('/MSIE/i',strtoupper($_SERVER["HTTP_USER_AGENT"]))) {
             $USER_BROWSER_AGENT='IE';
-        }
-        else if (preg_match('/OMNIWEB/i', strtoupper($_SERVER["HTTP_USER_AGENT"])))
-        {
+        } elseif (preg_match('/OMNIWEB/i', strtoupper($_SERVER["HTTP_USER_AGENT"]))) {
             $USER_BROWSER_AGENT='OMNIWEB';
-        }
-        else if (preg_match('/MOZILLA/i', strtoupper($_SERVER["HTTP_USER_AGENT"]))) 
-        {
+        } elseif (preg_match('/MOZILLA/i', strtoupper($_SERVER["HTTP_USER_AGENT"]))) {
             $USER_BROWSER_AGENT='MOZILLA';
-        }
-        else if (preg_match('/FIREFOX/i', strtoupper($_SERVER["HTTP_USER_AGENT"]))) 
-        {
+        } elseif (preg_match('/FIREFOX/i', strtoupper($_SERVER["HTTP_USER_AGENT"]))) {
             $USER_BROWSER_AGENT='FIREFOX';
-        }
-        else if (preg_match('/KONQUEROR/i', strtoupper($_SERVER["HTTP_USER_AGENT"]))) 
-        {
+        } elseif (preg_match('/KONQUEROR/i', strtoupper($_SERVER["HTTP_USER_AGENT"]))) {
             $USER_BROWSER_AGENT='KONQUEROR';
-        }
-        else if (preg_match('/CHROME/i', strtoupper($_SERVER["HTTP_USER_AGENT"]))) 
-        {
+        } elseif (preg_match('/CHROME/i', strtoupper($_SERVER["HTTP_USER_AGENT"]))) {
             $USER_BROWSER_AGENT='CHROME';
-        }
-        else
-        {
+        } else {
             $USER_BROWSER_AGENT='OTHER';
         }
 
@@ -196,13 +181,14 @@ class iam_csvdump
     * @access private
     * @return String A string containing the MIME-TYPE String corresponding to the client's browser
     */
-    function _get_mime_type()
+    public function _get_mime_type()
     {
         $USER_BROWSER_AGENT= $this->_get_browser_type();
 
         $mime_type = ($USER_BROWSER_AGENT == 'IE' || $USER_BROWSER_AGENT == 'OPERA')
                        ? 'application/octetstream'
                        : 'application/octet-stream';
+
         return $mime_type;
     }
 
@@ -214,30 +200,32 @@ class iam_csvdump
     * @param  String $password Password to Access the Database
     * @param  String $host Name of the Host holding the DB
     */
-		  
-	function _db_connect($dbname="mysql", $user="root", $password="", $host="localhost")
+
+    public function _db_connect($dbname="mysql", $user="root", $password="", $host="localhost")
     {
       $result = pg_connect("host=$host port=5432 dbname=$dbname user=$user password=$password");
-      if(!$result)     // If no connection, return 0
-      {
+      if (!$result) {     // If no connection, return 0
+
        return false;
-      }      
+      }
+
       return $result;
     }
 
-	
-    function _db_connect_mysql($dbname="mysql", $user="root", $password="", $host="localhost")
+
+    public function _db_connect_mysql($dbname="mysql", $user="root", $password="", $host="localhost")
     {
       $result = @mysql_pconnect($host, $user, $password);
-      if(!$result)     // If no connection, return 0
-      {
+      if (!$result) {     // If no connection, return 0
+
        return false;
       }
 
-      if(!@mysql_select_db($dbname))  // If db not set, return 0
-      {
+      if (!@mysql_select_db($dbname)) {  // If db not set, return 0
+
        return false;
       }
+
       return $result;
     }
 
@@ -250,52 +238,47 @@ class iam_csvdump
     * @param  String $password Password to Access the Database
     * @param  String $host Name of the Host holding the DB
     */
-	/******* #################################### SEE FONCTION BELOW *****/
-	function db_fetch_array ($result, $row = NULL, $result_type = PGSQL_ASSOC)
+    /******* #################################### SEE FONCTION BELOW *****/
+    public function db_fetch_array ($result, $row = NULL, $result_type = PGSQL_ASSOC)
     {
        $return = @pg_fetch_array ($result, $row, $result_type);
+
        return $return;
     }
-	
-    function _generate_csv($query_string, $dbname="mysql", $user="root", $password="", $host="localhost")
+
+    public function _generate_csv($query_string, $dbname="mysql", $user="root", $password="", $host="localhost")
     {
       if(!$conn= $this->_db_connect($dbname, $user , $password, $host))
           die("Error. Cannot connect to Database.");
-      else
-      {	  	
-	$result = pg_query($conn, $query_string);
-        if(!$result){		
-		die("Could not perform the Query: ".pg_ErrorMessage($result));
-        }else
-        {
+      else {
+    $result = pg_query($conn, $query_string);
+        if (!$result) {
+        die("Could not perform the Query: ".pg_ErrorMessage($result));
+        } else {
             $file = "";
             $crlf = $this->_define_newline();
-		while ($str= @pg_fetch_array($result,NULL, PGSQL_NUM))			
-            {
+        while ($str= @pg_fetch_array($result,NULL, PGSQL_NUM)) {
                 $file .= $this->arrayToCsvString($str,",").$crlf;
             }
             echo $file;
         }
       }
     }
-	
-	function _generate_csv_mysql($query_string, $dbname="mysql", $user="root", $password="", $host="localhost")
+
+    public function _generate_csv_mysql($query_string, $dbname="mysql", $user="root", $password="", $host="localhost")
     {
 
-	  
+
       if(!$conn= $this->_db_connect_mysql($dbname, $user , $password, $host))
           die("Error. Cannot connect to Database.");
-      else
-      {
+      else {
         $result = @mysql_query($query_string, $conn);
         if(!$result)
             die("Could not perform the Query: ".mysql_error());
-        else
-        {
+        else {
             $file = "";
             $crlf = $this->_define_newline();
-            while ($str= @mysql_fetch_array($result, MYSQL_NUM))
-            {
+            while ($str= @mysql_fetch_array($result, MYSQL_NUM)) {
                 $file .= $this->arrayToCsvString($str,",").$crlf;
             }
             echo $file;
@@ -306,31 +289,22 @@ class iam_csvdump
         Function to Create XML String for the Data for Post Gre SQL
     */
 
-    function _generate_xml_postgre($query_string, $dbname="mysql", $user="root", $password="", $host="localhost")
+    public function _generate_xml_postgre($query_string, $dbname="mysql", $user="root", $password="", $host="localhost")
     {
-        /*if (strstr($_SERVER['HTTP_USER_AGENT'], 'MSIE') && isset($_SERVER['HTTPS']))
-        {
+        /*if (strstr($_SERVER['HTTP_USER_AGENT'], 'MSIE') && isset($_SERVER['HTTPS'])) {
             header('Content-Type: text/plain');
-        }
-		else
-        {
-		    header('Content-Type: application/download');
+        } else {
+            header('Content-Type: application/download');
             header('Content-Disposition: attachment; filename=dump.xml');
-		} */
-        if(!$conn= $this->_db_connect($dbname, $user , $password, $host))
-        {
+        } */
+        if (!$conn= $this->_db_connect($dbname, $user , $password, $host)) {
           die("Error. Cannot connect to Database.");
-        }
-        else
-        {			
-    	    $result = pg_query($conn, $query_string);
-			
-            if(!$result)
-            {
-    		    die("Could not perform the Query: ".pg_ErrorMessage($result));
-            }
-            else
-            {
+        } else {
+            $result = pg_query($conn, $query_string);
+
+            if (!$result) {
+                die("Could not perform the Query: ".pg_ErrorMessage($result));
+            } else {
                 $file = "";
                 $crlf = $this->_define_newline();
                 $this->_generate_pgxml($result);
@@ -342,74 +316,60 @@ class iam_csvdump
     */
 
 
-    function _generate_pgxml($result=NULL)
+    public function _generate_pgxml($result=NULL)
     {
-        if(!$result)
-        {
+        if (!$result) {
             return false;
         }
         echo "<?xml version=\"1.0\"";
-		echo " encoding=".'"'."US-ASCII".'"';
+        echo " encoding=".'"'."US-ASCII".'"';
         echo " ?>\n";
-		echo "<data>\n";
+        echo "<data>\n";
         // Output header row
         $j = 0;
         echo "\t<header>\n";
         $totalFields = @pg_num_fields($result);
-        for($i=0; $i < $totalFields; $i++)
-        {
+        for ($i=0; $i < $totalFields; $i++) {
             $name = htmlspecialchars(@pg_field_name($result, $i));
-			$type = htmlspecialchars(@pg_field_type($result, $i));
-			echo "\t\t<column name=\"{$name}\" type=\"{$type}\" />\n";
-		}
+            $type = htmlspecialchars(@pg_field_type($result, $i));
+            echo "\t\t<column name=\"{$name}\" type=\"{$type}\" />\n";
+        }
         echo "\t</header>\n";
 
-		echo "\t<records>\n";
+        echo "\t<records>\n";
         $totalRows = @pg_num_rows($result);
-		for($k=0; $k< $totalRows; $k++)
-        {
+        for ($k=0; $k< $totalRows; $k++) {
             $j = 0;
-			echo "\t\t<row>\n";
-			for($l = 0; $l < $totalFields; $l++)
-            {
+            echo "\t\t<row>\n";
+            for ($l = 0; $l < $totalFields; $l++) {
                 $name = htmlspecialchars(@pg_field_name($result, $l));
                 $v =  htmlspecialchars(@pg_fetch_result($result, $k, $l));
-                if ($v != null)
-                {
+                if ($v != null) {
                     $v = htmlspecialchars($v);
                 }
                 echo "\t\t\t<column name=\"{$name}\"", ($v == null ? ' null="null"' : ''), ">{$v}</column>\n";
             }
-			echo "\t\t</row>\n";
-		}
-		echo "\t</records>\n";
-		echo "</data>\n";
+            echo "\t\t</row>\n";
+        }
+        echo "\t</records>\n";
+        echo "</data>\n";
     }
 
-    function _generate_xml_mysql($query_string, $dbname="mysql", $user="root", $password="", $host="localhost")
+    public function _generate_xml_mysql($query_string, $dbname="mysql", $user="root", $password="", $host="localhost")
     {
-        /*if(strstr($_SERVER['HTTP_USER_AGENT'], 'MSIE') && isset($_SERVER['HTTPS']))
-        {
+        /*if (strstr($_SERVER['HTTP_USER_AGENT'], 'MSIE') && isset($_SERVER['HTTPS'])) {
             header('Content-Type: text/plain');
-        }
-		else
-        {
-		    header('Content-Type: application/download');
+        } else {
+            header('Content-Type: application/download');
             header('Content-Disposition: attachment; filename=dump.xml');
-		} */
-        if(!$conn= $this->_db_connect_mysql($dbname, $user , $password, $host))
-        {
+        } */
+        if (!$conn= $this->_db_connect_mysql($dbname, $user , $password, $host)) {
             die("Error. Cannot connect to Database.");
-        }
-        else
-        {
+        } else {
             $result = @mysql_query($query_string, $conn);
-            if(!$result)
-            {
+            if (!$result) {
               die("Could not perform the Query: ".mysql_error());
-            }
-            else
-            {
+            } else {
                 $file = "";
                 $crlf = $this->_define_newline();
 
@@ -418,53 +378,46 @@ class iam_csvdump
         }
     }
 
-    function _generate_msqlxml($result=NULL)
+    public function _generate_msqlxml($result=NULL)
     {
 
-        if(!$result)
-        {
+        if (!$result) {
             return false;
         }
         echo "<?xml version=\"1.0\"";
-		echo " encoding=".'"'."US-ASCII".'"';
+        echo " encoding=".'"'."US-ASCII".'"';
         echo " ?>\n";
-		echo "<data>\n";
+        echo "<data>\n";
         // Output header row
         $j = 0;
         echo "\t<header>\n";
         $totalFields = @mysql_num_fields($result);
-        for ($i=0; $i<$totalFields; $i++)
-        {
+        for ($i=0; $i<$totalFields; $i++) {
             $name = htmlspecialchars(@mysql_field_name($result, $i));
-			$type = htmlspecialchars(@mysql_field_type($result, $i));
-			echo "\t\t<column name=\"{$name}\" type=\"{$type}\" />\n";
-		}
+            $type = htmlspecialchars(@mysql_field_type($result, $i));
+            echo "\t\t<column name=\"{$name}\" type=\"{$type}\" />\n";
+        }
         echo "\t</header>\n";
 
-		echo "\t<records>\n";
+        echo "\t<records>\n";
         $totalRows = @mysql_num_rows($result);
-		while($row = @mysql_fetch_array($result, MYSQL_NUM))
-        {
+        while ($row = @mysql_fetch_array($result, MYSQL_NUM)) {
             $j = 0;
-			echo "\t\t<row>\n";
+            echo "\t\t<row>\n";
 
-			for($l = 0; $l < $totalFields; $l++)
-            {
+            for ($l = 0; $l < $totalFields; $l++) {
                 $name = htmlspecialchars(@mysql_field_name($result, $l));
                 $v =  $row[$l];
-                if ($v != null)
-                {
+                if ($v != null) {
                     $v = htmlspecialchars($v);
                 }
                 echo "\t\t\t<column name=\"{$name}\"", ($v == null ? ' null="null"' : ''), ">{$v}</column>\n";
             }
-			echo "\t\t</row>\n";
-		}
-		echo "\t</records>\n";
-		echo "</data>\n";
+            echo "\t\t</row>\n";
+        }
+        echo "\t</records>\n";
+        echo "</data>\n";
     }
-
-
 
     /**
     * @desc Generate the CSV File and send it to browser or download it as a file
@@ -477,54 +430,39 @@ class iam_csvdump
     * @param  String $password Password to Access the Database
     * @param  String $host Name of the Host holding the DB
     */
-    function dump($query_string, $filename="dump", $ext="csv", $dbname="mysql", $user="root", $password="", $host="localhost",$db_type="postgres")
+    public function dump($query_string, $filename="dump", $ext="csv", $dbname="mysql", $user="root", $password="", $host="localhost",$db_type="postgres")
     {
             $now = gmdate('D, d M Y H:i:s') . ' GMT';
             $USER_BROWSER_AGENT= $this->_get_browser_type();
 
-            if ($filename!="")
-            {
+            if ($filename!="") {
                  header('Content-Type: ' . $this->_get_mime_type());
                  header('Expires: ' . $now);
-                 if ($USER_BROWSER_AGENT == 'IE')
-                 {
+                 if ($USER_BROWSER_AGENT == 'IE') {
                       header('Content-Disposition: inline; filename="' . $filename . '.' . $ext . '"');
                       header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
                       header('Pragma: public');
-                 }
-                 else
-                 {
+                 } else {
                       header('Content-Disposition: attachment; filename="' . $filename . '.' . $ext . '"');
                       header('Pragma: no-cache');
                  }
                  /* Coding for the xml and csv file generation */
-                 if($ext=="csv")
-                 {
-                     if ($db_type == "postgres")
-                     {
+                 if ($ext=="csv") {
+                     if ($db_type == "postgres") {
                         $this->_generate_csv($query_string, $dbname, $user, $password, $host);
-                     }
-                     else
-                     {
+                     } else {
                          $this->_generate_csv_mysql($query_string, $dbname, $user, $password, $host);
                      }
-                 }
-                 elseif($ext=="xml")
-                 {
-                      if ($db_type == "postgres")
-                      {
+                 } elseif ($ext=="xml") {
+                      if ($db_type == "postgres") {
 
                           $this->_generate_xml_postgre($query_string, $dbname, $user, $password, $host);
-                      }
-                      else
-                      {
+                      } else {
 
                           $this->_generate_xml_mysql($query_string, $dbname, $user, $password, $host);
                       }
                  }
-            }
-            else
-            {
+            } else {
                  echo "<html><body><pre>";
                  echo htmlspecialchars($this->_generate_csv($query_string, $dbname, $user, $password, $host));
                  echo "</PRE></BODY></HTML>";

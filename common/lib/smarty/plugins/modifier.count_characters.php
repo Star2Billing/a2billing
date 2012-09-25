@@ -5,7 +5,6 @@
  * @subpackage plugins
  */
 
-
 /**
  * Smarty count_characters modifier plugin
  *
@@ -28,5 +27,3 @@ function smarty_modifier_count_characters($string, $include_spaces = false)
 }
 
 /* vim: set expandtab: */
-
-?>

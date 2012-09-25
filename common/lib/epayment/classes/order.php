@@ -1,33 +1,33 @@
 <?php
 
-  class order {
-    var $info, $totals, $products, $customer, $delivery, $content_type;
+  class order
+  {
+    public $info, $totals, $products, $customer, $delivery, $content_type;
 
-    function order($order_amount = '')
-    { 
+    public function order($order_amount = '')
+    {
       $this->info = array();
       $this->totals = array();
       $this->products = array();
       $this->customer = array();
       $this->delivery = array();
 
-      if (isset($order_amount) && !is_null($order_amount))
-      {
+      if (isset($order_amount) && !is_null($order_amount)) {
           $this->query($order_amount);
       }
     }
 
-    function query($order_amount)
+    public function query($order_amount)
     {
         global $languages_id;
-	
-        if(isset($_SESSION["agent_id"]) && !empty($_SESSION["agent_id"])){
-        	$QUERY = "SELECT login as username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, '1', currency FROM cc_agent WHERE id = '".$_SESSION["agent_id"]."'";
-        }elseif(isset($_SESSION["card_id"]) && !empty($_SESSION["card_id"])){
-        	$QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, status, currency FROM cc_card WHERE id = '".$_SESSION["card_id"]."'";
-        }else{
-        	echo "ERROR";
-        	die();
+
+        if (isset($_SESSION["agent_id"]) && !empty($_SESSION["agent_id"])) {
+            $QUERY = "SELECT login as username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, '1', currency FROM cc_agent WHERE id = '".$_SESSION["agent_id"]."'";
+        } elseif (isset($_SESSION["card_id"]) && !empty($_SESSION["card_id"])) {
+            $QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, status, currency FROM cc_card WHERE id = '".$_SESSION["card_id"]."'";
+        } else {
+            echo "ERROR";
+            die();
         }
 
         $DBHandle_max  = DbConnect();
@@ -36,11 +36,10 @@
         if ($numrow == 0) {exit();}
         $customer_info =$resmax -> fetchRow();
         if ($customer_info [12] != "1" && $customer_info [12] != "8") {
-			exit();
-		}
+            exit();
+        }
 
         $order = $customer_info;
-
 
       $this->info = array('currency' => isset($A2B->config["paypal"]['currency_code'])?$A2B->config["paypal"]['currency_code']:null,
                           'currency_value' => $order['currency_value'],
@@ -78,8 +77,7 @@
                               'country' => $order['country'],
                               'format_id' => '');
 
-      if (empty($this->delivery['name']) && empty($this->delivery['street_address']))
-      {
+      if (empty($this->delivery['name']) && empty($this->delivery['street_address'])) {
         $this->delivery = false;
       }
 
@@ -95,7 +93,5 @@
                              'country' => $order['country'],
                              'format_id' => '');
 
-          
     }
   }
-?>

@@ -38,7 +38,7 @@ function smarty_outputfilter_trimwhitespace($source, &$smarty)
     $_pre_blocks = $match[0];
     $source = preg_replace("!<pre[^>]*?>.*?</pre>!is",
                            '@@@SMARTY:TRIM:PRE@@@', $source);
-    
+
     // Pull out the textarea blocks
     preg_match_all("!<textarea[^>]*?>.*?</textarea>!is", $source, $match);
     $_textarea_blocks = $match[0];
@@ -61,7 +61,8 @@ function smarty_outputfilter_trimwhitespace($source, &$smarty)
     return $source;
 }
 
-function smarty_outputfilter_trimwhitespace_replace($search_str, $replace, &$subject) {
+function smarty_outputfilter_trimwhitespace_replace($search_str, $replace, &$subject)
+{
     $_len = strlen($search_str);
     $_pos = 0;
     for ($_i=0, $_count=count($replace); $_i<$_count; $_i++)
@@ -71,5 +72,3 @@ function smarty_outputfilter_trimwhitespace_replace($search_str, $replace, &$sub
             break;
 
 }
-
-?>

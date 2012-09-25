@@ -5,7 +5,6 @@
  * @subpackage plugins
  */
 
-
 /**
  * Smarty strip_tags modifier plugin
  *
@@ -28,5 +27,3 @@ function smarty_modifier_strip_tags($string, $replace_with_space = true)
 }
 
 /* vim: set expandtab: */
-
-?>

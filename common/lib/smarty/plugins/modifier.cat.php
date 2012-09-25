@@ -5,7 +5,6 @@
  * @subpackage plugins
  */
 
-
 /**
  * Smarty cat modifier plugin
  *
@@ -29,5 +28,3 @@ function smarty_modifier_cat($string, $cat)
 }
 
 /* vim: set expandtab: */
-
-?>

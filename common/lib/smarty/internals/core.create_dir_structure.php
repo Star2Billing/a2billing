@@ -23,7 +23,7 @@ function smarty_core_create_dir_structure($params, &$smarty)
             $_dir = $params['dir'];
             $_dir_parts = preg_split('!/+!', $_dir, -1, PREG_SPLIT_NO_EMPTY);
             $_new_dir = (substr($_dir, 0, 1)=='/') ? '/' : getcwd().'/';
-            if($_use_open_basedir = !empty($_open_basedir_ini)) {
+            if ($_use_open_basedir = !empty($_open_basedir_ini)) {
                 $_open_basedirs = explode(':', $_open_basedir_ini);
             }
 
@@ -42,7 +42,7 @@ function smarty_core_create_dir_structure($params, &$smarty)
 
             }
 
-            if($_use_open_basedir = !empty($_open_basedir_ini)) {
+            if ($_use_open_basedir = !empty($_open_basedir_ini)) {
                 $_open_basedirs = explode(';', str_replace('\\', '/', $_open_basedir_ini));
             }
 
@@ -67,6 +67,7 @@ function smarty_core_create_dir_structure($params, &$smarty)
 
             if ($_make_new_dir && !file_exists($_new_dir) && !@mkdir($_new_dir, $smarty->_dir_perms) && !is_dir($_new_dir)) {
                 $smarty->trigger_error("problem creating directory '" . $_new_dir . "'");
+
                 return false;
             }
             $_new_dir .= '/';
@@ -75,5 +76,3 @@ function smarty_core_create_dir_structure($params, &$smarty)
 }
 
 /* vim: set expandtab: */
-
-?>

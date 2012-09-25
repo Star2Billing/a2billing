@@ -29,6 +29,7 @@ function smarty_core_read_cache_file(&$params, &$smarty)
 
     if (isset($content_cache[$params['tpl_file'].','.$params['cache_id'].','.$params['compile_id']])) {
         list($params['results'], $smarty->_cache_info) = $content_cache[$params['tpl_file'].','.$params['cache_id'].','.$params['compile_id']];
+
         return true;
     }
 
@@ -50,11 +51,11 @@ function smarty_core_read_cache_file(&$params, &$smarty)
 
     $_contents = $params['results'];
     $_info_start = strpos($_contents, "\n") + 1;
-    $_info_len = (int)substr($_contents, 0, $_info_start - 1);
+    $_info_len = (int) substr($_contents, 0, $_info_start - 1);
     $_cache_info = unserialize(substr($_contents, $_info_start, $_info_len));
     $params['results'] = substr($_contents, $_info_start + $_info_len);
 
-    if ($smarty->caching == 2 && isset ($_cache_info['expires'])){
+    if ($smarty->caching == 2 && isset ($_cache_info['expires'])) {
         // caching by expiration time
         if ($_cache_info['expires'] > -1 && (time() > $_cache_info['expires'])) {
             // cache expired, regenerate
@@ -93,9 +94,8 @@ function smarty_core_read_cache_file(&$params, &$smarty)
     $content_cache[$params['tpl_file'].','.$params['cache_id'].','.$params['compile_id']] = array($params['results'], $_cache_info);
 
     $smarty->_cache_info = $_cache_info;
+
     return true;
 }
 
 /* vim: set expandtab: */
-
-?>

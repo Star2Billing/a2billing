@@ -1,56 +1,55 @@
 <?php
 
+class receiptItem
+{
+    private $description;
+    private $date;
+    private $price;
+    private $ext_id;
+    private $ext_type;
 
+    public function __construct($id, $desc, $date, $price,$type_ext,$id_ext=null)
+    {
+        $this->id = $id;
+        $this->description = $desc;
+        $this->date = $date;
+        $this->price = $price;
+        $this->ext_id = $id_ext;
+        $this->ext_type = $type_ext;
+    }
 
-class ReceiptItem {
-	private $description;
-	private $date;
-	private $price;
-	private $ext_id;
-	private $ext_type;
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	function __construct($id, $desc, $date, $price,$type_ext,$id_ext=null) {
-		$this->id = $id;
-		$this->description = $desc;
-		$this->date = $date;
-		$this->price = $price;
-		$this->ext_id = $id_ext;
-		$this->ext_type = $type_ext;
-	}
+    public function getExtId()
+    {
+        return $this->ext_id;
+    }
+    public function getExtType()
+    {
+        return $this->ext_type;
+    }
 
-	function getId() {
+    public function getPrice()
+    {
+        return $this->price;
+    }
 
-		return $this->id;
-	}
+    public function getVAT()
+    {
+        return $this->VAT;
+    }
 
-	function getExtId() {
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
-		return $this->ext_id;
-	}
-	function getExtType() {
-
-		return $this->ext_type;
-	}
-
-	function getPrice() {
-
-		return $this->price;
-	}
-
-	function getVAT() {
-
-		return $this->VAT;
-	}
-	
-	function getDescription() {
-
-		return $this->description;
-	}
-
-	function getDate() {
-
-		return substr($this->date, 0, 10);
-	}
+    public function getDate()
+    {
+        return substr($this->date, 0, 10);
+    }
 
 }
-

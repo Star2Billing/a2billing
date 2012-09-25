@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,16 +27,16 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
-
-class ProcessHandler{
-
-	function isActive() {
+class ProcessHandler
+{
+    public function isActive()
+    {
         $pid = ProcessHandler::getPID();
-        
+
         if ($pid == null) {
             $ret = false;
         } else {
@@ -49,8 +49,9 @@ class ProcessHandler{
 
         return $ret;
     }
-	
-    function activate() {
+
+    public function activate()
+    {
         $pidfile = PID;
         $pid = ProcessHandler::getPID();
 
@@ -70,15 +71,16 @@ class ProcessHandler{
             }
         }
     }
-	
-    function getPID() {
+
+    public function getPID()
+    {
         if (file_exists(PID)) {
             require(PID);
+
             return $pid;
         } else {
             return null;
         }
     }
-	
+
 }
-?>

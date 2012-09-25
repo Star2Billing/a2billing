@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Rachid <rachid.belaid@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,65 +27,67 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
-class Connection {
+class Connection
+{
+    private static $DBHandler;
+    private static $MytoPgklass;
 
-	private static $DBHandler;
-	private static $MytoPgklass;
+    private function __construct()
+    {
+        $ADODB_CACHE_DIR = '/tmp';
+        /*	$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;	*/
 
-	private function __construct() {
+        if (DB_TYPE == "postgres") {
+            $datasource = 'pgsql://' . USER . ':' . PASS . '@' . HOST . '/' . DBNAME;
+        } else {
+            $datasource = 'mysql://' . USER . ':' . PASS . '@' . HOST . '/' . DBNAME;
+        }
 
-		$ADODB_CACHE_DIR = '/tmp';
-		/*	$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;	*/
+        $DBHandle = NewADOConnection($datasource);
+        if (!$DBHandle)
+            die("Connection failed");
 
-		if (DB_TYPE == "postgres") {
-			$datasource = 'pgsql://' . USER . ':' . PASS . '@' . HOST . '/' . DBNAME;
-		} else {
-			$datasource = 'mysql://' . USER . ':' . PASS . '@' . HOST . '/' . DBNAME;
-		}
-		
-		$DBHandle = NewADOConnection($datasource);
-		if (!$DBHandle)
-			die("Connection failed");
+        if (DB_TYPE == "mysqli") {
+            $DBHandle->Execute('SET AUTOCOMMIT=1');
+        }
+        if (DB_TYPE == "mysqli" || DB_TYPE == "mysql") {
+            $DBHandle->Execute("SET NAMES 'UTF8'");
+        }
 
-		if (DB_TYPE == "mysqli") {
-			$DBHandle->Execute('SET AUTOCOMMIT=1');
-		}
-		if (DB_TYPE == "mysqli" || DB_TYPE == "mysql") {
-			$DBHandle->Execute("SET NAMES 'UTF8'");
-		}
+        self :: $DBHandler = $DBHandle;
+    }
 
-		self :: $DBHandler = $DBHandle;
-	}
+    public static function GetDBHandler()
+    {
+        if (empty (self :: $DBHandler)) {
+            $connection = new Connection();
+        }
 
-	static function GetDBHandler() {
-		if (empty (self :: $DBHandler)) {
-			$connection = new Connection();
-		}
-		return self :: $DBHandler;
-	}
+        return self :: $DBHandler;
+    }
 
-	static function CleanExecute($QUERY) {
-		if (empty (self :: $DBHandler)) {
-			$connection = new Connection();
-		} else {
-			$connection = self :: $DBHandler;
-		}
+    public static function CleanExecute($QUERY)
+    {
+        if (empty (self :: $DBHandler)) {
+            $connection = new Connection();
+        } else {
+            $connection = self :: $DBHandler;
+        }
 
-		if (DB_TYPE == "postgres") {
-			if (empty (self :: $MytoPgklass)) {
-				self :: $MytoPgklass = new MytoPg(0);
-			}
+        if (DB_TYPE == "postgres") {
+            if (empty (self :: $MytoPgklass)) {
+                self :: $MytoPgklass = new MytoPg(0);
+            }
 
-			// convert MySQLisms to be Postgres compatible
-			self :: $MytoPgklass -> My_to_Pg($QUERY);
-		}
-		
-		return $connection -> Execute($QUERY);
-	}
+            // convert MySQLisms to be Postgres compatible
+            self :: $MytoPgklass -> My_to_Pg($QUERY);
+        }
+
+        return $connection -> Execute($QUERY);
+    }
 
 }
-

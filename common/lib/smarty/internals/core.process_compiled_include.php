@@ -31,7 +31,6 @@ function smarty_core_process_compiled_include($params, &$smarty)
                                          $_return);
     }
     $smarty->_cache_including = $_cache_including;
+
     return $_return;
 }
-
-?>
