@@ -44,20 +44,19 @@
  *  The import is processed by block in order to optimize the queries
  *
  *
-	crontab -e
-	* / 15 * * * * php /usr/local/a2billing/Cronjobs/a2billing_batch_cache.php
+    crontab -e
+    * / 15 * * * * php /usr/local/a2billing/Cronjobs/a2billing_batch_cache.php
 
+    field	 allowed values
+    -----	 --------------
+    minute	 		0-59
+    hour		 	0-23
+    day of month	1-31
+    month	 		1-12 (or names, see below)
+    day of week	 	0-7 (0 or 7 is Sun, or use names)
 
-	field	 allowed values
-	-----	 --------------
-	minute	 		0-59
-	hour		 	0-23
-	day of month	1-31
-	month	 		1-12 (or names, see below)
-	day of week	 	0-7 (0 or 7 is Sun, or use names)
-
-	#Run command every 5 minutes during 6-13 hours
-	* / 5 6-13 * * mon-fri test.script    !!! no space between * / 5
+    #Run command every 5 minutes during 6-13 hours
+    * / 5 6-13 * * mon-fri test.script    !!! no space between * / 5
 
 ****************************************************************************/
 
@@ -68,7 +67,7 @@ include (dirname(__FILE__) . "/lib/admin.defines.php");
 include (dirname(__FILE__) . "/lib/ProcessHandler.php");
 
 if (!defined('PID')) {
-	define("PID", "/var/run/a2billing/a2billing_batch_cache_pid.php");
+    define("PID", "/var/run/a2billing/a2billing_batch_cache_pid.php");
 }
 
 // CHECK IF THE CRONT PROCESS IS ALREADY RUNNING
@@ -89,95 +88,93 @@ $A2B->load_conf($agi, NULL, 0, $idconfig);
 write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[#### IMPORT CACHE CRONT START ####]");
 
 if (!$A2B->DbConnect()) {
-	if ($verbose_level >= 1)
-		echo "[Cannot connect to the database]\n";
-	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot connect to the database]");
-	exit;
+    if ($verbose_level >= 1)
+        echo "[Cannot connect to the database]\n";
+    write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot connect to the database]");
+    exit;
 }
 
 $instance_table = new Table();
 
 if ($A2B->config["global"]['cache_enabled']) {
-	if (empty ($A2B->config["global"]['cache_path'])) {
-		if ($verbose_level >= 1)
-			echo "[Path to the cache is not defined]\n";
+    if (empty ($A2B->config["global"]['cache_path'])) {
+        if ($verbose_level >= 1)
+            echo "[Path to the cache is not defined]\n";
 
-		write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[Path to the cache is not defined]");
-		exit;
-	}
+        write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[Path to the cache is not defined]");
+        exit;
+    }
 
-	if (!file_exists($A2B->config["global"]['cache_path'])) {
-		if ($verbose_level >= 1)
-			echo "[File doesn't exist or permission denied]\n";
+    if (!file_exists($A2B->config["global"]['cache_path'])) {
+        if ($verbose_level >= 1)
+            echo "[File doesn't exist or permission denied]\n";
 
-		write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[File doesn't exist or permission denied]");
-		exit;
-	}
+        write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[File doesn't exist or permission denied]");
+        exit;
+    }
 
-	// Open Sqlite
-	if ($db = sqlite_open($A2B->config["global"]['cache_path'], 0666, $sqliteerror)) {
+    // Open Sqlite
+    if ($db = sqlite_open($A2B->config["global"]['cache_path'], 0666, $sqliteerror)) {
 
-		for (;;) {
-			// Select CDR
-			$result = sqlite_array_query($db, "SELECT rowid , * from cc_call limit $nb_record", SQLITE_ASSOC);
-			if (sizeof($result) > 0) {
-				$column = "";
-				$values = "";
-				$delete_id = "( ";
-				for ($i = 0; $i < sizeof($result); $i++) {
-					$j = 0;
-					if ($i == 0)
-						$values .= "( ";
-					else
-						$values .= ",( ";
+        for (;;) {
+            // Select CDR
+            $result = sqlite_array_query($db, "SELECT rowid , * from cc_call limit $nb_record", SQLITE_ASSOC);
+            if (sizeof($result) > 0) {
+                $column = "";
+                $values = "";
+                $delete_id = "( ";
+                for ($i = 0; $i < sizeof($result); $i++) {
+                    $j = 0;
+                    if ($i == 0)
+                        $values .= "( ";
+                    else
+                        $values .= ",( ";
 
-					$delete_id .= $result[$i]['rowid'];
-					if (sizeof($result) > 0 && $i < sizeof($result) - 1) {
-						$delete_id .= " , ";
-					}
+                    $delete_id .= $result[$i]['rowid'];
+                    if (sizeof($result) > 0 && $i < sizeof($result) - 1) {
+                        $delete_id .= " , ";
+                    }
 
-					foreach ($result[$i] as $key => $value) {
-						$j++;
-						if ($key == "rowid")
-							continue;
-						if ($i == 0) {
-							$column .= " $key ";
-							if ($j < sizeof($result[$i])) {
-								$column .= ",";
-							}
-						}
-						$values .= " '$value' ";
-						if ($j < sizeof($result[$i]))
-							$values .= ",";
+                    foreach ($result[$i] as $key => $value) {
+                        $j++;
+                        if ($key == "rowid")
+                            continue;
+                        if ($i == 0) {
+                            $column .= " $key ";
+                            if ($j < sizeof($result[$i])) {
+                                $column .= ",";
+                            }
+                        }
+                        $values .= " '$value' ";
+                        if ($j < sizeof($result[$i]))
+                            $values .= ",";
 
-					}
-					$values .= " )";
-				}
-				$delete_id .= " )";
-				$INSERT_QUERY = "INSERT INTO cc_call ( $column ) VALUES $values";
-				if ($verbose_level >= 1)
-					echo "QUERY INSERT : [$INSERT_QUERY]\n";
-				$instance_table->SQLExec($A2B->DBHandle, $INSERT_QUERY);
-				$DELETE_QUERY = "DELETE FROM cc_call WHERE rowid in $delete_id";
-				if ($verbose_level >= 1)
-					echo "QUERY DELETE : [$DELETE_QUERY]\n";
-				sqlite_query($db, $DELETE_QUERY);
-			}
-			echo "Waiting ....\n";
-			sleep($wait_time);
-		}
+                    }
+                    $values .= " )";
+                }
+                $delete_id .= " )";
+                $INSERT_QUERY = "INSERT INTO cc_call ( $column ) VALUES $values";
+                if ($verbose_level >= 1)
+                    echo "QUERY INSERT : [$INSERT_QUERY]\n";
+                $instance_table->SQLExec($A2B->DBHandle, $INSERT_QUERY);
+                $DELETE_QUERY = "DELETE FROM cc_call WHERE rowid in $delete_id";
+                if ($verbose_level >= 1)
+                    echo "QUERY DELETE : [$DELETE_QUERY]\n";
+                sqlite_query($db, $DELETE_QUERY);
+            }
+            echo "Waiting ....\n";
+            sleep($wait_time);
+        }
 
-	} else {
-		if ($verbose_level >= 1)
-			echo "[Error to connect to cache : $sqliteerror]\n";
-		write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[Error to connect to cache : $sqliteerror]\n");
-	}
+    } else {
+        if ($verbose_level >= 1)
+            echo "[Error to connect to cache : $sqliteerror]\n";
+        write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[Error to connect to cache : $sqliteerror]\n");
+    }
 
 }
 
 if ($verbose_level >= 1)
-	echo "#### END RECURRING SERVICES \n";
+    echo "#### END RECURRING SERVICES \n";
 
 write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[#### BATCH PROCESS END ####]");
-
-

@@ -37,18 +37,18 @@
  *
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
-	crontab -e
-	0 6 * * * php /usr/local/a2billing/Cronjobs/currencies_update_yahoo.php
+    crontab -e
+    0 6 * * * php /usr/local/a2billing/Cronjobs/currencies_update_yahoo.php
 
-	field	 allowed values
-	-----	 --------------
-	minute	 		0-59
-	hour		 	0-23
-	day of month	1-31
-	month	 		1-12 (or names, see below)
-	day of week	 	0-7 (0 or 7 is Sun, or use names)
+    field	 allowed values
+    -----	 --------------
+    minute	 		0-59
+    hour		 	0-23
+    day of month	1-31
+    month	 		1-12 (or names, see below)
+    day of week	 	0-7 (0 or 7 is Sun, or use names)
 
-	The sample above will run the script every day at 6AM
+    The sample above will run the script every day at 6AM
 
 ****************************************************************************/
 
@@ -59,18 +59,17 @@ include (dirname(__FILE__) . "/lib/admin.defines.php");
 include (dirname(__FILE__) . "/lib/ProcessHandler.php");
 
 if (!defined('PID')) {
-	define("PID", "/var/run/a2billing/currencies_update_yahoo_pid.php");
+    define("PID", "/var/run/a2billing/currencies_update_yahoo_pid.php");
 }
 
 // CHECK IF THE CRONT PROCESS IS ALREADY RUNNING
 
-
 $prcHandler = new ProcessHandler();
 
 if ($prcHandler->isActive()) {
-	die(); // Already running!
+    die(); // Already running!
 } else {
-	$prcHandler->activate();
+    $prcHandler->activate();
 }
 
 $FG_DEBUG = 0;
@@ -82,15 +81,13 @@ define ("BASE_CURRENCY", strtoupper($A2B->config["global"]['base_currency']));
 
 $A2B -> load_conf($agi, NULL, 0, $idconfig);
 
-
 write_log(LOGFILE_CRONT_CURRENCY_UPDATE, basename(__FILE__).' line:'.__LINE__."[#### START CURRENCY UPDATE ####]");
 
 if (!$A2B -> DbConnect()) {
-	echo "[Cannot connect to the database]\n";
-	write_log(LOGFILE_CRONT_CURRENCY_UPDATE, basename(__FILE__).' line:'.__LINE__."[Cannot connect to the database]");
-	exit;
+    echo "[Cannot connect to the database]\n";
+    write_log(LOGFILE_CRONT_CURRENCY_UPDATE, basename(__FILE__).' line:'.__LINE__."[Cannot connect to the database]");
+    exit;
 }
-
 
 $instance_table = new Table();
 $A2B -> set_instance_table ($instance_table);
@@ -99,6 +96,3 @@ $return = currencies_update_yahoo($A2B -> DBHandle, $A2B -> instance_table);
 write_log(LOGFILE_CRONT_CURRENCY_UPDATE, basename(__FILE__).' line:'.__LINE__.$return, 0);
 
 die();
-
-
-

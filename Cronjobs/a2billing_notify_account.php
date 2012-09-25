@@ -41,16 +41,16 @@
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
  *  The sample above will run the script once every hour
-	crontab -e
-	0 * * * * php /usr/local/a2billing/Cronjobs/a2billing_notify_account.php
+    crontab -e
+    0 * * * * php /usr/local/a2billing/Cronjobs/a2billing_notify_account.php
 
-	field	 allowed values
-	-----	 --------------
-	minute	 0-59
-	hour		 0-23
-	day of month	 1-31
-	month	 1-12 (or names, see below)
-	day of week	 0-7 (0 or 7 is Sun, or use names)
+    field	 allowed values
+    -----	 --------------
+    minute	 0-59
+    hour		 0-23
+    day of month	 1-31
+    month	 1-12 (or names, see below)
+    day of week	 0-7 (0 or 7 is Sun, or use names)
 
 ****************************************************************************/
 
@@ -63,7 +63,7 @@ include (dirname(__FILE__) . "/lib/admin.defines.php");
 include (dirname(__FILE__) . "/lib/ProcessHandler.php");
 
 if (!defined('PID')) {
-	define("PID", "/var/run/a2billing/a2billing_notify_account_pid.php");
+    define("PID", "/var/run/a2billing/a2billing_notify_account_pid.php");
 }
 
 // CHECK IF THE CRONT PROCESS IS ALREADY RUNNING
@@ -83,15 +83,15 @@ $A2B->load_conf($agi, NULL, 0, $idconfig);
 write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[#### BATCH BEGIN ####]");
 
 if (!$A2B->DbConnect()) {
-	echo "[Cannot connect to the database]\n";
-	write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot connect to the database]");
-	exit;
+    echo "[Cannot connect to the database]\n";
+    write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot connect to the database]");
+    exit;
 }
 
 //Check if the notifications is Enable or Disable
 if (empty ($A2B->config['notifications']['cron_notifications'])) {
-	echo "[The cron of notification is de-activated]\n";
-	exit;
+    echo "[The cron of notification is de-activated]\n";
+    exit;
 }
 
 //$A2B -> DBHandle
@@ -100,15 +100,15 @@ $instance_table = new Table();
 // Prepare the date interval to filter the card that don't have to receive a notification;
 $Delay_Clause = "( ";
 if ($A2B->config["database"]['dbtype'] == "postgres") {
-	$CURRENT_DATE = "CURRENT_DATE";
+    $CURRENT_DATE = "CURRENT_DATE";
 } else {
-	$CURRENT_DATE = "CURDATE()";
+    $CURRENT_DATE = "CURDATE()";
 }
 
 if ($A2B->config['notifications']['delay_notifications'] <= 0) {
-	$Delay_Clause .= "last_notification < $CURRENT_DATE + 1 OR ";
+    $Delay_Clause .= "last_notification < $CURRENT_DATE + 1 OR ";
 } else {
-	$Delay_Clause .= "last_notification < $CURRENT_DATE - " . $A2B->config['notifications']['delay_notifications'] . " OR ";
+    $Delay_Clause .= "last_notification < $CURRENT_DATE - " . $A2B->config['notifications']['delay_notifications'] . " OR ";
 }
 
 $Delay_Clause .= "last_notification IS NULL )";
@@ -116,21 +116,21 @@ $Delay_Clause .= "last_notification IS NULL )";
 $QUERY = "SELECT count(*) FROM cc_card WHERE notify_email = 1 AND status = 1 AND (IF((typepaid=1) AND (creditlimit IS NOT NULL), credit + creditlimit, credit)) < credit_notification AND " . $Delay_Clause;
 
 if ($verbose_level >= 1) {
-	echo "[QUERY COUNT]\n";
-	echo "$QUERY\n";
+    echo "[QUERY COUNT]\n";
+    echo "$QUERY\n";
 }
 
 $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY);
 $nb_card = $result[0][0];
 $nbpagemax = (ceil($nb_card / $groupcard));
 if ($verbose_level >= 1)
-	echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
+    echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
 
 if (!($nb_card > 0)) {
-	if ($verbose_level >= 1)
-		echo "[No card to run the Recurring service]\n";
-	write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[No card to run the check account service]");
-	exit ();
+    if ($verbose_level >= 1)
+        echo "[No card to run the Recurring service]\n";
+    write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[No card to run the check account service]");
+    exit ();
 }
 
 write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[Number of card found : $nb_card]");
@@ -141,73 +141,72 @@ $currencies_list = get_currencies($A2B->DBHandle);
 // BROWSE THROUGH THE CARD TO APPLY THE CHECK ACCOUNT SERVICE
 for ($page = 0; $page < $nbpagemax; $page++) {
 
-	$sql = "SELECT id, email_notification, email FROM cc_card WHERE notify_email = 1 AND status = 1 AND (IF((typepaid=1) AND (creditlimit IS NOT NULL), credit + creditlimit, credit)) < credit_notification AND " . $Delay_Clause . " ORDER BY id  ";
+    $sql = "SELECT id, email_notification, email FROM cc_card WHERE notify_email = 1 AND status = 1 AND (IF((typepaid=1) AND (creditlimit IS NOT NULL), credit + creditlimit, credit)) < credit_notification AND " . $Delay_Clause . " ORDER BY id  ";
 
-	if ($A2B->config["database"]['dbtype'] == "postgres") {
-		$sql .= " LIMIT $groupcard OFFSET " . $page * $groupcard;
-	} else {
-		$sql .= " LIMIT " . $page * $groupcard . ", $groupcard";
-	}
+    if ($A2B->config["database"]['dbtype'] == "postgres") {
+        $sql .= " LIMIT $groupcard OFFSET " . $page * $groupcard;
+    } else {
+        $sql .= " LIMIT " . $page * $groupcard . ", $groupcard";
+    }
 
-	if ($verbose_level >= 1)
-		echo "==> SELECT CARD QUERY : $sql\n";
+    if ($verbose_level >= 1)
+        echo "==> SELECT CARD QUERY : $sql\n";
 
-	$result_card = $instance_table->SQLExec($A2B->DBHandle, $sql);
+    $result_card = $instance_table->SQLExec($A2B->DBHandle, $sql);
 
-	foreach ($result_card as $mycard) {
+    foreach ($result_card as $mycard) {
 
-		if ($verbose_level >= 1)
-			print_r($mycard);
-		if ($verbose_level >= 1)
-			echo "------>>>  ID = " . $mycard['id'] . " - CARD =" . $mycard['username'] . " - BALANCE =" . $mycard['credit'] . " \n";
+        if ($verbose_level >= 1)
+            print_r($mycard);
+        if ($verbose_level >= 1)
+            echo "------>>>  ID = " . $mycard['id'] . " - CARD =" . $mycard['username'] . " - BALANCE =" . $mycard['credit'] . " \n";
 
-		// SEND NOTIFICATION
-		if (strlen($mycard['email_notification']) > 0 || strlen($mycard['email']) > 0) { // ADD CHECK EMAIL
+        // SEND NOTIFICATION
+        if (strlen($mycard['email_notification']) > 0 || strlen($mycard['email']) > 0) { // ADD CHECK EMAIL
 
-			// Sent Mail
-			try {
-				$mail = new Mail(Mail :: $TYPE_REMINDER, $mycard['id']);
-			} catch (Exception $e) {
-				if ($verbose_level >= 1)
-					echo "[Cannot find a template mail for reminder]\n";
-				write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot find a template mail for reminder]");
-				exit;
-			}
+            // Sent Mail
+            try {
+                $mail = new Mail(Mail :: $TYPE_REMINDER, $mycard['id']);
+            } catch (Exception $e) {
+                if ($verbose_level >= 1)
+                    echo "[Cannot find a template mail for reminder]\n";
+                write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot find a template mail for reminder]");
+                exit;
+            }
 
-			try {
-				if (strlen($mycard['email_notification']) > 0)
-					$mail->send($mycard['email_notification']);
-				else
-					$mail->send($mycard['email']);
+            try {
+                if (strlen($mycard['email_notification']) > 0)
+                    $mail->send($mycard['email_notification']);
+                else
+                    $mail->send($mycard['email']);
 
-				//update the card with the date of last notification
-				if ($A2B->config["database"]['dbtype'] == "postgres") {
-					$now = "CURRENT_TIMESTAMP";
-				} else {
-					$now = "now()";
-				}
-				$sql_update_card = "UPDATE cc_card SET last_notification = " . $now . " WHERE id = " . $mycard['id'];
-				$instance_table->SQLExec($A2B->DBHandle, $sql_update_card);
+                //update the card with the date of last notification
+                if ($A2B->config["database"]['dbtype'] == "postgres") {
+                    $now = "CURRENT_TIMESTAMP";
+                } else {
+                    $now = "now()";
+                }
+                $sql_update_card = "UPDATE cc_card SET last_notification = " . $now . " WHERE id = " . $mycard['id'];
+                $instance_table->SQLExec($A2B->DBHandle, $sql_update_card);
 
-				if ($verbose_level >= 1) {
-					echo "[UPDATE CARD ID < " . $mycard['id'] . " > : last_notification]\n";
-					echo "$sql_update_card\n";
-				}
-			} catch (A2bMailException $e) {
-	            $error_msg = $e->getMessage();
-	            if ($verbose_level >= 1)
-	            	echo "$error_msg\n";
-	            write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . $mycard['email_notification']." - $error_msg");
-	        }
+                if ($verbose_level >= 1) {
+                    echo "[UPDATE CARD ID < " . $mycard['id'] . " > : last_notification]\n";
+                    echo "$sql_update_card\n";
+                }
+            } catch (A2bMailException $e) {
+                $error_msg = $e->getMessage();
+                if ($verbose_level >= 1)
+                    echo "$error_msg\n";
+                write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . $mycard['email_notification']." - $error_msg");
+            }
 
-		} //endif check the email not null
-	}
-	// Little bit of rest
-	sleep(10);
+        } //endif check the email not null
+    }
+    // Little bit of rest
+    sleep(10);
 }
 
 if ($verbose_level >= 1)
-	echo "#### END RECURRING CHECK ACCOUNT \n";
+    echo "#### END RECURRING CHECK ACCOUNT \n";
 
 write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[#### BATCH PROCESS END ####]");
-

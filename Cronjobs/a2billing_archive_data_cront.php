@@ -39,17 +39,16 @@
  *  Copyright  2005  User
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
-	crontab -e
-	0 12 * * * php /usr/local/a2billing/Cronjobs/a2billing_archive_data_cront.php
+    crontab -e
+    0 12 * * * php /usr/local/a2billing/Cronjobs/a2billing_archive_data_cront.php
 
-	field	 allowed values
-	-----	 --------------
-	minute	 		0-59
-	hour		 	0-23
-	day of month	1-31
-	month	 		1-12 (or names, see below)
-	day of week	 	0-7 (0 or 7 is Sun, or use names)
-
+    field	 allowed values
+    -----	 --------------
+    minute	 		0-59
+    hour		 	0-23
+    day of month	1-31
+    month	 		1-12 (or names, see below)
+    day of week	 	0-7 (0 or 7 is Sun, or use names)
 
 ****************************************************************************/
 
@@ -60,7 +59,7 @@ include (dirname(__FILE__) . "/lib/admin.defines.php");
 include (dirname(__FILE__) . "/lib/ProcessHandler.php");
 
 if (!defined('PID')) {
-	define("PID", "/var/run/a2billing/a2billing_archive_data_cront_pid.php");
+    define("PID", "/var/run/a2billing/a2billing_archive_data_cront_pid.php");
 }
 
 // CHECK IF THE CRONT PROCESS IS ALREADY RUNNING
@@ -72,16 +71,15 @@ if ($pH->isActive()) {
                 $pH->activate();
                 }
 
-
 $A2B = new A2Billing();
 $A2B->load_conf($agi, NULL, 0, $idconfig);
 
 write_log(LOGFILE_CRONT_ARCHIVE_DATA, basename(__FILE__) . ' line:' . __LINE__ . "[#### ARCHIVING DATA BEGIN ####]");
 
 if (!$A2B->DbConnect()) {
-	echo "[Cannot connect to the database]\n";
-	write_log(LOGFILE_CRONT_ARCHIVE_DATA, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot connect to the database]");
-	exit;
+    echo "[Cannot connect to the database]\n";
+    write_log(LOGFILE_CRONT_ARCHIVE_DATA, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot connect to the database]");
+    exit;
 }
 
 $A2B = new A2Billing();
@@ -107,5 +105,3 @@ $result = $instance_table->Add_table($A2B->DBHandle, $value, $func_fields, $func
 $fun_table = "cc_call";
 $result = $instance_table->Delete_table($A2B->DBHandle, $condition, $fun_table);
 write_log(LOGFILE_CRONT_ARCHIVE_DATA, basename(__FILE__) . ' line:' . __LINE__ . "[#### ARCHIVING DATA END ####]");
-
-
