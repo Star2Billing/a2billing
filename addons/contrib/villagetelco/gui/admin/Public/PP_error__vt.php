@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,29 +27,27 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
-
-include ("../lib/admin.defines__vt.php");
+include '../lib/admin.defines__vt.php';
 session_destroy();
 getpost_ifset(array('err_type','c'));
 
 if (!isset($err_type)) {
-	$err_type = 0;
+    $err_type = 0;
 }
 
 //Error Type == 0 Mean Critical Error dont need to show left menu.
 //Error Type == 1 Mean User generated error.and it will show menu to him too.
-include ("../lib/admin.smarty__vt.php");
-if($err_type == 0) {
-	$smarty->display('header.tpl');
+include '../lib/admin.smarty__vt.php';
+if ($err_type == 0) {
+    $smarty->display('header.tpl');
 } else {
-	include ("../lib/admin.module.access__vt.php");
-	$smarty->display('main__vt.tpl');
+    include '../lib/admin.module.access__vt.php';
+    $smarty->display('main__vt.tpl');
 }
-
 
 if (!isset($c))	$c="0";
 
@@ -63,42 +61,39 @@ $error["ERR-0002"] 		= gettext("No such card number found. Please check your car
 ?>
 
 <div id="login-wrapper" class="login-border-up">
-	<div class="login-border-down">
-	<div class="login-border-center">
-	<table>
-	<tr>
-		<td class="login-title" colspan="2">
-			<font size="3"> <?php echo gettext("ERROR PAGE");?> </font>
-		</td>
-	</tr>
-	<tr>
-		<td width="70px" align="center">
-			<img src="<?php echo KICON_PATH;?>/system-config-rootpassword.png"> 
-		</td>
-		<td align="center">
-			<b><font size="2"><?php echo $error[$c]?></font></b>
-		</td>
-	</tr>           
+    <div class="login-border-down">
+    <div class="login-border-center">
+    <table>
+    <tr>
+        <td class="login-title" colspan="2">
+            <font size="3"> <?php echo gettext("ERROR PAGE");?> </font>
+        </td>
+    </tr>
+    <tr>
+        <td width="70px" align="center">
+            <img src="<?php echo KICON_PATH;?>/system-config-rootpassword.png">
+        </td>
+        <td align="center">
+            <b><font size="2"><?php echo $error[$c]?></font></b>
+        </td>
+    </tr>
 
-	</tr>
-      	</table>
-      	</div>
-      	</div>
-      	<div style="text-align:right;padding-right:10px;" >
-	      	<a href="index__vt.php" ><?php echo gettext("GO TO LOGIN PAGE"); ?>&nbsp;<img src="<?php echo Images_Path; ?>/key_go.png"> </a>
-      	</div>
-	</div>
-	
-
+    </tr>
+          </table>
+          </div>
+          </div>
+          <div style="text-align:right;padding-right:10px;" >
+              <a href="index__vt.php" ><?php echo gettext("GO TO LOGIN PAGE"); ?>&nbsp;<img src="<?php echo Images_Path; ?>/key_go.png"> </a>
+          </div>
+    </div>
 
 <?php
-if($err_type == 0) {
+if ($err_type == 0) {
 ?>
-	</div>
-	</div>
-<?php 
+    </div>
+    </div>
+<?php
 
 } else {
-	$smarty->display('footer.tpl');
+    $smarty->display('footer.tpl');
 }
-

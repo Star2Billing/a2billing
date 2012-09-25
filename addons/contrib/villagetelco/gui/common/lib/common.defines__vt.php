@@ -5,9 +5,9 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
+ *
  * @copyright   Copyright (C) 2004-20010 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
@@ -27,11 +27,9 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
-
-
 
 // SETTINGS FOR DATABASE CONNECTION
 define ("HOST", isset($A2B->config['database']['hostname'])?$A2B->config['database']['hostname']:null);
@@ -51,7 +49,6 @@ define ("SMTP_SECURE", isset($A2B->config['global']['smtp_secure'])?$A2B->config
 
 // SETTING FOR REALTIME
 define ("USE_REALTIME", isset($A2B->config['global']['use_realtime'])?$A2B->config['global']['use_realtime']:0);
-
 
 // SIP IAX FRIEND CREATION
 define ("FRIEND_TYPE", isset($A2B->config['peer_friend']['type'])?$A2B->config['peer_friend']['type']:null);
@@ -85,7 +82,6 @@ define ("SHOW_DONATION", true);
 // AGI
 define ("ASTERISK_VERSION", isset($A2B->config['agi-conf1']['asterisk_version'])?$A2B->config['agi-conf1']['asterisk_version']:'1_4');
 
-
 // Iridium info
 define ("MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_ADDR1", gettext("Address line 1:"));
 define ("MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_ADDR2", gettext("Address line 2:"));
@@ -93,7 +89,6 @@ define ("MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_ADDR3", gettext("Address line 3
 define ("MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_POSTCODE", gettext("Postcode:"));
 define ("MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_COUNTRY", gettext("Country:"));
 define ("MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_TELEPHONE", gettext("Telephone:"));
-
 
 # define the amount of emails you want to send per period. If 0, batch processing
 # is disabled and messages are sent out as fast as possible
@@ -108,8 +103,6 @@ define("MAILQUEUE_BATCH_PERIOD", 3600);
 # value is in seconds (or you can play with the autothrottle below)
 define('MAILQUEUE_THROTTLE', 0);
 
-
-
 /*
  *		GLOBAL USED VARIABLE
  */
@@ -121,29 +114,24 @@ $CURRENT_DATETIME = date("Y-m-d H:i:s");
 $_START_TIME = time();
 mt_start();
 
-
 // A2BILLING COPYRIGHT & CONTACT
 define ("TEXTCONTACT", gettext("This software has been created by Areski under AGPL licence. For futher information, feel free to contact me:"));
 define ("EMAILCONTACT", "areski@gmail.com");
 
-// A2BILLING INFO  
+// A2BILLING INFO
 define ("COPYRIGHT", "A2Billing 1.7.0 (Larch VT), A2Billing is software licensed under the ".'<a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html" target="_blank">AGPL 3</a>' . ". <br/>" . "Copyright (C) 2004-2010 - Star2billing S.L. <a href=\"http://www.star2billing.com\" target=\"_blank\">http://www.star2billing.com/</a>");
 
 define ("CCMAINTITLE", gettext("A2Billing Portal"));
 
-
-
-
 /*
  *		CONNECT / DISCONNECT DATABASE
- */ 
+ */
 function DbConnect()
 {
-	return Connection::GetDBHandler();
+    return Connection::GetDBHandler();
 }
 
 function DbDisconnect($DBHandle)
 {
-	$DBHandle ->disconnect();
+    $DBHandle ->disconnect();
 }
-
