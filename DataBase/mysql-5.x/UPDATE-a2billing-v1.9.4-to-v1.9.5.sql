@@ -31,6 +31,7 @@
  *
 **/
 
+
 ALTER TABLE cc_did ADD aleg_timeinterval text collate utf8_bin;
 
 ALTER TABLE cc_did ADD aleg_carrier_connect_charge_offp DECIMAL( 15, 5 ) NOT NULL DEFAULT '0';
@@ -68,4 +69,6 @@ ALTER TABLE  cc_iax_buddies CHANGE  sourceaddress  sourceaddress VARCHAR( 50 ) C
 -- Fix for long did destination
 ALTER TABLE cc_call CHANGE calledstation calledstation VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
 
+
+-- Update Version
 UPDATE cc_version SET version = '1.9.5';
