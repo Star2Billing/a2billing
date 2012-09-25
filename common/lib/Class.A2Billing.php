@@ -2487,7 +2487,7 @@ class A2Billing
             } elseif (strlen($this->CallerID) >= 1) {
                 if ($this->CallerID == $this->accountcode) {
                     $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[Overwrite callerID security : " . $this->CallerID . "]");
-                    $this->CallerID = '';
+                    $this->CallerID = '88888888';
                 } else {
                     $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[REQUESTED SetCallerID : " . $this->CallerID . "]");
                 }
