@@ -76,7 +76,7 @@ $email_alarm = EMAIL_ADMIN;
 
 $FG_DEBUG = 0;
 
-$caching_query = 300; // caching for 5 minutes
+$caching_query = 1800; // caching for 30 minutes
 
 getpost_ifset(array( 'key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name',
                      'field_type', 'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'current_page', 'order', 'sens',
@@ -108,27 +108,35 @@ if (!isset($letter)) $letter = '';
 
 if (!isset ($nb_display_lines) || strlen($nb_display_lines) == 0)
     $nb_display_lines = 1;
+
 //if (!isset($field_to_display) || strlen($field_to_display)==0) $field_to_display="t1.destination,t1.dialprefix,t1.rateinitial";
 if (!isset ($resulttitle) || strlen($resulttitle) == 0)
     $resulttitle = "Rate list";
+
 if (!isset ($filter) || strlen($filter) == 0)
     $filter = "countryname,prefix";
+
 if (!isset ($field_type) || strlen($field_type) == 0)
     $field_type = ",,money";
+
 //if (!isset($column_name) || strlen($column_name)==0) $column_name="Destination,Prefix,Rate/Min";
 if (!isset ($browse_letter) || strlen($browse_letter) == 0)
     $browse_letter = "yes";
+
 if (!isset ($prefix_select) || strlen($prefix_select) == 0)
     $prefix_select = "";
-if (!isset ($currency_select) || strlen($currency_select) == 0)
+
+if (!isset ($currency_select) || strlen($currency_select) == 0) {
     $currency_select = true;
-else
+} else {
     $choose_currency = $currency_select;
+}
 if (!isset ($css_url) || strlen($css_url) == 0)
     $css_url = substr("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'], 0, strlen("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']) - 31) . "webservice/css/api_ratecard.css";
 
 if (!isset ($merge_form) || strlen($merge_form) == 0)
     $merge_form = 0;
+
 if (!isset ($fullhtmlpage) || strlen($fullhtmlpage) == 0)
     $fullhtmlpage = 1;
 
@@ -178,16 +186,16 @@ function add_clause(& $sqlclause, $addclause)
     WHERE t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '3' AND t1.dialprefix=f1.dialprefix)
 */
 if ($lcr) {
-    $field_to_display = "t7.destination,t1.dialprefix,min(t1.rateinitial)";
+    $field_to_display = "t7.destination, t1.dialprefix, min(t1.rateinitial)";
     $sql_group = ' GROUP BY t1.dialprefix';
 } else {
-    $field_to_display = "t7.destination,t1.dialprefix,t1.rateinitial";
+    $field_to_display = "t7.destination, t1.dialprefix, t1.rateinitial";
     $sql_group = null;
 }
 
 //end set default
-trim($field_to_display);
-trim($field_type);
+$field_to_display = trim($field_to_display);
+$field_type = trim($field_type);
 $field      = explode(",", $field_to_display);
 $type       = explode(",", $field_type);
 $column     = explode(",", $column_name);
@@ -295,7 +303,7 @@ if ($FILTER_COUNTRY) {
     $country_list = $instance_table->SQLExec($DBHandle, $QUERY, 1, $caching_query);
 }
 
-$QUERY = "SELECT count(*) FROM (SELECT t1.* FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE" . $sql_group . ") as setprefix ";
+$QUERY = "SELECT count(*) FROM (SELECT DISTINCT t7.destination, t1.dialprefix, t1.rateinitial FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE" . $sql_group . ") as setprefix ";
 $list_nrecord = $instance_table->SQLExec($DBHandle, $QUERY, 1, $caching_query);
 $nb_record = $list_nrecord[0][0];
 
@@ -415,27 +423,27 @@ if ($fullhtmlpage) { ?>
         <TD>
         <TABLE width="100%" border=0 cellPadding=0 cellSpacing=0>
             <TR>
-                <?php
-                    if (is_array($list) && count($list)>0) {
-                        for ($i=0;$i<$FG_NB_TABLE_COL;$i++) { ?>
-                            <TH width="<?php echo $FG_TABLE_COL[$i][2]?>" class="a2b_rate_table_title">
-                            <center><strong>
-                            <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT") {?>
-                            <a href="<?php  echo "$page_url"."&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens=";if ($sens=="ASC") {echo"DESC";} else {echo"ASC";} echo "&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&letter=$letter&css_url=$css_url&page_url=$page_url_encode";?>">
-                            <?php  } ?>
-                            <?php echo $FG_TABLE_COL[$i][0]?>
-                            <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT") {?>
-                                </a>
-                            <?php }?>
-                            </strong></center></TH>
-                           <?php } ?>
-            </TR>
             <?php
-                 $alternate=0;
-                 foreach ($list as $recordset) {
-                 $alternate=($alternate+1) % 2;
-            ?>
-            <TR>
+            if (is_array($list) && count($list)>0) {
+                for ($i=0;$i<$FG_NB_TABLE_COL;$i++) { ?>
+                    <TH width="<?php echo $FG_TABLE_COL[$i][2]?>" class="a2b_rate_table_title">
+                    <center><strong>
+                    <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT") {?>
+                        <a href="<?php  echo "$page_url"."&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens=";if ($sens=="ASC") {echo"DESC";} else {echo"ASC";} echo "&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&letter=$letter&css_url=$css_url&page_url=$page_url_encode";?>">
+                    <?php  } ?>
+                    <?php echo $FG_TABLE_COL[$i][0]?>
+                    <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT") {?>
+                        </a>
+                    <?php }?>
+                    </strong></center></TH>
+                <?php } ?>
+                </TR>
+                <?php
+                $alternate=0;
+                foreach ($list as $recordset) {
+                    $alternate = ($alternate+1) % 2;
+                ?>
+                <TR>
                 <?php for ($i=0;$i<$FG_NB_TABLE_COL;$i++) {
                     $record_display = $recordset[$i];
                     if ( is_numeric($FG_TABLE_COL[$i][5]) && (strlen($record_display) > $FG_TABLE_COL[$i][5])  ) {
@@ -449,9 +457,9 @@ if ($fullhtmlpage) { ?>
                     }?>
                     </TD>
                 <?php  }?>
-            </TR>
+                </TR>
             <?php
-                }//foreach ($list as $recordset)
+                } //foreach ($list as $recordset)
             } else {
                 echo gettext("No rate found !!!");
             }

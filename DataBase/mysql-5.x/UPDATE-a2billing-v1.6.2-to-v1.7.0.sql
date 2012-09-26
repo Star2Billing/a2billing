@@ -66,7 +66,6 @@ INSERT INTO cc_config (id, config_title, config_key, config_value, config_descri
 INSERT INTO cc_config (id, config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES (NULL, 'Traffic Target Field', 'field_traffic_target', '1', 'Enable The Traffic Target Field - Yes 1 - No 0. ', '1', 'yes,no', 'signup');
 
 
-
 -- fix Realtime Bug, Permit have to be after Deny
 ALTER TABLE cc_sip_buddies MODIFY COLUMN permit varchar(95) AFTER deny;
 ALTER TABLE cc_iax_buddies MODIFY COLUMN permit varchar(95) AFTER deny;
