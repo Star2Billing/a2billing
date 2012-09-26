@@ -4,10 +4,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -26,8 +26,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 \set ON_ERROR_STOP ON;
@@ -67,7 +67,7 @@ CREATE TABLE cc_prefix (
 );
 ALTER TABLE ONLY cc_prefix  ADD CONSTRAINT cc_prefix_pkey PRIMARY KEY (id);
 ALTER TABLE cc_country ADD COLUMN countryprefix TEXT NOT NULL DEFAULT '0';
-	
+
 INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Afghanistan','93','1');
 INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Albania','355','2');
 INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Algeria','213','3');
@@ -600,7 +600,7 @@ CREATE TABLE cc_alarm (
     id_trunk 					INTEGER ,
     status 						INTEGER NOT NULL DEFAULT 0,
     numberofrun 				INTEGER NOT NULL DEFAULT 0,
-    numberofalarm 				INTEGER NOT NULL DEFAULT 0,    
+    numberofalarm 				INTEGER NOT NULL DEFAULT 0,
     datecreate 					TIMESTAMP without time zone DEFAULT now(),
     datelastrun 				TIMESTAMP without time zone DEFAULT now(),
     emailreport 				TEXT
@@ -621,14 +621,14 @@ ALTER TABLE ONLY cc_alarm_report
 CREATE TABLE cc_callback_spool (
     id 								BIGSERIAL NOT NULL,
     uniqueid 						TEXT ,
-    entry_time 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),	
+    entry_time 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
     status 							TEXT ,
-    server_ip 						TEXT ,	
+    server_ip 						TEXT ,
     num_attempt 					int NOT NULL DEFAULT 0,
     last_attempt_time 				TIMESTAMP WITHOUT TIME ZONE,
     manager_result 					TEXT ,
     agi_result 						TEXT ,
-    callback_time 					TIMESTAMP WITHOUT TIME ZONE,	
+    callback_time 					TIMESTAMP WITHOUT TIME ZONE,
     channel 						TEXT ,
     exten 							TEXT ,
     context 						TEXT ,
@@ -675,7 +675,7 @@ ALTER TABLE ONLY cc_server_group
 INSERT INTO cc_server_group (id, name, description) VALUES (1, 'default', 'default group of server');
 
 
-    
+
 CREATE TABLE cc_invoices (
     id 							BIGSERIAL NOT NULL,
     cardid 						BIGINT NOT NULL,
@@ -697,7 +697,7 @@ CREATE INDEX ind_cc_invoices ON cc_invoices USING btree (cover_startdate);
 
 CREATE TABLE cc_invoice_history (
     id 							BIGSERIAL NOT NULL,
-    invoiceid 					INTEGER NOT NULL,	
+    invoiceid 					INTEGER NOT NULL,
     invoicesent_date 			TIMESTAMP without time zone DEFAULT now(),
 	invoicestatus 				INTEGER
 ) WITH OIDS;
@@ -716,8 +716,8 @@ CREATE TABLE cc_package_offer (
 	freetimetocall 				INTEGER NOT NULL
 );
 -- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
--- billingtype : Monthly ; Weekly 
--- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday) 
+-- billingtype : Monthly ; Weekly
+-- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday)
 
 
 CREATE TABLE cc_card_package_offer (
@@ -739,7 +739,7 @@ ALTER TABLE cc_call 		ADD COLUMN id_card_package_offer 			INTEGER DEFAULT 0;
 
 CREATE TABLE cc_subscription_fee (
     id 				BIGSERIAL NOT NULL,
-    label 			TEXT NOT NULL,	
+    label 			TEXT NOT NULL,
 	fee 			NUMERIC(12,4) NOT NULL,
 	currency 		CHARACTER VARYING(3) DEFAULT 'USD'::character varying,
 	status 			INTEGER NOT NULL DEFAULT 0,
@@ -775,8 +775,8 @@ CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge USING btree (creationdat
 -- );
 -- ALTER TABLE ONLY cc_subscription_fee_card
 -- ADD CONSTRAINT cc_subscription_fee_card_pkey PRIMARY KEY (id)
--- 
--- 
+--
+--
 -- CREATE INDEX ind_cc_charge_id_cc_card 								ON cc_subscription_fee_card USING btree (id_cc_card);
 -- CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee 	ON cc_subscription_fee_card USING btree (id_cc_subscription_fee);
 -- CREATE INDEX ind_cc_subscription_fee_card_datefee 					ON cc_subscription_fee_card USING btree (datefee);
@@ -785,8 +785,8 @@ CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge USING btree (creationdat
 CREATE TABLE cc_outbound_cid_group (
     id 					BIGSERIAL NOT NULL,
     creationdate 		TIMESTAMP(0) without time zone DEFAULT now(),
-    group_name 			TEXT NOT NULL    
-    
+    group_name 			TEXT NOT NULL
+
 );
 ALTER TABLE ONLY cc_outbound_cid_group
 ADD CONSTRAINT cc_outbound_cid_group_pkey PRIMARY KEY (id);
@@ -797,7 +797,7 @@ CREATE TABLE cc_outbound_cid_list (
 	outbound_cid_group	BIGINT NOT NULL,
 	cid					TEXT NOT NULL,
     activated 			INTEGER NOT NULL DEFAULT 0,
-    creationdate 		TIMESTAMP(0) without time zone DEFAULT now()   
+    creationdate 		TIMESTAMP(0) without time zone DEFAULT now()
 );
 ALTER TABLE ONLY cc_outbound_cid_list
 ADD CONSTRAINT cc_outbound_cid_list_pkey PRIMARY KEY (id);
@@ -820,7 +820,7 @@ Status = <b>$paymentStatus</b>
 
 
 Kind regards,
-Call Labs
+YourDomain
 ', '');
 
 INSERT INTO cc_templatemail VALUES ('invoice', 'info@call-labs.com', 'Call-Labs', 'A2BILLING INVOICE', 'Dear Customer.
@@ -828,7 +828,7 @@ INSERT INTO cc_templatemail VALUES ('invoice', 'info@call-labs.com', 'Call-Labs'
 Attached is the invoice.
 
 Kind regards,
-Call Labs
+YourDomain
 ', '');
 
 CREATE TABLE cc_payment_methods (
@@ -937,13 +937,13 @@ ALTER TABLE cc_invoices ADD COLUMN payment_date TIMESTAMP WITHOUT TIME ZONE;
 ALTER TABLE cc_invoices ADD COLUMN payment_status INTEGER DEFAULT 0;
 CREATE TABLE cc_epayment_log (
     id 				BIGSERIAL NOT NULL,
-    cardid 			INTEGER NOT NULL DEFAULT 0,	
+    cardid 			INTEGER NOT NULL DEFAULT 0,
 	amount 			DOUBLE PRECISION NOT NULL DEFAULT 0,
 	vat 			DOUBLE PRECISION NOT NULL DEFAULT 0,
 	paymentmethod	CHARACTER VARYING(255) NOT NULL,
     cc_owner 		CHARACTER VARYING(255) NOT NULL,
     cc_number 		CHARACTER VARYING(255) NOT NULL,
-    cc_expires 		CHARACTER VARYING(255) NOT NULL,    
+    cc_expires 		CHARACTER VARYING(255) NOT NULL,
     creationdate 	TIMESTAMP(0) without time zone DEFAULT NOW(),
     status 			INTEGER NOT NULL DEFAULT 0
 );
@@ -961,7 +961,7 @@ Amount: $amount
 
 
 Kind regards,
-Call Labs
+YourDomain
 ', '');
 
 CREATE TABLE cc_system_log (
@@ -969,12 +969,12 @@ CREATE TABLE cc_system_log (
     iduser 							INTEGER NOT NULL DEFAULT 0,
     loglevel	 					INTEGER NOT NULL DEFAULT 0,
     action			 				TEXT NOT NULL,
-    description						TEXT,    
+    description						TEXT,
     data			 				TEXT,
 	tablename						CHARACTER VARYING(255),
 	pagename			 			CHARACTER VARYING(255),
-	ipaddress						CHARACTER VARYING(255),	
-	creationdate  					TIMESTAMP(0) without time zone DEFAULT NOW()   
+	ipaddress						CHARACTER VARYING(255),
+	creationdate  					TIMESTAMP(0) without time zone DEFAULT NOW()
 );
 ALTER TABLE ONLY cc_system_log
 ADD CONSTRAINT cc_system_log_pkey PRIMARY KEY (id);

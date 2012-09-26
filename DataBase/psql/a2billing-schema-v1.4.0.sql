@@ -3,10 +3,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2010 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2010 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -25,16 +25,16 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 --
 -- A2Billing database
 --
 
---  Default values - Please change them to whatever you want 
- 
+--  Default values - Please change them to whatever you want
+
 -- 	Database name is: mya2billing
 -- 	Database user is: a2billinguser
 -- 	User password is: a2billing
@@ -44,14 +44,14 @@
 -- 1. make sure that the Database user is GRANT to access the database in pg_hba.conf!
 
 --     a line like this will do it
-    
+
 --     # TYPE  DATABASE    USER        IP-ADDRESS        IP-MASK           METHOD
 --     # Database asterisk/a2billing login with password for a non real user
 --     #
 --     local   mya2billing all						md5
-    
+
 --     DON'T FORGET TO RESTART Postgresql SERVER IF YOU MADE ANY MODIFICATION ON THIS FILE
-    
+
 -- 2. open a terminal and enter the below commands. We assume our superuser to be postgres.
 --    Please adapt to your setup.
 
@@ -59,8 +59,8 @@
 --     psql -f a2billing-schema-v1.4.0.sql template1
 
 --     NOTE: the errors you will see about missing tables are OK, it's the default behaviour of pgsql.
-    
---     When prompted for the password, please enter the one you choose. In our case, it's 'a2billing'. 
+
+--     When prompted for the password, please enter the one you choose. In our case, it's 'a2billing'.
 
 \set ON_ERROR_STOP ON;
 SET default_with_oids = true;
@@ -134,7 +134,7 @@ CREATE TABLE cc_did_destination (
     destination 					TEXT NOT NULL,
     priority 						INTEGER DEFAULT 0 NOT NULL,
     id_cc_card 						BIGINT NOT NULL,
-    id_cc_did 						BIGINT NOT NULL,	
+    id_cc_did 						BIGINT NOT NULL,
     creationdate 					TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
     activated 						INTEGER DEFAULT 1 NOT NULL,
     secondusedreal 					INTEGER DEFAULT 0,
@@ -216,7 +216,7 @@ CREATE TABLE cc_voucher (
 
 
 CREATE TABLE cc_service (
-    id 									BIGSERIAL NOT NULL,	
+    id 									BIGSERIAL NOT NULL,
     name 								TEXT NOT NULL,
     amount 								double precision NOT NULL,
     period 								INTEGER NOT NULL DEFAULT 1,
@@ -356,11 +356,11 @@ CREATE TABLE cc_templatemail (
 );
 
 
-INSERT INTO cc_templatemail (mailtype, fromemail, fromname, subject, messagetext, messagehtml) VALUES ('signup', 'info@call-labs.com', 'Call-Labs', 'SIGNUP CONFIRMATION', '
+INSERT INTO cc_templatemail (mailtype, fromemail, fromname, subject, messagetext, messagehtml) VALUES ('signup', 'info@YourDomain.com', 'YourDomain', 'SIGNUP CONFIRMATION', '
 Thank you for registering with us
 Please click on below link to activate your account.
 
-http://call-labs.com/activate.php?key$loginkey
+http://YourDomain.com/activate.php?key$loginkey
 
 Please make sure you active your account by making payment to us either by
 credit card, wire transfer, money order, cheque, and western union money
@@ -368,10 +368,10 @@ transfer, money Gram, and Pay pal.
 
 
 Kind regards,
-Call Labs
+YourDomain
 ', '');
 
-INSERT INTO cc_templatemail (mailtype, fromemail, fromname, subject, messagetext, messagehtml) VALUES ('epaymentverify', 'info@call-labs.com', 'Call-Labs', 'Epayment Gateway Security Verification Failed', 'Dear Administrator
+INSERT INTO cc_templatemail (mailtype, fromemail, fromname, subject, messagetext, messagehtml) VALUES ('epaymentverify', 'info@YourDomain.com', 'YourDomain', 'Epayment Gateway Security Verification Failed', 'Dear Administrator
 
 Please check the Epayment Log, System has logged a Epayment Security failure. that may be a possible attack on epayment processing.
 
@@ -382,12 +382,12 @@ Amount: $amount
 
 
 Kind regards,
-Call Labs
+YourDomain
 ', '');
 
-INSERT INTO cc_templatemail (mailtype, fromemail, fromname, subject, messagetext, messagehtml) VALUES ('reminder', 'info@call-labs.com', 'Call-Labs', 'REMINDER', '
+INSERT INTO cc_templatemail (mailtype, fromemail, fromname, subject, messagetext, messagehtml) VALUES ('reminder', 'info@YourDomain.com', 'YourDomain', 'REMINDER', '
 
-Your Call-Labs Account number $cardnumber is running low on credit.
+Your YourDomain Account number $cardnumber is running low on credit.
 
 There is currently only $credit_currency $currency left on your account which is lower than the warning level defined ($credit_notification)
 
@@ -401,19 +401,19 @@ please connect on your myaccount panel and change the appropriate parameters
 your account information :
 Your account number for VOIP authentication : $cardnumber
 
-http://myaccount.call-labs.com/
+http://myaccount.YourDomain.com/
 Your account login : $cardalias
 Your account password : $password
 
 
 Thanks,
-/Call-Labs Team
+/YourDomain Team
 -------------------------------------
-http://www.call-labs.com
+http://www.YourDomain.com
  ', '');
 
 
-INSERT INTO cc_templatemail (mailtype, fromemail, fromname, subject, messagetext, messagehtml) VALUES ('forgetpassword', 'info@call-labs.com', 'Call-Labs', 'Login Information', 'Your login information is as below:
+INSERT INTO cc_templatemail (mailtype, fromemail, fromname, subject, messagetext, messagehtml) VALUES ('forgetpassword', 'info@YourDomain.com', 'YourDomain', 'Login Information', 'Your login information is as below:
 
 Your account is $card_gen
 
@@ -421,14 +421,14 @@ Your password is $password
 
 Your cardalias is $cardalias
 
-http://call-labs.com/A2BCustomer_UI/
+http://YourDomain.com/A2BCustomer_UI/
 
 
 Kind regards,
-Call Labs
+YourDomain
 ', '');
 
-INSERT INTO cc_templatemail (mailtype, fromemail, fromname, subject, messagetext, messagehtml) VALUES ('signupconfirmed', 'info@call-labs.com', 'Call-Labs', 'SIGNUP CONFIRMATION', 'Thank you for registering with us
+INSERT INTO cc_templatemail (mailtype, fromemail, fromname, subject, messagetext, messagehtml) VALUES ('signupconfirmed', 'info@YourDomain.com', 'YourDomain', 'SIGNUP CONFIRMATION', 'Thank you for registering with us
 
 Please make sure you active your account by making payment to us either by
 credit card, wire transfer, money order, cheque, and western union money
@@ -439,13 +439,13 @@ Your account is $card_gen
 Your password is $password
 
 To go to your account :
-http://call-labs.com/A2BCustomer_UI/
+http://YourDomain.com/A2BCustomer_UI/
 
 Kind regards,
-Call Labs
+YourDomain
 ', '');
 
-INSERT INTO cc_templatemail (mailtype, fromemail, fromname, subject, messagetext, messagehtml) VALUES ('payment', 'info@call-labs.com', 'Call-Labs', 'PAYMENT CONFIRMATION', 'Thank you for shopping at Call-Labs.
+INSERT INTO cc_templatemail (mailtype, fromemail, fromname, subject, messagetext, messagehtml) VALUES ('payment', 'info@YourDomain.com', 'YourDomain', 'PAYMENT CONFIRMATION', 'Thank you for shopping at YourDomain.
 
 Shopping details is as below.
 
@@ -457,15 +457,15 @@ Status = <b>$paymentStatus</b>
 
 
 Kind regards,
-Call Labs
+YourDomain
 ', '');
 
-INSERT INTO cc_templatemail (mailtype, fromemail, fromname, subject, messagetext, messagehtml) VALUES ('invoice', 'info@call-labs.com', 'Call-Labs', 'A2BILLING INVOICE', 'Dear Customer.
+INSERT INTO cc_templatemail (mailtype, fromemail, fromname, subject, messagetext, messagehtml) VALUES ('invoice', 'info@YourDomain.com', 'YourDomain', 'A2BILLING INVOICE', 'Dear Customer.
 
 Attached is the invoice.
 
 Kind regards,
-Call Labs
+YourDomain
 ', '');
 
 
@@ -720,7 +720,7 @@ CREATE TABLE cc_trunk (
     if_max_use							INTEGER DEFAULT 0,
     PRIMARY KEY (id_trunk)
 );
-INSERT INTO cc_trunk VALUES (1, 'DEFAULT', '011', 'IAX2', 'kiki@switch-2.kiki.net', '', 0, 0, 0, '2005-03-14 01:01:36', 0, '', NULL);
+INSERT INTO cc_trunk VALUES (1, 'DEFAULT', '011', 'IAX2', 'exampletrunk', '', 0, 0, 0, '2005-03-14 01:01:36', 0, '', NULL);
 
 
 CREATE TABLE cc_sip_buddies (
@@ -728,15 +728,15 @@ CREATE TABLE cc_sip_buddies (
     id_cc_card 							INTEGER DEFAULT 0 NOT NULL,
     name 								CHARACTER VARYING(80) DEFAULT ''::CHARACTER varying UNIQUE NOT NULL,
     "type" 								CHARACTER VARYING(6) DEFAULT 'friend'::CHARACTER varying NOT NULL,
-    username 							CHARACTER VARYING(80) DEFAULT ''::CHARACTER varying NOT NULL,	
-    accountcode 						CHARACTER VARYING(20),    
+    username 							CHARACTER VARYING(80) DEFAULT ''::CHARACTER varying NOT NULL,
+    accountcode 						CHARACTER VARYING(20),
     regexten 							CHARACTER VARYING(20),
-    callerid 							CHARACTER VARYING(80),	
+    callerid 							CHARACTER VARYING(80),
     amaflags 							CHARACTER VARYING(7),
     secret 								CHARACTER VARYING(80),
     md5secret 							CHARACTER VARYING(80),
     nat 								CHARACTER VARYING(3) DEFAULT 'yes'::CHARACTER varying NOT NULL,
-    dtmfmode 							CHARACTER VARYING(7) DEFAULT 'RFC2833'::CHARACTER varying NOT NULL,	
+    dtmfmode 							CHARACTER VARYING(7) DEFAULT 'RFC2833'::CHARACTER varying NOT NULL,
     disallow 							CHARACTER VARYING(100) DEFAULT 'all'::CHARACTER varying,
     allow 								CHARACTER VARYING(100) DEFAULT 'gsm,ulaw,alaw'::CHARACTER varying,
     host 								CHARACTER VARYING(31) DEFAULT ''::CHARACTER varying NOT NULL,
@@ -745,7 +745,7 @@ CREATE TABLE cc_sip_buddies (
     callgroup 							CHARACTER VARYING(10),
     context 							CHARACTER VARYING(80),
     defaultip 							CHARACTER VARYING(15),
-    fromuser 							CHARACTER VARYING(80),    
+    fromuser 							CHARACTER VARYING(80),
     fromdomain 							CHARACTER VARYING(80),
     insecure 							CHARACTER VARYING(20),
     "language" 							CHARACTER VARYING(2),
@@ -761,7 +761,7 @@ CREATE TABLE cc_sip_buddies (
     musiconhold 						CHARACTER VARYING(100),
     regseconds 							INTEGER DEFAULT 0 NOT NULL,
     ipaddr 								CHARACTER VARYING(15) DEFAULT ''::CHARACTER varying NOT NULL,
-    cancallforward 						CHARACTER VARYING(3) DEFAULT 'yes'::CHARACTER varying,	
+    cancallforward 						CHARACTER VARYING(3) DEFAULT 'yes'::CHARACTER varying,
     fullcontact 						CHARACTER VARYING(80),
     setvar 								CHARACTER VARYING(100) DEFAULT ''::CHARACTER varying NOT NULL,
     regserver							CHARACTER VARYING(20),
@@ -783,15 +783,15 @@ CREATE TABLE cc_iax_buddies (
     id_cc_card 							INTEGER DEFAULT 0 NOT NULL,
     name 								CHARACTER VARYING(80) DEFAULT ''::CHARACTER varying UNIQUE NOT NULL,
     "type" 								CHARACTER VARYING(6) DEFAULT 'friend'::CHARACTER varying NOT NULL,
-    username 							CHARACTER VARYING(80) DEFAULT ''::CHARACTER varying NOT NULL,	
-    accountcode 						CHARACTER VARYING(20),    
+    username 							CHARACTER VARYING(80) DEFAULT ''::CHARACTER varying NOT NULL,
+    accountcode 						CHARACTER VARYING(20),
     regexten 							CHARACTER VARYING(20),
-    callerid 							CHARACTER VARYING(80),	
+    callerid 							CHARACTER VARYING(80),
     amaflags 							CHARACTER VARYING(7),
     secret 								CHARACTER VARYING(80),
     md5secret 							CHARACTER VARYING(80),
     nat 								CHARACTER VARYING(3) DEFAULT 'yes'::CHARACTER varying NOT NULL,
-    dtmfmode 							CHARACTER VARYING(7) DEFAULT 'RFC2833'::CHARACTER varying NOT NULL,	
+    dtmfmode 							CHARACTER VARYING(7) DEFAULT 'RFC2833'::CHARACTER varying NOT NULL,
     disallow 							CHARACTER VARYING(100) DEFAULT 'all'::CHARACTER varying,
     allow 								CHARACTER VARYING(100) DEFAULT 'gsm,ulaw,alaw'::CHARACTER varying,
     host 								CHARACTER VARYING(31) DEFAULT ''::CHARACTER varying NOT NULL,
@@ -800,7 +800,7 @@ CREATE TABLE cc_iax_buddies (
     callgroup 							CHARACTER VARYING(10),
     context 							CHARACTER VARYING(80),
     defaultip 							CHARACTER VARYING(15),
-    fromuser 							CHARACTER VARYING(80),    
+    fromuser 							CHARACTER VARYING(80),
     fromdomain 							CHARACTER VARYING(80),
     insecure 							CHARACTER VARYING(20),
     "language" 							CHARACTER VARYING(2),
@@ -1177,7 +1177,7 @@ CREATE TABLE cc_currencies (
     currency 							char(3) UNIQUE default '' NOT NULL,
     name 								CHARACTER VARYING(30) default '' NOT NULL,
     value 								NUMERIC(12,5) default '0.00000' NOT NULL,
-    lastupdate 							TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),	
+    lastupdate 							TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
     basecurrency 						char(3) default 'USD' NOT NULL,
     PRIMARY KEY (id)
 );
@@ -1361,7 +1361,7 @@ CREATE TABLE cc_ecommerce_product (
     currency 								CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER varying,
     typepaid 								INTEGER DEFAULT 0,
     creditlimit 							INTEGER DEFAULT 0,
-    "language" 								TEXT DEFAULT 'en'::text,	
+    "language" 								TEXT DEFAULT 'en'::text,
     runservice 								INTEGER DEFAULT 0,
     sip_friend 								INTEGER DEFAULT 0,
     iax_friend 								INTEGER DEFAULT 0,
@@ -1369,7 +1369,7 @@ CREATE TABLE cc_ecommerce_product (
 );
 
 
--- 
+--
 -- Speed Dial Table
 --
 
@@ -1385,7 +1385,7 @@ CREATE TABLE cc_speeddial (
 );
 
 
--- Auto Refill Report Table	
+-- Auto Refill Report Table
 CREATE TABLE cc_autorefill_report (
 	id 									BIGSERIAL NOT NULL,
 	daterun 							TIMESTAMP(0) without time zone DEFAULT NOW(),
@@ -1395,7 +1395,7 @@ CREATE TABLE cc_autorefill_report (
 );
 
 
--- cc_prefix Table	
+-- cc_prefix Table
 CREATE TABLE cc_prefix (
 	prefix 				BIGSERIAL NOT NULL,
 	destination 		varchar(60) NOT NULL,
@@ -1492,8 +1492,8 @@ CREATE TABLE cc_package_offer (
 	freetimetocall 					INTEGER NOT NULL
 );
 -- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
--- billingtype : Monthly ; Weekly 
--- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday) 
+-- billingtype : Monthly ; Weekly
+-- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday)
 
 
 CREATE TABLE cc_card_package_offer (
@@ -1787,14 +1787,14 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Caller ID', 'callerid', 1, 'Let the users add new callerid.', 1, 3, 'yes,no');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Password', 'password', 1, 'Let the user change the webui password.', 1, 3, 'yes,no');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('CallerID Limit', 'limit_callerid', '5', 'The total number of callerIDs for CLI Recognition that can be add by the customer.', 0, 3, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Trunk Name', 'sip_iax_info_trunkname', 'call-labs', 'Trunk Name to show in sip/iax info.', 0, 4, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Trunk Name', 'sip_iax_info_trunkname', 'YourDomain', 'Trunk Name to show in sip/iax info.', 0, 4, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Codecs Allowed', 'sip_iax_info_allowcodec', 'g729', 'Allowed Codec, ulaw, gsm, g729.', 0, 4, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Host', 'sip_iax_info_host', 'call-labs.com', 'Host information.', 0, 4, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Host', 'sip_iax_info_host', 'YourDomain.com', 'Host information.', 0, 4, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('IAX Parms', 'iax_additional_parameters', 'canreinvite = no', 'IAX Additional Parameters.', 0, 4, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('SIP Parms', 'sip_additional_parameters', 'trustrpid = yes | sendrpid = yes | canreinvite = no', 'SIP Additional Parameters.', 0, 4, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Enable', 'enable', 1, 'Enable/Disable.', 1, 5, 'yes,no');
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('HTTP Server Customer', 'http_server', 'http://www.call-labs.com', 'Set the Server Address of Customer Website, It should be empty for productive Servers.', 0, 5, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('HTTPS Server Customer', 'https_server', 'https://www.call-labs.com', 'https://localhost - Enter here your Secure Customers Server Address, should not be empty for productive servers.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('HTTP Server Customer', 'http_server', 'http://www.YourDomain.com', 'Set the Server Address of Customer Website, It should be empty for productive Servers.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('HTTPS Server Customer', 'https_server', 'https://www.YourDomain.com', 'https://localhost - Enter here your Secure Customers Server Address, should not be empty for productive servers.', 0, 5, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Server Customer IP/Domain', 'http_cookie_domain', '26.63.165.200', 'Enter your Domain Name or IP Address for the Customers application, eg, 26.63.165.200.', 0, 5, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Secure Server Customer IP/Domain', 'https_cookie_domain', '26.63.165.200', 'Enter your Secure server Domain Name or IP Address for the Customers application, eg, 26.63.165.200.', 0, 5, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Application Customer Path', 'http_cookie_path', '/customer/', 'Enter the Physical path of your Customers Application on your server.', 0, 5, NULL);
@@ -2020,7 +2020,7 @@ VALUES ( 'Enable info module about payments', 'payment_info_enabled', 'CENTER', 
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
 VALUES ( 'Enable info module about calls', 'call_info_enabled', 'RIGHT', 'If you want enabled the info module calls and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
 
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) 
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues)
 VALUES ('PlugnPay Payment URL', 'plugnpay_payment_url', 'https://pay1.plugnpay.com/payment/pnpremote.cgi', 'Define here the URL of PlugnPay gateway.', 0, 5, NULL);
 
 
@@ -2041,8 +2041,8 @@ ALTER TABLE cc_config DROP COLUMN config_group_id;
 ALTER TABLE cc_config ALTER COLUMN config_group_title SET NOT NULL;
 -- Agent epayment
 
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('HTTP Server Agent', 'http_server_agent', 'http://www.call-labs.com', 'Set the Server Address of Agent Website, It should be empty for productive Servers.', 0, 'epayment_method', NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('HTTPS Server Agent', 'https_server_agent', 'https://www.call-labs.com', 'https://localhost - Enter here your Secure Agents Server Address, should not be empty for productive servers.', 0, 'epayment_method', NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('HTTP Server Agent', 'http_server_agent', 'http://www.YourDomain.com', 'Set the Server Address of Agent Website, It should be empty for productive Servers.', 0, 'epayment_method', NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('HTTPS Server Agent', 'https_server_agent', 'https://www.YourDomain.com', 'https://localhost - Enter here your Secure Agents Server Address, should not be empty for productive servers.', 0, 'epayment_method', NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('Server Agent IP/Domain', 'http_cookie_domain_agent', '26.63.165.200', 'Enter your Domain Name or IP Address for the Agents application, eg, 26.63.165.200.', 0, 5, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('Secure Server Agent IP/Domain', 'https_cookie_domain_agent', '26.63.165.200', 'Enter your Secure server Domain Name or IP Address for the Agents application, eg, 26.63.165.200.', 0, 'epayment_method', NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('Application Agent Path', 'http_cookie_path_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your server.', 0, 'epayment_method', NULL);

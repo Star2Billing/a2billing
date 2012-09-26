@@ -4,10 +4,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -26,14 +26,14 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 --
 -- A2Billing database script - Update database for MYSQL 5.X
--- 
--- 
+--
+--
 -- Usage:
 -- mysql -u root -p"root password" < UPDATE-a2billing-v1.3.0-to-v1.4.0.sql
 --
@@ -875,9 +875,9 @@ ADD notify_email SMALLINT NOT NULL DEFAULT '0';
 
 ALTER TABLE cc_card ADD credit_notification INT NOT NULL DEFAULT -1;
 
-UPDATE cc_templatemail SET subject='Your Call-Labs account $cardnumber$ is low on credit ($currency$ $creditcurrency$)', messagetext = '
+UPDATE cc_templatemail SET subject='Your account $cardnumber$ is low on credit ($currency$ $creditcurrency$)', messagetext = '
 
-Your Call-Labs Account number $cardnumber$ is running low on credit.
+Your Account number $cardnumber$ is running low on credit.
 
 There is currently only $creditcurrency$ $currency$ left on your account which is lower than the warning level defined ($credit_notification$)
 
@@ -1027,14 +1027,14 @@ ALTER TABLE cc_config CHANGE config_description config_description TEXT CHARACTE
 
 
 -- Deck threshold switch for callplan
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) 
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues)
 VALUES ('CallPlan threshold Deck switch', 'callplan_deck_minute_threshold', '', 'CallPlan threshold Deck switch. <br/>This option will switch the user callplan from one call plan ID to and other Callplan ID
 The parameters are as follow : <br/>
 -- ID of the first callplan : called seconds needed to switch to the next CallplanID <br/>
 -- ID of the second callplan : called seconds needed to switch to the next CallplanID <br/>
 -- if not needed seconds are defined it will automatically switch to the next one <br/>
 -- if defined we will sum the previous needed seconds and check if the caller had done at least the amount of calls necessary to go to the next step and have the amount of seconds needed<br/>
-value example for callplan_deck_minute_threshold = 1:300, 2:60, 3', 
+value example for callplan_deck_minute_threshold = 1:300, 2:60, 3',
 '0', '11', NULL);
 
 
@@ -1188,10 +1188,10 @@ ALTER TABLE cc_campaign ADD forward_number CHAR( 50 ) CHARACTER SET utf8 COLLATE
 
 DROP TABLE cc_phonelist;
 
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES 
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES
 ( 'Context Campaign''s Callback', 'context_campaign_callback', 'a2billing-campaign-callback', 'Context to use in Campaign of Callback', '0', '2', NULL);
 
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES 
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES
 ( 'Default Context forward Campaign''s Callback ', 'default_context_campaign', 'campaign', 'Context to use by default to forward the call in Campaign of Callback', '0', '2', NULL);
 
 ALTER TABLE cc_campaign ADD daily_start_time TIME NOT NULL DEFAULT '10:00:00',
@@ -1260,7 +1260,7 @@ ALTER TABLE cc_card_group ADD users_perms INT NOT NULL DEFAULT '0';
 -- ------------------------------------------------------
 -- PNL report
 -- ------------------------------------------------------
-INSERT INTO  cc_config(config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values 
+INSERT INTO  cc_config(config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values
 ('PNL Pay Phones','report_pnl_pay_phones','(8887798764,0.02,0.06)','Info for PNL report. Must be in form "(number1,buycost,sellcost),(number2,buycost,sellcost)", number can be prefix, i.e 1800',0,8);
 INSERT INTO  cc_config(config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values
 ('PNL Toll Free Numbers','report_pnl_toll_free','(6136864646,0.1,0),(6477249717,0.1,0)','Info for PNL report. must be in form "(number1,buycost,sellcost),(number2,buycost,sellcost)", number can be prefix, i.e 1800',0,8);
@@ -1349,7 +1349,7 @@ ALTER TABLE cc_sip_buddies CHANGE canreinvite canreinvite VARCHAR(20) NOT NULL;
 
 
 -- ------------------------------------------------------
--- Add restricted rules on the call system for customers 
+-- Add restricted rules on the call system for customers
 -- ------------------------------------------------------
 
 CREATE TABLE cc_restricted_phonenumber (
@@ -1388,9 +1388,9 @@ ALTER TABLE cc_agent ADD COLUMN company varchar(50);
 
 
 -- Change AGI Verbosity & logging
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) 
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues)
 VALUES ('Verbosity', 'verbosity_level', '0', '0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4', 0, 11, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) 
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues)
 VALUES ('Logging', 'logging_level', '3', '0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4', 0, 11, NULL);
 
 
@@ -1522,14 +1522,14 @@ CREATE TABLE cc_invoice_conf (
 	UNIQUE (key_val)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO cc_invoice_conf (key_val ,value) 
+INSERT INTO cc_invoice_conf (key_val ,value)
 	VALUES 	('company_name', 'My company'),
 		('address', 'address'),
 		('zipcode', 'xxxx'),
-		('country', 'country'), 
-		('city', 'city'), 
-		('phone', 'xxxxxxxxxxx'), 
-		('fax', 'xxxxxxxxxxx'), 
+		('country', 'country'),
+		('city', 'city'),
+		('phone', 'xxxxxxxxxxx'),
+		('fax', 'xxxxxxxxxxx'),
 		('email', 'xxxxxxx@xxxxxxx.xxx'),
 		('vat', 'xxxxxxxxxx'),
 		('web', 'www.xxxxxxx.xxx');
@@ -1598,7 +1598,7 @@ ALTER TABLE cc_epayment_log ADD COLUMN credit_card_type VARCHAR(20);
 ALTER TABLE cc_epayment_log ADD COLUMN currency VARCHAR(4);
 
 
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) 
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues)
 VALUES ('PlugnPay Payment URL', 'plugnpay_payment_url', 'https://pay1.plugnpay.com/payment/pnpremote.cgi', 'Define here the URL of PlugnPay gateway.', 0, 5, NULL);
 
 
@@ -1620,7 +1620,7 @@ ADD billing_type VARCHAR( 10 ) NULL ;
 
 
 
--- DIDX.NET 
+-- DIDX.NET
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DIDX ID', 'didx_id', '708XXX', 'DIDX parameter : ID', 0, 8, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DIDX PASS', 'didx_pass', 'XXXXXXXXXX', 'DIDX parameter : Password', 0, 8, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DIDX MIN RATING', 'didx_min_rating', '0', 'DIDX parameter : min rating', 0, 8, NULL);
@@ -1655,7 +1655,7 @@ CREATE TABLE cc_card_seria (
 	value	BIGINT NOT NULL DEFAULT 0,
 	PRIMARY KEY ( id )
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
- 
+
 ALTER TABLE cc_card ADD id_seria integer;
 ALTER TABLE cc_card ADD serial BIGINT;
 UPDATE cc_config SET config_description = concat(config_description,', id_seria, serial') WHERE config_key = 'card_show_field_list' ;
@@ -1680,7 +1680,7 @@ BEGIN
 END
 //
 DELIMITER ;
- 
+
 
 INSERT INTO  cc_config (config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values('Card Serial Pad Length','card_serial_length','7','Value of zero padding for serial. If this value set to 3 serial wil looks like 001',0,8);
 
@@ -1691,8 +1691,8 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 
 
 -- change the schema to authorize only one login
-ALTER TABLE cc_agent ADD UNIQUE (login); 
-ALTER TABLE cc_ui_authen ADD UNIQUE (login); 
+ALTER TABLE cc_agent ADD UNIQUE (login);
+ALTER TABLE cc_ui_authen ADD UNIQUE (login);
 
 -- update for invoice
 ALTER TABLE cc_charge ADD charged_status TINYINT NOT NULL DEFAULT '0',
@@ -1700,12 +1700,12 @@ ADD invoiced_status TINYINT NOT NULL DEFAULT '0';
 ALTER TABLE cc_did_use ADD reminded TINYINT NOT NULL DEFAULT '0';
 
 ALTER TABLE cc_invoice_item CHANGE id_billing id_ext BIGINT( 20 ) NULL DEFAULT NULL;
-ALTER TABLE cc_invoice_item CHANGE billing_type type_ext VARCHAR( 10 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;  
+ALTER TABLE cc_invoice_item CHANGE billing_type type_ext VARCHAR( 10 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
 
 
 
 -- update on configuration
-ALTER TABLE cc_config_group ADD UNIQUE (group_title); 
+ALTER TABLE cc_config_group ADD UNIQUE (group_title);
 ALTER TABLE cc_config ADD config_group_title varchar(64) NOT NULL;
 
 UPDATE cc_config SET config_group_title=(SELECT group_title FROM cc_config_group WHERE cc_config_group.id=cc_config.config_group_id);
@@ -1737,7 +1737,7 @@ CREATE TABLE cc_receipt_item (
 
 
 ALTER TABLE cc_logpayment CHANGE payment payment DECIMAL( 15, 5 ) NOT NULL;
-ALTER TABLE cc_logpayment_agent CHANGE payment payment DECIMAL( 15, 5 ) NOT NULL;  
+ALTER TABLE cc_logpayment_agent CHANGE payment payment DECIMAL( 15, 5 ) NOT NULL;
 ALTER TABLE cc_logrefill CHANGE credit credit DECIMAL( 15, 5 ) NOT NULL;
 ALTER TABLE cc_logrefill_agent CHANGE credit credit DECIMAL( 15, 5 ) NOT NULL ;
 
@@ -1747,7 +1747,7 @@ alter table cc_service add column operate_mode tinyint default 0;
 alter table cc_service add column dialplan integer default 0;
 alter table cc_service add column use_group tinyint default 0;
 
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('Rate Export Fields', 'rate_export_field_list', 'destination, dialprefix, rateinitial', 'Fields to export in csv format from rates table.Use dest_name from prefix name', 0, 'webui', NULL); 
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('Rate Export Fields', 'rate_export_field_list', 'destination, dialprefix, rateinitial', 'Fields to export in csv format from rates table.Use dest_name from prefix name', 0, 'webui', NULL);
 
 
 
@@ -1829,7 +1829,7 @@ CREATE TABLE cc_payments_agent (
 ALTER TABLE cc_agent_commission ADD id_agent INT NOT NULL ;
 
 -- remove reseller field from logpayment & log refill
-ALTER TABLE cc_logpayment DROP reseller_id; 
+ALTER TABLE cc_logpayment DROP reseller_id;
 ALTER TABLE cc_logrefill DROP reseller_id;
 
 

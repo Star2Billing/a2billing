@@ -4,10 +4,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -26,8 +26,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -57,7 +57,7 @@ CREATE TABLE cc_did_use (
     PRIMARY KEY (id)
 );
 
-	
+
 CREATE TABLE cc_prefix (
 	id 								BIGINT NOT NULL AUTO_INCREMENT,
 	id_cc_country 					BIGINT,
@@ -65,7 +65,7 @@ CREATE TABLE cc_prefix (
 	destination 					VARCHAR(100) NOT NULL,
 	PRIMARY KEY (id)
 );
-	
+
 INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Afghanistan','93','1');
 INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Albania','355','2');
 INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Algeria','213','3');
@@ -598,8 +598,8 @@ CREATE TABLE cc_alarm (
     id_trunk 							INT,
     status 								INT NOT NULL DEFAULT 0,
     numberofrun 						INT NOT NULL DEFAULT 0,
-    numberofalarm 						INT NOT NULL DEFAULT 0,   
-	datecreate    						TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,	
+    numberofalarm 						INT NOT NULL DEFAULT 0,
+	datecreate    						TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	datelastrun    						TIMESTAMP,
     emailreport 						VARCHAR(50),
     PRIMARY KEY (id)
@@ -673,12 +673,12 @@ INSERT INTO cc_server_group (id, name, description) VALUES (1, 'default', 'defau
 
 
 CREATE TABLE cc_invoices (
-    id 								INT NOT NULL AUTO_INCREMENT,    
+    id 								INT NOT NULL AUTO_INCREMENT,
     cardid 							BIGINT NOT NULL,
 	orderref 						VARCHAR(50),
     invoicecreated_date 			TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	cover_startdate 				TIMESTAMP,
-    cover_enddate 					TIMESTAMP,	
+    cover_enddate 					TIMESTAMP,
     amount 							DECIMAL(15,5) DEFAULT 0,
 	tax 							DECIMAL(15,5) DEFAULT 0,
 	total 							DECIMAL(15,5) DEFAULT 0,
@@ -690,8 +690,8 @@ CREATE INDEX ind_cc_invoices ON cc_invoices (cover_startdate);
 
 
 CREATE TABLE cc_invoice_history (
-    id 								INT NOT NULL AUTO_INCREMENT,    
-    invoiceid 						INT NOT NULL,	
+    id 								INT NOT NULL AUTO_INCREMENT,
+    invoiceid 						INT NOT NULL,
     invoicesent_date 				TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     invoicestatus 					INT,
     PRIMARY KEY (id)
@@ -712,8 +712,8 @@ CREATE TABLE cc_package_offer (
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 -- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
--- billingtype : Monthly ; Weekly 
--- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday) 
+-- billingtype : Monthly ; Weekly
+-- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday)
 
 
 CREATE TABLE cc_card_package_offer (
@@ -737,7 +737,7 @@ ALTER TABLE cc_call 		ADD COLUMN id_card_package_offer 		INT DEFAULT 0;
 CREATE TABLE cc_subscription_fee (
     id 									BIGINT NOT NULL AUTO_INCREMENT,
     label 								TEXT NOT NULL,
-    fee 								FLOAT DEFAULT 0 NOT NULL,	
+    fee 								FLOAT DEFAULT 0 NOT NULL,
 	currency 							CHAR(3) DEFAULT 'USD',
     status 								INT DEFAULT '0' NOT NULL,
     numberofrun 						INT DEFAULT '0' NOT NULL,
@@ -764,12 +764,12 @@ CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge (creationdate);
 --     id_cc_card 				BIGINT NOT NULL,
 --     id_cc_subscription_fee 	BIGINT NOT NULL,
 --     datefee 				TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
---     fee 					FLOAT DEFAULT 0 NOT NULL,	
+--     fee 					FLOAT DEFAULT 0 NOT NULL,
 -- 	fee_converted 			FLOAT DEFAULT 0 NOT NULL,
 -- 	currency 				CHAR(3) DEFAULT 'USD',
 --     PRIMARY KEY (id)
 -- )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
--- 
+--
 -- CREATE INDEX ind_cc_subscription_fee_card_id_cc_card  				ON cc_subscription_fee_card (id_cc_card);
 -- CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee 	ON cc_subscription_fee_card (id_cc_subscription_fee);
 -- CREATE INDEX ind_cc_subscription_fee_card_datefee 					ON cc_subscription_fee_card (datefee);
@@ -782,13 +782,13 @@ CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge (creationdate);
 CREATE TABLE cc_outbound_cid_group (
     id 					INT NOT NULL AUTO_INCREMENT,
     creationdate 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    group_name			VARCHAR(70) NOT NULL,    
+    group_name			VARCHAR(70) NOT NULL,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 -- Table Name: cc_outbound_cid_list
--- For outbound CIDs 
+-- For outbound CIDs
 -- outbound_cid_group: Foreign Key of the CID Group
 -- cid: Caller ID
 -- activated Field for Activated or Disabled t=activated.
@@ -796,9 +796,9 @@ CREATE TABLE cc_outbound_cid_group (
 CREATE TABLE cc_outbound_cid_list (
     id 					INT NOT NULL AUTO_INCREMENT,
 	outbound_cid_group	INT NOT NULL,
-	cid					CHAR(100) NULL,    
+	cid					CHAR(100) NULL,
     activated 			INT	NOT NULL DEFAULT 0,
-    creationdate 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,    
+    creationdate 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
@@ -810,7 +810,7 @@ ALTER TABLE cc_ratecard ADD COLUMN id_outbound_cidgroup INT NOT NULL DEFAULT -1;
 
 
 
-INSERT INTO cc_templatemail VALUES ('payment', 'info@call-labs.com', 'Call-Labs', 'PAYMENT CONFIRMATION', 'Thank you for shopping at Call-Labs.
+INSERT INTO cc_templatemail VALUES ('payment', 'info@YourDomain.com', 'YourDomain', 'PAYMENT CONFIRMATION', 'Thank you for shopping at YourDomain.
 
 Shopping details is as below.
 
@@ -822,15 +822,15 @@ Status = <b>$paymentStatus</b>
 
 
 Kind regards,
-Call Labs
+YourDomain
 ', '');
 
-INSERT INTO cc_templatemail VALUES ('invoice', 'info@call-labs.com', 'Call-Labs', 'A2BILLING INVOICE', 'Dear Customer.
+INSERT INTO cc_templatemail VALUES ('invoice', 'info@YourDomain.com', 'YourDomain', 'A2BILLING INVOICE', 'Dear Customer.
 
 Attached is the invoice.
 
 Kind regards,
-Call Labs
+YourDomain
 ', '');
 
 -- Payment Methods Table
@@ -931,17 +931,17 @@ CREATE TABLE cc_epayment_log (
     cardid 							INT DEFAULT 0 NOT NULL,
     amount 							FLOAT DEFAULT 0 NOT NULL,
 	vat 							FLOAT DEFAULT 0 NOT NULL,
-    paymentmethod	 				CHAR(50) NOT NULL,     
+    paymentmethod	 				CHAR(50) NOT NULL,
   	cc_owner 						VARCHAR(64),
   	cc_number 						VARCHAR(32),
-  	cc_expires 						VARCHAR(7),						   
+  	cc_expires 						VARCHAR(7),
     creationdate  					TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     status 							INT DEFAULT 0 NOT NULL,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
-INSERT INTO cc_templatemail VALUES ('epaymentverify', 'info@call-labs.com', 'Call-Labs', 'Epayment Gateway Security Verification Failed', 'Dear Administrator
+INSERT INTO cc_templatemail VALUES ('epaymentverify', 'info@YourDomain.com', 'YourDomain', 'Epayment Gateway Security Verification Failed', 'Dear Administrator
 
 Please check the Epayment Log, System has logged a Epayment Security failure. that may be a possible attack on epayment processing.
 
@@ -952,7 +952,7 @@ Amount: $amount
 
 
 Kind regards,
-Call Labs
+YourDomain
 ', '');
 
 
@@ -961,7 +961,7 @@ CREATE TABLE cc_system_log (
     iduser 							INT DEFAULT 0 NOT NULL,
     loglevel	 					INT DEFAULT 0 NOT NULL,
     action			 				TEXT NOT NULL,
-    description						MEDIUMTEXT,    
+    description						MEDIUMTEXT,
     data			 				BLOB,
 	tablename						VARCHAR(255),
 	pagename			 			VARCHAR(255),

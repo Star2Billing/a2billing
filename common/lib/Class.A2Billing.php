@@ -1147,7 +1147,6 @@ class A2Billing
             $dialstatus = $dialstatus['data'];
 
             if ($this->agiconfig['record_call'] == 1) {
-                // Monitor(wav,kiki,m)
                 $myres = $agi->exec("StopMixMonitor");
                 $this->debug(INFO, $agi, __FILE__, __LINE__, "EXEC StopMixMonitor (" . $this->uniqueid . ")");
             }

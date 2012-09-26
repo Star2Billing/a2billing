@@ -52,10 +52,10 @@ print_r ($arr_result);
 
 //$instance = 'VillageTelco_rmsu-2114';
 $instance_name = 'VillageTelco';
-$uri_trunk = 'http://www.call-labs.com/Create_TrunkConfig.php';
-$provider_name = 'call-labs';
-$provisioning_uri = 'http://www.call-labs.com/provisioning.txt';
-$uri_rate = 'http://www.call-labs.com/Get_Rates.php';
+$uri_trunk = 'http://www.YourDomain.com/Create_TrunkConfig.php';
+$provider_name = 'YourDomain';
+$provisioning_uri = 'http://www.YourDomain.com/provisioning.txt';
+$uri_rate = 'http://www.YourDomain.com/Get_Rates.php';
 $activation_code = '54wefdsf$3Z';
 $margin = 0.2;
 

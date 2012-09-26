@@ -990,10 +990,10 @@ class SOAP_A2Billing
 
     //Get the Provider list with details
     /*
-     * $provisioning_uri : http://www.call-labs.com/provisioning.txt
+     * $provisioning_uri : http://www.YourDomain.com/provisioning.txt
      * sample result sent by the API
-     * //Call-Labs|A-Z termination providing global good rates and quality|http://myaccount.call-labs.com/webservice/create-trunkconfig.php|http://myaccount.call-labs.com/webservice/get_rates.php|http://call-labs.com/images/logo.jpg
-     Call-Labs|A-Z termination providing global good rates and quality|http://www.call-labs.com/Create_TrunkConfig.php|http://www.call-labs.com/Get_Rates.php|http://call-labs.com/images/logo.jpg
+     * //YourDomain|A-Z termination providing global good rates and quality|http://myaccount.YourDomain.com/webservice/create-trunkconfig.php|http://myaccount.YourDomain.com/webservice/get_rates.php|http://YourDomain.com/images/logo.jpg
+     YourDomain|A-Z termination providing global good rates and quality|http://www.YourDomain.com/Create_TrunkConfig.php|http://www.YourDomain.com/Get_Rates.php|http://YourDomain.com/images/logo.jpg
 
      VOIP.MS|Good A-Z Voip provider, specialized for US|http://test/uri_trunk|http://test/uri_rate|http://voip.ms/images/mainmenu/logo2.gif
      *

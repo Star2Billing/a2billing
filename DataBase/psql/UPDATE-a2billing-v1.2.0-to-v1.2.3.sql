@@ -4,10 +4,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -26,8 +26,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -41,7 +41,7 @@ ALTER TABLE cc_card ADD COLUMN initialbalance DECIMAL(15,5);
 ALTER TABLE cc_card ALTER COLUMN initialbalance SET DEFAULT 0;
 UPDATE cc_card SET initialbalance = '0';
 
--- invoiceday : day of the month when the customer invoice need to be created 
+-- invoiceday : day of the month when the customer invoice need to be created
 ALTER TABLE cc_card ADD COLUMN invoiceday INT;
 ALTER TABLE cc_card ALTER COLUMN invoiceday SET DEFAULT 1;
 UPDATE cc_card SET invoiceday = '1';
@@ -52,7 +52,7 @@ ALTER TABLE cc_card ALTER COLUMN autorefill SET DEFAULT 0;
 UPDATE cc_card SET autorefill = '0';
 
 
--- Auto Refill Report Table	
+-- Auto Refill Report Table
 CREATE TABLE cc_autorefill_report (
 	id 						BIGSERIAL NOT NULL,
 	daterun 					TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -77,7 +77,7 @@ ALTER TABLE cc_call ALTER COLUMN buycost SET DEFAULT 0;
 ALTER TABLE cc_card ADD COLUMN loginkey CHAR(40);
 ALTER TABLE cc_card ADD COLUMN activatedbyuser char(1) DEFAULT 'f' NOT NULL;
 
-INSERT INTO cc_templatemail VALUES ('forgetpassword', 'info@call-labs.com', 'Call-Labs', 'Login Information', 'Your login information is as below:
+INSERT INTO cc_templatemail VALUES ('forgetpassword', 'info@YourDomain.com', 'YourDomain', 'Login Information', 'Your login information is as below:
 
 Your account is $card_gen
 
@@ -85,14 +85,14 @@ Your password is $password
 
 Your cardalias is $cardalias
 
-http://call-labs.com/A2BCustomer_UI/
+http://YourDomain.com/A2BCustomer_UI/
 
 
 Kind regards,
-Call Labs
+YourDomain
 ', '');
 
-INSERT INTO cc_templatemail VALUES ('signupconfirmed', 'info@call-labs.com', 'Call-Labs', 'SIGNUP CONFIRMATION', 'Thank you for registering with us
+INSERT INTO cc_templatemail VALUES ('signupconfirmed', 'info@YourDomain.com', 'YourDomain', 'SIGNUP CONFIRMATION', 'Thank you for registering with us
 
 Please make sure you active your account by making payment to us either by
 credit card, wire transfer, money order, cheque, and western union money
@@ -103,8 +103,8 @@ Your account is $card_gen
 Your password is $password
 
 To go to your account :
-http://call-labs.com/A2BCustomer_UI/
+http://YourDomain.com/A2BCustomer_UI/
 
 Kind regards,
-Call Labs
+YourDomain
 ', '');
