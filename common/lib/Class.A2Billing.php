@@ -1923,7 +1923,6 @@ class A2Billing
         if (!($minutes > 0) && !($seconds > 10)) {
             $prompt = "prepaid-no-enough-credit";
             $agi->stream_file($prompt, '#');
-
             return -1;
         }
 
@@ -1951,7 +1950,7 @@ class A2Billing
                     }
                 }
             }
-            if ($seconds > 0 && ($this->agiconfig['disable_announcement_seconds'] == 0)) {
+            if ($seconds > 0 && ($this->agiconfig['disable_announcement_seconds'] == 0 || $minutes==0)) {
                 if ($minutes > 0) {
                     $agi->stream_file('vm-and', '#');
                 }
