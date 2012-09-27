@@ -7,8 +7,8 @@ A2BILLING INSTALLATION GUIDE
 0. Sypnosis
 -----------
 
-    A2Billing is a voip billing software licensed under the AGPL 3. 
-    Copyright (C) 2004-2011 - Star2billing S.L. http://www.star2billing.com/
+    A2Billing is a voip billing software licensed under the AGPL 3.
+    Copyright (C) 2004-2012 - Star2billing S.L. http://www.star2billing.com/
 
     This document focuses on the installation of A2Billing system for the Asterisk open source PBX. The document covers the installation and basic configuration of
     A2Billing. A2billing is an open source implementation of a telecommunication billing and added value services platform.
@@ -63,7 +63,7 @@ A2BILLING INSTALLATION GUIDE
         Version 1.7.1 includes a new AGI mode that allows the monitoring of the a2billing system via an IVR.
 
         The new monitoring feature requires text-to-speech TTS support, the default TTS engine is Cepstral
-        http://www.cepstral.com/ although a2billing can support Festival too. 
+        http://www.cepstral.com/ although a2billing can support Festival too.
 
         Install Cepstral (default path: /opt/swift) and make a symbolic link:
         - ln -s /opt/swift/bin/swift /usr/bin/swift
@@ -104,7 +104,7 @@ A2BILLING INSTALLATION GUIDE
 
         At the end of this step you should have a a2billing tree structure that should look like:
             - /usr/local/src/a2billing/
-            
+
         Files :
             - AGI
             - CHANGELOG
@@ -314,7 +314,7 @@ A2BILLING INSTALLATION GUIDE
         Recurring services are handled via the /etc/crontab
 
         You can add the following cron jobs to your /etc/crontab or create a file with the jobs in /var/spool/cron/a2billing
-            
+
             -  update the currency table
                 0 6 * * * php /usr/local/src/a2billing/Cronjobs/currencies_update_yahoo.php
 
@@ -342,7 +342,7 @@ A2BILLING INSTALLATION GUIDE
 
     2.9. Step 9: Call back daemon (only for Call backs)
 
-        The call back daemon is responsible of reading from the database the pool of calls stored for call back and trigger those calls periodically. 
+        The call back daemon is responsible of reading from the database the pool of calls stored for call back and trigger those calls periodically.
 
         The daemon is written in Python. Install the python-setuptools and use easy_install to install the callback_daemon
             - apt-get install python-setuptools python-mysqldb python-psycopg2 python-sqlalchemy
@@ -351,14 +351,14 @@ A2BILLING INSTALLATION GUIDE
 
         Install the init.d startup script
             - cd /usr/local/src/a2billing/CallBack/callback-daemon-py/callback_daemon/
-        
+
         For Debian :
             - cp a2b-callback-daemon.debian  /etc/init.d/a2b-callback-daemon
-        
+
         For RedHat :
             - cp a2b-callback-daemon.rc /etc/init.d/a2b-callback-daemon
             - chmod +x /etc/init.d/a2b-callback-daemon
-        
+
         Make sure the daemon starts
             For Debian :
                 - update-rc.d a2b-callback-daemon defaults 40 60
@@ -377,12 +377,12 @@ A2BILLING INSTALLATION GUIDE
         a2billing_monitoring.php provides access to an IVR where monitoring tasks can be
         configured via the new Monitoring Menu under Maintenance.
 
-        SQL queries can be performed and shell scripts can be invoked. 
+        SQL queries can be performed and shell scripts can be invoked.
         Place your scripts under /var/lib/a2billing/script/
 
     2.11. Step 11: Security features via IVR (Monitor account and locking calling card)
 
-        Two new IVR menus are now available via the main a2billing.php AGI. The menus 
+        Two new IVR menus are now available via the main a2billing.php AGI. The menus
         needs to be enabled setting the variables in the agi-conf menu (GUI system settings)
 
         Locking Options IVR menu
@@ -391,11 +391,11 @@ A2BILLING INSTALLATION GUIDE
 
         Monitoring your Calling Card IVR menu
         ivr_enable_account_information = true (default: false)
-   
+
 
 3. Support
 ----------
 
-    Star2Billing S.L. offers consultancy including installation, training and customisation 
+    Star2Billing S.L. offers consultancy including installation, training and customisation
 
     Please email us at sales@star2billing.com for more information

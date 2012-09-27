@@ -624,8 +624,8 @@ interface wherever they are currently displayed.
 
 The copyright footer must contain the following elements.
 
-A2Billing is software licensed under the AGPL 3 
-Copyright (C) 2004-2011 - Star2billing S.L. http://www.star2billing.com/
+A2Billing is software licensed under the AGPL 3
+Copyright (C) 2004-2012 - Star2billing S.L. http://www.star2billing.com/
 
 If, for any reason, there is a requirement to remove the display of legal
 notices on the graphical user interface, then a “Permission” can be obtained for
@@ -645,4 +645,3 @@ without specific, written prior permission.
 
                      END OF TERMS AND CONDITIONS
 
-  
