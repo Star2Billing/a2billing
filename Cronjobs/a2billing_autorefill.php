@@ -89,7 +89,7 @@ if (!$A2B->DbConnect()) {
 $instance_table = new Table();
 
 // CHECK NUMBER OF CARD
-$QUERY = 'SELECT count(*) FROM cc_card WHERE autorefill=1 AND initialbalance>0 AND credit<initialbalance';
+$QUERY = 'SELECT count(*) FROM cc_card WHERE autorefill=1 AND ((typepaid=0 AND initialbalance>0 AND credit<initialbalance) OR (typepaid=1))';
 
 $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY);
 $nb_card = $result[0][0];
@@ -120,7 +120,7 @@ write_log(LOGFILE_CRONT_AUTOREFILL, basename(__FILE__) . ' line:' . __LINE__ . "
 // BROWSE THROUGH THE CARD TO APPLY THE AUTO REFILL
 for ($page = 0; $page < $nbpagemax; $page++) {
 
-    $sql = "SELECT id, username, credit, initialbalance, initialbalance-credit as refillof FROM cc_card WHERE autorefill=1 AND initialbalance>0 AND credit<initialbalance ORDER BY id ";
+    $sql = "SELECT id, username, credit, initialbalance, initialbalance-credit as refillof FROM cc_card WHERE autorefill=1 AND ((typepaid=0 AND initialbalance>0 AND credit<initialbalance) OR (typepaid=1)) ORDER BY id ";
     if ($A2B->config["database"]['dbtype'] == "postgres") {
         $sql .= " LIMIT $groupcard OFFSET " . $page * $groupcard;
     } else {
