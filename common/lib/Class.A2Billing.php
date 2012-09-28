@@ -1008,7 +1008,7 @@ class A2Billing
             // LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
             $resfindrate = $RateEngine->rate_engine_findrates($this, $this->destination, $this->tariff);
             if ($resfindrate == 0) {
-                $this->debug(ERROR, $agi, __FILE__, __LINE__, "ERROR ::> RateEngine didnt succeed to match the dialed number over the ratecard (Please check : id the ratecard is well create ; if the removeInter_Prefix is set according to your prefix in the ratecard ; if you hooked the ratecard to the Call Plan)");
+                $this->debug(ERROR, $agi, __FILE__, __LINE__, "ERROR ::> The phone number (". $this->destination .") cannot be dialed by the Rate engine, check that the Ratecard and Call Plan are well configured!");
             } else {
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "OK - RESFINDRATE::> " . $resfindrate);
             }
