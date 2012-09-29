@@ -32,4 +32,4 @@
 **/
 
 -- Update Version
-UPDATE cc_version SET version = '1.10.0-beta';
+UPDATE cc_version SET version = '2.0';
