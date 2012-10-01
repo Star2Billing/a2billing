@@ -6,15 +6,15 @@
 <div id="leftmenu-down">
 <div id="leftmenu-middle">
 
-	
+
 <ul id="nav">
 
 	<div class="toggle_menu"><li><a href="userinfo.php"><strong>{php} echo gettext("ACCOUNT INFO");{/php}</strong></a></li></div>
-	
+
 	{if $ACXVOICEMAIL>0 }
 	<div class="toggle_menu"><li><a href="A2B_entity_voicemail.php"><strong>{php} echo gettext("VOICEMAIL");{/php}</strong></a></li></div>
 	{/if}
-	
+
 	{if $ACXSIP_IAX>0 }
 	<div class="toggle_menu"><li><a href="A2B_entity_sipiax_info.php"><strong>{php} echo gettext("SIP/IAX INFO");{/php}</strong></a></li></div>
 	{/if}
@@ -22,11 +22,11 @@
 	{if $ACXCALL_HISTORY >0 }
 	<div class="toggle_menu"><li><a href="call-history.php"><strong>{php} echo gettext("CALL HISTORY");{/php}</strong></a></li></div>
 	{/if}
-	
+
 	{if $ACXPAYMENT_HISTORY >0 }
 	<div class="toggle_menu"><li><a href="payment-history.php"><strong>{php} echo gettext("PAYMENT HISTORY");{/php}</strong></a></li></div>
 	{/if}
-	
+
 
 	{if $ACXVOUCHER >0 }
 	<div class="toggle_menu"><li><a href="A2B_entity_voucher.php?form_action=list"><strong>{php} echo gettext("VOUCHERS");{/php}</strong></a></li></div>
@@ -48,11 +48,13 @@
 	style="display:none;">
 	{/if}
 	<ul>
-		<li><ul>
+		<li>
+			<ul>
 				<li><a href="A2B_entity_receipt.php?section=5"><strong>{php} echo gettext("View Receipts");{/php}</strong></a></li>
 				<li><a href="A2B_entity_invoice.php?section=5"><strong>{php} echo gettext("View Invoices");{/php}</strong></a></li>
 				<li><a href="A2B_billing_preview.php?section=5"><strong>{php} echo gettext("Preview Next Billing");{/php}</strong></a></li>
-		</ul></li>
+			</ul>
+		</li>
 	</ul>
 	</div>
 	{/if}
@@ -77,7 +79,7 @@
 	{if $ACXCALL_BACK >0 }
 	<div class="toggle_menu"><li><a href="callback.php"><strong>{php} echo gettext("CALLBACK");{/php}</strong></a></li></div>
 	{/if}
-	
+
 	{if $ACXCALLER_ID >0 }
 	<div class="toggle_menu"><li><a href="A2B_entity_callerid.php?atmenu=callerid&stitle=CallerID"><strong>{php} echo gettext("ADD CALLER ID");{/php}</strong></a></li></div>
 	{/if}
@@ -85,15 +87,15 @@
 	{if $ACXPASSWORD>0 }
 	<div class="toggle_menu"><li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit&stitle=Password"><strong>{php} echo gettext("PASSWORD");{/php}</strong></a></li></div>
 	{/if}
-	
+
 	{if $ACXSUPPORT >0 }
 	<div class="toggle_menu"><li><a href="A2B_support.php"><strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li></div>
 	{/if}
-	
+
 	{if $ACXNOTIFICATION >0 }
 	<div class="toggle_menu"><li><a href="A2B_notification.php?form_action=ask-edit"><strong>{php} echo gettext("NOTIFICATION");{/php}</strong></a></li></div>
 	{/if}
-	
+
 	{if $ACXAUTODIALER>0 }
 	<div class="toggle_menu"><li>
 	<a href="javascript:;" class="toggle_menu" target="_self"> <div> <div id="menutitlebutton"> <img id="img10"
@@ -153,21 +155,17 @@
 		<a href="{$PAGE_SELF}?ui_language=indonesian"><img src="templates/{$SKIN_NAME}/images/flags/id.gif" border="0" title="Indonesian" alt="Indonesian"></a>
    </td>
 </tr>
-
-
 </table>
-
-
 </div>
 
 <div id="main-content">
 <br/>
 {else}
-<div>
-{/if}
-{else}
-<div>
+	<div>
 {/if}
 
+{else}
+	<div>
+{/if}
 
 {$MAIN_MSG}
