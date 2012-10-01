@@ -20,13 +20,10 @@
 <!--
 	function test()
 	{
-		if(document.form.pr_login.value=="" || document.form.pr_password.value=="")
-		{
+		if(document.form.pr_login.value=="" || document.form.pr_password.value=="") {
 			alert("You must enter an user and a password!" + document.form.pr_password.value);
 			return false;
-		}
-		else
-		{
+		} else {
 			return true;
 		}
 	}
@@ -38,7 +35,7 @@
 	<form name="form" method="POST" action="userinfo.php" onsubmit="return test()">
 	<input type="hidden" name="done" value="submit_log">
 
-	  	
+
     <div id="login-wrapper" class="login-border-up">
 	<div class="login-border-down">
 	<div class="login-border-center">
@@ -87,7 +84,6 @@
                 </td>
 				<td><input type="submit" name="submit" value="{php} echo gettext("LOGIN");{/php}" class="form_input_button"></td>
 			</tr>
-			
 			</table>
 		</td>
 	</tr>
@@ -96,12 +92,12 @@
     </tr>
 	<tr align="center">
         <td colspan="2"><font class="fontstyle_007">{php} echo gettext("To sign up");{/php} <a href="signup.php">{php} echo gettext("Click here");{/php}</a></font>.</td>
-    </tr>    
+    </tr>
   	</table>
   	</center>
   	</div>
   	</div>
-  	
+
   	<div style="color:#BC2222;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;padding-left:10px;" >
   	{if ($error == 1)}
 		{php} echo gettext("AUTHENTICATION REFUSED : please check your user/password!");{/php}
@@ -114,7 +110,7 @@
     {/if}
     </div>
     <div id="footer_index"><div style=" border: solid 1px #F4F4F4; text-align:center;">{$COPYRIGHT}</div></div>
-    
+
   	</div>
 	</form>
 {literal}
