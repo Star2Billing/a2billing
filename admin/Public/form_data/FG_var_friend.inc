@@ -406,7 +406,7 @@ if ($atmenu=='sip') {
 	                           "size=10 maxlength=7 $DTMFMODE_default",
 	                           "",
 	                           gettext("Insert the dtmfmode"),
-	                           "", "", "", "", "", "",	"", gettext("dtmfmode = RFC2833 | INFO | INBAND | AUTO ( default : RFC2833 )"));
+	                           "", "", "", "", "", "",	"", gettext("dtmfmode = rfc2833 | info | shortinfo | inband | auto ( default : rfc2833 )"));
 	
 	
 	
