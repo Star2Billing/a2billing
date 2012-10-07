@@ -1,31 +1,28 @@
 
+A2Billing (c) AGPL 2003-2012
 
-A2Billing (c) AGPL 2003-2010
+A2Billing is free software written by Areski Belaid <info@asterisk2billing.org>
 
+with contributions from :
 
-A2Billing is free software written by :
-	
-	Areski Belaid <info@asterisk2billing.org>
-	
-	with contributions from :
-	
-		Rachid Belaid <rach@asterisk2billing.org>  
-		Panos Christeas <p_christ@hol.gr>
-		Steve Dommett <steve@st4vs.net>
-		Alberto Escudero-Pascual <aep@it46.se>
-		Louise Berthilson <louise@it46.se>
-		Jonathan Roper <jonathan@asterisk2billing.org>
-		Abdoulaye Siby <asiby@hotmail.com>
-		David Lemstra <david@lemstra.ca>
-		Gavin Henry <ghenry@suretecsystems.com> for the Iridium Payment Module
-		Vinicius from ToFalando (http://www.tofalando.net.br)
+	Rachid Belaid <rach@asterisk2billing.org>
+	Panos Christeas <p_christ@hol.gr>
+	Steve Dommett <steve@st4vs.net>
+	Alberto Escudero-Pascual <aep@it46.se>
+	Louise Berthilson <louise@it46.se>
+	Jonathan Roper <jonathan@asterisk2billing.org>
+	Abdoulaye Siby <asiby@hotmail.com>
+	David Lemstra <david@lemstra.ca>
+	Gavin Henry <ghenry@suretecsystems.com> for the Iridium Payment Module
+	Vinicius from ToFalando (http://www.tofalando.net.br)
+	and other contributors
 
 
 The following third party software is included with the distribution:
 
 	* phpagi 2.14 Copyright 2003, 2004, 2005 Matthew Asham and David Eder
 	* smarty 2.6.26 Copyright 2001-2005 New Digital Group, Inc
-	* jgraph 1.27 Copyright 2001, 2002, 2003, 2004 Johan Persson Aditus Consulting 
+	* jgraph 1.27 Copyright 2001, 2002, 2003, 2004 Johan Persson Aditus Consulting
 	* adodb 4.991 Copyright (c) 2000, 2001, 2002, 2003, 2004 John Lim
 	* famfamfam.com Icons from Mark James
 	* phpconfig (C) 2003 Dave Packham and Rob Birkinshaw
@@ -48,7 +45,3 @@ Translations credit :
 
 
 Thanks to the community!
-
-
-
-
