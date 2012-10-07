@@ -220,18 +220,20 @@ if(empty($transaction_data[0]['vat']) || !is_numeric($transaction_data[0]['vat']
 else $VAT = $transaction_data[0]['vat'];
 $amount_paid = convert_currency($currencies_list, $currAmount, $currCurrency, BASE_CURRENCY);
 $amount_without_vat = $amount_paid / (1+$VAT/100);
+
 //If security verification fails then send an email to administrator as it may be a possible attack on epayment security.
 if ($security_verify == false) {
-        try {
-        //TODO create mail class for agent
+    try {
+        //TODO: create mail class for agent
         $mail = new Mail('epaymentverify',null);
-        } catch (A2bMailException $e) {
-            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO EMAIL TEMPLATE FOUND");
-            exit();
-        }
-        $mail->replaceInEmail(Mail::$TIME_KEY,date("y-m-d H:i:s"));
-        $mail->replaceInEmail(Mail::$PAYMENTGATEWAY_KEY, $transaction_data[0][4]);
-        $mail->replaceInEmail(Mail::$ITEM_AMOUNT_KEY, $amount_paid.$currCurrency);
+    } catch (A2bMailException $e) {
+        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO EMAIL TEMPLATE FOUND");
+        exit();
+    }
+    $mail->replaceInEmail(Mail::$TIME_KEY,date("y-m-d H:i:s"));
+    $mail->replaceInEmail(Mail::$PAYMENTGATEWAY_KEY, $transaction_data[0][4]);
+    $mail->replaceInEmail(Mail::$ITEM_AMOUNT_KEY, $amount_paid.$currCurrency);
+
     // Add Post information / useful to track down payment transaction without having to log
     $mail->AddToMessage("\n\n\n\n"."-POST Var \n".print_r($_POST, true));
     $mail ->send(ADMIN_EMAIL);
@@ -271,11 +273,11 @@ $pmodule = $transaction_data[0][4];
 $orderStatus = $payment_modules->get_OrderStatus();
 
 $Query = "Insert into cc_payments_agent ( agent_id, agent_name, agent_email_address, item_name, item_id, item_quantity, payment_method, cc_type, cc_owner, cc_number, " .
-                                    " cc_expires, orders_status, last_modified, date_purchased, orders_date_finished, orders_amount, currency, currency_value) values (" .
-                                    " '".$transaction_data[0][1]."', '".$customer_info[3]." ".$customer_info[2]."', '".$customer_info["email"]."', 'balance', '".
-                                    $customer_info[0]."', 1, '$pmodule', '".$_SESSION["p_cardtype"]."', '".$transaction_data[0][5]."', '".$transaction_data[0][6]."', '".
-                                    $transaction_data[0][7]."',  $orderStatus, '".$nowDate."', '".$nowDate."', '".$nowDate."',  ".$amount_paid.",  '".$currCurrency."', '".
-                                    $currencyObject->get_value($currCurrency)."' )";
+            " cc_expires, orders_status, last_modified, date_purchased, orders_date_finished, orders_amount, currency, currency_value) values (" .
+            " '".$transaction_data[0][1]."', '".$customer_info[3]." ".$customer_info[2]."', '".$customer_info["email"]."', 'balance', '".
+            $customer_info[0]."', 1, '$pmodule', '".$_SESSION["p_cardtype"]."', '".$transaction_data[0][5]."', '".$transaction_data[0][6]."', '".
+            $transaction_data[0][7]."',  $orderStatus, '".$nowDate."', '".$nowDate."', '".$nowDate."',  ".$amount_paid.",  '".$currCurrency."', '".
+            $currencyObject->get_value($currCurrency)."' )";
 $result = $DBHandle_max -> Execute($Query);
 
 //************************UPDATE THE CREDIT IN THE CARD***********************

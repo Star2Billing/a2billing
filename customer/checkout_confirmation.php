@@ -152,32 +152,34 @@ if (is_array($payment_modules->modules)) {
     <td align=right><?php echo gettext("Amount")?>: &nbsp;</td>
     <td align=left>
     <?php
-     echo round($amount,2)." ".strtoupper(BASE_CURRENCY);
-     if ($two_currency) {
-                    echo " - ".round($amount/$mycur,2)." ".strtoupper($_SESSION['currency']);
-     }
-     ?> </td>
+        echo round($amount,2)." ".strtoupper(BASE_CURRENCY);
+        if ($two_currency) {
+            echo " - ".round($amount/$mycur,2)." ".strtoupper($_SESSION['currency']);
+        }
+    ?>
+    </td>
 </tr>
 <tr>
     <td align=right><?php echo gettext("VAT")."(".$vat."%)"?>: &nbsp;</td>
     <td align=left>
     <?php
-     echo round($vat_amount,2)." ".strtoupper(BASE_CURRENCY);
-     if ($two_currency) {
-                    echo " - ".round($vat_amount/$mycur,2)." ".strtoupper($_SESSION['currency']);
-     }
-     ?> </td>
+    echo round($vat_amount,2)." ".strtoupper(BASE_CURRENCY);
+    if ($two_currency) {
+        echo " - ".round($vat_amount/$mycur,2)." ".strtoupper($_SESSION['currency']);
+    }
+    ?> </td>
 </tr>
 <?php } ?>
 <tr>
     <td align=right><?php echo gettext("Total Amount Incl. VAT")?>: &nbsp;</td>
     <td align=left>
     <?php
-     echo round($total_amount,2)." ".strtoupper(BASE_CURRENCY);
-     if ($two_currency) {
-                    echo " - ".round($total_amount/$mycur,2)." ".strtoupper($_SESSION['currency']);
-     }
-     ?> </td>
+        echo round($total_amount,2)." ".strtoupper(BASE_CURRENCY);
+        if ($two_currency) {
+            echo " - ".round($total_amount/$mycur,2)." ".strtoupper($_SESSION['currency']);
+        }
+    ?>
+    </td>
 </tr>
 <tr>
     <td>&nbsp;</td>
@@ -186,13 +188,13 @@ if (is_array($payment_modules->modules)) {
 </table>
 <br>
 <table class="infoBox" width="80%" cellspacing="0" cellpadding="2" align=center>
-   <tr height="25">
-   <td  align=left class="main"> <b><?php echo gettext("Please click button to confirm your order")?>.</b>
-   </td>
-          <td align=right halign=center >
-            <input type="image" src="<?php echo Images_Path;?>/button_confirm_order.gif" alt="Confirm Order" border="0" title="Confirm Order">
-             &nbsp;</td>
-          </tr>
+    <tr height="25">
+        <td  align=left class="main"> <b><?php echo gettext("Please click button to confirm your order")?>.</b>
+        </td>
+        <td align=right halign=center>
+        <input type="image" src="<?php echo Images_Path;?>/button_confirm_order.gif" alt="Confirm Order" border="0" title="Confirm Order">
+        &nbsp;</td>
+    </tr>
 </table>
 </form>
 </center>
