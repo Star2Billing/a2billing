@@ -138,9 +138,9 @@ class iridium {
             'field' => tep_draw_input_field('CV2','',"SIZE=4, MAXLENGTH=4"))
 
          ));
-     return $selection;
-    /*
-     array ('title' => MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_DOB,
+        return $selection;
+        /*
+         array ('title' => MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_DOB,
                                 'field' => tep_draw_pull_down_menu('DOB_day', $dom) . '&nbsp;' .
                                 tep_draw_pull_down_menu('DOB_month', $expires_month) . '&nbsp;' .
                                 tep_draw_pull_down_menu('DOB_year', $dob_year)), */
@@ -149,24 +149,20 @@ class iridium {
 
 
     function pre_confirmation_check() {
-    global $_POST, $cvv;
-
+        global $_POST, $cvv;
         //include(dirname(__FILE__).'/../classes/cc_validation.php');
         //$cc_validation = new cc_validation();
-    $cardNo = $_POST['CardNumber'];
+        $cardNo = $_POST['CardNumber'];
         //$result = $cc_validation->validate($cardNo, $_POST['ExpiryDateMonth'], $_POST['ExpiryDateYear'], $_POST['CV2'], '');
-    $result = true;
-
+        $result = true;
         $error = '';
-    $ccErrors [0] = "Credit card number has invalid format";
-    $ccErrors [1] = "Credit card number is invalid";
-
-    if (!preg_match('/^[0-9]{13,19}$/i',$cardNo))  {
+        $ccErrors [0] = "Credit card number has invalid format";
+        $ccErrors [1] = "Credit card number is invalid";
+        if (!preg_match('/^[0-9]{13,19}$/i',$cardNo))  {
             $errornumber = 0;
             $error = $ccErrors [$errornumber];
             $result = false;
-    }
-
+        }
         $checksum = 0;
         $j = 1;
         for ($i = strlen($cardNo) - 1; $i >= 0; $i--) {
@@ -184,13 +180,12 @@ class iridium {
             $result = false;
         }
 
-    if ( ($result == false) ) {
-        $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&CardName=' . urlencode($_POST['CardName']) . '&ExpiryDateMonth=' . $_POST['ExpiryDateMonth'] . '&ExpiryDateYear=' . $_POST['ExpiryDateYear'];
-        $payment_error_return .= '&amount=' . $_POST['amount'].'&item_name=' . $_POST['item_name'].'&item_number=' . $_POST['item_number'];
-        $payment_error_return .= '&item_id='.$_POST['item_id'].'&item_type='.$_POST['item_type'];
-        //tep_redirect(tep_href_link("checkout_payment.php", $payment_error_return, 'SSL', true, false));
-
-      }
+        if ( ($result == false) ) {
+            $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&CardName=' . urlencode($_POST['CardName']) . '&ExpiryDateMonth=' . $_POST['ExpiryDateMonth'] . '&ExpiryDateYear=' . $_POST['ExpiryDateYear'];
+            $payment_error_return .= '&amount=' . $_POST['amount'].'&item_name=' . $_POST['item_name'].'&item_number=' . $_POST['item_number'];
+            $payment_error_return .= '&item_id='.$_POST['item_id'].'&item_type='.$_POST['item_type'];
+            //tep_redirect(tep_href_link("checkout_payment.php", $payment_error_return, 'SSL', true, false));
+        }
         return false;
     }
 
@@ -440,53 +435,33 @@ class iridium {
                 break;
 
             case 5:
-
                 // status code of 5 - means transaction declined
-
-
                 $Message=$goGatewayOutput->getMessage();
                 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__.$Message );
                 $TransactionSuccessful = -2;
-
                 break;
-
             case 20:
-
                 // status code of 20 - means duplicate transaction
-
                 $Message = $goGatewayOutput->getMessage();
                 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__.$Message );
 
                 if ($goGatewayOutput->getPreviousTransactionResult()->getStatusCode()->getValue() == 0)
-
                 {
-
                     $TransactionSuccessful = 2;
-
                 }
-
                 else
-
                 {
-
                     $TransactionSuccessful = -2;
-
                 }
-
                 $PreviousTransactionMessage = $goGatewayOutput->getPreviousTransactionResult()->getMessage();
                 $DuplicateTransaction = true;
                 break;
 
             case 30:
-
                 // status code of 30 - means an error occurred
-
                 $Message = $goGatewayOutput->getMessage();
-
                 if ($goGatewayOutput->getErrorMessages()->getCount() > 0)
-
                 {
-
                     $Message = $Message."<br /><ul>";
 
 
@@ -545,41 +520,40 @@ class iridium {
         $amount = number_format($order->info['total'], 2, '.', '') * 100;
         $ip = isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
         $process_button_string = tep_draw_hidden_field('MerchantID', MODULE_PAYMENT_IRIDIUM_MERCHANTID) .
-               tep_draw_hidden_field('Password', MODULE_PAYMENT_IRIDIUM_PASSWORD) .
-               tep_draw_hidden_field('PaymentProcessorDomain', MODULE_PAYMENT_IRIDIUM_GATEWAY) .
-               tep_draw_hidden_field('PaymentProcessorPort', MODULE_PAYMENT_IRIDIUM_GATEWAY_PORT) .
-               tep_draw_hidden_field('Amount', $amount) .
-               tep_draw_hidden_field('CardName', $_POST['CardName']) .
-               tep_draw_hidden_field('CardNumber', $_POST['CardNumber']) .
-               tep_draw_hidden_field('IssueNumber', $_POST['IssueNumber']) .
-                   tep_draw_hidden_field('CV2', $_POST['CV2']) .
-                   tep_draw_hidden_field('CurrencyISOCode', $this->get_CurrentCurrency()) .
-                   tep_draw_hidden_field('transactionID', $transactionID) .
-                   tep_draw_hidden_field('sess_id', tep_session_id()) .
-               tep_draw_hidden_field('ExpiryDateMonth', $_POST['ExpiryDateMonth']) .
-               tep_draw_hidden_field('ExpiryDateYear', $_POST['ExpiryDateYear']) .
-               tep_draw_hidden_field('StartDateMonth', $_POST['StartDateMonth']) .
-               tep_draw_hidden_field('StartDateYear', $_POST['StartDateYear']) .
-                           tep_draw_hidden_field('OrderID', $transactionID) .
-                           tep_draw_hidden_field('Address1', $_POST['Addr1']) .
-                           tep_draw_hidden_field('City', $_POST['City']) .
-                           tep_draw_hidden_field('State', $_POST['State']) .
-                           tep_draw_hidden_field('PostCode', $_POST['PostCode']).
-                           tep_draw_hidden_field('CountryISOCode', $_POST['Country']).
-                           tep_draw_hidden_field('EmailID', $order->billing['email'] ? $order->billing['email']:ADMIN_EMAIL).
-                           tep_draw_hidden_field('Phone', $_POST['Telephone']).
-                           tep_draw_hidden_field('IPAddress', $ip).
-               tep_draw_hidden_field('transactionID', $transactionID).
-                           tep_draw_hidden_field('key', $key).
-                           tep_draw_hidden_field('sess_id', tep_session_id()).
-               tep_draw_hidden_field('return_url', tep_href_link("userinfo.php", '', 'SSL'));
-                           //tep_draw_hidden_field('cancel_url', tep_href_link("checkout_payment.php", '', 'SSL'));
-
-                               //tep_draw_hidden_field('CountryISOCode', $order->billing['country']);
+                                    tep_draw_hidden_field('Password', MODULE_PAYMENT_IRIDIUM_PASSWORD) .
+                                    tep_draw_hidden_field('PaymentProcessorDomain', MODULE_PAYMENT_IRIDIUM_GATEWAY) .
+                                    tep_draw_hidden_field('PaymentProcessorPort', MODULE_PAYMENT_IRIDIUM_GATEWAY_PORT) .
+                                    tep_draw_hidden_field('Amount', $amount) .
+                                    tep_draw_hidden_field('CardName', $_POST['CardName']) .
+                                    tep_draw_hidden_field('CardNumber', $_POST['CardNumber']) .
+                                    tep_draw_hidden_field('IssueNumber', $_POST['IssueNumber']) .
+                                    tep_draw_hidden_field('CV2', $_POST['CV2']) .
+                                    tep_draw_hidden_field('CurrencyISOCode', $this->get_CurrentCurrency()) .
+                                    tep_draw_hidden_field('transactionID', $transactionID) .
+                                    tep_draw_hidden_field('sess_id', tep_session_id()) .
+                                    tep_draw_hidden_field('ExpiryDateMonth', $_POST['ExpiryDateMonth']) .
+                                    tep_draw_hidden_field('ExpiryDateYear', $_POST['ExpiryDateYear']) .
+                                    tep_draw_hidden_field('StartDateMonth', $_POST['StartDateMonth']) .
+                                    tep_draw_hidden_field('StartDateYear', $_POST['StartDateYear']) .
+                                    tep_draw_hidden_field('OrderID', $transactionID) .
+                                    tep_draw_hidden_field('Address1', $_POST['Addr1']) .
+                                    tep_draw_hidden_field('City', $_POST['City']) .
+                                    tep_draw_hidden_field('State', $_POST['State']) .
+                                    tep_draw_hidden_field('PostCode', $_POST['PostCode']).
+                                    tep_draw_hidden_field('CountryISOCode', $_POST['Country']).
+                                    tep_draw_hidden_field('EmailID', $order->billing['email'] ? $order->billing['email']:ADMIN_EMAIL).
+                                    tep_draw_hidden_field('Phone', $_POST['Telephone']).
+                                    tep_draw_hidden_field('IPAddress', $ip).
+                                    tep_draw_hidden_field('transactionID', $transactionID).
+                                    tep_draw_hidden_field('key', $key).
+                                    tep_draw_hidden_field('sess_id', tep_session_id()).
+                                    tep_draw_hidden_field('return_url', tep_href_link("userinfo.php", '', 'SSL'));
+                                    //tep_draw_hidden_field('cancel_url', tep_href_link("checkout_payment.php", '', 'SSL'));
+                                    //tep_draw_hidden_field('CountryISOCode', $order->billing['country']);
 
         $process_button_string .= tep_draw_hidden_field(tep_session_name(), tep_session_id());
 
-      return $process_button_string;
+        return $process_button_string;
     }
 
     function before_process()
@@ -599,50 +573,49 @@ class iridium {
     $status = $this->process_payment();
 
         //echo '<a href="userinfo.php">Return to merchant</a>';
-    //$payment_return = 'errcode='. urlencode($status);
-    switch($status)
-        {
-          case -2:
-                        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR TRANSACTION FAILED");
-            echo gettext("We are sorry your transaction is failed. Please try later or check your provided information.");
-          break;
-          case -1:
-                        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR TRANSACTION DENIED");
-            echo gettext("We are sorry your transaction is denied. Please try later or check your provided information.");
-          break;
-          case 0:
-                        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR TRANSACTION PENDING");
-            return $status;
-                    //echo gettext("We are sorry your transaction is pending.");
-          break;
-          case 1:
-                        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR TRANSACTION INPROGRESS");
-            echo gettext("Your transaction is in progress.");
-          break;
-          case 2:
-                        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." TRANSACTION SUCCESSFUL");
-            echo gettext("Your transaction was successful.");
-          break;
-      }
-      $link = tep_href_link("userinfo.php","", 'SSL', false, false);
-      echo "<br><br>";
-      echo "<a href=\"$link\">Return to Account</a>";
-      return $status;
+        //$payment_return = 'errcode='. urlencode($status);
+        switch($status)
+            {
+            case -2:
+                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR TRANSACTION FAILED");
+                echo gettext("We are sorry your transaction is failed. Please try later or check your provided information.");
+                break;
+            case -1:
+                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR TRANSACTION DENIED");
+                echo gettext("We are sorry your transaction is denied. Please try later or check your provided information.");
+                break;
+            case 0:
+                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR TRANSACTION PENDING");
+                return $status;
+                //echo gettext("We are sorry your transaction is pending.");
+                break;
+            case 1:
+                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR TRANSACTION INPROGRESS");
+                echo gettext("Your transaction is in progress.");
+                break;
+            case 2:
+                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." TRANSACTION SUCCESSFUL");
+                echo gettext("Your transaction was successful.");
+                break;
+            }
+        $link = tep_href_link("userinfo.php","", 'SSL', false, false);
+        echo "<br><br>";
+        echo "<a href=\"$link\">Return to Account</a>";
+        return $status;
     }
 
     function after_process() {
+        /*$payment_return = 'errcode = '.$this->status;
+        tep_redirect(tep_href_link("checkout_success.php", $payment_return, 'SSL', true, false)); */
 
-      /*$payment_return = 'errcode = '.$this->status;
-      tep_redirect(tep_href_link("checkout_success.php", $payment_return, 'SSL', true, false)); */
-
-      return false;
+        return false;
     }
 
     function get_error() {
-      global $_GET;
-      $error = array('title' => MODULE_PAYMENT_IRIDIUM_TEXT_ERROR,
-                     'error' => stripslashes(urldecode($_GET['error'])));
-      return $error;
+        global $_GET;
+        $error = array('title' => MODULE_PAYMENT_IRIDIUM_TEXT_ERROR,
+        'error' => stripslashes(urldecode($_GET['error'])));
+        return $error;
     }
 
     function check() {
