@@ -205,16 +205,12 @@ switch ($transaction_data[0][4]) {
         curl_setopt($pnp_ch, CURLOPT_POSTFIELDS, $http_query);
         #curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);  // Upon problem, uncomment for additional Windows 2003 compatibility
 
-        // perform ssl post
+        // perform SSL post
         $pnp_result_page = curl_exec($pnp_ch);
-        parse_str( $pnp_result_page, $pnp_transaction_array );
+        parse_str($pnp_result_page, $pnp_transaction_array);
 
         write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- PlugNPay Result : \n\n".print_r($pnp_transaction_array, true));
         write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- RESULT : ".$pnp_transaction_array['FinalStatus']);
-
-        // $pnp_transaction_array['FinalStatus'] = 'badcard';
-        //echo "<pre>".print_r ($pnp_transaction_array, true)."</pre>";
-
         $transaction_detail = serialize($pnp_transaction_array);
         break;
 
@@ -228,10 +224,11 @@ switch ($transaction_data[0][4]) {
         exit();
 }
 
-if(empty($transaction_data[0]['vat']) || !is_numeric($transaction_data[0]['vat']))
-    $VAT =0;
-else
+if(empty($transaction_data[0]['vat']) || !is_numeric($transaction_data[0]['vat'])){
+    $VAT = 0;
+} else {
     $VAT = $transaction_data[0]['vat'];
+}
 
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."curr amount $currAmount $currCurrency ".BASE_CURRENCY);
 $amount_paid = convert_currency($currencies_list, $currAmount, $currCurrency, BASE_CURRENCY);
@@ -253,8 +250,7 @@ if ($security_verify == false) {
     // Add Post information / useful to track down payment transaction without having to log
     $mail->AddToMessage("\n\n\n\n"."-POST Var \n".print_r($_POST, true));
     $mail->send(ADMIN_EMAIL);
-
-    exit;
+    exit();
 }
 
 $newkey = securitykey(EPAYMENT_TRANSACTION_KEY, $transaction_data[0][8]."^".$transactionID."^".$transaction_data[0][2]."^".$transaction_data[0][1]."^".$item_id."^".$item_type);
