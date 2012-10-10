@@ -406,7 +406,7 @@ if ($atmenu=='sip') {
 	                           "size=10 maxlength=7 $DTMFMODE_default",
 	                           "",
 	                           gettext("Insert the dtmfmode"),
-	                           "", "", "", "", "", "",	"", gettext("dtmfmode = RFC2833 | INFO | INBAND | AUTO ( default : RFC2833 )"));
+	                           "", "", "", "", "", "",	"", gettext("dtmfmode = rfc2833 | info | shortinfo | inband | auto ( default : rfc2833 )"));
 	
 	
 	
@@ -883,7 +883,7 @@ if ($atmenu=='sip') {
 							   "", "", "",	"", "", "",	"", "" );
 
 	
-	$HD_Form -> AddEditElement (gettext("REQUITE CALL TOKEN"),
+	$HD_Form -> AddEditElement (gettext("REQUIRE CALL TOKEN"),
 							   "requirecalltoken",		
 							   '',	
 							   "INPUT",	

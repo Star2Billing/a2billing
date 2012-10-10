@@ -472,7 +472,7 @@ function display_2bill($var, $currency = BASE_CURRENCY)
     if ((!isset ($currencies_list)) || (!is_array($currencies_list)))
         $currencies_list = get_currencies();
     $var = $var / $currencies_list[strtoupper($currency)][2];
-    echo number_format($var, 3) . ' ' . strtoupper($currency);
+    echo number_format($var, 4) . ' ' . strtoupper($currency);
 }
 
 function remove_prefix($phonenumber)
