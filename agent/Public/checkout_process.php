@@ -72,6 +72,7 @@ if (DB_TYPE == "postgres") {
 // Status - New 0 ; Proceed 1 ; In Process 2
 $QUERY = "SELECT id, agent_id, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, status, cvv, credit_card_type, currency FROM cc_epayment_log_agent WHERE id = ".$transactionID." AND (status = 0 OR (status = 2 AND $NOW_2MIN))";
 $transaction_data = $paymentTable->SQLExec ($DBHandle_max, $QUERY);
+$amount = $transaction_data[0][2];
 
 //Update the Transaction Status to 1
 $QUERY = "UPDATE cc_epayment_log_agent SET status = 2 WHERE id = ".$transactionID;
@@ -106,6 +107,13 @@ switch ($transaction_data[0][4]) {
         $req = 'cmd=_notify-validate';
         foreach ($_POST as $vkey => $Value) {
             $req .= "&" . $vkey . "=" . urlencode ($Value);
+        }
+
+        // Check amount is correct
+        if (intval($amount) != intval($_POST['mc_gross'])){
+            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." -Amount Paypal is not matching");
+            $security_verify = false;
+            sleep(3);
         }
 
         $header .= "POST /cgi-bin/webscr HTTP/1.0\r\n";

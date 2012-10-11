@@ -204,7 +204,7 @@ SetLocalLanguage();
 
 // Open menu
 if (!empty($section)) {
-    $_SESSION["menu_section"] = $section;
+    $_SESSION["menu_section"] = intval($section);
 }
 
 getpost_ifset(array('cssname'));

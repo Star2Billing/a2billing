@@ -76,6 +76,7 @@ $QUERY = "SELECT id, cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc
 $transaction_data = $paymentTable->SQLExec ($DBHandle_max, $QUERY);
 
 $item_id = $transaction_data[0][13];
+$amount = $transaction_data[0][2];
 $item_type = $transaction_data[0][14];
 
 //Update the Transaction Status to 1
@@ -110,6 +111,13 @@ switch ($transaction_data[0][4]) {
         $req = 'cmd=_notify-validate';
         foreach ($_POST as $vkey => $Value) {
             $req .= "&" . $vkey . "=" . urlencode ($Value);
+        }
+
+        // Check amount is correct
+        if (intval($amount) != intval($_POST['mc_gross'])){
+            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." -Amount Paypal is not matching");
+            $security_verify = false;
+            sleep(3);
         }
 
         // Headers PayPal system to validate
@@ -224,7 +232,7 @@ switch ($transaction_data[0][4]) {
         exit();
 }
 
-if(empty($transaction_data[0]['vat']) || !is_numeric($transaction_data[0]['vat'])){
+if (empty($transaction_data[0]['vat']) || !is_numeric($transaction_data[0]['vat'])){
     $VAT = 0;
 } else {
     $VAT = $transaction_data[0]['vat'];
@@ -238,7 +246,7 @@ $amount_without_vat = $amount_paid / (1+$VAT/100);
 if ($security_verify == false) {
     try {
         //TODO create mail class for agent
-        $mail = new Mail('epaymentverify',$id);
+        $mail = new Mail('epaymentverify', $id);
     } catch (A2bMailException $e) {
         write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO EMAIL TEMPLATE FOUND");
         exit();

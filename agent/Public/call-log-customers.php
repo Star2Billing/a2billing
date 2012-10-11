@@ -1315,24 +1315,6 @@ if (is_array ( $list_total_day ) && count ( $list_total_day ) > 0) {
 </table>
 
 <br>
-<!-- SECTION EXPORT //--> &nbsp; &nbsp; <a
-    href="export_csv.php?var_export=<?php
-    echo $FG_EXPORT_SESSION_VAR?>&var_export_type=type_csv"
-    target="_blank"><img src="<?php
-    echo Images_Path;
-    ?>/excel.gif"
-    border="0" height="30" /><?php
-    echo gettext ( "Export CSV" );
-    ?></a> -
-&nbsp; &nbsp; <a
-    href="export_csv.php?var_export=<?php
-    echo $FG_EXPORT_SESSION_VAR?>&var_export_type=type_xml"
-    target="_blank"><img src="<?php
-    echo Images_Path;
-    ?>/icons_xml.gif"
-    border="0" height="32" /><?php
-    echo gettext ( "Export XML" );
-    ?></a>
 
 <?php
 } else {

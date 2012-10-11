@@ -179,7 +179,7 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td><?php echo tep_draw_separator('clear.gif', '10', '1'); ?></td>
-                <td class="main" width="100%" valign="top"><?php echo tep_output_string($error['error']); ?></td>
+                <td class="main" width="100%" valign="top"><?php echo tep_output_string_protected($error['error']); ?></td>
                 <td><?php echo tep_draw_separator('clear.gif', '10', '1'); ?></td>
               </tr>
             </table></td>

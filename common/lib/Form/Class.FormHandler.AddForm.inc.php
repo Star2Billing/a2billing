@@ -9,8 +9,18 @@ $processed = $this->getProcessed();
     <FORM action=<?php echo $_SERVER['PHP_SELF']; ?> id="myForm" method="post" name="myForm">
 
     <TABLE cellspacing="2" class="addform_table1">
-          <INPUT type="hidden" name="form_action" value="add">
-          <INPUT type="hidden" name="wh" value="<?php echo $wh; ?>">
+        <INPUT type="hidden" name="form_action" value="add">
+        <INPUT type="hidden" name="wh" value="<?php echo $wh; ?>">
+
+        <?php
+          if ($this->FG_CSRF_STATUS == true) {
+        ?>
+          <INPUT type="hidden" name="<?php echo $this->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $this->FG_FORM_UNIQID; ?>" />
+          <INPUT type="hidden" name="<?php echo $this->FG_CSRF_FIELD ?>" value="<?php echo $this->FG_CSRF_TOKEN; ?>" />
+        <?php
+          }
+        ?>
+
     <?php
     if (!empty($this->FG_QUERY_ADITION_HIDDEN_FIELDS)) {
         $split_hidden_fields = preg_split("/,/",trim($this->FG_QUERY_ADITION_HIDDEN_FIELDS));
