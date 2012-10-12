@@ -170,11 +170,10 @@ $.getJSON("modules/calls_lastmonth.php", { type: this.id , view_type : period_va
                 var graph_max = data.max;
                 var graph_data = new Array();
                 for (i = 0; i < data.data.length; i++) {
-                graph_data[i] = new Array();
-                graph_data[i][0]= parseInt(data.data[i][0]);
-                graph_data[i][1]= data.data[i][1]
-                 }
-                alert(graph_data);
+                    graph_data[i] = new Array();
+                    graph_data[i][0]= parseInt(data.data[i][0]);
+                    graph_data[i][1]= data.data[i][1]
+                }
                 format = data.format;
                 plot_graph_calls(graph_data,graph_max);
              });
