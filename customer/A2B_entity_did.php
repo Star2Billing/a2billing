@@ -62,7 +62,17 @@ if (isset ($mydisplaylimit) && (is_numeric($mydisplaylimit) || ($mydisplaylimit 
 if (isset ($choose_did_rate) && strlen($choose_did_rate) != 0) {
     $did_rate = explode("CUR", $choose_did_rate);
     $choose_did = $did_rate[0];
-    $rate = $did_rate[1];
+
+    // LIST FREE DID TO ADD PHONENUMBER
+    $instance_table_did = new Table("cc_did", "DISTINCT cc_did.id, did, fixrate, connection_charge, selling_rate, aleg_retail_connect_charge, aleg_retail_cost_min");
+    $FG_TABLE_CLAUSE = "id_cc_country=$choose_country and id_cc_didgroup='" . $_SESSION["id_didgroup"] . "' AND reserved=0 AND cc_did.id='" . $choose_did . "'";
+    $list_did = $instance_table_did->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "did", "ASC", null, null, null, null);
+    if ($list_did){
+        $choose_did = $list_did[0][0];
+        $rate = $list_did[0][2];
+    } else {
+        exit();
+    }
 }
 
 $QUERY = "SELECT credit, creditlimit, typepaid FROM cc_card	WHERE username = '" . $_SESSION["pr_login"] . "' AND uipass = '" . $_SESSION["pr_password"] . "'";

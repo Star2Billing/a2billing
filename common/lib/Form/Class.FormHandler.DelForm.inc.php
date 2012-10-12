@@ -38,6 +38,15 @@ if ($this->FG_FK_DELETE_CONFIRM && $form_action == "ask-del-confirm" && $this-> 
 	<INPUT type="hidden" name="current_page" value="<?php echo $processed['current_page'];?>">
 	<INPUT type="hidden" name="order" value="<?php echo $processed['order'];?>">
 	<INPUT type="hidden" name="sens" value="<?php echo $processed['sens'];?>">
+    <?php
+        if ($this->FG_CSRF_STATUS == true) {
+    ?>
+        <input type="hidden" name="<?php echo $this->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $this->FG_FORM_UNIQID; ?>" />
+        <input type="hidden" name="<?php echo $this->FG_CSRF_FIELD ?>" value="<?php echo $this->FG_CSRF_TOKEN; ?>" />
+    <?php
+        }
+    ?>
+
 	<table cellspacing="2"  class="tablestyle_001">
     <tr>
         <td>
@@ -115,7 +124,7 @@ else
 			<TD valign="top" class="tablestyle_001">
 				<?php
 					if ($this->FG_DEBUG == 1) print($this->FG_TABLE_EDITION[$i][3]);
-					$arr_input = array("INPUT", "POPUPVALUE", "POPUPVALUETIME", "POPUPDATETIME");					
+					$arr_input = array("INPUT", "POPUPVALUE", "POPUPVALUETIME", "POPUPDATETIME");
 					if (in_array(strtoupper ($this->FG_TABLE_EDITION[$i][3]), $arr_input)){
 				?>
 					<INPUT class="form_enter" readonly name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php echo stripslashes($list[0][$i])?>">
@@ -162,30 +171,30 @@ else
 						}//END_IF
 						?>
 					</SELECT>
-				 <?php   
+				 <?php
 					}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("RADIOBUTTON")){
 						$radio_table = preg_split("/,/",trim($this->FG_TABLE_EDITION[$i][10]));
 						foreach ($radio_table as $radio_instance){
 							$radio_composant = preg_split("/:/",$radio_instance);
 							echo $radio_composant[0];
 							echo ' <input class="form_enter" disabled type="radio" name="'.$this->FG_TABLE_EDITION[$i][1].'" value="'.$radio_composant[1].'" ';
-							if($this->VALID_SQL_REG_EXP){ 
-								$know_is_checked = stripslashes($list[0][$i]); 
-							}else{ 
-								$know_is_checked = $processed[$this->FG_TABLE_EDITION[$i][1]];  
+							if($this->VALID_SQL_REG_EXP){
+								$know_is_checked = stripslashes($list[0][$i]);
+							}else{
+								$know_is_checked = $processed[$this->FG_TABLE_EDITION[$i][1]];
 							}
-													
+
 							if ($know_is_checked==$radio_composant[1]){
 								echo "checked";
 							}
 							echo ">";
-													
-						}								
+
+						}
 						//  Yes <input type="radio" name="digitalized" value="t" checked>
 						//  No<input type="radio" name="digitalized" value="f">
-						
-                               		}//END_IF (RADIOBUTTON)  
-							   
+
+                               		}//END_IF (RADIOBUTTON)
+
 		  			?>
 		  	</TD>
 		</TR>
@@ -200,10 +209,10 @@ else
 		<tr>
 		  <td width="50%" class="text_azul"><span class="tableBodyRight"><?php echo $this->FG_BUTTON_DELETION_BOTTOM_TEXT?></span></td>
 		  <td width="50%" align="right" class="text">
-			
+
 				<a href="#" onClick="sendto('delete');"  class="cssbutton_big"><IMG src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif">
 				<?php echo $this->FG_DELETE_PAGE_CONFIRM_BUTTON; ?> </a>
-				
+
 				<!--
 				<INPUT title="<?php echo gettext("Remove this ");?> <?php echo $this->FG_INSTANCE_NAME; ?>" alt="<?php echo gettext("Remove this ");?> <?php echo $this->FG_INSTANCE_NAME; ?>" hspace=2 id=submit22 name=submit22 src="<?php echo Images_Path_Main;?>/btn_Delete_94x20.gif" type="image">
 				-->

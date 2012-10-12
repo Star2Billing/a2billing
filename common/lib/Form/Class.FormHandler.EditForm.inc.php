@@ -1,7 +1,5 @@
 <?php
-
 $processed = $this->getProcessed();
-
 ?>
 
 <script language="JavaScript" src="./javascript/calonlydays.js"></script>
@@ -26,7 +24,6 @@ function sendtolittle(direction)
   document.myForm.submit();
 
 }
-
 //-->
 </script>
 
@@ -41,6 +38,14 @@ function sendtolittle(direction)
         <INPUT type="hidden" name="current_page" value="<?php echo $processed['current_page'];?>">
         <INPUT type="hidden" name="order" value="<?php echo $processed['order'];?>">
         <INPUT type="hidden" name="sens" value="<?php echo $processed['sens'];?>">
+        <?php
+        if ($this->FG_CSRF_STATUS == true) {
+        ?>
+            <input type="hidden" name="<?php echo $this->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $this->FG_FORM_UNIQID; ?>" />
+            <input type="hidden" name="<?php echo $this->FG_CSRF_FIELD ?>" value="<?php echo $this->FG_CSRF_TOKEN; ?>" />
+        <?php
+        }
+        ?>
 
 <?php
     if (!empty($this->FG_QUERY_EDITION_HIDDEN_FIELDS)) {

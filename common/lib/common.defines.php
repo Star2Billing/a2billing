@@ -38,6 +38,7 @@ define ("USER", isset($A2B->config['database']['user'])?$A2B->config['database']
 define ("PASS", isset($A2B->config['database']['password'])?$A2B->config['database']['password']:null);
 define ("DBNAME", isset($A2B->config['database']['dbname'])?$A2B->config['database']['dbname']:null);
 define ("DB_TYPE", isset($A2B->config['database']['dbtype'])?$A2B->config['database']['dbtype']:null);
+define ("CSRF_SALT", isset($A2B->config['csrf']['csrf_token_salt'])?$A2B->config['csrf']['csrf_token_salt']:'YOURSALT');
 
 // SETTINGS FOR SMTP
 define ("SMTP_SERVER", isset($A2B->config['global']['smtp_server'])?$A2B->config['global']['smtp_server']:null);

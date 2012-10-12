@@ -81,7 +81,7 @@ if ($exporttype != "" && $exporttype != "html") {
 getpost_ifset(array('section'));
 
 if (!empty($section)) {
-    $_SESSION["menu_section"] = $section;
+    $_SESSION["menu_section"] = intval($section);
 } else {
     $section = $_SESSION["menu_section"];
 }
