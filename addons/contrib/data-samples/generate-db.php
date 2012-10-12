@@ -244,7 +244,7 @@ for ($i=0;$i<$nb_customer;$i++) {
     $array_card_generated  = gen_card_with_alias("cc_card", 0, 10, $A2B -> DBHandle);
     $card_number = $array_card_generated[0];
     $card_alias = $array_card_generated[1];
-    $pass = MDP_NUMERIC(10);
+    $pass = MDP_NUMERIC(5).MDP_STRING(10).MDP_NUMERIC(5);
     $query = "INSERT INTO cc_card (username, useralias, uipass, id_group, credit, language, tariff, id_didgroup, status, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, lastname, firstname, country, id_timezone, sip_buddy, iax_buddy, inuse, credit_notification, notify_email ) values".
             "('1111', '11111', '1111', '1', '10', 'en', '1', '-1', '-1', '1', 'USD', '0', '0', '0', '0', '0', '2018-09-02 23:21:33', '0', '1', '0', '0', '11111', 'card', 'AFG', '1', '0', '0', '0', '-1', '0'); ";
     $instance_table -> SQLExec ($A2B -> DBHandle, $query);

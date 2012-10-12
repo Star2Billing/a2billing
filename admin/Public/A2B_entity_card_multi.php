@@ -149,7 +149,7 @@ if ($nbcard > 0 && $action == "generate" && $nb_error == 0) {
         $useralias = $arr_card_alias[1];
         if (!is_numeric($addcredit))
             $addcredit = 0;
-        $passui_secret = MDP_NUMERIC(10);
+        $passui_secret = MDP_NUMERIC(5).MDP_STRING(10).MDP_NUMERIC(5);
 
         $FG_ADITION_SECOND_ADD_VALUE = "'$accountnumber', '$useralias', '$addcredit', '$choose_tariff', 't', '$gen_id', '', '', '', '', '', '$id_country', '', '', $choose_simultaccess, '$choose_currency', " .
                     "$choose_typepaid, $creditlimit, $enableexpire, '$expirationdate', $expiredays, '$passui_secret', '$runservice', '$tag', '$id_group', '$discount', '$id_seria', " .

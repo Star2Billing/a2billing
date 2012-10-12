@@ -837,7 +837,7 @@ class SOAP_A2Billing
             $useralias = $arr_card_alias[1];
             if (!is_numeric($balance))
                 $balance = 0;
-            $passui_secret = MDP_NUMERIC(10);
+            $passui_secret = MDP_NUMERIC(5).MDP_STRING(10).MDP_NUMERIC(5);
 
             $FG_ADITION_SECOND_ADD_VALUE = "'$accountnumber', '$useralias', '$balance', '$id_callplan', '$country', '$language', '$activated', ".
                                  " $simultaccess, '$currency', $typepaid, '$passui_secret', '$id_group', '$id_didgroup', $sip_buddy, $iax_buddy";
