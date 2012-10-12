@@ -155,7 +155,7 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
     $_POST['qualify'] = FRIEND_QUALIFY;
     $_POST['host'] = FRIEND_HOST;
     $_POST['dtmfmode'] = FRIEND_DTMFMODE;
-    $_POST['secret'] = MDP_NUMERIC(10);
+    $_POST['secret'] = MDP_NUMERIC(5).MDP_STRING(10).MDP_NUMERIC(5);
 
     // for the getProcessed var
     $HD_Form->_vars = array_merge((array) $_GET, (array) $_POST);

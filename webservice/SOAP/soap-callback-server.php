@@ -134,7 +134,7 @@ class Callback
         $insert_id_callback = 'null';
 
         if (strlen($uniqueid) == 0) {
-            $uniqueid = MDP_STRING(5) . '-' . MDP_NUMERIC(10);
+            $uniqueid = MDP_STRING(5) . '-' . MDP_NUMERIC(5).MDP_STRING(10).MDP_NUMERIC(5);
         }
 
         $FG_regular[] = array ( "^([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})$", "(YYYY-MM-DD HH:MM:SS)" );

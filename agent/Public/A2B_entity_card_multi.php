@@ -147,11 +147,11 @@ if ($nbcard>0 && $action=="generate" && $nb_error==0) {
     $instance_refill_table = new Table("cc_logrefill", $field_insert_refill);
 
     for ($k=0;$k<$nbcard;$k++) {
-         $arr_card_alias = gen_card_with_alias("cc_card", 0, $cardnumberlenght_list);
-         $cardnum = $arr_card_alias[0];
-         $useralias = $arr_card_alias[1];
+        $arr_card_alias = gen_card_with_alias("cc_card", 0, $cardnumberlenght_list);
+        $cardnum = $arr_card_alias[0];
+        $useralias = $arr_card_alias[1];
         $addcredit=0;
-        $passui_secret = MDP_NUMERIC(10);
+        $passui_secret = MDP_NUMERIC(5).MDP_STRING(10).MDP_NUMERIC(5);
         $FG_ADITION_SECOND_ADD_VALUE  = "'$cardnum', '$useralias', '$addcredit', '$choose_tariff', 't', '$gen_id', '', '', '', '', '', '', '', '', $choose_simultaccess, '$choose_currency', $choose_typepaid, $creditlimit, $enableexpire, '$expirationdate', $expiredays, '$passui_secret', '$runservice', '$tag', '$id_group', '$discount', '$id_seria'";
 
         if (DB_TYPE != "postgres") $FG_ADITION_SECOND_ADD_VALUE .= ",now() ";
