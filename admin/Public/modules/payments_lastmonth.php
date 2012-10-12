@@ -199,7 +199,7 @@ function plot_graph_payments(data,max)
     }
  $('#payments_count').click();
 
-   public function showTooltip(x, y, contents)
+   function showTooltip(x, y, contents)
    {
         $('<div id="tooltip">' + contents + '</div>').css( {
             position: 'absolute',

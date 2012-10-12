@@ -45,7 +45,7 @@ $left = array();
 $center = array();
 $right = array();
 
-function put_dislay($position,$title,$links)
+function put_dislay($position, $title, $links)
 {
     global $left;
     global $center;

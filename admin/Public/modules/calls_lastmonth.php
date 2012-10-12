@@ -174,7 +174,7 @@ $.getJSON("modules/calls_lastmonth.php", { type: this.id , view_type : period_va
                 graph_data[i][0]= parseInt(data.data[i][0]);
                 graph_data[i][1]= data.data[i][1]
                  }
-                  //alert(graph_data);
+                alert(graph_data);
                 format = data.format;
                 plot_graph_calls(graph_data,graph_max);
              });
@@ -233,7 +233,7 @@ function plot_graph_calls(data,max)
     }
 
    $('#call_profit').click();
-   public function showTooltip(x, y, contents)
+   function showTooltip(x, y, contents)
    {
         $('<div id="tooltip">' + contents + '</div>').css( {
             position: 'absolute',
@@ -261,9 +261,9 @@ function plot_graph_calls(data,max)
                         var min= Math.floor(y/60)%60;
                         var sec= y%60;
                         showTooltip(item.pageX, item.pageY, hour+"h "+min+"m "+sec+"s<br/>("+y+" sec)");
-                    } elseif (format=="money") {
-                         var y = item.datapoint[1].toFixed(2);
-                         showTooltip(item.pageX, item.pageY, y+" <?php echo $A2B->config["global"]["base_currency"];?>");
+                    } else if (format=="money") {
+                        var y = item.datapoint[1].toFixed(2);
+                        showTooltip(item.pageX, item.pageY, y+" <?php echo $A2B->config["global"]["base_currency"];?>");
                     } else {
                         var y = item.datapoint[1].toFixed(0);
                         showTooltip(item.pageX, item.pageY, y);
