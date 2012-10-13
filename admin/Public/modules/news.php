@@ -64,7 +64,7 @@ foreach ($news as $key => $new) {
 }
 
 ?>
-<center><b><?php echo gettext("Last news"); ?></b></center><br/>
+<center><b><?php echo gettext("Latest news"); ?></b></center><br/>
 <?php
 $i = 0;
 foreach ($news as $new) {
