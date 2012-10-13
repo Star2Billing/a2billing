@@ -41,15 +41,27 @@ if (!has_rights(ACX_DASHBOARD)) {
 }
 
 $DEBUG_MODULE = FALSE;
-getpost_ifset(array (
-    'type','view_type'
-));
+getpost_ifset(array ('type','view_type'));
 
 $news = array();
-$newsWEB = @file_get_contents('http://www.asterisk2billing.org/news.php');
-if ($newsWEB != null) {
-    $newsWEB = (explode('<br />',nl2br($newsWEB)));
-    foreach ($newsWEB as $value) {
+
+// Create a stream
+$opts = array(
+  'http'=>array(
+    'method'=>"GET",
+    'header'=>"Accept-language: en\r\n" .
+              "Cookie: foo=bar\r\n"
+  )
+);
+
+$context = stream_context_create($opts);
+$new_url = 'http://www.asterisk2billing.org/news.php';
+// Open the file using the HTTP headers set above
+$news_content = file_get_contents($new_url, false, $context);
+
+if ($news_content != null) {
+    $news_content = (explode('<br />',nl2br($news_content)));
+    foreach ($news_content as $value) {
             $value = explode('|',$value);
             if(strlen($value[0]) > 1)
                 $news[] = $value;
@@ -63,9 +75,6 @@ foreach ($news as $key => $new) {
     $news[$key][0] = str_replace($link, "<a href={$link}>$link</a>", $new[0]);
 }
 
-?>
-<center><b><?php echo gettext("Latest news"); ?></b></center><br/>
-<?php
 $i = 0;
 foreach ($news as $new) {
     $i++;
@@ -76,4 +85,7 @@ foreach ($news as $new) {
     }
     echo $new[0]."<br/> <div align=\"right\"><i>".$new[1]."</i></div><br/>";
     echo "</div>";
+    if ($i > 5) {
+        break;
+    }
 }
