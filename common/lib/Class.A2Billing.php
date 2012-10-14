@@ -2262,10 +2262,10 @@ class A2Billing
         mt_srand((double) microtime() * 1000000);
         while (strlen($pwd) < $chrs) {
             $chr = chr(mt_rand(0, 255));
-            if (preg_match("/^[0-9]$/i", $chr))
+            if (preg_match("/^[0-9]$/i", $chr)) {
                 $pwd = $pwd . $chr;
+            }
         };
-
         return $pwd;
     }
 
@@ -2627,7 +2627,7 @@ class A2Billing
                         break;
                     }
                     $card_alias = $this->MDP($this->agiconfig['cid_auto_create_card_len']);
-                    $uipass = $this->MDP(5);
+                    $uipass = $this->MDP(10).$this->MDP(5);
                     $ttcard = ($this->agiconfig['cid_auto_create_card_typepaid'] == "POSTPAID") ? 1 : 0;
 
                     //CREATE A CARD

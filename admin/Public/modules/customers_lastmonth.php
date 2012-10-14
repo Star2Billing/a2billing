@@ -121,85 +121,95 @@ if (!empty($type)) {
 <input id="card_firstuse" type="radio" class="update_customers_graph" name="mode_cust" value="FirstUse">&nbsp; <?php echo gettext("Customer First Used"); ?><br/>
 <br/>
 <div id="cust_graph" class="dashgraph" style="margin-left: auto;margin-right: auto;" ></div>
-<script id="source" language="javascript" type="text/javascript">
+
+
+<script type="text/javascript">
+
 $(document).ready(function () {
-var width= Math.min($("#cust_graph").parent("div").width(),$("#cust_graph").parent("div").innerWidth());
-$("#cust_graph").width(width-10);
-$("#cust_graph").height(Math.floor(width/2));
-var period_val="";
-var x_format = "";
-$('.update_customers_graph').click(function () {
-    $.getJSON("modules/customers_lastmonth.php", { type: this.id,view_type : period_val  },
-          function(data){
-                <?php if($DEBUG_MODULE)echo "alert(data.query);alert(data.data);"?>
+    var width= Math.min($("#cust_graph").parent("div").width(),$("#cust_graph").parent("div").innerWidth());
+    $("#cust_graph").width(width-10);
+    $("#cust_graph").height(Math.floor(width/2));
+    var period_val="";
+    var x_format = "";
+    $('.update_customers_graph').click(function () {
+
+        $.getJSON("modules/customers_lastmonth.php", { type: this.id,view_type : period_val  },
+            function(data){
+                <?php if($DEBUG_MODULE) echo "alert(data.query);alert(data.data);"?>
                 var graph_max = data.max;
                 var graph_data = new Array();
                 for (i = 0; i < data.data.length; i++) {
-                graph_data[i] = new Array();
-                graph_data[i][0]= parseInt(data.data[i][0]);
-                graph_data[i][1]= data.data[i][1]
-                 }
+                    graph_data[i] = new Array();
+                    graph_data[i][0]= parseInt(data.data[i][0]);
+                    graph_data[i][1]= data.data[i][1];
+                }
+                //alert(graph_data);
                 plot_graph_cust(graph_data,graph_max);
              });
 
     });
-$('.period_customers_graph').change(function () {
-    period_val = $(this).val();
-    if($(this).val() == "month" ) x_format ="%b";
-    else x_format ="%d-%m";
-    $('.update_customers_graph:checked').click();
-   });
 
-$('#view_customer_day').click();
-$('#view_customer_day').change();
-function plot_graph_cust(data,max)
-{
-    var d= data;
-    var max_data = (max+5-(max%5));
-    var min_month = <?php echo $mingraph_month."000" ?>;
-    var max_month = <?php echo $maxgraph_month."000" ?>;
-    var min_day = <?php echo $mingraph_day."000" ?>;
-    var max_day = <?php echo $maxgraph_day."000" ?>;
-    if (period_val=="month") {
-    var min_graph = min_month;
-    var max_graph = max_month;
-    var bar_width = 28*24 * 60 * 60 * 1000;
-    } else {
-    var min_graph = min_day;
-    var max_graph = max_day;
-    var bar_width = 24 * 60 * 60 * 1000;
-    }
+    $('.period_customers_graph').change(function () {
+        period_val = $(this).val();
+        if($(this).val() == "month" ) x_format ="%b";
+        else x_format ="%d-%m";
+        $('.update_customers_graph:checked').click();
+    });
 
-    $.plot($("#cust_graph"), [
-                {
-                    data: d,
-                    bars: { show: true,
-                        barWidth: bar_width,
-                        align: "centered"
-                    }
+    $('#view_customer_day').click();
+    $('#view_customer_day').change();
+
+    function plot_graph_cust(data,max)
+    {
+        var d = data;
+        var max_data = (max+5-(max%5));
+        var min_month = <?php echo $mingraph_month."000" ?>;
+        var max_month = <?php echo $maxgraph_month."000" ?>;
+        var min_day = <?php echo $mingraph_day."000" ?>;
+        var max_day = <?php echo $maxgraph_day."000" ?>;
+        if (period_val=="month") {
+            var min_graph = min_month;
+            var max_graph = max_month;
+            var bar_width = 28*24 * 60 * 60 * 1000;
+        } else {
+            var min_graph = min_day;
+            var max_graph = max_day;
+            var bar_width = 24 * 60 * 60 * 1000;
+        }
+
+        $.plot($("#cust_graph"), [
+            {
+                data: d,
+                bars: {
+                    show: true,
+                    barWidth: bar_width,
+                    align: "centered"
                 }
-                 ],
-                {   xaxis: {
+            }
+            ],
+            {
+                xaxis: {
                     mode: "time",
                     timeformat: x_format,
                     ticks :6,
                     min : min_graph,
                     max : max_graph
-                  },
-                  yaxis: {
-                  max:max_data,
-                  minTickSize: 1,
-                  tickDecimals:0
-                  },selection: { mode: "y" },
-                 grid: { hoverable: true,clickable: true}
-                  });
-
-    }
+                },
+                yaxis: {
+                    max:max_data,
+                    minTickSize: 1,
+                    tickDecimals:0
+                },selection: {
+                    mode: "y"
+                },
+                grid: { hoverable: true,clickable: true}
+            }
+        );
+    };
 
     $('#card_creation').click();
 
-    public function showTooltip(x, y, contents)
-    {
+    function showTooltip(x, y, contents) {
         $('<div id="tooltip">' + contents + '</div>').css( {
             position: 'absolute',
             display: 'none',

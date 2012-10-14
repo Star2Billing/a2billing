@@ -97,8 +97,8 @@ if (!is_array($transaction_data) && count($transaction_data) == 0) {
 $security_verify = true;
 $transaction_detail = serialize($_POST);
 
-$currencyObject 	= new currencies();
-$currencies_list 	= get_currencies();
+$currencyObject = new currencies();
+$currencies_list = get_currencies();
 switch ($transaction_data[0][4]) {
     case "paypal":
         $currCurrency = $mc_currency;
@@ -140,16 +140,17 @@ switch ($transaction_data[0][4]) {
             exit();
         } else {
             fputs ($fp, $header . $req);
-            $flag_ver = 0;
+            $flag_ver = False;
             while (!feof($fp)) {
                 $res = fgets ($fp, 1024);
                 $gather_res .= $res;
+                $res = trim($res);
                 if (strcmp ($res, "VERIFIED") == 0) {
                     write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-PAYPAL Transaction Verification Status: Verified ");
-                    $flag_ver = 1;
+                    $flag_ver = True;
                 }
             }
-            if ($flag_ver == 0) {
+            if (!$flag_ver) {
                 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-PAYPAL Transaction Verification Status: Failed \nreq=$req\n$gather_res");
                 $security_verify = false;
             }
@@ -238,12 +239,13 @@ if (empty($transaction_data[0]['vat']) || !is_numeric($transaction_data[0]['vat'
     $VAT = $transaction_data[0]['vat'];
 }
 
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."curr amount $currAmount $currCurrency ".BASE_CURRENCY);
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."curr amount $currAmount $currCurrency BASE_CURRENCY=".BASE_CURRENCY);
 $amount_paid = convert_currency($currencies_list, $currAmount, $currCurrency, BASE_CURRENCY);
 $amount_without_vat = $amount_paid / (1+$VAT/100);
 
 //If security verification fails then send an email to administrator as it may be a possible attack on epayment security.
 if ($security_verify == false) {
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- security_verify == False | END");
     try {
         //TODO create mail class for agent
         $mail = new Mail('epaymentverify', $id);

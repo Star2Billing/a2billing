@@ -45,7 +45,7 @@ $left = array();
 $center = array();
 $right = array();
 
-function put_dislay($position,$title,$links)
+function put_dislay($position, $title, $links)
 {
     global $left;
     global $center;
@@ -85,7 +85,7 @@ if ( !empty($A2B->config["dashboard"]["system_info_enable"]) && $A2B->config["da
     put_dislay($A2B->config["dashboard"]["system_info_enable"],gettext("SYSTEM INFO"),array("./modules/system_info.php"));
 }
 if ( !empty($A2B->config["dashboard"]["news_enabled"]) && $A2B->config["dashboard"]["news_enabled"]!="NONE") {
-    put_dislay($A2B->config["dashboard"]["news_enabled"],gettext("NEWS"),array("./modules/news.php"));
+    put_dislay($A2B->config["dashboard"]["news_enabled"],gettext("LATEST NEWS"),array("./modules/news.php"));
 }
 
 $smarty->display('main.tpl');

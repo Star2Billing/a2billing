@@ -373,12 +373,11 @@ YourDomain
 
 INSERT INTO cc_templatemail (mailtype, fromemail, fromname, subject, messagetext, messagehtml) VALUES ('epaymentverify', 'info@YourDomain.com', 'YourDomain', 'Epayment Gateway Security Verification Failed', 'Dear Administrator
 
-Please check the Epayment Log, System has logged a Epayment Security failure. that may be a possible attack on epayment processing.
+Please check the e-payment logs, the system has logged an e-payment security failure. This may be an attack attempt on epayment module.
 
 Time of Transaction: $time
 Payment Gateway: $paymentgateway
 Amount: $amount
-
 
 
 Kind regards,
@@ -407,9 +406,7 @@ Your account password : $password
 
 
 Thanks,
-/YourDomain Team
--------------------------------------
-http://www.YourDomain.com
+YourDomain
  ', '');
 
 
@@ -439,7 +436,7 @@ Your account is $card_gen
 Your password is $password
 
 To go to your account :
-http://YourDomain.com/A2BCustomer_UI/
+http://YourDomain.com/customer/
 
 Kind regards,
 YourDomain
