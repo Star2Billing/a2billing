@@ -1226,8 +1226,7 @@ class A2Billing
     *  @param object $agi
     *  @param object $RateEngine
     *  @param object $listdestination
-        cc_did.id, cc_did_destination.id, billingtype, cc_did.id_trunk, destination, cc_did.id_trunk, voip_call
-
+    *         cc_did.id, cc_did_destination.id, billingtype, cc_did.id_trunk, destination, cc_did.id_trunk, voip_call
     *  @return 1 if Ok ; -1 if error
     **/
     public function call_did($agi, &$RateEngine, $listdestination)
@@ -1783,11 +1782,9 @@ class A2Billing
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[bill_did_aleg]: START TIME peak=" . $this->calculate_time_condition($start_time, $timeinterval, "peak") . " ,offpeak=" . $this->calculate_time_condition($start_time, $timeinterval, "offpeak") . " ");
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[bill_did_aleg]: STOP TIME peak=" . $this->calculate_time_condition($stop_time, $timeinterval, "peak") . " ,offpeak=" . $this->calculate_time_condition($stop_time, $timeinterval, "offpeak") . " ");
 
-        //TO DO - for now we use peak values only if whole call duration is inside a peak time interval. Should be devided in two parts - peek and off peak duration. May be later.
-        if ((($this->calculate_time_condition($start_time, $timeinterval, "peak")) &&
-                !($this->calculate_time_condition($start_time, $timeinterval, "offpeak"))) &&
-                (($this->calculate_time_condition($stop_time, $timeinterval, "peak")) &&
-                !($this->calculate_time_condition($stop_time, $timeinterval, "offpeak")))) {
+        //TO DO - for now we use peak values only if whole call duration is inside a peak time interval. Should be devided in two parts - peak and off peak duration. May be later.
+        if ( (($this->calculate_time_condition($start_time, $timeinterval, "peak")) && !($this->calculate_time_condition($start_time, $timeinterval, "offpeak")))
+                && (($this->calculate_time_condition($stop_time, $timeinterval, "peak")) && !($this->calculate_time_condition($stop_time, $timeinterval, "offpeak"))) ) {
             # We have PEAK time
             $this->debug(INFO, $agi, __FILE__, __LINE__, "[bill_did_aleg]: We have PEAK time.");
             $aleg_carrier_connect_charge = $inst_listdestination[11];
@@ -3682,31 +3679,37 @@ class A2Billing
     public function calculate_time_condition($now, $timeinterval, $type)
     {
         $week_range = array(
-        'mon' => 1,
-        'tue' => 2,
-        'wed' => 3,
-        'thu' => 4,
-        'fri' => 5,
-        'sat' => 6,
-        'sun' => 7
+            'mon' => 1,
+            'tue' => 2,
+            'wed' => 3,
+            'thu' => 4,
+            'fri' => 5,
+            'sat' => 6,
+            'sun' => 7
         );
 
         $month_range = array(
-        'jan' => 1,
-        'feb' => 2,
-        'mar' => 3,
-        'apr' => 4,
-        'may' => 5,
-        'jun' => 6,
-        'jul' => 7,
-        'aug' => 8,
-        'sep' => 9,
-        'oct' => 10,
-        'nov' => 11,
-        'dec' => 12
+            'jan' => 1,
+            'feb' => 2,
+            'mar' => 3,
+            'apr' => 4,
+            'may' => 5,
+            'jun' => 6,
+            'jul' => 7,
+            'aug' => 8,
+            'sep' => 9,
+            'oct' => 10,
+            'nov' => 11,
+            'dec' => 12
         );
 
-        if (empty($timeinterval)) return 1;
+        if (empty($timeinterval)) {
+            if ($type == 'peak') {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
 
         $cond_result = array();
         $row_conditions = $this->extract_cond_values($timeinterval);
@@ -3853,7 +3856,7 @@ class A2Billing
         $rows = explode("\n", $value);
         $i = 0;
         foreach ($rows as $row) {
-            $items = explode(";", trim($row));
+            $items = explode("|", trim($row));
             $x = 0;
             foreach ($items as $item) {
                 if (preg_match('/^([[:alnum:]]+|\d+:\d+)-([[:alnum:]]+|\d+:\d+)$/', $item, $intvals)) {

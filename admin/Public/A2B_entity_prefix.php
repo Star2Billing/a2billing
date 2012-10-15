@@ -71,12 +71,12 @@ if ($popup_select) {
     -->
     </script>
 <?php
-
 }
 
 // #### HELP SECTION
-if (!$popup_select)
+if (!$popup_select) {
     echo $CC_help_list_prefix;
+}
 
 // #### TOP SECTION PAGE
 $HD_Form->create_toppage($form_action);
