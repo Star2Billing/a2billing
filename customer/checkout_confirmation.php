@@ -69,8 +69,8 @@ getpost_ifset(array('CardName', 'CardNumber', 'ExpiryDateMonth', 'ExpiryDateYear
 // Invoice
 getpost_ifset(array('item_id','item_type'));
 
-$vat_amount= $amount*$vat/100;
-$total_amount = $amount+($amount*$vat/100);
+$vat_amount= $amount * $vat / 100;
+$total_amount = $amount + ($amount * $vat / 100);
 if (!isset($item_id) || is_null($item_id) || $item_id == "") {
     $item_id = 0;
 }
@@ -79,7 +79,7 @@ if (!isset($item_type) || is_null($item_type)) {
     $item_type = '';
 }
 
-$HD_Form = new FormHandler("cc_payment_methods","payment_method");
+$HD_Form = new FormHandler("cc_payment_methods", "payment_method");
 
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
@@ -101,7 +101,7 @@ if (strtoupper($payment)=='PLUGNPAY') {
     $QUERY_VALUES = "'".$_SESSION["card_id"]."','$amount_string', '".$_SESSION["vat"]."', '$payment','$authorizenet_cc_owner','".substr($authorizenet_cc_number,0,4)."XXXXXXXXXXXX','".$authorizenet_cc_expires_month."-".$authorizenet_cc_expires_year."','$time_stamp', '".BASE_CURRENCY."' , '$item_id','$item_type'";
 }
 
-$transaction_no = $paymentTable->Add_table ($HD_Form -> DBHandle, $QUERY_VALUES, $QUERY_FIELDS, 'cc_epayment_log', 'id');
+$transaction_no = $paymentTable -> Add_table($HD_Form -> DBHandle, $QUERY_VALUES, $QUERY_FIELDS, 'cc_epayment_log', 'id');
 
 $key = securitykey(EPAYMENT_TRANSACTION_KEY, $time_stamp."^".$transaction_no."^".$amount_string."^".$_SESSION["card_id"]."^".$item_id."^".$item_type);
 if (empty($transaction_no)) {
@@ -176,7 +176,7 @@ if (is_array($payment_modules->modules)) {
     <?php
         echo round($total_amount,2)." ".strtoupper(BASE_CURRENCY);
         if ($two_currency) {
-            echo " - ".round($total_amount/$mycur,2)." ".strtoupper($_SESSION['currency']);
+            echo " - ".round($total_amount / $mycur, 2)." ".strtoupper($_SESSION['currency']);
         }
     ?>
     </td>
