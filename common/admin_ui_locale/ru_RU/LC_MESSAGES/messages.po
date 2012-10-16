@@ -4098,7 +4098,7 @@ msgid "Insert time definition for peak and off peak time intervals."
 msgstr ""
 
 #: Public/form_data/FG_var_did.inc:211
-msgid "The format is \"start_time;day_of_week;day_of_month;month;time_interval_type\" e.g. 7:00-19:00;mon-fri;*;*;p for peak hours or *;*;24;dec;o for off peak during Xmas day and so on. The last character indicates time interval type where \"p\" means PEAK and \"o\" OFF-PEAK. More definition one per line are supported. If there are PEAK and OFF-PEAK time interval definitions overlaps, than the OFF-PEAK is used."
+msgid "The format is \"start_time;day_of_week;day_of_month;month;time_interval_type\" e.g. 7:00-19:00|mon-fri|*|*|p for peak hours or *|*|24|dec|o for off peak during Xmas day and so on. The last character indicates time interval type where \"p\" means PEAK and \"o\" OFF-PEAK. More definition one per line are supported. If there are PEAK and OFF-PEAK time interval definitions overlaps, than the OFF-PEAK is used."
 msgstr ""
 
 #: Public/form_data/FG_var_did.inc:212

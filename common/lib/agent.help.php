@@ -33,7 +33,8 @@
 
 function help_wiki_link($wiki_article_name)
 {
-    return gettext("For further information please consult") . ' <a target="_blank" href="http://trac.asterisk2billing.org/cgi-bin/trac.cgi/wiki/1-4-' . $wiki_article_name . '">' . gettext("the online documention") . '</a>.<br/>';
+    #return gettext("For further information please consult") . ' <a target="_blank" href="http://trac.asterisk2billing.org/cgi-bin/trac.cgi/wiki/1-4-' . $wiki_article_name . '">' . gettext("the online documention") . '</a>.<br/>';
+    return gettext("For further information please consult") . ' <a target="_blank" href="http://www.asterisk2billing.org/documentation/agents/">' . gettext("the online documention") . '</a>.<br/>';
 }
 
 function create_help($text, $wiki = null)

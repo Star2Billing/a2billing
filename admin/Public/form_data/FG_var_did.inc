@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -62,8 +62,8 @@ $HD_Form -> AddViewElement(gettext("DID"), "did", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CUSTOMER"), "iduser", "10%", "center", "sort", "", "lie_link", "cc_card", "lastname, id, firstname", "id='%id'", "%1 %3", "", "A2B_entity_card.php");
 $HD_Form -> AddViewElement(gettext("BILLING"), "billingtype", "10%", "center", "sort", "", "list", $billingtype_list_short);
 $HD_Form -> AddViewElement(gettext("START DATE"), "startingdate", "14%", "center", "sort", "19", "", "", "", "",  "display_dateformat");
-$HD_Form -> AddViewElement(gettext("DIDGROUP"), "id_cc_didgroup", "12%", "center", "sort", "15", "lie", "cc_didgroup", "didgroupname", "id='%id'", "%1");
-$HD_Form -> AddViewElement(gettext("COUNTRY"), "id_cc_country", "12%", "center", "sort", "15", "lie", "cc_country", "countryname", "id='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("DIDGROUP"), "id_cc_didgroup", "8%", "center", "sort", "15", "lie", "cc_didgroup", "didgroupname", "id='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("COUNTRY"), "id_cc_country", "8%", "center", "sort", "15", "lie", "cc_country", "countryname", "id='%id'", "%1");
 $HD_Form -> AddViewElement("<acronym title=\"".gettext("ACTIVATED")."\">".gettext("ACT")."</acronym>", "activated", "5%", "center", "sort", "", "list", $actived_list);
 $HD_Form -> AddViewElement("<acronym title=\"".gettext("MINUTES USED")."\">".gettext("MU")."</acronym>", "secondusedreal", "5%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 $HD_Form -> AddViewElement("<acronym title=\"".gettext("RESERVED")."\">".gettext("RES")."</acronym>", "reserved", "5%", "center", "SORT", "", "list", $yesno);
@@ -208,7 +208,7 @@ $HD_Form -> AddEditElement (gettext("TIME INTERVAL"),
    "cols=50 rows=4",
    "",
    gettext("Insert time definition for peak and off peak time intervals."),
-   "" , "", "", "", "" , "", "", gettext("The format is \"start_time;day_of_week;day_of_month;month;time_interval_type\" e.g. 7:00-19:00;mon-fri;*;*;p for peak hours or *;*;24;dec;o for off peak during Xmas day and so on. The last character indicates time interval type where \"p\" means PEAK and \"o\" OFF-PEAK. More definition one per line are supported. If there are PEAK and OFF-PEAK time interval definitions overlaps, than the OFF-PEAK is used."),
+   "" , "", "", "", "" , "", "", gettext("The format is \"start_time;day_of_week;day_of_month;month;time_interval_type\" e.g. 7:00-19:00|mon-fri|*|*|p for peak hours or *|*|24|dec|o for off peak during Xmas day and so on. The last character indicates time interval type where \"p\" means PEAK and \"o\" OFF-PEAK. More definition one per line are supported. If there are PEAK and OFF-PEAK time interval definitions overlaps, than the OFF-PEAK is used."),
    null, null, gettext("Peak / Off Peak Time definition") );
 
 $HD_Form -> AddEditElement(gettext("CARRIER CONNECTION CHARGE"),
@@ -270,11 +270,11 @@ $HD_Form -> AddEditElement(gettext("RETAIL COST PER MINUTE"),
 
 
 $HD_Form -> AddEditElement(gettext("RETAIL MIN DURATION"),
-   "aleg_retail_initblock",		
-   '$value',	
-   "INPUT",	
-   "size=30 maxlength=20",	
-   "4",	
+   "aleg_retail_initblock",
+   '$value',
+   "INPUT",
+   "size=30 maxlength=20",
+   "4",
    gettext("Insert the init block"),
    "" , "", "",	"", "", "", "NO", gettext("Set the minimum duration to charge the customer (ie 60 seconds)"));
 
@@ -347,11 +347,11 @@ $HD_Form -> AddEditElement(gettext("RETAIL COST PER MINUTE OFF PEAK"),
 
 
 $HD_Form -> AddEditElement(gettext("RETAIL MIN DURATION OFF PEAK"),
-   "aleg_retail_initblock_offp",		
-   '$value',	
-   "INPUT",	
-   "size=30 maxlength=20",	
-   "4",	
+   "aleg_retail_initblock_offp",
+   '$value',
+   "INPUT",
+   "size=30 maxlength=20",
+   "4",
    gettext("Insert the init block"),
    "" , "", "",	"", "", "", "NO", gettext("Set the minimum duration to charge the customer (ie 60 seconds)"));
 

@@ -63,21 +63,20 @@ $smarty->display('main.tpl');
 if ($popup_select) {
 ?>
     <SCRIPT LANGUAGE="javascript">
-    <!-- Begin
-    public function sendValue(selvalue)
-    {
+    <!--
+    function sendValue(selvalue) {
         window.opener.document.<?php echo $popup_formname ?>.<?php echo $popup_fieldname ?>.value = selvalue;
         window.close();
     }
-    // End -->
+    -->
     </script>
 <?php
-
 }
 
 // #### HELP SECTION
-if (!$popup_select)
+if (!$popup_select) {
     echo $CC_help_list_prefix;
+}
 
 // #### TOP SECTION PAGE
 $HD_Form->create_toppage($form_action);

@@ -883,7 +883,7 @@ if ($atmenu=='sip') {
 							   "", "", "",	"", "", "",	"", "" );
 
 
-	$HD_Form -> AddEditElement (gettext("REQUITE CALL TOKEN"),
+	$HD_Form -> AddEditElement (gettext("REQUIRE CALL TOKEN"),
 							   "requirecalltoken",
 							   '',
 							   "INPUT",
