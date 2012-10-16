@@ -4,10 +4,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -26,8 +26,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -42,7 +42,7 @@ UPDATE cc_card_subscription SET next_billing_date = NOW();
 ALTER TABLE cc_card_subscription ADD limit_pay_date TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';
 
 
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) 
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title)
 			VALUES ('Days to bill before month anniversary', 'subscription_bill_days_before_anniversary', '3',
 					'Numbers of days to bill a subscription service before the month anniversary', 0, NULL, 'global');
 
@@ -111,31 +111,6 @@ INSERT INTO cc_config ( config_title, config_key, config_value, config_descripti
 
 
 ALTER TABLE cc_subscription_signup ADD id_callplan BIGINT;
-
-
-
--- New payment Gateway
-INSERT INTO `cc_payment_methods` (`id`, `payment_method`, `payment_filename`) VALUES(5, 'iridium', 'iridium.php');
-
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description)
-VALUES ('MerchantID', 'MODULE_PAYMENT_IRIDIUM_MERCHANTID', 'yourMerchantId', 'Your Mechant Id provided by Iridium');
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description)
-VALUES ('Password', 'MODULE_PAYMENT_IRIDIUM_PASSWORD', 'Password', 'password for Iridium merchant');
-
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description)
-VALUES ('PaymentProcessor', 'MODULE_PAYMENT_IRIDIUM_GATEWAY', 'PaymentGateway URL ', 'Enter payment gateway URL');
-
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description)
-VALUES ('PaymentProcessorPort', 'MODULE_PAYMENT_IRIDIUM_GATEWAY_PORT', 'PaymentGateway Port ', 'Enter payment gateway port');
-
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function)
-VALUES ('Transaction Currency', 'MODULE_PAYMENT_IRIDIUM_CURRENCY', 'Selected Currency', 'The default currency for the payment transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'EUR\', \'USD\', \'GBP\', \'HKD\', \'SGD\', \'JPY\', \'CAD\', \'AUD\', \'CHF\', \'DKK\', \'SEK\', \'NOK\', \'ILS\', \'MYR\', \'NZD\', \'TWD\', \'THB\', \'CZK\', \'HUF\', \'SKK\', \'ISK\', \'INR\'), ');
-
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function)
-VALUES ('Transaction Language', 'MODULE_PAYMENT_IRIDIUM_LANGUAGE', 'Selected Language', 'The default language for the payment transactions', 'tep_cfg_select_option(array(\'Selected Language\',\'EN\', \'DE\', \'ES\', \'FR\'), ');
-
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function)
-VALUES ('Enable iridium Module', 'MODULE_PAYMENT_IRIDIUM_STATUS', 'False', 'Do you want to accept Iridium payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
 
 
 
