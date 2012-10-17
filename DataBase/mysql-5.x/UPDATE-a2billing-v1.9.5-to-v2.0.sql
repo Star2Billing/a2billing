@@ -31,5 +31,8 @@
  *
 **/
 
+
+DELETE FROM cc_payment_methods WHERE payment_method = 'iridium';
+
 -- Update Version
 UPDATE cc_version SET version = '2.0';
