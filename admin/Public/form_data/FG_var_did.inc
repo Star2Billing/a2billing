@@ -32,7 +32,7 @@
 **/
 
 
-getpost_ifset(array('id', 'billingtype', 'did', 'startingdate', 'expirationdate', 'id_cc_didgroup', 'id_cc_country', 'activated', 'fixrate', 'id_trunk','connection_charge','selling_rate', 'aleg_timeinterval', 'aleg_carrier_connect_charge', 'aleg_carrier_cost_min', 'aleg_carrier_initblock', 'aleg_carrier_increment', 'aleg_retail_connect_charge', 'aleg_retail_cost_min', 'aleg_retail_initblock', 'aleg_retail_increment', 'aleg_carrier_connect_charge_offp', 'aleg_carrier_cost_min_offp', 'aleg_carrier_initblock_offp', 'aleg_carrier_increment_offp', 'aleg_retail_connect_charge_offp', 'aleg_retail_cost_min_offp', 'aleg_retail_initblock_offp', 'aleg_retail_increment_offp'));
+getpost_ifset(array('id', 'billingtype', 'did', 'startingdate', 'expirationdate', 'id_cc_didgroup', 'id_cc_country', 'activated', 'fixrate', 'id_trunk', 'max_concurrent', 'connection_charge','selling_rate', 'aleg_timeinterval', 'aleg_carrier_connect_charge', 'aleg_carrier_cost_min', 'aleg_carrier_initblock', 'aleg_carrier_increment', 'aleg_retail_connect_charge', 'aleg_retail_cost_min', 'aleg_retail_initblock', 'aleg_retail_increment', 'aleg_carrier_connect_charge_offp', 'aleg_carrier_cost_min_offp', 'aleg_carrier_initblock_offp', 'aleg_carrier_increment_offp', 'aleg_retail_connect_charge_offp', 'aleg_retail_cost_min_offp', 'aleg_retail_initblock_offp', 'aleg_retail_increment_offp'));
 
 
 $HD_Form = new FormHandler("cc_did","did");
@@ -103,6 +103,7 @@ if ($form_action=="ask-add") {
 
 $did_regexpress = '9';
 
+
 $HD_Form -> AddEditElement (gettext("DID"),
 	"did",
 	'$value',
@@ -113,6 +114,7 @@ $HD_Form -> AddEditElement (gettext("DID"),
 	"" , "", "", "", "" , "", "" ,
 	gettext("Define the DID's. If you ADD a new DID, NOT an EDIT, you can define a range of DID. <br>80412340210-80412340218 would add all DID's between the range, whereas DIDs separated by a comma e.g. 80412340210,80412340212,80412340214 would only add the individual DID listed."));
 
+
 $HD_Form -> AddEditElement (gettext("BILLING"),
 	"billingtype",
 	"",
@@ -121,6 +123,7 @@ $HD_Form -> AddEditElement (gettext("BILLING"),
 	"",
 	"",
 	"list" , "", "",  "", $billingtype_list, "%1" , "", "");
+
 
 $HD_Form -> AddEditElement (gettext("START DATE"),
 	"startingdate",
@@ -131,6 +134,7 @@ $HD_Form -> AddEditElement (gettext("START DATE"),
 	gettext("Insert the starting date"),
 	"" , "", "", "", "", "", "res_display_dateformat", gettext("Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'") );
 
+
 $HD_Form -> AddEditElement (gettext("EXPIRY DATE"),
 	"expirationdate",
 	'$value',
@@ -139,6 +143,7 @@ $HD_Form -> AddEditElement (gettext("EXPIRY DATE"),
 	"10",
 	gettext("Insert the expiration date"),
 	"" , "", "", "", "", "", "res_display_dateformat", gettext("Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'") );
+
 
 $HD_Form -> AddEditElement (gettext("DIDGROUP"),
 	"id_cc_didgroup",
@@ -149,6 +154,7 @@ $HD_Form -> AddEditElement (gettext("DIDGROUP"),
 	"cc_didgroup",
 	"didgroupname, id",
 	"", "", "%1","", "");
+
 
 $HD_Form -> AddEditElement (gettext("COUNTRY"),
 	"id_cc_country",
@@ -169,6 +175,7 @@ $HD_Form -> AddEditElement (gettext("ACTIVATED"),
 	"",
 	gettext("Choose if you want to activate this card"),
 	"" , "", "", "Yes :1, - No:0", "", "", "" , "" );
+
 
 $HD_Form -> AddEditElement (gettext("MONTHLY RATE"),
 	"fixrate",
@@ -211,6 +218,7 @@ $HD_Form -> AddEditElement (gettext("TIME INTERVAL"),
    "" , "", "", "", "" , "", "", gettext("The format is \"start_time;day_of_week;day_of_month;month;time_interval_type\" e.g. 7:00-19:00|mon-fri|*|*|p for peak hours or *|*|24|dec|o for off peak during Xmas day and so on. The last character indicates time interval type where \"p\" means PEAK and \"o\" OFF-PEAK. More definition one per line are supported. If there are PEAK and OFF-PEAK time interval definitions overlaps, than the OFF-PEAK is used."),
    null, null, gettext("Peak / Off Peak Time definition") );
 
+
 $HD_Form -> AddEditElement(gettext("CARRIER CONNECTION CHARGE"),
    "aleg_carrier_connect_charge",
    '$value',
@@ -221,6 +229,7 @@ $HD_Form -> AddEditElement(gettext("CARRIER CONNECTION CHARGE"),
    "" , "", "",	"", "" , "", "", gettext("The connection charge can be negative or positive"),
    null, null, gettext("DID Ingress Charges Peak") );
 
+
 $HD_Form -> AddEditElement(gettext("CARRIER COST PER MINUTE"),
    "aleg_carrier_cost_min",
    '$value',
@@ -229,6 +238,7 @@ $HD_Form -> AddEditElement(gettext("CARRIER COST PER MINUTE"),
    "12",
    gettext("Insert the connect cost"),
    "" , "", "",	"", "", "" , "NO", gettext("The cost can be negative for Non geographic calls where there is an out-payment"));
+
 
 $HD_Form -> AddEditElement(gettext("CARRIER MIN DURATION"),
    "aleg_carrier_initblock",
@@ -259,6 +269,7 @@ $HD_Form -> AddEditElement(gettext("RETAIL CONNECTION CHARGE"),
    gettext("Insert a rate"),
    "" , "", "",	"", "" , "", "", gettext("The connection charge can be negative or positive"));
 
+
 $HD_Form -> AddEditElement(gettext("RETAIL COST PER MINUTE"),
    "aleg_retail_cost_min",
    '$value',
@@ -288,6 +299,7 @@ $HD_Form -> AddEditElement(gettext("RETAIL BILLING BLOCK"),
    gettext("Insert the billing block"),
    "" , "", "",	"", "", "", "NO", gettext("Set the billing increment in seconds to bill your customer."));
 
+
 $HD_Form -> AddEditElement(gettext("CARRIER CONNECTION CHARGE OFF PEAK"),
    "aleg_carrier_connect_charge_offp",
    '$value',
@@ -298,6 +310,7 @@ $HD_Form -> AddEditElement(gettext("CARRIER CONNECTION CHARGE OFF PEAK"),
    "" , "", "",	"", "" , "", "", gettext("The connection charge can be negative or positive"),
    null, null, gettext("DID Ingress Charges Off Peak") );
 
+
 $HD_Form -> AddEditElement(gettext("CARRIER COST PER MINUTE OFF PEAK"),
    "aleg_carrier_cost_min_offp",
    '$value',
@@ -306,6 +319,7 @@ $HD_Form -> AddEditElement(gettext("CARRIER COST PER MINUTE OFF PEAK"),
    "12",
    gettext("Insert the connect cost"),
    "" , "", "",	"", "", "" , "NO", gettext("The cost can be negative for Non geographic calls where there is an out-payment"));
+
 
 $HD_Form -> AddEditElement(gettext("CARRIER MIN DURATION OFF PEAK"),
    "aleg_carrier_initblock_offp",
@@ -335,6 +349,7 @@ $HD_Form -> AddEditElement(gettext("RETAIL CONNECTION CHARGE OFF PEAK"),
    "12",
    gettext("Insert a rate"),
    "" , "", "",	"", "" , "", "", gettext("The connection charge can be negative or positive"));
+
 
 $HD_Form -> AddEditElement(gettext("RETAIL COST PER MINUTE OFF PEAK"),
    "aleg_retail_cost_min_offp",
@@ -366,8 +381,16 @@ $HD_Form -> AddEditElement(gettext("RETAIL BILLING BLOCK OFF PEAK"),
    "" , "", "",	"", "", "", "NO", gettext("Set the billing increment in seconds to bill your customer."));
 
 
+$HD_Form -> AddEditElement (gettext("MAX CONCURRENT CALLS"),
+   "max_concurrent",
+   '$value',
+   "INPUT",
+   "size=5 maxlength=5",
+   "",
+   "",
+   "" , "", "",   "", "", "", "NO", gettext("Max concurrent calls (Feature not implemented)") );
 
-$HD_Form -> FieldEditElement ('did, billingtype, startingdate, expirationdate, id_cc_didgroup, id_cc_country, activated, fixrate, connection_charge, selling_rate, aleg_timeinterval, aleg_carrier_connect_charge, aleg_carrier_cost_min, aleg_carrier_initblock, aleg_carrier_increment, aleg_retail_connect_charge, aleg_retail_cost_min, aleg_retail_initblock, aleg_retail_increment, aleg_carrier_connect_charge_offp, aleg_carrier_cost_min_offp, aleg_carrier_initblock_offp, aleg_carrier_increment_offp, aleg_retail_connect_charge_offp, aleg_retail_cost_min_offp, aleg_retail_initblock_offp, aleg_retail_increment_offp');
+$HD_Form -> FieldEditElement ('did, billingtype, startingdate, expirationdate, id_cc_didgroup, id_cc_country, activated, fixrate, connection_charge, selling_rate, aleg_timeinterval, aleg_carrier_connect_charge, aleg_carrier_cost_min, aleg_carrier_initblock, aleg_carrier_increment, aleg_retail_connect_charge, aleg_retail_cost_min, aleg_retail_initblock, aleg_retail_increment, aleg_carrier_connect_charge_offp, aleg_carrier_cost_min_offp, aleg_carrier_initblock_offp, aleg_carrier_increment_offp, aleg_retail_connect_charge_offp, aleg_retail_cost_min_offp, aleg_retail_initblock_offp, aleg_retail_increment_offp, max_concurrent');
 
 
 // Set the filter variables

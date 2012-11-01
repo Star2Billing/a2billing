@@ -31,5 +31,13 @@
  *
 **/
 
+
+DELETE FROM cc_payment_methods WHERE payment_method = 'iridium';
+
+-- Add max concurrent call
+ALTER TABLE cc_card ADD max_concurrent int(11) NOT NULL DEFAULT '10';
+ALTER TABLE cc_did ADD max_concurrent int(11) NOT NULL DEFAULT '10';
+
+
 -- Update Version
 UPDATE cc_version SET version = '2.0';

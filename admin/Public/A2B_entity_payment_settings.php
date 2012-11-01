@@ -94,7 +94,7 @@ $GLOBALS['moneybookers']->enabled = true;
 $GLOBALS['authorizenet']->enabled = true;
 $GLOBALS['worldpay']->enabled = true;
 $GLOBALS['plugnpay']->enabled = true;
-$GLOBALS['iridium']->enabled = true;
+//$GLOBALS['iridium']->enabled = true;
 $module_keys = $payment_modules->keys();
 
 $keys_extra = array ();
@@ -159,13 +159,13 @@ echo $PAYMENT_METHOD;
 
     <tr>
         <?php
-             if ( (tep_not_null($heading)) && (tep_not_null($contents)) ) {
-             echo '            <td width="25%" valign="top">' . "\n";
+        if ( (tep_not_null($heading)) && (tep_not_null($contents)) ) {
+            echo '            <td width="25%" valign="top">' . "\n";
 
-             $box = new box;
-             echo $box->infoBox($heading, $contents);
-             echo '            </td>' . "\n";
-             }
+            $box = new box;
+            echo $box->infoBox($heading, $contents);
+            echo '            </td>' . "\n";
+        }
         ?>
     </tr>
 </table>

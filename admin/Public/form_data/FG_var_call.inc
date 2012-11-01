@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,14 +27,14 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
 getpost_ifset(array('id', 'calledstation', 'id_cc_card'));
 
-$HD_Form = new FormHandler("cc_call","Call");
+$HD_Form = new FormHandler("cc_call", "Call");
 
 $HD_Form -> FG_DEBUG = 0;
 
@@ -67,13 +67,13 @@ $HD_Form -> AddEditElement (gettext("CALL ID"),
 			   "" , "", "",	"", "" , "", "", "");
 
 $HD_Form -> AddEditElement (gettext("ID CARD"),
-			   "card_id",		
-			   "$value",	
-			   "POPUPVALUE",	
-			   "size=30 maxlength=50",	
-			   "4",	
+			   "card_id",
+			   "$value",
+			   "POPUPVALUE",
+			   "size=30 maxlength=50",
+			   "4",
 			   gettext("Insert the Id CardNumber"),
-			    "" , "", "", "", "", 				
+			    "" , "", "", "", "",
 				"A2B_entity_card.php?popup_select=1&"
 				, ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
 				gettext("Define the card number ID to use."));
@@ -105,7 +105,7 @@ $HD_Form -> AddEditElement (gettext("Dnid"),
 			   "18",
 			   "",
 			   "" , "", "",	"", "" , "", "", "");
-			   
+
 $HD_Form -> AddEditElement (gettext("Duration"),
 			   "sessiontime",
 			   '$value',

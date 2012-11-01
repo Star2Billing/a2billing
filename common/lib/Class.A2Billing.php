@@ -212,7 +212,7 @@ class A2Billing
     * @var interger
     * @access public
     */
-    public $CC_TESTING;
+    public $CC_TESTING = False;
 
     // List of dialstatus
     public $dialstatus_rev_list;
@@ -700,7 +700,11 @@ class A2Billing
         $this->uniqueid    = $agi->request['agi_uniqueid'];
         $this->accountcode = $agi->request['agi_accountcode'];
         //$this->dnid      = $agi->request['agi_dnid'];
-        $this->dnid        = $agi->request['agi_extension'];
+        $extension         = str_replace("|", '', $agi->request['agi_extension']);
+        $extension         = str_replace(",", '', $extension);
+        $extension         = str_replace("(", '', $extension);
+        $extension         = str_replace(")", '', $extension);
+        $this->dnid        = $agi->request['agi_extension'] ;
 
         //Call function to find the cid number
         $this->isolate_cid();
@@ -1706,6 +1710,12 @@ class A2Billing
                     $dialstatus = $agi->get_variable("DIALSTATUS");
                     $dialstatus = $dialstatus['data'];
 
+                    if (strlen($this->dialstatus_rev_list[$dialstatus]) > 0) {
+                        $terminatecauseid = $this->dialstatus_rev_list[$dialstatus];
+                    } else {
+                        $terminatecauseid = 0;
+                    }
+
                     // A-LEG below to the owner of the DID
                     if ($call_did_free) {
                         //CALL2DID CDR is free
@@ -1813,26 +1823,26 @@ class A2Billing
         }
 
         $this->debug(INFO, $agi, __FILE__, __LINE__, "[bill_did_aleg]:[aleg_carrier_connect_charge=$aleg_carrier_connect_charge;\
-                                                                        aleg_carrier_cost_min=$aleg_carrier_cost_min;\
-                                                                        aleg_retail_connect_charge=$aleg_retail_connect_charge;\
-                                                                        aleg_retail_cost_min=$aleg_retail_cost_min;\
-                                                                        aleg_carrier_initblock=$aleg_carrier_initblock;\
-                                                                        aleg_carrier_increment=$aleg_carrier_increment;\
-                                                                        aleg_retail_initblock=$aleg_retail_initblock;\
-                                                                        aleg_retail_increment=$aleg_retail_increment - b_leg_answeredtime=$b_leg_answeredtime]");
+                    aleg_carrier_cost_min=$aleg_carrier_cost_min;\
+                    aleg_retail_connect_charge=$aleg_retail_connect_charge;\
+                    aleg_retail_cost_min=$aleg_retail_cost_min;\
+                    aleg_carrier_initblock=$aleg_carrier_initblock;\
+                    aleg_carrier_increment=$aleg_carrier_increment;\
+                    aleg_retail_initblock=$aleg_retail_initblock;\
+                    aleg_retail_increment=$aleg_retail_increment - b_leg_answeredtime=$b_leg_answeredtime]");
 
         $this->dnid = $inst_listdestination[10];
+
+        // SET CORRECTLY THE CALLTIME FOR THE 1st LEG
+        if ($this->agiconfig['answer_call'] == 1) {
+            $aleg_answeredtime = time() - $this->G_startime;
+        } else {
+            $aleg_answeredtime = $b_leg_answeredtime;
+        }
 
         # if we add a new CDR for A-Leg
         if (($aleg_carrier_connect_charge != 0) || ($aleg_carrier_cost_min != 0) || ($aleg_retail_connect_charge != 0) || ($aleg_retail_cost_min != 0)) {
             # duration of the call for the A-Leg is since the start date
-
-            // SET CORRECTLY THE CALLTIME FOR THE 1st LEG
-            if ($this->agiconfig['answer_call'] == 1) {
-                $aleg_answeredtime = time() - $this->G_startime;
-            } else {
-                $aleg_answeredtime = $b_leg_answeredtime;
-            }
 
             $terminatecauseid = 1; // ANSWERED
 
@@ -1880,7 +1890,7 @@ class A2Billing
                         "'" . $this->id_card . "'," .
                         "'" . $this->hostname . "'," .
                         "SUBDATE(CURRENT_TIMESTAMP, INTERVAL $aleg_answeredtime SECOND), " .
-                        "'$aleg_retail_callduration', " .
+                        "'$aleg_answeredtime', " .
                         "'$aleg_answeredtime', " .
                         "'" . $listdestination[0][10] . "', " .
                         "$terminatecauseid, " .
@@ -1905,6 +1915,41 @@ class A2Billing
                 $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                 $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - (id_card=" . $this->id_card . ") UPDATE CARD: SQL: $QUERY]:[result:$result]");
             }
+        } else {
+            // Zero on rate
+
+            $terminatecauseid = 1; // ANSWERED
+            $aleg_carrier_cost = 0;
+
+            $QUERY_COLUMN = " uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, " .
+                            " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, " .
+                            " id_trunk, src, sipiax, buycost, dnid";
+
+            $calltype = '7'; // DID-ALEG
+            $QUERY = "INSERT INTO cc_call ($QUERY_COLUMN) VALUES (" .
+                        "'" . $this->uniqueid . "', " .
+                        "'" . $this->channel . "'," .
+                        "'" . $this->id_card . "'," .
+                        "'" . $this->hostname . "'," .
+                        "SUBDATE(CURRENT_TIMESTAMP, INTERVAL $aleg_answeredtime SECOND), " .
+                        "'$aleg_answeredtime', " .
+                        "'$aleg_answeredtime', " .
+                        "'" . $listdestination[0][10] . "', " .
+                        "$terminatecauseid, " .
+                        "now(), " .
+                        "'0', " .
+                        "'0', " .
+                        "'0', " .
+                        "'0', " .
+                        "'0', " .
+                        "'" . $this->CallerID . "', " .
+                        "'$calltype', " .
+                        "'$aleg_carrier_cost', " .
+                        "'" . $this->dnid . "'" .
+                        ")";
+
+            $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
+            $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL ZERO - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
         }
     }
 

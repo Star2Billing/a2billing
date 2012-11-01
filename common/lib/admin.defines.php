@@ -37,7 +37,7 @@ require_once 'PhpQuickProfiler.php';
 $objProf = new PhpQuickProfiler(0);
 $profiler = new PhpQuickProfiler($objProf->getMicroTime());
 
-define ("WRITELOG_QUERY",false);
+define ("WRITELOG_QUERY", false);
 define ("FSROOT", substr(dirname(__FILE__),0,-3));
 define ("LIBDIR", FSROOT."lib/");
 

@@ -56,15 +56,15 @@ Class payment {
       $payment = $actived_module[0]['id'];
     }
 
-// class methods
-/* The following method is needed in the checkout_confirmation.php page
-   due to a chicken and egg problem with the payment class and order class.
-   The payment modules needs the order destination data for the dynamic status
-   feature, and the order class needs the payment module title.
-   The following method is a work-around to implementing the method in all
-   payment modules available which would break the modules in the contributions
-   section. This should be looked into again post 2.2.
-*/
+    // class methods
+    /* The following method is needed in the checkout_confirmation.php page
+       due to a chicken and egg problem with the payment class and order class.
+       The payment modules needs the order destination data for the dynamic status
+       feature, and the order class needs the payment module title.
+       The following method is a work-around to implementing the method in all
+       payment modules available which would break the modules in the contributions
+       section. This should be looked into again post 2.2.
+    */
     public function update_status()
     {
       if (is_array($this->modules)) {
