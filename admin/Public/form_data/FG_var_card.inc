@@ -152,7 +152,7 @@ if (!($popup_select>=1)) {
 	$show_fields['iax_buddy'] = array(gettext("IAX"), "iax_buddy", "2%", "center", "sort", "", "list", $yesno);
 	$show_fields['nbused'] = array("<acronym title=\"AMOUNT OF CALL DONE\">".gettext("ACD")."</acronym>", "nbused", "3%", "center", "sort");
 	$show_fields['firstname'] = array(gettext("FIRSTNAME"), "firstname", "7%", "center", "sort", "15");
-	$show_fields['email'] = array(gettext("EMAIL"), "email","","center", "sort", "15");
+	$show_fields['email'] = array(gettext("EMAIL"), "email","","center", "sort", "40");
 	$show_fields['discount'] = array("<acronym title=\"DISCOUNT\">".gettext("DISC")."</acronym>", "discount","","center", "sort", "15","30", "", "", "", "", "display_percentage");
 	$show_fields['callerid'] = array("<acronym title=\"CALLER IDENTIFICATION NUMBER\">".gettext("CID")."</acronym>", "callerid","","center", "sort", "15");
 	$FG_COL_QUERY = 'DISTINCT ';

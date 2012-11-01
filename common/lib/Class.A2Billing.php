@@ -212,7 +212,7 @@ class A2Billing
     * @var interger
     * @access public
     */
-    public $CC_TESTING;
+    public $CC_TESTING = False;
 
     // List of dialstatus
     public $dialstatus_rev_list;
