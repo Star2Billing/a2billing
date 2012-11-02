@@ -610,7 +610,7 @@ if ($mode == 'standard') {
         }//END FOR
 
     } else {
-        $A2B->debug(WARN, $agi, __FILE__, __LINE__, "[AUTHENTICATION FAILED (cia_res:" . $cia_res . ")]");
+        $A2B->debug(WARN, $agi, __FILE__, __LINE__, "[NO AUTH (CN:".$A2B->accountcode.", cia_res:".$cia_res.", CREDIT:".$A2B->credit.")]");
     }
     # SAY GOODBYE
     if ($A2B->agiconfig['say_goodbye'] == 1) $agi->stream_file('prepaid-final', '#');
