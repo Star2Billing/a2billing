@@ -79,9 +79,27 @@ if (!isset($item_type) || is_null($item_type)) {
     $item_type = '';
 }
 
+if ($item_type == "invoice" && is_numeric($item_id)) {
+    $table_invoice = new Table("cc_invoice", "status, paid_status");
+    $clause_invoice = "id = ".$item_id;
+    $result= $table_invoice -> Get_list($DBHandle,$clause_invoice);
+    if (is_array($result) && $result[0]['status']==1 && $result[0]['paid_status']==0 ) {
+        $table_invoice_item = new Table("cc_invoice_item","COALESCE(SUM(price*(1+(vat/100))),0)");
+        $clause_invoice_item = "id_invoice = ".$item_id;
+        $result= $table_invoice_item -> Get_list($DBHandle,$clause_invoice_item);
+        $amount = $result[0][0];
+        $amount = ceil($amount*100) / 100;
+        $vat_amount= $amount * $vat / 100;
+        $total_amount = $amount + ($amount * $vat / 100);
+    } else {
+        Header ("Location: userinfo.php");
+        die;
+    }
+}
+
 $HD_Form = new FormHandler("cc_payment_methods", "payment_method");
 
-$HD_Form -> setDBHandler (DbConnect());
+$HD_Form -> setDBHandler(DbConnect());
 $HD_Form -> init();
 $_SESSION["p_module"] = $payment;
 $_SESSION["p_amount"] = 3;

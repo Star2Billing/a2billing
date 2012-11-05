@@ -80,8 +80,7 @@ if ($item_type == "invoice" && is_numeric($item_id)) {
         $table_invoice_item = new Table("cc_invoice_item","COALESCE(SUM(price*(1+(vat/100))),0)");
         $clause_invoice_item = "id_invoice = ".$item_id;
         $result= $table_invoice_item -> Get_list($DBHandle,$clause_invoice_item);
-        $amount = $result[0][0];
-        $amount = ceil($amount*100)/100;
+        $amount = ceil($result[0][0] * 100) / 100;
         $static_amount = true;
     } else {
         Header ("Location: userinfo.php");
