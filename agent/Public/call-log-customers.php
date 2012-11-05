@@ -48,25 +48,28 @@ if (($download == "file") && $file) {
     if (strpos($file, '/') !== false) exit;
 
     $value_de = base64_decode ( $file );
-    $dl_full = MONITOR_PATH . "/" . $value_de;
-    $dl_name = $value_de;
+    $pos = strpos($value_de, '../');
+    if ($pos === false) {
+        $dl_full = MONITOR_PATH . "/" . $value_de;
+        $dl_name = $value_de;
 
-    if (! file_exists ( $dl_full )) {
-        echo gettext ( "ERROR: Cannot download file " . $dl_full . ", it does not exist.<br>" );
+        if (! file_exists ( $dl_full )) {
+            echo gettext ( "ERROR: Cannot download file " . $dl_full . ", it does not exist.<br>" );
+            exit ();
+        }
+
+        header ( "Content-Type: application/octet-stream" );
+        header ( "Content-Disposition: attachment; filename=$dl_name" );
+        header ( "Content-Length: " . filesize ( $dl_full ) );
+        header ( "Accept-Ranges: bytes" );
+        header ( "Pragma: no-cache" );
+        header ( "Expires: 0" );
+        header ( "Cache-Control: must-revalidate, post-check=0, pre-check=0" );
+        header ( "Content-transfer-encoding: binary" );
+
+        @readfile ( $dl_full );
         exit ();
     }
-
-    header ( "Content-Type: application/octet-stream" );
-    header ( "Content-Disposition: attachment; filename=$dl_name" );
-    header ( "Content-Length: " . filesize ( $dl_full ) );
-    header ( "Accept-Ranges: bytes" );
-    header ( "Pragma: no-cache" );
-    header ( "Expires: 0" );
-    header ( "Cache-Control: must-revalidate, post-check=0, pre-check=0" );
-    header ( "Content-transfer-encoding: binary" );
-
-    @readfile ( $dl_full );
-    exit ();
 }
 
 $dialstatus_list = Constants::getDialStatusList ();
