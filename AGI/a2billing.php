@@ -879,7 +879,7 @@ if ($mode == 'standard') {
 
                     $uniqueid = MDP_NUMERIC(5) . '-' . MDP_STRING(7);
 
-                    $sep = ($A2B->config['global']['asterisk_version'] == "1_2" || $A2B->config['global']['asterisk_version'] == "1_4") ? '|' : ', ';
+                    $sep = ($A2B->config['global']['asterisk_version'] == "1_2" || $A2B->config['global']['asterisk_version'] == "1_4") ? '|' : ',';
 
                     $variable = "IDCONF=$idconfig" . $sep . "CALLED=" . $A2B->destination . $sep . $CALLING_VAR . $sep . $MODE_VAR . $sep . "CBID=$uniqueid" . $sep . "LEG=" . $A2B->username;
 
@@ -1022,7 +1022,7 @@ if ($mode == 'standard') {
 
                     $uniqueid = MDP_NUMERIC(5) . '-' . MDP_STRING(7);
 
-                    $sep = ($A2B->config['global']['asterisk_version'] == "1_2" || $A2B->config['global']['asterisk_version'] == "1_4") ? '|' : ', ';
+                    $sep = ($A2B->config['global']['asterisk_version'] == "1_2" || $A2B->config['global']['asterisk_version'] == "1_4") ? '|' : ',';
 
                     $variable = "IDCONF=$idconfig" . $sep . "CALLED=" . $A2B->destination . $sep . "MODE=ALL" . $sep . "CBID=$uniqueid" . $sep . "TARIFF=" . $A2B->tariff . $sep . "LEG=" . $A2B->username;
 
@@ -1108,6 +1108,7 @@ if ($mode == 'standard') {
     } elseif ($callback_mode == 'ALL') {
         $A2B->agiconfig['use_dnid'] = 0;
         $A2B->agiconfig['cid_enable'] = 0;
+        $A2B->CallerID = $called_party;
 
     } else {
         $charge_callback = 1;
@@ -1122,7 +1123,7 @@ if ($mode == 'standard') {
         $A2B->callback_beep_to_enter_destination = True;
     }
 
-    $A2B->debug(INFO, $agi, __FILE__, __LINE__, "[CALLBACK]:[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff | CBID=$callback_uniqueid | LEG=$callback_leg]");
+    $A2B->debug(INFO, $agi, __FILE__, __LINE__, "[CALLBACK]:[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff | CBID=$callback_uniqueid | LEG=$callback_leg | CALLERID=".$A2B->CallerID."]");
 
     $QUERY = "UPDATE cc_callback_spool SET agi_result='AGI PROCESSING' WHERE uniqueid='$callback_uniqueid'";
     $res = $A2B->DBHandle->Execute($QUERY);
@@ -1363,7 +1364,7 @@ if ($mode == 'standard') {
                         $account = $A2B->accountcode;
                         $uniqueid = $callback_uniqueid . '-' . MDP_NUMERIC(5);
 
-                        $sep = ($A2B->config['global']['asterisk_version'] == "1_2" || $A2B->config['global']['asterisk_version'] == "1_4") ? '|' : ', ';
+                        $sep = ($A2B->config['global']['asterisk_version'] == "1_2" || $A2B->config['global']['asterisk_version'] == "1_4") ? '|' : ',';
 
                         $variable = "CALLED=$inst_pn_member" . $sep . "CALLING=$inst_pn_member" . $sep . "CBID=$callback_uniqueid" . $sep . "TARIFF=$callback_tariff" . $sep.
                                     "LEG=" . $A2B->accountcode . $sep . "ACCOUNTCODE=" . $A2B->accountcode . $sep . "ROOMNUMBER=" . $room_number;
