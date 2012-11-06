@@ -290,10 +290,22 @@ $nowDate = date("Y-m-d H:i:s");
 $pmodule = $transaction_data[0][4];
 
 $orderStatus = $payment_modules->get_OrderStatus();
-if (empty($item_type))
+if (empty($item_type)) {
     $transaction_type = 'balance';
-else
+} else {
     $transaction_type = $item_type;
+    //Check amount
+    $table_invoice_item = new Table("cc_invoice_item","COALESCE(SUM(price*(1+(vat/100))),0)");
+    $clause_invoice_item = "id_invoice = ".$item_id;
+    $result= $table_invoice_item -> Get_list($DBHandle,$clause_invoice_item);
+    $inv_amount = ceil($result[0][0] * 100) / 100;
+    $inv_vat_amount= $inv_amount * $VAT / 100;
+    $inv_total_amount = $inv_amount + ($inv_amount * $VAT / 100);
+    if ($inv_total_amount != $amount_paid) {
+        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR PAYMENT INVOICE $inv_total_amount != $amount_paid");
+        exit();
+    }
+}
 
 $Query = "INSERT INTO cc_payments ( customers_id, customers_name, customers_email_address, item_name, item_id, item_quantity, payment_method, cc_type, cc_owner, " .
             " cc_number, cc_expires, orders_status, last_modified, date_purchased, orders_date_finished, orders_amount, currency, currency_value) values (" .

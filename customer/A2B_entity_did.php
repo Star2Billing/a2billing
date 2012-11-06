@@ -59,6 +59,8 @@ if (isset ($mydisplaylimit) && (is_numeric($mydisplaylimit) || ($mydisplaylimit 
         $FG_LIMITE_DISPLAY = $mydisplaylimit;
     }
 }
+
+
 if (isset ($choose_did_rate) && strlen($choose_did_rate) != 0) {
     $did_rate = explode("CUR", $choose_did_rate);
     $choose_did = $did_rate[0];
@@ -71,7 +73,10 @@ if (isset ($choose_did_rate) && strlen($choose_did_rate) != 0) {
         $choose_did = $list_did[0][0];
         $rate = $list_did[0][2];
     } else {
-        exit();
+        $rate = $did_rate[1];
+        if (!is_numeric($rate)) {
+            $rate = 0;
+        }
     }
 }
 

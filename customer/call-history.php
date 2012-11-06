@@ -43,32 +43,6 @@ if (! has_rights (ACX_CALL_HISTORY)) {
 
 getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'phonenumbertype', 'sourcetype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'phonenumber', 'src', 'clid', 'choose_currency', 'terminatecauseid', 'choose_calltype', 'download', 'file'));
 
-if (($download == "file") && $file && $ACXSEERECORDING) {
-
-    if (strpos($file, '/') !== false) exit;
-
-    $value_de = base64_decode ( $file );
-    $dl_full = MONITOR_PATH . "/" . $value_de;
-    $dl_name = $value_de;
-
-    if (! file_exists ( $dl_full )) {
-        echo gettext ( "ERROR: Cannot download file " . $dl_full . ", it does not exist.<br>" );
-        exit ();
-    }
-
-    header ( "Content-Type: application/octet-stream" );
-    header ( "Content-Disposition: attachment; filename=$dl_name" );
-    header ( "Content-Length: " . filesize ( $dl_full ) );
-    header ( "Accept-Ranges: bytes" );
-    header ( "Pragma: no-cache" );
-    header ( "Expires: 0" );
-    header ( "Cache-Control: must-revalidate, post-check=0, pre-check=0" );
-    header ( "Content-transfer-encoding: binary" );
-
-    @readfile ( $dl_full );
-    exit ();
-}
-
 $QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
 $DBHandle_max = DbConnect();
@@ -131,15 +105,8 @@ $FG_TABLE_COL[]=array ('<acronym title="'.gettext("Terminate Cause").'">'.gettex
 $FG_TABLE_COL[]=array (gettext("CallType"), "sipiax", "12%", "center", "SORT",  "", "list", $list_calltype);
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "12%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
-if ($ACXSEERECORDING) {
-    $FG_TABLE_COL [] = array ("", "uniqueid", "1%", "center", "", "30", "", "", "", "", "", "linkonmonitorfile_customer" );
-}
-
 $FG_COL_QUERY = 't1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime, t1.terminatecauseid, t1.sipiax, t1.sessionbill';
 
-if ($ACXSEERECORDING) {
-    $FG_COL_QUERY .= ', t1.uniqueid';
-}
 
 $FG_LIMITE_DISPLAY = 25;
 $FG_NB_TABLE_COL = count($FG_TABLE_COL);
