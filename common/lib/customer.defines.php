@@ -187,15 +187,19 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
+// GLOBAL POST/GET VARIABLE
+getpost_ifset (array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'ui_language', 'cssname', 'popup_select', 'popup_formname', 'popup_fieldname', 'exporttype', 'msg'));
+
 // Language Selection
 if (isset($ui_language)) {
     $_SESSION["ui_language"] = $ui_language;
     setcookie  ("ui_language", $ui_language);
 } elseif (!isset($_SESSION["ui_language"])) {
-    if(!isset($_COOKIE["ui_language"]))
-        $_SESSION["ui_language"]='english';
-    else
-        $_SESSION["ui_language"]=$_COOKIE["ui_language"];
+    if(!isset($_COOKIE["ui_language"])) {
+        $_SESSION["ui_language"] = 'english';
+    } else {
+        $_SESSION["ui_language"] = $_COOKIE["ui_language"];
+    }
 }
 
 define ("LANGUAGE", $_SESSION["ui_language"]);
@@ -256,6 +260,3 @@ define ("ENABLE_LOG", 0);
 //SQLi
 $DBHandle  = DbConnect();
 include (dirname(__FILE__)."/protect_sqli.php");
-
-// GLOBAL POST/GET VARIABLE
-getpost_ifset (array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'ui_language', 'cssname', 'popup_select', 'popup_formname', 'popup_fieldname', 'exporttype', 'msg'));
