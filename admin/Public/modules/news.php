@@ -55,7 +55,7 @@ $opts = array(
 );
 
 $context = stream_context_create($opts);
-$new_url = 'http://www.asterisk2billing.org/news.php';
+$new_url = 'http://www.asterisk2billing.org/news_v2.php';
 // Open the file using the HTTP headers set above
 $news_content = file_get_contents($new_url, false, $context);
 
