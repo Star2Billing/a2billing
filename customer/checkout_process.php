@@ -121,9 +121,9 @@ switch ($transaction_data[0][4]) {
         }
 
         // Headers PayPal system to validate
-        $header .="POST /cgi-bin/webscr HTTP/1.1\r\n";
-        $header .="Content-Type: application/x-www-form-urlencoded\r\n";
-        $header .="Host: www.paypal.com\r\n";
+        $header .= "POST /cgi-bin/webscr HTTP/1.1\r\n";
+        $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+        $header .= "Host: www.paypal.com\r\n";
         $header .= "Content-Length: " . strlen ($req) . "\r\n\r\n";
         for ($i = 1; $i <=3; $i++) {
             write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-OPENDING HTTP CONNECTION TO ".PAYPAL_VERIFY_URL);
@@ -178,7 +178,6 @@ switch ($transaction_data[0][4]) {
         break;
 
     case "plugnpay":
-
         if (substr($card_number,0,4) != substr($transaction_data[0][6],0,4)) {
             write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- PlugNPay Error : First 4digits of the card doesn't match with the one stored.");
         }
@@ -290,6 +289,7 @@ $nowDate = date("Y-m-d H:i:s");
 $pmodule = $transaction_data[0][4];
 
 $orderStatus = $payment_modules->get_OrderStatus();
+
 if (empty($item_type)) {
     $transaction_type = 'balance';
 } else {
@@ -301,7 +301,7 @@ if (empty($item_type)) {
     $inv_amount = ceil($result[0][0] * 100) / 100;
     $inv_vat_amount= $inv_amount * $VAT / 100;
     $inv_total_amount = $inv_amount + ($inv_amount * $VAT / 100);
-    if ($inv_total_amount != $amount_paid) {
+    if ($inv_total_amount != $amount) {
         write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR PAYMENT INVOICE $inv_total_amount != $amount_paid");
         exit();
     }
