@@ -41,5 +41,8 @@ ALTER TABLE cc_did ADD max_concurrent int(11) NOT NULL DEFAULT '10';
 -- Change nat field to 30 chars
 ALTER TABLE  cc_sip_buddies CHANGE nat  nat CHAR(30) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT 'yes';
 
+
+UPDATE cc_config SET config_description='Asterisk Version Information, 1_1, 1_2, 1_4, 1_6, 1_8 1_10 1_11' WHERE config_key='asterisk_version';
+
 -- Update Version
 UPDATE cc_version SET version = '2.0';
