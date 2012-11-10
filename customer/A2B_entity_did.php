@@ -313,11 +313,6 @@ function NextPage()
     document.theForm.new_did_page.value=0;
 }
 
-function PrevPage()
-{
-    if (document.theForm.new_did_page.value > 0) document.theForm.new_did_page.value--;
-}
-
 function CheckCountry(Source)
 {
     var country,test=false;
@@ -334,10 +329,6 @@ function CheckCountry(Source)
         if ((destination == '') || (indexdid <= 0)) return false;
         else test=true;
         NextPage();
-    }
-    if (Source == 'PrevButton') {
-        test=true;
-        PrevPage();
     }
     if (Source == 'Add') {
         destination = document.theForm.destination.value;
@@ -372,8 +363,8 @@ function CheckCountry(Source)
         <?php
         switch ($new_did_page) {
 
-        case 0:
-        if ($assign==1) { ?>
+            case 0:
+            if ($assign==1) { ?>
         <tr class="bgcolor_001">
           <td align="left" width="80%" colspan="2">
                 <select NAME="choose_country" size="1" class="form_input_select"  onChange="JavaScript:CheckCountry('select');">
@@ -382,12 +373,15 @@ function CheckCountry(Source)
                        foreach ($list_country as $recordset) {
                     ?>
                         <option class=input value='<?php echo $recordset[0]?>' <?php if ($choose_country==$recordset[0]) echo 'selected'; ?>><?php echo $recordset[1]?></option>
-                    <?php 	 }
+                    <?php
+                        }
                     ?>
                 </select>
             </td>
         </tr>
-        <?php } ?>
+            <?php
+                }
+            ?>
         <tr class="did_maintable_tr2" valign="top">
             <td align="left" valign="top" colspan="2">
                 <select NAME="choose_did_rate" size="3" class="form_input_select">
@@ -459,9 +453,6 @@ function CheckCountry(Source)
             </td>
         </tr>
         <tr class="bgcolor_007">
-            <td align="center" valign="middle">
-                <input class="form_input_button"  value=" <?php echo gettext("Prev");?> " type="button" onclick="CheckCountry('PrevButton')">
-            </td>
             <td align="center" valign="middle">
                 <input class="form_input_button"  value=" <?php echo gettext("Ok");?> "type="button" onclick="CheckCountry('NextButton')">
             </td>
