@@ -208,7 +208,7 @@ div.myscroll {
 <script type="text/javascript">
 <!--
 
-function MM_openBrWindow(theURL,winName,features) { //v2.0
+function MM_openBrWindow(theURL,winName,features) {
   window.open(theURL,winName,features);
 }
 
