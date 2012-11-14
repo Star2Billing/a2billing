@@ -242,7 +242,7 @@ $smarty->display( 'main.tpl');
 
 <script language="JavaScript" type="text/JavaScript">
 <!--
-function MM_openBrWindow(theURL,winName,features) { //v2.0
+function MM_openBrWindow(theURL,winName,features) {
   window.open(theURL,winName,features);
 }
 

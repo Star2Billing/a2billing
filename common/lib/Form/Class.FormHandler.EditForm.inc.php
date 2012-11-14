@@ -5,7 +5,7 @@ $processed = $this->getProcessed();
 <script language="JavaScript" src="./javascript/calonlydays.js"></script>
 <script language="JavaScript" type="text/JavaScript">
 <!--
-function MM_openBrWindow(theURL,winName,features) { //v2.0
+function MM_openBrWindow(theURL,winName,features) {
   window.open(theURL,winName,features);
 }
 

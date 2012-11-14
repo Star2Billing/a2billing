@@ -160,7 +160,7 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 
 <script language="JavaScript" type="text/JavaScript">
 <!--
-function MM_openBrWindow(theURL,winName,features) { //v2.0
+function MM_openBrWindow(theURL,winName,features) {
   window.open(theURL,winName,features);
 }
 
