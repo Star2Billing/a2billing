@@ -187,7 +187,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
                 // paid : check if the system have to bill it again
                 $unix_bill_time = strtotime($subscription['next_billing_date']);
                 $unix_now = strtotime(date("d-m-Y"));
-                if ($unix_now>=$unix_limit) {
+                if ($unix_now>=$unix_bill_time) {
                     $action = "bill";
 
                     $unix_startdate = strtotime($subscription['startdate']);
