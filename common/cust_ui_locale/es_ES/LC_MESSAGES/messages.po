@@ -3044,7 +3044,7 @@ msgstr "Ingrese el número de teléfono que quiera asignar al código aquí"
 
 #: A2B_entity_speeddial.php:97
 msgid "Speed Dial code"
-msgstr "CÓdigo de Discado Rápido"
+msgstr "Código de Discado Rápido"
 
 #: A2B_entity_speeddial.php:108 call-history.php:102 A2B_entity_did.php:413
 msgid "Destination"
