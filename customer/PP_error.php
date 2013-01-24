@@ -32,11 +32,11 @@
 **/
 
 include 'lib/customer.defines.php';
-session_destroy();
+
 include 'lib/customer.smarty.php';
 
 $smarty->display('header.tpl');
-
+session_destroy();
 getpost_ifset(array('c'));
 
 if (!isset($c))	$c="0";
@@ -69,7 +69,7 @@ $error["accessdenied"] = gettext("Sorry, you don't have access to this page !");
         </tr>
     </table>
           <div style="text-align:right;padding-right:10px;" >
-              <a href="index.php" ><?php echo gettext("GO TO LOGIN PAGE"); ?>&nbsp;<img src="<?php echo Images_Path; ?>/key_go.png"> </a>
+              <a href="index.php<?php  if(isset($_SESSION['stylefile']) && !empty($_SESSION['stylefile'])) echo "?cssname=" . $_SESSION['stylefile'];?>" ><?php echo gettext("GO TO LOGIN PAGE"); ?>&nbsp;<img src="<?php echo Images_Path; ?>/key_go.png"> </a>
           </div>
     </div>
 
