@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -68,8 +68,8 @@ $HD_Form -> AddViewElement(gettext("CID PREFIX"), "calleridprefix", "8%", "cente
 
 $HD_Form -> FieldViewElement ('id, tariffname, startingdate, expirationdate, id_trunk, secondusedreal, dnidprefix, calleridprefix');
 
-$HD_Form -> FG_ACTION_SIZE_COLUMN='12%';
-$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");  
+$HD_Form -> FG_ACTION_SIZE_COLUMN = '12%';
+$HD_Form -> CV_NO_FIELDS = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -81,83 +81,83 @@ $HD_Form -> FG_ADDITION = true;
 
 
 $HD_Form -> AddEditElement (gettext("TARIFFNAME"),
-			   "tariffname",		
-			   '$value',	
-			   "INPUT",	
-			   "size=40 maxlength=30",
-			   "3",	
-			   gettext("Insert the tariff name "),
-			   "" , "", "",	"", "", "", "",	"");
+	"tariffname",
+	'$value',
+	"INPUT",
+	"size=40 maxlength=30",
+	"3",
+	gettext("Insert the tariff name "),
+	"" , "", "",	"", "", "", "",	"");
 
-if ($form_action=="ask-add"){	
+if ($form_action=="ask-add"){
 	$begin_date = date("Y");
-	$begin_date_plus = date("Y")+25;	
+	$begin_date_plus = date("Y") + 10;
 	$end_date = date("-m-d H:i:s");
 	$comp_date = "value='".$begin_date.$end_date."'";
 	$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
 }
 
 $HD_Form -> AddEditElement (gettext("START DATE"),
-			   "startingdate",		
-			   '$value',	
-			   "INPUT",	
-			   "size=40 maxlength=40  $comp_date",	
-			   "10",	
-			   gettext("Insert the starting date"), 
-			   "" , "", "",	"", "", "", "res_display_dateformat", gettext("Please use the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"));
+	"startingdate",
+	'$value',
+	"INPUT",
+	"size=40 maxlength=40 $comp_date",
+	"10",
+	gettext("Insert the starting date"),
+	"" , "", "",	"", "", "", "res_display_dateformat", gettext("Please use the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"));
 
 $HD_Form -> AddEditElement (gettext("EXPIRY DATE"),
-			   "expirationdate",		
-			   '$value',	
-			   "INPUT",	
-			   "size=40 maxlength=40  $comp_date_plus",	
-			   "10",	
-			   gettext("Insert the expiration date"),
-			   "" , "", "",	"", "", "", "res_display_dateformat", gettext("Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"));
+	"expirationdate",
+	'$value',
+	"INPUT",
+	"size=40 maxlength=40  $comp_date_plus",
+	"10",
+	gettext("Insert the expiration date"),
+	"" , "", "",	"", "", "", "res_display_dateformat", gettext("Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"));
 
 $HD_Form -> AddEditElement (gettext("TRUNK"),
-			   "id_trunk",	
-			   '$value',	
-			   "SELECT",	
-			   "", "", "",	
-			   "sql",		
-			   "cc_trunk",	
-			   "trunkcode, id_trunk",		
-			   "", "", "%1", "", "");
+	"id_trunk",
+	'$value',
+	"SELECT",
+	"", "", "",
+	"sql",
+	"cc_trunk",
+	"trunkcode, id_trunk",
+	"", "", "%1", "", "");
 
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
-			   "description",		
-			   '',	
-			   "TEXTAREA",	
-			   "cols=50 rows=4",	
-			   "",	
-			   gettext("Insert the description"),
-			   "" , "", "",	"", "" , "", "", "");
+	"description",
+	'',
+	"TEXTAREA",
+	"cols=50 rows=4",
+	"",
+	gettext("Insert the description"),
+	"" , "", "",	"", "" , "", "", "");
 
-if ($form_action=="ask-add"){	
+if ($form_action=="ask-add"){
 	$val_dnidprefix = "value='all'";
 	$val_calleridprefix = "value='all'";
 }
 
 $HD_Form -> AddEditElement (gettext("DNID PREFIX"),
-			   "dnidprefix",		
-			   '$value',	
-			   "INPUT",	
-			   "size=20 $val_dnidprefix maxlength=20",	
-			   "14",	
-			   gettext("Insert the dnid prefix"),
-			   "" , "", "",	"", "" , "", "", gettext("Set the DNID rules to choose the ratecard 'dnidprefix', by default, matches all DNID. For instance, Set the DNIDPrefix  to 900540540 to choose this ratecard when the DNID is 900540540"));
+	"dnidprefix",
+	'$value',
+	"INPUT",
+	"size=20 $val_dnidprefix maxlength=20",
+	"14",
+	gettext("Insert the dnid prefix"),
+	"" , "", "",	"", "" , "", "", gettext("Set the DNID rules to choose the ratecard 'dnidprefix', by default, matches all DNID. For instance, Set the DNIDPrefix  to 900540540 to choose this ratecard when the DNID is 900540540"));
 
 
 $HD_Form -> AddEditElement (gettext("CALLERID PREFIX"),
-			   "calleridprefix",		
-			   '$value',	
-			   "INPUT",	
-			   "size=20 $val_calleridprefix maxlength=20",	
-			   "14",	
-			   gettext("Insert the dnid prefix"),
-			   "" , "", "",	"", "" , "", "", gettext("Set the CallerID rules to choose the ratecard 'calleridprefix', by default, matches all callerID. For instance, Set the calleridprefix to 900540540 to choose this ratecard when the CallerID is 900540540."));
-				
+	"calleridprefix",
+	'$value',
+	"INPUT",
+	"size=20 $val_calleridprefix maxlength=20",
+	"14",
+	gettext("Insert the dnid prefix"),
+	"" , "", "",	"", "" , "", "", gettext("Set the CallerID rules to choose the ratecard 'calleridprefix', by default, matches all callerID. For instance, Set the calleridprefix to 900540540 to choose this ratecard when the CallerID is 900540540."));
+
 
 $HD_Form -> FieldEditElement ('tariffname, startingdate, expirationdate, id_trunk, description, dnidprefix, calleridprefix');
 

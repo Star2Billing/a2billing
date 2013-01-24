@@ -33,7 +33,7 @@
 
 include './lib/customer.defines.php';
 
-getpost_ifset (array('transactionID', 'sess_id', 'key', 'mc_currency', 'currency', 'md5sig', 'merchant_id', 'mb_amount', 'status', 'mb_currency',
+getpost_ifset(array('transactionID', 'sess_id', 'key', 'mc_currency', 'currency', 'md5sig', 'merchant_id', 'mb_amount', 'status', 'mb_currency',
                     'transaction_id', 'mc_fee', 'card_number'));
 
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."EPAYMENT : transactionID=$transactionID - transactionKey=$key \n -POST Var \n".print_r($_POST, true));
@@ -507,7 +507,7 @@ $_SESSION["p_cardtype"] = null;
 $_SESSION["p_module"] = null;
 $_SESSION["p_module"] = null;
 
-//Update the Transaction Status to 1
+//Update the Transaction Status to 1 (Proceed 1)
 $QUERY = "UPDATE cc_epayment_log SET status = 1, transaction_detail ='".addslashes($transaction_detail)."' WHERE id = ".$transactionID;
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY = $QUERY");
 $paymentTable->SQLExec ($DBHandle_max, $QUERY);

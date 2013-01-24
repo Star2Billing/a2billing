@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Customer UI : 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-30 19:56+0200\n"
+"POT-Creation-Date: 2012-12-20 14:38+0100\n"
 "PO-Revision-Date: 2010-07-28 17:45+0200\n"
 "Last-Translator: Polihronis Porfiris <pporfiris@hotmail.com>\n"
 "Language-Team: Polihronis Porfiris <pporfiris@hotmai.com>\n"
@@ -27,14 +27,12 @@ msgstr "Ενημερώθηκαν επιτυχώς οι ρύθμισης ειδο
 msgid "Reccurring payment : automated refill"
 msgstr "Επαναλαμβανόμενη πληρωμή : αυτόματη ανανέωση"
 
-#: A2B_recurring_payment.php:155 iridium_threed.php:286
-#: checkout_process.php:352
+#: A2B_recurring_payment.php:155 checkout_process.php:370
 msgid "CUSTOMER REFILL"
 msgstr "ΑΝΑΝΕΩΣΗ ΠΕΛΑΤΗ"
 
-#: A2B_recurring_payment.php:156 iridium_threed.php:288
-#: lib/Form/Class.FormBO.php:836 lib/Form/Class.FormBO.php:945
-#: checkout_process.php:353
+#: A2B_recurring_payment.php:156 lib/Form/Class.FormBO.php:836
+#: lib/Form/Class.FormBO.php:945 checkout_process.php:371
 msgid "Invoice for refill"
 msgstr "Τιμολόγιο για ανανεώσεις"
 
@@ -42,8 +40,8 @@ msgstr "Τιμολόγιο για ανανεώσεις"
 msgid "Automated Refill : recurring payment"
 msgstr "Αυτόματη ανανέωση : επαναλαμβανόμενη πληρωμή"
 
-#: A2B_recurring_payment.php:193 iridium_threed.php:352
-#: lib/Form/Class.FormBO.php:992 checkout_process.php:387
+#: A2B_recurring_payment.php:193 lib/Form/Class.FormBO.php:992
+#: checkout_process.php:405
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr "ΑΥΤΟΜΑΤΟ ΔΗΜΙΟΥΡΓΗΜΕΝΗ ΠΡΟΜΗΘΕΙΑ!"
 
@@ -259,7 +257,7 @@ msgstr "ΠΡΟΟΡΙΣΜΟΣ"
 msgid "CallTime available"
 msgstr "Διαθέσιμος χρόνος ομιλίας"
 
-#: simulator.php:214 call-history.php:365
+#: simulator.php:214 call-history.php:332
 msgid "Minutes"
 msgstr "Λεπτά"
 
@@ -325,10 +323,6 @@ msgstr "Περιγραφή"
 msgid "CREATE"
 msgstr "ΔΗΜΙΟΥΡΓΙΑ"
 
-#: iridium_threed.php:302 checkout_process.php:360
-msgid "Refill ONLINE"
-msgstr "Ανανέωση ONLINE"
-
 #: form_data/FG_var_did.inc:62 lib/interface/constants.php:108
 msgid "Active"
 msgstr "Ενεργό"
@@ -345,7 +339,7 @@ msgstr ""
 msgid "Validated"
 msgstr ""
 
-#: form_data/FG_var_did.inc:70 templates/default/main.tpl:62
+#: form_data/FG_var_did.inc:70 templates/default/main.tpl:64
 msgid "DID"
 msgstr "DID"
 
@@ -398,7 +392,7 @@ msgstr "Επιλέξετε αν δεν θέλετε να χρησιμοποιή�
 #: form_data/FG_var_did.inc:171 form_data/FG_var_campaign.inc:297
 #: form_data/FG_var_speeddial.inc:118 form_data/FG_var_phonebook.inc:109
 #: form_data/FG_var_ticket.inc:80 form_data/FG_var_phonenumber.inc:145
-#: form_data/FG_var_callerid.inc:117 lib/Form/Class.FormHandler.inc.php:554
+#: form_data/FG_var_callerid.inc:117 lib/Form/Class.FormHandler.inc.php:580
 msgid "If you really want remove this"
 msgstr "Αν πραγματικά θέλετε να αφαιρέσετε αυτό"
 
@@ -412,22 +406,22 @@ msgstr "πατήστε το κουμπί διαγραφής."
 #: form_data/FG_var_did.inc:172 form_data/FG_var_campaign.inc:298
 #: form_data/FG_var_speeddial.inc:119 form_data/FG_var_phonebook.inc:110
 #: form_data/FG_var_ticket.inc:81 form_data/FG_var_phonenumber.inc:146
-#: form_data/FG_var_callerid.inc:118 lib/Form/Class.FormHandler.inc.php:557
+#: form_data/FG_var_callerid.inc:118 lib/Form/Class.FormHandler.inc.php:583
 msgid "you can add easily a new"
 msgstr "μπορείτε εύκολα να προσθέστε μια"
 
 #: form_data/FG_var_did.inc:172 form_data/FG_var_campaign.inc:298
 #: form_data/FG_var_speeddial.inc:119 form_data/FG_var_phonebook.inc:110
 #: form_data/FG_var_ticket.inc:81 form_data/FG_var_phonenumber.inc:146
-#: form_data/FG_var_callerid.inc:118 lib/Form/Class.FormHandler.inc.php:557
+#: form_data/FG_var_callerid.inc:118 lib/Form/Class.FormHandler.inc.php:583
 msgid "Fill the following fields and confirm by clicking on the button add."
 msgstr "Συμπληρώστε τα παρακάτω πεδία και επιβεβαιώστε πατώντας το κουμπί προσθήκη."
 
 #: form_data/FG_var_did.inc:176 form_data/FG_var_campaign.inc:302
 #: form_data/FG_var_speeddial.inc:124 form_data/FG_var_phonebook.inc:114
 #: form_data/FG_var_ticket.inc:85 form_data/FG_var_callerid.inc:124
-#: lib/Form/Class.FormHandler.inc.php:559
-#: lib/Form/Class.FormHandler.inc.php:560
+#: lib/Form/Class.FormHandler.inc.php:585
+#: lib/Form/Class.FormHandler.inc.php:586
 msgid "Your new"
 msgstr "Η νέα σας"
 
@@ -446,8 +440,8 @@ msgid "REFERENCE"
 msgstr "ΣΥΣΧΕΤΙΣΗ"
 
 #: form_data/FG_var_invoice.inc:68 form_data/FG_var_receipt.inc:67
-#: form_data/FG_var_phonenumber.inc:65 call-history.php:245
-#: call-history.php:573
+#: form_data/FG_var_phonenumber.inc:65 call-history.php:212
+#: call-history.php:540
 msgid "DATE"
 msgstr "ΗΜΕΡΟΜΗΝΙΑ"
 
@@ -539,7 +533,7 @@ msgid "TIMEZONE"
 msgstr "ΖΩΝΗ ΩΡΑΣ"
 
 #: form_data/FG_var_signup.inc:268 form_data/FG_var_phonenumber.inc:62
-#: call-history.php:309
+#: call-history.php:276
 msgid "PHONENUMBER"
 msgstr "ΤΗΛΕΦΩΝΟ"
 
@@ -871,7 +865,7 @@ msgstr "ΤΗΛΕΦΩΝΙΚΟΣ ΚΑΤΑΛΟΓΟΣ"
 
 #: form_data/FG_var_campaign.inc:296 form_data/FG_var_speeddial.inc:117
 #: form_data/FG_var_phonebook.inc:108 form_data/FG_var_phonenumber.inc:144
-#: form_data/FG_var_callerid.inc:116 lib/Form/Class.FormHandler.inc.php:553
+#: form_data/FG_var_callerid.inc:116 lib/Form/Class.FormHandler.inc.php:579
 msgid "You can modify, through the following form, the different properties of your"
 msgstr "Μέσου της παρακάτω φόρμας, μπορείτε να τροποποιήσετε την"
 
@@ -962,7 +956,7 @@ msgid "THERE IS NO RECEIPT CREATED!"
 msgstr "ΔΕΝ ΔΗΜΙΟΥΡΓΗΘΗΚΕ ΑΠΟΔΕΙΞΗ!"
 
 #: form_data/FG_var_phonebook.inc:38 form_data/FG_var_phonenumber.inc:92
-#: templates/default/main.tpl:114
+#: templates/default/main.tpl:116
 msgid "Phone Book"
 msgstr "Τηλεφωνικός κατάλογος"
 
@@ -1068,7 +1062,7 @@ msgstr "ΠΟΣΟ"
 msgid "No phone numbers have been created"
 msgstr "Δεν έχουν δημιουργηθεί τηλεφωνικοί αριθμοί"
 
-#: form_data/FG_var_phonenumber.inc:83 templates/default/main.tpl:115
+#: form_data/FG_var_phonenumber.inc:83 templates/default/main.tpl:117
 msgid "Phone Number"
 msgstr "Τηλέφωνο"
 
@@ -1108,7 +1102,7 @@ msgstr "Προσθέστε ένα νέο τηλεφωνικό αριθμό."
 msgid "Your new phone number has been inserted."
 msgstr "Ο νέος τηλεφωνικός σας αριθμός εισήχθηκε"
 
-#: form_data/FG_var_callerid.inc:39 call-history.php:126
+#: form_data/FG_var_callerid.inc:39 call-history.php:100
 msgid "CallerID"
 msgstr "Αναγνωριστικό κλήσης"
 
@@ -1278,22 +1272,6 @@ msgstr "Αδύνατον να γίνει εγγραφή στο αρχείο"
 msgid "This option is not available on the Demo!"
 msgstr "ΑΥΤΗ Η ΕΠΙΛΟΓΗ ΔΕΝ ΕΙΝΑΙ ΔΙΑΘΕΣΙΜΗ ΣΤΟ DEMO!"
 
-#: lib/epayment/methods/iridium.php:607 checkout_success.php:67
-msgid "We are sorry your transaction is failed. Please try later or check your provided information."
-msgstr "Λυπούμαστε η συναλλαγή σας απέτυχε. Παρακαλούμε δοκιμάστε αργότερα ή ελέγξτε τα στοιχεία που δηλώσατε."
-
-#: lib/epayment/methods/iridium.php:611 checkout_success.php:71
-msgid "We are sorry your transaction is denied. Please try later or check your provided information."
-msgstr "Λυπούμαστε η συναλλαγή σας απορρίφτηκε. Παρακαλούμε δοκιμάστε αργότερα ή ελέγξτε τα στοιχεία που δηλώσατε."
-
-#: lib/epayment/methods/iridium.php:620 checkout_success.php:79
-msgid "Your transaction is in progress."
-msgstr "Η συναλλαγή σας επεξεργάζεται."
-
-#: lib/epayment/methods/iridium.php:624 checkout_success.php:83
-msgid "Your transaction was successful."
-msgstr "Η συναλλαγή σας ήταν επιτυχής."
-
 #: lib/support/classes/ticket.php:78 lib/support/classes/ticket.php:236
 msgid "(AGENT)"
 msgstr "(ΕΚΠΡΟΣΩΠΟΣ)"
@@ -1327,36 +1305,36 @@ msgstr "ΕΣΦΑΛΜΕΝΗ"
 msgid "CREATION CARD REFILL"
 msgstr "ΔΗΜΙΟΥΡΓΙΑ ΑΝΑΝΕΩΣΗΣ ΚΑΡΤΑΣ"
 
-#: lib/common.defines.php:86
+#: lib/common.defines.php:87
 msgid "Address line 1:"
 msgstr "Γραμμή διεύθυνσης 1:"
 
-#: lib/common.defines.php:87
+#: lib/common.defines.php:88
 msgid "Address line 2:"
 msgstr "Γραμμή διεύθυνσης 2:"
 
-#: lib/common.defines.php:88
+#: lib/common.defines.php:89
 msgid "Address line 3:"
 msgstr "Γραμμή διεύθυνσης 3:"
 
-#: lib/common.defines.php:89
+#: lib/common.defines.php:90
 msgid "Postcode:"
 msgstr "Τ.Κ.:"
 
-#: lib/common.defines.php:90
+#: lib/common.defines.php:91
 msgid "Country:"
 msgstr "Χώρα:"
 
-#: lib/common.defines.php:91
+#: lib/common.defines.php:92
 msgid "Telephone:"
 msgstr "Τηλέφωνο:"
 
-#: lib/common.defines.php:118
+#: lib/common.defines.php:119
 #, fuzzy
 msgid "This software has been created by Areski Belaid under AGPL licence. For futher information, feel free to contact me:"
 msgstr "Αυτό το λογισμικό κατασκευάστηκε από τον Areski σύμφωνα με την άδεια AGPL. Για περισσότερες πληροφορίες μην διστάσετε να επικοινωνήστε μαζί μου:"
 
-#: lib/common.defines.php:124
+#: lib/common.defines.php:125
 msgid "A2Billing Portal"
 msgstr "Πύλη A2Billing"
 
@@ -1400,40 +1378,40 @@ msgstr "Εξαγωγή CSV"
 msgid "Export XML"
 msgstr "Εξαγωγή XML"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:214
-#: lib/Form/Class.FormHandler.EditForm.inc.php:390
-#: lib/Form/Class.FormHandler.EditForm.inc.php:768
-#: lib/Form/Class.FormHandler.DelForm.inc.php:161
-#: lib/Form/Class.FormHandler.AddForm.inc.php:154
+#: lib/Form/Class.FormHandler.EditForm.inc.php:219
+#: lib/Form/Class.FormHandler.EditForm.inc.php:395
+#: lib/Form/Class.FormHandler.EditForm.inc.php:773
+#: lib/Form/Class.FormHandler.DelForm.inc.php:170
+#: lib/Form/Class.FormHandler.AddForm.inc.php:164
 #: CC_entity_edit_speeddial.php:274 CC_entity_edit_speeddial.php:476
 #: CC_entity_edit_speeddial.php:761 CC_entity_edit_speeddial.php:1005
 #: card-history.php:393 CC_entity_edit_did_destination.php:379
 #: CC_entity_edit_did_destination.php:588
 #: CC_entity_edit_did_destination.php:891
 #: CC_entity_edit_did_destination.php:1010
-#: CC_entity_edit_did_destination.php:1151 call-history.php:507
+#: CC_entity_edit_did_destination.php:1151 call-history.php:474
 msgid "No data found !!!"
 msgstr "Δεν βρέθηκαν δεδομένα!!!"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:273
+#: lib/Form/Class.FormHandler.EditForm.inc.php:278
 msgid "LIST "
 msgstr "ΛΙΣΤΑ"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:324
+#: lib/Form/Class.FormHandler.EditForm.inc.php:329
 #: lib/interface/constants.php:78 CC_entity_edit_did_destination.php:697
 msgid "No"
 msgstr "Όχι"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:344
-#: lib/Form/Class.FormHandler.EditForm.inc.php:499
-#: lib/Form/Class.FormHandler.EditForm.inc.php:621
+#: lib/Form/Class.FormHandler.EditForm.inc.php:349
+#: lib/Form/Class.FormHandler.EditForm.inc.php:504
+#: lib/Form/Class.FormHandler.EditForm.inc.php:626
 #: CC_entity_edit_speeddial.php:422 CC_entity_edit_speeddial.php:607
 #: CC_entity_edit_did_destination.php:731
 msgid "Add a new"
 msgstr "Προσθήκη νέου"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:431
-#: lib/Form/Class.FormHandler.EditForm.inc.php:557
+#: lib/Form/Class.FormHandler.EditForm.inc.php:436
+#: lib/Form/Class.FormHandler.EditForm.inc.php:562
 #: CC_entity_edit_speeddial.php:532 CC_entity_edit_speeddial.php:697
 #: CC_entity_edit_did_destination.php:642
 #: CC_entity_edit_did_destination.php:826
@@ -1561,19 +1539,19 @@ msgstr "Δεκέμβριος "
 msgid "To :"
 msgstr "Προς :"
 
-#: lib/Form/Class.SearchHandler.inc.php:203 call-history.php:314
+#: lib/Form/Class.SearchHandler.inc.php:203 call-history.php:281
 msgid "Exact"
 msgstr "Ακριβός"
 
-#: lib/Form/Class.SearchHandler.inc.php:204 call-history.php:315
+#: lib/Form/Class.SearchHandler.inc.php:204 call-history.php:282
 msgid "Begins with"
 msgstr "Αρχίζει με"
 
-#: lib/Form/Class.SearchHandler.inc.php:205 call-history.php:316
+#: lib/Form/Class.SearchHandler.inc.php:205 call-history.php:283
 msgid "Contains"
 msgstr "Περιέχει"
 
-#: lib/Form/Class.SearchHandler.inc.php:206 call-history.php:317
+#: lib/Form/Class.SearchHandler.inc.php:206 call-history.php:284
 msgid "Ends with"
 msgstr "Τελειώνει με"
 
@@ -1585,7 +1563,7 @@ msgstr "Υπάρχουν"
 msgid "selected, use the option below if you are willing to make a batch updated of the selected cards."
 msgstr "επιλεγμένα, χρησιμοποιήστε την παρακάτω επιλογή εάν θέλετε να κάνετε μαζική ενημέρωση των επιλεγμένων καρτών."
 
-#: lib/Form/Class.SearchHandler.inc.php:342 templates/default/main.tpl:70
+#: lib/Form/Class.SearchHandler.inc.php:342 templates/default/main.tpl:72
 msgid "RATECARD"
 msgstr "ΚΑΡΤΑ ΤΙΜΩΝ"
 
@@ -1653,231 +1631,231 @@ msgstr "ΌΡΙΟ ΚΟΣΤΟΥΣ ΑΠΟΣΥΝΔΕΣΗΣ"
 msgid " BATCH UPDATE RATECARD "
 msgstr "ΜΑΖΙΚΗ ΕΝΗΜΕΡΩΣΗ ΚΑΡΤΩΝ ΤΙΜΩΝ"
 
-#: lib/Form/Class.FormHandler.DelForm.inc.php:46 checkout_success.php:53
+#: lib/Form/Class.FormHandler.DelForm.inc.php:55 checkout_success.php:53
 msgid "Message"
 msgstr "Μήνυμα"
 
-#: lib/Form/Class.FormHandler.DelForm.inc.php:53
+#: lib/Form/Class.FormHandler.DelForm.inc.php:62
 msgid "You have "
 msgstr "Έχετε"
 
-#: lib/Form/Class.FormHandler.DelForm.inc.php:208
+#: lib/Form/Class.FormHandler.DelForm.inc.php:217
 msgid "Remove this "
 msgstr "Αφαιρέστε αυτό"
 
-#: lib/Form/Class.FormHandler.inc.php:545
+#: lib/Form/Class.FormHandler.inc.php:571
 msgid "No data found!"
 msgstr "Δεν βρέθηκαν δεδομένα!"
 
-#: lib/Form/Class.FormHandler.inc.php:546
+#: lib/Form/Class.FormHandler.inc.php:572
 msgid "DIRECTORY"
 msgstr "ΚΑΤΑΛΟΓΟΣ"
 
-#: lib/Form/Class.FormHandler.inc.php:547
+#: lib/Form/Class.FormHandler.inc.php:573
 msgid "list"
 msgstr "λίστα"
 
-#: lib/Form/Class.FormHandler.inc.php:548
-#: lib/Form/Class.FormHandler.inc.php:630
+#: lib/Form/Class.FormHandler.inc.php:574
+#: lib/Form/Class.FormHandler.inc.php:668
 msgid "Define criteria to make a precise search"
 msgstr "Ορίστε κριτήρια για να γίνει μια ακριβής αναζήτηση"
 
-#: lib/Form/Class.FormHandler.inc.php:549
+#: lib/Form/Class.FormHandler.inc.php:575
 msgid "You can browse through our"
 msgstr "Μπορείτε να περιηγηθείτε ανάμεσα στης"
 
-#: lib/Form/Class.FormHandler.inc.php:549
+#: lib/Form/Class.FormHandler.inc.php:575
 msgid "and modify their different properties"
 msgstr "και να τροποποιήστε τις διάφορες ιδιότητες τους"
 
-#: lib/Form/Class.FormHandler.inc.php:550
+#: lib/Form/Class.FormHandler.inc.php:576
 msgid "Delete this record"
 msgstr "Διαγράψετε αυτήν την εγγραφή"
 
-#: lib/Form/Class.FormHandler.inc.php:551
+#: lib/Form/Class.FormHandler.inc.php:577
 msgid "Edit this record"
 msgstr "Επεξεργασία αυτής της εγγραφής"
 
-#: lib/Form/Class.FormHandler.inc.php:552
+#: lib/Form/Class.FormHandler.inc.php:578
 msgid "The document has been created correctly. Now, you can define the different tariff that you want to associate."
 msgstr "Το έγγραφο έχει δημιουργηθεί σωστά. Τώρα μπορείτε να ορίσετε τις διάφορες χρεώσεις που θέλετε να συσχετίσετε."
 
-#: lib/Form/Class.FormHandler.inc.php:554
+#: lib/Form/Class.FormHandler.inc.php:580
 msgid "Click on the delete button."
 msgstr "Πατήστε το κουμπί διαγραφής."
 
-#: lib/Form/Class.FormHandler.inc.php:555
+#: lib/Form/Class.FormHandler.inc.php:581
 msgid "One"
 msgstr "Μία"
 
-#: lib/Form/Class.FormHandler.inc.php:555
+#: lib/Form/Class.FormHandler.inc.php:581
 msgid "has been deleted!"
 msgstr "Έχει διαγραφτεί!"
 
-#: lib/Form/Class.FormHandler.inc.php:558
+#: lib/Form/Class.FormHandler.inc.php:584
 msgid "Add a"
 msgstr "Πρόσθεσε μια"
 
-#: lib/Form/Class.FormHandler.inc.php:558
+#: lib/Form/Class.FormHandler.inc.php:584
 msgid "now."
 msgstr "τώρα."
 
-#: lib/Form/Class.FormHandler.inc.php:559
+#: lib/Form/Class.FormHandler.inc.php:585
 msgid "has been inserted.<br>"
 msgstr "έχει εισαχτεί <br>"
 
-#: lib/Form/Class.FormHandler.inc.php:560
+#: lib/Form/Class.FormHandler.inc.php:586
 msgid "hasn't been inserted."
 msgstr "δεν έχει εισαχτεί "
 
-#: lib/Form/Class.FormHandler.inc.php:561
+#: lib/Form/Class.FormHandler.inc.php:587
 msgid "You cannot choose more than one !"
 msgstr "Δεν μπορείτε να επιλέξετε περισσότερο από μια!"
 
-#: lib/Form/Class.FormHandler.inc.php:563
+#: lib/Form/Class.FormHandler.inc.php:589
 msgid "Are you sure to delete all records connected to this instance."
 msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε όλες τις εγγραφές που συσχετίζονται με αυτήν την οντότητα."
 
-#: lib/Form/Class.FormHandler.inc.php:565
-#: lib/Form/Class.FormHandler.inc.php:567
+#: lib/Form/Class.FormHandler.inc.php:591
+#: lib/Form/Class.FormHandler.inc.php:593
 msgid "CONFIRM DATA"
 msgstr "ΕΠΙΒΕΒΑΙΩΣΗ ΔΕΔΟΜΕΝΩΝ"
 
-#: lib/Form/Class.FormHandler.inc.php:566
+#: lib/Form/Class.FormHandler.inc.php:592
 msgid "DELETE"
 msgstr "ΔΙΑΓΡΑΦΗ"
 
-#: lib/Form/Class.FormHandler.inc.php:619
-#: lib/Form/Class.FormHandler.inc.php:837
+#: lib/Form/Class.FormHandler.inc.php:657
+#: lib/Form/Class.FormHandler.inc.php:840
 msgid "Delete this "
 msgstr "Διαγράψτε αυτό"
 
-#: lib/Form/Class.FormHandler.inc.php:620
-#: lib/Form/Class.FormHandler.inc.php:831
+#: lib/Form/Class.FormHandler.inc.php:658
+#: lib/Form/Class.FormHandler.inc.php:834
 msgid "Edit this "
 msgstr "Επεξεργασία αυτό το "
 
-#: lib/Form/Class.FormHandler.inc.php:651
+#: lib/Form/Class.FormHandler.inc.php:689
 msgid "INSERTED"
 msgstr "ΕΙΣΑΓΜΕΝΗ"
 
-#: lib/Form/Class.FormHandler.inc.php:652
+#: lib/Form/Class.FormHandler.inc.php:690
 msgid "ENABLE"
 msgstr "ΕΝΕΡΓΟΠΟΙΗΜΕΝΗ"
 
-#: lib/Form/Class.FormHandler.inc.php:653
+#: lib/Form/Class.FormHandler.inc.php:691
 msgid "DISABLE"
 msgstr "ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΗ"
 
-#: lib/Form/Class.FormHandler.inc.php:654
+#: lib/Form/Class.FormHandler.inc.php:692
 msgid "FREE"
 msgstr "ΔΩΡΕΑΝ"
 
-#: lib/Form/Class.FormHandler.inc.php:806
-#: lib/Form/Class.FormHandler.inc.php:808
+#: lib/Form/Class.FormHandler.inc.php:809
+#: lib/Form/Class.FormHandler.inc.php:811
 msgid "You can browse through our "
 msgstr "Μπορείτε να περιηγηθείτε ανάμεσα στης"
 
-#: lib/Form/Class.FormHandler.inc.php:806
-#: lib/Form/Class.FormHandler.inc.php:808
+#: lib/Form/Class.FormHandler.inc.php:809
+#: lib/Form/Class.FormHandler.inc.php:811
 msgid " and modify their different properties<br>"
 msgstr "και να τροποποιήστε τις διάφορες ιδιότητες τους"
 
-#: lib/Form/Class.FormHandler.inc.php:976
+#: lib/Form/Class.FormHandler.inc.php:979
 msgid "(at least 3 characters)"
 msgstr "(τουλάχιστον 3 χαρακτήρες)"
 
-#: lib/Form/Class.FormHandler.inc.php:980
+#: lib/Form/Class.FormHandler.inc.php:983
 msgid "(must match email structure. Example : name@domain.com)"
 msgstr "(πρέπει να συμπίπτει με την μορφή email. Παράδειγμα name@domain.com)"
 
-#: lib/Form/Class.FormHandler.inc.php:984
+#: lib/Form/Class.FormHandler.inc.php:987
 msgid "(at least 5 successive characters appear at the end of this string)"
 msgstr "(τουλάχιστον 5 συνεχόμενοι χαρακτήρες εμφανίζονται στο τέλους αυτού του κειμένου)"
 
-#: lib/Form/Class.FormHandler.inc.php:988
+#: lib/Form/Class.FormHandler.inc.php:991
 msgid "(at least 4 characters)"
 msgstr "(τουλάχιστον 4 χαρακτήρες)"
 
-#: lib/Form/Class.FormHandler.inc.php:992
+#: lib/Form/Class.FormHandler.inc.php:995
 msgid "(number format)"
 msgstr "(μορφή αριθμών)"
 
-#: lib/Form/Class.FormHandler.inc.php:1000
+#: lib/Form/Class.FormHandler.inc.php:1003
 msgid "(only number with more that 8 digits)"
 msgstr "(μόνο αριθμός με περισσότερα από 8 ψηφία)"
 
-#: lib/Form/Class.FormHandler.inc.php:1004
+#: lib/Form/Class.FormHandler.inc.php:1007
 msgid "(at least 8 digits using . or - or the space key)"
 msgstr "(τουλάχιστον 8 ψηφία χρησιμοποιώντας την . ή την – ή το πλήκτρο διαστήματος)"
 
-#: lib/Form/Class.FormHandler.inc.php:1008
+#: lib/Form/Class.FormHandler.inc.php:1011
 msgid "network adress format"
 msgstr "μορφή διεύθυνσης δικτύου"
 
-#: lib/Form/Class.FormHandler.inc.php:1012
+#: lib/Form/Class.FormHandler.inc.php:1015
 msgid "at least 1 character"
 msgstr "τουλάχιστον ένας χαρακτήρας"
 
-#: lib/Form/Class.FormHandler.inc.php:1020
+#: lib/Form/Class.FormHandler.inc.php:1023
 msgid "(AT LEAST 2 CARACTERS)"
 msgstr "(ΤΟΥΛΑΧΙΣΤΟΝ 2 ΧΑΡΑΚΤΗΡΕΣ)"
 
-#: lib/Form/Class.FormHandler.inc.php:1024
+#: lib/Form/Class.FormHandler.inc.php:1027
 msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
 msgstr "(ΜΟΡΦΗ ΑΡΙΘΜΩΝ ΜΕ Η ΧΩΡΙΣ ΥΠΟΔΙΑΣΤΟΛΗ. Χρησιμοποιήστε το '.' για υποδιαστολή)"
 
-#: lib/Form/Class.FormHandler.inc.php:1040
+#: lib/Form/Class.FormHandler.inc.php:1043
 msgid "You must write something."
 msgstr "Πρέπει να γράψετε κάτι."
 
-#: lib/Form/Class.FormHandler.inc.php:1044
+#: lib/Form/Class.FormHandler.inc.php:1047
 msgid "8 characters alphanumeric"
 msgstr "8 αλφαριθμητική χαρακτήρες"
 
-#: lib/Form/Class.FormHandler.inc.php:1051
+#: lib/Form/Class.FormHandler.inc.php:1054
 msgid "(at least 6 Alphanumeric characters)"
 msgstr "(τουλάχιστον 6 αλφαριθμητική χαρακτήρες)"
 
-#: lib/Form/Class.FormHandler.inc.php:1059
+#: lib/Form/Class.FormHandler.inc.php:1062
 #, php-format
 msgid "(PERCENT FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal and don't use '%' character. e.g.: 12.4 )"
 msgstr "(ΜΟΡΦΗ ΠΟΣΟΣΤΟΥ ΜΕ Η ΧΩΡΙΣ ΥΠΟΔΙΑΣΤΟΛΗ. Χρησιμοποιήστε το '.' για υποδιαστολή και μην χρησιμοποιήστε τον χαρακτήρα '%'. π.χ.: 12.4)"
 
-#: lib/Form/Class.FormHandler.inc.php:1738
+#: lib/Form/Class.FormHandler.inc.php:1757
 #: CC_entity_edit_did_destination.php:216
 msgid "error deletion"
 msgstr "Σφάλμα διαγραφής"
 
-#: lib/Form/Class.FormHandler.inc.php:1865
+#: lib/Form/Class.FormHandler.inc.php:1884
 msgid "ERROR_DUPLICATION"
 msgstr "ΣΦΑΛΜΑ ΔΙΠΛΟΕΓΓΡΑΦΗΣ"
 
-#: lib/Form/Class.FormHandler.inc.php:1951
+#: lib/Form/Class.FormHandler.inc.php:1970
 msgid "Done"
 msgstr "Ολοκληρώθηκε"
 
-#: lib/Form/Class.FormHandler.inc.php:1991
+#: lib/Form/Class.FormHandler.inc.php:2010
 msgid "Export Call Plan with LCR"
 msgstr "Εξαγωγή σχεδίου κλήσης με LCR"
 
-#: lib/Form/Class.FormHandler.inc.php:1997
+#: lib/Form/Class.FormHandler.inc.php:2016
 msgid "Choose a call plan"
 msgstr "Επιλέξτε σχέδιο κλήσης"
 
-#: lib/Form/Class.FormHandler.inc.php:2043
+#: lib/Form/Class.FormHandler.inc.php:2062
 msgid "THE CURRENT RATECARD"
 msgstr "Η ΤΡΕΧΟΥΣΑ ΚΑΡΤΑ ΤΙΜΩΝ"
 
-#: lib/Form/Class.FormHandler.inc.php:2054
+#: lib/Form/Class.FormHandler.inc.php:2073
 msgid "R A T E C A R D"
 msgstr "Κ Α Ρ Τα Α  Τ Ι Μ Ω Ν"
 
-#: lib/Form/Class.FormHandler.inc.php:2060
+#: lib/Form/Class.FormHandler.inc.php:2079
 msgid "Choose a ratecard"
 msgstr "Επιλέξτε μια κάρτα τιμών"
 
-#: lib/Form/Class.FormHandler.AddForm.inc.php:207
+#: lib/Form/Class.FormHandler.AddForm.inc.php:217
 msgid "Create a new "
 msgstr "Δημιουργήστε ένα νέο"
 
@@ -1889,11 +1867,11 @@ msgstr "ΑΓΝΩΣΤΟ"
 msgid "First"
 msgstr "Πρώτο"
 
-#: lib/Misc.php:794 A2B_entity_did.php:448
+#: lib/Misc.php:794
 msgid "Prev"
 msgstr "Προηγούμενο"
 
-#: lib/Misc.php:795 A2B_entity_did.php:418
+#: lib/Misc.php:795 A2B_entity_did.php:427
 msgid "Next"
 msgstr "Επόμενο"
 
@@ -2001,7 +1979,7 @@ msgstr "ΕΚΠΡΟΣΩΠΟΥΣ"
 msgid "CUSTOMERS AND AGENTS"
 msgstr "ΠΕΛΑΤΕΣ ΚΑΙ ΕΚΠΡΟΣΩΠΟΥΣ"
 
-#: lib/interface/constants.php:77 A2B_entity_did.php:402
+#: lib/interface/constants.php:77 A2B_entity_did.php:411
 msgid "Yes"
 msgstr "Ναι"
 
@@ -2331,24 +2309,24 @@ msgstr "ΧΩΡΙΣ ΕΚΠΤΩΣΗ"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Έχει οριστεί λανθασμένο μήκος κάρτας στις ρυθμίσεις"
 
-#: lib/Class.A2Billing.php:3376
+#: lib/Class.A2Billing.php:3418
 msgid "Error : Authentication Failed !!!"
 msgstr "Σφάλμα : Αποτυχία αυθεντικοποιησης !!!"
 
-#: lib/Class.A2Billing.php:3417
+#: lib/Class.A2Billing.php:3459
 msgid "Error : Not enough credit to call !!!"
 msgstr "Σφάλμα : Δεν υπάρχουν αρκετές μονάδες για να καλέσετε !!!"
 
-#: lib/Class.A2Billing.php:3424
+#: lib/Class.A2Billing.php:3466
 msgid "Error : Card is not active!!!"
 msgstr "Σφάλμα : Η κάρτα δεν έχει ενεργοποιηθεί !!!"
 
-#: lib/Class.A2Billing.php:3431
+#: lib/Class.A2Billing.php:3473
 msgid "Error : Card is actually in use!!!"
 msgstr "Σφάλμα : Η κάρτα είναι σε χρήση !!!"
 
-#: lib/Class.A2Billing.php:3441 lib/Class.A2Billing.php:3450
-#: lib/Class.A2Billing.php:3459
+#: lib/Class.A2Billing.php:3483 lib/Class.A2Billing.php:3492
+#: lib/Class.A2Billing.php:3501
 msgid "Error : Card have expired!!!"
 msgstr "Σφάλμα : Η κάρτα έχει λήξη !!!"
 
@@ -2533,33 +2511,33 @@ msgstr "ΚΑΤΑΣΤΑΣΗ"
 msgid "COMMENT : "
 msgstr "ΣΧΟΛΙΟ :"
 
-#: checkout_confirmation.php:108
+#: checkout_confirmation.php:126
 msgid "No Transaction ID found"
 msgstr "Δεν βρέθηκε συναλλαγή"
 
-#: checkout_confirmation.php:140
+#: checkout_confirmation.php:158
 msgid "Please confirm your order"
 msgstr "Παρακαλώ επιβεβαιώστε την παραγγελία σας"
 
-#: checkout_confirmation.php:147
+#: checkout_confirmation.php:165
 msgid "Payment Method"
 msgstr "Μέθοδος Πληρωμής"
 
-#: checkout_confirmation.php:152
+#: checkout_confirmation.php:170
 msgid "Amount"
 msgstr "Ποσό"
 
-#: checkout_confirmation.php:162 A2B_invoice_view.php:215
-#: A2B_invoice_view.php:271 A2B_billing_preview.php:272 userinfo.php:247
-#: userinfo.php:273
+#: checkout_confirmation.php:181 A2B_invoice_view.php:215
+#: A2B_invoice_view.php:271 A2B_billing_preview.php:272 userinfo.php:246
+#: userinfo.php:272
 msgid "VAT"
 msgstr "ΦΠΑ"
 
-#: checkout_confirmation.php:173
+#: checkout_confirmation.php:192
 msgid "Total Amount Incl. VAT"
 msgstr "Συνολικό ποσό"
 
-#: checkout_confirmation.php:190
+#: checkout_confirmation.php:210
 msgid "Please click button to confirm your order"
 msgstr "Προκαλώ πατήστε το κουμπί για να επιβεβαιώστε την παραγγελία σας"
 
@@ -2676,7 +2654,7 @@ msgstr "ταχυδρομείο"
 #: A2B_receipt_detail.php:116 A2B_receipt_detail.php:135 card-history.php:70
 #: A2B_billing_preview.php:156 A2B_billing_preview.php:177
 #: A2B_billing_preview.php:248 A2B_billing_preview.php:269
-#: A2B_receipt_preview_detail.php:217 call-history.php:125
+#: A2B_receipt_preview_detail.php:217 call-history.php:99
 #: A2B_receipt_view.php:178 A2B_receipt_view.php:200
 msgid "Date"
 msgstr "Ημερομηνία"
@@ -2715,7 +2693,7 @@ msgid "RECEIPT DETAIL"
 msgstr "ΛΕΠΤΟΜΕΡΕΙΕΣ ΑΠΟΔΕΙΞΗΣ"
 
 #: A2B_receipt_detail.php:137 A2B_billing_preview.php:179
-#: A2B_receipt_preview_detail.php:219 call-history.php:132
+#: A2B_receipt_preview_detail.php:219 call-history.php:106
 #: A2B_receipt_view.php:202
 msgid "Cost"
 msgstr "Κόστος"
@@ -2736,71 +2714,71 @@ msgstr "Ιστορικό Κάρτας"
 msgid "SELECT BY MONTH"
 msgstr "ΕΠΙΛΟΓΗ ΚΑΤΑ ΜΗΝΑ"
 
-#: card-history.php:194 card-history.php:243 call-history.php:250
+#: card-history.php:194 card-history.php:243 call-history.php:217
 msgid "FROM"
 msgstr "ΑΠΟ"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "JANUARY"
 msgstr "ΙΑΝΟΥΑΡΙΟΣ"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "FEBRUARY"
 msgstr "ΦΕΒΡΟΥΑΡΙΟΣ"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "MARCH"
 msgstr "ΜΑΡΤΙΟΣ"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "APRIL"
 msgstr "ΑΠΡΙΛΙΟΣ"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "MAY"
 msgstr "ΜΑΙΟΣ"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "JUNE"
 msgstr "ΙΟΥΝΙΟΣ"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "JULY"
 msgstr "ΙΟΥΛΙΟΣ"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "AUGUST"
 msgstr "ΑΥΓΟΥΣΤΟΣ"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "SEPTEMBER"
 msgstr "ΣΕΤΕΜΒΡΙΟΣ"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "OCTOBER"
 msgstr "ΟΚΤΩΒΡΙΟΣ"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "NOVEMBER"
 msgstr "ΝΟΕΜΒΡΙΟΣ"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "DECEMBER"
 msgstr "ΔΕΚΕΜΒΡΙΟΣ"
 
-#: card-history.php:213 card-history.php:270 call-history.php:278
+#: card-history.php:213 card-history.php:270 call-history.php:245
 msgid "TO"
 msgstr "ΕΩΣ"
 
@@ -2808,7 +2786,7 @@ msgstr "ΕΩΣ"
 msgid "SELECT BY DAY"
 msgstr "ΕΠΙΛΟΓΗ ΚΑΤΑ ΜΕΡΑ"
 
-#: card-history.php:303 call-history.php:392
+#: card-history.php:303 call-history.php:359
 msgid "Search"
 msgstr "Αναζήτηση"
 
@@ -2924,9 +2902,25 @@ msgstr "Αυτό το τιμολόγιο είναι για μερικές ανε
 msgid "Thank you for your purchase"
 msgstr "Ευχαριστούμε για την αγορά σας"
 
+#: checkout_success.php:67
+msgid "We are sorry your transaction is failed. Please try later or check your provided information."
+msgstr "Λυπούμαστε η συναλλαγή σας απέτυχε. Παρακαλούμε δοκιμάστε αργότερα ή ελέγξτε τα στοιχεία που δηλώσατε."
+
+#: checkout_success.php:71
+msgid "We are sorry your transaction is denied. Please try later or check your provided information."
+msgstr "Λυπούμαστε η συναλλαγή σας απορρίφτηκε. Παρακαλούμε δοκιμάστε αργότερα ή ελέγξτε τα στοιχεία που δηλώσατε."
+
 #: checkout_success.php:75
 msgid "We are sorry your transaction is pending."
 msgstr "Λυπούμαστε η συναλλαγή σας είναι σε εκκρεμότητα."
+
+#: checkout_success.php:79
+msgid "Your transaction is in progress."
+msgstr "Η συναλλαγή σας επεξεργάζεται."
+
+#: checkout_success.php:83
+msgid "Your transaction was successful."
+msgstr "Η συναλλαγή σας ήταν επιτυχής."
 
 #: A2B_receipt_preview_detail.php:190
 msgid "PREVIEW NEXT RECEIPT DETAIL"
@@ -2964,7 +2958,7 @@ msgstr "SIP"
 msgid "Username"
 msgstr "Όνομα χρήστη"
 
-#: A2B_entity_sipiax_info.php:115 templates/default/index.tpl:61
+#: A2B_entity_sipiax_info.php:115 templates/default/index.tpl:58
 msgid "Password"
 msgstr "Κωδικός πρόσβασης"
 
@@ -2996,7 +2990,7 @@ msgstr "Πληκτρολογήστε τον αριθμό που θέλετε ν�
 msgid "Speed Dial code"
 msgstr "Κωδικός ταχείας κλήσης"
 
-#: A2B_entity_speeddial.php:108 call-history.php:128 A2B_entity_did.php:404
+#: A2B_entity_speeddial.php:108 call-history.php:102 A2B_entity_did.php:413
 msgid "Destination"
 msgstr "Προορισμός"
 
@@ -3008,11 +3002,15 @@ msgstr "Όνομα"
 msgid "ASSIGN NUMBER TO SPEEDDIAL"
 msgstr "ΕΚΧΩΡΗΣΗ ΣΕ ΤΑΧΕΙΑ ΚΛΗΣΗ"
 
-#: checkout_process.php:279
+#: checkout_process.php:284
 msgid "No Such Customer exists."
 msgstr "Δεν υπάρχει τέτοιος πελάτης."
 
-#: checkout_process.php:417
+#: checkout_process.php:378
+msgid "Refill ONLINE"
+msgstr "Ανανέωση ONLINE"
+
+#: checkout_process.php:435
 msgid "Invoice Payment Ref: "
 msgstr "Αρ. Τιμολογίου Πληρωμής"
 
@@ -3036,11 +3034,11 @@ msgstr "Αφαιρέστε ένα αν επιθυμείτε να χρησιμο�
 msgid "Max CallerId"
 msgstr "Μέγιστος αριθμός αναγνωριστικών κλήσης"
 
-#: checkout_payment.php:298
+#: checkout_payment.php:297
 msgid "Please enter the order amount"
 msgstr "Παρακαλώ εισάγετε το ποσό της παραγγελίας"
 
-#: checkout_payment.php:305
+#: checkout_payment.php:304
 msgid "Total Amount"
 msgstr "Συνολικό ποσό"
 
@@ -3104,35 +3102,35 @@ msgstr "Η συνδρομή σας για αυτόματη ανανέωση απ
 msgid "Click below to buy credit : "
 msgstr "Πατήστε παρακάτω για να αγοράσετε μονάδες :"
 
-#: userinfo.php:226
+#: userinfo.php:225
 msgid "BUY NOW"
 msgstr "ΑΓΟΡΑΣΤΕ ΤΩΡΑ"
 
-#: userinfo.php:242
+#: userinfo.php:241
 msgid "Click below to subscribe an automated refill : "
 msgstr "Πατήστε παρακάτω για να εγγραφτείτε για αυτόματη ανανέωση μονάδων :"
 
-#: userinfo.php:249
+#: userinfo.php:248
 msgid "for each"
 msgstr "για κάθε"
 
-#: userinfo.php:251
+#: userinfo.php:250
 msgid "Days"
 msgstr "Ημέρες"
 
-#: userinfo.php:254
+#: userinfo.php:253
 msgid "Months"
 msgstr "Μήνες"
 
-#: userinfo.php:256
+#: userinfo.php:255
 msgid "Years"
 msgstr "Έτη"
 
-#: userinfo.php:272
+#: userinfo.php:271
 msgid "Automated refill"
 msgstr "Αυτόματη ανανέωση μονάδων"
 
-#: userinfo.php:298
+#: userinfo.php:297
 msgid "SUBSCRIPTION"
 msgstr "ΣΥΝΔΡΟΜΗ"
 
@@ -3148,157 +3146,153 @@ msgstr "Αφαιρέστε αυτόν τον προορισμό DID"
 msgid "Deletion"
 msgstr "Διαγράφετε"
 
-#: call-history.php:55
-msgid "ERROR: Cannot download file "
-msgstr "Σφάλμα : Δεν μπορώ να κατεβάσω το αρχείο"
-
-#: call-history.php:110
+#: call-history.php:84
 #, fuzzy
 msgid "STANDARD"
 msgstr "ΜΕΤΑΠΛΗΡΩΜΕΝΗ ΚΑΡΤΑ"
 
-#: call-history.php:111
+#: call-history.php:85
 #, fuzzy
 msgid "SIP/IAX"
 msgstr "ΠΛΗΡΟΦΟΡΙΕΣ SIP/IAX"
 
-#: call-history.php:112
+#: call-history.php:86
 #, fuzzy
 msgid "DIDCALL"
 msgstr "ΜΗΝ ΞΑΝΑΠΑΡΕΙΣ"
 
-#: call-history.php:113
+#: call-history.php:87
 msgid "DID_VOIP"
 msgstr ""
 
-#: call-history.php:114 templates/default/main.tpl:78
+#: call-history.php:88 templates/default/main.tpl:80
 msgid "CALLBACK"
 msgstr "ΕΠΑΝΑΚΛΗΣΗ"
 
-#: call-history.php:115
+#: call-history.php:89
 #, fuzzy
 msgid "PREDICT"
 msgstr "ΜΟΝΑΔΕΣ"
 
-#: call-history.php:116
+#: call-history.php:90
 #, fuzzy
 msgid "AUTO DIALER"
 msgstr "ΑΥΤΟΜΑΤΗ ΚΛΗΣΗ"
 
-#: call-history.php:117
+#: call-history.php:91
 #, fuzzy
 msgid "DID-ALEG"
 msgstr "ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΗ"
 
-#: call-history.php:127
+#: call-history.php:101
 msgid "PhoneNumber"
 msgstr "Τηλέφωνο"
 
-#: call-history.php:129
+#: call-history.php:103
 msgid "Duration"
 msgstr "Διάρκεια"
 
-#: call-history.php:130
+#: call-history.php:104
 msgid "Terminate Cause"
 msgstr "Αιτία διακοπής"
 
-#: call-history.php:130
+#: call-history.php:104
 msgid "TC"
 msgstr "TC"
 
-#: call-history.php:131
+#: call-history.php:105
 msgid "CallType"
 msgstr "Είδος κλήσης"
 
-#: call-history.php:149
+#: call-history.php:116
 msgid "Call Logs"
 msgstr "Αρχεία κλήσεων"
 
-#: call-history.php:322
+#: call-history.php:289
 msgid "CALL TYPE"
 msgstr "ΕΙΔΟΣ ΚΛΗΣΕΩΝ"
 
-#: call-history.php:328
+#: call-history.php:295
 msgid "ALL CALLS"
 msgstr "ΌΛΕΣ ΟΙ ΚΛΗΣΗΣ"
 
-#: call-history.php:345
+#: call-history.php:312
 msgid "OPTIONS"
 msgstr "ΕΠΙΛΟΓΕΣ"
 
-#: call-history.php:350
+#: call-history.php:317
 msgid "SHOW"
 msgstr "ΕΜΦΑΝΙΣΗ"
 
-#: call-history.php:353
+#: call-history.php:320
 msgid "Answered Calls"
 msgstr "Απαντημένες κλήσης"
 
-#: call-history.php:355
+#: call-history.php:322
 msgid "All Calls"
 msgstr "Όλες οι κλήσης"
 
-#: call-history.php:362
+#: call-history.php:329
 msgid "RESULT"
 msgstr "ΑΠΟΤΕΛΕΣΜΑ"
 
-#: call-history.php:365
+#: call-history.php:332
 msgid "Seconds"
 msgstr "Δευτερόλεπτα"
 
-#: call-history.php:370
+#: call-history.php:337
 msgid "CURRENCY"
 msgstr "ΝΟΜΙΣΜΑ"
 
-#: call-history.php:400
+#: call-history.php:367
 msgid "Number of Calls"
 msgstr "Αριθμός κλήσεων"
 
-#: call-history.php:520
+#: call-history.php:487
 msgid "PREVIOUS"
 msgstr "ΠΡΟΗΓΟΥΜΕΝΟ"
 
-#: call-history.php:526
+#: call-history.php:493
 msgid "NEXT"
 msgstr "ΕΠΟΜΕΝΟ"
 
-#: call-history.php:558
+#: call-history.php:525
 msgid "SUMMARY"
 msgstr "ΠΕΡΙΛΗΨΗ"
 
-#: call-history.php:570
+#: call-history.php:537
 msgid "CALLING CARD MINUTES"
 msgstr "ΧΡΟΝΟΣ ΟΜΙΛΙΑΣ ΚΑΡΤΑΣ"
 
-#: call-history.php:574
+#: call-history.php:541
 msgid "DURATION"
 msgstr "ΔΙΑΡΚΕΙΑ"
 
-#: call-history.php:575
+#: call-history.php:542
 msgid "GRAPHIC"
 msgstr "ΓΡΑΦΙΚΟ"
 
-#: call-history.php:576
+#: call-history.php:543
 msgid "CALLS"
 msgstr "ΚΛΗΣΗΣ"
 
-#: call-history.php:577
+#: call-history.php:544
 msgid "AVERAGE LENGTH OF CALL"
 msgstr "ΜΕΣΟΣ ΌΡΟΣ ΔΙΑΡΚΕΙΑΣ ΚΛΗΣΕΩΝ"
 
-#: call-history.php:577
+#: call-history.php:544
 msgid "ALOC"
 msgstr "ALOC"
 
-#: call-history.php:578
+#: call-history.php:545
 msgid "TOTAL COST"
 msgstr "ΣΥΝΟΛΙΚΟ ΚΟΣΤΟΣ"
 
-#: call-history.php:627
+#: call-history.php:594
 msgid "TOTAL"
 msgstr "ΣΥΝΟΛΟ"
 
-#: call-history.php:639
+#: call-history.php:606
 msgid "No calls in your selection"
 msgstr "Δεν υπάρχουν κλήσης για την επιλογή σας"
 
@@ -3371,91 +3365,91 @@ msgstr "ΚΟΥΠΟΝΙΑ"
 msgid "INVOICES"
 msgstr "ΤΙΜΟΛΟΓΙΑ"
 
-#: templates/default/main.tpl:52
+#: templates/default/main.tpl:53
 msgid "View Receipts"
 msgstr "Προβολή αποδείξεων"
 
-#: templates/default/main.tpl:53
+#: templates/default/main.tpl:54
 msgid "View Invoices"
 msgstr "Προβολή τιμολογίων"
 
-#: templates/default/main.tpl:54
+#: templates/default/main.tpl:55
 msgid "Preview Next Billing"
 msgstr "Προεπισκόπηση επόμενου λογαριασμού"
 
-#: templates/default/main.tpl:66
+#: templates/default/main.tpl:68
 msgid "SPEED DIAL"
 msgstr "ΤΑΧΕΙΑ ΚΛΗΣΗ"
 
-#: templates/default/main.tpl:74
+#: templates/default/main.tpl:76
 msgid "SIMULATOR"
 msgstr "ΕΞΟΜΟΙΤΗΣ"
 
-#: templates/default/main.tpl:82
+#: templates/default/main.tpl:84
 msgid "ADD CALLER ID"
 msgstr "ΠΡΟΣΘΗΚΗ ΑΝΑΓΝΩΡΙΣΗΣ ΚΛΗΣΗΣ"
 
-#: templates/default/main.tpl:86
+#: templates/default/main.tpl:88
 msgid "PASSWORD"
 msgstr "ΚΩΔΙΚΟΣ"
 
-#: templates/default/main.tpl:90
+#: templates/default/main.tpl:92
 msgid "SUPPORT"
 msgstr "ΥΠΟΣΤΗΡΙΞΗ"
 
-#: templates/default/main.tpl:94
+#: templates/default/main.tpl:96
 msgid "NOTIFICATION"
 msgstr "ΕΙΔΟΠΟΙΗΣΗ"
 
-#: templates/default/main.tpl:104
+#: templates/default/main.tpl:106
 msgid "AUTO DIALLER"
 msgstr "ΑΥΤΟΜΑΤΗ ΚΛΗΣΗ"
 
-#: templates/default/main.tpl:113
+#: templates/default/main.tpl:115
 msgid "Campaign's"
 msgstr "Καμπάνιες"
 
-#: templates/default/main.tpl:116
+#: templates/default/main.tpl:118
 msgid "Import Phone List"
 msgstr "Εισαγωγή τηλεφωνικής λίστας"
 
-#: templates/default/main.tpl:126
+#: templates/default/main.tpl:128
 msgid "LOGOUT"
 msgstr "ΑΠΟΣΥΝΔΕΣΗ"
 
-#: templates/default/index.tpl:49
+#: templates/default/index.tpl:46
 msgid "AUTHENTICATION"
 msgstr "ΤΑΥΤΟΠΟΙΗΣΗ"
 
-#: templates/default/index.tpl:57
+#: templates/default/index.tpl:54
 msgid "User"
 msgstr "Χρήστης"
 
-#: templates/default/index.tpl:95
+#: templates/default/index.tpl:91
 msgid "Forgot your password ?"
 msgstr "Ξεχάσατε τον κωδικό σας?"
 
-#: templates/default/index.tpl:95 templates/default/index.tpl:98
+#: templates/default/index.tpl:91 templates/default/index.tpl:94
 msgid "Click here"
 msgstr "Πατήστε εδώ"
 
-#: templates/default/index.tpl:98
+#: templates/default/index.tpl:94
 msgid "To sign up"
 msgstr "Για να εγγραφτείτε"
 
-#: templates/default/index.tpl:107
+#: templates/default/index.tpl:103
 msgid "AUTHENTICATION REFUSED : please check your user/password!"
 msgstr "Η ΤΑΥΤΟΠΟΙΗΣΗ ΑΡΝΗΘΗΚΕ : παρακαλώ ελέγξτε το όνομα χρήστη / κωδικό σας"
 
-#: templates/default/index.tpl:109
+#: templates/default/index.tpl:105
 msgid "INACTIVE ACCOUNT : Your account need to be activated!"
 msgstr "ΑΝΕΝΕΡΓΟΣ ΛΟΓΑΡΙΑΣΜΟΣ : Ο λογαριασμός σας πρέπει να ενεργοποιηθεί!"
 
-#: templates/default/index.tpl:111
+#: templates/default/index.tpl:107
 msgid "BLOCKED ACCOUNT : Please contact the administrator!"
 msgstr "ΜΠΛΟΚΑΡΙΣΜΕΝΟΣ ΛΟΓΑΡΙΑΣΜΟΣ : Παρακαλώ επικοινωνήστε με τον διαχειριστή!"
 
-#: templates/default/index.tpl:113
+#: templates/default/index.tpl:109
 msgid "NEW ACCOUNT : Your account has not been validate yet!"
 msgstr "ΝΕΟΣ ΛΟΓΑΡΙΑΣΜΟΣ : Ο λογαριασμός σας δεν έχει πιστοποιηθεί ακόμα!"
 
@@ -3487,121 +3481,121 @@ msgstr "ευχαριστούμε που γραφήκατε σε μας!"
 msgid "An activation email has been sent to"
 msgstr "Ένα email ενεργοποίησης έχει σταλεί στο"
 
-#: A2B_entity_did.php:81
+#: A2B_entity_did.php:96
 msgid "The following Destinaton-DID has been relesed:"
 msgstr "Το ακόλουθο DID προορισμού έχει απελευθερωθεί."
 
-#: A2B_entity_did.php:107
+#: A2B_entity_did.php:122
 #, fuzzy
 msgid "Error : Sending mail"
 msgstr "Σφάλμα : Αποτυχία αυθεντικοποιησης !!!"
 
-#: A2B_entity_did.php:125
+#: A2B_entity_did.php:140
 msgid "If you really want release this DID , Click on the release button."
 msgstr "Αν πραγματικά θέλετε να απελευθερώσετε αυτό το DID, πατήστε το κουμπί απελευθέρωσης."
 
-#: A2B_entity_did.php:132
+#: A2B_entity_did.php:147
 msgid "Release the DID "
 msgstr "Απελευθέρωση του DID"
 
-#: A2B_entity_did.php:181
+#: A2B_entity_did.php:196
 msgid "The following Destinaton for your DID has been added:"
 msgstr "Ο ακόλουθος προορισμός για το DID σας έχει προστεθεί:"
 
-#: A2B_entity_did.php:349
+#: A2B_entity_did.php:355
 msgid "Buy New DID"
 msgstr "Αγοράστε νέο DID"
 
-#: A2B_entity_did.php:349
+#: A2B_entity_did.php:355
 msgid "Add Phone Number to your DID"
 msgstr "Προσθήκη αριθμού τηλέφωνου στο DID σας"
 
-#: A2B_entity_did.php:349
+#: A2B_entity_did.php:355
 msgid "Release DID"
 msgstr "Απελευθέρωση DID"
 
-#: A2B_entity_did.php:365
+#: A2B_entity_did.php:371
 msgid "Select Country"
 msgstr "Επιλέξτε χώρα"
 
-#: A2B_entity_did.php:379
+#: A2B_entity_did.php:388
 msgid "Select Virtual Phone Number"
 msgstr "Επιλέξτε εικονικού αριθμού τηλεφώνου"
 
-#: A2B_entity_did.php:384
+#: A2B_entity_did.php:393
 #, fuzzy
 msgid "Monthly:"
 msgstr "Μηνιαίο"
 
-#: A2B_entity_did.php:385
+#: A2B_entity_did.php:394
 msgid "B-Leg Connect:"
 msgstr ""
 
-#: A2B_entity_did.php:386
+#: A2B_entity_did.php:395
 msgid "B-Leg Rate:"
 msgstr ""
 
-#: A2B_entity_did.php:387
+#: A2B_entity_did.php:396
 msgid "A-Leg Connect:"
 msgstr ""
 
-#: A2B_entity_did.php:388
+#: A2B_entity_did.php:397
 msgid "A-Leg Rate:"
 msgstr ""
 
-#: A2B_entity_did.php:402
+#: A2B_entity_did.php:411
 msgid "VOIP CALL : "
 msgstr "ΚΛΗΣΗ VOIP"
 
-#: A2B_entity_did.php:402
+#: A2B_entity_did.php:411
 msgid "NO"
 msgstr "ΌΧΙ"
 
-#: A2B_entity_did.php:407
+#: A2B_entity_did.php:416
 msgid "Enter the phone number you wish to call, or the SIP/IAX client to reach  (ie: 347894999 or SIP/jeremy@182.212.1.45). In order to call a VoIP number, you will need to enable voip_call"
 msgstr "Εισάγετε τον αριθμό που θέλετε να καλέστε ή τον πελάτη SIP/IAX που θέλετε. (π.χ. 347894999 ή SIP/Jeremy@182.212.1.45). Για να καλέσετε αριθμούς VOIP πρέπει να ενεργοποιήσετε την δυνατότητα αυτή."
 
-#: A2B_entity_did.php:411
+#: A2B_entity_did.php:420
 msgid "If you release the did you will not be monthly charged any more."
 msgstr "Εάν απελευθερώσετε το DID  δεν θα σας γίνετε πλέων η μηνιαία χρέωση."
 
-#: A2B_entity_did.php:420
+#: A2B_entity_did.php:429
 msgid "Add phone number"
 msgstr "Προσθήκη τηλεφωνικού αριθμού"
 
-#: A2B_entity_did.php:422 A2B_entity_did.php:451 A2B_entity_did.php:474
+#: A2B_entity_did.php:431 A2B_entity_did.php:457 A2B_entity_did.php:480
 msgid "Ok"
 msgstr "Ok"
 
-#: A2B_entity_did.php:438
+#: A2B_entity_did.php:447
 msgid "Confirm the purchase of the DID "
 msgstr "Επιβεβαιώστε την αγορά του DID"
 
-#: A2B_entity_did.php:443
+#: A2B_entity_did.php:452
 msgid "A monthly fee of "
 msgstr "Μηνιαία χρέωση ύψους"
 
-#: A2B_entity_did.php:443
+#: A2B_entity_did.php:452
 msgid " will be carried out from your acount"
 msgstr "θα  χρεώνετε στον λογαριασμό σας"
 
-#: A2B_entity_did.php:462
+#: A2B_entity_did.php:468
 msgid "The purchase of the DID is done "
 msgstr "Η αγορά του DID ολοκληρώθηκε"
 
-#: A2B_entity_did.php:463
+#: A2B_entity_did.php:469
 msgid "The purchase of the DID cannot be done, the VoIP destination have to be a proper URI"
 msgstr "Η αγορά του DID δεν μπορεί να γίνει, ο προορισμός VOIP πρέπει να είναι ένα σωστό URI"
 
-#: A2B_entity_did.php:464
+#: A2B_entity_did.php:470
 msgid "The purchase of the DID cannot be done, your credit of  "
 msgstr "Η αγορά του DID δεν μπορεί να γίνει, η πίστωση σας τον"
 
-#: A2B_entity_did.php:464
+#: A2B_entity_did.php:470
 msgid " is lower than Fixerate of the DID  "
 msgstr "μονάδων είναι χαμηλότερο από το σταθερό κόστος του DID"
 
-#: A2B_entity_did.php:464
+#: A2B_entity_did.php:470
 msgid "Please reload your account "
 msgstr "Παρακαλώ ανανεώστε τον λογαριασμό σας."
 
@@ -3636,3 +3630,6 @@ msgstr "Το κουπόνι πρέπει να είναι ένας αριθμός
 #: A2B_entity_voucher.php:118
 msgid "USE VOUCHER"
 msgstr "ΧΡΗΣΗ ΚΟΥΠΟΝΙΟΥ"
+
+#~ msgid "ERROR: Cannot download file "
+#~ msgstr "Σφάλμα : Δεν μπορώ να κατεβάσω το αρχείο"

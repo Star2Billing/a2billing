@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-30 19:56+0200\n"
+"POT-Creation-Date: 2012-12-20 14:38+0100\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -25,14 +25,12 @@ msgstr "Votre transaction a r&eacute;ussi."
 msgid "Reccurring payment : automated refill"
 msgstr ""
 
-#: A2B_recurring_payment.php:155 iridium_threed.php:286
-#: checkout_process.php:352
+#: A2B_recurring_payment.php:155 checkout_process.php:370
 msgid "CUSTOMER REFILL"
 msgstr "RECHARGE CLIENT"
 
-#: A2B_recurring_payment.php:156 iridium_threed.php:288
-#: lib/Form/Class.FormBO.php:836 lib/Form/Class.FormBO.php:945
-#: checkout_process.php:353
+#: A2B_recurring_payment.php:156 lib/Form/Class.FormBO.php:836
+#: lib/Form/Class.FormBO.php:945 checkout_process.php:371
 msgid "Invoice for refill"
 msgstr "Facture de recharge"
 
@@ -40,8 +38,8 @@ msgstr "Facture de recharge"
 msgid "Automated Refill : recurring payment"
 msgstr ""
 
-#: A2B_recurring_payment.php:193 iridium_threed.php:352
-#: lib/Form/Class.FormBO.php:992 checkout_process.php:387
+#: A2B_recurring_payment.php:193 lib/Form/Class.FormBO.php:992
+#: checkout_process.php:405
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr "COMMISSION GENEREE AUTOMATIQUEMENT"
 
@@ -260,7 +258,7 @@ msgstr "DESTINATION"
 msgid "CallTime available"
 msgstr "Temps d'appel disponible"
 
-#: simulator.php:214 call-history.php:365
+#: simulator.php:214 call-history.php:332
 msgid "Minutes"
 msgstr "Minutes"
 
@@ -326,10 +324,6 @@ msgstr "Destination"
 msgid "CREATE"
 msgstr "CRER"
 
-#: iridium_threed.php:302 checkout_process.php:360
-msgid "Refill ONLINE"
-msgstr "RECHARGE ONLINE"
-
 #: form_data/FG_var_did.inc:62 lib/interface/constants.php:108
 msgid "Active"
 msgstr "Active"
@@ -347,7 +341,7 @@ msgstr ""
 msgid "Validated"
 msgstr "DateAppel"
 
-#: form_data/FG_var_did.inc:70 templates/default/main.tpl:62
+#: form_data/FG_var_did.inc:70 templates/default/main.tpl:64
 msgid "DID"
 msgstr "DID"
 
@@ -400,7 +394,7 @@ msgstr "Choose if you want to not use the trunk and let the asterisk call direct
 #: form_data/FG_var_did.inc:171 form_data/FG_var_campaign.inc:297
 #: form_data/FG_var_speeddial.inc:118 form_data/FG_var_phonebook.inc:109
 #: form_data/FG_var_ticket.inc:80 form_data/FG_var_phonenumber.inc:145
-#: form_data/FG_var_callerid.inc:117 lib/Form/Class.FormHandler.inc.php:554
+#: form_data/FG_var_callerid.inc:117 lib/Form/Class.FormHandler.inc.php:580
 msgid "If you really want remove this"
 msgstr "Si vous souhaitez vraiment supprimer ce"
 
@@ -414,22 +408,22 @@ msgstr ", cliquez sur le bouton Supprimer"
 #: form_data/FG_var_did.inc:172 form_data/FG_var_campaign.inc:298
 #: form_data/FG_var_speeddial.inc:119 form_data/FG_var_phonebook.inc:110
 #: form_data/FG_var_ticket.inc:81 form_data/FG_var_phonenumber.inc:146
-#: form_data/FG_var_callerid.inc:118 lib/Form/Class.FormHandler.inc.php:557
+#: form_data/FG_var_callerid.inc:118 lib/Form/Class.FormHandler.inc.php:583
 msgid "you can add easily a new"
 msgstr "vous pouvez facilement ajouter un nouveau"
 
 #: form_data/FG_var_did.inc:172 form_data/FG_var_campaign.inc:298
 #: form_data/FG_var_speeddial.inc:119 form_data/FG_var_phonebook.inc:110
 #: form_data/FG_var_ticket.inc:81 form_data/FG_var_phonenumber.inc:146
-#: form_data/FG_var_callerid.inc:118 lib/Form/Class.FormHandler.inc.php:557
+#: form_data/FG_var_callerid.inc:118 lib/Form/Class.FormHandler.inc.php:583
 msgid "Fill the following fields and confirm by clicking on the button add."
 msgstr "Remplissez les champs suivants et confirmez en cliquant le bouton Ajouter "
 
 #: form_data/FG_var_did.inc:176 form_data/FG_var_campaign.inc:302
 #: form_data/FG_var_speeddial.inc:124 form_data/FG_var_phonebook.inc:114
 #: form_data/FG_var_ticket.inc:85 form_data/FG_var_callerid.inc:124
-#: lib/Form/Class.FormHandler.inc.php:559
-#: lib/Form/Class.FormHandler.inc.php:560
+#: lib/Form/Class.FormHandler.inc.php:585
+#: lib/Form/Class.FormHandler.inc.php:586
 msgid "Your new"
 msgstr "Votre nouveau"
 
@@ -448,8 +442,8 @@ msgid "REFERENCE"
 msgstr ""
 
 #: form_data/FG_var_invoice.inc:68 form_data/FG_var_receipt.inc:67
-#: form_data/FG_var_phonenumber.inc:65 call-history.php:245
-#: call-history.php:573
+#: form_data/FG_var_phonenumber.inc:65 call-history.php:212
+#: call-history.php:540
 msgid "DATE"
 msgstr "DATE"
 
@@ -541,7 +535,7 @@ msgid "TIMEZONE"
 msgstr ""
 
 #: form_data/FG_var_signup.inc:268 form_data/FG_var_phonenumber.inc:62
-#: call-history.php:309
+#: call-history.php:276
 msgid "PHONENUMBER"
 msgstr "Num&eacute;ro de t&eacute;l&eacute;phone"
 
@@ -875,7 +869,7 @@ msgstr "REPERTOIRE"
 
 #: form_data/FG_var_campaign.inc:296 form_data/FG_var_speeddial.inc:117
 #: form_data/FG_var_phonebook.inc:108 form_data/FG_var_phonenumber.inc:144
-#: form_data/FG_var_callerid.inc:116 lib/Form/Class.FormHandler.inc.php:553
+#: form_data/FG_var_callerid.inc:116 lib/Form/Class.FormHandler.inc.php:579
 msgid "You can modify, through the following form, the different properties of your"
 msgstr "Vous pouvez modifer à l'aide du tableau suivant, les sp&eacute;cificit&eacute;s de votre"
 
@@ -966,7 +960,7 @@ msgid "THERE IS NO RECEIPT CREATED!"
 msgstr "IL N Y A PAS DE RECU CREE"
 
 #: form_data/FG_var_phonebook.inc:38 form_data/FG_var_phonenumber.inc:92
-#: templates/default/main.tpl:114
+#: templates/default/main.tpl:116
 msgid "Phone Book"
 msgstr "Repertoire"
 
@@ -1072,7 +1066,7 @@ msgstr "MONTANT"
 msgid "No phone numbers have been created"
 msgstr ""
 
-#: form_data/FG_var_phonenumber.inc:83 templates/default/main.tpl:115
+#: form_data/FG_var_phonenumber.inc:83 templates/default/main.tpl:117
 msgid "Phone Number"
 msgstr "Num&eacute;ro de t&eacute;l&eacute;phone"
 
@@ -1112,7 +1106,7 @@ msgstr "Ajouter un nouveau Num&eacute;ro de t&eacute;l&eacute;phone"
 msgid "Your new phone number has been inserted."
 msgstr "Votre nouveau numero a &eacute;t&eacute; ins&eacute;r&eacute;. <br>"
 
-#: form_data/FG_var_callerid.inc:39 call-history.php:126
+#: form_data/FG_var_callerid.inc:39 call-history.php:100
 msgid "CallerID"
 msgstr "IDAppelant"
 
@@ -1281,22 +1275,6 @@ msgstr "Impossible d'ecrire dans ce fichier"
 msgid "This option is not available on the Demo!"
 msgstr ""
 
-#: lib/epayment/methods/iridium.php:607 checkout_success.php:67
-msgid "We are sorry your transaction is failed. Please try later or check your provided information."
-msgstr "D&eacute;sol&eacute;, votre transaction a &eacute;chou&eacute;. R&eacute;essayez plus tard et v&eacute;rifiez les informations fournies."
-
-#: lib/epayment/methods/iridium.php:611 checkout_success.php:71
-msgid "We are sorry your transaction is denied. Please try later or check your provided information."
-msgstr "S&eacute;sol&eacute;, votre transaction a &eacute;t&eacute; refus&eacute;e. R&eacute;essayez plus tard et v&eacute;rifiez les informations fournies."
-
-#: lib/epayment/methods/iridium.php:620 checkout_success.php:79
-msgid "Your transaction is in progress."
-msgstr "Votre transaction est en cours."
-
-#: lib/epayment/methods/iridium.php:624 checkout_success.php:83
-msgid "Your transaction was successful."
-msgstr "Votre transaction a r&eacute;ussi."
-
 #: lib/support/classes/ticket.php:78 lib/support/classes/ticket.php:236
 msgid "(AGENT)"
 msgstr "AGENT"
@@ -1330,37 +1308,37 @@ msgstr "INVALIDE"
 msgid "CREATION CARD REFILL"
 msgstr "CREATION RECHARGE CARTE"
 
-#: lib/common.defines.php:86
+#: lib/common.defines.php:87
 msgid "Address line 1:"
 msgstr ""
 
-#: lib/common.defines.php:87
+#: lib/common.defines.php:88
 msgid "Address line 2:"
 msgstr ""
 
-#: lib/common.defines.php:88
+#: lib/common.defines.php:89
 msgid "Address line 3:"
 msgstr ""
 
-#: lib/common.defines.php:89
+#: lib/common.defines.php:90
 msgid "Postcode:"
 msgstr ""
 
-#: lib/common.defines.php:90
+#: lib/common.defines.php:91
 #, fuzzy
 msgid "Country:"
 msgstr "Selectionnez un pays"
 
-#: lib/common.defines.php:91
+#: lib/common.defines.php:92
 msgid "Telephone:"
 msgstr ""
 
-#: lib/common.defines.php:118
+#: lib/common.defines.php:119
 #, fuzzy
 msgid "This software has been created by Areski Belaid under AGPL licence. For futher information, feel free to contact me:"
 msgstr "Ce logiciel est cr&eacute;&eacute; par Areski sous licence GPL. Pour toute information, veuillez me contacter:"
 
-#: lib/common.defines.php:124
+#: lib/common.defines.php:125
 msgid "A2Billing Portal"
 msgstr ""
 
@@ -1404,40 +1382,40 @@ msgstr "Exporter CSV"
 msgid "Export XML"
 msgstr "Exporter XML"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:214
-#: lib/Form/Class.FormHandler.EditForm.inc.php:390
-#: lib/Form/Class.FormHandler.EditForm.inc.php:768
-#: lib/Form/Class.FormHandler.DelForm.inc.php:161
-#: lib/Form/Class.FormHandler.AddForm.inc.php:154
+#: lib/Form/Class.FormHandler.EditForm.inc.php:219
+#: lib/Form/Class.FormHandler.EditForm.inc.php:395
+#: lib/Form/Class.FormHandler.EditForm.inc.php:773
+#: lib/Form/Class.FormHandler.DelForm.inc.php:170
+#: lib/Form/Class.FormHandler.AddForm.inc.php:164
 #: CC_entity_edit_speeddial.php:274 CC_entity_edit_speeddial.php:476
 #: CC_entity_edit_speeddial.php:761 CC_entity_edit_speeddial.php:1005
 #: card-history.php:393 CC_entity_edit_did_destination.php:379
 #: CC_entity_edit_did_destination.php:588
 #: CC_entity_edit_did_destination.php:891
 #: CC_entity_edit_did_destination.php:1010
-#: CC_entity_edit_did_destination.php:1151 call-history.php:507
+#: CC_entity_edit_did_destination.php:1151 call-history.php:474
 msgid "No data found !!!"
 msgstr "Pas de donn&eacute;es trouv&eacute;es !!!"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:273
+#: lib/Form/Class.FormHandler.EditForm.inc.php:278
 msgid "LIST "
 msgstr "LISTE"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:324
+#: lib/Form/Class.FormHandler.EditForm.inc.php:329
 #: lib/interface/constants.php:78 CC_entity_edit_did_destination.php:697
 msgid "No"
 msgstr "Non"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:344
-#: lib/Form/Class.FormHandler.EditForm.inc.php:499
-#: lib/Form/Class.FormHandler.EditForm.inc.php:621
+#: lib/Form/Class.FormHandler.EditForm.inc.php:349
+#: lib/Form/Class.FormHandler.EditForm.inc.php:504
+#: lib/Form/Class.FormHandler.EditForm.inc.php:626
 #: CC_entity_edit_speeddial.php:422 CC_entity_edit_speeddial.php:607
 #: CC_entity_edit_did_destination.php:731
 msgid "Add a new"
 msgstr "Ajouter un nouveau"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:431
-#: lib/Form/Class.FormHandler.EditForm.inc.php:557
+#: lib/Form/Class.FormHandler.EditForm.inc.php:436
+#: lib/Form/Class.FormHandler.EditForm.inc.php:562
 #: CC_entity_edit_speeddial.php:532 CC_entity_edit_speeddial.php:697
 #: CC_entity_edit_did_destination.php:642
 #: CC_entity_edit_did_destination.php:826
@@ -1565,19 +1543,19 @@ msgstr "D&eacute;cembre"
 msgid "To :"
 msgstr "A :"
 
-#: lib/Form/Class.SearchHandler.inc.php:203 call-history.php:314
+#: lib/Form/Class.SearchHandler.inc.php:203 call-history.php:281
 msgid "Exact"
 msgstr "Exact"
 
-#: lib/Form/Class.SearchHandler.inc.php:204 call-history.php:315
+#: lib/Form/Class.SearchHandler.inc.php:204 call-history.php:282
 msgid "Begins with"
 msgstr "Commence par"
 
-#: lib/Form/Class.SearchHandler.inc.php:205 call-history.php:316
+#: lib/Form/Class.SearchHandler.inc.php:205 call-history.php:283
 msgid "Contains"
 msgstr "Contient"
 
-#: lib/Form/Class.SearchHandler.inc.php:206 call-history.php:317
+#: lib/Form/Class.SearchHandler.inc.php:206 call-history.php:284
 msgid "Ends with"
 msgstr "Fini par"
 
@@ -1589,7 +1567,7 @@ msgstr "Il y a"
 msgid "selected, use the option below if you are willing to make a batch updated of the selected cards."
 msgstr "s&eacute;lectionn&eacute;, utilisez l'option dessous si vous vouler mettre a jours les cartes selctionnees en batch"
 
-#: lib/Form/Class.SearchHandler.inc.php:342 templates/default/main.tpl:70
+#: lib/Form/Class.SearchHandler.inc.php:342 templates/default/main.tpl:72
 msgid "RATECARD"
 msgstr "TARIF"
 
@@ -1657,231 +1635,231 @@ msgstr "DISCONNECT CHARGE"
 msgid " BATCH UPDATE RATECARD "
 msgstr ""
 
-#: lib/Form/Class.FormHandler.DelForm.inc.php:46 checkout_success.php:53
+#: lib/Form/Class.FormHandler.DelForm.inc.php:55 checkout_success.php:53
 msgid "Message"
 msgstr "Message"
 
-#: lib/Form/Class.FormHandler.DelForm.inc.php:53
+#: lib/Form/Class.FormHandler.DelForm.inc.php:62
 msgid "You have "
 msgstr "Vous avez "
 
-#: lib/Form/Class.FormHandler.DelForm.inc.php:208
+#: lib/Form/Class.FormHandler.DelForm.inc.php:217
 msgid "Remove this "
 msgstr "Supprimer ce"
 
-#: lib/Form/Class.FormHandler.inc.php:545
+#: lib/Form/Class.FormHandler.inc.php:571
 msgid "No data found!"
 msgstr "Aucune donn&eacute;es trouv&eacute;es !!!"
 
-#: lib/Form/Class.FormHandler.inc.php:546
+#: lib/Form/Class.FormHandler.inc.php:572
 msgid "DIRECTORY"
 msgstr "ANNUAIRE"
 
-#: lib/Form/Class.FormHandler.inc.php:547
+#: lib/Form/Class.FormHandler.inc.php:573
 msgid "list"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:548
-#: lib/Form/Class.FormHandler.inc.php:630
+#: lib/Form/Class.FormHandler.inc.php:574
+#: lib/Form/Class.FormHandler.inc.php:668
 msgid "Define criteria to make a precise search"
 msgstr "D&eacute;finissez les crit&egrave;res de votre recherche"
 
-#: lib/Form/Class.FormHandler.inc.php:549
+#: lib/Form/Class.FormHandler.inc.php:575
 msgid "You can browse through our"
 msgstr "Parcourez notre"
 
-#: lib/Form/Class.FormHandler.inc.php:549
+#: lib/Form/Class.FormHandler.inc.php:575
 msgid "and modify their different properties"
 msgstr "et modifiez leurs sp&eacute;cificit&eacute;s"
 
-#: lib/Form/Class.FormHandler.inc.php:550
+#: lib/Form/Class.FormHandler.inc.php:576
 msgid "Delete this record"
 msgstr "Supprimer cette donn&eacute;e"
 
-#: lib/Form/Class.FormHandler.inc.php:551
+#: lib/Form/Class.FormHandler.inc.php:577
 msgid "Edit this record"
 msgstr "Editer cet enregistrement"
 
-#: lib/Form/Class.FormHandler.inc.php:552
+#: lib/Form/Class.FormHandler.inc.php:578
 msgid "The document has been created correctly. Now, you can define the different tariff that you want to associate."
 msgstr "Ce document a &eacute;t&eacute; cr&eacute;&eacute; correctement. Vous pouvez d&eacute;finir les tarifs à y associer."
 
-#: lib/Form/Class.FormHandler.inc.php:554
+#: lib/Form/Class.FormHandler.inc.php:580
 msgid "Click on the delete button."
 msgstr "Cliquez sur le bouton Supprimer"
 
-#: lib/Form/Class.FormHandler.inc.php:555
+#: lib/Form/Class.FormHandler.inc.php:581
 msgid "One"
 msgstr "Un"
 
-#: lib/Form/Class.FormHandler.inc.php:555
+#: lib/Form/Class.FormHandler.inc.php:581
 msgid "has been deleted!"
 msgstr "a &eacute;t&eacute; ins&eacute;r&eacute;. <br>"
 
-#: lib/Form/Class.FormHandler.inc.php:558
+#: lib/Form/Class.FormHandler.inc.php:584
 msgid "Add a"
 msgstr "Ajouter un"
 
-#: lib/Form/Class.FormHandler.inc.php:558
+#: lib/Form/Class.FormHandler.inc.php:584
 msgid "now."
 msgstr "maintenant."
 
-#: lib/Form/Class.FormHandler.inc.php:559
+#: lib/Form/Class.FormHandler.inc.php:585
 msgid "has been inserted.<br>"
 msgstr "a &eacute;t&eacute; ins&eacute;r&eacute;. <br>"
 
-#: lib/Form/Class.FormHandler.inc.php:560
+#: lib/Form/Class.FormHandler.inc.php:586
 msgid "hasn't been inserted."
 msgstr "n'a pas &eacute;t&eacute; ins&eacute;r&eacute;. <br>"
 
-#: lib/Form/Class.FormHandler.inc.php:561
+#: lib/Form/Class.FormHandler.inc.php:587
 msgid "You cannot choose more than one !"
 msgstr "Vous ne pouvez qu'en choisir un seul."
 
-#: lib/Form/Class.FormHandler.inc.php:563
+#: lib/Form/Class.FormHandler.inc.php:589
 msgid "Are you sure to delete all records connected to this instance."
 msgstr "Etes vous sur de vouloir supprimer toutes les enregistrements li&eacute;s a cette instance."
 
-#: lib/Form/Class.FormHandler.inc.php:565
-#: lib/Form/Class.FormHandler.inc.php:567
+#: lib/Form/Class.FormHandler.inc.php:591
+#: lib/Form/Class.FormHandler.inc.php:593
 msgid "CONFIRM DATA"
 msgstr "CONFIRMER SAISIE"
 
-#: lib/Form/Class.FormHandler.inc.php:566
+#: lib/Form/Class.FormHandler.inc.php:592
 msgid "DELETE"
 msgstr "SUPPRIMER"
 
-#: lib/Form/Class.FormHandler.inc.php:619
-#: lib/Form/Class.FormHandler.inc.php:837
+#: lib/Form/Class.FormHandler.inc.php:657
+#: lib/Form/Class.FormHandler.inc.php:840
 msgid "Delete this "
 msgstr "Supprimer ce"
 
-#: lib/Form/Class.FormHandler.inc.php:620
-#: lib/Form/Class.FormHandler.inc.php:831
+#: lib/Form/Class.FormHandler.inc.php:658
+#: lib/Form/Class.FormHandler.inc.php:834
 msgid "Edit this "
 msgstr "Editer ce"
 
-#: lib/Form/Class.FormHandler.inc.php:651
+#: lib/Form/Class.FormHandler.inc.php:689
 msgid "INSERTED"
 msgstr "INSERE"
 
-#: lib/Form/Class.FormHandler.inc.php:652
+#: lib/Form/Class.FormHandler.inc.php:690
 msgid "ENABLE"
 msgstr "ACTIVER"
 
-#: lib/Form/Class.FormHandler.inc.php:653
+#: lib/Form/Class.FormHandler.inc.php:691
 msgid "DISABLE"
 msgstr "DESACTIVER"
 
-#: lib/Form/Class.FormHandler.inc.php:654
+#: lib/Form/Class.FormHandler.inc.php:692
 msgid "FREE"
 msgstr "GRATUIT"
 
-#: lib/Form/Class.FormHandler.inc.php:806
-#: lib/Form/Class.FormHandler.inc.php:808
+#: lib/Form/Class.FormHandler.inc.php:809
+#: lib/Form/Class.FormHandler.inc.php:811
 msgid "You can browse through our "
 msgstr "Vous pouvez parcourir notre"
 
-#: lib/Form/Class.FormHandler.inc.php:806
-#: lib/Form/Class.FormHandler.inc.php:808
+#: lib/Form/Class.FormHandler.inc.php:809
+#: lib/Form/Class.FormHandler.inc.php:811
 msgid " and modify their different properties<br>"
 msgstr "et modifier leurs sp&eacute;cificit&eacute;s<br>"
 
-#: lib/Form/Class.FormHandler.inc.php:976
+#: lib/Form/Class.FormHandler.inc.php:979
 msgid "(at least 3 characters)"
 msgstr "(au minimum 3 caract&egrave;res)"
 
-#: lib/Form/Class.FormHandler.inc.php:980
+#: lib/Form/Class.FormHandler.inc.php:983
 msgid "(must match email structure. Example : name@domain.com)"
 msgstr "(doit suivre la structure e-mail. P.ex: name@domain.com)"
 
-#: lib/Form/Class.FormHandler.inc.php:984
+#: lib/Form/Class.FormHandler.inc.php:987
 msgid "(at least 5 successive characters appear at the end of this string)"
 msgstr "(au minimum 5 caract&egrave;res successifs apparaissent à la fin de cette chaine)"
 
-#: lib/Form/Class.FormHandler.inc.php:988
+#: lib/Form/Class.FormHandler.inc.php:991
 msgid "(at least 4 characters)"
 msgstr "(au minimum 4 caract&egrave;res)"
 
-#: lib/Form/Class.FormHandler.inc.php:992
+#: lib/Form/Class.FormHandler.inc.php:995
 msgid "(number format)"
 msgstr "(format de num&eacute;ros)"
 
-#: lib/Form/Class.FormHandler.inc.php:1000
+#: lib/Form/Class.FormHandler.inc.php:1003
 msgid "(only number with more that 8 digits)"
 msgstr "(uniquement des num&eacute;ros avec plus de 8 chiffres)"
 
-#: lib/Form/Class.FormHandler.inc.php:1004
+#: lib/Form/Class.FormHandler.inc.php:1007
 msgid "(at least 8 digits using . or - or the space key)"
 msgstr "(au minimum 8 chiffres en utilisant . ou - ou la touche espace)"
 
-#: lib/Form/Class.FormHandler.inc.php:1008
+#: lib/Form/Class.FormHandler.inc.php:1011
 msgid "network adress format"
 msgstr "format d'adresse IP'"
 
-#: lib/Form/Class.FormHandler.inc.php:1012
+#: lib/Form/Class.FormHandler.inc.php:1015
 msgid "at least 1 character"
 msgstr "au minimum 1 caract&egrave;re"
 
-#: lib/Form/Class.FormHandler.inc.php:1020
+#: lib/Form/Class.FormHandler.inc.php:1023
 msgid "(AT LEAST 2 CARACTERS)"
 msgstr "(AU MINIMUM 2 CARACTERES)"
 
-#: lib/Form/Class.FormHandler.inc.php:1024
+#: lib/Form/Class.FormHandler.inc.php:1027
 msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
 msgstr "(FORMAT DES NUMEROS AVEC/SANS DECIMALES. Utilisez '.' pour les d&eacute;cimales)"
 
-#: lib/Form/Class.FormHandler.inc.php:1040
+#: lib/Form/Class.FormHandler.inc.php:1043
 msgid "You must write something."
 msgstr "Vous devez y ins&eacute;rer quelque chose"
 
-#: lib/Form/Class.FormHandler.inc.php:1044
+#: lib/Form/Class.FormHandler.inc.php:1047
 msgid "8 characters alphanumeric"
 msgstr "8 caract&egrave;res alphanum&eacute;riques"
 
-#: lib/Form/Class.FormHandler.inc.php:1051
+#: lib/Form/Class.FormHandler.inc.php:1054
 msgid "(at least 6 Alphanumeric characters)"
 msgstr "(au minimum 3 caract&egrave;res)"
 
-#: lib/Form/Class.FormHandler.inc.php:1059
+#: lib/Form/Class.FormHandler.inc.php:1062
 #, fuzzy, php-format
 msgid "(PERCENT FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal and don't use '%' character. e.g.: 12.4 )"
 msgstr "(POURCENTAGE FORMAT AVEC/SANS DECIMALES. Utilisez '.' pour les d&eacute;cimales,n utilisez pas le signe '%')"
 
-#: lib/Form/Class.FormHandler.inc.php:1738
+#: lib/Form/Class.FormHandler.inc.php:1757
 #: CC_entity_edit_did_destination.php:216
 msgid "error deletion"
 msgstr "erreur de suppression"
 
-#: lib/Form/Class.FormHandler.inc.php:1865
+#: lib/Form/Class.FormHandler.inc.php:1884
 msgid "ERROR_DUPLICATION"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1951
+#: lib/Form/Class.FormHandler.inc.php:1970
 msgid "Done"
 msgstr "Fait"
 
-#: lib/Form/Class.FormHandler.inc.php:1991
+#: lib/Form/Class.FormHandler.inc.php:2010
 msgid "Export Call Plan with LCR"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1997
+#: lib/Form/Class.FormHandler.inc.php:2016
 msgid "Choose a call plan"
 msgstr "Choisissez un plan tarifaire"
 
-#: lib/Form/Class.FormHandler.inc.php:2043
+#: lib/Form/Class.FormHandler.inc.php:2062
 msgid "THE CURRENT RATECARD"
 msgstr "LA RATECARD EN COURS"
 
-#: lib/Form/Class.FormHandler.inc.php:2054
+#: lib/Form/Class.FormHandler.inc.php:2073
 msgid "R A T E C A R D"
 msgstr "R A T E C A R D"
 
-#: lib/Form/Class.FormHandler.inc.php:2060
+#: lib/Form/Class.FormHandler.inc.php:2079
 msgid "Choose a ratecard"
 msgstr "Choisissez une ratecard"
 
-#: lib/Form/Class.FormHandler.AddForm.inc.php:207
+#: lib/Form/Class.FormHandler.AddForm.inc.php:217
 msgid "Create a new "
 msgstr "Cr&eacute;er un nouveau "
 
@@ -1893,11 +1871,11 @@ msgstr "INCONNU"
 msgid "First"
 msgstr "Prem"
 
-#: lib/Misc.php:794 A2B_entity_did.php:448
+#: lib/Misc.php:794
 msgid "Prev"
 msgstr "Prec"
 
-#: lib/Misc.php:795 A2B_entity_did.php:418
+#: lib/Misc.php:795 A2B_entity_did.php:427
 msgid "Next"
 msgstr "Suiv"
 
@@ -2007,7 +1985,7 @@ msgstr ""
 msgid "CUSTOMERS AND AGENTS"
 msgstr ""
 
-#: lib/interface/constants.php:77 A2B_entity_did.php:402
+#: lib/interface/constants.php:77 A2B_entity_did.php:411
 msgid "Yes"
 msgstr "Oui"
 
@@ -2345,24 +2323,24 @@ msgstr "PAS DE REMISE"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Longueur de carte incorrecte d&eacute;finie dans la config"
 
-#: lib/Class.A2Billing.php:3376
+#: lib/Class.A2Billing.php:3418
 msgid "Error : Authentication Failed !!!"
 msgstr "Erreur: Echec Authentification"
 
-#: lib/Class.A2Billing.php:3417
+#: lib/Class.A2Billing.php:3459
 msgid "Error : Not enough credit to call !!!"
 msgstr "Erreur : Pas assez de cr&eacute;dit pour appeler"
 
-#: lib/Class.A2Billing.php:3424
+#: lib/Class.A2Billing.php:3466
 msgid "Error : Card is not active!!!"
 msgstr "Erreur : carte non active"
 
-#: lib/Class.A2Billing.php:3431
+#: lib/Class.A2Billing.php:3473
 msgid "Error : Card is actually in use!!!"
 msgstr "Erreur : Carte en cours d'utilisation"
 
-#: lib/Class.A2Billing.php:3441 lib/Class.A2Billing.php:3450
-#: lib/Class.A2Billing.php:3459
+#: lib/Class.A2Billing.php:3483 lib/Class.A2Billing.php:3492
+#: lib/Class.A2Billing.php:3501
 msgid "Error : Card have expired!!!"
 msgstr "Erreur : la carte aexpir&eacute;"
 
@@ -2551,33 +2529,33 @@ msgstr "STATUT : "
 msgid "COMMENT : "
 msgstr ""
 
-#: checkout_confirmation.php:108
+#: checkout_confirmation.php:126
 msgid "No Transaction ID found"
 msgstr "Pas de Transaction ID trouv&eacute;"
 
-#: checkout_confirmation.php:140
+#: checkout_confirmation.php:158
 msgid "Please confirm your order"
 msgstr "Merci de confirmer votre achat"
 
-#: checkout_confirmation.php:147
+#: checkout_confirmation.php:165
 msgid "Payment Method"
 msgstr "Moyen de Paiement"
 
-#: checkout_confirmation.php:152
+#: checkout_confirmation.php:170
 msgid "Amount"
 msgstr "Total"
 
-#: checkout_confirmation.php:162 A2B_invoice_view.php:215
-#: A2B_invoice_view.php:271 A2B_billing_preview.php:272 userinfo.php:247
-#: userinfo.php:273
+#: checkout_confirmation.php:181 A2B_invoice_view.php:215
+#: A2B_invoice_view.php:271 A2B_billing_preview.php:272 userinfo.php:246
+#: userinfo.php:272
 msgid "VAT"
 msgstr "TVA "
 
-#: checkout_confirmation.php:173
+#: checkout_confirmation.php:192
 msgid "Total Amount Incl. VAT"
 msgstr "Total TTC"
 
-#: checkout_confirmation.php:190
+#: checkout_confirmation.php:210
 msgid "Please click button to confirm your order"
 msgstr "Veuillez cliquer sur le bouton pour confimer votre achat"
 
@@ -2696,7 +2674,7 @@ msgstr ""
 #: A2B_receipt_detail.php:116 A2B_receipt_detail.php:135 card-history.php:70
 #: A2B_billing_preview.php:156 A2B_billing_preview.php:177
 #: A2B_billing_preview.php:248 A2B_billing_preview.php:269
-#: A2B_receipt_preview_detail.php:217 call-history.php:125
+#: A2B_receipt_preview_detail.php:217 call-history.php:99
 #: A2B_receipt_view.php:178 A2B_receipt_view.php:200
 msgid "Date"
 msgstr "DATE"
@@ -2735,7 +2713,7 @@ msgid "RECEIPT DETAIL"
 msgstr "DETAIL RECU"
 
 #: A2B_receipt_detail.php:137 A2B_billing_preview.php:179
-#: A2B_receipt_preview_detail.php:219 call-history.php:132
+#: A2B_receipt_preview_detail.php:219 call-history.php:106
 #: A2B_receipt_view.php:202
 msgid "Cost"
 msgstr "Co&ucirc;t"
@@ -2757,71 +2735,71 @@ msgstr "Historique Carte"
 msgid "SELECT BY MONTH"
 msgstr "SELECT LE MOIS"
 
-#: card-history.php:194 card-history.php:243 call-history.php:250
+#: card-history.php:194 card-history.php:243 call-history.php:217
 msgid "FROM"
 msgstr "DE"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "JANUARY"
 msgstr "Janvier"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "FEBRUARY"
 msgstr "F&eacute;vrier"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "MARCH"
 msgstr "Mars"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "APRIL"
 msgstr "Avril"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "MAY"
 msgstr "Mai"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "JUNE"
 msgstr "Juin"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "JULY"
 msgstr "Juillet"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "AUGUST"
 msgstr "Ao&ucirc;t"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "SEPTEMBER"
 msgstr "Septembre"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "OCTOBER"
 msgstr "Octobre"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "NOVEMBER"
 msgstr "Novembre"
 
 #: card-history.php:197 card-history.php:217 card-history.php:255
-#: card-history.php:282 call-history.php:263 call-history.php:290
+#: card-history.php:282 call-history.php:230 call-history.php:257
 msgid "DECEMBER"
 msgstr "Decembre"
 
-#: card-history.php:213 card-history.php:270 call-history.php:278
+#: card-history.php:213 card-history.php:270 call-history.php:245
 msgid "TO"
 msgstr "A "
 
@@ -2829,7 +2807,7 @@ msgstr "A "
 msgid "SELECT BY DAY"
 msgstr "SELECT LE JOUR"
 
-#: card-history.php:303 call-history.php:392
+#: card-history.php:303 call-history.php:359
 msgid "Search"
 msgstr "Recherche"
 
@@ -2949,9 +2927,25 @@ msgstr "Cette facture contient des charges &agrave; payer depuis la derni&egrave
 msgid "Thank you for your purchase"
 msgstr "Merci de votre achat"
 
+#: checkout_success.php:67
+msgid "We are sorry your transaction is failed. Please try later or check your provided information."
+msgstr "D&eacute;sol&eacute;, votre transaction a &eacute;chou&eacute;. R&eacute;essayez plus tard et v&eacute;rifiez les informations fournies."
+
+#: checkout_success.php:71
+msgid "We are sorry your transaction is denied. Please try later or check your provided information."
+msgstr "S&eacute;sol&eacute;, votre transaction a &eacute;t&eacute; refus&eacute;e. R&eacute;essayez plus tard et v&eacute;rifiez les informations fournies."
+
 #: checkout_success.php:75
 msgid "We are sorry your transaction is pending."
 msgstr "D&eacute;sol&eacute;, votre transaction est en attente."
+
+#: checkout_success.php:79
+msgid "Your transaction is in progress."
+msgstr "Votre transaction est en cours."
+
+#: checkout_success.php:83
+msgid "Your transaction was successful."
+msgstr "Votre transaction a r&eacute;ussi."
 
 #: A2B_receipt_preview_detail.php:190
 #, fuzzy
@@ -2991,7 +2985,7 @@ msgstr ""
 msgid "Username"
 msgstr "nom"
 
-#: A2B_entity_sipiax_info.php:115 templates/default/index.tpl:61
+#: A2B_entity_sipiax_info.php:115 templates/default/index.tpl:58
 #, fuzzy
 msgid "Password"
 msgstr "Ancien Mot de Passe"
@@ -3025,7 +3019,7 @@ msgstr "Entrez le num&eacute;ro que vous souhaitez faire correspondre à ce code
 msgid "Speed Dial code"
 msgstr "Code Num. Abr&eacute;g&eacute;e"
 
-#: A2B_entity_speeddial.php:108 call-history.php:128 A2B_entity_did.php:404
+#: A2B_entity_speeddial.php:108 call-history.php:102 A2B_entity_did.php:413
 msgid "Destination"
 msgstr "Destination"
 
@@ -3037,11 +3031,15 @@ msgstr "Nom"
 msgid "ASSIGN NUMBER TO SPEEDDIAL"
 msgstr "ASSIGNER UN NUMERO ABREGE"
 
-#: checkout_process.php:279
+#: checkout_process.php:284
 msgid "No Such Customer exists."
 msgstr "Ce login n'existe pas"
 
-#: checkout_process.php:417
+#: checkout_process.php:378
+msgid "Refill ONLINE"
+msgstr "RECHARGE ONLINE"
+
+#: checkout_process.php:435
 msgid "Invoice Payment Ref: "
 msgstr ""
 
@@ -3065,11 +3063,11 @@ msgstr "Effacez en un pour utiliser un autre Id Appelant"
 msgid "Max CallerId"
 msgstr "Max. Id Appelant"
 
-#: checkout_payment.php:298
+#: checkout_payment.php:297
 msgid "Please enter the order amount"
 msgstr "Veuillez saisir le montant de l'achat"
 
-#: checkout_payment.php:305
+#: checkout_payment.php:304
 msgid "Total Amount"
 msgstr "Montant Total"
 
@@ -3133,38 +3131,38 @@ msgstr ""
 msgid "Click below to buy credit : "
 msgstr "Cliquez ci-dessous pour acheter du cr&eacute;dit : "
 
-#: userinfo.php:226
+#: userinfo.php:225
 msgid "BUY NOW"
 msgstr "ACHETER MAINTENANT"
 
-#: userinfo.php:242
+#: userinfo.php:241
 #, fuzzy
 msgid "Click below to subscribe an automated refill : "
 msgstr "Cliquez ci-dessous pour acheter du cr&eacute;dit : "
 
-#: userinfo.php:249
+#: userinfo.php:248
 msgid "for each"
 msgstr ""
 
-#: userinfo.php:251
+#: userinfo.php:250
 msgid "Days"
 msgstr ""
 
-#: userinfo.php:254
+#: userinfo.php:253
 #, fuzzy
 msgid "Months"
 msgstr "Mensuel"
 
-#: userinfo.php:256
+#: userinfo.php:255
 #, fuzzy
 msgid "Years"
 msgstr "Oui"
 
-#: userinfo.php:272
+#: userinfo.php:271
 msgid "Automated refill"
 msgstr ""
 
-#: userinfo.php:298
+#: userinfo.php:297
 #, fuzzy
 msgid "SUBSCRIPTION"
 msgstr "DESCRIPTION"
@@ -3181,157 +3179,153 @@ msgstr "Supprimer la DESTINATION DID "
 msgid "Deletion"
 msgstr "Suppression"
 
-#: call-history.php:55
-msgid "ERROR: Cannot download file "
-msgstr ""
-
-#: call-history.php:110
+#: call-history.php:84
 #, fuzzy
 msgid "STANDARD"
 msgstr "CARTE POSTPAYEE"
 
-#: call-history.php:111
+#: call-history.php:85
 #, fuzzy
 msgid "SIP/IAX"
 msgstr "INFO SIP/IAX"
 
-#: call-history.php:112
+#: call-history.php:86
 #, fuzzy
 msgid "DIDCALL"
 msgstr "APPELS"
 
-#: call-history.php:113
+#: call-history.php:87
 msgid "DID_VOIP"
 msgstr ""
 
-#: call-history.php:114 templates/default/main.tpl:78
+#: call-history.php:88 templates/default/main.tpl:80
 msgid "CALLBACK"
 msgstr "CALLBACK"
 
-#: call-history.php:115
+#: call-history.php:89
 #, fuzzy
 msgid "PREDICT"
 msgstr "CREDIT"
 
-#: call-history.php:116
+#: call-history.php:90
 msgid "AUTO DIALER"
 msgstr ""
 
-#: call-history.php:117
+#: call-history.php:91
 #, fuzzy
 msgid "DID-ALEG"
 msgstr "DESACTIVER"
 
-#: call-history.php:127
+#: call-history.php:101
 msgid "PhoneNumber"
 msgstr "Num&eacute;ro"
 
-#: call-history.php:129
+#: call-history.php:103
 msgid "Duration"
 msgstr "Dur&eacute;e"
 
-#: call-history.php:130
+#: call-history.php:104
 msgid "Terminate Cause"
 msgstr "Cause Fin"
 
-#: call-history.php:130
+#: call-history.php:104
 msgid "TC"
 msgstr "CF"
 
-#: call-history.php:131
+#: call-history.php:105
 #, fuzzy
 msgid "CallType"
 msgstr "TypeAppel"
 
-#: call-history.php:149
+#: call-history.php:116
 msgid "Call Logs"
 msgstr "Historique Appels"
 
-#: call-history.php:322
+#: call-history.php:289
 msgid "CALL TYPE"
 msgstr "TYPE APPEL"
 
-#: call-history.php:328
+#: call-history.php:295
 msgid "ALL CALLS"
 msgstr "TOUS APPELS"
 
-#: call-history.php:345
+#: call-history.php:312
 msgid "OPTIONS"
 msgstr "OPTION"
 
-#: call-history.php:350
+#: call-history.php:317
 msgid "SHOW"
 msgstr "MONTRER"
 
-#: call-history.php:353
+#: call-history.php:320
 msgid "Answered Calls"
 msgstr "Appels r&eacute;pondus"
 
-#: call-history.php:355
+#: call-history.php:322
 msgid "All Calls"
 msgstr "Tous les appels"
 
-#: call-history.php:362
+#: call-history.php:329
 msgid "RESULT"
 msgstr "RESULTAT"
 
-#: call-history.php:365
+#: call-history.php:332
 msgid "Seconds"
 msgstr "Secondes"
 
-#: call-history.php:370
+#: call-history.php:337
 msgid "CURRENCY"
 msgstr "DEVISE"
 
-#: call-history.php:400
+#: call-history.php:367
 msgid "Number of Calls"
 msgstr "Nombre d'appels"
 
-#: call-history.php:520
+#: call-history.php:487
 msgid "PREVIOUS"
 msgstr "Pr&eacute;c&eacute;dent"
 
-#: call-history.php:526
+#: call-history.php:493
 msgid "NEXT"
 msgstr "Suivant"
 
-#: call-history.php:558
+#: call-history.php:525
 msgid "SUMMARY"
 msgstr "TOTAL"
 
-#: call-history.php:570
+#: call-history.php:537
 msgid "CALLING CARD MINUTES"
 msgstr "MINUTES CARTE APPEL"
 
-#: call-history.php:574
+#: call-history.php:541
 msgid "DURATION"
 msgstr "DUREE"
 
-#: call-history.php:575
+#: call-history.php:542
 msgid "GRAPHIC"
 msgstr "GRAPHIQUE"
 
-#: call-history.php:576
+#: call-history.php:543
 msgid "CALLS"
 msgstr "APPELS"
 
-#: call-history.php:577
+#: call-history.php:544
 msgid "AVERAGE LENGTH OF CALL"
 msgstr "DUREE MOYENNE APPEL"
 
-#: call-history.php:577
+#: call-history.php:544
 msgid "ALOC"
 msgstr ""
 
-#: call-history.php:578
+#: call-history.php:545
 msgid "TOTAL COST"
 msgstr "COUT TOTAL"
 
-#: call-history.php:627
+#: call-history.php:594
 msgid "TOTAL"
 msgstr "TOTAL"
 
-#: call-history.php:639
+#: call-history.php:606
 msgid "No calls in your selection"
 msgstr "Aucun appel dans votre s&eacute;lection"
 
@@ -3405,94 +3399,94 @@ msgstr "VOUCHERS"
 msgid "INVOICES"
 msgstr "FACTURES"
 
-#: templates/default/main.tpl:52
+#: templates/default/main.tpl:53
 msgid "View Receipts"
 msgstr "Voir Re&ccedil;us"
 
-#: templates/default/main.tpl:53
+#: templates/default/main.tpl:54
 msgid "View Invoices"
 msgstr "voir Factures"
 
-#: templates/default/main.tpl:54
+#: templates/default/main.tpl:55
 #, fuzzy
 msgid "Preview Next Billing"
 msgstr "Apper&ccedil;u Proch. Fact"
 
-#: templates/default/main.tpl:66
+#: templates/default/main.tpl:68
 msgid "SPEED DIAL"
 msgstr "NUMEROTATION ABREGEE"
 
-#: templates/default/main.tpl:74
+#: templates/default/main.tpl:76
 msgid "SIMULATOR"
 msgstr "SIMULATEUR"
 
-#: templates/default/main.tpl:82
+#: templates/default/main.tpl:84
 msgid "ADD CALLER ID"
 msgstr "AJOUTER ID APPELANT"
 
-#: templates/default/main.tpl:86
+#: templates/default/main.tpl:88
 msgid "PASSWORD"
 msgstr "MOT DE PASSE"
 
-#: templates/default/main.tpl:90
+#: templates/default/main.tpl:92
 msgid "SUPPORT"
 msgstr ""
 
-#: templates/default/main.tpl:94
+#: templates/default/main.tpl:96
 msgid "NOTIFICATION"
 msgstr ""
 
-#: templates/default/main.tpl:104
+#: templates/default/main.tpl:106
 msgid "AUTO DIALLER"
 msgstr ""
 
-#: templates/default/main.tpl:113
+#: templates/default/main.tpl:115
 msgid "Campaign's"
 msgstr "Campagne"
 
-#: templates/default/main.tpl:116
+#: templates/default/main.tpl:118
 msgid "Import Phone List"
 msgstr "Importer Num&eacute;ros"
 
-#: templates/default/main.tpl:126
+#: templates/default/main.tpl:128
 msgid "LOGOUT"
 msgstr "QUITTER"
 
-#: templates/default/index.tpl:49
+#: templates/default/index.tpl:46
 #, fuzzy
 msgid "AUTHENTICATION"
 msgstr "DESTINATION"
 
-#: templates/default/index.tpl:57
+#: templates/default/index.tpl:54
 msgid "User"
 msgstr ""
 
-#: templates/default/index.tpl:95
+#: templates/default/index.tpl:91
 #, fuzzy
 msgid "Forgot your password ?"
 msgstr "Mot de passe oubli&eacute;?"
 
-#: templates/default/index.tpl:95 templates/default/index.tpl:98
+#: templates/default/index.tpl:91 templates/default/index.tpl:94
 msgid "Click here"
 msgstr ""
 
-#: templates/default/index.tpl:98
+#: templates/default/index.tpl:94
 msgid "To sign up"
 msgstr ""
 
-#: templates/default/index.tpl:107
+#: templates/default/index.tpl:103
 msgid "AUTHENTICATION REFUSED : please check your user/password!"
 msgstr ""
 
-#: templates/default/index.tpl:109
+#: templates/default/index.tpl:105
 msgid "INACTIVE ACCOUNT : Your account need to be activated!"
 msgstr ""
 
-#: templates/default/index.tpl:111
+#: templates/default/index.tpl:107
 msgid "BLOCKED ACCOUNT : Please contact the administrator!"
 msgstr ""
 
-#: templates/default/index.tpl:113
+#: templates/default/index.tpl:109
 msgid "NEW ACCOUNT : Your account has not been validate yet!"
 msgstr ""
 
@@ -3524,121 +3518,121 @@ msgstr "Merci de nous avoir choisi"
 msgid "An activation email has been sent to"
 msgstr "Un mail d'activation a &eacute;t&eacute; envoy&eacute; &agrave;"
 
-#: A2B_entity_did.php:81
+#: A2B_entity_did.php:96
 msgid "The following Destinaton-DID has been relesed:"
 msgstr "Le DID suivant a &eacute;t&eacute; rendu:"
 
-#: A2B_entity_did.php:107
+#: A2B_entity_did.php:122
 #, fuzzy
 msgid "Error : Sending mail"
 msgstr "Erreur: Echec Authentification"
 
-#: A2B_entity_did.php:125
+#: A2B_entity_did.php:140
 msgid "If you really want release this DID , Click on the release button."
 msgstr "Si vous voulez vraiment rendre ce DID, cliquer sur le bouton Rendre"
 
-#: A2B_entity_did.php:132
+#: A2B_entity_did.php:147
 msgid "Release the DID "
 msgstr "Rendre le DID"
 
-#: A2B_entity_did.php:181
+#: A2B_entity_did.php:196
 msgid "The following Destinaton for your DID has been added:"
 msgstr "Le DID suivant a &eacute;t&eacute; ajout&eacute;:"
 
-#: A2B_entity_did.php:349
+#: A2B_entity_did.php:355
 msgid "Buy New DID"
 msgstr "Acheter un nouveau DID "
 
-#: A2B_entity_did.php:349
+#: A2B_entity_did.php:355
 msgid "Add Phone Number to your DID"
 msgstr "Ajouter un num&eacute;ro de t&eacute;l&eacute;phone a votre DID"
 
-#: A2B_entity_did.php:349
+#: A2B_entity_did.php:355
 msgid "Release DID"
 msgstr "Rendre DID"
 
-#: A2B_entity_did.php:365
+#: A2B_entity_did.php:371
 msgid "Select Country"
 msgstr "Selectionnez un pays"
 
-#: A2B_entity_did.php:379
+#: A2B_entity_did.php:388
 msgid "Select Virtual Phone Number"
 msgstr "Selectionnez un num&eacute;ro de t&eacute;l&eacute;phone Virtuel"
 
-#: A2B_entity_did.php:384
+#: A2B_entity_did.php:393
 #, fuzzy
 msgid "Monthly:"
 msgstr "Mensuel"
 
-#: A2B_entity_did.php:385
+#: A2B_entity_did.php:394
 msgid "B-Leg Connect:"
 msgstr ""
 
-#: A2B_entity_did.php:386
+#: A2B_entity_did.php:395
 msgid "B-Leg Rate:"
 msgstr ""
 
-#: A2B_entity_did.php:387
+#: A2B_entity_did.php:396
 msgid "A-Leg Connect:"
 msgstr ""
 
-#: A2B_entity_did.php:388
+#: A2B_entity_did.php:397
 msgid "A-Leg Rate:"
 msgstr ""
 
-#: A2B_entity_did.php:402
+#: A2B_entity_did.php:411
 msgid "VOIP CALL : "
 msgstr "APPEL VOIP : "
 
-#: A2B_entity_did.php:402
+#: A2B_entity_did.php:411
 msgid "NO"
 msgstr "NON"
 
-#: A2B_entity_did.php:407
+#: A2B_entity_did.php:416
 msgid "Enter the phone number you wish to call, or the SIP/IAX client to reach  (ie: 347894999 or SIP/jeremy@182.212.1.45). In order to call a VoIP number, you will need to enable voip_call"
 msgstr "Entrez le numero de telephone que vous souhaitez appeler, ou le client SIP/IAX a joindre (ie, 347894999 ou SIP/jeremy@182.212.1.45). Pour appeler un numero VOIP, vous devez activer 'APPEL VOIP'"
 
-#: A2B_entity_did.php:411
+#: A2B_entity_did.php:420
 msgid "If you release the did you will not be monthly charged any more."
 msgstr "Si vous rendez le DID, vous ne serez plus factur&eacute; mensuellement."
 
-#: A2B_entity_did.php:420
+#: A2B_entity_did.php:429
 msgid "Add phone number"
 msgstr "Num&eacute;ro de t&eacute;l&eacute;phone"
 
-#: A2B_entity_did.php:422 A2B_entity_did.php:451 A2B_entity_did.php:474
+#: A2B_entity_did.php:431 A2B_entity_did.php:457 A2B_entity_did.php:480
 msgid "Ok"
 msgstr ""
 
-#: A2B_entity_did.php:438
+#: A2B_entity_did.php:447
 msgid "Confirm the purchase of the DID "
 msgstr "Confirmer l'achat du DID"
 
-#: A2B_entity_did.php:443
+#: A2B_entity_did.php:452
 msgid "A monthly fee of "
 msgstr "Un co&ucirc;t mensuel de "
 
-#: A2B_entity_did.php:443
+#: A2B_entity_did.php:452
 msgid " will be carried out from your acount"
 msgstr "credit sur votre compte!"
 
-#: A2B_entity_did.php:462
+#: A2B_entity_did.php:468
 msgid "The purchase of the DID is done "
 msgstr "L'achat du DID est fait "
 
-#: A2B_entity_did.php:463
+#: A2B_entity_did.php:469
 msgid "The purchase of the DID cannot be done, the VoIP destination have to be a proper URI"
 msgstr "L'achat du DID a &eacute;chou&eacute;, la destination VOIP doit etre un URI correct"
 
-#: A2B_entity_did.php:464
+#: A2B_entity_did.php:470
 msgid "The purchase of the DID cannot be done, your credit of  "
 msgstr "L'achat du DID a &eacute;chou&eacute;, votre cr&eacute;dit de "
 
-#: A2B_entity_did.php:464
+#: A2B_entity_did.php:470
 msgid " is lower than Fixerate of the DID  "
 msgstr " est inf&eacute;rieur au cout fixe du DID "
 
-#: A2B_entity_did.php:464
+#: A2B_entity_did.php:470
 msgid "Please reload your account "
 msgstr "Veuillez recharger votre compte!"
 

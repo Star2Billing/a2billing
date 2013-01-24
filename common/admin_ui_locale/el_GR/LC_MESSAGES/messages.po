@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Admin UI : 1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-30 19:56+0200\n"
+"POT-Creation-Date: 2012-12-20 14:38+0100\n"
 "PO-Revision-Date: 2010-08-03 16:09+0200\n"
 "Last-Translator: Polihronis Porfiris <pporfiris@hotmail.com>\n"
 "Language-Team: Polihronis Porfiris <pporfiris@hotmai.com>\n"
@@ -30,22 +30,6 @@ msgstr "Αδύνατον να γίνει εγγραφή στο αρχείο"
 #: lib/customer.smarty.php:100 lib/admin.smarty.php:65 lib/agent.smarty.php:66
 msgid "This option is not available on the Demo!"
 msgstr "ΑΥΤΗ Η ΕΠΙΛΟΓΗ ΔΕΝ ΕΙΝΑΙ ΔΙΑΘΕΣΙΜΗ ΣΤΟ DEMO!"
-
-#: lib/epayment/methods/iridium.php:607
-msgid "We are sorry your transaction is failed. Please try later or check your provided information."
-msgstr "Λυπούμαστε η συναλλαγή σας απέτυχε. Παρακαλούμε δοκιμάστε αργότερα ή ελέγξτε τα στοιχεία που δηλώσατε."
-
-#: lib/epayment/methods/iridium.php:611
-msgid "We are sorry your transaction is denied. Please try later or check your provided information."
-msgstr "Λυπούμαστε η συναλλαγή σας απορρίφτηκε. Παρακαλούμε δοκιμάστε αργότερα ή ελέγξτε τα στοιχεία που δηλώσατε."
-
-#: lib/epayment/methods/iridium.php:620
-msgid "Your transaction is in progress."
-msgstr "Η συναλλαγή σας επεξεργάζεται."
-
-#: lib/epayment/methods/iridium.php:624
-msgid "Your transaction was successful."
-msgstr "Η συναλλαγή σας ήταν επιτυχής."
 
 #: lib/support/classes/ticket.php:78 lib/support/classes/ticket.php:236
 msgid "(AGENT)"
@@ -78,463 +62,463 @@ msgstr "ΚΛΕΙΣΤΟ"
 msgid "INVALID"
 msgstr "ΕΣΦΑΛΜΕΝΗ"
 
-#: lib/admin.help.php:36
+#: lib/admin.help.php:37
 msgid "For further information please consult"
 msgstr "Για περισσότερες πληροφορίες παρακαλώ συμβουλευτείτε"
 
-#: lib/admin.help.php:36
+#: lib/admin.help.php:37
 msgid "the online documention"
 msgstr "την δικτυακή τεκμηρίωση"
 
-#: lib/admin.help.php:58
+#: lib/admin.help.php:59
 msgid "The Notification component is responsible for informing the Customer, via e-mail, that the account has reached a minimum credit."
 msgstr "Η μονάδα ειδοποιήσεων είναι υπεύθυνο για να ενημερώνει τον πελάτη, μέσου email, ότι ο λογαριασμός του έχει φτάσει στο ελάχιστο πιστωτικό όριο."
 
-#: lib/admin.help.php:60
+#: lib/admin.help.php:61
 msgid "Notification: You can see below all notifications received about some event."
 msgstr "Ειδοποίηση: Παρακάτω φαίνονται όλες οι ειδοποιήσεις που έχουν ληφθεί για κάποιο λόγο."
 
-#: lib/admin.help.php:62
+#: lib/admin.help.php:63
 msgid "This page shows the series list."
 msgstr "Αυτή η σελίδα δείχνει την λίστα σειρών."
 
-#: lib/admin.help.php:62
+#: lib/admin.help.php:63
 msgid "Series & serials is used for the creation of a card range specifically for accounting purposes instead of card id."
 msgstr "Η σειρές και σήριαλ χρησιμοποιούνται για την δημιουργία περιοχών καρτών για λογιστικούς σκοπούς και όχι για αναγνωριστικά καρτών."
 
-#: lib/admin.help.php:64
+#: lib/admin.help.php:65
 msgid "This page shows a group list."
 msgstr "Αυτή η σελίδα δείχνει μια λίστα ομάδων."
 
-#: lib/admin.help.php:64
+#: lib/admin.help.php:65
 msgid "The Group field is used for grouping customers for quick search, batch update and reporting."
 msgstr "Το πεδίο ομάδα χρησιμοποιείτε για την ομαδοποίηση πελατών για την ομαδική ενημέρωση και αναφορών."
 
-#: lib/admin.help.php:66
+#: lib/admin.help.php:67
 msgid "Generate a specific crypted URL to configure signup with a customer group and call plan."
 msgstr "Δημιουργία ενός συγκεκριμένου κρυπτογραφημένου URL για την διαμόρφωση της εγγραφής μιας ομάδας πελατών και σχεδίων κλήσης."
 
-#: lib/admin.help.php:68
+#: lib/admin.help.php:69
 msgid "Customers are listed below by account number. Each row corresponds to one customer, along with information such as their call plan, credit remaining, etc.</br>"
 msgstr "Παρακάτω εμφανίζονται οι πελάτες κατά του αριθμού λογαριασμού. Κάθε σειρά παριστάνει έναν πελάτη μαζί με πληροφορίες για το σχέδιο κλήσης, πιστωτικό όριο κ.α.</br>"
 
-#: lib/admin.help.php:68
+#: lib/admin.help.php:69
 msgid "The SIP and IAX buttons create SIP and IAX entries to allow direct VoIP connections to the Asterisk server without further authentication."
 msgstr "Τα κουμπιά SIP και IAX δημιουργούν καταχωρίσεις SIP και IAX για τις απευθείας συνδέσεις VoIP στον διακομιστή Asterisk χωρίς περεταίρω ταυτοποιήσεις."
 
-#: lib/admin.help.php:70
+#: lib/admin.help.php:71
 msgid "Import Customers from a CSV file."
 msgstr "Εισαγωγή πελατών από αρχείο CSV."
 
-#: lib/admin.help.php:72
+#: lib/admin.help.php:73
 msgid "Customer information."
 msgstr "Πληροφορίες πελατών."
 
-#: lib/admin.help.php:74
+#: lib/admin.help.php:75
 msgid "Top up the account by selecting or typing in the account number directly, and enter the amount of credit to apply, then click ADD to confirm."
 msgstr "Ανανεώστε τον λογαριασμό επιλέγοντας ή εισάγοντας απευθείας τον αριθμό λογαριασμού, μετά εισάγετε το ποσό που θέλετε να πιστώσετε και μετά πατήστε το κουμπί ΠΡΟΣΘΗΚΗ."
 
-#: lib/admin.help.php:76
+#: lib/admin.help.php:77
 msgid "Create and edit the properties of each customer. Click <b>CONFIRM DATA</b> at the bottom of the page to save changes."
 msgstr "Δημιουργία και επεξεργασία των ιδιοτήτων κάθε πελάτη. Πατήστε <b>ΕΠΙΒΕΒΑΙΩΣΗ ΔΕΔΟΜΕΝΩΝ</b> στο κάτω μέρος της σελίδες για να αποθηκεύσετε τις αλλαγές."
 
-#: lib/admin.help.php:78
+#: lib/admin.help.php:79
 msgid "Bulk create customers in a single step. <br> Set the properties of the batch such as initial credit, account type and currency, then click on the GENERATE CUSTOMERS button to create the batch."
 msgstr "Μαζική δημιουργία πελατών σε ένα μόνο βήμα. <br> Ορίστε τις ιδιότητες της δέσμης, όπως η αρχική πίστωση, τον τύπο του λογαριασμού και το νόμισμα, στη συνέχεια, κάντε κλικ στο κουμπί ΔΗΜΙΟΥΡΓΙΑ ΠΕΛΑΤΕΣ για να δημιουργήσετε την παρτίδα."
 
-#: lib/admin.help.php:80
+#: lib/admin.help.php:81
 msgid "SIP and IAX Config will create a SIP or IAX entry on the Asterisk server, so that a customer can set up a SIP or IAX client to connect directly to the asterisk server without the need to enter an account and pin each time a call is made. When done, click on the CONFIRM DATA button, then click reload to apply the changes on the Asterisk server.</br>"
 msgstr "Η διαμόρφωση SIP και IAX θα δημιουργήσει μια καταχώριση SIP ή IAX στο διακομιστή Asterisk, έτσι ώστε ο πελάτης να μπορεί να δημιουργήσει ένα SIP ή IAX πελάτη να συνδέεται απευθείας με το διακομιστή asterisk χωρίς την ανάγκη της διαδικασίας ταυτοποίησης κάθε φορά που πραγματοποιείται μια κλήση . Οταν τελειώσετε, κάντε κλικ στο κουμπί ΕΠΙΒΕΒΑΙΩΣΗ ΔΕΔΟΜΕΝΩΝ και στη συνέχεια κάντε κλικ στην Ανανέωση για να εφαρμοστούν οι αλλαγές στο διακομιστή Asterisk. </br>"
 
-#: lib/admin.help.php:81
+#: lib/admin.help.php:82
 msgid "The customer must then enter the URL/IP address of the asterisk server into the SIP/IAX client, and use the Account Number and Secret word as the username and password."
 msgstr "Ο πελάτης μετά πρέπει να εισάγει την διεύθυνση του διακομιστή asterisk στον πελάτη SIP/IAX και να χρησιμοποίηση τον αριθμό λογαριασμού και μυστική λέξη ως όνομα χρήστη και κωδικό πρόσβασης."
 
-#: lib/admin.help.php:83
+#: lib/admin.help.php:84
 msgid "Click reload to commit changes to Asterisk"
 msgstr "Πατήστε Ανανέωση για να εφαρμοστούν οι αλλαγές στον διακομισή asterisk"
 
-#: lib/admin.help.php:85
+#: lib/admin.help.php:86
 msgid "Each SIP/IAX client is identified by a number of parameters.</br></br>"
 msgstr "Κάθε πελάτης SIP/IAX αναγνωρίζετε με ένα αριθμό παραμέτρων.</br></br>"
 
-#: lib/admin.help.php:86
+#: lib/admin.help.php:87
 msgid "More details on how to configure clients are on the Wiki"
 msgstr "Περισσότερος πληροφορίες στο πώς να διαμορφώνετε πελάτες βρίσκονται στο Wiki"
 
-#: lib/admin.help.php:89
+#: lib/admin.help.php:90
 msgid "Set the caller ID so that the customer calling in is authenticated on the basis of the callerID rather than with the account number"
 msgstr "Ρυθμίστε το αναγνωριστικό καλούντος έτσι ώστε ο πελάτης να ταυτοπίουνται με βάση του αναγνωριστικού κλήσης και όχι με τον αριθμό λογαριασμού"
 
-#: lib/admin.help.php:91
+#: lib/admin.help.php:92
 msgid "This screen shows refills and payments made against each account, along with the current credit on each account. The initial amount of credit applied to the account is not included. The amount owing is calculated by subtracting payments from refills"
 msgstr "Σε αυτήν την οθόνη εμφανίζονται ανανεώσεις και πληρωμές που έχουν γίνει σε κάθε λογαριασμό, μαζί με το τρέχον υπόλοιπο σε κάθε κάρτα. Το αρχικό πόσο πίστωσης που εφαρμόστηκε στις κάρτες δεν συμπεριλαμβάνετε. Το χρωστούμενο πόσο υπολογίζετε με την αφαίρεση των πληρωμών από τις ανανεώσεις."
 
-#: lib/admin.help.php:93
+#: lib/admin.help.php:94
 msgid "Agents Commission history - The section below allows you to add commissions against an agent. Normally the commissions are generated automatically by the customer's payment."
 msgstr "Ιστορικό Προμηθέων Εκπροσώπου – Η παρακάτω περιοχή σας επιτρέπει να προσθέτετε προμήθειες σε κάποιον εκπρόσωπο. Κανονικά οι προμήθειες δημιουργούνται αυτόματη με τις πληρωμές των πελατών."
 
-#: lib/admin.help.php:95
+#: lib/admin.help.php:96
 msgid "Agents Remittance request history - The section below allows you to confirm or refuse remittance request of an agent. The remittance reques are generated automatically by the agent."
 msgstr "Ιστορικό αιτημάτων εμβασμάτων εκπροσώπου – Η παρακάτω περιοχή σας επιτρέπει να επιβεβαιώστε ή να αρνηθείτε αιτήματα εμβασμάτων των εκπροσώπων. Τα αιτήματα εμβασμάτων δημιουργούνται αυτόματα από τον εκπρόσωπο."
 
-#: lib/admin.help.php:97
+#: lib/admin.help.php:98
 msgid "Payment history - The section below allows you to add payments against a customer. Note that this does not change the balance on the account. Click on 'create associate refill' when you create a payment to top-up an account."
 msgstr "Ιστορικό αιτημάτων εμβασμάτων εκπροσώπου – Η παρακάτω περιοχή σας επιτρέπει να επιβεβαιώστε ή να αρνηθείτε αιτήματα εμβασμάτων των εκπροσώπων. Τα αιτήματα εμβασμάτων δημιουργούνται αυτόματα από τον εκπρόσωπο."
 
-#: lib/admin.help.php:99
+#: lib/admin.help.php:100
 msgid "Agent Payment history - The section below allows you to add payments against an agent. Note that this does not change the balance on the account. Click on 'create associate refill' when you create  a payment to top-up an account."
 msgstr "Ιστορικό πληρωμών – Η παρακάτω περιοχή σας επιτρέπει να προσθέστε πληρωμές στους πελάτες. Σημείωση ότι αυτό δεν αλλάζει το υπόλοιπο του λογαριασμού. Πατήστε το δημιουργία ανανέωσης συνεργάτη όταν δημιουργείτε πληρωμές για να ανανεώστε τον λογαριασμό."
 
-#: lib/admin.help.php:101
+#: lib/admin.help.php:102
 msgid "Billing history - The section below allows you to see all billing generated by the batch for the customers, or also to run a billing manually for a specific customer. Note that this creates one invoice associated with the created billing."
 msgstr "Ιστορικό πληρωμών Εκπροσώπων– Η παρακάτω περιοχή σας επιτρέπει να προσθέστε πληρωμές στους εκπροσώπους. Σημείωση ότι αυτό δεν αλλάζει το υπόλοιπο του λογαριασμού. Πατήστε το δημιουργία ανανέωσης συνεργάτη όταν δημιουργείτε πληρωμές για να ανανεώστε τον λογαριασμό."
 
-#: lib/admin.help.php:103
+#: lib/admin.help.php:104
 msgid "Billing history - The section below allows you see all billing generate by the batch for the agents , or also to run a billing manualy for a specific agent. Note that this create one invoice associate to the created billing."
 msgstr "Ιστορικό λογαριασμών – Η παρακάτω περιοχή σας επιτρέπει να δείτε όλα τα λογαριασμούς που δημιουργήθηκαν ομαδικά για τους πελάτες ή και να δημιουργήσετε χειροκίνητα λογαριασμό για έναν πελάτη. Σημειώστε ότι αυτό δημιουργεί ένα τιμολόγιο που συσχετίζετε με τους λογαριασμούς."
 
-#: lib/admin.help.php:105
+#: lib/admin.help.php:106
 msgid "Refill history - The section below allows you to add refills against a customer. Note that this changes the balance on the account"
 msgstr "Ιστορικό ανανεώσεων – Η παρακάτω περιοχή σας επιτρέπει να ανανεώνετε τους πελάτες. Σημείωση ότι αυτό αλλάζει το υπόλοιπο του λογαριασμού."
 
-#: lib/admin.help.php:107
+#: lib/admin.help.php:108
 msgid "Invoice history - The section below allows you to see and create invoices against a customer. Only the closed invoice can be seen on the customer interface"
 msgstr "Ιστορικό τιμολογίων – Η παρακάτω περιοχή σας επιτρέπει να δείτε και να δημιουργήσετε τιμολόγια πελατών. Μόνο τα κλειστά τιμολόγια θα φανούν στην διασύνδεση πελατών"
 
-#: lib/admin.help.php:109
+#: lib/admin.help.php:110
 msgid "Receipt history - The section below allows you to see and create receipt against a customer.Only the closed receipt can be see in the customer interface. Receipts are only an information for the user and aren't used in the balance of the system"
 msgstr "Ιστορικό αποδείξεων – Η παρακάτω περιοχή σας επιτρέπει να βλέπετε και να δημιουργείτε αποδείξεις για κάποιον πελάτη. Μόνο οι κλειστές αποδείξεις εμφανίζονται στην διασύνδεση πελατών. Οι αποδείξεις χρησιμοποιούνται πληροφοριακά για τον πελάτη και δεν επηρεάζουν το υπόλοιπο στο σύστημα."
 
-#: lib/admin.help.php:111
+#: lib/admin.help.php:112
 msgid "Agents Refill history - The section below allows you to add refills against an agent. Note that this changes the balance on the account."
 msgstr "Ιστορικό ανανεώσεων εκπροσώπου – Η παρακάτω περιοχή σας επιτρέπει να ανανεώνετε τους εκπροσώπους. Σημείωση ότι αυτό αλλάζει το υπόλοιπο του λογαριασμού."
 
-#: lib/admin.help.php:113
+#: lib/admin.help.php:114
 msgid "Paypal History - The section below shows all paypal receipts."
 msgstr "Ιστορικό PayPal – Στην παρακάτω περιοχή εμφανίζονται όλες οι αποδείξεις PayPal."
 
-#: lib/admin.help.php:115
+#: lib/admin.help.php:116
 msgid "Add payments to a customer's account!"
 msgstr "Προσθήκη πληρωμών σε έναν λογαριασμό πελάτη!"
 
-#: lib/admin.help.php:117
+#: lib/admin.help.php:118
 msgid "List of Call Plans, a Call Plan is a collection of ratecards. You can click on edit to add new ratecards to the Call Plan"
 msgstr "Λίστα σχεδίων κλήσεων, ένα σχέδιο κλήσης ένα σύνολο καρτών τιμών. Μπορετέ να πατήστε στην Επεξεργασία για να προσθέστε νέες κάρτες τιμών στο σχέδιο κλήσης."
 
-#: lib/admin.help.php:119
+#: lib/admin.help.php:120
 msgid "A Call Plan is a collection of ratecards."
 msgstr "Ένα σχέδιο κλήσης είναι ένα σύνολο καρτών τιμών."
 
-#: lib/admin.help.php:120
+#: lib/admin.help.php:121
 msgid "The system will choose the most appropriate rate according to the Call Plan settings (LCR or LCD).<br/>"
 msgstr "Το σύστημα θα επιλέξει την πιο κατάλληλη χρέωσε συμφώνα με τις ρυθμίσεις του σχεδίου κλήσης  (LCR ή LCD).<br/>"
 
-#: lib/admin.help.php:121
+#: lib/admin.help.php:122
 msgid "LCR : Least Cost Routing - Find the trunk with the cheapest carrier cost. (buying rate)<br>"
 msgstr "LCR : Δρομολόγηση Ελάχιστου Κόστους. Εύρεση της γραμμής με το χαμηλότερο κόστος παρόχου (τιμή αγοράς)<br>"
 
-#: lib/admin.help.php:122
+#: lib/admin.help.php:123
 msgid "LCD : Least Cost Dialing - Find the trunk with the cheapest retail rate (selling rate)"
 msgstr "LCD : Κλήση Ελάχιστου Κόστους. Εύρεση της γραμμής με το χαμηλότερο κόστος (τιμή πώλησης)"
 
-#: lib/admin.help.php:124
+#: lib/admin.help.php:125
 msgid "List ratecards that have been created!<br>Ensure that a ratecard is added into the call plan under 'List Ratecard'"
 msgstr "Εμφάνιση καρτών τιμών που έχουν δημιουργηθεί!<br>Εξασφαλίστε ότι η κάρτα τιμών έχει προστεθεί σε σχέδιο κλήσης κάτω από την 'Λίστα καρτών τιμών'"
 
-#: lib/admin.help.php:126
+#: lib/admin.help.php:127
 msgid "A ratecard is a set of rates defined and applied according to the dialling prefix, for instance 441 & 442 : UK Landline."
 msgstr "Μια κάρτα τιμών είναι ένα σύνολο χρεώσεων που καθορίζονται και εφαρμόζονται συμφώνα με το πρόθεμα κλήσης, για παράδειγμα 441 & 442 ¨σταθερά Η.Β."
 
-#: lib/admin.help.php:127
+#: lib/admin.help.php:128
 msgid "Each ratecard may have as many rates as you wish, however, if a dialling prefix cannot be matched when a call is made, then the call will be terminated."
 msgstr "Κάθε κάρτα τιμών μπορεί να έχει όσες χρεώσεις επιθυμείτε. Αλλά αν ένα πρόθεμα κλήσης δεν αναγνωριστεί κατά την κλήση τότε η κλήση τερματίζετε."
 
-#: lib/admin.help.php:128
+#: lib/admin.help.php:129
 msgid "A ratecard has a \"start date\", an \"expiry date\" and a you can define a default trunk, but if no trunk is defined, the ratecard default trunk will be used."
 msgstr "Κάθε κάρτα τιμών έχει μια «ημερομηνία έναρξης» και μια «ημερομηνία λήξης» και μπορείτε να ορίσετε μια προεπιλεγμένη γραμμή, αλλά εάν δεν καθοριστεί προεπιλεγμένη γραμμή, τότε η προεπιλεγμένη γραμμή των καρτών τιμών θα χρησιμοποιηθεί."
 
-#: lib/admin.help.php:130
+#: lib/admin.help.php:131
 msgid "Please select a ratecard and click on search to browse the different rates/dialing prefix of the selected ratecard."
 msgstr "Παρακαλώ επιλέξτε μια κάρτα τιμών και πατήστε στην αναζήτηση για να περιηγηθείτε ανάμεσα στις διάφορες χρεώσεις / προθέματα κλήσεων της επιλεγμένης κάρτας τιμών."
 
-#: lib/admin.help.php:132
+#: lib/admin.help.php:133
 msgid "Please select an account, then enter the number you wish to call and press the \"SIMULATE\" button."
 msgstr "Παρακαλώ επιλέξτε έναν λογαριασμό,  μετά συμπληρώστε τον αριθμό που θέλετε να καλέσετε και μετά πατήστε στο κουμπί «ΕΞΟΜΟΙΩΣΗ»."
 
-#: lib/admin.help.php:134
+#: lib/admin.help.php:135
 msgid "Please fill in the fields below to set up the rate for each destination."
 msgstr "Παρακαλώ συμπληρώστε τα παρακάτω πεδία για να ρυθμίστε την τιμή για κάθε προορισμό"
 
-#: lib/admin.help.php:136
+#: lib/admin.help.php:137
 msgid "This section is a utility to import ratecards from a CSV file."
 msgstr "Αυτή η περιοχή είναι ένα βοήθημα για να εισάγετε κάρτες τιμών από αρχεία CSV"
 
-#: lib/admin.help.php:137
+#: lib/admin.help.php:138
 msgid "Define the ratecard name, the trunk to use and the fields that you wish to include from your csv files. Finally, select the csv files and click on the \"Import Ratecard\" button."
 msgstr "Ορίστε το όνομα της κάρτας τιμών, την γραμμή που θα χρησιμοποιηθεί και τα πεδία που θέλετε να συμπεριληφθούν από τα αρχεία CSV σας. Τέλος επιλέξτε τα αρχεία CSV και πατήστε το κουμπί «Εισαγωγή κάρτας τιμών»."
 
-#: lib/admin.help.php:139
+#: lib/admin.help.php:140
 msgid "This section is a utility to import Phonebooks from a CSV file."
 msgstr "Αυτή η περιοχή είναι ένα βοήθημα για να εισάγετε τηλεφωνικούς καταλόγους από αρχεία CSVΕπιλέξτε τα επιπλέον πεδία για εισαγωγή από το αρχείο CSV"
 
-#: lib/admin.help.php:140
+#: lib/admin.help.php:141
 msgid "Define the phonebook name, the user to use and the fields that you wish to include from your csv files. Finally, select the csv files and click on the \"Import Phonebook\" button."
 msgstr "Ορίστε το όνομα του τηλεφωνικού καταλόγου, τον χρήστη που θα χρησιμοποιηθεί και τα πεδία που θέλετε να συμπεριληφθούν από τα αρχεία CSV σας. Τέλος επιλέξτε τα αρχεία CSV και πατήστε το κουμπί «Εισαγωγή τηλεφωνικού καταλόγου»."
 
-#: lib/admin.help.php:142
+#: lib/admin.help.php:143
 msgid "This is the second step of the import ratecard! <br>"
 msgstr "Αυτό είναι το δεύτερο βήμα για την εισαγωγή κάρτας τιμών! <br>"
 
-#: lib/admin.help.php:143
+#: lib/admin.help.php:144
 msgid "The first line of your csv files has been read and the values are displayed below according to the fields"
 msgstr "Η πρώτη γραμμή του αρχείο CSV σας έχει αναγνωριστεί και οι τιμές εμφανίζονται παρακάτω σύμφωνα με τα πεδία"
 
-#: lib/admin.help.php:144
+#: lib/admin.help.php:145
 msgid "you decided to import on the ratecard! You can check the values and if there are correct,"
 msgstr "που αποφασίσατε να εισάγετε στην κάρτα τιμών! Μπορείτε να ελέγξτε εάν οι τιμές είναι σωστές"
 
-#: lib/admin.help.php:145
+#: lib/admin.help.php:146
 msgid "please select the same file and click on \"Continue to Import the Ratecard\" button..."
 msgstr "παρακαλώ επιλέξτε το ίδιο αρχείο CSV  και πατήστε το κουμπί «Συνέχεια με την εισαγωγή της κάρτας τιμών»."
 
-#: lib/admin.help.php:147
+#: lib/admin.help.php:148
 msgid "Ratecard comfirmation page. <br>"
 msgstr "Σελίδα διαμόρφωσης κάρτας τιμών. <br>"
 
-#: lib/admin.help.php:148
+#: lib/admin.help.php:149
 msgid "Import results, how many new rates have been imported, and the line numbers of the CSV files that generated errors."
 msgstr "Αποτελέσματα εισαγωγής, πόσες νέες χρεώσεις έχουν εισαχτεί, και ο αριθμός των γραμμών των αρχείων CSV που παρουσιάστηκαν σφάλματα."
 
-#: lib/admin.help.php:150
+#: lib/admin.help.php:151
 msgid "Trunk List."
 msgstr "Λίστα γραμμών"
 
-#: lib/admin.help.php:150
+#: lib/admin.help.php:151
 msgid "Trunks can be modified by clicking the edit button"
 msgstr "Οι γραμμές μπορούν να τροποποιηθούν πατώντας το κουμπί επεξεργασία"
 
-#: lib/admin.help.php:152
+#: lib/admin.help.php:153
 msgid "Trunks are used to terminate the call!<br>"
 msgstr "Οι γραμμές χρησιμοποιούνται για τον τερματισμο των κλήσεων!<br>"
 
-#: lib/admin.help.php:153
+#: lib/admin.help.php:154
 msgid "The trunk and ratecard is selected by the rating engine on the basis of the dialed digits."
 msgstr "Η γραμμή και η κάρτα τιμών επιλέγονται από την μηχανή χρεώσεων με βάση τα κληθέντα ψηφία."
 
-#: lib/admin.help.php:154
+#: lib/admin.help.php:155
 msgid "The trunk is used to dial out from your asterisk box which can be a zaptel interface or a voip provider."
 msgstr "Η γραμμή χρησιμοποιείτε για να καλέστε έξω από το κουτί asterisk σας που μπορεί να είναι μια διασύνδεση zaptel ¨η ένας πάροχος VoIP."
 
-#: lib/admin.help.php:156
+#: lib/admin.help.php:157
 msgid "Administrators - this shows a list of all the Administrators who have access to the Administrator interface."
 msgstr "Διαχειριστές – εδώ εμφανίζετε μια λίστα όλων των διαχειριστών που έχουν πρόσβαση στην διασύνδεση διαχείρισης."
 
-#: lib/admin.help.php:158
+#: lib/admin.help.php:159
 msgid "The system log helps you track all events on your application. Log levels are the Importance Levels for the events - 1 is lowest level and 3 is highest level. 1 is used for Login, Logout and Page Visit. 2 is used for Add, Import, Export. 3 is for Update and Delete."
 msgstr "Το ημερολόγιο συστήματος σα βοηθά να παρακολουθείτε όλα τα συμβάντα στην εφαρμογή σας. Τα επίπεδα καταγραφής είναι οι διαβαθμίσεις προτεραιότητας των συμβάντων – το 1 είναι το χαμηλότερο επίπεδο και το 3 το υψηλότερο επίπεδο. Το 1 χρησιμοποιείτε για Σύνδεση, Αποσύνδεση και επίσκεψη σελίδων, το 2 χρησιμοποιείτε για Προσθήκη, Εισαγωγή, Εξαγωγή, και το 3 χρησιμοποιείτε για Ενημέρωση και Διαγραφή."
 
-#: lib/admin.help.php:160
+#: lib/admin.help.php:161
 msgid "Status logs help you to keep track of the status of all customers. The status can be 'New, Active, Cancelled, Reserved, Waiting-MailConfirmation and Expired."
 msgstr "Τα ημερολόγια καταστάσεων σας βοηθά να παρακολουθείτε την κατάσταση όλων των πελατών. Η κατάσταση μπορεί να είναι «Νέο, Ενεργοποιημένο, Ακυρωμένο, Δεσμευμένο, Αναμονή για ηλεκτρονική επιβεβαίωση και ληγμένο»"
 
-#: lib/admin.help.php:162
+#: lib/admin.help.php:163
 msgid "Add administrator."
 msgstr "Προσθήκη διαχειριστή."
 
-#: lib/admin.help.php:164
+#: lib/admin.help.php:165
 msgid "Listed below are the vouchers created on the system,.<br/>"
 msgstr "Παρακάτω εμφανίζονται τα κουπόνια που δημιουργήθηκαν στο σύστημα,.<br/>"
 
-#: lib/admin.help.php:165
+#: lib/admin.help.php:166
 msgid "Each row corresponds to a voucher and shows it's status, value and currency.."
 msgstr "Κάθε σειρά αντιστοιχεί σε ένα κουπόνι και δείχνει την κατάσταση, την αξία και το νόμισμα του.."
 
-#: lib/admin.help.php:166
+#: lib/admin.help.php:167
 msgid "Create a single voucher, defining such properties as credit, tag, currency etc, click confirm when finished. <br/> The customer applies voucher credits to their account via the customer interface or via an IVR menu."
 msgstr "Δημιουργία ενός κουπονιού, ορίζοντας τις ιδιότητες όπως μονάδες, ετικέτα, νόμισμα, κτλ, πατήστε «επιβεβαίωση» όταν τελειώσετε.<br>Ο πελάτης εφαρμόζει της μονάδες του κουπονιού στον λογαριασμό του διαμέσου της διασύνδεση πελατών ή από φωνητικό μενού."
 
-#: lib/admin.help.php:168
+#: lib/admin.help.php:169
 msgid "Bulk generate a batch of vouchers, defining such properties as credit and currency etc, click Generate Vouchers when finished.<br/>The customer applies voucher credit to their account via the customer interface."
 msgstr "Μαζική δημιουργία μιας παρτίδας κουπονιών, ορίζοντας τις ιδιότητες όπως μονάδες, και  νόμισμα, κτλ, πατήστε «Δημιουργία κουπονιών» όταν τελειώσετε.<br>Ο πελάτης εφαρμόζει της μονάδες του κουπονιού στον λογαριασμό του διαμέσου της διασύνδεση πελατών ή από φωνητικό μενού."
 
-#: lib/admin.help.php:170
+#: lib/admin.help.php:171
 msgid "Recurring services that decrement an account at timed intervals."
 msgstr "Επαναλαμβανόμενες υπηρεσίες που μειώνουν έναν λογαριασμό σε προγραμματισμένα διαστήματα"
 
-#: lib/admin.help.php:172
+#: lib/admin.help.php:173
 msgid "Auto Refill report."
 msgstr "Αναφορά αυτόματης ανανέωσης."
 
-#: lib/admin.help.php:174
+#: lib/admin.help.php:175
 msgid "Utility to apply a scheduled action on the account.<br>"
 msgstr "Εργαλείο για να εφαρμοστεί μια προγραμματισμένη εργασία στον λογαριασμό.<br>"
 
-#: lib/admin.help.php:175
+#: lib/admin.help.php:176
 msgid "For example if you want to remove 10 cents everyday on each single account, it can be defined here, alternatively, if you now want to remove 1 credit every week but only 7 times on each account, the different rules/parameters below will define this."
 msgstr "Για παράδειγμα ένα θέλατε να αφαιρέστε 10 λεπτά καθημερινά από κάθε μοναδικού λογαριασμού, μπορεί να καθοριστεί εδώ, εναλλακτικά εάν θέλατε να αφαιρέστε 1 μονάδα ανά εβδομάδα από κάθε λογαριασμό αλλά μόνο 7 φορές, οι διάφορες κανόνες/παραμέτρους παρακάτω θα καθορίσουν αυτό."
 
-#: lib/admin.help.php:177
+#: lib/admin.help.php:178
 msgid "CID Group list. CID can be chosen by customers through the customer interface."
 msgstr "Λίστα ομάδων CID. Τα CID μπορούν να επιλεγούν από τους πελάτες διαμέσου της διασύνδεσης πελατών."
 
-#: lib/admin.help.php:179
+#: lib/admin.help.php:180
 msgid "Outbound CID list. CID can be added by customers through the customer interface."
 msgstr "Λίστα εξερχόμενων CID. Τα CID μπορούν να προστεθούν από τους πελάτες διαμέσου της διασύνδεσης πελατών."
 
-#: lib/admin.help.php:181
+#: lib/admin.help.php:182
 msgid "CID group offers customers a group of CID numbers which can be selected for a ratecard for outgoing calls"
 msgstr "Η ομάδα DID προσφέρει στους πελάτες μια ομάδα αριθμών CID που μπορούν να επιλεχτούν από κάρτες τιμών για εξερχόμενες κλήσης"
 
-#: lib/admin.help.php:183
+#: lib/admin.help.php:184
 msgid "Outbound CID offers customers a number which will be selected randomly for a ratecard for outgoing calls"
 msgstr "Τα εξερχόμενα CID  προσφέρει στους πελάτες έναν αριθμό που θα επιλεχτεί τυχαία για μια κάρτα τιμών και για εξερχόμενες κλήσης"
 
-#: lib/admin.help.php:185
+#: lib/admin.help.php:186
 msgid "Currency data is automatically updated from Yahoo Financial."
 msgstr "Τα νομισματικά δεδομένα ενημερώνονται αυτόματα από την Yahoo Financial."
 
-#: lib/admin.help.php:186
+#: lib/admin.help.php:187
 msgid "For more information please visit the website http://finance.yahoo.com."
 msgstr "Για περισσότερες πληροφορίες επισκεφτείτε την σελίδα http://finance.yahoo.com."
 
-#: lib/admin.help.php:187
+#: lib/admin.help.php:188
 msgid "The list below is based on your currency :"
 msgstr "Η παρακάτω λίστα είναι βασισμένη στο νόμισμα σας :"
 
-#: lib/admin.help.php:189
+#: lib/admin.help.php:190
 msgid "DID (or DDI) Group list. DID can be chosen by customers through the customer interface."
 msgstr "Λίστα ομάδων DID (ή DDI). Τα DID μπορούν να επιλεγούν από τους πελάτες διαμέσου της διασύνδεσης πελατών."
 
-#: lib/admin.help.php:191
+#: lib/admin.help.php:192
 msgid "DID group offers customers a group of DID numbers which can be selected by the customer"
 msgstr "Η ομάδα DID προσφέρει στους πελάτες μια ομάδα αριθμών DID που μπορούν να επιλεχτούν από τους πελάτες"
 
-#: lib/admin.help.php:193
+#: lib/admin.help.php:194
 msgid "DID number list with destinations."
 msgstr "Λίστα αριθμών DID με προορισμούς."
 
-#: lib/admin.help.php:195
+#: lib/admin.help.php:196
 msgid "DID can be assigned to a customer to re-route calls to a SIP/IAX client or a PSTN number. The Priority sets the order in which the calls are to be routed to allow for failover or follow-me."
 msgstr "Τα DID μπορούν να ορίσου σε έναν πελάτη για να επαναδρομολογούνται οι κλήσης σε έναν πελάτη SIP/IAX ή σε ένα νούμερο PSTN. Η προτεραιότητα ορίζει την σειρά με την οποία θα γίνετε η δρομολόγηση των κλήσεων για να επιτρέπει η εφεδρεία ή το ακολούθα με."
 
-#: lib/admin.help.php:197
+#: lib/admin.help.php:198
 msgid "You can import lists of DIDs using a CSV file."
 msgstr "Μπορείτε να εισάγετε λίστες DID χρησιμοποιώντας αρχείο CSV."
 
-#: lib/admin.help.php:199
+#: lib/admin.help.php:200
 msgid "List the DIDs currently in use with the customer id and their destination number <br/> You can use the search option to show the usage of a given DID or all DIDs"
 msgstr "Λίστα των DID σε χρήση μαζί με το αναγνωριστικό πελάτη και τον αριθμό προορισμού.<br>Μπορείτε να χρησιμοποιήσετε την επιλογή αναζήτησης για να εμφανίσετε την χρήση του DID ή όλων των DIDs"
 
-#: lib/admin.help.php:201
+#: lib/admin.help.php:202
 msgid "Releasing DID put it in free stat and the user will not be monthly charged any more.."
 msgstr "Απελευθερώνοντας το DID το βάζετε σε ελεύθερη κατάσταση και ο χρήστης δεν θα χρεώνετε μηνιαίος πλέων."
 
-#: lib/admin.help.php:203
+#: lib/admin.help.php:204
 msgid "Extra charges allow the billing of one-off or re-occurring monthly charges. These may be used as setup or service charges, etc..."
 msgstr "Επιπλέων χρεώσεις επιτρέπουν να χρεώνονται πάγιες ή επαναλαμβανόμενες μήνιες χρεώσεις. Αυτά μπορούν να χρησιμοποιούνται για χρεώσεις ολοκλήρωσης ή υπηρεσιών κτλ."
 
-#: lib/admin.help.php:204
+#: lib/admin.help.php:205
 msgid "Charges will appear to the user with the description you attach. Each charge that you create for a user will decrement his account."
 msgstr "Η χρεώσεις θα εμφανίζονται στους πελάτες με την περιγραφή που εσείς ορίζετε. Κάθε χρέωση που δημιουργείτε για κάποιον πελάτη θα μειώνει των λογαριασμό του."
 
-#: lib/admin.help.php:206
+#: lib/admin.help.php:207
 msgid "DID list and billing list."
 msgstr "Λίστα DID και λίστα λογαριασμών."
 
-#: lib/admin.help.php:207
+#: lib/admin.help.php:208
 msgid "You will see which customers have used your DIDs in past months and the traffic (amount of seconds)."
 msgstr "Θα βλέπετε ποιοι πελάτες έχουν χρησιμοποιήσει ποια DID σας τους τελευταίους μήνες μαζί με την κίνηση (αριθμός δευτερολέπτων)."
 
-#: lib/admin.help.php:209
+#: lib/admin.help.php:210
 msgid "Configure the mail template below."
 msgstr "Διαμορφώστε το πρότυπο mail παρακάτω"
 
-#: lib/admin.help.php:210
+#: lib/admin.help.php:211
 msgid "A Reminder email can be sent (see a2billing.conf) to customers having low credit, a confirmation mail can be sent to customers after their signup, etc..."
 msgstr "Ένα email υπενθύμισης μπορεί να σταλεί στους πελάτες με χαμηλό όριο μονάδων (βλέπε a2billing.conf), ένα email επιβεβαίωσης μπορεί να σταλεί στους πελάτες μετά την εγγραφή τους, κτλ…"
 
-#: lib/admin.help.php:212
+#: lib/admin.help.php:213
 msgid "This section will allow you to create and edit campaigns. A campaign will be attached to a user in order to let him use the predictive dialler option. Predictive dialler will browse all the phone numbers from the campaign and perform outgoing calls."
 msgstr "Αυτή η περιοχή σας επιτρέπει να δημιουργείτε και να τροποποιείτε καμπανιές. Μια καμπάνια θα συνδεθεί σε κάποιον χρήστη για να του δοθεί η δυνατότητα της έξυπνης κλήσης. Η έξυπνη κλήση θα περιηγηθεί όλα τα νούμερα της καμπάνιας και θα πραγματοποιήσει εξερχόμενες κλήσης."
 
-#: lib/admin.help.php:214
+#: lib/admin.help.php:215
 msgid "This section will allow you to create and edit campaign configs."
 msgstr "Αυτή η περιοχή σας επιτρέπει να δημιουργήσετε και να διορθώσετε ρυθμίσεις καμπανιών."
 
-#: lib/admin.help.php:216
+#: lib/admin.help.php:217
 msgid "Phone Number - here you will find a list of all the phone numbers attached to a campaign. You can add, remove and edit the phone numbers."
 msgstr "Τηλέφωνα – εδώ θα βρείτε μια λίστα όλων των τηλεφώνων αριθμών που συνδέονται σε μια καμπάνια. Μπορείτε να προσθέσετε, αφαιρέσετε και να διορθώστε τους τηλεφωνικούς αριθμούς."
 
-#: lib/admin.help.php:218
+#: lib/admin.help.php:219
 msgid "A Phonebook is a set of phone numbers. You can add, remove and edit the phonebook. You can also associate phonebooks to a campaign in the Campaign section"
 msgstr "Οι τηλεφωνικοί κατάλογοι είναι ένα σύνολο τηλεφωνικών αριθμών. Μπορείτε να προσθέσετε, αφαιρέσετε και να διορθώστε τον κατάλογο. Μπορείτε επίσης να συσχετίσετε έναν κατάλογο με μια καμπάνια στην περιοχή καμπανιών."
 
-#: lib/admin.help.php:220
+#: lib/admin.help.php:221
 msgid "This section will allow you to create and edit VOIP Providers for reporting purposes. "
 msgstr "Αυτή η περιοχή σας επιτρέπει να δημιουργήσετε και να διορθώσετε παρόχους VoIP για καταγραφικούς σκοπούς. "
 
-#: lib/admin.help.php:221
+#: lib/admin.help.php:222
 msgid "A provider is the company/person that provides you with termination."
 msgstr "Ένας πάροχος είναι η εταιρία/άτομο που σας προσφέρει τον τερματισμό"
 
-#: lib/admin.help.php:223
+#: lib/admin.help.php:224
 msgid "This section will allow you to restore or download an existing database backup. The restore process will delete the existing database and import the new one. You can also upload a database backup that you previously downloaded (make sure to use the same file format)."
 msgstr "Αυτή  περιοχή σας επίτρεπε να επαναφέρετε ή να κατεβάστε ένα αντίγραφο ασφαλείας της βάσης δεδομένων. Η διαδικασία επαναφοράς θα διαγράψει την τρέχουσα βάση και θα εισάγει την νέα. Μπορείτε να ανεβάσετε ένα αντίγραφο που προηγουμένως κατεβάσατε. (σιγουρευτείτε να χρησιμοποιήσετε την ιδία μορφή αρχείου)."
 
-#: lib/admin.help.php:225
+#: lib/admin.help.php:226
 msgid "This section will allow you to backup an existing database context. The Backup process will export the whole database, so you can restore it later..."
 msgstr "Αυτή  περιοχή σας επίτρεπε να δημιουργήσετε αντίγραφα ασφαλείας της βάσης δεδομένων. Η διαδικασία αντιγραφής ασφαλείας θα εξαγάγει όλη την βάση για να την επαναφέρετε αργότερα."
 
-#: lib/admin.help.php:227
+#: lib/admin.help.php:228
 msgid "This section will allow you to define the E-Commerce Production Setting."
 msgstr "Αυτή η περιοχή σας επιτρέπει να ορίσετε της ρυθμίσεις  E-Commerce Production"
 
-#: lib/admin.help.php:228
+#: lib/admin.help.php:229
 msgid "This will be used by E-Commerce API to find out how we want the new account to be created."
 msgstr "Αυτό θα χρησιμοποιηθεί από το API του E-Commerce για να ανακαλύψουμε το πώς θέλουμε να δημιουργηθεί ο νέος λογαριασμός."
 
-#: lib/admin.help.php:230
+#: lib/admin.help.php:231
 msgid "This section allows you to define the Speed dials for the customer."
 msgstr "Αυτή η περιοχή σας επιτρέπει να ορίσετε τις ταχείες κλήσης του πελάτη."
 
-#: lib/admin.help.php:231
+#: lib/admin.help.php:232
 msgid "A Speed Dial will be entered on the IVR in order to make a shortcut to their preferred dialled phone number."
 msgstr "Μια ταχεία κλήση θα εισαχτεί στο φωνητικό μενού για να δημιουργηθεί μια συντόμευση για τον προτιμώμενο τηλεφωνικό αριθμό."
 
-#: lib/admin.help.php:233
+#: lib/admin.help.php:234
 msgid "Prefix list with destinations."
 msgstr "Λίστα προθεμάτων με προορισμούς."
 
-#: lib/admin.help.php:235
+#: lib/admin.help.php:236
 msgid "Prefixe can be assigned to a Ratecard"
 msgstr "Ένα πρόθεμα μπορεί να οριστεί σε μια κάρτα τιμών"
 
-#: lib/admin.help.php:237
+#: lib/admin.help.php:238
 msgid "Utility to apply a scheduled monitor on trunks.<br>"
 msgstr "Εργαλείο για να εφαρμοστεί μια προγραμματισμένη παρακολούθηση στις γραμμές.<br>"
 
-#: lib/admin.help.php:238
+#: lib/admin.help.php:239
 msgid "For example if you want to monitor ASR (answer seize ratio) or ALOC (average length of call) everyday on each single trunk, it can be defined here, the different parameters below will define the rules to apply the alarm."
 msgstr "Για παράδειγμα εάν θέλατε να παρακολουθείτε το ποσοστό αρπαγής απαντήσεων ή το μέσο όρο διάρκειας κλήσης καθημερινά σε κάθε γραμμή, μπορεί να καθοριστεί εδώ, οι διάφοροι παράμετροι παρακάτω θα καθορίσουν τους κανόνες που θα εφαρμοστούν στον συναγερμό."
 
-#: lib/admin.help.php:240
+#: lib/admin.help.php:241
 msgid "Alarms that monitors trunks at timed intervals."
 msgstr "Συναγερμοί που παρακολουθούν της γραμμές, σε τακτά χρονικά διαστήματα."
 
-#: lib/admin.help.php:242
+#: lib/admin.help.php:243
 msgid "IVR Monitoring, an extension should be configured for the admin to call and monitor through an IVR some important data from your system."
 msgstr "Παρακολούθηση φωνητικού μενού, ένα εσωτερικό θα πρέπει να ρυθμιστεί για κάποιον διαχειριστή να μπορεί να καλεί και να παρακολουθεί μερικές σημαντικές πληροφορίες στο σύστημα σας."
 
-#: lib/admin.help.php:244
+#: lib/admin.help.php:245
 msgid "Browse your server log files."
 msgstr "Περιήγηση των αρχείων ημερολογίου του διακομιστή σας"
 
-#: lib/admin.help.php:245
+#: lib/admin.help.php:246
 msgid "This tool can be used to extract and present information from various logfiles."
 msgstr "Αυτό το εργαλείο μπορεί να χρησιμοποιηθεί για την εξαγωγή και εμφάνιση πληροφοριών από διάφορα αρχεία ημερολογίων."
 
-#: lib/admin.help.php:247
+#: lib/admin.help.php:248
 msgid ""
 "Callback will offer you an easy way to connect any phone to our Asterisk platform.\n"
 "Browse here the pending and completed callbacks. You will see that different parameters determine the callback, the way to reach the user, the time when we need to call him, the result of the last attempts, etc..."
@@ -542,87 +526,87 @@ msgstr ""
 "Η επανάκληση σας προσφέρει έναν εύκολο τρόπο να συνδέετε κλήσης με την πλατφόρμα Asterisk. \n"
 "Περιηγηθείτε εδώ στις επανακλήσης που εκκρεμούν και που έχουν ολοκληρωθεί. Θα δείτε ότι διαφορετικές παραμέτρους καθορίζουν την επανάκληση, τον τρόπο για να επικοινωνήσουμε με τον χρήστη, την ώρα που πρέπει να καλέσουν, το αποτέλεσμα της τελευταίας προσπάθειας, κ.α."
 
-#: lib/admin.help.php:250
+#: lib/admin.help.php:251
 msgid "PACKAGES SYSTEM - FREE MINUTES, etc..."
 msgstr "ΣΥΣΤΗΜΑ ΠΑΚΕΤΩΝ -  ΔΩΡΕΑΝ ΛΕΠΤΑ, Κ.Α. ..."
 
-#: lib/admin.help.php:252
+#: lib/admin.help.php:253
 msgid "SUBSCRIPTION FEE - You can bill the user  in a monthly, weekly or any time period for being subscribed on your service. The fee amount is defined here and the period through the cront configuration."
 msgstr "ΧΡΕΩΣΗ ΣΥΝΔΡΟΜΗΣ – Μπορείτε να χρεώνετε τον χρήστη σε μηνιαία, εβδομαδιαία ή οποιαδήποτε άλλη περίοδο που επιθυμείτε για να είναι γραμμένος στην υπηρεσία σας. Το ποσό της χρέωσης καθορίζετε εδώ και η χρονική περίοδος στις ρυθμίσεις cron."
 
-#: lib/admin.help.php:254
+#: lib/admin.help.php:255
 msgid "SUBSCRIBER - You can make customers subscribe for any subscription and for a certain time."
 msgstr "ΣΥΝΔΡΟΜΗΤΗ – Μπορείτε να κάνετε τους πελάτες συνδρομητές για οποιαδήποτε συνδρομή για ένα συγκεκριμένο διάστημα."
 
-#: lib/admin.help.php:256
+#: lib/admin.help.php:257
 msgid "SIGNUP SUBSCRIBER - You can make create a list of subscribers that the customers can subscribe."
 msgstr "ΕΓΓΡΑΦΗ ΣΥΝΔΡΟΗΤΗ – Μπορείτε να δημιουργήσετε μια λίστα συνδρομών που οι πελάτες μπορούν να γίνουν συνδρομητές."
 
-#: lib/admin.help.php:258
+#: lib/admin.help.php:259
 msgid "Servers are used by the callback system through the asterisk manager in order to initiate the callback and outbound calls for your customers. You can add/modify the callback server to be used here. The AGI and callback modes need to be installed on those machines."
 msgstr "Οι διακομιστές χρησιμοποιούνται από τον διαχειριστή επανακλήσεων διαμέσου του διαχειριστή asterisk για να αρχικοποιήσουν την επανακλήςη και την εξερχόμενη κλήση για τους πελάτες σας. Μπορείτε να προσθέστε/τροποποιήσετε τον διακομιστή επανακήσης εδώ. Το AGI και η μονάδα επανάκλησης πρέπει να εγκατασταθούν σε αυτά τα μηχανήματα."
 
-#: lib/admin.help.php:260
+#: lib/admin.help.php:261
 msgid "Server Groups define the set of servers that are going to be used by the callback system. A callback is bound to a server group which will be used to dispatch the callback requests."
 msgstr "Η ομάδα διακομιστών ορίζει το σύνολο των διακομιστών που θα χρησιμοποιηθεί από το σύστημα επανάκλησης. Μια επανάκληση δεσμεύετε σε μια ομάδα διακομιστών που θα χρησιμοποιηθεί για την πραγματοποίηση των αιτημάτων επανάκλησης."
 
-#: lib/admin.help.php:262
+#: lib/admin.help.php:263
 msgid "You can view all the transactions through the different epayment configured systems (Paypal, MoneyBookers, etc...). "
 msgstr "Μπορείτε να δείτε όλες τις συναλλαγές ηλ. Πληρωμών διαμέσου των διαφόρων διαμορφωμένων διασυνδέσεων ηλ/ πληρωμών. (Paypal, MoneyBookers, κτλ...)."
 
-#: lib/admin.help.php:264
+#: lib/admin.help.php:265
 msgid "You can configure your epayment method here. It helps you to enable or disable the payment method. You can define the currency settings."
 msgstr "Μπορείτε να ρυθμίστε την μέθοδο ηλ. πληρωμής εδώ. Σας βοηθά στο να ενεργοποιήσετε ή να απενεργοποιήσετε την μέθοδο ηλ. πληρωμής. Μπορείτε να καθορίστε τις ρυθμίσεις νομίσματος."
 
-#: lib/admin.help.php:266
+#: lib/admin.help.php:267
 msgid "Epayment methods help you to collect payments from your customers."
 msgstr "Οι μέθοδοι ηλ. Πληρωμών σας βοηθούν στην είσπραξη πληρωμών από τους πελάτες σας."
 
-#: lib/admin.help.php:268
+#: lib/admin.help.php:269
 msgid "This action will generate agi-conf2 as a global configuration along with a list of all configurations."
 msgstr "Αυτή η ενέργεια θα δημιουργήσει το agi-conf2 σαν παγκόσμια ρύθμιση μαζί με μια λίστα όλων των άλλων ρυθμίσεων."
 
-#: lib/admin.help.php:270
+#: lib/admin.help.php:271
 msgid "Here is a list of all configuration groups. You can pick one and see its members"
 msgstr "Εδώ είναι μια λίστα όλων των ομάδων ρυθμίσεων. Μπορείτε να επιλέξτε ένα και να δείτε τα μέλη του."
 
-#: lib/admin.help.php:272
+#: lib/admin.help.php:273
 msgid "Here you can see and edit the different A2Billing settings."
 msgstr "Εδώ μπορείτε να δείτε και να τροποποιήσετε τις διάφορες ρυθμίσεις του A2Billing."
 
-#: lib/admin.help.php:274
+#: lib/admin.help.php:275
 msgid "Payment log with status, payment methods , owner and creation date."
 msgstr "Ημερολόγιο πληρωμών με κατάσταση, τρόπος πληρωμής, ιδιοκτήτης και ημερομηνία δημιουργίας"
 
-#: lib/admin.help.php:276
+#: lib/admin.help.php:277
 msgid "Here you can email a message to all of your users. To do this, an email will be sent out to the administrative email address supplied, with a blind carbon copy sent to all recipients. If you are emailing a large group of people please be patient after submitting and do not stop the page halfway through. It is normal for a mass emailing to take a long time and you will be notified when the script has completed."
 msgstr "Εδώ μπορείτε να στείλετε ένα μήνυμα μέσου email σε όλου τους χρήστες σας. Για να γίνει αυτό εάν email θα σταλεί στην διεύθυνση του διαχειριστή με ιδιαίτερη κοινοποίηση σε όλους τους παραλήπτες. Εάν στέλνετε μήνυμα σε μεγάλο αριθμό ατόμων παρακαλείστε να είστε υπομονετικοί και να μην σταματήσετε την σελίδα στην μέση. Είναι φυσιολογικό η μαζική αποστολή αλληλογραφίας να διαρκέσει ένα μεγάλο χρονικό διάστημα, θα ιδιοποιηθείτε μόλις τελειώσει το σενάριο την αποστολή."
 
-#: lib/admin.help.php:278
+#: lib/admin.help.php:279
 msgid "You can see here, all tickets created. You can also add a new ticket for one customer."
 msgstr "Εδώ μπορείτε να δείτε όλα τα ερωτήματα που έχουν δημιουργηθεί. Μπορείτε επίσης να προσθέστε ένα νέο ερώτημα για κάποιον πελάτη."
 
-#: lib/admin.help.php:280
+#: lib/admin.help.php:281
 msgid "You can see here, all tickets created by Agents. You can also add a new ticket for one Agent."
 msgstr "Εδώ μπορείτε να δείτε όλα τα ερωτήματα που έχουν δημιουργηθεί απο εκπροσώπους. Μπορείτε επίσης να προσθέστε ένα νέο ερώτημα για κάποιον εκπρόσωπο."
 
-#: lib/admin.help.php:282
+#: lib/admin.help.php:283
 msgid "Here you can see all components which you use to handle the support task. You can use components to categorise the subject of the ticket. i.e : Tarification, Payment"
 msgstr "Εδώ μπορείτε να δείτε όλες τις μονάδες που χρησιμοποιείτε για την διαχείριση της εργασίας συντήρησης. Μπορείτε να χρησιμοποιήστε μονάδες για να κατηγοριοποιήστε τα θέματα των ερωτημάτων π.χ. χρεώσεις, πληρωμές."
 
-#: lib/admin.help.php:284
+#: lib/admin.help.php:285
 msgid "You can see here the Support Box, you need at least one support box to start support activity."
 msgstr "Εδώ μπορείτε να δείτε το κιβώτιο υποστήριξης. Χρειάζεστε τουλάχιστον εάν κιβώτιο υποστήριξης για να ενεργοποιήσετε την υποστήριξη."
 
-#: lib/admin.help.php:286
+#: lib/admin.help.php:287
 msgid "Here you can archive the data. The Default listing will show you the previous 3 months data. But you can also search the data and archive it."
 msgstr "Εδώ μπορείτε να αρχειοθετήσετε τα δεδομένα. Η προεπιλεγμένη λίστα θα σας εμφανίσει δεδομένα των τελευταίων τριών μηνών. Αλλά μπορείτε να αναζητήστε τα δεδομένα και να τα αρχειοθετήσετε."
 
-#: lib/admin.help.php:288
+#: lib/admin.help.php:289
 msgid "Agents - this shows a list of all of the Agents who have access to the Agent interface"
 msgstr "Εκπρόσωποι – εδώ εμφανίζετε μια λίστα των εκπροσώπων που έχουν πρόσβαση στην διασύνδεση εκπροσώπων."
 
-#: lib/admin.help.php:290
+#: lib/admin.help.php:291
 msgid "This shows a list of all signup key create for the Agents, this key is used to identify the default paramater for the subscription on the signup page"
 msgstr "Εδώ εμφανίζετε μια λίστα όλων τον κλειδιών έγγραφης που έχουν δημιουργηθεί για αυτόν τον εκπρόσωπο. Τα κλειδιά χρησιμοποιούντο για την αναγνώριση των προκαθορισμένων ρυθμίσεων της συνδρομής στην σελίδα έγγραφης."
 
@@ -631,36 +615,36 @@ msgstr "Εδώ εμφανίζετε μια λίστα όλων τον κλειδ
 msgid "CREATION CARD REFILL"
 msgstr "ΔΗΜΙΟΥΡΓΙΑ ΑΝΑΝΕΩΣΗΣ ΚΑΡΤΑΣ"
 
-#: lib/common.defines.php:86
+#: lib/common.defines.php:87
 msgid "Address line 1:"
 msgstr "Γραμμή διεύθυνσης 1:"
 
-#: lib/common.defines.php:87
+#: lib/common.defines.php:88
 msgid "Address line 2:"
 msgstr "Γραμμή διεύθυνσης 2:"
 
-#: lib/common.defines.php:88
+#: lib/common.defines.php:89
 msgid "Address line 3:"
 msgstr "Γραμμή διεύθυνσης 3:"
 
-#: lib/common.defines.php:89
+#: lib/common.defines.php:90
 msgid "Postcode:"
 msgstr "Τ.Κ.:"
 
-#: lib/common.defines.php:90
+#: lib/common.defines.php:91
 msgid "Country:"
 msgstr "Χώρα:"
 
-#: lib/common.defines.php:91
+#: lib/common.defines.php:92
 msgid "Telephone:"
 msgstr "Τηλέφωνο:"
 
-#: lib/common.defines.php:118
+#: lib/common.defines.php:119
 #, fuzzy
 msgid "This software has been created by Areski Belaid under AGPL licence. For futher information, feel free to contact me:"
 msgstr "Αυτό το λογισμικό κατασκευάστηκε από τον Areski σύμφωνα με την άδεια AGPL. Για περισσότερες πληροφορίες μην διστάσετε να επικοινωνήστε μαζί μου:"
 
-#: lib/common.defines.php:124
+#: lib/common.defines.php:125
 msgid "A2Billing Portal"
 msgstr "Πύλη A2Billing"
 
@@ -703,46 +687,46 @@ msgstr "ΕΜΦΑΝΙΣΗ"
 msgid "GO"
 msgstr "ΠΑΜΕ"
 
-#: lib/Form/Class.ViewHandler.inc.php:829 Public/call-log-customers.php:1360
-#: Public/call-dnid.php:912
+#: lib/Form/Class.ViewHandler.inc.php:829 Public/call-log-customers.php:1363
+#: Public/call-dnid.php:915
 msgid "Export CSV"
 msgstr "Εξαγωγή CSV"
 
-#: lib/Form/Class.ViewHandler.inc.php:833 Public/call-log-customers.php:1362
-#: Public/call-dnid.php:914
+#: lib/Form/Class.ViewHandler.inc.php:833 Public/call-log-customers.php:1365
+#: Public/call-dnid.php:917
 msgid "Export XML"
 msgstr "Εξαγωγή XML"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:214
-#: lib/Form/Class.FormHandler.EditForm.inc.php:390
-#: lib/Form/Class.FormHandler.EditForm.inc.php:768
-#: lib/Form/Class.FormHandler.DelForm.inc.php:161
-#: lib/Form/Class.FormHandler.AddForm.inc.php:154
-#: Public/call-log-customers.php:1101 Public/call-count-reporting.php:410
+#: lib/Form/Class.FormHandler.EditForm.inc.php:219
+#: lib/Form/Class.FormHandler.EditForm.inc.php:395
+#: lib/Form/Class.FormHandler.EditForm.inc.php:773
+#: lib/Form/Class.FormHandler.DelForm.inc.php:170
+#: lib/Form/Class.FormHandler.AddForm.inc.php:164
+#: Public/call-log-customers.php:1104 Public/call-count-reporting.php:410
 #: Public/card-history.php:301 Public/A2B_detail_package.php:479
-#: Public/call-dnid.php:731
+#: Public/call-dnid.php:734
 msgid "No data found !!!"
 msgstr "Δεν βρέθηκαν δεδομένα!!!"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:273
+#: lib/Form/Class.FormHandler.EditForm.inc.php:278
 msgid "LIST "
 msgstr "ΛΙΣΤΑ "
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:324
+#: lib/Form/Class.FormHandler.EditForm.inc.php:329
 #: lib/interface/constants.php:78 Public/A2B_entity_card.php:386
 #: Public/A2B_data_archiving.php:124 Public/A2B_call_archiving.php:64
 #: Public/A2B_entity_card_multi.php:340
 msgid "No"
 msgstr "Οχι"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:344
-#: lib/Form/Class.FormHandler.EditForm.inc.php:499
-#: lib/Form/Class.FormHandler.EditForm.inc.php:621
+#: lib/Form/Class.FormHandler.EditForm.inc.php:349
+#: lib/Form/Class.FormHandler.EditForm.inc.php:504
+#: lib/Form/Class.FormHandler.EditForm.inc.php:626
 msgid "Add a new"
 msgstr "Προσθήκη νέου"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:431
-#: lib/Form/Class.FormHandler.EditForm.inc.php:557
+#: lib/Form/Class.FormHandler.EditForm.inc.php:436
+#: lib/Form/Class.FormHandler.EditForm.inc.php:562
 msgid "LIST"
 msgstr "ΛΙΣΤΑ"
 
@@ -824,10 +808,10 @@ msgstr "Από :"
 
 #: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:250
 #: Public/call-comp.php:249 Public/call-last-month.php:95
-#: Public/call-log-customers.php:463 Public/A2B_entity_paymentlog.php:88
+#: Public/call-log-customers.php:466 Public/A2B_entity_paymentlog.php:88
 #: Public/call-count-reporting.php:167 Public/A2B_call_archiving.php:234
 #: Public/A2B_entity_log_viewer.php:102 Public/A2B_entity_statuslog.php:104
-#: Public/A2B_detail_package.php:243 Public/call-dnid.php:385
+#: Public/A2B_detail_package.php:243 Public/call-dnid.php:388
 #: Public/A2B_trunk_report.php:174 Public/call-daily-load.php:245
 #: Public/call-pnl-report.php:188 Public/A2B_entity_paymentlog_agent.php:91
 msgid "January"
@@ -835,10 +819,10 @@ msgstr "Ιανουάριος"
 
 #: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:251
 #: Public/call-comp.php:249 Public/call-last-month.php:95
-#: Public/call-log-customers.php:463 Public/A2B_entity_paymentlog.php:88
+#: Public/call-log-customers.php:466 Public/A2B_entity_paymentlog.php:88
 #: Public/call-count-reporting.php:167 Public/A2B_call_archiving.php:234
 #: Public/A2B_entity_log_viewer.php:102 Public/A2B_entity_statuslog.php:104
-#: Public/A2B_detail_package.php:243 Public/call-dnid.php:385
+#: Public/A2B_detail_package.php:243 Public/call-dnid.php:388
 #: Public/A2B_trunk_report.php:174 Public/call-daily-load.php:245
 #: Public/call-pnl-report.php:188 Public/A2B_entity_paymentlog_agent.php:91
 msgid "February"
@@ -846,10 +830,10 @@ msgstr "Φεβρουάριος"
 
 #: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:252
 #: Public/call-comp.php:249 Public/call-last-month.php:95
-#: Public/call-log-customers.php:463 Public/A2B_entity_paymentlog.php:88
+#: Public/call-log-customers.php:466 Public/A2B_entity_paymentlog.php:88
 #: Public/call-count-reporting.php:167 Public/A2B_call_archiving.php:234
 #: Public/A2B_entity_log_viewer.php:102 Public/A2B_entity_statuslog.php:104
-#: Public/A2B_detail_package.php:243 Public/call-dnid.php:385
+#: Public/A2B_detail_package.php:243 Public/call-dnid.php:388
 #: Public/A2B_trunk_report.php:174 Public/call-daily-load.php:245
 #: Public/call-pnl-report.php:188 Public/A2B_entity_paymentlog_agent.php:91
 msgid "March"
@@ -857,10 +841,10 @@ msgstr "Μάρτιος"
 
 #: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:253
 #: Public/call-comp.php:249 Public/call-last-month.php:95
-#: Public/call-log-customers.php:463 Public/A2B_entity_paymentlog.php:88
+#: Public/call-log-customers.php:466 Public/A2B_entity_paymentlog.php:88
 #: Public/call-count-reporting.php:167 Public/A2B_call_archiving.php:234
 #: Public/A2B_entity_log_viewer.php:102 Public/A2B_entity_statuslog.php:104
-#: Public/A2B_detail_package.php:243 Public/call-dnid.php:385
+#: Public/A2B_detail_package.php:243 Public/call-dnid.php:388
 #: Public/A2B_trunk_report.php:174 Public/call-daily-load.php:245
 #: Public/call-pnl-report.php:188 Public/A2B_entity_paymentlog_agent.php:91
 msgid "April"
@@ -868,10 +852,10 @@ msgstr "Απρίλιος"
 
 #: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:254
 #: Public/call-comp.php:249 Public/call-last-month.php:95
-#: Public/call-log-customers.php:463 Public/A2B_entity_paymentlog.php:88
+#: Public/call-log-customers.php:466 Public/A2B_entity_paymentlog.php:88
 #: Public/call-count-reporting.php:167 Public/A2B_call_archiving.php:234
 #: Public/A2B_entity_log_viewer.php:102 Public/A2B_entity_statuslog.php:104
-#: Public/A2B_detail_package.php:243 Public/call-dnid.php:385
+#: Public/A2B_detail_package.php:243 Public/call-dnid.php:388
 #: Public/A2B_trunk_report.php:174 Public/call-daily-load.php:245
 #: Public/call-pnl-report.php:188 Public/A2B_entity_paymentlog_agent.php:91
 msgid "May"
@@ -879,10 +863,10 @@ msgstr "Μάιος"
 
 #: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:255
 #: Public/call-comp.php:249 Public/call-last-month.php:95
-#: Public/call-log-customers.php:463 Public/A2B_entity_paymentlog.php:88
+#: Public/call-log-customers.php:466 Public/A2B_entity_paymentlog.php:88
 #: Public/call-count-reporting.php:167 Public/A2B_call_archiving.php:234
 #: Public/A2B_entity_log_viewer.php:102 Public/A2B_entity_statuslog.php:104
-#: Public/A2B_detail_package.php:243 Public/call-dnid.php:385
+#: Public/A2B_detail_package.php:243 Public/call-dnid.php:388
 #: Public/A2B_trunk_report.php:174 Public/call-daily-load.php:245
 #: Public/call-pnl-report.php:188 Public/A2B_entity_paymentlog_agent.php:91
 msgid "June"
@@ -890,10 +874,10 @@ msgstr "Ιούνιος"
 
 #: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:256
 #: Public/call-comp.php:249 Public/call-last-month.php:95
-#: Public/call-log-customers.php:463 Public/A2B_entity_paymentlog.php:88
+#: Public/call-log-customers.php:466 Public/A2B_entity_paymentlog.php:88
 #: Public/call-count-reporting.php:167 Public/A2B_call_archiving.php:234
 #: Public/A2B_entity_log_viewer.php:102 Public/A2B_entity_statuslog.php:104
-#: Public/A2B_detail_package.php:243 Public/call-dnid.php:385
+#: Public/A2B_detail_package.php:243 Public/call-dnid.php:388
 #: Public/A2B_trunk_report.php:174 Public/call-daily-load.php:245
 #: Public/call-pnl-report.php:188 Public/A2B_entity_paymentlog_agent.php:91
 msgid "July"
@@ -901,10 +885,10 @@ msgstr "Ιούλιος"
 
 #: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:257
 #: Public/call-comp.php:249 Public/call-last-month.php:95
-#: Public/call-log-customers.php:463 Public/A2B_entity_paymentlog.php:88
+#: Public/call-log-customers.php:466 Public/A2B_entity_paymentlog.php:88
 #: Public/call-count-reporting.php:167 Public/A2B_call_archiving.php:234
 #: Public/A2B_entity_log_viewer.php:102 Public/A2B_entity_statuslog.php:104
-#: Public/A2B_detail_package.php:243 Public/call-dnid.php:385
+#: Public/A2B_detail_package.php:243 Public/call-dnid.php:388
 #: Public/A2B_trunk_report.php:174 Public/call-daily-load.php:245
 #: Public/call-pnl-report.php:188 Public/A2B_entity_paymentlog_agent.php:91
 msgid "August"
@@ -912,10 +896,10 @@ msgstr "Αύγουστος"
 
 #: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:258
 #: Public/call-comp.php:249 Public/call-last-month.php:95
-#: Public/call-log-customers.php:463 Public/A2B_entity_paymentlog.php:88
+#: Public/call-log-customers.php:466 Public/A2B_entity_paymentlog.php:88
 #: Public/call-count-reporting.php:167 Public/A2B_call_archiving.php:234
 #: Public/A2B_entity_log_viewer.php:102 Public/A2B_entity_statuslog.php:104
-#: Public/A2B_detail_package.php:243 Public/call-dnid.php:385
+#: Public/A2B_detail_package.php:243 Public/call-dnid.php:388
 #: Public/A2B_trunk_report.php:174 Public/call-daily-load.php:245
 #: Public/call-pnl-report.php:188 Public/A2B_entity_paymentlog_agent.php:91
 msgid "September"
@@ -923,10 +907,10 @@ msgstr "Σεπτέμβριος"
 
 #: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:259
 #: Public/call-comp.php:249 Public/call-last-month.php:95
-#: Public/call-log-customers.php:463 Public/A2B_entity_paymentlog.php:88
+#: Public/call-log-customers.php:466 Public/A2B_entity_paymentlog.php:88
 #: Public/call-count-reporting.php:167 Public/A2B_call_archiving.php:234
 #: Public/A2B_entity_log_viewer.php:102 Public/A2B_entity_statuslog.php:104
-#: Public/A2B_detail_package.php:243 Public/call-dnid.php:385
+#: Public/A2B_detail_package.php:243 Public/call-dnid.php:388
 #: Public/A2B_trunk_report.php:174 Public/call-daily-load.php:245
 #: Public/call-pnl-report.php:188 Public/A2B_entity_paymentlog_agent.php:91
 msgid "October"
@@ -934,10 +918,10 @@ msgstr "Οκτώβριος"
 
 #: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:260
 #: Public/call-comp.php:249 Public/call-last-month.php:95
-#: Public/call-log-customers.php:463 Public/A2B_entity_paymentlog.php:88
+#: Public/call-log-customers.php:466 Public/A2B_entity_paymentlog.php:88
 #: Public/call-count-reporting.php:167 Public/A2B_call_archiving.php:234
 #: Public/A2B_entity_log_viewer.php:102 Public/A2B_entity_statuslog.php:104
-#: Public/A2B_detail_package.php:243 Public/call-dnid.php:385
+#: Public/A2B_detail_package.php:243 Public/call-dnid.php:388
 #: Public/A2B_trunk_report.php:174 Public/call-daily-load.php:245
 #: Public/call-pnl-report.php:188 Public/A2B_entity_paymentlog_agent.php:91
 msgid "November"
@@ -945,10 +929,10 @@ msgstr "Νοέμβριος"
 
 #: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:261
 #: Public/call-comp.php:249 Public/call-last-month.php:95
-#: Public/call-log-customers.php:463 Public/A2B_entity_paymentlog.php:88
+#: Public/call-log-customers.php:466 Public/A2B_entity_paymentlog.php:88
 #: Public/call-count-reporting.php:167 Public/A2B_call_archiving.php:234
 #: Public/A2B_entity_log_viewer.php:102 Public/A2B_entity_statuslog.php:104
-#: Public/A2B_detail_package.php:243 Public/call-dnid.php:385
+#: Public/A2B_detail_package.php:243 Public/call-dnid.php:388
 #: Public/A2B_trunk_report.php:174 Public/call-daily-load.php:245
 #: Public/call-pnl-report.php:188 Public/A2B_entity_paymentlog_agent.php:91
 msgid "December"
@@ -961,44 +945,44 @@ msgstr "Εως :"
 
 #: lib/Form/Class.SearchHandler.inc.php:203 Public/call-comp.php:285
 #: Public/call-comp.php:298 Public/call-last-month.php:133
-#: Public/call-log-customers.php:607 Public/call-log-customers.php:659
-#: Public/call-log-customers.php:712 Public/A2B_entity_config.php:118
+#: Public/call-log-customers.php:610 Public/call-log-customers.php:662
+#: Public/call-log-customers.php:715 Public/A2B_entity_config.php:118
 #: Public/A2B_entity_config.php:155 Public/A2B_entity_config.php:192
 #: Public/A2B_call_archiving.php:367 Public/A2B_call_archiving.php:381
-#: Public/call-dnid.php:480 Public/call-dnid.php:494 Public/call-dnid.php:508
+#: Public/call-dnid.php:483 Public/call-dnid.php:497 Public/call-dnid.php:511
 #: Public/call-daily-load.php:273 Public/A2B_entity_def_ratecard.php:541
 msgid "Exact"
 msgstr "Ακριβός"
 
 #: lib/Form/Class.SearchHandler.inc.php:204 Public/call-comp.php:286
 #: Public/call-comp.php:299 Public/call-last-month.php:134
-#: Public/call-log-customers.php:616 Public/call-log-customers.php:668
-#: Public/call-log-customers.php:721 Public/A2B_entity_config.php:123
+#: Public/call-log-customers.php:619 Public/call-log-customers.php:671
+#: Public/call-log-customers.php:724 Public/A2B_entity_config.php:123
 #: Public/A2B_entity_config.php:160 Public/A2B_entity_config.php:197
 #: Public/A2B_call_archiving.php:368 Public/A2B_call_archiving.php:382
-#: Public/call-dnid.php:481 Public/call-dnid.php:495 Public/call-dnid.php:509
+#: Public/call-dnid.php:484 Public/call-dnid.php:498 Public/call-dnid.php:512
 #: Public/call-daily-load.php:274 Public/A2B_entity_def_ratecard.php:542
 msgid "Begins with"
 msgstr "Αρχίζει με"
 
 #: lib/Form/Class.SearchHandler.inc.php:205 Public/call-comp.php:287
 #: Public/call-comp.php:300 Public/call-last-month.php:135
-#: Public/call-log-customers.php:625 Public/call-log-customers.php:677
-#: Public/call-log-customers.php:730 Public/A2B_entity_config.php:128
+#: Public/call-log-customers.php:628 Public/call-log-customers.php:680
+#: Public/call-log-customers.php:733 Public/A2B_entity_config.php:128
 #: Public/A2B_entity_config.php:165 Public/A2B_entity_config.php:202
 #: Public/A2B_call_archiving.php:369 Public/A2B_call_archiving.php:383
-#: Public/call-dnid.php:482 Public/call-dnid.php:496 Public/call-dnid.php:510
+#: Public/call-dnid.php:485 Public/call-dnid.php:499 Public/call-dnid.php:513
 #: Public/call-daily-load.php:275 Public/A2B_entity_def_ratecard.php:543
 msgid "Contains"
 msgstr "Περιέχει"
 
 #: lib/Form/Class.SearchHandler.inc.php:206 Public/call-comp.php:288
 #: Public/call-comp.php:301 Public/call-last-month.php:136
-#: Public/call-log-customers.php:634 Public/call-log-customers.php:686
-#: Public/call-log-customers.php:739 Public/A2B_entity_config.php:133
+#: Public/call-log-customers.php:637 Public/call-log-customers.php:689
+#: Public/call-log-customers.php:742 Public/A2B_entity_config.php:133
 #: Public/A2B_entity_config.php:170 Public/A2B_entity_config.php:207
 #: Public/A2B_call_archiving.php:370 Public/A2B_call_archiving.php:384
-#: Public/call-dnid.php:483 Public/call-dnid.php:497 Public/call-dnid.php:511
+#: Public/call-dnid.php:486 Public/call-dnid.php:500 Public/call-dnid.php:514
 #: Public/call-daily-load.php:276 Public/A2B_entity_def_ratecard.php:544
 msgid "Ends with"
 msgstr "Τελειώνει με"
@@ -1015,14 +999,14 @@ msgstr "επιλεγμένα, χρησιμοποιήστε την παρακάτ
 #: Public/form_data/FG_var_card_group.inc:90
 #: Public/form_data/FG_var_tariffgroup.inc:159
 #: Public/form_data/FG_var_user.inc:77 Public/form_data/FG_var_agent.inc:74
-#: Public/form_data/FG_var_def_ratecard.inc:186
+#: Public/form_data/FG_var_def_ratecard.inc:185
 #: Public/A2B_entity_def_ratecard.php:334
 #: Public/A2B_entity_def_ratecard.php:507
 msgid "RATECARD"
 msgstr "ΚΑΡΤΑ ΤΙΜΩΝ"
 
 #: lib/Form/Class.SearchHandler.inc.php:361
-#: Public/form_data/FG_var_def_ratecard.inc:178
+#: Public/form_data/FG_var_def_ratecard.inc:177
 #: Public/CC_ratecard_merging.php:145
 msgid "BUYRATE"
 msgstr "ΚΟΣΤΟΣ ΑΓΟΡΑΣ"
@@ -1080,7 +1064,7 @@ msgid "BUYRATEINCREMENT"
 msgstr "ΑΥΞΟΥΣΑ ΚΟΣΤΟΣ ΧΡΕΩΣΗΣ"
 
 #: lib/Form/Class.SearchHandler.inc.php:408
-#: Public/form_data/FG_var_def_ratecard.inc:179
+#: Public/form_data/FG_var_def_ratecard.inc:178
 #: Public/CC_ratecard_merging.php:146
 msgid "RATE INITIAL"
 msgstr "ΑΡΧΙΚΟ ΚΟΣΤΟΣ"
@@ -1102,7 +1086,7 @@ msgid "DISCONNECTCHARGE"
 msgstr "ΚΟΣΤΟΣ ΑΠΟΣΥΝΔΕΣΗΣ"
 
 #: lib/Form/Class.SearchHandler.inc.php:488
-#: Public/form_data/FG_var_def_ratecard.inc:311
+#: Public/form_data/FG_var_def_ratecard.inc:310
 msgid "DISCONNECT CHARGE THRESHOLD"
 msgstr "ΟΡΙΟ ΚΟΣΤΟΥΣ ΑΠΟΣΥΝΔΕΣΗΣ"
 
@@ -1110,62 +1094,62 @@ msgstr "ΟΡΙΟ ΚΟΣΤΟΥΣ ΑΠΟΣΥΝΔΕΣΗΣ"
 msgid " BATCH UPDATE RATECARD "
 msgstr "ΜΑΖΙΚΗ ΕΝΗΜΕΡΩΣΗ ΚΑΡΤΩΝ ΤΙΜΩΝ "
 
-#: lib/Form/Class.FormHandler.DelForm.inc.php:46
+#: lib/Form/Class.FormHandler.DelForm.inc.php:55
 msgid "Message"
 msgstr "Μήνυμα"
 
-#: lib/Form/Class.FormHandler.DelForm.inc.php:53
+#: lib/Form/Class.FormHandler.DelForm.inc.php:62
 msgid "You have "
 msgstr "Εχετε "
 
-#: lib/Form/Class.FormHandler.DelForm.inc.php:208
+#: lib/Form/Class.FormHandler.DelForm.inc.php:217
 msgid "Remove this "
 msgstr "Αφαιρέστε αυτό "
 
-#: lib/Form/Class.FormHandler.inc.php:545
+#: lib/Form/Class.FormHandler.inc.php:571
 msgid "No data found!"
 msgstr "Δεν βρέθηκαν δεδομένα!"
 
-#: lib/Form/Class.FormHandler.inc.php:546
+#: lib/Form/Class.FormHandler.inc.php:572
 msgid "DIRECTORY"
 msgstr "ΚΑΤΑΛΟΓΟΣ"
 
-#: lib/Form/Class.FormHandler.inc.php:547
+#: lib/Form/Class.FormHandler.inc.php:573
 msgid "list"
 msgstr "λίστα"
 
-#: lib/Form/Class.FormHandler.inc.php:548
-#: lib/Form/Class.FormHandler.inc.php:630
+#: lib/Form/Class.FormHandler.inc.php:574
+#: lib/Form/Class.FormHandler.inc.php:668
 msgid "Define criteria to make a precise search"
 msgstr "Ορίστε κριτήρια για να γίνει μια ακριβής αναζήτηση"
 
-#: lib/Form/Class.FormHandler.inc.php:549
+#: lib/Form/Class.FormHandler.inc.php:575
 msgid "You can browse through our"
 msgstr "Μπορείτε να περιηγηθείτε ανάμεσα στης"
 
-#: lib/Form/Class.FormHandler.inc.php:549
+#: lib/Form/Class.FormHandler.inc.php:575
 msgid "and modify their different properties"
 msgstr "και να τροποποιήστε τις διάφορες ιδιότητες τους"
 
-#: lib/Form/Class.FormHandler.inc.php:550
+#: lib/Form/Class.FormHandler.inc.php:576
 msgid "Delete this record"
 msgstr "Διαγράψετε αυτήν την εγγραφή"
 
-#: lib/Form/Class.FormHandler.inc.php:551
+#: lib/Form/Class.FormHandler.inc.php:577
 msgid "Edit this record"
 msgstr "Επεξεργασία αυτής της εγγραφής"
 
-#: lib/Form/Class.FormHandler.inc.php:552
+#: lib/Form/Class.FormHandler.inc.php:578
 msgid "The document has been created correctly. Now, you can define the different tariff that you want to associate."
 msgstr "Το έγγραφο έχει δημιουργηθεί σωστά. Τώρα μπορείτε να ορίσετε τις διάφορες χρεώσεις που θέλετε να συσχετίσετε."
 
-#: lib/Form/Class.FormHandler.inc.php:553
+#: lib/Form/Class.FormHandler.inc.php:579
 #: Public/form_data/FG_var_card_group.inc:147
 #: Public/form_data/FG_var_backup.inc:112
 #: Public/form_data/FG_var_subscription.inc:167
 #: Public/form_data/FG_var_subscription_signup.inc:131
 #: Public/form_data/FG_var_campaign_config.inc:151
-#: Public/form_data/FG_var_card.inc:977
+#: Public/form_data/FG_var_card.inc:988
 #: Public/form_data/FG_var_service.inc:253
 #: Public/form_data/FG_var_campaign.inc:319
 #: Public/form_data/FG_var_speeddial.inc:136
@@ -1181,7 +1165,7 @@ msgstr "Το έγγραφο έχει δημιουργηθεί σωστά. Τώρ
 msgid "You can modify, through the following form, the different properties of your"
 msgstr "Μέσου της παρακάτω φόρμας, μπορείτε να τροποποιήσετε την"
 
-#: lib/Form/Class.FormHandler.inc.php:554 Public/form_data/FG_var_did.inc:384
+#: lib/Form/Class.FormHandler.inc.php:580 Public/form_data/FG_var_did.inc:407
 #: Public/form_data/FG_var_did_destination.inc:200
 #: Public/form_data/FG_var_config_group.inc:89
 #: Public/form_data/FG_var_trunk.inc:265
@@ -1193,10 +1177,10 @@ msgstr "Μέσου της παρακάτω φόρμας, μπορείτε να �
 #: Public/form_data/FG_var_subscription.inc:168
 #: Public/form_data/FG_var_subscription_signup.inc:132
 #: Public/form_data/FG_var_campaign_config.inc:152
-#: Public/form_data/FG_var_card.inc:978 Public/form_data/FG_var_user.inc:318
+#: Public/form_data/FG_var_card.inc:989 Public/form_data/FG_var_user.inc:318
 #: Public/form_data/FG_var_agent.inc:394
-#: Public/form_data/FG_var_mailtemplate.inc:198
-#: Public/form_data/FG_var_def_ratecard.inc:626
+#: Public/form_data/FG_var_mailtemplate.inc:196
+#: Public/form_data/FG_var_def_ratecard.inc:625
 #: Public/form_data/FG_var_package.inc:142
 #: Public/form_data/FG_var_voucher.inc:210
 #: Public/form_data/FG_var_didgroup.inc:91
@@ -1232,19 +1216,19 @@ msgstr "Μέσου της παρακάτω φόρμας, μπορείτε να �
 msgid "If you really want remove this"
 msgstr "Αν πραγματικά θέλετε να αφαιρέσετε αυτό"
 
-#: lib/Form/Class.FormHandler.inc.php:554
+#: lib/Form/Class.FormHandler.inc.php:580
 msgid "Click on the delete button."
 msgstr "Πατήστε το κουμπί διαγραφής."
 
-#: lib/Form/Class.FormHandler.inc.php:555
+#: lib/Form/Class.FormHandler.inc.php:581
 msgid "One"
 msgstr "Μία"
 
-#: lib/Form/Class.FormHandler.inc.php:555
+#: lib/Form/Class.FormHandler.inc.php:581
 msgid "has been deleted!"
 msgstr "Εχει διαγραφτεί!"
 
-#: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_did.inc:385
+#: lib/Form/Class.FormHandler.inc.php:583 Public/form_data/FG_var_did.inc:408
 #: Public/form_data/FG_var_did_destination.inc:201
 #: Public/form_data/FG_var_config_group.inc:90
 #: Public/form_data/FG_var_trunk.inc:266
@@ -1256,10 +1240,10 @@ msgstr "Εχει διαγραφτεί!"
 #: Public/form_data/FG_var_subscription.inc:169
 #: Public/form_data/FG_var_subscription_signup.inc:133
 #: Public/form_data/FG_var_campaign_config.inc:153
-#: Public/form_data/FG_var_card.inc:979 Public/form_data/FG_var_user.inc:319
+#: Public/form_data/FG_var_card.inc:990 Public/form_data/FG_var_user.inc:319
 #: Public/form_data/FG_var_agent.inc:395
-#: Public/form_data/FG_var_mailtemplate.inc:199
-#: Public/form_data/FG_var_def_ratecard.inc:627
+#: Public/form_data/FG_var_mailtemplate.inc:197
+#: Public/form_data/FG_var_def_ratecard.inc:626
 #: Public/form_data/FG_var_package.inc:143
 #: Public/form_data/FG_var_voucher.inc:211
 #: Public/form_data/FG_var_support.inc:118
@@ -1292,7 +1276,7 @@ msgstr "Εχει διαγραφτεί!"
 msgid "you can add easily a new"
 msgstr "μπορείτε εύκολα να προσθέστε μια"
 
-#: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_did.inc:385
+#: lib/Form/Class.FormHandler.inc.php:583 Public/form_data/FG_var_did.inc:408
 #: Public/form_data/FG_var_did_destination.inc:201
 #: Public/form_data/FG_var_config_group.inc:90
 #: Public/form_data/FG_var_trunk.inc:266
@@ -1304,10 +1288,10 @@ msgstr "μπορείτε εύκολα να προσθέστε μια"
 #: Public/form_data/FG_var_subscription.inc:169
 #: Public/form_data/FG_var_subscription_signup.inc:133
 #: Public/form_data/FG_var_campaign_config.inc:153
-#: Public/form_data/FG_var_card.inc:979 Public/form_data/FG_var_user.inc:319
+#: Public/form_data/FG_var_card.inc:990 Public/form_data/FG_var_user.inc:319
 #: Public/form_data/FG_var_agent.inc:395
-#: Public/form_data/FG_var_mailtemplate.inc:199
-#: Public/form_data/FG_var_def_ratecard.inc:627
+#: Public/form_data/FG_var_mailtemplate.inc:197
+#: Public/form_data/FG_var_def_ratecard.inc:626
 #: Public/form_data/FG_var_package.inc:143
 #: Public/form_data/FG_var_voucher.inc:211
 #: Public/form_data/FG_var_support.inc:118
@@ -1341,20 +1325,20 @@ msgstr "μπορείτε εύκολα να προσθέστε μια"
 msgid "Fill the following fields and confirm by clicking on the button add."
 msgstr "Συμπληρώστε τα παρακάτω πεδία και επιβεβαιώστε πατώντας το κουμπί προσθήκη."
 
-#: lib/Form/Class.FormHandler.inc.php:558
+#: lib/Form/Class.FormHandler.inc.php:584
 #: Public/form_data/FG_var_service_details.inc:75
 #: Public/form_data/FG_var_restore.inc:112
 msgid "Add a"
 msgstr "Πρόσθεσε μια"
 
-#: lib/Form/Class.FormHandler.inc.php:558
+#: lib/Form/Class.FormHandler.inc.php:584
 #: Public/form_data/FG_var_service_details.inc:75
 #: Public/form_data/FG_var_restore.inc:112
 msgid "now."
 msgstr "τώρα."
 
-#: lib/Form/Class.FormHandler.inc.php:559
-#: lib/Form/Class.FormHandler.inc.php:560 Public/form_data/FG_var_did.inc:388
+#: lib/Form/Class.FormHandler.inc.php:585
+#: lib/Form/Class.FormHandler.inc.php:586 Public/form_data/FG_var_did.inc:411
 #: Public/form_data/FG_var_did_destination.inc:205
 #: Public/form_data/FG_var_config_group.inc:94
 #: Public/form_data/FG_var_trunk.inc:269
@@ -1365,10 +1349,10 @@ msgstr "τώρα."
 #: Public/form_data/FG_var_subscription.inc:173
 #: Public/form_data/FG_var_subscription_signup.inc:137
 #: Public/form_data/FG_var_campaign_config.inc:157
-#: Public/form_data/FG_var_card.inc:983 Public/form_data/FG_var_user.inc:323
+#: Public/form_data/FG_var_card.inc:994 Public/form_data/FG_var_user.inc:323
 #: Public/form_data/FG_var_agent.inc:399
-#: Public/form_data/FG_var_mailtemplate.inc:202
-#: Public/form_data/FG_var_def_ratecard.inc:630
+#: Public/form_data/FG_var_mailtemplate.inc:200
+#: Public/form_data/FG_var_def_ratecard.inc:629
 #: Public/form_data/FG_var_package.inc:146
 #: Public/form_data/FG_var_voucher.inc:214
 #: Public/form_data/FG_var_didgroup.inc:96
@@ -1401,164 +1385,164 @@ msgstr "τώρα."
 msgid "Your new"
 msgstr "Η νέα σας"
 
-#: lib/Form/Class.FormHandler.inc.php:559
+#: lib/Form/Class.FormHandler.inc.php:585
 msgid "has been inserted.<br>"
 msgstr "έχει εισαχτεί <br>"
 
-#: lib/Form/Class.FormHandler.inc.php:560
+#: lib/Form/Class.FormHandler.inc.php:586
 msgid "hasn't been inserted."
 msgstr "δεν έχει εισαχτεί"
 
-#: lib/Form/Class.FormHandler.inc.php:561
+#: lib/Form/Class.FormHandler.inc.php:587
 msgid "You cannot choose more than one !"
 msgstr "Δεν μπορείτε να επιλέξετε περισσότερο από μια!"
 
-#: lib/Form/Class.FormHandler.inc.php:563
+#: lib/Form/Class.FormHandler.inc.php:589
 msgid "Are you sure to delete all records connected to this instance."
 msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε όλες τις εγγραφές που συσχετίζονται με αυτήν την οντότητα."
 
-#: lib/Form/Class.FormHandler.inc.php:565
-#: lib/Form/Class.FormHandler.inc.php:567
+#: lib/Form/Class.FormHandler.inc.php:591
+#: lib/Form/Class.FormHandler.inc.php:593
 msgid "CONFIRM DATA"
 msgstr "ΕΠΙΒΕΒΑΙΩΣΗ ΔΕΔΟΜΕΝΩΝ"
 
-#: lib/Form/Class.FormHandler.inc.php:566
+#: lib/Form/Class.FormHandler.inc.php:592
 msgid "DELETE"
 msgstr "ΔΙΑΓΡΑΦΗ"
 
-#: lib/Form/Class.FormHandler.inc.php:619
-#: lib/Form/Class.FormHandler.inc.php:837
+#: lib/Form/Class.FormHandler.inc.php:657
+#: lib/Form/Class.FormHandler.inc.php:840
 msgid "Delete this "
 msgstr "Διαγράψτε αυτό το "
 
-#: lib/Form/Class.FormHandler.inc.php:620
-#: lib/Form/Class.FormHandler.inc.php:831
+#: lib/Form/Class.FormHandler.inc.php:658
+#: lib/Form/Class.FormHandler.inc.php:834
 msgid "Edit this "
 msgstr "Επεξεργασία αυτό το "
 
-#: lib/Form/Class.FormHandler.inc.php:651
+#: lib/Form/Class.FormHandler.inc.php:689
 msgid "INSERTED"
 msgstr "ΕΙΣΑΓΜΕΝΗ"
 
-#: lib/Form/Class.FormHandler.inc.php:652
+#: lib/Form/Class.FormHandler.inc.php:690
 #: Public/form_data/FG_var_monitor.inc:65
 #: Public/form_data/FG_var_monitor.inc:147
 msgid "ENABLE"
 msgstr "ΕΝΕΡΓΟΠΟΙΗΜΕΝΗ"
 
-#: lib/Form/Class.FormHandler.inc.php:653
+#: lib/Form/Class.FormHandler.inc.php:691
 msgid "DISABLE"
 msgstr "ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΗ"
 
-#: lib/Form/Class.FormHandler.inc.php:654
+#: lib/Form/Class.FormHandler.inc.php:692
 #: Public/form_data/FG_var_package.inc:68
 msgid "FREE"
 msgstr "ΔΩΡΕΑΝ"
 
-#: lib/Form/Class.FormHandler.inc.php:806
-#: lib/Form/Class.FormHandler.inc.php:808
+#: lib/Form/Class.FormHandler.inc.php:809
+#: lib/Form/Class.FormHandler.inc.php:811
 msgid "You can browse through our "
 msgstr "Μπορείτε να περιηγηθείτε ανάμεσα στης "
 
-#: lib/Form/Class.FormHandler.inc.php:806
-#: lib/Form/Class.FormHandler.inc.php:808
+#: lib/Form/Class.FormHandler.inc.php:809
+#: lib/Form/Class.FormHandler.inc.php:811
 msgid " and modify their different properties<br>"
 msgstr "και να τροποποιήστε τις διάφορες ιδιότητες τους"
 
-#: lib/Form/Class.FormHandler.inc.php:976
+#: lib/Form/Class.FormHandler.inc.php:979
 msgid "(at least 3 characters)"
 msgstr "(τουλάχιστον 3 χαρακτήρες)"
 
-#: lib/Form/Class.FormHandler.inc.php:980
+#: lib/Form/Class.FormHandler.inc.php:983
 msgid "(must match email structure. Example : name@domain.com)"
 msgstr "(πρέπει να συμπίπτει με την μορφή email. Παράδειγμα name@domain.com)"
 
-#: lib/Form/Class.FormHandler.inc.php:984
+#: lib/Form/Class.FormHandler.inc.php:987
 msgid "(at least 5 successive characters appear at the end of this string)"
 msgstr "(τουλάχιστον 5 συνεχόμενοι χαρακτήρες εμφανίζονται στο τέλους αυτού του κειμένου)"
 
-#: lib/Form/Class.FormHandler.inc.php:988
+#: lib/Form/Class.FormHandler.inc.php:991
 msgid "(at least 4 characters)"
 msgstr "(τουλάχιστον 4 χαρακτήρες)"
 
-#: lib/Form/Class.FormHandler.inc.php:992
+#: lib/Form/Class.FormHandler.inc.php:995
 msgid "(number format)"
 msgstr "(μορφή αριθμών)"
 
-#: lib/Form/Class.FormHandler.inc.php:1000
+#: lib/Form/Class.FormHandler.inc.php:1003
 msgid "(only number with more that 8 digits)"
 msgstr "(μόνο αριθμός με περισσότερα από 8 ψηφία)"
 
-#: lib/Form/Class.FormHandler.inc.php:1004
+#: lib/Form/Class.FormHandler.inc.php:1007
 msgid "(at least 8 digits using . or - or the space key)"
 msgstr "(τουλάχιστον 8 ψηφία χρησιμοποιώντας την . ή την – ή το πλήκτρο διαστήματος)"
 
-#: lib/Form/Class.FormHandler.inc.php:1008
+#: lib/Form/Class.FormHandler.inc.php:1011
 msgid "network adress format"
 msgstr "μορφή διεύθυνσης δικτύου"
 
-#: lib/Form/Class.FormHandler.inc.php:1012
+#: lib/Form/Class.FormHandler.inc.php:1015
 msgid "at least 1 character"
 msgstr "τουλάχιστον ένας χαρακτήρας"
 
-#: lib/Form/Class.FormHandler.inc.php:1020
+#: lib/Form/Class.FormHandler.inc.php:1023
 msgid "(AT LEAST 2 CARACTERS)"
 msgstr "(ΤΟΥΛΑΧΙΣΤΟΝ 2 ΧΑΡΑΚΤΗΡΕΣ)"
 
-#: lib/Form/Class.FormHandler.inc.php:1024
+#: lib/Form/Class.FormHandler.inc.php:1027
 msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
 msgstr "(ΜΟΡΦΗ ΑΡΙΘΜΩΝ ΜΕ Η ΧΩΡΙΣ ΥΠΟΔΙΑΣΤΟΛΗ. Χρησιμοποιήστε το '.' για υποδιαστολή)"
 
-#: lib/Form/Class.FormHandler.inc.php:1040
+#: lib/Form/Class.FormHandler.inc.php:1043
 msgid "You must write something."
 msgstr "Πρέπει να γράψετε κάτι."
 
-#: lib/Form/Class.FormHandler.inc.php:1044
+#: lib/Form/Class.FormHandler.inc.php:1047
 msgid "8 characters alphanumeric"
 msgstr "8 αλφαριθμητική χαρακτήρες"
 
-#: lib/Form/Class.FormHandler.inc.php:1051
+#: lib/Form/Class.FormHandler.inc.php:1054
 msgid "(at least 6 Alphanumeric characters)"
 msgstr "(τουλάχιστον 6 αλφαριθμητική χαρακτήρες)"
 
-#: lib/Form/Class.FormHandler.inc.php:1059
+#: lib/Form/Class.FormHandler.inc.php:1062
 #, php-format
 msgid "(PERCENT FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal and don't use '%' character. e.g.: 12.4 )"
 msgstr "(ΜΟΡΦΗ ΠΟΣΟΣΤΟΥ ΜΕ Η ΧΩΡΙΣ ΥΠΟΔΙΑΣΤΟΛΗ. Χρησιμοποιήστε το '.' για υποδιαστολή και μην χρησιμοποιήστε τον χαρακτήρα '%'. π.χ.: 12.4)"
 
-#: lib/Form/Class.FormHandler.inc.php:1738
+#: lib/Form/Class.FormHandler.inc.php:1757
 msgid "error deletion"
 msgstr "Σφάλμα διαγραφής"
 
-#: lib/Form/Class.FormHandler.inc.php:1865
+#: lib/Form/Class.FormHandler.inc.php:1884
 msgid "ERROR_DUPLICATION"
 msgstr "ΣΦΑΛΜΑ ΔΙΠΛΟΕΓΓΡΑΦΗΣ"
 
-#: lib/Form/Class.FormHandler.inc.php:1951
+#: lib/Form/Class.FormHandler.inc.php:1970
 msgid "Done"
 msgstr "Ολοκληρώθηκε"
 
-#: lib/Form/Class.FormHandler.inc.php:1991
+#: lib/Form/Class.FormHandler.inc.php:2010
 msgid "Export Call Plan with LCR"
 msgstr "Εξαγωγή σχεδίου κλήσης με LCR"
 
-#: lib/Form/Class.FormHandler.inc.php:1997
+#: lib/Form/Class.FormHandler.inc.php:2016
 msgid "Choose a call plan"
 msgstr "Επιλέξτε σχέδιο κλήσης"
 
-#: lib/Form/Class.FormHandler.inc.php:2043
+#: lib/Form/Class.FormHandler.inc.php:2062
 msgid "THE CURRENT RATECARD"
 msgstr "Η ΤΡΕΧΟΥΣΑ ΚΑΡΤΑ ΤΙΜΩΝ"
 
-#: lib/Form/Class.FormHandler.inc.php:2054
+#: lib/Form/Class.FormHandler.inc.php:2073
 msgid "R A T E C A R D"
 msgstr "Κ Α Ρ Τα Α  Τ Ι Μ Ω Ν"
 
-#: lib/Form/Class.FormHandler.inc.php:2060 Public/CC_ratecard_import.php:231
+#: lib/Form/Class.FormHandler.inc.php:2079 Public/CC_ratecard_import.php:229
 msgid "Choose a ratecard"
 msgstr "Επιλέξτε μια κρότα τιμών"
 
-#: lib/Form/Class.FormHandler.AddForm.inc.php:207
+#: lib/Form/Class.FormHandler.AddForm.inc.php:217
 msgid "Create a new "
 msgstr "Δημιουργήστε ένα νέο "
 
@@ -1574,7 +1558,7 @@ msgstr "Πρώτο"
 msgid "Prev"
 msgstr "Προηγούμενο"
 
-#: lib/Misc.php:795 Public/call-log-customers.php:1128
+#: lib/Misc.php:795 Public/call-log-customers.php:1131
 #: Public/A2B_detail_package.php:501
 msgid "Next"
 msgstr "Επόμενο"
@@ -1682,10 +1666,10 @@ msgid "CAN ONLY CALL RESTRICTED NUMBERS"
 msgstr "ΜΠΟΡΕΙ ΝΑ ΚΑΛΕΣΕΙ ΠΕΡΙΟΡΙΣΜΕΝΟΥΣ ΑΡΙΘΜΟΥΣ"
 
 #: lib/interface/constants.php:67 Public/call-comp.php:204
-#: Public/call-last-month.php:57 Public/call-log-customers.php:367
+#: Public/call-last-month.php:57 Public/call-log-customers.php:370
 #: Public/form_data/FG_var_user.inc:75 Public/A2B_call_archiving.php:193
 #: Public/A2B_entity_log_viewer.php:79 Public/A2B_entity_statuslog.php:81
-#: Public/A2B_detail_package.php:202 Public/call-dnid.php:318
+#: Public/A2B_detail_package.php:202 Public/call-dnid.php:321
 #: Public/call-daily-load.php:200 Public/templates/default/main.tpl:65
 msgid "CUSTOMERS"
 msgstr "ΠΕΛΑΤΕΣ"
@@ -2004,7 +1988,7 @@ msgid "WAITING SUBSCRIPTION PAYMENT"
 msgstr "ΑΝΑΜΟΝΗ ΓΙΑ ΠΛΗΡΩΜΗ ΣΥΝΔΡΟΜΗΣ"
 
 #: lib/interface/constants.php:430 lib/interface/constants.php:460
-#: Public/form_data/FG_var_did.inc:67 Public/form_data/FG_var_did.inc:164
+#: Public/form_data/FG_var_did.inc:67 Public/form_data/FG_var_did.inc:170
 #: Public/form_data/FG_var_did_destination.inc:146
 #: Public/form_data/FG_var_subscription_signup.inc:84
 #: Public/form_data/FG_var_voucher.inc:82
@@ -2128,24 +2112,24 @@ msgstr "ΧΩΡΙΣ ΕΚΠΤΩΣΗ"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Εχει οριστεί λανθασμένο μήκος κάρτας στις ρυθμίσεις"
 
-#: lib/Class.A2Billing.php:3376
+#: lib/Class.A2Billing.php:3418
 msgid "Error : Authentication Failed !!!"
 msgstr "Σφάλμα : Αποτυχία αυθεντικοποιησης !!!"
 
-#: lib/Class.A2Billing.php:3417
+#: lib/Class.A2Billing.php:3459
 msgid "Error : Not enough credit to call !!!"
 msgstr "Σφάλμα : Δεν υπάρχουν αρκετές μονάδες για να καλέσετε !!!"
 
-#: lib/Class.A2Billing.php:3424
+#: lib/Class.A2Billing.php:3466
 msgid "Error : Card is not active!!!"
 msgstr "Σφάλμα : Η κάρτα δεν έχει ενεργοποιηθεί !!!"
 
-#: lib/Class.A2Billing.php:3431
+#: lib/Class.A2Billing.php:3473
 msgid "Error : Card is actually in use!!!"
 msgstr "Σφάλμα : Η κάρτα είναι σε χρήση !!!"
 
-#: lib/Class.A2Billing.php:3441 lib/Class.A2Billing.php:3450
-#: lib/Class.A2Billing.php:3459
+#: lib/Class.A2Billing.php:3483 lib/Class.A2Billing.php:3492
+#: lib/Class.A2Billing.php:3501
 msgid "Error : Card have expired!!!"
 msgstr "Σφάλμα : Η κάρτα έχει λήξη !!!"
 
@@ -2203,7 +2187,7 @@ msgid "Older"
 msgstr "Μικρότερο"
 
 #: Public/A2B_notification.php:158 Public/call-comp.php:420
-#: Public/call-log-customers.php:435 Public/call-log-customers.php:1205
+#: Public/call-log-customers.php:438 Public/call-log-customers.php:1208
 #: Public/form_data/FG_var_invoice.inc:102
 #: Public/form_data/FG_var_log_viewer.inc:87
 #: Public/form_data/FG_var_user.inc:105 Public/form_data/FG_var_agent.inc:107
@@ -2222,7 +2206,7 @@ msgstr "Μικρότερο"
 #: Public/form_data/FG_var_paymentlog_agent.inc:129
 #: Public/call-count-reporting.php:150 Public/card-history.php:150
 #: Public/A2B_detail_package.php:575 Public/A2B_card_info.php:659
-#: Public/call-dnid.php:368 Public/call-dnid.php:808
+#: Public/call-dnid.php:371 Public/call-dnid.php:811
 #: Public/CC_entity_alarm_details.php:52 Public/call-daily-load.php:356
 #: Public/CC_entity_service_details.php:53
 msgid "DATE"
@@ -2233,8 +2217,8 @@ msgid "FROM"
 msgstr "ΑΠΟ"
 
 #: Public/A2B_notification.php:164 Public/A2B_mass_mail.php:307
-#: Public/form_data/FG_var_mailtemplate.inc:98
-#: Public/form_data/FG_var_mailtemplate.inc:165
+#: Public/form_data/FG_var_mailtemplate.inc:96
+#: Public/form_data/FG_var_mailtemplate.inc:163
 msgid "SUBJECT"
 msgstr "ΘΕΜΑ"
 
@@ -2321,7 +2305,7 @@ msgstr "Ημερομηνία κλήσης"
 msgid "CalledNumber"
 msgstr "Κληθέντος αριθμός"
 
-#: Public/call-comp.php:68 Public/call-log-customers.php:113
+#: Public/call-comp.php:68 Public/call-log-customers.php:116
 #: Public/form_data/FG_var_prefix.inc:53 Public/call-count-reporting.php:66
 #: Public/A2B_call_archiving.php:72 Public/graph_stat.php:56
 #: Public/graph_statbar.php:56 Public/call-daily-load.php:66
@@ -2330,10 +2314,10 @@ msgid "Destination"
 msgstr "Προορισμός"
 
 #: Public/call-comp.php:69 Public/modules/calls_counts.php:104
-#: Public/modules/calls_lastmonth.php:149 Public/call-log-customers.php:116
+#: Public/modules/calls_lastmonth.php:149 Public/call-log-customers.php:119
 #: Public/form_data/FG_var_call.inc:109 Public/call-count-reporting.php:83
 #: Public/A2B_call_archiving.php:73 Public/graph_stat.php:57
-#: Public/graph_statbar.php:57 Public/call-dnid.php:104
+#: Public/graph_statbar.php:57 Public/call-dnid.php:107
 #: Public/call-daily-load.php:67
 msgid "Duration"
 msgstr "Διάρκεια"
@@ -2362,32 +2346,32 @@ msgid "Cost"
 msgstr "Κόστος"
 
 #: Public/call-comp.php:210 Public/call-last-month.php:63
-#: Public/call-log-customers.php:375 Public/card-history.php:143
+#: Public/call-log-customers.php:378 Public/card-history.php:143
 #: Public/call-daily-load.php:206
 msgid "Enter the customer ID"
 msgstr "Συμπληρώστε την ταυτότητα του πελάτη"
 
 #: Public/call-comp.php:216 Public/call-last-month.php:69
-#: Public/call-log-customers.php:390 Public/A2B_call_archiving.php:205
-#: Public/call-dnid.php:330 Public/call-daily-load.php:212
+#: Public/call-log-customers.php:393 Public/A2B_call_archiving.php:205
+#: Public/call-dnid.php:333 Public/call-daily-load.php:212
 msgid "CallPlan"
 msgstr "Σχέδιο κλήσεων"
 
 #: Public/call-comp.php:218 Public/call-last-month.php:71
-#: Public/call-log-customers.php:393 Public/A2B_call_archiving.php:207
-#: Public/call-dnid.php:332 Public/call-daily-load.php:214
+#: Public/call-log-customers.php:396 Public/A2B_call_archiving.php:207
+#: Public/call-dnid.php:335 Public/call-daily-load.php:214
 msgid "Provider"
 msgstr "Πάροχος"
 
 #: Public/call-comp.php:222 Public/call-last-month.php:75
-#: Public/call-log-customers.php:118 Public/call-log-customers.php:402
-#: Public/A2B_call_archiving.php:211 Public/call-dnid.php:336
+#: Public/call-log-customers.php:121 Public/call-log-customers.php:405
+#: Public/A2B_call_archiving.php:211 Public/call-dnid.php:339
 #: Public/call-daily-load.php:218 Public/templates/default/main.tpl:179
 msgid "Trunk"
 msgstr "Γραμμή"
 
 #: Public/call-comp.php:224 Public/call-last-month.php:77
-#: Public/call-log-customers.php:412 Public/call-dnid.php:338
+#: Public/call-log-customers.php:415 Public/call-dnid.php:341
 #: Public/call-daily-load.php:220
 msgid "Rate"
 msgstr "Τιμή"
@@ -2400,13 +2384,13 @@ msgid "SELECT DAY"
 msgstr "ΕΠΙΛΟΓΗ ΜΕΡΑ"
 
 #: Public/call-comp.php:239 Public/call-last-month.php:92
-#: Public/call-log-customers.php:447 Public/A2B_entity_paymentlog.php:86
+#: Public/call-log-customers.php:450 Public/A2B_entity_paymentlog.php:86
 #: Public/A2B_entity_paymentlog.php:136 Public/call-count-reporting.php:155
 #: Public/A2B_call_archiving.php:232 Public/A2B_call_archiving.php:282
 #: Public/A2B_entity_log_viewer.php:100 Public/A2B_entity_log_viewer.php:150
 #: Public/A2B_entity_statuslog.php:102 Public/A2B_entity_statuslog.php:152
 #: Public/A2B_detail_package.php:241 Public/A2B_detail_package.php:290
-#: Public/call-dnid.php:373 Public/A2B_trunk_report.php:162
+#: Public/call-dnid.php:376 Public/A2B_trunk_report.php:162
 #: Public/call-pnl-report.php:176 Public/A2B_entity_paymentlog_agent.php:89
 #: Public/A2B_entity_paymentlog_agent.php:139
 msgid "From"
@@ -2422,12 +2406,12 @@ msgid "days"
 msgstr "ημέρες"
 
 #: Public/call-comp.php:280 Public/call-last-month.php:128
-#: Public/call-dnid.php:475 Public/call-daily-load.php:268
+#: Public/call-dnid.php:478 Public/call-daily-load.php:268
 msgid "CALLEDNUMBER"
 msgstr "ΚΛΗΘΕΝΤΟΣ ΑΡΙΘΜΟΣ"
 
 #: Public/call-comp.php:293 Public/A2B_call_archiving.php:376
-#: Public/call-dnid.php:489
+#: Public/call-dnid.php:492
 msgid "SOURCE"
 msgstr "ΠΗΓΗ"
 
@@ -2456,8 +2440,8 @@ msgid "Buys by hours"
 msgstr "Αγορές ανά ώρα"
 
 #: Public/call-comp.php:405 Public/call-comp.php:481
-#: Public/call-log-customers.php:1324 Public/A2B_detail_package.php:560
-#: Public/A2B_detail_package.php:619 Public/call-dnid.php:892
+#: Public/call-log-customers.php:1327 Public/A2B_detail_package.php:560
+#: Public/A2B_detail_package.php:619 Public/call-dnid.php:895
 #: Public/call-daily-load.php:341 Public/call-daily-load.php:395
 #: Public/A2B_receipt_edit.php:192
 msgid "TOTAL"
@@ -2467,20 +2451,20 @@ msgstr "ΣΥΝΟΛΟ"
 msgid "ASTERISK MINUTES"
 msgstr "ΛΕΠΤΑ ASTERISK"
 
-#: Public/call-comp.php:421 Public/call-log-customers.php:1207
+#: Public/call-comp.php:421 Public/call-log-customers.php:1210
 #: Public/A2B_detail_package.php:576 Public/A2B_card_info.php:871
-#: Public/call-dnid.php:809 Public/call-daily-load.php:357
+#: Public/call-dnid.php:812 Public/call-daily-load.php:357
 msgid "DURATION"
 msgstr "ΔΙΑΡΚΕΙΑ"
 
-#: Public/call-comp.php:422 Public/call-log-customers.php:1208
-#: Public/A2B_detail_package.php:577 Public/call-dnid.php:810
+#: Public/call-comp.php:422 Public/call-log-customers.php:1211
+#: Public/A2B_detail_package.php:577 Public/call-dnid.php:813
 #: Public/call-daily-load.php:358
 msgid "GRAPHIC"
 msgstr "ΓΡΑΦΙΚΟ"
 
-#: Public/call-comp.php:423 Public/call-log-customers.php:1209
-#: Public/call-dnid.php:811 Public/call-daily-load.php:359
+#: Public/call-comp.php:423 Public/call-log-customers.php:1212
+#: Public/call-dnid.php:814 Public/call-daily-load.php:359
 msgid "CALLS"
 msgstr "ΚΛΗΣΗΣ"
 
@@ -2501,8 +2485,8 @@ msgstr "ΣΥΝΟΛΚΗ ΑΓΟΡΑ"
 msgid "TOTAL PROFIT"
 msgstr "ΣΥΝΟΛΙΚΟ ΚΕΡΔΟΣ"
 
-#: Public/call-comp.php:499 Public/call-log-customers.php:1366
-#: Public/A2B_detail_package.php:631 Public/call-dnid.php:917
+#: Public/call-comp.php:499 Public/call-log-customers.php:1369
+#: Public/A2B_detail_package.php:631 Public/call-dnid.php:920
 #: Public/call-daily-load.php:467
 msgid "No calls in your selection"
 msgstr "Δεν υπάρχουν κλήσης για την επιλογή σας"
@@ -2599,8 +2583,8 @@ msgid "Unavailable"
 msgstr "Μη Διαθέσιμος"
 
 #: Public/modules/calls_counts.php:95 Public/modules/calls_lastmonth.php:150
-#: Public/call-log-customers.php:122 Public/call-count-reporting.php:84
-#: Public/call-dnid.php:106
+#: Public/call-log-customers.php:125 Public/call-count-reporting.php:84
+#: Public/call-dnid.php:109
 msgid "Sell"
 msgstr "Πώληση"
 
@@ -2699,10 +2683,6 @@ msgstr "Η δίκια σας διεύθυνση IP"
 #: Public/modules/system_info.php:90
 msgid "MYSQL"
 msgstr "MYSQL"
-
-#: Public/modules/news.php:67
-msgid "Last news"
-msgstr "Τελευταίο νέα"
 
 #: Public/A2B_mass_mail.php:76 Public/A2B_data_archiving.php:152
 msgid "Define specific criteria to search for cards created."
@@ -2828,7 +2808,7 @@ msgstr "ΕΠΙΛΕΞΤΕ ΠΡΟΣΒΑΣΗ"
 msgid "SELECT CURRENCY"
 msgstr "ΕΠΙΛΕΞΤΕ ΝΟΜΙΣΜΑ"
 
-#: Public/A2B_mass_mail.php:172 Public/form_data/FG_var_mailtemplate.inc:205
+#: Public/A2B_mass_mail.php:172 Public/form_data/FG_var_mailtemplate.inc:203
 msgid "The followings tags will be replaced in the message by the value in the database."
 msgstr "Οι παρακάτω ετικέτες θα αντικατασταθούν μέσα στο μήνυμα με τις τιμές από την βάση δεδομένων"
 
@@ -2917,7 +2897,7 @@ msgstr ">ΦΟΡΤΩΣΗ ΠΡΟΤΥΠΟΥ<"
 msgid "EMAIL FROM"
 msgstr "EMAIL ΑΠΟ"
 
-#: Public/A2B_mass_mail.php:301 Public/form_data/FG_var_mailtemplate.inc:156
+#: Public/A2B_mass_mail.php:301 Public/form_data/FG_var_mailtemplate.inc:154
 msgid "FROM NAME"
 msgstr "ΑΠΟ ΟΝΟΜΑ"
 
@@ -3089,7 +3069,7 @@ msgid "YES"
 msgstr "ΝΑΙ"
 
 #: Public/A2B_entity_invoice_conf.php:256 Public/form_data/FG_var_user.inc:110
-#: Public/form_data/FG_var_def_ratecard.inc:163
+#: Public/form_data/FG_var_def_ratecard.inc:162
 #: Public/form_data/FG_var_voucher.inc:110 Public/call-count-reporting.php:276
 msgid "NO"
 msgstr "ΟΧΙ"
@@ -3264,13 +3244,13 @@ msgstr "ΚΙΝΗΣΗ"
 msgid "Stat Graph"
 msgstr "Γράφημα Στατιστικών"
 
-#: Public/call-last-month.php:164 Public/call-log-customers.php:1216
-#: Public/call-dnid.php:816
+#: Public/call-last-month.php:164 Public/call-log-customers.php:1219
+#: Public/call-dnid.php:819
 msgid "PROFIT"
 msgstr "ΚΕΡΔΟΣ"
 
-#: Public/call-last-month.php:170 Public/call-log-customers.php:1214
-#: Public/A2B_card_info.php:880 Public/call-dnid.php:814
+#: Public/call-last-month.php:170 Public/call-log-customers.php:1217
+#: Public/A2B_card_info.php:880 Public/call-dnid.php:817
 msgid "SELL"
 msgstr "ΠΩΛΗΣΗ"
 
@@ -3331,141 +3311,141 @@ msgstr "ΕΝΗΜΕΡΩΣΗ"
 msgid "BY"
 msgstr "Από"
 
-#: Public/call-log-customers.php:55 Public/call-dnid.php:53
+#: Public/call-log-customers.php:57 Public/call-dnid.php:55
 msgid "ERROR: Cannot download file "
 msgstr "Σφάλμα : Δεν μπορώ να κατεβάσω το αρχείο "
 
-#: Public/call-log-customers.php:94 Public/call-dnid.php:93
+#: Public/call-log-customers.php:97 Public/call-dnid.php:96
 #, fuzzy
 msgid "STANDARD"
 msgstr "ΜΕΤΑΠΛΗΡΩΜΕΝΗ ΚΑΡΤΑ"
 
-#: Public/call-log-customers.php:95 Public/call-dnid.php:93
+#: Public/call-log-customers.php:98 Public/call-dnid.php:96
 #, fuzzy
 msgid "SIP/IAX"
 msgstr "SIP IAX"
 
-#: Public/call-log-customers.php:96 Public/call-dnid.php:94
+#: Public/call-log-customers.php:99 Public/call-dnid.php:97
 #, fuzzy
 msgid "DIDCALL"
 msgstr "ΜΗΝ ΞΑΝΑΠΑΡΕΙΣ"
 
-#: Public/call-log-customers.php:97 Public/call-dnid.php:94
+#: Public/call-log-customers.php:100 Public/call-dnid.php:97
 #, fuzzy
 msgid "DID_VOIP"
 msgstr "VOIP"
 
-#: Public/call-log-customers.php:98 Public/A2B_card_info.php:173
-#: Public/call-dnid.php:94 Public/templates/default/main.tpl:417
+#: Public/call-log-customers.php:101 Public/A2B_card_info.php:173
+#: Public/call-dnid.php:97 Public/templates/default/main.tpl:417
 msgid "CALLBACK"
 msgstr "ΕΠΑΝΑΚΛΗΣΗ"
 
-#: Public/call-log-customers.php:99 Public/call-dnid.php:95
+#: Public/call-log-customers.php:102 Public/call-dnid.php:98
 #, fuzzy
 msgid "PREDICT"
 msgstr "ΜΟΝΑΔΕΣ"
 
-#: Public/call-log-customers.php:100
+#: Public/call-log-customers.php:103
 #, fuzzy
 msgid "AUTO DIALER"
 msgstr "ΑΥΤΟΜΑΤΗ ΚΛΗΣΗ"
 
-#: Public/call-log-customers.php:101
+#: Public/call-log-customers.php:104
 #, fuzzy
 msgid "DID-ALEG"
 msgstr "ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΗ"
 
-#: Public/call-log-customers.php:109 Public/A2B_invoice_view.php:190
+#: Public/call-log-customers.php:112 Public/A2B_invoice_view.php:190
 #: Public/A2B_invoice_view.php:213 Public/card-history.php:60
 #: Public/A2B_receipt_view.php:188 Public/A2B_receipt_view.php:209
 msgid "Date"
 msgstr "Ημερομηνία"
 
-#: Public/call-log-customers.php:110 Public/A2B_entity_friend.php:269
+#: Public/call-log-customers.php:113 Public/A2B_entity_friend.php:269
 msgid "CallerID"
 msgstr "Αναγνωριστικό κλήσης"
 
-#: Public/call-log-customers.php:111 Public/call-log-customers.php:695
-#: Public/call-dnid.php:100 Public/call-dnid.php:503
+#: Public/call-log-customers.php:114 Public/call-log-customers.php:698
+#: Public/call-dnid.php:103 Public/call-dnid.php:506
 #: Public/templates/default/main.tpl:180
 msgid "DNID"
 msgstr "DNID"
 
-#: Public/call-log-customers.php:112
+#: Public/call-log-customers.php:115
 #: Public/form_data/FG_var_phonenumber.inc:94
 msgid "Phone Number"
 msgstr "Τηλέφωνο"
 
-#: Public/call-log-customers.php:114 Public/call-dnid.php:351
+#: Public/call-log-customers.php:117 Public/call-dnid.php:354
 msgid "Buy Rate"
 msgstr "Τιμή αγοράς"
 
-#: Public/call-log-customers.php:115 Public/call-dnid.php:353
+#: Public/call-log-customers.php:118 Public/call-dnid.php:356
 msgid "Sell Rate"
 msgstr "Τιμή πώλησης"
 
-#: Public/call-log-customers.php:117
+#: Public/call-log-customers.php:120
 msgid "Account"
 msgstr "Λογαριασμός"
 
-#: Public/call-log-customers.php:119
+#: Public/call-log-customers.php:122
 msgid "Terminate Cause"
 msgstr "Αιτία διακοπής"
 
-#: Public/call-log-customers.php:119
+#: Public/call-log-customers.php:122
 msgid "TC"
 msgstr "TC"
 
-#: Public/call-log-customers.php:120
+#: Public/call-log-customers.php:123
 msgid "CallType"
 msgstr "Είδος κλήσης"
 
-#: Public/call-log-customers.php:121 Public/call-count-reporting.php:85
-#: Public/call-dnid.php:105
+#: Public/call-log-customers.php:124 Public/call-count-reporting.php:85
+#: Public/call-dnid.php:108
 msgid "Buy"
 msgstr "Αγορά"
 
-#: Public/call-log-customers.php:123 Public/call-pnl-report.php:478
+#: Public/call-log-customers.php:126 Public/call-pnl-report.php:478
 #: Public/call-pnl-report.php:543
 msgid "Margin"
 msgstr "Περιθώριο"
 
-#: Public/call-log-customers.php:124
+#: Public/call-log-customers.php:127
 msgid "Markup"
 msgstr "Σημείωση"
 
-#: Public/call-log-customers.php:152 Public/call-daily-load.php:84
+#: Public/call-log-customers.php:155 Public/call-daily-load.php:84
 msgid " - Call Logs - "
 msgstr " - Αρχεία κλήσεων - "
 
-#: Public/call-log-customers.php:382
+#: Public/call-log-customers.php:385
 msgid "Enter the customer number"
 msgstr "Συμπληρώστε τον αριθμό πελάτη"
 
-#: Public/call-log-customers.php:489 Public/call-log-customers.php:561
-#: Public/call-dnid.php:404 Public/call-dnid.php:452
+#: Public/call-log-customers.php:492 Public/call-log-customers.php:564
+#: Public/call-dnid.php:407 Public/call-dnid.php:455
 msgid "Time :"
 msgstr "Ωρα :"
 
-#: Public/call-log-customers.php:521 Public/A2B_entity_paymentlog.php:107
+#: Public/call-log-customers.php:524 Public/A2B_entity_paymentlog.php:107
 #: Public/A2B_entity_paymentlog.php:165 Public/call-count-reporting.php:185
 #: Public/A2B_call_archiving.php:253 Public/A2B_call_archiving.php:311
 #: Public/A2B_entity_log_viewer.php:121 Public/A2B_entity_log_viewer.php:179
 #: Public/A2B_entity_statuslog.php:123 Public/A2B_entity_statuslog.php:181
-#: Public/A2B_detail_package.php:318 Public/call-dnid.php:424
+#: Public/A2B_detail_package.php:318 Public/call-dnid.php:427
 #: Public/A2B_trunk_report.php:193 Public/call-pnl-report.php:207
 #: Public/A2B_entity_paymentlog_agent.php:110
 #: Public/A2B_entity_paymentlog_agent.php:168
 msgid "To"
 msgstr "Εως"
 
-#: Public/call-log-customers.php:591
+#: Public/call-log-customers.php:594
 #: Public/form_data/FG_var_phonenumber.inc:60
 #: Public/form_data/FG_var_phonenumber.inc:81
 msgid "PHONENUMBER"
 msgstr "ΤΗΛΕΦΩΝΟ"
 
-#: Public/call-log-customers.php:642 Public/form_data/FG_var_card.inc:914
+#: Public/call-log-customers.php:645 Public/form_data/FG_var_card.inc:925
 #: Public/form_data/FG_var_friend.inc:66
 #: Public/form_data/FG_var_friend.inc:174
 #: Public/form_data/FG_var_callback.inc:250
@@ -3474,71 +3454,71 @@ msgstr "ΤΗΛΕΦΩΝΟ"
 msgid "CALLERID"
 msgstr "ΑΝΑΓΝΩΡΙΣΤΙΚΟ ΚΛΗΣΗΣ"
 
-#: Public/call-log-customers.php:749 Public/call-dnid.php:517
+#: Public/call-log-customers.php:752 Public/call-dnid.php:520
 msgid "CALL TYPE"
 msgstr "ΕΙΔΟΣ ΚΛΗΣΕΩΝ"
 
-#: Public/call-log-customers.php:763 Public/call-dnid.php:523
+#: Public/call-log-customers.php:766 Public/call-dnid.php:526
 msgid "ALL CALLS"
 msgstr "ΟΛΕΣ ΟΙ ΚΛΗΣΗΣ"
 
-#: Public/call-log-customers.php:789 Public/call-count-reporting.php:241
-#: Public/A2B_call_archiving.php:390 Public/call-dnid.php:540
+#: Public/call-log-customers.php:792 Public/call-count-reporting.php:241
+#: Public/A2B_call_archiving.php:390 Public/call-dnid.php:543
 msgid "OPTIONS"
 msgstr "ΕΠΙΛΟΓΕΣ"
 
-#: Public/call-log-customers.php:798 Public/call-dnid.php:546
+#: Public/call-log-customers.php:801 Public/call-dnid.php:549
 msgid "SHOW CALLS"
 msgstr "ΕΜΦΑΝΗΣΗ ΚΛΗΣΕΩΝ"
 
-#: Public/call-log-customers.php:810 Public/call-dnid.php:550
+#: Public/call-log-customers.php:813 Public/call-dnid.php:553
 msgid "ANSWERED"
 msgstr "ΑΠΑΝΤΗΜΕΝΕΣ"
 
-#: Public/call-log-customers.php:819 Public/call-dnid.php:553
+#: Public/call-log-customers.php:822 Public/call-dnid.php:556
 msgid "ALL"
 msgstr "ΟΛΕΣ"
 
-#: Public/call-log-customers.php:828 Public/call-dnid.php:556
+#: Public/call-log-customers.php:831 Public/call-dnid.php:559
 msgid "NOT COMPLETED"
 msgstr "ΔΕΝ ΟΛΟΚΛΗΡΩΘΗΚΕ"
 
-#: Public/call-log-customers.php:837 Public/call-dnid.php:559
+#: Public/call-log-customers.php:840 Public/call-dnid.php:562
 msgid "CONGESTIONED"
 msgstr "ΣΥΜΦΟΡΗΣΜΕΝΗ"
 
-#: Public/call-log-customers.php:846 Public/call-dnid.php:562
+#: Public/call-log-customers.php:849 Public/call-dnid.php:565
 msgid "BUSIED"
 msgstr "ΑΠΑΣΧΟΛΗΜΕΝΕΣ"
 
-#: Public/call-log-customers.php:855 Public/call-dnid.php:565
+#: Public/call-log-customers.php:858 Public/call-dnid.php:568
 msgid "NOT ANSWERED"
 msgstr "ΜΗ ΑΠΑΝΤΗΜΕΝΕΣ"
 
-#: Public/call-log-customers.php:864 Public/call-dnid.php:568
+#: Public/call-log-customers.php:867 Public/call-dnid.php:571
 msgid "CHANNEL UNAVAILABLE"
 msgstr "ΜΗ ΔΙΑΘΕΣΙΜΟ"
 
-#: Public/call-log-customers.php:873 Public/call-dnid.php:571
+#: Public/call-log-customers.php:876 Public/call-dnid.php:574
 msgid "CANCELED"
 msgstr "ΑΚΥΡΩΘΗΚΕ"
 
-#: Public/call-log-customers.php:881 Public/call-count-reporting.php:282
-#: Public/A2B_call_archiving.php:407 Public/call-dnid.php:579
+#: Public/call-log-customers.php:884 Public/call-count-reporting.php:282
+#: Public/A2B_call_archiving.php:407 Public/call-dnid.php:582
 msgid "RESULT"
 msgstr "ΑΠΟΤΕΛΕΣΜΑ"
 
-#: Public/call-log-customers.php:886 Public/A2B_call_archiving.php:410
-#: Public/call-dnid.php:582
+#: Public/call-log-customers.php:889 Public/A2B_call_archiving.php:410
+#: Public/call-dnid.php:585
 msgid "mins"
 msgstr "λεπτά"
 
-#: Public/call-log-customers.php:895 Public/A2B_call_archiving.php:410
-#: Public/call-dnid.php:582
+#: Public/call-log-customers.php:898 Public/A2B_call_archiving.php:410
+#: Public/call-dnid.php:585
 msgid "secs"
 msgstr "δευτερόλεπτα"
 
-#: Public/call-log-customers.php:906 Public/form_data/FG_var_card.inc:150
+#: Public/call-log-customers.php:909 Public/form_data/FG_var_card.inc:150
 #: Public/form_data/FG_var_card.inc:580 Public/form_data/FG_var_agent.inc:101
 #: Public/form_data/FG_var_agent.inc:114 Public/form_data/FG_var_agent.inc:213
 #: Public/form_data/FG_var_voucher.inc:87
@@ -3548,62 +3528,62 @@ msgstr "δευτερόλεπτα"
 #: Public/form_data/FG_var_transactions.inc:55
 #: Public/call-count-reporting.php:292 Public/A2B_data_archiving.php:140
 #: Public/A2B_call_archiving.php:415 Public/A2B_card_info.php:334
-#: Public/call-dnid.php:587 Public/A2B_entity_voucher.php:227
+#: Public/call-dnid.php:590 Public/A2B_entity_voucher.php:227
 #: Public/A2B_agent_info.php:191
 msgid "CURRENCY"
 msgstr "ΝΟΜΙΣΜΑ"
 
-#: Public/call-log-customers.php:951 Public/call-dnid.php:617
+#: Public/call-log-customers.php:954 Public/call-dnid.php:620
 msgid "Number of call"
 msgstr "Αριθμός κλήσης"
 
-#: Public/call-log-customers.php:1120 Public/A2B_detail_package.php:495
+#: Public/call-log-customers.php:1123 Public/A2B_detail_package.php:495
 msgid "Previous"
 msgstr "Προηγούμενο"
 
-#: Public/call-log-customers.php:1172
+#: Public/call-log-customers.php:1175
 msgid "Thanks to A2Billing, you have made a profit of over 500 euro !"
 msgstr "Χάρη στο A2Billing, έχετε κάνει κέρδος πάνω από 500 εύρο!"
 
-#: Public/call-log-customers.php:1173
+#: Public/call-log-customers.php:1176
 #, fuzzy
 msgid "Support A2Billing by clicking on the Donate button below :"
 msgstr "Υποστηρίξτε το A2Billing πατώντας στο κουμπί Donate παρακάτω :"
 
-#: Public/call-log-customers.php:1202 Public/call-dnid.php:805
+#: Public/call-log-customers.php:1205 Public/call-dnid.php:808
 msgid "TRAFFIC SUMMARY"
 msgstr "ΠΕΡΙΛΗΨΗ ΚΙΝΗΣΗΣ"
 
-#: Public/call-log-customers.php:1207 Public/call-dnid.php:809
+#: Public/call-log-customers.php:1210 Public/call-dnid.php:812
 msgid "DUR"
 msgstr "ΔΙΑΡΚ"
 
-#: Public/call-log-customers.php:1211 Public/call-dnid.php:812
+#: Public/call-log-customers.php:1214 Public/call-dnid.php:815
 msgid "AVERAGE LENGTH OF CALL"
 msgstr "ΜΕΣΟΣ ΟΡΟΣ ΔΙΑΡΚΕΙΑΣ ΚΛΗΣΕΩΝ"
 
-#: Public/call-log-customers.php:1211 Public/call-dnid.php:812
+#: Public/call-log-customers.php:1214 Public/call-dnid.php:815
 msgid "ALOC"
 msgstr "ALOC"
 
-#: Public/call-log-customers.php:1213 Public/call-dnid.php:813
+#: Public/call-log-customers.php:1216 Public/call-dnid.php:816
 msgid "ANSWER SEIZE RATIO"
 msgstr "ΑΝΑΛΟΓΙΑ ΑΡΠΑΓΗΣ ΑΠΑΝΤΗΣΕΩΝ"
 
-#: Public/call-log-customers.php:1213 Public/call-dnid.php:813
+#: Public/call-log-customers.php:1216 Public/call-dnid.php:816
 msgid "ASR"
 msgstr "ASR"
 
-#: Public/call-log-customers.php:1215 Public/A2B_card_info.php:877
-#: Public/call-dnid.php:815
+#: Public/call-log-customers.php:1218 Public/A2B_card_info.php:877
+#: Public/call-dnid.php:818
 msgid "BUY"
 msgstr "ΑΓΟΡΑ"
 
-#: Public/call-log-customers.php:1217 Public/call-dnid.php:817
+#: Public/call-log-customers.php:1220 Public/call-dnid.php:820
 msgid "MARGIN"
 msgstr "ΠΕΡΙΘΩΡΙΟ"
 
-#: Public/call-log-customers.php:1218 Public/call-dnid.php:818
+#: Public/call-log-customers.php:1221 Public/call-dnid.php:821
 msgid "MARKUP"
 msgstr "ΣΗΜΕΙΩΣΗ"
 
@@ -3660,7 +3640,7 @@ msgid "Please, you must first select a phonebook !"
 msgstr "Παρακαλώ, πρέπει πρώτα να επιλέξετε τηλεφωνικό κατάλογο!"
 
 #: Public/A2B_phonelist_import.php:71 Public/A2B_entity_did_import.php:85
-#: Public/CC_ratecard_import.php:78 Public/CC_card_import.php:72
+#: Public/CC_ratecard_import.php:77 Public/CC_card_import.php:72
 msgid "Please, you must first select a file !"
 msgstr "Παρακαλώ, πρέπει πρώτα να επιλέξετε αρχείο!"
 
@@ -3677,7 +3657,7 @@ msgid "Choose a phonebook"
 msgstr "Επιλέξτε έναν τηλεφωνικό κατάλογο"
 
 #: Public/A2B_phonelist_import.php:240 Public/A2B_entity_did_import.php:263
-#: Public/CC_ratecard_import.php:252 Public/CC_card_import.php:230
+#: Public/CC_ratecard_import.php:250 Public/CC_card_import.php:230
 msgid "These fields are mandatory"
 msgstr "Αυτά τα πεδία είναι υποχρεωτικά"
 
@@ -3686,12 +3666,12 @@ msgid "number"
 msgstr "νούμερο"
 
 #: Public/A2B_phonelist_import.php:247 Public/A2B_entity_did_import.php:271
-#: Public/CC_ratecard_import.php:261 Public/CC_card_import.php:244
+#: Public/CC_ratecard_import.php:259 Public/CC_card_import.php:244
 msgid "Choose the additional fields to import from the CSV file"
 msgstr "Επιλέξτε τα επιπλέον πεδία για εισαγωγή από το αρχείο CSV"
 
 #: Public/A2B_phonelist_import.php:254 Public/CC_ratecard_merging.php:266
-#: Public/A2B_entity_did_import.php:278 Public/CC_ratecard_import.php:268
+#: Public/A2B_entity_did_import.php:278 Public/CC_ratecard_import.php:266
 #: Public/CC_card_import.php:251
 msgid "Unselected Fields..."
 msgstr "Μη επιλεγμένα πεδία..."
@@ -3705,7 +3685,7 @@ msgid "info"
 msgstr "πληροφορίες"
 
 #: Public/A2B_phonelist_import.php:268 Public/CC_ratecard_merging.php:312
-#: Public/A2B_entity_did_import.php:295 Public/CC_ratecard_import.php:319
+#: Public/A2B_entity_did_import.php:295 Public/CC_ratecard_import.php:317
 #: Public/CC_card_import.php:303
 msgid "Selected Fields..."
 msgstr "Επιλεγμένα πεδία..."
@@ -3720,17 +3700,17 @@ msgid "(dot) . is used for decimal format."
 msgstr "(τελεία) . χρησιμοποιείτε για την μορφοποίηση δεκαδικών ψηφίων."
 
 #: Public/A2B_phonelist_import.php:295 Public/A2B_entity_did_import.php:316
-#: Public/CC_ratecard_import.php:353 Public/CC_card_import.php:324
+#: Public/CC_ratecard_import.php:354 Public/CC_card_import.php:324
 msgid "Complex Sample"
 msgstr "Περίπλοκο δείγμα"
 
 #: Public/A2B_phonelist_import.php:296 Public/A2B_entity_did_import.php:317
-#: Public/CC_ratecard_import.php:354 Public/CC_card_import.php:325
+#: Public/CC_ratecard_import.php:355 Public/CC_card_import.php:325
 msgid "Simple Sample"
 msgstr "Απλό δείγμα"
 
 #: Public/A2B_phonelist_import.php:311 Public/A2B_entity_did_import.php:331
-#: Public/CC_ratecard_import.php:369 Public/CC_card_import.php:339
+#: Public/CC_ratecard_import.php:371 Public/CC_card_import.php:339
 msgid "The maximum file size is "
 msgstr "Το μέγιστο μέγεθος αρχείου είναι "
 
@@ -3806,7 +3786,7 @@ msgstr "Ορισμός έκπτωσης σε"
 msgid "Move to Seria"
 msgstr "Μετακίνηση στο Seria"
 
-#: Public/A2B_entity_card.php:441 Public/form_data/FG_var_card.inc:840
+#: Public/A2B_entity_card.php:441 Public/form_data/FG_var_card.inc:851
 #: Public/form_data/FG_var_agent.inc:238 Public/form_data/FG_var_agent.inc:245
 #: Public/A2B_invoice_view.php:216 Public/A2B_invoice_edit.php:183
 #: Public/A2B_entity_card_multi.php:397 Public/A2B_agent_info.php:199
@@ -3869,7 +3849,7 @@ msgstr "¨όλα τα DIDs"
 msgid "Add DID"
 msgstr "Προσθήκη DID"
 
-#: Public/form_data/FG_var_did.inc:61 Public/form_data/FG_var_did.inc:106
+#: Public/form_data/FG_var_did.inc:61 Public/form_data/FG_var_did.inc:107
 #: Public/form_data/FG_var_did_destination.inc:73
 #: Public/form_data/FG_var_did_destination.inc:135
 #: Public/form_data/FG_var_card_group.inc:88
@@ -3885,28 +3865,28 @@ msgstr "DID"
 msgid "CUSTOMER"
 msgstr "ΠΕΛΑΤΗΣ"
 
-#: Public/form_data/FG_var_did.inc:63 Public/form_data/FG_var_did.inc:116
+#: Public/form_data/FG_var_did.inc:63 Public/form_data/FG_var_did.inc:118
 #: Public/form_data/FG_var_user.inc:76 Public/form_data/FG_var_agent.inc:73
 #: Public/templates/default/main.tpl:302
 msgid "BILLING"
 msgstr "ΛΟΓΙΣΤΗΡΙΟ"
 
-#: Public/form_data/FG_var_did.inc:64 Public/form_data/FG_var_did.inc:125
+#: Public/form_data/FG_var_did.inc:64 Public/form_data/FG_var_did.inc:128
 #: Public/form_data/FG_var_subscription.inc:134
-#: Public/form_data/FG_var_def_ratecard.inc:172
-#: Public/form_data/FG_var_def_ratecard.inc:473
+#: Public/form_data/FG_var_def_ratecard.inc:171
+#: Public/form_data/FG_var_def_ratecard.inc:472
 #: Public/form_data/FG_var_tariffplan.inc:62
 #: Public/form_data/FG_var_tariffplan.inc:100
 #: Public/form_data/FG_var_subscriber.inc:104
 msgid "START DATE"
 msgstr "ΗΜΕΡΟΜΗΝΙΑ ΕΝΑΡΞΗΣ"
 
-#: Public/form_data/FG_var_did.inc:65 Public/form_data/FG_var_did.inc:143
+#: Public/form_data/FG_var_did.inc:65 Public/form_data/FG_var_did.inc:148
 #: Public/form_data/FG_var_card.inc:540
 msgid "DIDGROUP"
 msgstr "ΟΜΑΔΑ DID"
 
-#: Public/form_data/FG_var_did.inc:66 Public/form_data/FG_var_did.inc:153
+#: Public/form_data/FG_var_did.inc:66 Public/form_data/FG_var_did.inc:159
 #: Public/form_data/FG_var_card.inc:457 Public/form_data/FG_var_user.inc:210
 #: Public/form_data/FG_var_agent.inc:310 Public/A2B_admin_info.php:134
 #: Public/A2B_card_info.php:274 Public/A2B_entity_card_multi.php:401
@@ -3929,7 +3909,7 @@ msgstr "MU"
 msgid "RES"
 msgstr "RES"
 
-#: Public/form_data/FG_var_did.inc:70 Public/form_data/FG_var_did.inc:173
+#: Public/form_data/FG_var_did.inc:70 Public/form_data/FG_var_did.inc:180
 msgid "MONTHLY RATE"
 msgstr "ΜΗΝΙΑΙΑ ΧΡΕΩΣΗ"
 
@@ -3937,13 +3917,13 @@ msgstr "ΜΗΝΙΑΙΑ ΧΡΕΩΣΗ"
 msgid "MR"
 msgstr "MR"
 
-#: Public/form_data/FG_var_did.inc:71 Public/form_data/FG_var_did.inc:195
-#: Public/form_data/FG_var_def_ratecard.inc:261
+#: Public/form_data/FG_var_did.inc:71 Public/form_data/FG_var_did.inc:202
+#: Public/form_data/FG_var_def_ratecard.inc:260
 msgid "SELLING RATE"
 msgstr "ΤΙΜΗ ΠΩΛΗΣΗΣ"
 
 #: Public/form_data/FG_var_did.inc:71
-#: Public/form_data/FG_var_def_ratecard.inc:120
+#: Public/form_data/FG_var_def_ratecard.inc:119
 msgid "SR"
 msgstr "SR"
 
@@ -3956,259 +3936,267 @@ msgstr "SR"
 msgid "THERE ARE NO "
 msgstr "ΔΕΝ ΥΠΑΡΧΟΥΝ"
 
-#: Public/form_data/FG_var_did.inc:112
+#: Public/form_data/FG_var_did.inc:113
 #: Public/form_data/FG_var_did_destination.inc:117
 msgid "Insert the DID"
 msgstr "Συμπληρώστε το DID"
 
-#: Public/form_data/FG_var_did.inc:114
+#: Public/form_data/FG_var_did.inc:115
 msgid "Define the DID's. If you ADD a new DID, NOT an EDIT, you can define a range of DID. <br>80412340210-80412340218 would add all DID's between the range, whereas DIDs separated by a comma e.g. 80412340210,80412340212,80412340214 would only add the individual DID listed."
 msgstr "Ορίστε τα DIDs. Εάν προσθέστε, και δεν  τροποποιήστε, ένα νέο DID μπορείτε να ορίσετε ένα εύρος DIDs.<br>80412340210-80412340218 θα προσθέσει όλα τα DIDs ανάμεσα στην περιοχή. Αντιθέτως τα DIDs διαχωρισμένα με κόμματα π.χ. 80412340210,80412340212,80412340214 θα προσθέσει μόνο αυτά τα DID."
 
-#: Public/form_data/FG_var_did.inc:131
-#: Public/form_data/FG_var_def_ratecard.inc:479
+#: Public/form_data/FG_var_did.inc:134
+#: Public/form_data/FG_var_def_ratecard.inc:478
 #: Public/form_data/FG_var_tariffplan.inc:106
 #: Public/form_data/FG_var_campaign.inc:178
 msgid "Insert the starting date"
 msgstr "Συμπληρώστε την ημερομηνία έναρξης"
 
-#: Public/form_data/FG_var_did.inc:132 Public/form_data/FG_var_did.inc:141
-#: Public/form_data/FG_var_def_ratecard.inc:480
+#: Public/form_data/FG_var_did.inc:135 Public/form_data/FG_var_did.inc:145
+#: Public/form_data/FG_var_def_ratecard.inc:479
 #: Public/form_data/FG_var_voucher.inc:193
 #: Public/form_data/FG_var_tariffplan.inc:116
 msgid "Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"
 msgstr "Μορφή ΕΕΕΕ-ΜΜ-ΗΗ ΩΩ:ΛΛ:ΔΔ. Για παράδειγμα '2004-12-31 00:00:00'"
 
-#: Public/form_data/FG_var_did.inc:134 Public/form_data/FG_var_card.inc:744
+#: Public/form_data/FG_var_did.inc:138 Public/form_data/FG_var_card.inc:744
 #: Public/form_data/FG_var_voucher.inc:186
 #: Public/form_data/FG_var_tariffplan.inc:63
 #: Public/form_data/FG_var_tariffplan.inc:109
 msgid "EXPIRY DATE"
 msgstr "ΗΜΕΡΟΜΗΝΙΑ ΛΗΞΗΣ"
 
-#: Public/form_data/FG_var_did.inc:140 Public/form_data/FG_var_card.inc:750
+#: Public/form_data/FG_var_did.inc:144 Public/form_data/FG_var_card.inc:750
 #: Public/form_data/FG_var_voucher.inc:192
 #: Public/form_data/FG_var_tariffplan.inc:115
 #: Public/form_data/FG_var_campaign.inc:187
 msgid "Insert the expiration date"
 msgstr "Συμπληρώστε την ημερομηνία λήξης"
 
-#: Public/form_data/FG_var_did.inc:170
+#: Public/form_data/FG_var_did.inc:176
 #: Public/form_data/FG_var_did_destination.inc:152
 #: Public/form_data/FG_var_voucher.inc:164
 #: Public/form_data/FG_var_callerid.inc:90
 msgid "Choose if you want to activate this card"
 msgstr "Επιλέξτε εάν θέλετε να ενεργοποιήσετε αυτήν την κάρτα"
 
-#: Public/form_data/FG_var_did.inc:179
+#: Public/form_data/FG_var_did.inc:186
 msgid "Insert the monthly rate"
 msgstr "Συμπληρώστε την μηνιαία χρέωση"
 
-#: Public/form_data/FG_var_did.inc:180 Public/form_data/FG_var_card.inc:371
+#: Public/form_data/FG_var_did.inc:187 Public/form_data/FG_var_card.inc:371
 #: Public/form_data/FG_var_card.inc:660 Public/form_data/FG_var_agent.inc:202
 #: Public/form_data/FG_var_agent.inc:211 Public/form_data/FG_var_agent.inc:236
 msgid "currency : "
 msgstr "νόμισμα : "
 
-#: Public/form_data/FG_var_did.inc:181
+#: Public/form_data/FG_var_did.inc:188
 #, fuzzy
 msgid "Define the renting cost for the customers."
 msgstr "Ορίστε το κόστος πώλησης για τους πελάτες"
 
-#: Public/form_data/FG_var_did.inc:184
-#: Public/form_data/FG_var_def_ratecard.inc:291
+#: Public/form_data/FG_var_did.inc:191
+#: Public/form_data/FG_var_def_ratecard.inc:290
 msgid "CONNECT CHARGE"
 msgstr "ΚΟΣΤΟΣ ΣΥΝΔΕΣΗΣ"
 
-#: Public/form_data/FG_var_did.inc:190
-#: Public/form_data/FG_var_def_ratecard.inc:297
+#: Public/form_data/FG_var_did.inc:197
+#: Public/form_data/FG_var_def_ratecard.inc:296
 msgid "Insert the connect charge"
 msgstr "Συμπληρώστε το κόστος σύνδεσης"
 
-#: Public/form_data/FG_var_did.inc:191
+#: Public/form_data/FG_var_did.inc:198
 msgid "Apply a connection charge to connect DID together"
 msgstr "Εφαρμογή κόστος σύνδεσης για να συνδεθούν τα DID μεταξύ τους"
 
-#: Public/form_data/FG_var_did.inc:192
+#: Public/form_data/FG_var_did.inc:199
 msgid "DID On Net Charges"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:201
+#: Public/form_data/FG_var_did.inc:208
 msgid "Insert the rate"
 msgstr "Συμπληρώστε την τιμή"
 
-#: Public/form_data/FG_var_did.inc:202
+#: Public/form_data/FG_var_did.inc:209
 msgid "The retail rate; or the cost per minute to apply to the customer to connect DID together, e.g. 0.02"
 msgstr "Την λιανική τιμή ή το κόστος ανά λεπτό που θα εφαρμοστεί στους πελάτες για την σύνδεση DID μεταξύ τους π.χ. 0,02"
 
-#: Public/form_data/FG_var_did.inc:204
+#: Public/form_data/FG_var_did.inc:211
 #, fuzzy
 msgid "TIME INTERVAL"
 msgstr "ΔΙΑΣΤΗΜΑ ΩΡΑΣ"
 
-#: Public/form_data/FG_var_did.inc:210
+#: Public/form_data/FG_var_did.inc:217
 msgid "Insert time definition for peak and off peak time intervals."
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:211
+#: Public/form_data/FG_var_did.inc:218
 msgid "The format is \"start_time;day_of_week;day_of_month;month;time_interval_type\" e.g. 7:00-19:00|mon-fri|*|*|p for peak hours or *|*|24|dec|o for off peak during Xmas day and so on. The last character indicates time interval type where \"p\" means PEAK and \"o\" OFF-PEAK. More definition one per line are supported. If there are PEAK and OFF-PEAK time interval definitions overlaps, than the OFF-PEAK is used."
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:212
+#: Public/form_data/FG_var_did.inc:219
 msgid "Peak / Off Peak Time definition"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:214
+#: Public/form_data/FG_var_did.inc:222
 #, fuzzy
 msgid "CARRIER CONNECTION CHARGE"
 msgstr "ΚΟΣΤΟΣ ΣΥΝΔΕΣΗΣ"
 
-#: Public/form_data/FG_var_did.inc:220 Public/form_data/FG_var_did.inc:259
-#: Public/form_data/FG_var_did.inc:297 Public/form_data/FG_var_did.inc:336
+#: Public/form_data/FG_var_did.inc:228 Public/form_data/FG_var_did.inc:269
+#: Public/form_data/FG_var_did.inc:309 Public/form_data/FG_var_did.inc:350
 #, fuzzy
 msgid "Insert a rate"
 msgstr "Συμπληρώστε την τιμή"
 
-#: Public/form_data/FG_var_did.inc:221 Public/form_data/FG_var_did.inc:260
-#: Public/form_data/FG_var_did.inc:298 Public/form_data/FG_var_did.inc:337
+#: Public/form_data/FG_var_did.inc:229 Public/form_data/FG_var_did.inc:270
+#: Public/form_data/FG_var_did.inc:310 Public/form_data/FG_var_did.inc:351
 msgid "The connection charge can be negative or positive"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:222
+#: Public/form_data/FG_var_did.inc:230
 msgid "DID Ingress Charges Peak"
-msgstr ""
-
-#: Public/form_data/FG_var_did.inc:224
-#, fuzzy
-msgid "CARRIER COST PER MINUTE"
-msgstr "ΛΕΠΤΑ ASTERISK"
-
-#: Public/form_data/FG_var_did.inc:230 Public/form_data/FG_var_did.inc:268
-#: Public/form_data/FG_var_did.inc:307 Public/form_data/FG_var_did.inc:345
-#, fuzzy
-msgid "Insert the connect cost"
-msgstr "Συμπληρώστε το κόστος σύνδεσης"
-
-#: Public/form_data/FG_var_did.inc:231 Public/form_data/FG_var_did.inc:308
-msgid "The cost can be negative for Non geographic calls where there is an out-payment"
 msgstr ""
 
 #: Public/form_data/FG_var_did.inc:233
 #, fuzzy
+msgid "CARRIER COST PER MINUTE"
+msgstr "ΛΕΠΤΑ ASTERISK"
+
+#: Public/form_data/FG_var_did.inc:239 Public/form_data/FG_var_did.inc:279
+#: Public/form_data/FG_var_did.inc:320 Public/form_data/FG_var_did.inc:360
+#, fuzzy
+msgid "Insert the connect cost"
+msgstr "Συμπληρώστε το κόστος σύνδεσης"
+
+#: Public/form_data/FG_var_did.inc:240 Public/form_data/FG_var_did.inc:321
+msgid "The cost can be negative for Non geographic calls where there is an out-payment"
+msgstr ""
+
+#: Public/form_data/FG_var_did.inc:243
+#, fuzzy
 msgid "CARRIER MIN DURATION"
 msgstr "ΕΛΑΧΙΣΤΗ ΔΙΑΡΚΕΙΑ"
 
-#: Public/form_data/FG_var_did.inc:239 Public/form_data/FG_var_did.inc:316
-#: Public/form_data/FG_var_def_ratecard.inc:247
+#: Public/form_data/FG_var_did.inc:249 Public/form_data/FG_var_did.inc:330
+#: Public/form_data/FG_var_def_ratecard.inc:246
 msgid "Insert the buyrate init block"
 msgstr "Συμπληρώστε το αρχικό μπλοκ της τιμής αγοράς"
 
-#: Public/form_data/FG_var_did.inc:240 Public/form_data/FG_var_did.inc:317
-#: Public/form_data/FG_var_def_ratecard.inc:248
+#: Public/form_data/FG_var_did.inc:250 Public/form_data/FG_var_did.inc:331
+#: Public/form_data/FG_var_def_ratecard.inc:247
 msgid "Set the minimum duration charged by the carrier. (i.e. 30 secs)"
 msgstr "Ορίστε την ελάχιστη χρέωση που χρεώνει ο πάροχος (π.χ. 30 δευτερόλεπτα)"
 
-#: Public/form_data/FG_var_did.inc:243
+#: Public/form_data/FG_var_did.inc:253
 #, fuzzy
 msgid "CARRIER BILLING BLOCK"
 msgstr "ΜΠΛΟΚ ΤΙΜΟΛΟΓΗΣΗΣ ΤΙΜΗΣ ΑΓΟΡΑΣ"
 
-#: Public/form_data/FG_var_did.inc:249 Public/form_data/FG_var_did.inc:288
-#: Public/form_data/FG_var_did.inc:326 Public/form_data/FG_var_did.inc:365
-#: Public/form_data/FG_var_def_ratecard.inc:257
-#: Public/form_data/FG_var_def_ratecard.inc:287
+#: Public/form_data/FG_var_did.inc:259 Public/form_data/FG_var_did.inc:299
+#: Public/form_data/FG_var_did.inc:340 Public/form_data/FG_var_did.inc:380
+#: Public/form_data/FG_var_def_ratecard.inc:256
+#: Public/form_data/FG_var_def_ratecard.inc:286
 msgid "Insert the billing block"
 msgstr "Συμπληρώστε το μπλοκ τιμολόγησης"
 
-#: Public/form_data/FG_var_did.inc:250 Public/form_data/FG_var_did.inc:327
-#: Public/form_data/FG_var_def_ratecard.inc:258
+#: Public/form_data/FG_var_did.inc:260 Public/form_data/FG_var_did.inc:341
+#: Public/form_data/FG_var_def_ratecard.inc:257
 msgid "Set the billing increment, in seconds (billing block), that the carrier applies. (ie 30 secs)"
 msgstr "Ορίστε την πρόοδο χρέωσης, σε δευτερόλεπτα (μπλοκ χρέωσης), που εφαρμόζει ο πάροχος (π.χ. 30 δευτερόλεπτα)"
 
-#: Public/form_data/FG_var_did.inc:253
+#: Public/form_data/FG_var_did.inc:263
 #, fuzzy
 msgid "RETAIL CONNECTION CHARGE"
 msgstr "ΚΟΣΤΟΣ ΣΥΝΔΕΣΗΣ"
 
-#: Public/form_data/FG_var_did.inc:262
+#: Public/form_data/FG_var_did.inc:273
 #, fuzzy
 msgid "RETAIL COST PER MINUTE"
 msgstr "ΛΕΠΤΑ ASTERISK"
 
-#: Public/form_data/FG_var_did.inc:269 Public/form_data/FG_var_did.inc:346
+#: Public/form_data/FG_var_did.inc:280 Public/form_data/FG_var_did.inc:361
 msgid "The cost can be negative where there is an out payment, or more usually, positive"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:272
+#: Public/form_data/FG_var_did.inc:283
 #, fuzzy
 msgid "RETAIL MIN DURATION"
 msgstr "ΕΛΑΧΙΣΤΗ ΔΙΑΡΚΕΙΑ"
 
-#: Public/form_data/FG_var_did.inc:278 Public/form_data/FG_var_did.inc:355
-#: Public/form_data/FG_var_def_ratecard.inc:277
+#: Public/form_data/FG_var_did.inc:289 Public/form_data/FG_var_did.inc:370
+#: Public/form_data/FG_var_def_ratecard.inc:276
 msgid "Insert the init block"
 msgstr "Συμπληρώστε την αρχικό μπλοκ"
 
-#: Public/form_data/FG_var_did.inc:279 Public/form_data/FG_var_did.inc:356
-#: Public/form_data/FG_var_def_ratecard.inc:278
+#: Public/form_data/FG_var_did.inc:290 Public/form_data/FG_var_did.inc:371
+#: Public/form_data/FG_var_def_ratecard.inc:277
 msgid "Set the minimum duration to charge the customer (ie 60 seconds)"
 msgstr "Ορίστε τον ελάχιστο χρόνο χρέωσης για του πελάτες (π.χ. 60 δευτερόλεπτα)"
 
-#: Public/form_data/FG_var_did.inc:282
+#: Public/form_data/FG_var_did.inc:293
 #, fuzzy
 msgid "RETAIL BILLING BLOCK"
 msgstr "ΜΠΛΟΚ ΤΙΜΟΛΟΓΗΣΗΣ ΤΙΜΗΣ ΑΓΟΡΑΣ"
 
-#: Public/form_data/FG_var_did.inc:289 Public/form_data/FG_var_did.inc:366
-#: Public/form_data/FG_var_def_ratecard.inc:288
+#: Public/form_data/FG_var_did.inc:300 Public/form_data/FG_var_did.inc:381
+#: Public/form_data/FG_var_def_ratecard.inc:287
 msgid "Set the billing increment in seconds to bill your customer."
 msgstr "Ορίστε την πρόοδο χρέωσης σε δευτερόλεπτα που θα χρεώνετε τους πελάτες."
 
-#: Public/form_data/FG_var_did.inc:291
+#: Public/form_data/FG_var_did.inc:303
 #, fuzzy
 msgid "CARRIER CONNECTION CHARGE OFF PEAK"
 msgstr "ΚΟΣΤΟΣ ΣΥΝΔΕΣΗΣ"
 
-#: Public/form_data/FG_var_did.inc:299
+#: Public/form_data/FG_var_did.inc:311
 msgid "DID Ingress Charges Off Peak"
 msgstr ""
 
-#: Public/form_data/FG_var_did.inc:301
+#: Public/form_data/FG_var_did.inc:314
 #, fuzzy
 msgid "CARRIER COST PER MINUTE OFF PEAK"
 msgstr "ΛΕΠΤΑ ASTERISK"
 
-#: Public/form_data/FG_var_did.inc:310
+#: Public/form_data/FG_var_did.inc:324
 #, fuzzy
 msgid "CARRIER MIN DURATION OFF PEAK"
 msgstr "ΕΛΑΧΙΣΤΗ ΔΙΑΡΚΕΙΑ"
 
-#: Public/form_data/FG_var_did.inc:320
+#: Public/form_data/FG_var_did.inc:334
 #, fuzzy
 msgid "CARRIER BILLING BLOCK OFF PEAK"
 msgstr "ΜΠΛΟΚ ΤΙΜΟΛΟΓΗΣΗΣ ΤΙΜΗΣ ΑΓΟΡΑΣ"
 
-#: Public/form_data/FG_var_did.inc:330
+#: Public/form_data/FG_var_did.inc:344
 #, fuzzy
 msgid "RETAIL CONNECTION CHARGE OFF PEAK"
 msgstr "ΚΟΣΤΟΣ ΣΥΝΔΕΣΗΣ"
 
-#: Public/form_data/FG_var_did.inc:339
+#: Public/form_data/FG_var_did.inc:354
 #, fuzzy
 msgid "RETAIL COST PER MINUTE OFF PEAK"
 msgstr "ΛΕΠΤΑ ASTERISK"
 
-#: Public/form_data/FG_var_did.inc:349
+#: Public/form_data/FG_var_did.inc:364
 #, fuzzy
 msgid "RETAIL MIN DURATION OFF PEAK"
 msgstr "ΕΛΑΧΙΣΤΗ ΔΙΑΡΚΕΙΑ"
 
-#: Public/form_data/FG_var_did.inc:359
+#: Public/form_data/FG_var_did.inc:374
 #, fuzzy
 msgid "RETAIL BILLING BLOCK OFF PEAK"
 msgstr "ΜΠΛΟΚ ΤΙΜΟΛΟΓΗΣΗΣ ΤΙΜΗΣ ΑΓΟΡΑΣ"
 
-#: Public/form_data/FG_var_did.inc:384
+#: Public/form_data/FG_var_did.inc:384 Public/form_data/FG_var_card.inc:804
+msgid "MAX CONCURRENT CALLS"
+msgstr ""
+
+#: Public/form_data/FG_var_did.inc:391 Public/form_data/FG_var_card.inc:811
+msgid "Max concurrent calls (Feature not implemented)"
+msgstr ""
+
+#: Public/form_data/FG_var_did.inc:407
 #: Public/form_data/FG_var_did_destination.inc:200
 #: Public/form_data/FG_var_config_group.inc:89
 #: Public/form_data/FG_var_trunk.inc:265
@@ -4220,10 +4208,10 @@ msgstr "ΜΠΛΟΚ ΤΙΜΟΛΟΓΗΣΗΣ ΤΙΜΗΣ ΑΓΟΡΑΣ"
 #: Public/form_data/FG_var_subscription.inc:168
 #: Public/form_data/FG_var_subscription_signup.inc:132
 #: Public/form_data/FG_var_campaign_config.inc:152
-#: Public/form_data/FG_var_card.inc:978 Public/form_data/FG_var_user.inc:318
+#: Public/form_data/FG_var_card.inc:989 Public/form_data/FG_var_user.inc:318
 #: Public/form_data/FG_var_agent.inc:394
-#: Public/form_data/FG_var_mailtemplate.inc:198
-#: Public/form_data/FG_var_def_ratecard.inc:626
+#: Public/form_data/FG_var_mailtemplate.inc:196
+#: Public/form_data/FG_var_def_ratecard.inc:625
 #: Public/form_data/FG_var_package.inc:142
 #: Public/form_data/FG_var_voucher.inc:210
 #: Public/form_data/FG_var_didgroup.inc:91
@@ -4259,7 +4247,7 @@ msgstr "ΜΠΛΟΚ ΤΙΜΟΛΟΓΗΣΗΣ ΤΙΜΗΣ ΑΓΟΡΑΣ"
 msgid "click on the delete button."
 msgstr "πατήστε το κουμπί διαγραφής."
 
-#: Public/form_data/FG_var_did.inc:388
+#: Public/form_data/FG_var_did.inc:411
 #: Public/form_data/FG_var_did_destination.inc:205
 #: Public/form_data/FG_var_config_group.inc:94
 #: Public/form_data/FG_var_alarm.inc:187
@@ -4269,7 +4257,7 @@ msgstr "πατήστε το κουμπί διαγραφής."
 msgid "has been inserted. <br>"
 msgstr "έχει εισαχτεί <br>"
 
-#: Public/form_data/FG_var_did.inc:391
+#: Public/form_data/FG_var_did.inc:414
 #: Public/form_data/FG_var_did_destination.inc:209
 #: Public/form_data/FG_var_config_group.inc:98
 #: Public/form_data/FG_var_card_group.inc:157
@@ -4316,7 +4304,7 @@ msgstr "Ημερομηνία κλήσης"
 
 #: Public/form_data/FG_var_did_destination.inc:71
 #: Public/form_data/FG_var_did_destination.inc:111
-#: Public/form_data/FG_var_def_ratecard.inc:117
+#: Public/form_data/FG_var_def_ratecard.inc:116
 #: Public/form_data/FG_var_prefix.inc:96 Public/CC_ratecard_merging.php:143
 #: Public/A2B_call_archiving.php:362 Public/A2B_card_info.php:868
 #: Public/A2B_card_info.php:956
@@ -4486,7 +4474,7 @@ msgstr "Υπάρχουν μερικές χρεώσεις που συνδέοντ
 #: Public/form_data/FG_var_tariffgroup.inc:70
 #: Public/form_data/FG_var_card.inc:131 Public/form_data/FG_var_agent.inc:97
 #: Public/form_data/FG_var_agent.inc:106
-#: Public/form_data/FG_var_def_ratecard.inc:116
+#: Public/form_data/FG_var_def_ratecard.inc:115
 #: Public/form_data/FG_var_voucher.inc:78
 #: Public/form_data/FG_var_billing_customer.inc:55
 #: Public/form_data/FG_var_didgroup.inc:61
@@ -4568,7 +4556,7 @@ msgstr "ΕΠΙΛΟΓΗ ΠΑΡΟΧΟΥ"
 
 #: Public/form_data/FG_var_trunk.inc:118
 #: Public/form_data/FG_var_invoice.inc:110
-#: Public/form_data/FG_var_mailtemplate.inc:108
+#: Public/form_data/FG_var_mailtemplate.inc:106
 #: Public/form_data/FG_var_billing_customer.inc:61
 #: Public/form_data/FG_var_outbound_cidgroup.php:36
 #: Public/form_data/FG_var_logrefill.inc:79
@@ -4707,10 +4695,10 @@ msgstr "Τροποποιήστε της ιδιότητες της γραμμής
 #: Public/form_data/FG_var_subscription.inc:173
 #: Public/form_data/FG_var_subscription_signup.inc:137
 #: Public/form_data/FG_var_campaign_config.inc:157
-#: Public/form_data/FG_var_card.inc:983 Public/form_data/FG_var_user.inc:323
+#: Public/form_data/FG_var_card.inc:994 Public/form_data/FG_var_user.inc:323
 #: Public/form_data/FG_var_agent.inc:399
-#: Public/form_data/FG_var_mailtemplate.inc:202
-#: Public/form_data/FG_var_def_ratecard.inc:630
+#: Public/form_data/FG_var_mailtemplate.inc:200
+#: Public/form_data/FG_var_def_ratecard.inc:629
 #: Public/form_data/FG_var_package.inc:146
 #: Public/form_data/FG_var_voucher.inc:214
 #: Public/form_data/FG_var_didgroup.inc:96
@@ -4817,7 +4805,7 @@ msgid "CALL PLAN"
 msgstr "ΣΧΕΔΙΟ ΚΛΗΣΕΩΝ"
 
 #: Public/form_data/FG_var_invoice.inc:131
-#: Public/form_data/FG_var_card.inc:824 Public/A2B_card_info.php:358
+#: Public/form_data/FG_var_card.inc:835 Public/A2B_card_info.php:358
 msgid "INVOICE DAY"
 msgstr "ΗΜΕΡΑ ΤΙΜΟΛΟΓΙΟΥ"
 
@@ -4933,7 +4921,7 @@ msgstr "Το νέο σας "
 
 #: Public/form_data/FG_var_invoice.inc:209
 #: Public/form_data/FG_var_logrefill_agent.inc:159
-#: Public/form_data/FG_var_def_ratecard.inc:634
+#: Public/form_data/FG_var_def_ratecard.inc:633
 #: Public/form_data/FG_var_voucher.inc:217
 #: Public/form_data/FG_var_logrefill.inc:182
 #: Public/form_data/FG_var_commission.inc:167
@@ -5435,8 +5423,8 @@ msgstr "MIN"
 
 #: Public/form_data/FG_var_alarm.inc:75 Public/form_data/FG_var_alarm.inc:149
 #: Public/form_data/FG_var_user.inc:78
-#: Public/form_data/FG_var_def_ratecard.inc:125
-#: Public/form_data/FG_var_def_ratecard.inc:570
+#: Public/form_data/FG_var_def_ratecard.inc:124
+#: Public/form_data/FG_var_def_ratecard.inc:569
 #: Public/form_data/FG_var_tariffplan.inc:64
 #: Public/form_data/FG_var_tariffplan.inc:118
 #: Public/form_data/FG_var_friend.inc:689
@@ -5571,13 +5559,13 @@ msgid "please use the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:0
 msgstr "Παρακαλώ τιμήστε την μορφή ΕΕΕΕ-ΜΜ-ΗΗ ΩΩ:ΛΛ:ΔΔ. Για παράδειγμα '2004-12-31 00:00:00'"
 
 #: Public/form_data/FG_var_subscription.inc:143
-#: Public/form_data/FG_var_def_ratecard.inc:484
+#: Public/form_data/FG_var_def_ratecard.inc:483
 #: Public/form_data/FG_var_subscriber.inc:113
 msgid "STOP DATE"
 msgstr "ΗΜΕΡΟΜΗΝΙΑ ΛΗΞΗΣ"
 
 #: Public/form_data/FG_var_subscription.inc:149
-#: Public/form_data/FG_var_def_ratecard.inc:490
+#: Public/form_data/FG_var_def_ratecard.inc:489
 #: Public/form_data/FG_var_subscriber.inc:119
 msgid "Insert the stop date"
 msgstr "Συμπληρώστε την ημερομηνία λήξης"
@@ -5814,10 +5802,10 @@ msgstr "ΟΜΑΔΑ ΠΕΛΑΤΩΝ"
 
 #: Public/form_data/FG_var_card.inc:392 Public/form_data/FG_var_card.inc:548
 #: Public/form_data/FG_var_card.inc:661 Public/form_data/FG_var_card.inc:711
-#: Public/form_data/FG_var_def_ratecard.inc:578
-#: Public/form_data/FG_var_def_ratecard.inc:589
+#: Public/form_data/FG_var_def_ratecard.inc:577
+#: Public/form_data/FG_var_def_ratecard.inc:588
 #: Public/form_data/FG_var_subscriber.inc:102
-#: Public/CC_ratecard_import.php:242 Public/A2B_entity_def_ratecard.php:320
+#: Public/CC_ratecard_import.php:240 Public/A2B_entity_def_ratecard.php:320
 #: Public/A2B_entity_def_ratecard.php:353
 msgid "NOT DEFINED"
 msgstr "ΔΕΝ ΕΧΕΙ ΟΡΙΣΤΕΙ"
@@ -6111,97 +6099,97 @@ msgstr "ΣΕ ΧΡΗΣΗ"
 msgid "Updated to show the number of concurrent calls in use by this customer. If there are no currently no calls, and the system shows that there are, manually reset this field back to zero."
 msgstr "Ενημερώθηκε για να εμφανίζει τον ταυτόχρονο αριθμό ενεργών κλήσεων του πελάτη. Αν δεν υπάρχουν τρέχουσες κλήσης και το σύστημα εμφανίζει ότι υπάρχουν, χειροκίνητα μηδενίστε το πεδίο"
 
-#: Public/form_data/FG_var_card.inc:803 Public/form_data/FG_var_card.inc:811
+#: Public/form_data/FG_var_card.inc:814 Public/form_data/FG_var_card.inc:822
 #: Public/A2B_card_info.php:350
 msgid "AUTOREFILL"
 msgstr "ΑΥΤΟΜΑΤΗ ΑΝΑΝΕΩΣΗ"
 
-#: Public/form_data/FG_var_card.inc:809
+#: Public/form_data/FG_var_card.inc:820
 msgid "Choose if you want to enable the autorefill on this account"
 msgstr "Επιλέξτε αν θέλετε να ενεργοποιήσετε την αυτόματη ανανέωση για αυτόν τον λογαριασμό"
 
-#: Public/form_data/FG_var_card.inc:810
+#: Public/form_data/FG_var_card.inc:821
 msgid "Define if you want to authorize the autorefill to apply on this accout"
 msgstr "Ορίστε αν θέλετε να εξουσιοδοτήσετε την εφαρμογή της αυτόματης ανανέωσης σε αυτόν τον λογαριασμό"
 
-#: Public/form_data/FG_var_card.inc:813
+#: Public/form_data/FG_var_card.inc:824
 msgid "INITIAL BALANCE"
 msgstr "ΑΡΧΙΚΟ ΥΠΟΛΟΙΠΟ"
 
-#: Public/form_data/FG_var_card.inc:819
+#: Public/form_data/FG_var_card.inc:830
 msgid "Insert the amount of the initial balance"
 msgstr "Συμπληρώστε το ποσό του αρχικού υπολοίπου"
 
-#: Public/form_data/FG_var_card.inc:820
+#: Public/form_data/FG_var_card.inc:831
 msgid "The initial balance is used by autorefill to reset the current balance to this amount"
 msgstr "Το αρχικό υπόλοιπο χρησιμοποιείτε από την αυτόματη ανανέωση για να επαναφέρει το τρέχων υπόλοιπο σε αυτό το ποσό"
 
-#: Public/form_data/FG_var_card.inc:831
+#: Public/form_data/FG_var_card.inc:842
 msgid "Define the day of the month when the system will generate the customer invoice."
 msgstr "Ορίστε την ημέρα του μήνα που το σύστημα θα δημιουργεί το τιμολόγιο του πελάτη."
 
-#: Public/form_data/FG_var_card.inc:832
+#: Public/form_data/FG_var_card.inc:843
 msgid "Invoice Status"
 msgstr "Κατάσταση τιμολογίου"
 
-#: Public/form_data/FG_var_card.inc:846 Public/form_data/FG_var_agent.inc:244
+#: Public/form_data/FG_var_card.inc:857 Public/form_data/FG_var_agent.inc:244
 msgid "Insert the VAT"
 msgstr "Συμπληρώστε το ΦΠΑ"
 
-#: Public/form_data/FG_var_card.inc:847
+#: Public/form_data/FG_var_card.inc:858
 #, c-format
 msgid "VAT to add on the invoice of this customer. it should be a decimal value '21' this will be for 21% of VAT!"
 msgstr "ΦΠΑ για να προστεθεί στο τιμολόγιο του πελάτη. Πρέπει να είναι δεκαδική τιμή '21' θα είναι για 21% του ΦΠΑ."
 
-#: Public/form_data/FG_var_card.inc:850
+#: Public/form_data/FG_var_card.inc:861
 msgid "VAT REGISTRATION NUMBER "
 msgstr "Α.Φ.Μ. "
 
-#: Public/form_data/FG_var_card.inc:856
+#: Public/form_data/FG_var_card.inc:867
 msgid "Insert the VAT registration number of this customer"
 msgstr "Συμπληρώστε τον Α.Φ.Μ. του πελάτη"
 
-#: Public/form_data/FG_var_card.inc:860
+#: Public/form_data/FG_var_card.inc:871
 msgid "DISCOUNT"
 msgstr "ΕΚΠΤΩΣΗ"
 
-#: Public/form_data/FG_var_card.inc:870 Public/A2B_card_info.php:405
+#: Public/form_data/FG_var_card.inc:881 Public/A2B_card_info.php:405
 msgid "TRAFFIC PER MONTH"
 msgstr "ΚΙΝΗΣΗ ΑΝΑ ΜΗΝΑ"
 
-#: Public/form_data/FG_var_card.inc:876
+#: Public/form_data/FG_var_card.inc:887
 msgid "Insert the traffic per month for this customer"
 msgstr "Εισάγετε την κίνηση ανά μήνα για αυτόν τον πελάτη"
 
-#: Public/form_data/FG_var_card.inc:878 Public/form_data/FG_var_card.inc:880
+#: Public/form_data/FG_var_card.inc:889 Public/form_data/FG_var_card.inc:891
 msgid "TARGET TRAFFIC"
 msgstr "ΣΚΟΠΟΣ ΚΙΝΗΣΗΣ"
 
-#: Public/form_data/FG_var_card.inc:886
+#: Public/form_data/FG_var_card.inc:897
 msgid "Insert the target traffic description"
 msgstr "Εισάγετε την περιγραφή του σκοπού κίνησης"
 
-#: Public/form_data/FG_var_card.inc:890
+#: Public/form_data/FG_var_card.inc:901
 msgid "RESTRICTION"
 msgstr "ΠΕΡΙΟΡΙΣΜΟΣ"
 
-#: Public/form_data/FG_var_card.inc:898 Public/form_data/FG_var_card.inc:900
+#: Public/form_data/FG_var_card.inc:909 Public/form_data/FG_var_card.inc:911
 msgid "RESTRICTED NUMBERS"
 msgstr "ΠΕΡΙΟΡΙΣΜΕΝΟΙ ΑΡΙΘΜΟΙ"
 
-#: Public/form_data/FG_var_card.inc:906
+#: Public/form_data/FG_var_card.inc:917
 msgid "Insert numbers that restrict the customer"
 msgstr "Συμπληρώστε τους αριθμούς που περιορίζουν τον πελάτη"
 
-#: Public/form_data/FG_var_card.inc:925
+#: Public/form_data/FG_var_card.inc:936
 msgid "CALLERID / CUSTOMER HISTORY"
 msgstr "ΙΣΤΟΡΙΚΟ ΑΝΑΓΝΩΡΙΣΤΙΚΩΝ ΚΛΗΣΕΩΝ / ΠΕΛΑΤΩΝ"
 
-#: Public/form_data/FG_var_card.inc:931
+#: Public/form_data/FG_var_card.inc:942
 msgid "CUSTOMER HISTORY"
 msgstr "ΙΣΤΟΡΙΚΟ ΠΕΛΑΤΩΝ"
 
-#: Public/form_data/FG_var_card.inc:987
+#: Public/form_data/FG_var_card.inc:998
 #: Public/form_data/FG_var_subscriber.inc:143
 msgid "Once you have completed the form above, click on Confirm Data"
 msgstr "Μόλις συμπληρώστε την παραπάνω φόρμα πατήστε το κουμπί Επιβεβαίωση στοιχείων"
@@ -6486,214 +6474,214 @@ msgstr "Συμπληρώστε τις πληροφορίες τράπεζας γ
 msgid "CALL PLAN USABLE"
 msgstr "ΜΠΟΡΕΙ ΝΑ ΧΡΗΣΙΜΟΠΟΙΗΘΕΙ ΤΟ ΣΧΕΔΙΟ ΚΛΗΣΗΣ"
 
-#: Public/form_data/FG_var_mailtemplate.inc:42
+#: Public/form_data/FG_var_mailtemplate.inc:40
 msgid "mail template"
 msgstr "πρότυπου mail"
 
-#: Public/form_data/FG_var_mailtemplate.inc:67
+#: Public/form_data/FG_var_mailtemplate.inc:65
 msgid "Reminder"
 msgstr "Υπενθύμιση"
 
-#: Public/form_data/FG_var_mailtemplate.inc:68
+#: Public/form_data/FG_var_mailtemplate.inc:66
 msgid "Signup"
 msgstr "Εγγραφή"
 
-#: Public/form_data/FG_var_mailtemplate.inc:69
+#: Public/form_data/FG_var_mailtemplate.inc:67
 msgid "Forget password"
 msgstr "Ξεχάσατε τον κωδικό σας?"
 
-#: Public/form_data/FG_var_mailtemplate.inc:70
+#: Public/form_data/FG_var_mailtemplate.inc:68
 msgid "Signup confirmed"
 msgstr "Η εγγραφή επιβεβαιώθηκε"
 
-#: Public/form_data/FG_var_mailtemplate.inc:71
+#: Public/form_data/FG_var_mailtemplate.inc:69
 msgid "Payment Confirmation"
 msgstr "Επιβεβαίωση πληρωμής"
 
-#: Public/form_data/FG_var_mailtemplate.inc:72
+#: Public/form_data/FG_var_mailtemplate.inc:70
 msgid "Invoice"
 msgstr "Τιμολόγιο"
 
-#: Public/form_data/FG_var_mailtemplate.inc:73
+#: Public/form_data/FG_var_mailtemplate.inc:71
 msgid "EPayment Warning"
 msgstr "Προειδοποίηση EPayment"
 
-#: Public/form_data/FG_var_mailtemplate.inc:74
+#: Public/form_data/FG_var_mailtemplate.inc:72
 msgid "Did Payment confirmation"
 msgstr "Επιβεβαίωση πληρωμής DID"
 
-#: Public/form_data/FG_var_mailtemplate.inc:75
+#: Public/form_data/FG_var_mailtemplate.inc:73
 msgid "Did not payment warning"
 msgstr "Προειδοποίηση μη πληρωμής DID"
 
-#: Public/form_data/FG_var_mailtemplate.inc:76
+#: Public/form_data/FG_var_mailtemplate.inc:74
 msgid "Did released warning"
 msgstr "Προειδοποίηση απελευθέρωσης DID"
 
-#: Public/form_data/FG_var_mailtemplate.inc:77
+#: Public/form_data/FG_var_mailtemplate.inc:75
 msgid "template1"
 msgstr "πρότυπο 1"
 
-#: Public/form_data/FG_var_mailtemplate.inc:78
+#: Public/form_data/FG_var_mailtemplate.inc:76
 msgid "template2"
 msgstr "πρότυπο 2"
 
-#: Public/form_data/FG_var_mailtemplate.inc:79
+#: Public/form_data/FG_var_mailtemplate.inc:77
 msgid "template3"
 msgstr "πρότυπο 3"
 
-#: Public/form_data/FG_var_mailtemplate.inc:80
+#: Public/form_data/FG_var_mailtemplate.inc:78
 msgid "template4"
 msgstr "πρότυπο 4"
 
-#: Public/form_data/FG_var_mailtemplate.inc:81
+#: Public/form_data/FG_var_mailtemplate.inc:79
 msgid "template5"
 msgstr "πρότυπο 5"
 
-#: Public/form_data/FG_var_mailtemplate.inc:82
+#: Public/form_data/FG_var_mailtemplate.inc:80
 msgid "template6"
 msgstr "πρότυπο 6"
 
-#: Public/form_data/FG_var_mailtemplate.inc:83
+#: Public/form_data/FG_var_mailtemplate.inc:81
 msgid "template7"
 msgstr "πρότυπο 7"
 
-#: Public/form_data/FG_var_mailtemplate.inc:84
+#: Public/form_data/FG_var_mailtemplate.inc:82
 msgid "template8"
 msgstr "πρότυπο 8"
 
-#: Public/form_data/FG_var_mailtemplate.inc:85
+#: Public/form_data/FG_var_mailtemplate.inc:83
 msgid "template9"
 msgstr "πρότυπο 9"
 
-#: Public/form_data/FG_var_mailtemplate.inc:86
+#: Public/form_data/FG_var_mailtemplate.inc:84
 msgid "New Ticket"
 msgstr "Νέο ερώτημα"
 
-#: Public/form_data/FG_var_mailtemplate.inc:87
+#: Public/form_data/FG_var_mailtemplate.inc:85
 msgid "Modify Ticket"
 msgstr "Τροποποίηση ερωτήματος"
 
-#: Public/form_data/FG_var_mailtemplate.inc:88
+#: Public/form_data/FG_var_mailtemplate.inc:86
 msgid "Invoice to Pay"
 msgstr "Τιμολόγιο για πληρωμή"
 
-#: Public/form_data/FG_var_mailtemplate.inc:89
+#: Public/form_data/FG_var_mailtemplate.inc:87
 msgid "Subscription Paid"
 msgstr "Πληρωμένη συνδρομή"
 
-#: Public/form_data/FG_var_mailtemplate.inc:90
+#: Public/form_data/FG_var_mailtemplate.inc:88
 msgid "Subscription Unpaid"
 msgstr "Απλήρωτη συνδρομή"
 
-#: Public/form_data/FG_var_mailtemplate.inc:91
+#: Public/form_data/FG_var_mailtemplate.inc:89
 msgid "Subscription Disable Card"
 msgstr "Συνδρομή απενεργοποίηση κάρτας"
 
-#: Public/form_data/FG_var_mailtemplate.inc:94
+#: Public/form_data/FG_var_mailtemplate.inc:92
 msgid "ID MAIL"
 msgstr "ΑΝΑΓΝΩΡΙΣΤΙΚΟ ΜΗΝΥΜΑΤΟΣ"
 
-#: Public/form_data/FG_var_mailtemplate.inc:96
+#: Public/form_data/FG_var_mailtemplate.inc:94
 msgid "MAILTYPE"
 msgstr "ΕΙΔΟΥΣ ΜΗΝΥΜΑΤΟΣ"
 
-#: Public/form_data/FG_var_mailtemplate.inc:97
+#: Public/form_data/FG_var_mailtemplate.inc:95
 msgid "FROMEMAIL"
 msgstr "ΔΙΕΥΘΥΝΣΗ EMAIL ΑΠΟΣΤΟΛΕΑ"
 
-#: Public/form_data/FG_var_mailtemplate.inc:115
+#: Public/form_data/FG_var_mailtemplate.inc:113
 msgid "SELECT TEXT"
 msgstr "ΕΠΙΛΟΓΗ ΚΕΙΜΕΝΟΥ"
 
-#: Public/form_data/FG_var_mailtemplate.inc:124
+#: Public/form_data/FG_var_mailtemplate.inc:122
 msgid "Add MAIL TEMPLATE"
 msgstr "Προσθήκη ΠΡΟΤΥΠΟΥ MAIL"
 
-#: Public/form_data/FG_var_mailtemplate.inc:138
+#: Public/form_data/FG_var_mailtemplate.inc:136
 msgid "MAIL TYPE"
 msgstr "ΕΙΔΟΥΣ ΜΗΝΥΜΑΤΟΣ"
 
-#: Public/form_data/FG_var_mailtemplate.inc:147
+#: Public/form_data/FG_var_mailtemplate.inc:145
 msgid "FROM EMAIL"
 msgstr "ΔΙΕΥΘΥΝΣΗ EMAIL ΑΠΟΣΤΟΛΕΑ"
 
-#: Public/form_data/FG_var_mailtemplate.inc:153
+#: Public/form_data/FG_var_mailtemplate.inc:151
 msgid "Insert the user fromemail"
 msgstr "Συμπληρώστε την διεύθυνση email του αποστολέα"
 
-#: Public/form_data/FG_var_mailtemplate.inc:162
+#: Public/form_data/FG_var_mailtemplate.inc:160
 msgid "Insert the user fromname"
 msgstr "Συμπληρώστε το όνομα του αποστολέα"
 
-#: Public/form_data/FG_var_mailtemplate.inc:171
-#: Public/form_data/FG_var_mailtemplate.inc:180
+#: Public/form_data/FG_var_mailtemplate.inc:169
+#: Public/form_data/FG_var_mailtemplate.inc:178
 msgid "Insert the user subject"
 msgstr "Συμπληρώστε το θέμα"
 
-#: Public/form_data/FG_var_mailtemplate.inc:174
+#: Public/form_data/FG_var_mailtemplate.inc:172
 msgid "MESSAGE TEXT"
 msgstr "ΚΕΙΜΕΝΟ ΜΗΝΥΜΑΤΟΣ"
 
-#: Public/form_data/FG_var_mailtemplate.inc:197
+#: Public/form_data/FG_var_mailtemplate.inc:195
 msgid "Modify the contents of the email template below."
 msgstr "Τροποποιήστε τα περιεχόμενα του προτύπου mail παρακάτω"
 
-#: Public/form_data/FG_var_mailtemplate.inc:201
+#: Public/form_data/FG_var_mailtemplate.inc:199
 msgid "Add a new mail template"
 msgstr "Προθήκη νέου πρότυπου ταχυδρομείου"
 
-#: Public/form_data/FG_var_def_ratecard.inc:72
+#: Public/form_data/FG_var_def_ratecard.inc:71
 msgid "EXPORTED LCR CALL PLAN"
 msgstr "ΕΞΑΓΩΓΗ ΠΑΚΕΤΟΥ ΚΛΗΣΗΣ LCR"
 
-#: Public/form_data/FG_var_def_ratecard.inc:107
+#: Public/form_data/FG_var_def_ratecard.inc:106
 #: Public/form_data/FG_var_currencies.inc:44
 #: Public/A2B_package_manage_rates.php:213
 msgid "Add Rate"
 msgstr "Προσθήκη τιμής"
 
-#: Public/form_data/FG_var_def_ratecard.inc:118
+#: Public/form_data/FG_var_def_ratecard.inc:117
 #: Public/form_data/FG_var_prefix.inc:87 Public/CC_ratecard_merging.php:144
 #: Public/A2B_entity_def_ratecard.php:538
 msgid "PREFIX"
 msgstr "ΠΡΟΘΕΜΑ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:119
+#: Public/form_data/FG_var_def_ratecard.inc:118
 msgid "BR"
 msgstr "BR"
 
-#: Public/form_data/FG_var_def_ratecard.inc:121
+#: Public/form_data/FG_var_def_ratecard.inc:120
 msgid "START-DATE"
 msgstr "ΗΜΕΡΟΜΗΝΙΑ ΕΝΑΡΞΗΣ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:122
+#: Public/form_data/FG_var_def_ratecard.inc:121
 msgid "STOP-DATE"
 msgstr "ΗΜΕΡΟΜΗΝΙΑ ΛΗΞΗΣ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:123
+#: Public/form_data/FG_var_def_ratecard.inc:122
 msgid "INITB"
 msgstr "INITB"
 
-#: Public/form_data/FG_var_def_ratecard.inc:124
+#: Public/form_data/FG_var_def_ratecard.inc:123
 msgid "CC"
 msgstr "CC"
 
-#: Public/form_data/FG_var_def_ratecard.inc:126
+#: Public/form_data/FG_var_def_ratecard.inc:125
 msgid "RATE CARD"
 msgstr "ΚΑΡΤΑ ΤΙΜΩΝ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:163
+#: Public/form_data/FG_var_def_ratecard.inc:162
 #: Public/form_data/FG_var_voucher.inc:110
 msgid "HAVE BEEN CREATED."
 msgstr "ΕΧΟΥΝ ΔΗΜΙΟΥΡΓΗΘΕΙ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:170
+#: Public/form_data/FG_var_def_ratecard.inc:169
 msgid "Define the criteria to search"
 msgstr "Ορίστε κριτήρια για να γίνει η αναζήτηση"
 
-#: Public/form_data/FG_var_def_ratecard.inc:176
-#: Public/form_data/FG_var_def_ratecard.inc:592
+#: Public/form_data/FG_var_def_ratecard.inc:175
+#: Public/form_data/FG_var_def_ratecard.inc:591
 #: Public/form_data/FG_var_voucher.inc:81
 #: Public/form_data/FG_var_voucher.inc:100
 #: Public/form_data/FG_var_voucher.inc:148 Public/CC_ratecard_merging.php:142
@@ -6702,381 +6690,381 @@ msgstr "Ορίστε κριτήρια για να γίνει η αναζήτησ
 msgid "TAG"
 msgstr "ETIKETA"
 
-#: Public/form_data/FG_var_def_ratecard.inc:177
+#: Public/form_data/FG_var_def_ratecard.inc:176
 msgid "DIALING PREFIX"
 msgstr "ΠΡΟΘΕΜΑ ΚΛΗΣΗΣ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:197
+#: Public/form_data/FG_var_def_ratecard.inc:196
 msgid "DIALPREFIX"
 msgstr "ΠΡΟΘΕΜΑ ΚΛΗΣΗΣ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:203
+#: Public/form_data/FG_var_def_ratecard.inc:202
 msgid "Insert the dialing prefix, such as for UK '44' or for US '1' "
 msgstr "Εισαγωγή του προθέματος κλήσης, όπως το 44 για Η.Β ή 1 για Η.Π.Α."
 
-#: Public/form_data/FG_var_def_ratecard.inc:205
+#: Public/form_data/FG_var_def_ratecard.inc:204
 msgid "A) Add destination prefixes, ie '441' for UK Landlines.<br>B) Use 'defaultprefix' to setup a rate for all destinations where a specific rate is not provided.<br>C) if you ADD a rate, NOT an EDIT, you can define a range of prefixes. '32484-32487' adds all prefixes between 32484 and 32487. '32484,32386,32488' would add only the individual prefixes listed.<br>D) Asterisk extensions style + POSIX regex syntaxes are supported. '_447[7-9]XXXXXXXX' matches 12-digit UK mobiles. '_X{0,3}(112|999|911)' matches any 0-3 digits followed an emergency number. '_' can be used to add length, and raise the priority."
 msgstr "Α) προσθήκη προθεμάτων προορισμού π.χ. 441 για σταθερά Η.Β.<br>Β) Χρησιμοποιήστε το defaultprefix για να ορίσετε μια χρέωση για όλους τους προορισμούς όταν δεν υπάρχει αντίστοιχη χρέωση.<br>Γ) Εάν προσθέστε, και δεν  τροποποιήστε, μια νέα χρέωση μπορείτε να ορίσετε ένα εύρος προθεμάτων. '32484-32487' θα προσθέσει όλα τα προθέματα ανάμεσα στην περιοχή. Αντιθέτως τα αναγνωριστικά κλήσεων διαχωρισμένα με κόμματα π.χ. '32484,32386,32488' θα προσθέσει μόνο αυτά τα προθέματα.<br>Δ) Υποστηρίζονται οι μορφές εσωτερικών Asterisk και η σύνταξη POSIX regex. Το '_447[7-9]XXXXXXXX' ταυτοποιεί 12ψηφιους αριθμούς κινητών του Η.Β. '_X{0,3}(112|999|911)' Ταυτοποιεί οποιοδήποτε αριθμό 0-3 ψηφίων ακολουθούμενο από τα νούμερα έκτακτης ανάγκης. '_' μπορεί να χρησιμοποιηθεί για να αύξηση την προτεραιότητα και την προσθήκη μήκους."
 
-#: Public/form_data/FG_var_def_ratecard.inc:208
+#: Public/form_data/FG_var_def_ratecard.inc:207
 msgid "Destination Prefix"
 msgstr "Πρόθεμα Προορισμού"
 
-#: Public/form_data/FG_var_def_ratecard.inc:216
+#: Public/form_data/FG_var_def_ratecard.inc:215
 msgid "Select the prefix destination corresponding to your prefix rate."
 msgstr "Επιλέξτε το πρόθεμα προορισμού σύμφωνα με το πρόθεμα χρέωσης"
 
-#: Public/form_data/FG_var_def_ratecard.inc:216
+#: Public/form_data/FG_var_def_ratecard.inc:215
 msgid "This is the label that appears against the Call Detail Record."
 msgstr "Αυτή είναι η ετικέτα που εμφανίζετε δίπλα από την αναλυτική εγγραφή κλήσεων."
 
-#: Public/form_data/FG_var_def_ratecard.inc:236
+#: Public/form_data/FG_var_def_ratecard.inc:235
 msgid "Insert the buy rate"
 msgstr "Συμπληρώστε την τιμή αγοράς"
 
-#: Public/form_data/FG_var_def_ratecard.inc:237
+#: Public/form_data/FG_var_def_ratecard.inc:236
 msgid "Set the carrier cost, the price you pay for minutes."
 msgstr "Ορίστε το κόστος παροχής, η τιμή που πληρώνετε για  λεπτά."
 
-#: Public/form_data/FG_var_def_ratecard.inc:238
+#: Public/form_data/FG_var_def_ratecard.inc:237
 msgid "Set the carrier cost for this destination."
 msgstr "Συμπληρώστε την τιμή χρέωσης του πάροχου."
 
-#: Public/form_data/FG_var_def_ratecard.inc:241
+#: Public/form_data/FG_var_def_ratecard.inc:240
 msgid "BUYRATE MIN DURATION"
 msgstr "ΕΛΑΧΙΣΤΗ ΔΙΑΡΚΕΙΑ ΤΙΜΗΣ ΑΓΟΡΑΣ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:251
+#: Public/form_data/FG_var_def_ratecard.inc:250
 msgid "BUYRATE BILLING BLOCK"
 msgstr "ΜΠΛΟΚ ΤΙΜΟΛΟΓΗΣΗΣ ΤΙΜΗΣ ΑΓΟΡΑΣ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:267
+#: Public/form_data/FG_var_def_ratecard.inc:266
 msgid "Insert the initial rate"
 msgstr "Συμπληρώστε τον αρχική τιμή"
 
-#: Public/form_data/FG_var_def_ratecard.inc:268
+#: Public/form_data/FG_var_def_ratecard.inc:267
 msgid "The retail rate; or the cost per minute to apply to the customer, e.g. 0.02"
 msgstr "Την λιανική τιμή ή το κόστος ανά λεπτό που θα εφαρμοστεί στους πελάτες π.χ. 0,02"
 
-#: Public/form_data/FG_var_def_ratecard.inc:268
+#: Public/form_data/FG_var_def_ratecard.inc:267
 msgid "Define the selling cost for customers."
 msgstr "Ορίστε το κόστος πώλησης για τους πελάτες"
 
-#: Public/form_data/FG_var_def_ratecard.inc:271
+#: Public/form_data/FG_var_def_ratecard.inc:270
 msgid "SELLRATE MIN DURATION"
 msgstr "ΕΛΑΧΙΣΤΗ ΔΙΑΡΚΕΙΑ ΤΙΜΗΣ ΠΩΛΗΣΗΣ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:281
+#: Public/form_data/FG_var_def_ratecard.inc:280
 msgid "SELLRATE BILLING BLOCK"
 msgstr "ΜΠΛΟΚ ΤΙΜΟΛΟΓΗΣΗΣ ΤΙΜΗΣ ΠΩΛΗΣΗΣ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:298
+#: Public/form_data/FG_var_def_ratecard.inc:297
 msgid "Apply a connection charge"
 msgstr "Εφαρμογή χρέωσης σύνδεσης"
 
-#: Public/form_data/FG_var_def_ratecard.inc:301
+#: Public/form_data/FG_var_def_ratecard.inc:300
 msgid "DISCONNECT CHARGE"
 msgstr "ΚΟΣΤΟΣ ΑΠΟΣΥΝΔΕΣΗΣ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:307
+#: Public/form_data/FG_var_def_ratecard.inc:306
 msgid "Insert the disconnect charge"
 msgstr "Συμπληρώστε το κόστος αποσύνδεσης"
 
-#: Public/form_data/FG_var_def_ratecard.inc:308
+#: Public/form_data/FG_var_def_ratecard.inc:307
 msgid "Apply a disconnection charge"
 msgstr "Εφαρμογή κόστος αποσύνδεσης"
 
-#: Public/form_data/FG_var_def_ratecard.inc:317
+#: Public/form_data/FG_var_def_ratecard.inc:316
 msgid "Insert the disconnect charge threshold"
 msgstr "Συμπληρώστε το κατώτερο όριο κόστους αποσύνδεσης"
 
-#: Public/form_data/FG_var_def_ratecard.inc:318
+#: Public/form_data/FG_var_def_ratecard.inc:317
 msgid "Apply the disconnection charge if the call duration is greater than this amount of seconds. If 0, it will always apply."
 msgstr "Εφαρμογή του κόστος αποσύνδεση εάν η διάρκεια κλήσης είναι μεγαλύτερη από αυτή την τιμή. Εάν 0 τότε θα εφαρμόζετε πάντα."
 
-#: Public/form_data/FG_var_def_ratecard.inc:321
+#: Public/form_data/FG_var_def_ratecard.inc:320
 msgid "MINIMUM CALL COST"
 msgstr "ΕΛΑΧΙΣΤΟ ΚΟΣΤΟΣ ΚΛΗΣΗΣ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:327
+#: Public/form_data/FG_var_def_ratecard.inc:326
 msgid "Insert the Minimum call cost"
 msgstr "Συμπληρώστε το ελάχιστο κόστος κλήσης"
 
-#: Public/form_data/FG_var_def_ratecard.inc:328
+#: Public/form_data/FG_var_def_ratecard.inc:327
 msgid "Apply a minimum charge for the call."
 msgstr "Εφαρμογή ελάχιστου χρέωση για την  κλήση"
 
-#: Public/form_data/FG_var_def_ratecard.inc:333
+#: Public/form_data/FG_var_def_ratecard.inc:332
 msgid "STEPCHARGE A"
 msgstr "ΒΗΜΑΤΙΚΗ ΧΡΕΩΣΗ Α"
 
-#: Public/form_data/FG_var_def_ratecard.inc:339
+#: Public/form_data/FG_var_def_ratecard.inc:338
 msgid "Insert the stepcharge A"
 msgstr "Συμπληρώστε την βηματική χρέωση Α"
 
-#: Public/form_data/FG_var_def_ratecard.inc:340
+#: Public/form_data/FG_var_def_ratecard.inc:339
 msgid "When entering in the cycle 'A', define the amount to charge for the entrance."
 msgstr "Κατά την είσοδο στον κύκλο α ορίστε ποια χρέωση για την είσοδο"
 
-#: Public/form_data/FG_var_def_ratecard.inc:340
+#: Public/form_data/FG_var_def_ratecard.inc:339
 msgid "Below we have the section to create progressive rates. Progressive rate aims to bill the customer at various rates according the duration of the call. For instance you can define that you can to bill the customer 0.33dollars for the first 2 minutes and then you want to bill him 0.45dollars for the rest of the call."
 msgstr "Παρακάτω υπάρχει η περιοχή για την δημιουργία προοδευτικών χρεώσεων. Σκοπός της προοδευτικής χρέωσης είναι να χρεώνει τους πελάτες με διαφορές χρεώσεις ανάλογα με την διάρκεια της κλήσης. Για παράδειγμα μπορείτε να ορίσετε ότι θέλετε να χώνετε τους πελάτες 0,33ευρο για τα πρώτα 2 λεπτά της κλήσης και 0,44ευρο για την υπόλοιπη διάρκειας κλήσης."
 
-#: Public/form_data/FG_var_def_ratecard.inc:343
+#: Public/form_data/FG_var_def_ratecard.inc:342
 msgid "CHARGE A"
 msgstr "ΧΡΕΩΣΗ Α"
 
-#: Public/form_data/FG_var_def_ratecard.inc:349
+#: Public/form_data/FG_var_def_ratecard.inc:348
 msgid "Insert the charge A"
 msgstr "Συμπληρώστε την χρέωση Α"
 
-#: Public/form_data/FG_var_def_ratecard.inc:350
+#: Public/form_data/FG_var_def_ratecard.inc:349
 msgid "When entering in the cycle 'A', define the rate to apply."
 msgstr "Κατά την είσοδο στον κύκλο α ορίστε ποια χρέωση θα εφαρμοστεί"
 
-#: Public/form_data/FG_var_def_ratecard.inc:353
+#: Public/form_data/FG_var_def_ratecard.inc:352
 msgid "TIMECHARGE A"
 msgstr "ΧΡΟΝΟΧΡΕΩΣΗ Α"
 
-#: Public/form_data/FG_var_def_ratecard.inc:359
+#: Public/form_data/FG_var_def_ratecard.inc:358
 msgid "Insert the time charge A"
 msgstr "Συμπληρώστε την χρονοχρέωση Α"
 
-#: Public/form_data/FG_var_def_ratecard.inc:360
+#: Public/form_data/FG_var_def_ratecard.inc:359
 msgid "Define the duration of the cycle 'A'."
 msgstr "Ορίστε την διάρκεια του κύκλου α"
 
-#: Public/form_data/FG_var_def_ratecard.inc:363
+#: Public/form_data/FG_var_def_ratecard.inc:362
 msgid "BILLING BLOCK A"
 msgstr "ΜΠΛΟΚ ΤΙΜΟΛΟΓΗΣΗΣ Α"
 
-#: Public/form_data/FG_var_def_ratecard.inc:369
+#: Public/form_data/FG_var_def_ratecard.inc:368
 msgid "Insert the billing block A"
 msgstr "Συμπληρώστε το μπλοκ τιμολογησης Α"
 
-#: Public/form_data/FG_var_def_ratecard.inc:370
+#: Public/form_data/FG_var_def_ratecard.inc:369
 msgid "Define the duration of each billing block to apply the rate 'CHARGE A'."
 msgstr "Ορίστε την διάρκεια κάθε μπλοκ χρεώσεων για την εφαρμογή της χρέωσης α"
 
-#: Public/form_data/FG_var_def_ratecard.inc:373
+#: Public/form_data/FG_var_def_ratecard.inc:372
 msgid "STEPCHARGE B"
 msgstr "ΒΗΜΑΤΙΚΗ ΧΡΕΩΣΗ Β"
 
-#: Public/form_data/FG_var_def_ratecard.inc:379
+#: Public/form_data/FG_var_def_ratecard.inc:378
 msgid "Insert the stepcharge B"
 msgstr "Συμπληρώστε την βηματική χρέωση Β"
 
-#: Public/form_data/FG_var_def_ratecard.inc:380
+#: Public/form_data/FG_var_def_ratecard.inc:379
 msgid "When entering in the cycle 'B', define the amount to charge for the entrance."
 msgstr "Κατά την είσοδο στον κύκλο β ορίστε ποια χρέωση για την είσοδο"
 
-#: Public/form_data/FG_var_def_ratecard.inc:383
+#: Public/form_data/FG_var_def_ratecard.inc:382
 msgid "CHARGE B"
 msgstr "ΧΡΕΩΣΗ Β"
 
-#: Public/form_data/FG_var_def_ratecard.inc:389
+#: Public/form_data/FG_var_def_ratecard.inc:388
 msgid "Insert the charge B"
 msgstr "Συμπληρώστε την χρέωση Β"
 
-#: Public/form_data/FG_var_def_ratecard.inc:390
+#: Public/form_data/FG_var_def_ratecard.inc:389
 msgid "When entering in the cycle 'B', define the rate to apply."
 msgstr "Κατά την είσοδο στον κύκλο β ορίστε ποια χρέωση θα εφαρμοστεί"
 
-#: Public/form_data/FG_var_def_ratecard.inc:393
+#: Public/form_data/FG_var_def_ratecard.inc:392
 msgid "TIMECHARGE B"
 msgstr "ΧΡΟΝΟΧΡΕΩΣΗ Β"
 
-#: Public/form_data/FG_var_def_ratecard.inc:399
+#: Public/form_data/FG_var_def_ratecard.inc:398
 msgid "Insert the time charge B"
 msgstr "Συμπληρώστε την χρονοχρέωση Β"
 
-#: Public/form_data/FG_var_def_ratecard.inc:400
+#: Public/form_data/FG_var_def_ratecard.inc:399
 msgid "Define the duration of the cycle 'B'."
 msgstr "Ορίστε την διάρκεια του κύκλου β"
 
-#: Public/form_data/FG_var_def_ratecard.inc:403
+#: Public/form_data/FG_var_def_ratecard.inc:402
 msgid "BILLING BLOCK B"
 msgstr "ΜΠΛΟΚ ΤΙΜΟΛΟΓΗΣΗΣ Β"
 
-#: Public/form_data/FG_var_def_ratecard.inc:409
+#: Public/form_data/FG_var_def_ratecard.inc:408
 msgid "Insert the billing block B"
 msgstr "Συμπληρώστε το μπλοκ τιμολογησης Β"
 
-#: Public/form_data/FG_var_def_ratecard.inc:410
+#: Public/form_data/FG_var_def_ratecard.inc:409
 msgid "Define the duration of each billing block to apply the rate 'CHARGE B'."
 msgstr "Ορίστε την διάρκεια κάθε μπλοκ χρεώσεων για την εφαρμογή της χρέωσης β"
 
-#: Public/form_data/FG_var_def_ratecard.inc:413
+#: Public/form_data/FG_var_def_ratecard.inc:412
 msgid "STEPCHARGE C"
 msgstr "ΒΗΜΑΤΙΚΗ ΧΡΕΩΣΗ Γ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:420
+#: Public/form_data/FG_var_def_ratecard.inc:419
 msgid "When entering in the cycle 'C', define the amount to charge for the entrance."
 msgstr "Κατά την είσοδο στον κύκλο γ ορίστε ποια χρέωση για την είσοδο"
 
-#: Public/form_data/FG_var_def_ratecard.inc:423
+#: Public/form_data/FG_var_def_ratecard.inc:422
 msgid "CHARGE C"
 msgstr "ΧΡΕΩΣΗ Γ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:429
+#: Public/form_data/FG_var_def_ratecard.inc:428
 msgid "Insert the charge C"
 msgstr "Συμπληρώστε την χρέωση Γ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:430
+#: Public/form_data/FG_var_def_ratecard.inc:429
 msgid "When entering in the cycle 'C', define the rate to apply."
 msgstr "Κατά την είσοδο στον κύκλο γ ορίστε ποια χρέωση θα εφαρμοστεί"
 
-#: Public/form_data/FG_var_def_ratecard.inc:433
+#: Public/form_data/FG_var_def_ratecard.inc:432
 msgid "TIMECHARGE C"
 msgstr "ΧΡΟΝΟΧΡΕΩΣΗ Γ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:439
+#: Public/form_data/FG_var_def_ratecard.inc:438
 msgid "Insert the time charge C"
 msgstr "Συμπληρώστε την χρονοχρέωση Γ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:440
+#: Public/form_data/FG_var_def_ratecard.inc:439
 msgid "Define the duration of the cycle 'C'."
 msgstr "Ορίστε την διάρκεια του κύκλου γ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:443
+#: Public/form_data/FG_var_def_ratecard.inc:442
 msgid "BILLING BLOCK C"
 msgstr "ΜΠΛΟΚ ΤΙΜΟΛΟΓΗΣΗΣ Γ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:449
+#: Public/form_data/FG_var_def_ratecard.inc:448
 msgid "Insert the billing block C"
 msgstr "Συμπληρώστε το μπλοκ τιμολογησης Γ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:450
+#: Public/form_data/FG_var_def_ratecard.inc:449
 msgid "Define the duration of each billing block to apply the rate 'CHARGE C'."
 msgstr "Ορίστε την διάρκεια κάθε μπλοκ χρεώσεων για την εφαρμογή της χρέωσης γ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:453
+#: Public/form_data/FG_var_def_ratecard.inc:452
 msgid "ANNOUNCE TIME CORRECTION"
 msgstr "ΔΙΟΡΘΩΣΗ ΑΝΑΚΟΙΝΩΣΗΣ ΩΡΑΣ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:459
+#: Public/form_data/FG_var_def_ratecard.inc:458
 msgid "insert corection for announce time"
 msgstr "Συμπληρώστε την διόρθωση για την ανακοίνωση ώρας"
 
-#: Public/form_data/FG_var_def_ratecard.inc:460
+#: Public/form_data/FG_var_def_ratecard.inc:459
 msgid "Define the multiplier on announce time for clients."
 msgstr "Ορίστε τον πολλαπλασιαστή στην ανακοίνωση ώρας για τους πελάτες."
 
-#: Public/form_data/FG_var_def_ratecard.inc:481
+#: Public/form_data/FG_var_def_ratecard.inc:480
 msgid "Define the period when this rate table is active."
 msgstr "Ορίστε την περίοδο όπου θα είναι ενεργοποιημένο ο πίνακας τιμών."
 
-#: Public/form_data/FG_var_def_ratecard.inc:491
+#: Public/form_data/FG_var_def_ratecard.inc:490
 msgid "Leave empty to apply this rate indefinitely. Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00"
 msgstr "Αφήστε το κενό για να εφαρμόζετε αόριστα αυτή η χρέωση. Μορφή ΕΕΕΕ-ΜΜ-ΗΗ ΩΩ:ΛΛ:ΔΔ. Για παράδειγμα '2004-12-31 00:00:00'"
 
-#: Public/form_data/FG_var_def_ratecard.inc:500
+#: Public/form_data/FG_var_def_ratecard.inc:499
 msgid "START TIME"
 msgstr "ΩΡΑ ΕΝΑΡΞΗΣ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:506
+#: Public/form_data/FG_var_def_ratecard.inc:505
 msgid "Insert the start time"
 msgstr "Συμπληρώστε την ώρα έναρξης"
 
-#: Public/form_data/FG_var_def_ratecard.inc:507
+#: Public/form_data/FG_var_def_ratecard.inc:506
 msgid "Set the time and day of the week at the rate is first valid (ie Monday 00:00 is 0)"
 msgstr "Ορίστε την ώρα και την ημέρα της εβδομάδος που η χρέωση είναι έγκυρη για πρώτη φορά. (π.χ. Δευτέρα 00:00 είναι 0)"
 
-#: Public/form_data/FG_var_def_ratecard.inc:510
+#: Public/form_data/FG_var_def_ratecard.inc:509
 msgid "END TIME"
 msgstr "ΩΡΑ ΛΗΞΗΣ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:516
+#: Public/form_data/FG_var_def_ratecard.inc:515
 msgid "Insert the end time"
 msgstr "Συμπληρώστε την ώρα λήξης"
 
-#: Public/form_data/FG_var_def_ratecard.inc:517
+#: Public/form_data/FG_var_def_ratecard.inc:516
 msgid "Set the time and the day of the week that the rate is no longer valid. (ie Sunday 23:59 is 10079)"
 msgstr "Ορίστε την ώρα και την ημέρα της εβδομάδος που η χρέωση δεν είναι πια έγκυρη. (π.χ. Κυριακή 23:59 είναι 10079)"
 
-#: Public/form_data/FG_var_def_ratecard.inc:520
+#: Public/form_data/FG_var_def_ratecard.inc:519
 msgid "ROUNDING CALLTIME"
 msgstr "ΧΡΟΝΟΣ ΣΤΡΟΓΓΥΛΟΠΟΙΗΣΗΣ ΚΛΗΣΕΩΝ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:526
+#: Public/form_data/FG_var_def_ratecard.inc:525
 msgid "Insert the rounding calltime"
 msgstr "Συμπληρώστε τον χρόνο στρογγυλοποίησης κλήσεων."
 
-#: Public/form_data/FG_var_def_ratecard.inc:527
+#: Public/form_data/FG_var_def_ratecard.inc:526
 msgid "Set the rounding calltime. All the selling rules will apply over this new calltime."
 msgstr "Ορίστε τον χρόνο στρογγυλοποίησης κλήσεων. Όλες οι κανόνες πώλησης θα εφαρμοστούν πάνω από τον νέο χρόνο."
 
-#: Public/form_data/FG_var_def_ratecard.inc:530
+#: Public/form_data/FG_var_def_ratecard.inc:529
 msgid "ROUNDING THRESHOLD"
 msgstr "ΟΡΙΟ ΣΤΡΟΓΓΥΛΟΠΟΙΗΣΗΣ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:536
+#: Public/form_data/FG_var_def_ratecard.inc:535
 msgid "Insert the rounding threshold"
 msgstr "Συμπληρώστε το όριο στρογγυλοποίησης"
 
-#: Public/form_data/FG_var_def_ratecard.inc:537
+#: Public/form_data/FG_var_def_ratecard.inc:536
 msgid "Set the rounding threshold"
 msgstr "Ορίστε το κατώτερο όριο στρογγυλοποίησης"
 
-#: Public/form_data/FG_var_def_ratecard.inc:540
+#: Public/form_data/FG_var_def_ratecard.inc:539
 msgid "ADDITIONAL BLOCK CHARGE"
 msgstr "ΜΠΛΟΚ ΕΠΙΠΛΕΩΝ ΧΡΕΩΣΗΣ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:546
+#: Public/form_data/FG_var_def_ratecard.inc:545
 msgid "Insert the additional block charge"
 msgstr "Συμπληρώστε το μπλοκ επιπλέων χρεώσεων."
 
-#: Public/form_data/FG_var_def_ratecard.inc:547
+#: Public/form_data/FG_var_def_ratecard.inc:546
 msgid "Set the initial block charge"
 msgstr "Ορίστε τον χρόνο χρέωσης του αρχικού μπλοκ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:550
+#: Public/form_data/FG_var_def_ratecard.inc:549
 msgid "ADDITIONAL BLOCK CHARGE TIME"
 msgstr "ΧΡΟΝΟΣ ΕΠΙΠΛΕΩΝ ΧΡΕΩΣΗΣ ΜΠΛΟΚ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:556
+#: Public/form_data/FG_var_def_ratecard.inc:555
 msgid "Insert the additional block charge time"
 msgstr "Συμπληρώστε το χρόνο χρέωσης μπλοκ επιπλέων χρεώσεων."
 
-#: Public/form_data/FG_var_def_ratecard.inc:557
+#: Public/form_data/FG_var_def_ratecard.inc:556
 msgid "Set the initial block charge time"
 msgstr "Ορίστε τον χρόνο χρέωσης του αρχικού μπλοκ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:560
+#: Public/form_data/FG_var_def_ratecard.inc:559
 msgid "ADDITIONAL GRACE TIME"
 msgstr "ΕΠΙΠΛΕΩΝ ΧΡΟΝΟΣ ΧΑΡΙΤΟΣ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:566
+#: Public/form_data/FG_var_def_ratecard.inc:565
 msgid "Insert the additional grace time in sec"
 msgstr "Συμπληρώστε τον επιπλέον χρόνο χάριτος σε δευτερόλεπτα"
 
-#: Public/form_data/FG_var_def_ratecard.inc:567
+#: Public/form_data/FG_var_def_ratecard.inc:566
 msgid "Set the additional grace time in sec"
 msgstr "Ορίστε τον επιπλέων χρόνο χάριτος σε δευτερόλεπτα"
 
-#: Public/form_data/FG_var_def_ratecard.inc:578
+#: Public/form_data/FG_var_def_ratecard.inc:577
 msgid "Set the trunk to use for this destination, or NOT DEFINED to use the rate card trunk."
 msgstr "Ορίστε την γραμμή που θα χρησιμοποιηθεί για αυτόν τον προορισμό, ή ΔΕΝ ΕΧΕΙ ΟΡΙΣΤΕΙ για να χρησιμοποιηθεί η γραμμή της κάρτας τιμών."
 
-#: Public/form_data/FG_var_def_ratecard.inc:581
+#: Public/form_data/FG_var_def_ratecard.inc:580
 #: Public/A2B_entity_def_ratecard.php:351
 msgid "CIDGroup"
 msgstr "Ομάδα CID"
 
-#: Public/form_data/FG_var_def_ratecard.inc:589
+#: Public/form_data/FG_var_def_ratecard.inc:588
 msgid "Set the Outgoing CID Group to use for this destination, or NOT DEFINED to use the rate card trunk."
 msgstr "Ορίστε την εξερχομένη ομάδα CID που θα χρησιμοποιηθεί για αυτόν τον προορισμό, ή ΔΕΝ ΕΧΕΙ ΟΡΙΣΤΕΙ για να χρησιμοποιηθεί η γραμμή της κάρτας τιμών."
 
-#: Public/form_data/FG_var_def_ratecard.inc:599
+#: Public/form_data/FG_var_def_ratecard.inc:598
 msgid "Set a tag on this rate"
 msgstr "Ορίστε μια ετικέτα σε αυτήν την χρέωση"
 
-#: Public/form_data/FG_var_def_ratecard.inc:603
+#: Public/form_data/FG_var_def_ratecard.inc:602
 #: Public/form_data/FG_var_friend.inc:528
 msgid "MUSICONHOLD"
 msgstr "MUSICONHOLD"
 
-#: Public/form_data/FG_var_def_ratecard.inc:625
+#: Public/form_data/FG_var_def_ratecard.inc:624
 msgid "Rates must be entered in the currency base : "
 msgstr "Οι χρεώσεις πρέπει να εισάγοντα στο νόμισμα βάσης : "
 
@@ -8629,7 +8617,8 @@ msgid "ADSI"
 msgstr "ADSI"
 
 #: Public/form_data/FG_var_friend.inc:886
-msgid "REQUITE CALL TOKEN"
+#, fuzzy
+msgid "REQUIRE CALL TOKEN"
 msgstr "REQUITE CALL TOKEN"
 
 #: Public/form_data/FG_var_friend.inc:893
@@ -9635,11 +9624,11 @@ msgstr "ΠΡΟΟΡΙΣΜΟΣ ΚΑΡΤΑΣ ΤΙΜΩΝ"
 msgid "Choose fields to merge"
 msgstr "Επιλέξτε τα πεδία για συγχώνευση"
 
-#: Public/CC_ratecard_merging.php:267 Public/CC_ratecard_import.php:256
+#: Public/CC_ratecard_merging.php:267 Public/CC_ratecard_import.php:254
 msgid "destination"
 msgstr "προορισμός"
 
-#: Public/CC_ratecard_merging.php:268 Public/CC_ratecard_import.php:269
+#: Public/CC_ratecard_merging.php:268 Public/CC_ratecard_import.php:267
 msgid "buyrate"
 msgstr "Κόστος αγοράς"
 
@@ -9739,23 +9728,23 @@ msgstr "ώρα έναρξης"
 msgid "endtime"
 msgstr "ώρα λήξης"
 
-#: Public/CC_ratecard_merging.php:297 Public/CC_ratecard_import.php:302
+#: Public/CC_ratecard_merging.php:297 Public/CC_ratecard_import.php:300
 msgid "tag"
 msgstr "ετικέτα"
 
-#: Public/CC_ratecard_merging.php:298 Public/CC_ratecard_import.php:303
+#: Public/CC_ratecard_merging.php:298 Public/CC_ratecard_import.php:301
 msgid "rounding calltime"
 msgstr "χρόνος στρογγυλοποίησης κλήσεων"
 
-#: Public/CC_ratecard_merging.php:299 Public/CC_ratecard_import.php:304
+#: Public/CC_ratecard_merging.php:299 Public/CC_ratecard_import.php:302
 msgid "rounding threshold"
 msgstr "όριο στρογγυλοποίησης"
 
-#: Public/CC_ratecard_merging.php:300 Public/CC_ratecard_import.php:305
+#: Public/CC_ratecard_merging.php:300 Public/CC_ratecard_import.php:303
 msgid "additional block charge"
 msgstr "μπλοκ επιπλέων χρεώσεων"
 
-#: Public/CC_ratecard_merging.php:301 Public/CC_ratecard_import.php:306
+#: Public/CC_ratecard_merging.php:301 Public/CC_ratecard_import.php:304
 msgid "additional block charge time"
 msgstr "χρόνου μπλοκ επιπλέων χρεώσεων"
 
@@ -9840,8 +9829,9 @@ msgid "SYSTEM INFO"
 msgstr "ΠΛΗΡΟΦΟΡΙΕΣ ΣΥΣΤΗΜΑΤΟΣ"
 
 #: Public/dashboard.php:88
-msgid "NEWS"
-msgstr "ΝΕΑ"
+#, fuzzy
+msgid "LATEST NEWS"
+msgstr "ΕΠΩΝΥΜΟ"
 
 #: Public/A2B_entity_did_import.php:72 Public/CC_card_import.php:60
 msgid "Insert emails on the Field!"
@@ -10039,15 +10029,15 @@ msgstr "Επιλέξτε την ημέρα"
 msgid "Calls with free minutes"
 msgstr "Κλήσης με δωρεάν λεπτά"
 
-#: Public/A2B_detail_package.php:517 Public/call-dnid.php:756
+#: Public/A2B_detail_package.php:517 Public/call-dnid.php:759
 msgid "TOTAL COSTS"
 msgstr "ΣΥΝΟΛΙΚΑ ΚΟΣΤΗ"
 
-#: Public/A2B_detail_package.php:518 Public/call-dnid.php:757
+#: Public/A2B_detail_package.php:518 Public/call-dnid.php:760
 msgid "TOTAL BUYCOSTS"
 msgstr "ΣΥΝΟΛΙΚΟ ΚΟΣΤΟΣ ΑΓΟΡΑΣ"
 
-#: Public/A2B_detail_package.php:519 Public/call-dnid.php:758
+#: Public/A2B_detail_package.php:519 Public/call-dnid.php:761
 msgid "DIFFERENCE"
 msgstr "ΔΙΑΦΟΡΑ"
 
@@ -10224,23 +10214,23 @@ msgstr "Πατήστε εδώ για να ξαναφορτώστε τον δια
 msgid "Asterisk has been reloaded."
 msgstr "Το Asterisk ξαναφορτώθηκε."
 
-#: Public/call-dnid.php:101
+#: Public/call-dnid.php:104
 msgid "COUNT"
 msgstr "ΜΕΤΡΗΜΑ"
 
-#: Public/call-dnid.php:102
+#: Public/call-dnid.php:105
 msgid "AVG Rate"
 msgstr "Μ.Ο. χρέωσης"
 
-#: Public/call-dnid.php:103
+#: Public/call-dnid.php:106
 msgid "AVG Sale"
 msgstr "Μέσος Όρος πωλήσεων"
 
-#: Public/call-dnid.php:122
+#: Public/call-dnid.php:125
 msgid " - DNID REPORT - "
 msgstr " - ΑΝΑΦΟΡΑ DNID - "
 
-#: Public/call-dnid.php:324
+#: Public/call-dnid.php:327
 msgid "Enter the account number"
 msgstr "Συμπληρώστε τον αριθμό λογαριασμού"
 
@@ -10463,139 +10453,139 @@ msgstr "νέες τιμές έχουν εισαχτεί"
 msgid "Please, you must first select a ratecard !"
 msgstr "Παρακαλώ, πρέπει πρώτα να επιλέξετε κάρτα τιμών"
 
-#: Public/CC_ratecard_import.php:224
+#: Public/CC_ratecard_import.php:222
 msgid "New rate cards have to be imported from a CSV file."
 msgstr "Νέες κάρτες τιμών πρέπει να εισαχτούν από αρχεία CSV"
 
-#: Public/CC_ratecard_import.php:229
+#: Public/CC_ratecard_import.php:227
 msgid "Choose the ratecard to import"
 msgstr "Επιλέξτε την κάρτα τιμών για εισαγωγή"
 
-#: Public/CC_ratecard_import.php:240
+#: Public/CC_ratecard_import.php:238
 msgid "Choose the trunk to use"
 msgstr "Επιλέξτε ποια τηλεφωνική γραμμή θα χρησιμοποιηθεί"
 
-#: Public/CC_ratecard_import.php:255
+#: Public/CC_ratecard_import.php:253
 msgid "dialprefix"
 msgstr "πρόθεμα κήσης"
 
-#: Public/CC_ratecard_import.php:257
+#: Public/CC_ratecard_import.php:255
 msgid "selling rate"
 msgstr "τιμής πώλησης"
 
-#: Public/CC_ratecard_import.php:270
+#: Public/CC_ratecard_import.php:268
 msgid "buyrate min duration"
 msgstr "ελάχιστη διάρκεια τιμής αγοράς"
 
-#: Public/CC_ratecard_import.php:271
+#: Public/CC_ratecard_import.php:269
 msgid "buyrate billing block"
 msgstr "μπλοκ τιμολόγησης τιμής αγοράς"
 
-#: Public/CC_ratecard_import.php:273
+#: Public/CC_ratecard_import.php:271
 msgid "sellrate min duration"
 msgstr "ελάχιστη διάρκεια τιμής πώλησης"
 
-#: Public/CC_ratecard_import.php:274
+#: Public/CC_ratecard_import.php:272
 msgid "sellrate billing block"
 msgstr "μπλοκ τιμολόγησης τιμής πώλησης"
 
-#: Public/CC_ratecard_import.php:276
+#: Public/CC_ratecard_import.php:274
 msgid "connect charge"
 msgstr "κόστος σύνδεσης"
 
-#: Public/CC_ratecard_import.php:277
+#: Public/CC_ratecard_import.php:275
 msgid "disconnect charge"
 msgstr "κόστος αποσύνδεσης"
 
-#: Public/CC_ratecard_import.php:278
+#: Public/CC_ratecard_import.php:276
 msgid "disconnect charge threshold"
 msgstr "κατώτερο όριο κόστους αποσύνδεσης"
 
-#: Public/CC_ratecard_import.php:280
+#: Public/CC_ratecard_import.php:278
 msgid "minimum call cost"
 msgstr "ελάχιστο κόστος κλήσης"
 
-#: Public/CC_ratecard_import.php:282
+#: Public/CC_ratecard_import.php:280
 msgid "step charge a"
 msgstr "Βηματική χρέωση α"
 
-#: Public/CC_ratecard_import.php:283
+#: Public/CC_ratecard_import.php:281
 msgid "charge a"
 msgstr "χρέωση α"
 
-#: Public/CC_ratecard_import.php:284
+#: Public/CC_ratecard_import.php:282
 msgid "time charge a"
 msgstr "χρονοχρέωση α"
 
-#: Public/CC_ratecard_import.php:285
+#: Public/CC_ratecard_import.php:283
 msgid "billing block a"
 msgstr "μπλοκ τιμολογησης α"
 
-#: Public/CC_ratecard_import.php:287
+#: Public/CC_ratecard_import.php:285
 msgid "step charge b"
 msgstr "Βηματική χρέωση β"
 
-#: Public/CC_ratecard_import.php:288
+#: Public/CC_ratecard_import.php:286
 msgid "charge b"
 msgstr "χρέωση β"
 
-#: Public/CC_ratecard_import.php:289
+#: Public/CC_ratecard_import.php:287
 msgid "time charge b"
 msgstr "χρονοχρέωση β"
 
-#: Public/CC_ratecard_import.php:290
+#: Public/CC_ratecard_import.php:288
 msgid "billing block b"
 msgstr "μπλοκ τιμολογησης β"
 
-#: Public/CC_ratecard_import.php:292
+#: Public/CC_ratecard_import.php:290
 msgid "step charge c"
 msgstr "Βηματική χρέωση γ"
 
-#: Public/CC_ratecard_import.php:293
+#: Public/CC_ratecard_import.php:291
 msgid "charge c"
 msgstr "χρέωση γ"
 
-#: Public/CC_ratecard_import.php:294
+#: Public/CC_ratecard_import.php:292
 msgid "time charge c"
 msgstr "χρονοχρέωση γ"
 
-#: Public/CC_ratecard_import.php:295
+#: Public/CC_ratecard_import.php:293
 msgid "billing block c"
 msgstr "μπλοκ τιμολογησης γ"
 
-#: Public/CC_ratecard_import.php:297
+#: Public/CC_ratecard_import.php:295
 msgid "start date"
 msgstr "ημερομηνία έναρξης"
 
-#: Public/CC_ratecard_import.php:298
+#: Public/CC_ratecard_import.php:296
 msgid "stop date"
 msgstr "ημερομηνία λήξης"
 
-#: Public/CC_ratecard_import.php:299
+#: Public/CC_ratecard_import.php:297
 msgid "additional grace"
 msgstr "ειπλέων χάρισμα"
 
-#: Public/CC_ratecard_import.php:300
+#: Public/CC_ratecard_import.php:298
 msgid "start time"
 msgstr "ώρα έναρξης"
 
-#: Public/CC_ratecard_import.php:301
+#: Public/CC_ratecard_import.php:299
 msgid "end time"
 msgstr "ώρα λήξης"
 
-#: Public/CC_ratecard_import.php:307
+#: Public/CC_ratecard_import.php:305
 msgid "announce time correction"
 msgstr "Αναγγελία διόρθωση χρόνου"
 
-#: Public/CC_ratecard_import.php:335
+#: Public/CC_ratecard_import.php:334
 msgid "Currency import as"
 msgstr "Εισαγωγή νομίσματος ως"
 
-#: Public/CC_ratecard_import.php:335
+#: Public/CC_ratecard_import.php:334
 msgid "Unit"
 msgstr "Μονάδα"
 
-#: Public/CC_ratecard_import.php:336
+#: Public/CC_ratecard_import.php:335
 msgid "Cents"
 msgstr "Λεπτά"
 
@@ -11824,3 +11814,21 @@ msgstr "ΠΡΟΣΘΗΚΗ ΑΝΤΙΚΕΙΜΕΝΟΥ ΑΠΟΔΕΙΞΗΣ"
 #: Public/A2B_receipt_edit.php:235
 msgid "PRICE : "
 msgstr "ΤΙΜΗ : "
+
+#~ msgid "We are sorry your transaction is failed. Please try later or check your provided information."
+#~ msgstr "Λυπούμαστε η συναλλαγή σας απέτυχε. Παρακαλούμε δοκιμάστε αργότερα ή ελέγξτε τα στοιχεία που δηλώσατε."
+
+#~ msgid "We are sorry your transaction is denied. Please try later or check your provided information."
+#~ msgstr "Λυπούμαστε η συναλλαγή σας απορρίφτηκε. Παρακαλούμε δοκιμάστε αργότερα ή ελέγξτε τα στοιχεία που δηλώσατε."
+
+#~ msgid "Your transaction is in progress."
+#~ msgstr "Η συναλλαγή σας επεξεργάζεται."
+
+#~ msgid "Your transaction was successful."
+#~ msgstr "Η συναλλαγή σας ήταν επιτυχής."
+
+#~ msgid "Last news"
+#~ msgstr "Τελευταίο νέα"
+
+#~ msgid "NEWS"
+#~ msgstr "ΝΕΑ"

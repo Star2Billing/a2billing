@@ -36,9 +36,7 @@ include '../lib/agent.defines.php';
 getpost_ifset(array('transactionID', 'sess_id', 'key', 'mc_currency', 'currency', 'md5sig', 'merchant_id', 'mb_amount', 'status', 'mb_currency',
                     'transaction_id', 'mc_fee', 'card_number'));
 
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ----EPAYMENT TRANSACTION START (ID)----");
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionKey=$key"." ----EPAYMENT TRANSACTION KEY----");
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-POST Var \n".print_r($_POST, true));
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."EPAYMENT : transactionID=$transactionID - transactionKey=$key \n -POST Var \n".print_r($_POST, true));
 
 if ($sess_id =="") {
     write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO SESSION ID PROVIDED IN RETURN URL TO PAYMENT MODULE");
@@ -70,7 +68,9 @@ if (DB_TYPE == "postgres") {
 }
 
 // Status - New 0 ; Proceed 1 ; In Process 2
-$QUERY = "SELECT id, agent_id, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, status, cvv, credit_card_type, currency FROM cc_epayment_log_agent WHERE id = ".$transactionID." AND (status = 0 OR (status = 2 AND $NOW_2MIN))";
+$QUERY = "SELECT id, agent_id, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, status, cvv, credit_card_type, currency " .
+         " FROM cc_epayment_log_agent " .
+         " WHERE id = ".$transactionID." AND (status = 0 OR (status = 2 AND $NOW_2MIN))";
 $transaction_data = $paymentTable->SQLExec ($DBHandle_max, $QUERY);
 $amount = $transaction_data[0][2];
 
@@ -92,8 +92,8 @@ if (!is_array($transaction_data) && count($transaction_data) == 0) {
 $security_verify = true;
 $transaction_detail = serialize($_POST);
 
-$currencyObject 	= new currencies();
-$currencies_list 	= get_currencies();
+$currencyObject = new currencies();
+$currencies_list = get_currencies();
 
 switch ($transaction_data[0][4]) {
     case "paypal":
@@ -116,8 +116,10 @@ switch ($transaction_data[0][4]) {
             sleep(3);
         }
 
-        $header .= "POST /cgi-bin/webscr HTTP/1.0\r\n";
+        // Headers PayPal system to validate
+        $header .= "POST /cgi-bin/webscr HTTP/1.1\r\n";
         $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+        $header .= "Host: www.paypal.com\r\n";
         $header .= "Content-Length: " . strlen ($req) . "\r\n\r\n";
         for ($i = 1; $i <=3; $i++) {
             write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-OPENDING HTTP CONNECTION TO ".PAYPAL_VERIFY_URL);
@@ -224,13 +226,19 @@ switch ($transaction_data[0][4]) {
         exit();
 }
 
-if(empty($transaction_data[0]['vat']) || !is_numeric($transaction_data[0]['vat'])) $VAT =0;
-else $VAT = $transaction_data[0]['vat'];
+if (empty($transaction_data[0]['vat']) || !is_numeric($transaction_data[0]['vat'])){
+    $VAT = 0;
+} else {
+    $VAT = $transaction_data[0]['vat'];
+}
+
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."curr amount $currAmount $currCurrency BASE_CURRENCY=".BASE_CURRENCY);
 $amount_paid = convert_currency($currencies_list, $currAmount, $currCurrency, BASE_CURRENCY);
 $amount_without_vat = $amount_paid / (1+$VAT/100);
 
 //If security verification fails then send an email to administrator as it may be a possible attack on epayment security.
 if ($security_verify == false) {
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- security_verify == False | END");
     try {
         //TODO: create mail class for agent
         $mail = new Mail('epaymentverify',null);
@@ -245,8 +253,7 @@ if ($security_verify == false) {
     // Add Post information / useful to track down payment transaction without having to log
     $mail->AddToMessage("\n\n\n\n"."-POST Var \n".print_r($_POST, true));
     $mail ->send(ADMIN_EMAIL);
-
-    exit;
+    exit();
 }
 
 $newkey = securitykey(EPAYMENT_TRANSACTION_KEY, $transaction_data[0][8]."^".$transactionID."^".$transaction_data[0][2]."^".$transaction_data[0][1]);
@@ -256,20 +263,17 @@ if ($newkey == $key) {
     write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."----NEW KEY =".$newkey." OLD KEY= ".$key." ------- Transaction Key Verification Failed:".$transaction_data[0][8]."^".$transactionID."^".$transaction_data[0][2]."^".$transaction_data[0][1]." ------------\n");
     exit();
 }
-
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ---------- TRANSACTION INFO ------------\n".print_r($transaction_data,1));
-
 $payment_modules = new payment($transaction_data[0][4]);
 // load the before_process function from the payment modules
 //$payment_modules->before_process();
 
-$QUERY = "SELECT id, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, currency FROM cc_agent WHERE id = '".$transaction_data[0][1]."'";
-$numrow = 0;
+$QUERY = "SELECT id, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, currency " .
+         "FROM cc_agent WHERE id = '".$transaction_data[0][1]."'";
 $resmax = $DBHandle_max -> Execute($QUERY);
-if ($resmax)
+if ($resmax) {
     $numrow = $resmax -> RecordCount();
-
-if ($numrow == 0) {
+} else {
     write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO SUCH CUSTOMER EXISTS, CUSTOMER ID = ".$transaction_data[0][1]);
     exit(gettext("No Such Customer exists."));
 }
@@ -280,7 +284,7 @@ $pmodule = $transaction_data[0][4];
 
 $orderStatus = $payment_modules->get_OrderStatus();
 
-$Query = "Insert into cc_payments_agent ( agent_id, agent_name, agent_email_address, item_name, item_id, item_quantity, payment_method, cc_type, cc_owner, cc_number, " .
+$Query = "INSERT INTO cc_payments_agent ( agent_id, agent_name, agent_email_address, item_name, item_id, item_quantity, payment_method, cc_type, cc_owner, cc_number, " .
             " cc_expires, orders_status, last_modified, date_purchased, orders_date_finished, orders_amount, currency, currency_value) values (" .
             " '".$transaction_data[0][1]."', '".$customer_info[3]." ".$customer_info[2]."', '".$customer_info["email"]."', 'balance', '".
             $customer_info[0]."', 1, '$pmodule', '".$_SESSION["p_cardtype"]."', '".$transaction_data[0][5]."', '".$transaction_data[0][6]."', '".
@@ -290,11 +294,10 @@ $result = $DBHandle_max -> Execute($Query);
 
 //************************UPDATE THE CREDIT IN THE CARD***********************
 $id = $customer_info[0];
-
 if ($id > 0) {
     $addcredit = $transaction_data[0][2];
     $instance_table = new Table("cc_agent", "");
-    $param_update .= " credit = credit+'".$amount_without_vat."'";
+    $param_update .= " credit = credit + '".$amount_without_vat."'";
     $FG_EDITION_CLAUSE = " id='$id'";
     $instance_table -> Update_table ($DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
     write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Update_table cc_card : $param_update - CLAUSE : $FG_EDITION_CLAUSE");
@@ -310,10 +313,7 @@ if ($id > 0) {
     $instance_sub_table = new Table("cc_logpayment_agent", $field_insert);
     $id_payment = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
     write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
-
 }
-
-//*************************END UPDATE CREDIT************************************
 
 $_SESSION["p_amount"] = null;
 $_SESSION["p_cardexp"] = null;
@@ -322,10 +322,10 @@ $_SESSION["p_cardtype"] = null;
 $_SESSION["p_module"] = null;
 $_SESSION["p_module"] = null;
 
-//Update the Transaction Status to 1
-$QUERY = "UPDATE cc_epayment_log_agent SET status = 1, transaction_detail ='".addslashes($transaction_detail)."' WHERE id = ".$transactionID;
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY = $QUERY");
+//Update the Transaction Status to 1 (Proceed 1)
+$QUERY = "UPDATE cc_epayment_log_agent SET status=1, transaction_detail='".addslashes($transaction_detail)."' WHERE id = ".$transactionID;
 $paymentTable->SQLExec ($DBHandle_max, $QUERY);
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY = $QUERY");
 
 switch ($orderStatus) {
     case -2:
