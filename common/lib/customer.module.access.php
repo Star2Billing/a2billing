@@ -69,6 +69,8 @@ if (strlen(RETURN_URL_DISTANT_LOGIN)>1) {
 }
 
 if (isset($_GET["logout"]) && $_GET["logout"]=="true") {
+    if(isset($_SESSION['stylefile']) && !empty($_SESSION['stylefile'])) 
+        $C_RETURN_URL_DISTANT_LOGIN .=  "cssname=" . $_SESSION['stylefile'];
     session_destroy();
     $cus_rights=0;
     Header ("HTTP/1.0 401 Unauthorized");
