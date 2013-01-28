@@ -1019,10 +1019,15 @@ class RateEngine
 
         if ($A2B->CC_TESTING) {
             $sessiontime = 120;
-            $dialstatus = 'ANSWERED';
+            $dialstatus = 'ANSWER';
         } else {
             $sessiontime = $this->answeredtime;
             $dialstatus = $this->dialstatus;
+        }
+
+        // add grace time if the call is Answered
+        if ($this->dialstatus == "ANSWER" && $additional_grace_time > 0) {
+            $sessiontime = $sessiontime + $additional_grace_time;
         }
 
         $A2B->debug(INFO, $agi, __FILE__, __LINE__, ":[sessiontime:$sessiontime - id_cc_package_offer:$id_cc_package_offer - package2apply:" . $this ->package_to_apply[$K] . "]\n\n");
@@ -1055,13 +1060,6 @@ class RateEngine
                 }
 
                 $this->rate_engine_calculcost($A2B, $sessiontime, 0);
-                // rate_engine_calculcost could have change the duration of the call
-                $sessiontime = $this->answeredtime;
-
-                // add grace time
-                if ($sessiontime > 0 && $additional_grace_time > 0) {
-                    $sessiontime = $sessiontime + $additional_grace_time;
-                }
 
                 $QUERY_FIELS = 'id_cc_card, id_cc_package_offer, used_secondes';
                 $QUERY_VALUES = "'" . $A2B->id_card . "', '$id_package_offer', '$this->freetimetocall_used'";

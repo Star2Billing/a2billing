@@ -253,15 +253,13 @@ function sanitize_data($input)
         }
     } else {
 
-        // remove whitespaces (not a must though)
+        // Remove whitespaces (not a must though)
         $input = trim($input);
-
         $input = str_replace('--', '', $input);
         $input = str_replace(';', '', $input);
-        $input = str_replace('#', '', $input);
         $input = str_replace('/*', '', $input);
 
-        #injection sql
+        // Injection sql
         $input = str_ireplace('HAVING', '', $input);
         $input = str_ireplace('UNION', '', $input);
         $input = str_ireplace('SUBSTRING', '', $input);
@@ -272,7 +270,6 @@ function sanitize_data($input)
         $input = str_ireplace('ROW_COUNT', '', $input);
         $input = str_ireplace('SELECT', '', $input);
         $input = str_ireplace('UPDATE', '', $input);
-        #$input = str_ireplace('DELETE', '', $input);
 
         if (!(stripos($input, ' or 1') === FALSE)) {
             return false;
