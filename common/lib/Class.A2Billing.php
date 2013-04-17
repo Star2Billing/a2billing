@@ -2463,7 +2463,7 @@ class A2Billing
             return '';
         }
         $QUERY = "";
-        if ($this->agiconfig['cid_sanitize'] == "CID" || $this->agiconfig['cid_sanitize'] == "BOTH") {
+        if (strcasecmp($this->agiconfig['cid_sanitize'], 'CID') == 0 || strcasecmp($this->agiconfig['cid_sanitize'], 'BOTH') == 0) {
             $QUERY .= "SELECT cc_callerid.cid " .
                 " FROM cc_callerid " .
                 " JOIN cc_card ON cc_callerid.id_cc_card = cc_card.id " .
@@ -2527,14 +2527,19 @@ class A2Billing
             } elseif (strlen($this->CallerID) >= 1) {
                 if ($this->CallerID == $this->accountcode) {
                     $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[Overwrite callerID security : " . $this->CallerID . "]");
-                    $this->CallerID = '0';
+
+                    if ($agi->request['agi_calleridname'] == $this->accountcode) {
+                        $this->CallerID = '0';
+                    } else {
+                        $this->CallerID = $agi->request['agi_calleridname'];
+                    }
                 } else {
                     $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[REQUESTED SetCallerID : " . $this->CallerID . "]");
                 }
 
                 // IF REQUIRED, VERIFY THAT THE CALLERID IS LEGAL
                 $cid_sanitized = $this->CallerID;
-                if ($this->agiconfig['cid_sanitize'] == 'DID' || $this->agiconfig['cid_sanitize'] == 'CID' || $this->agiconfig['cid_sanitize'] == 'BOTH') {
+                if (strcasecmp($this->agiconfig['cid_sanitize'], 'DID') == 0 || strcasecmp($this->agiconfig['cid_sanitize'], 'CID') == 0 || strcasecmp($this->agiconfig['cid_sanitize'], 'BOTH') == 0) {
                     $cid_sanitized = $this->callingcard_cid_sanitize($agi);
                     $this->debug(WRITELOG, $agi, __FILE__, __LINE__, "[TRY : callingcard_cid_sanitize]");
                     if ($this->agiconfig['debug'] >= 1) $agi->verbose('CALLERID SANITIZED: "' . $cid_sanitized . '"');
