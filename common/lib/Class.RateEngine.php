@@ -1390,8 +1390,9 @@ class RateEngine
                     $maxuse              = $result[0][7];
                     $ifmaxuse            = $result[0][8];
 
-                    if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0)
+                    if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) {
                         $destination = substr($destination, strlen($removeprefix));
+                    }
 
                     // Check if we will be able to use this route:
                     //  if the trunk is activated and
@@ -1456,8 +1457,11 @@ class RateEngine
 
                 }
                 // IF THE FAILOVER TRUNK IS SAME AS THE ACTUAL TRUNK WE BREAK
-                if ($next_failover_trunk == $failover_trunk) break;
-                else $failover_trunk = $next_failover_trunk;
+                if ($next_failover_trunk == $failover_trunk) {
+                    break;
+                } else {
+                    $failover_trunk = $next_failover_trunk;
+                }
 
             } // END FOR LOOP FAILOVER
 
