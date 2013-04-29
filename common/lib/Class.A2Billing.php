@@ -2149,7 +2149,7 @@ class A2Billing
         $credit_cur = $rate / $mycur;
 
         list($units, $cents) = preg_split('/[.]/', $credit_cur);
-        if (substr($cents, 2) > 0) $point = substr($cents, 2);
+        if (substr($cents, 2) > 0) $point = substr($cents, 2, 1);
         if (strlen($cents) > 2) $cents = substr($cents, 0, 2);
         if ($units == '') $units = 0;
         if ($cents == '') $cents = 0;
