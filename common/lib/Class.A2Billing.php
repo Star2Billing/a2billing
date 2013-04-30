@@ -2646,7 +2646,8 @@ class A2Billing
                     " LEFT JOIN cc_card ON cc_callerid.id_cc_card = cc_card.id " .
                     " LEFT JOIN cc_tariffgroup ON cc_card.tariff = cc_tariffgroup.id " .
                     " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
-                    " WHERE cc_callerid.cid = '" . $this->CallerID . "'";
+                    " LEFT JOIN cc_provider ON cc_card.id = cc_provider.id_cc_card " .
+				    " WHERE cc_callerid.cid = '" . $this->CallerID . "' AND cc_provider.id IS NULL";					
             $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, print_r($result, true));
 
@@ -2875,7 +2876,8 @@ class A2Billing
                                 " FROM cc_card " .
                                 " LEFT JOIN cc_tariffgroup ON tariff = cc_tariffgroup.id " .
                                 " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
-                                " WHERE username = '" . $this->cardnumber . "'";
+                                " LEFT JOIN cc_provider ON cc_card.id = cc_provider.id_cc_card " .
+								" WHERE username = '" . $this->cardnumber . "' AND cc_provider.id IS NULL";
                     $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
                     $this->debug(DEBUG, $agi, __FILE__, __LINE__, ' - Retrieve account info SQL ::> ' . $QUERY);
 
@@ -3070,7 +3072,8 @@ class A2Billing
                             " voicemail_activated, cc_card.restriction, cc_country.countryprefix " .
                             " FROM cc_card LEFT JOIN cc_tariffgroup ON tariff = cc_tariffgroup.id " .
                             " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
-                            " WHERE username = '" . $this->cardnumber . "'";
+                            " LEFT JOIN cc_provider ON cc_card.id = cc_provider.id_cc_card " .
+							" WHERE username = '" . $this->cardnumber . "' AND cc_provider.id IS NULL";
 
                 $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, print_r($result, true));
@@ -3301,7 +3304,8 @@ class A2Billing
                         " cc_card.restriction, cc_country.countryprefix " .
                         " FROM cc_card LEFT JOIN cc_tariffgroup ON tariff = cc_tariffgroup.id " .
                         " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
-                        " WHERE username = '" . $this->cardnumber . "'";
+						" LEFT JOIN cc_provider ON cc_card.id = cc_provider.id_cc_card " .
+						" WHERE username = '" . $this->cardnumber . "' AND cc_provider.id IS NULL";						
 
             $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, print_r($result, true));
@@ -3416,7 +3420,9 @@ class A2Billing
                     " voicemail_permitted, voicemail_activated, cc_card.restriction, cc_country.countryprefix " .
                     " FROM cc_card LEFT JOIN cc_tariffgroup ON tariff = cc_tariffgroup.id " .
                     " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
-                    " WHERE username = '" . $this->cardnumber . "'";
+                    " LEFT JOIN cc_provider ON cc_card.id = cc_provider.id_cc_card " .
+					" WHERE username = '". $this->cardnumber . "' AND cc_provider.id IS NULL";
+					
         $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
 
         if (!is_array($result)) {

@@ -33,7 +33,7 @@
 
 
 
-getpost_ifset(array('id', 'trunkcode', 'trunkprefix', 'removeprefix', 'providertech', 'providerip', 'addparameter','failover_trunk', 'id_provider', 'popup_select', 'inuse', 'maxuse', 'status', 'if_max_use'));
+getpost_ifset(array('id', 'trunkcode', 'trunkprefix', 'removeprefix', 'providertech', 'providerip', 'addparameter','failover_trunk', 'id_provider', 'popup_select', 'inuse', 'maxuse', 'status', 'if_max_use', 'minutes_per_day', 'attempt_statuses', 'attempt_condition', 'attempt_count'));
 
 $DBHandle  = DbConnect();
 $instance_table = new Table();
@@ -77,6 +77,10 @@ $maxuse_behaviour_list = array();
 $maxuse_behaviour_list["0"] = array( gettext("Use failover trunk"), "0");
 $maxuse_behaviour_list["1"] = array( gettext("Use next trunk"), "1");
 
+$attempt_cond_list = array();
+$attempt_cond_list["0"] = array( gettext("Dialstatus in the list"), "0");
+$attempt_cond_list["1"] = array( gettext("Dialstatus not in the list"), "1");
+
 // Dependent Tables
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;
 $HD_Form -> FG_FK_DELETE_CONFIRM = true;
@@ -103,8 +107,9 @@ if ($popup_select) {
 	$HD_Form -> AddViewElement(gettext("MINUTES USED"), "secondusedreal", "%9", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 	$HD_Form -> AddViewElement(gettext("STATUS"), "status", "7%", "center", "sort", "", "list", $actived_list);
 	$HD_Form -> AddViewElement(gettext("MAXUSE"), "maxuse" , "5%", "center", "sort");
+    $HD_Form -> AddViewElement(gettext("Minutes/day"), "minutes_per_day" , "5%", "center", "sort");
 
-	$HD_Form -> FieldViewElement ('trunkcode, trunkprefix, removeprefix, providertech, providerip, id_provider, secondusedreal, status, maxuse');
+	$HD_Form -> FieldViewElement ('trunkcode, trunkprefix, removeprefix, providertech, providerip, id_provider, secondusedreal, status, maxuse, minutes_per_day');
 }
 
 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
@@ -142,9 +147,15 @@ if ($popup_select) {
 
 $def_value_inuse = '';
 $def_value_maxuse = '';
+$def_value_minutes = '';
+$def_value_attempts = '';
+$def_value_statuses = '';
 if (isset($form_action) && $form_action=="ask-add"){
-	$def_value_inuse = "value='0'";
-	$def_value_maxuse = "value='-1'";
+    $def_value_inuse = "value='0'";
+    $def_value_maxuse = "value='-1'";
+    $def_value_minutes = "value='0'";
+    $def_value_attempts = "value='0'";
+    $def_value_statuses = "value='CHANUNAVAIL,CONGESTION'";
 }
 
 $HD_Form -> AddEditElement (gettext("VOIP-PROVIDER"),
@@ -257,8 +268,43 @@ $HD_Form -> AddEditElement ("STATUS",
 	"",
 	"list" , "", "", "", $actived_list, "%1" , "", gettext("Define if this trunk is active or not"));
 
+$HD_Form -> AddEditElement ("Minutes/day",
+	"minutes_per_day",
+	"",
+	"INPUT",
+	"size=9 $def_value_minutes maxlength=30",
+	"12",
+	"",
+	"" , "", "", "", "", "", "", gettext("Number of maximum minutes to the gateway per day"));
+    
+$HD_Form -> AddEditElement ("Attempts",
+	"attempt_count",
+	"",
+	"INPUT",
+	"size=9 $def_value_attempts maxlength=30",
+	"12",
+	"",
+	"" , "", "", "", "", "", "", gettext("Additional attempts according attempt condition. To disable - set to 0 (zero)"));
 
-$HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk, inuse, maxuse, if_max_use, status');
+$HD_Form -> AddEditElement ("Attempt condition",
+	"attempt_condition",
+	'$value',
+	"SELECT",
+	"",
+	"",
+	"",
+	"list" , "", "", "", $attempt_cond_list, "%1" , "", gettext("Condition for checking the dialstatus"));
+
+$HD_Form -> AddEditElement ("Attempt dial status(es)",
+	"attempt_statuses",
+	"$value",
+	"INPUT",
+	"size=100 $def_value_statuses maxlength=255",
+	"0",
+	"",
+	"" , "", "", "", "", "", "", gettext("The list of dialstatuses (comma (,) as separator). Use any of: ANSWER,BUSY,NOANSWER,CONGESTION,CHANUNAVAIL,DONTCALL,TORTURE,INVALIDARGS"));
+
+$HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk, inuse, maxuse, if_max_use, status, minutes_per_day, attempt_count, attempt_condition, attempt_statuses');
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the trunk below.");

@@ -33,7 +33,7 @@
 
 
 
-getpost_ifset(array('id', 'provider_name', 'creationdate', 'description', 'popup_select'));
+getpost_ifset(array('id', 'provider_name', 'creationdate', 'description', 'popup_select', 'id_cc_card'));
 
 $HD_Form = new FormHandler("cc_provider","Provider");
 
@@ -51,7 +51,8 @@ if ($popup_select)
 $HD_Form -> AddViewElement(gettext("PROVIDER NAME"), "provider_name", "25%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "20%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "30%", "center", "sort", "30");
-$HD_Form -> FieldViewElement (($popup_select ? 'id,' : '') . 'provider_name, creationdate, description');
+$HD_Form -> AddViewElement(gettext("CARDHOLDER"), "id_cc_card", "17%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");
+$HD_Form -> FieldViewElement (($popup_select ? 'id,' : '') . 'provider_name, creationdate, description, id_cc_card');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO PROVIDERS CREATED!"); 
@@ -80,6 +81,11 @@ if ($popup_select) {
 	$HD_Form -> FG_ADDITION = true;
 }
 
+$def_value_idcard = '';
+if (isset($form_action) && $form_action=="ask-add"){
+    $def_value_idcard = "value='0'";
+}
+
 $HD_Form -> AddEditElement ( gettext("PROVIDER NAME"),	
 		"provider_name",	'$value',	
 		"INPUT",
@@ -98,7 +104,19 @@ $HD_Form -> AddEditElement ( gettext("DESCRIPTION"),
 		gettext("Insert the description"), 
 		"" , "", "",	"", "", "", "", "");
 
-$HD_Form -> FieldEditElement ('provider_name, description');
+$HD_Form -> AddEditElement (gettext("ID CARD"),
+        "id_cc_card",
+        '',
+        "POPUPVALUE",
+        "size=30 maxlength=50 $def_value_idcard",
+        "4",
+        gettext("Insert the Id CardNumber"),
+        "", "", "", "", "",
+        "A2B_entity_card.php?popup_select=1&"
+        , ", 'CardNumberSelection','width=590,height=350,top=20,left=100,scrollbars=1'",
+        gettext("Insert the card ID."));
+        
+$HD_Form -> FieldEditElement ('provider_name, description, id_cc_card');
 
 
 

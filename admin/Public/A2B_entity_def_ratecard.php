@@ -48,7 +48,7 @@ getpost_ifset(array('package','popup_select', 'popup_formname', 'popup_fieldname
 /********************************* BATCH UPDATE ***********************************/
 getpost_ifset(array ( 'batchupdate', 'upd_id_trunk', 'upd_idtariffplan', 'upd_id_outbound_cidgroup', 'upd_tag', 'upd_inuse', 'upd_activated', 'upd_language',
     'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate',
-    'upd_expiredays', 'upd_runservice', 'filterprefix', 'filterfield'
+    'upd_expiredays', 'upd_runservice', 'filterprefix', 'filterfield', 'upd_is_disabled'
 ));
 
 $update_fields = array (
@@ -310,7 +310,19 @@ if ($form_action == "list" && !$popup_select) {
         <INPUT type="hidden" name="form_action" value="<?php echo $form_action?>">
         <INPUT type="hidden" name="filterprefix" value="<?php echo $filterprefix?>">
         <INPUT type="hidden" name="filterfield" value="<?php echo $filterfield?>">
-        <tr>
+		<tr>
+          <td align="left" class="bgcolor_001">
+		  		<input name="check[upd_is_disabled]" type="checkbox" <?php if ($check["upd_is_disabled"]=="on") echo "checked"?>>
+		  </td>
+		  <td align="left"  class="bgcolor_001">
+				<font class="fontstyle_009">*) <?php echo gettext("DISABLED");?> :</font> 
+				<select NAME="upd_is_disabled" size="1" class="form_enter" >
+					<option class=input value='0' <?php if ($upd_is_disabled=='0') echo 'selected="selected"'?>><?php echo gettext("no");?></option>
+                    <option class=input value='1' <?php if ($upd_is_disabled=='1') echo 'selected="selected"'?>><?php echo gettext("yes");?></option>
+				</select>
+			</td>
+		</tr>
+		<tr>
           <td align="left" class="bgcolor_001">
                   <input name="check[upd_id_trunk]" type="checkbox" <?php if ($check["upd_id_trunk"]=="on") echo "checked"?>>
           </td>

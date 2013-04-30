@@ -38,7 +38,7 @@ getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate'
 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'startdate', 'stopdate',
 'starttime', 'endtime', 'id_trunk', 'musiconhold','tariffplan', 'tariffgroup','posted','id_outbound_cidgroup','rounding_calltime',
 'rounding_threshold', 'additional_block_charge', 'additional_block_charge_time', 'additional_grace','minimal_cost','announce_time_correction',
-'cancelsearch_callplanlcr', 'deleteselected'));
+'cancelsearch_callplanlcr', 'deleteselected', 'is_disabled'));
 
 // put all the destination name to lowercase
 $destination = strtolower ($destination);
@@ -115,6 +115,7 @@ $yesno = Constants::getYesNoList();
 if ($popup_select) $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "17%", "center", "", "15");
 $HD_Form -> AddViewElement("<acronym title=\"DIALING PREFIX\">".gettext("PREFIX")."</acronym>", "dialprefix", "10%", "center", "sort", "");
+$HD_Form -> AddViewElement(gettext("Disabled"), "is_disabled", "", "center", "", "", "list", $yesno);
 $HD_Form -> AddViewElement("<acronym title=\"BUYING RATE\">".gettext("BR")."</acronym>", "buyrate", "4%", "center", "sort");
 $HD_Form -> AddViewElement("<acronym title=\"SELLING RATE\">".gettext("SR")."</acronym>", "rateinitial", "4%", "center", "sort");
 if (!$popup_select) $HD_Form -> AddViewElement(gettext("START-DATE"), "startdate", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
@@ -127,14 +128,14 @@ if (!$popup_select) $HD_Form -> AddViewElement(gettext("RATE CARD"), "idtariffpl
 
 if (!$popup_select) {
 	if ($use_lcr_callplan)
-		$HD_Form -> FieldViewElement ('destination, dialprefix, buyrate, '.$rateinitial_field.', startdate, stopdate, initblock, connectcharge, id_trunk , idtariffplan ');
+		$HD_Form -> FieldViewElement ('destination, dialprefix, is_disabled, buyrate, '.$rateinitial_field.', startdate, stopdate, initblock, connectcharge, id_trunk , idtariffplan ');
 	else
-		$HD_Form -> FieldViewElement ('cc_prefix.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, cc_ratecard.rateinitial, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.initblock, cc_ratecard.connectcharge, cc_ratecard.id_trunk , cc_ratecard.idtariffplan ');
+		$HD_Form -> FieldViewElement ('cc_prefix.destination, cc_ratecard.dialprefix, cc_ratecard.is_disabled, cc_ratecard.buyrate, cc_ratecard.rateinitial, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.initblock, cc_ratecard.connectcharge, cc_ratecard.id_trunk , cc_ratecard.idtariffplan ');
 } else {
 	if ($use_lcr_callplan)
-		$HD_Form -> FieldViewElement ('id, destination, dialprefix, buyrate, '.$rateinitial_field);
+		$HD_Form -> FieldViewElement ('id, destination, dialprefix, is_disabled, buyrate, '.$rateinitial_field);
 	else
-		$HD_Form -> FieldViewElement ('id, cc_prefix.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, '.$rateinitial_field);
+		$HD_Form -> FieldViewElement ('id, cc_prefix.destination, cc_ratecard.dialprefix, cc_ratecard.is_disabled, cc_ratecard.buyrate, '.$rateinitial_field);
 }
 
 if ($popup_select) {
@@ -213,6 +214,17 @@ $HD_Form -> AddEditElement(gettext("Destination Prefix"),
    "",
    "" , "", "",	"", "" , "A2B_entity_prefix.php?popup_select=2&", ", 'prefix','width=650,height=400,top=20,left=100,scrollbars=1'",
    gettext("Select the prefix destination corresponding to your prefix rate.").'<br>'.gettext("This is the label that appears against the Call Detail Record."));
+
+$value_list = array();
+$value_list["1"] = array(gettext("yes"), 1);
+$value_list["2"] = array(gettext("no"), 0);
+
+$HD_Form -> AddEditElement (gettext("Disabled"),
+   "is_disabled",
+   "",
+   "SELECT",
+   "","","",
+   "list" , "", "",	"", $value_list, "%1", "", "" );
 
 /*
 $HD_Form -> AddEditElement(gettext("Destination Prefix"),
@@ -612,10 +624,10 @@ if (ADVANCED_MODE) {
 
 if (ADVANCED_MODE) {
 	// This Variable store the argument for the SQL query
-	$HD_Form -> FieldEditElement ('cc_ratecard.idtariffplan, dialprefix, cc_ratecard.destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge,disconnectcharge_after, minimal_cost, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc,announce_time_correction, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time,additional_grace, id_trunk, id_outbound_cidgroup, tag, musiconhold');
+	$HD_Form -> FieldEditElement ('cc_ratecard.idtariffplan, dialprefix, cc_ratecard.destination, cc_ratecard.is_disabled, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge,disconnectcharge_after, minimal_cost, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc,announce_time_correction, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time,additional_grace, id_trunk, id_outbound_cidgroup, tag, musiconhold');
 } else {
 	// This Variable store the argument for the SQL query
-	$HD_Form -> FieldEditElement ('cc_ratecard.idtariffplan, dialprefix, cc_ratecard.destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge,disconnectcharge_after, minimal_cost, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time,additional_grace, id_trunk, id_outbound_cidgroup, tag');
+	$HD_Form -> FieldEditElement ('cc_ratecard.idtariffplan, dialprefix, cc_ratecard.destination, cc_ratecard.is_disabled, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge,disconnectcharge_after, minimal_cost, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time,additional_grace, id_trunk, id_outbound_cidgroup, tag');
 }
 
 
