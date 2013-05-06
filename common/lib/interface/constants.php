@@ -595,4 +595,15 @@ class constants
         return $musiconhold_list;
     }
 
+    public static function getTrunkAlgoList()
+    {
+        $list = array();
+        $list["0"] = array( gettext("Use default"), "0");
+        $list["1"] = array( gettext("Trunks list : priority"), "1");
+		$list["2"] = array( gettext("Trunks list : random"), "2");
+		$list["3"] = array( gettext("Trunks list : load balance"), "3");
+
+        return $list;
+    }
+	
 }

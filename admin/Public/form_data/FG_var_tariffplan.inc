@@ -56,6 +56,7 @@ $HD_Form -> FG_FK_TABLENAMES = array("cc_ratecard");
 $HD_Form -> FG_FK_EDITION_CLAUSE = array(" idtariffplan ");
 $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You are going as well to remove all the rates attached to this ratecard! Please comfirm that you really want to remove this ratecard and those rates ? ");
 
+$trunk_algo_list = Constants::getTrunkAlgoList();
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "4%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("TARIFFNAME"), "tariffname", "18%", "center", "sort");
@@ -89,12 +90,14 @@ $HD_Form -> AddEditElement (gettext("TARIFFNAME"),
 	gettext("Insert the tariff name "),
 	"" , "", "",	"", "", "", "",	"");
 
+$def_value_trunkalgo = '';
 if ($form_action=="ask-add"){
 	$begin_date = date("Y");
 	$begin_date_plus = date("Y") + 10;
 	$end_date = date("-m-d H:i:s");
 	$comp_date = "value='".$begin_date.$end_date."'";
 	$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
+	$def_value_trunkalgo = "value='0'";
 }
 
 $HD_Form -> AddEditElement (gettext("START DATE"),
@@ -158,8 +161,39 @@ $HD_Form -> AddEditElement (gettext("CALLERID PREFIX"),
 	gettext("Insert the dnid prefix"),
 	"" , "", "",	"", "" , "", "", gettext("Set the CallerID rules to choose the ratecard 'calleridprefix', by default, matches all callerID. For instance, Set the calleridprefix to 900540540 to choose this ratecard when the CallerID is 900540540."));
 
+$HD_Form -> AddEditElement (gettext("TRUNK SELECT ALGO"),
+	"trunk_algo",
+	'$value',
+	"SELECT",
+	"$def_value_trunkalgo",
+	"",
+	"",
+	"list" , "", "", "", $trunk_algo_list, "%1", "", gettext("Trunk selection algorithm. Use default for the standard functionality."));
 
-$HD_Form -> FieldEditElement ('tariffname, startingdate, expirationdate, id_trunk, description, dnidprefix, calleridprefix');
+
+	
+$DBHandle_max  = DbConnect();
+$numrow = 0;
+$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_trunk");
+if ( $resmax )
+	$numrow = $resmax -> RecordCount( );
+
+if ($numrow>0){ 
+	$HD_Form -> AddEditElement (gettext("TRUNKS"),
+		"trunk",	
+		'$value',	
+		"SELECT",		
+		'size="10" multiple="multiple"',
+		"",		
+		"",	
+		"sql",		
+		"cc_tariffplan_trunk",	
+		"label, id",
+		"", "", "%1 : (%2)", "", "", "cc_tariffplan_trunk:idtrunk:cc_trunk LEFT JOIN cc_tariffplan_trunk ON cc_trunk.id_trunk=cc_tariffplan_trunk.idtrunk:DISTINCT cc_trunk.trunkcode, cc_trunk.id_trunk: cc_tariffplan_trunk.idtariffplan = %id:idtariffplan:%2 - (%1)::::%1:id='%1'");	
+}
+
+	
+$HD_Form -> FieldEditElement ('tariffname, startingdate, expirationdate, id_trunk, description, dnidprefix, calleridprefix, trunk_algo');
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the rate card.");

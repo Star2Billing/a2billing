@@ -31,11 +31,12 @@
  *
 **/
 
-alter table `cc_trunk` 
+alter table `cc_trunk`
 	add column `minutes_per_day` int(11)   NULL DEFAULT '0' after `if_max_use`, 
 	add column `attempt_statuses` varchar(255)  COLLATE utf8_bin NULL DEFAULT 'CHANUNAVAIL,CONGESTION' after `minutes_per_day`, 
 	add column `attempt_condition` int(11) unsigned   NULL DEFAULT '0' after `attempt_statuses`, 
-	add column `attempt_count` int(11) unsigned   NULL DEFAULT '0' after `attempt_condition`, COMMENT='';
+	add column `attempt_count` int(11) unsigned   NULL DEFAULT '0' after `attempt_condition`, COMMENT='',
+	add column `priority` int(11)   NULL DEFAULT '0' after `attempt_count`, COMMENT='';
 
 create table `cc_trunk_counter`(
 	`id_trunk` int(10) unsigned NOT NULL   , 
@@ -50,4 +51,11 @@ alter table `cc_provider`
 alter table `cc_ratecard`
 	add column `is_disabled` int(1) unsigned   NOT NULL DEFAULT '0' after `destination`, COMMENT='';
 
+alter table `cc_tariffplan` 
+	add column `trunk_algo` int(10) unsigned   NULL DEFAULT '0' after `calleridprefix`, COMMENT='';
 
+create table `cc_tariffplan_trunk`(
+	`idtariffplan` int(11) NOT NULL, 
+	`idtrunk` int(11) NOT NULL, 
+	PRIMARY KEY (`idtariffplan`,`idtrunk`) 
+)Engine=MyISAM DEFAULT CHARSET='utf8';

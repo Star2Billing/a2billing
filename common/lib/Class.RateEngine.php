@@ -174,10 +174,13 @@ class RateEngine
         AND (dnidprefix = SUBSTRING('$mydnid', 1, length(dnidprefix)) OR (dnidprefix = 'all' $DNID_SUB_QUERY))
         AND (calleridprefix = SUBSTRING('$mycallerid', 1, length(calleridprefix)) OR (calleridprefix = 'all' $CID_SUB_QUERY))
 
-        " . ($A2B->id_card > 0 ? "AND ( tp_provider.id_cc_card != '" . $A2B->id_card . "' AND rt_provider.id_cc_card != '" . $A2B->id_card . "' )" : "") . "
+		" . ($A2B->id_card > 0 ? "
+		AND ( IF(!isNull(tp_provider.id_cc_card), tp_provider.id_cc_card != '" . $A2B->id_card . "', 1) AND IF(!isNull(rt_provider.id_cc_card), rt_provider.id_cc_card != '" . $A2B->id_card . "', 1))
+		" : "") . "
 		
 		ORDER BY LENGTH(dialprefix) DESC";
 
+		//$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
         $A2B->instance_table = new Table();
         $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
 
@@ -1251,6 +1254,215 @@ class RateEngine
         return 0;
     }
 
+	/*
+	* Perform call with using tariffplan's trunks list
+	*/
+	public function rate_engine_performcall_algo($k, &$tp, $agi, $destination, &$A2B, $typecall = 0) {
+		
+		if (!is_array($tp) || !isset($tp['id'])) {
+			$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[BAD TARIFFPLAN!]");
+			return false;
+		}
+		
+		$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[TARIFFPLAN ID = {$tp['id']}]");
+		
+		$algo = "";
+		if ($tp['trunk_algo'] == 1) { // priority
+			$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[SELECT ALGO = PRIORITY]");
+			$algo = "t.priority asc";
+		} else if ($tp['trunk_algo'] == 2) { // random
+			$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[SELECT ALGO = RANDOM]");
+			$algo = "rand()";
+		} else if ($tp['trunk_algo'] == 3) { // load balance
+			$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[SELECT ALGO = LOAD BALANCE]");
+			$algo = "t.inuse asc, rand()";
+		}
+		
+		// getting trunks by algo
+		$A2B->instance_table = new Table();
+		$QUERY = "select * from cc_trunk t where t.id_trunk in (select tp_t.idtrunk from cc_tariffplan_trunk tp_t where tp_t.idtariffplan = '" . $tp['id'] . "') and t.status = 1 order by $algo";
+		$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
+		$trunks = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
+		
+		if (!is_array($trunks) || count($trunks) == 0) {
+			$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[TRUNKS NOT DEFINED!]");
+			return false;
+		}
+		
+		// dial to trunks list by algo
+		$i = 1;
+		$max_long = 36000000; //Maximum 10 hours
+		$old_destination = $destination;
+		foreach ($trunks as &$t) {
+			$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[USING TRUNK: POSITION=$i, TRUNK_ID={$t['id_trunk']}, TRUNK_PRIORITY={$t['priority']}]");
+			
+			$destination         = $old_destination;
+            $prefix              = $t['trunkprefix'];
+            $tech                = $t['providertech'];
+            $ipaddress           = $t['providerip'];
+            $removeprefix        = $t['removeprefix'];
+            $timeout             = $this->ratecard_obj[$k]['timeout'];
+            $musiconhold         = $this->ratecard_obj[$k][39];
+            $addparameter        = $t['addparameter'];
+            $cidgroupid          = $this->ratecard_obj[$k][44];
+            $inuse               = $t['inuse'];
+            $maxuse              = $t['maxuse'];
+            $ifmaxuse            = $t['if_max_use'];
+            $minutes_per_day     = intval($t['minutes_per_day']);
+            $attempt_statuses    = strtolower(preg_replace("/\s/", '', $t['attempt_statuses']));
+            $attempt_condition   = $t['attempt_condition'];
+            $attempt_count       = $t['attempt_count'];
+
+            // check minutes per day
+            $minutes_per_day_reached = false;
+            if ($minutes_per_day > 0) {
+                $QUERY = "select * from cc_trunk_counter where id_trunk = '$trunk_id' and calldate = CURDATE() and ((seconds / 60) >= $minutes_per_day ) limit 1";
+                $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
+                $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
+                $minutes_per_day_reached = (is_array($result) && count($result) > 0);
+            }
+            
+            if (($maxuse == -1 || $inuse < $maxuse) && !$minutes_per_day_reached) {
+			
+				if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0)
+					$destination = substr($destination, strlen($removeprefix));
+
+				if ($typecall == 1) $timeout = $A2B->config["callback"]['predictivedialer_maxtime_tocall'];
+
+				$dialparams = str_replace("%timeout%", min($timeout * 1000, $max_long), $A2B->agiconfig['dialcommand_param']);
+				$dialparams = str_replace("%timeoutsec%", min($timeout, $max_long), $dialparams);
+
+				if (strlen($musiconhold) > 0 && $musiconhold != "selected") {
+					$dialparams .= "m";
+					$myres = $agi->exec("SETMUSICONHOLD $musiconhold");
+					$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "EXEC SETMUSICONHOLD $musiconhold");
+				}
+				
+				if ($A2B->agiconfig['record_call'] == 1) {
+					$command_mixmonitor = "MixMonitor {$A2B->uniqueid}.{$A2B->agiconfig['monitor_formatfile']}|b";
+					$command_mixmonitor = $A2B->format_parameters($command_mixmonitor);
+					$myres = $agi->exec($command_mixmonitor);
+					$A2B->debug(INFO, $agi, __FILE__, __LINE__, $command_mixmonitor);
+				}				
+
+				$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%');
+
+				$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
+				$ipaddress = str_replace("%dialingnumber%", $prefix . $destination, $ipaddress);
+
+				if ($pos_dialingnumber !== false) {
+					$dialstr = "$tech/$ipaddress" . $dialparams;
+				} else {
+					if ($A2B->agiconfig['switchdialcommand'] == 1) {
+						$dialstr = "$tech/$prefix$destination@$ipaddress" . $dialparams;
+					} else {
+						$dialstr = "$tech/$ipaddress/$prefix$destination" . $dialparams;
+					}
+				}
+
+				//ADDITIONAL PARAMETER             %dialingnumber%, %cardnumber%
+				if (strlen($addparameter) > 0) {
+					$addparameter = str_replace("%cardnumber%", $A2B->cardnumber, $addparameter);
+					$addparameter = str_replace("%dialingnumber%", $prefix . $destination, $addparameter);
+					$dialstr .= $addparameter;
+				}
+
+				$A2B->debug(INFO, $agi, __FILE__, __LINE__, "app_callingcard: Dialing '$dialstr' with timeout of '$timeout'.\n");
+
+				//# Channel: technology/number@ip_of_gw_to PSTN
+				//# Channel: SIP/3465078XXXXX@11.150.54.xxx   /     SIP/phone1@192.168.1.6
+				// exten => 1879,1,Dial(SIP/34650XXXXX@255.XX.7.XX,20,tr)
+				// Dial(IAX2/guest@misery.digium.com/s@default)
+				//$myres = $agi->agi_exec("EXEC DIAL SIP/3465078XXXXX@254.20.7.28|30|HL(" . ($timeout * 60 * 1000) . ":60000:30000)");
+
+				$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE activated = 1 AND outbound_cid_group = $cidgroupid ORDER BY RAND() LIMIT 1";
+
+				$A2B->instance_table = new Table();
+				$cidresult = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
+				$outcid = 0;
+				if (is_array($cidresult) && count($cidresult) > 0) {
+					$outcid = $cidresult[0][0];
+					# Uncomment this line if you want to save the outbound_cid in the CDR
+					//$A2B->CallerID = $outcid;
+					$agi->set_callerid($outcid);
+					$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[EXEC SetCallerID : $outcid]");
+				}
+				$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "app_callingcard: CIDGROUPID='$cidgroupid' OUTBOUND CID SELECTED IS '$outcid'.");
+            
+                // Count this call on the trunk
+                $this->trunk_start_inuse($agi, $A2B, 1);
+				
+                // dial to trunk
+                $attempts_made = 0;
+                do {
+                    if ($attempts_made > 0)
+                        sleep(1);
+                
+                    $A2B->debug(INFO, $agi, __FILE__, __LINE__, "DIAL $dialstr");
+    				$myres = $A2B->run_dial($agi, $dialstr);
+                    $attempts_made++;
+
+                    // check connection after dial(long pause) 
+                    $A2B->DbReConnect($agi);  
+                
+                    $answeredtime = $agi->get_variable("ANSWEREDTIME");
+                    $this->real_answeredtime = $this->answeredtime = $answeredtime['data'];
+                    $dialstatus = $agi->get_variable("DIALSTATUS");
+                    $this->dialstatus = $dialstatus['data'];
+                
+                    $cond_dialstatus = strtolower($this->dialstatus);
+                    $cond_result = preg_match("/$cond_dialstatus(\,|$)/", $attempt_statuses);
+                    if ($cond_result === false)
+                        $cond_result = 0;
+                            
+                    // check if we need to make one more attempt to this trunk
+                } while ($this->dialstatus != "CANCEL" && $attempts_made <= $attempt_count && (($attempt_condition == 0 && $cond_result > 0) || ($attempt_condition == 1 && $cond_result == 0)));
+
+                // Count this call on the trunk
+                $this->trunk_start_inuse($agi, $A2B, 0);
+				
+				if ($A2B->agiconfig['record_call'] == 1) {
+					$myres = $agi->exec("StopMixMonitor");
+					$A2B->debug(INFO, $agi, __FILE__, __LINE__, "EXEC StopMixMonitor (" . $A2B->uniqueid . ")");
+				}
+				
+				$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[DIALSTATUS=" . $this->dialstatus . "]");
+				if (($this->dialstatus == "CHANUNAVAIL") || ($this->dialstatus == "CONGESTION")) {
+				} else {
+					if ($this->dialstatus == "BUSY") {
+						$this->real_answeredtime = $this->answeredtime = 0;
+						if ($A2B->agiconfig['busy_timeout'] > 0)
+							$res_busy = $agi->exec("Busy " . $A2B->agiconfig['busy_timeout']);
+						$agi->stream_file('prepaid-isbusy', '#');
+					} elseif ($this->dialstatus == "NOANSWER") {
+						$this->real_answeredtime = $this->answeredtime = 0;
+						$agi->stream_file('prepaid-noanswer', '#');
+					} elseif ($this->dialstatus == "CANCEL") {
+						$this->real_answeredtime = $this->answeredtime = 0;
+					} elseif ($this->dialstatus == "ANSWER") {
+						$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "-> dialstatus : " . $this->dialstatus . ", answered time is " . $this->answeredtime . " \n");
+					}
+					
+					// performed call
+					$this->usedratecard = $k;
+					$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[USEDRATECARD=" . $this->usedratecard . "]");
+					return true;
+				}
+				
+            } else {
+				if ($minutes_per_day_reached) {
+					$A2B->debug(WARN, $agi, __FILE__, __LINE__, "This trunk cannot be used because minutes limit exceeded. Now use next trunk\n");
+                } else {
+                    $A2B->debug(WARN, $agi, __FILE__, __LINE__, "This trunk cannot be used because maximum number of connections is reached. Now use next trunk\n");
+                }
+            }
+			
+			$i++;
+		}
+		
+		return false;
+	}
+	
     /*
         RATE ENGINE - PERFORM CALLS
         $typecall = 1->predictive dialer
@@ -1268,6 +1480,32 @@ class RateEngine
                 $this->usedtrunk = $this->ratecard_obj[$k][34];
                 $usetrunk_failover = 1;
             } else {
+			
+				// getting tariffplan and dialing algorithm
+				$id_tariffplan = $this->ratecard_obj[$k][3];
+				$QUERY = "select * from cc_tariffplan where id = '$id_tariffplan' limit 1";
+				$A2B->instance_table = new Table();
+				$result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
+				$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
+				
+				if (is_array($result) && count($result) > 0) {
+					$tp = $result[0];
+					if (intval($tp['trunk_algo']) > 0) {
+						$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[USING TARIFFPLAN TRUNKS LIST]");
+						
+						// special algo dialing
+						if ($this->rate_engine_performcall_algo($k, $tp, $agi, $destination, $A2B, $typecall)) {
+							return true;
+						}
+						
+						$A2B->debug(WARN, $agi, __FILE__, __LINE__, "These trunks cannot be used, because of some conditions. Using next rate.\n");
+						continue 1;
+					}
+				}
+				
+				// standard dialing
+				$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[USING TARIFFPLAN TRUNK]");
+				
                 $usetrunk = 29;
                 $this->usedtrunk = $this->ratecard_obj[$k][29];
                 $usetrunk_failover = 0;

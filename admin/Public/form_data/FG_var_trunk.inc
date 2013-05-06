@@ -150,12 +150,14 @@ $def_value_maxuse = '';
 $def_value_minutes = '';
 $def_value_attempts = '';
 $def_value_statuses = '';
+$def_value_priority = '';
 if (isset($form_action) && $form_action=="ask-add"){
     $def_value_inuse = "value='0'";
     $def_value_maxuse = "value='-1'";
     $def_value_minutes = "value='0'";
     $def_value_attempts = "value='0'";
     $def_value_statuses = "value='CHANUNAVAIL,CONGESTION'";
+	$def_value_priority = "value='0'";
 }
 
 $HD_Form -> AddEditElement (gettext("VOIP-PROVIDER"),
@@ -250,7 +252,7 @@ $HD_Form -> AddEditElement (gettext("MAXIMUM CONNECTIONS"),
 	gettext("Number of maximum simultaneous connections"),
 	"" , "", "", "", "", "", "", gettext("The maximum number of channels available to this trunk. Set to -1 to have an unlimited number of channels") );
 
-$HD_Form -> AddEditElement ("IFMAXUSED",
+$HD_Form -> AddEditElement (gettext("IFMAXUSED"),
 	"if_max_use",
 	'$value',
 	"SELECT",
@@ -259,7 +261,7 @@ $HD_Form -> AddEditElement ("IFMAXUSED",
 	"",
 	"list" , "", "", "", $maxuse_behaviour_list, "%1" , "", gettext("Specifies which trunk to use when the maximum number of connections is reached"));
 	
-$HD_Form -> AddEditElement ("STATUS",
+$HD_Form -> AddEditElement (gettext("STATUS"),
 	"status",
 	'$value',
 	"SELECT",
@@ -268,7 +270,7 @@ $HD_Form -> AddEditElement ("STATUS",
 	"",
 	"list" , "", "", "", $actived_list, "%1" , "", gettext("Define if this trunk is active or not"));
 
-$HD_Form -> AddEditElement ("Minutes/day",
+$HD_Form -> AddEditElement (gettext("Minutes/day"),
 	"minutes_per_day",
 	"",
 	"INPUT",
@@ -277,7 +279,7 @@ $HD_Form -> AddEditElement ("Minutes/day",
 	"",
 	"" , "", "", "", "", "", "", gettext("Number of maximum minutes to the gateway per day"));
     
-$HD_Form -> AddEditElement ("Attempts",
+$HD_Form -> AddEditElement (gettext("Attempts"),
 	"attempt_count",
 	"",
 	"INPUT",
@@ -286,16 +288,16 @@ $HD_Form -> AddEditElement ("Attempts",
 	"",
 	"" , "", "", "", "", "", "", gettext("Additional attempts according attempt condition. To disable - set to 0 (zero)"));
 
-$HD_Form -> AddEditElement ("Attempt condition",
+$HD_Form -> AddEditElement (gettext("Attempt condition"),
 	"attempt_condition",
 	'$value',
 	"SELECT",
 	"",
 	"",
 	"",
-	"list" , "", "", "", $attempt_cond_list, "%1" , "", gettext("Condition for checking the dialstatus"));
+	"list" , "", "", "", $attempt_cond_list, "%1" , "", gettext("Condition for checking the dialstatus in list"));
 
-$HD_Form -> AddEditElement ("Attempt dial status(es)",
+$HD_Form -> AddEditElement (gettext("Attempt dial status(es) list"),
 	"attempt_statuses",
 	"$value",
 	"INPUT",
@@ -304,7 +306,17 @@ $HD_Form -> AddEditElement ("Attempt dial status(es)",
 	"",
 	"" , "", "", "", "", "", "", gettext("The list of dialstatuses (comma (,) as separator). Use any of: ANSWER,BUSY,NOANSWER,CONGESTION,CHANUNAVAIL,DONTCALL,TORTURE,INVALIDARGS"));
 
-$HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk, inuse, maxuse, if_max_use, status, minutes_per_day, attempt_count, attempt_condition, attempt_statuses');
+$HD_Form -> AddEditElement (gettext("Priority"),
+	"priority",
+	"",
+	"INPUT",
+	"size=9 $def_value_priority maxlength=30",
+	"12",
+	"",
+	"" , "", "", "", "", "", "", gettext("Trunk select priority for tariffplan algorithm"));
+
+	
+$HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk, inuse, maxuse, if_max_use, status, minutes_per_day, attempt_count, attempt_condition, attempt_statuses, priority');
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the trunk below.");
