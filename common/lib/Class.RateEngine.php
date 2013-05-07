@@ -1269,7 +1269,7 @@ class RateEngine
 		$algo = "";
 		if ($tp['trunk_algo'] == 1) { // priority
 			$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[SELECT ALGO = PRIORITY]");
-			$algo = "t.priority asc";
+			$algo = "t.priority desc";
 		} else if ($tp['trunk_algo'] == 2) { // random
 			$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[SELECT ALGO = RANDOM]");
 			$algo = "rand()";
@@ -1296,7 +1296,8 @@ class RateEngine
 		foreach ($trunks as &$t) {
 			$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[USING TRUNK: POSITION=$i, TRUNK_ID={$t['id_trunk']}, TRUNK_PRIORITY={$t['priority']}]");
 			
-			$destination         = $old_destination;
+            $destination         = $old_destination;
+			$this->usedtrunk     = $t['id_trunk'];
             $prefix              = $t['trunkprefix'];
             $tech                = $t['providertech'];
             $ipaddress           = $t['providerip'];
@@ -1316,7 +1317,7 @@ class RateEngine
             // check minutes per day
             $minutes_per_day_reached = false;
             if ($minutes_per_day > 0) {
-                $QUERY = "select * from cc_trunk_counter where id_trunk = '$trunk_id' and calldate = CURDATE() and ((seconds / 60) >= $minutes_per_day ) limit 1";
+                $QUERY = "select * from cc_trunk_counter where id_trunk = '$this->usedtrunk' and calldate = CURDATE() and ((seconds / 60) >= $minutes_per_day ) limit 1";
                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
                 $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
                 $minutes_per_day_reached = (is_array($result) && count($result) > 0);
