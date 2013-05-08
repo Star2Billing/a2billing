@@ -46,7 +46,7 @@ if (! has_rights (ACX_SIGNUP)) {
 ?>
 <style type="text/css">
      #sexyBG { display: none; position: absolute; background: #000; opacity: 0.5; -moz-opacity: 0.5; -khtml-opacity: 0.5; filter: alpha(opacity=40); width: 100%; height: 100%; top: 0; left: 0; z-index: 99; }
-    #sexyBOX { padding-top:15px;display: none; position: absolute; background: #FCFCFC; color: #333; font-size: 14px; text-align: center; border: 1px solid #111; top: 200px; z-index: 100; }
+    #elegantBOX { padding-top:15px;display: none; position: absolute; background: #FCFCFC; color: #333; font-size: 14px; text-align: center; border: 1px solid #111; top: 200px; z-index: 100; }
     .sexyX { margin-top:15px; font-size: 12px; color: #636D61; padding: 4px 0; border-top: 1px solid #636D61; background: #BDE5F8; }
 </style>
 <script type="text/javascript">
@@ -57,8 +57,8 @@ function agent(v) { return(Math.max(navigator.userAgent.toLowerCase().indexOf(v)
 function isset(v) { return((typeof(v)=='undefined' || v.length==0)?false:true); }
 function XYwin(v) { var z=Array($('#page-wrap').innerHeight()-2,$('#page-wrap').width()); return(isset(v)?z[v]:z); }
 
-function sexyTOG() { document.onclick=function(){ style('sexyBG').display='none'; style('sexyBOX').display='none'; document.onclick=function(){}; }; }
-function sexyBOX(v,b) { setTimeout("sexyTOG()",100); style('sexyBG').height=XYwin(0)+'px'; style('sexyBG').display='block'; getId('sexyBOX').innerHTML=v+'<div class="sexyX">('+msg+')'+"<\/div>"; style('sexyBOX').left=Math.round((XYwin(1)-b)/2)+'px'; style('sexyBOX').width=b+'px'; style('sexyBOX').display='block'; }
+function elegantTOG() { document.onclick=function(){ style('sexyBG').display='none'; style('elegantBOX').display='none'; document.onclick=function(){}; }; }
+function elegantBOX(v,b) { setTimeout("elegantTOG()",100); style('sexyBG').height=XYwin(0)+'px'; style('sexyBG').display='block'; getId('elegantBOX').innerHTML=v+'<div class="sexyX">('+msg+')'+"<\/div>"; style('elegantBOX').left=Math.round((XYwin(1)-b)/2)+'px'; style('elegantBOX').width=b+'px'; style('elegantBOX').display='block'; }
 </script>
 <?php
 $HD_Form -> setDBHandler (DbConnect());
@@ -73,7 +73,7 @@ $list = $HD_Form -> perform_action($form_action);
 // #### HEADER SECTION
 $smarty->display('main.tpl'); ?>
 <div id="sexyBG"></div>
-<div id="sexyBOX" onmousedown="document.onclick=function(){};" onmouseup="setTimeout('sexyTOG()',1);"></div>
+<div id="elegantBOX" onmousedown="document.onclick=function(){};" onmouseup="setTimeout('elegantTOG()',1);"></div>
 <?php
 
 // #### HELP SECTION
