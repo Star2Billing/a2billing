@@ -35,7 +35,7 @@
 	</ul>
 	</div>
 	{/if}
-	
+
 	{if ($ACXCUSTOMER > 0) }
 	<div class="toggle_menu"><li>
 	<a href="javascript:;" class="toggle_menu" target="_self"> <div> <div id="menutitlebutton"> <img id="img1"
@@ -64,8 +64,8 @@
 	</ul>
 	</div>
 	{/if}
-	
-	
+
+
 	{if ($ACXSIGNUP > 0) }
 	<div class="toggle_menu"><li>
 	<a href="javascript:;" class="toggle_menu" target="_self"> <div> <div id="menutitlebutton"> <img id="img8"
@@ -89,7 +89,7 @@
 	</div>
 	{/if}
 
-	
+
 	{if ($ACXBILLING > 0)}
 	<div class="toggle_menu"><li>
 	<a href="javascript:;" class="toggle_menu" target="_self"> <div> <div id="menutitlebutton"> <img id="img2"
@@ -162,7 +162,7 @@
 		</ul>
 	</div>
 	{/if}
-	
+
 	{if ($ACXSUPPORT  > 0)}
 	<div class="toggle_menu"><li>
 	<a href="javascript:;" class="toggle_menu" target="_self"> <div> <div id="menutitlebutton"> <img id="img7"
@@ -185,7 +185,7 @@
 		</ul>
 	</div>
 	{/if}
-	
+
 
 </ul>
 </br>
@@ -209,6 +209,7 @@
 		<a href="PP_intro.php?ui_language=french" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/fr.gif" border="0" title="French" alt="French"></a>
 		<a href="PP_intro.php?ui_language=spanish" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/es.gif" border="0" title="Spanish" alt="Spanish"></a>
 		<a href="PP_intro.php?ui_language=greek" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/gr.gif" border="0" title="Greek" alt="Greek"></a>
+		<a href="PP_intro.php?ui_language=italian" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/it.gif" border="0" title="Italian" alt="Italian"></a>
 	</td>
 </tr>
 </table>
