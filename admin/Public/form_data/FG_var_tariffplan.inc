@@ -82,7 +82,7 @@ $HD_Form -> FG_ADDITION = true;
 
 
 $HD_Form -> AddEditElement (gettext("TARIFFNAME"),
-	"tariffname",
+    "tariffname",
 	'$value',
 	"INPUT",
 	"size=40 maxlength=30",
