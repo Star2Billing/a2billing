@@ -2876,8 +2876,7 @@ class A2Billing
                                 " FROM cc_card " .
                                 " LEFT JOIN cc_tariffgroup ON tariff = cc_tariffgroup.id " .
                                 " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
-                                " LEFT JOIN cc_provider ON cc_card.id = cc_provider.id_cc_card " .
-								" WHERE username = '" . $this->cardnumber . "' AND cc_provider.id IS NULL";
+								" WHERE username = '" . $this->cardnumber . "'";
                     $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
                     $this->debug(DEBUG, $agi, __FILE__, __LINE__, ' - Retrieve account info SQL ::> ' . $QUERY);
 
