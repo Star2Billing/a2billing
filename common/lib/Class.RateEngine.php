@@ -878,6 +878,11 @@ class RateEngine
                 $this->freetimetocall_used = $callduration;
                 $callduration = 0;
             }
+            
+            // Fix for promotion package causing balance to go negative.
+            if ($this ->freetimetocall_used <= $callduration){
+                $callduration = $callduration - $this->freetimetocall_used;
+            }
 
             $cost -= ($callduration / 60) * $rateinitial;
             if ($this->debug_st) echo "1.a cost: $cost\n";
