@@ -2,7 +2,7 @@
 
 class constants
 {
-    public function reverse_array($arr)
+    public static function reverse_array($arr)
     {
         $reverted_arr = array();
         foreach ($arr as $ind => $val_arr) {
@@ -12,7 +12,7 @@ class constants
         return $reverted_arr;
     }
 
-    public function getMsgTypeList()
+    public static function getMsgTypeList()
     {
         $msgtype_list = array();
         $msgtype_list["0"] = array( gettext("INFO"),"0","msg_info");
@@ -23,7 +23,7 @@ class constants
         return $msgtype_list;
     }
 
-    public function getLanguagesList()
+    public static function getLanguagesList()
     {
         $language_list = array();
         $language_list["0"] = array( gettext("ENGLISH"), "en");
@@ -35,12 +35,12 @@ class constants
         return $language_list;
     }
 
-    public function getLanguagesRevertList()
+    public static function getLanguagesRevertList()
     {
         return Constants::reverse_array(Constants::getLanguagesList());
     }
 
-    public function getLanguages()
+    public static function getLanguages()
     {
         $language_list = array();
         $language_list["en"] = array( gettext("ENGLISH"));
@@ -52,7 +52,7 @@ class constants
         return $language_list;
     }
 
-    public function getRestrictionList()
+    public static function getRestrictionList()
     {
         $restriction_list = array();
         $restriction_list["0"] = array( gettext("NONE RESTRICTION USED"), "0");
@@ -61,7 +61,7 @@ class constants
 
         return $restriction_list;
     }
-    public function getComponentUserTypeList()
+    public static function getComponentUserTypeList()
     {
         $usertype_list = array();
         $usertype_list["0"] = array( gettext("CUSTOMERS"), "0");
@@ -71,7 +71,7 @@ class constants
         return $usertype_list;
     }
 
-    public function getYesNoList()
+    public static function getYesNoList()
     {
         $yesno = array();
         $yesno["1"] = array( gettext("Yes"), "1");
@@ -80,7 +80,7 @@ class constants
         return $yesno;
     }
 
-    public function getCallbackStatusList()
+    public static function getCallbackStatusList()
     {
         $status_list = array();
         $status_list["PENDING"] = array( gettext("PENDING"), "PENDING");
@@ -90,7 +90,7 @@ class constants
         return $status_list;
     }
 
-    public function getPeriodsList()
+    public static function getPeriodsList()
     {
           $period_list = array();
         $period_list["1"]  = array( "Hourly", "1");
@@ -101,7 +101,7 @@ class constants
         return $period_list;
     }
 
-    public function getActivationList()
+    public static function getActivationList()
     {
         $actived_list = array();
         $actived_list["0"] = array( gettext("Inactive"), "0");
@@ -110,14 +110,14 @@ class constants
         return $actived_list;
     }
 
-    public function getActivation_Revert_List()
+    public static function getActivation_Revert_List()
     {
             $cnts = new Constants();
 
         return $cnts->reverse_array(Constants::getActivationList());
     }
 
-    public function getActivationTrueFalseList()
+    public static function getActivationTrueFalseList()
     {
         $actived_list = array();
         $actived_list["t"] = array( "Active", "t");
@@ -371,15 +371,15 @@ class constants
     public static function getDialStatusList()
     {
         $dialstatus_list = array();
-        $dialstatus_list["1"] = array( gettext("ANSWER")		, "1");
-        $dialstatus_list["2"] = array( gettext("BUSY")			, "2");
-        $dialstatus_list["3"] = array( gettext("NOANSWER")		, "3");
-        $dialstatus_list["4"] = array( gettext("CANCEL")		, "4");
-        $dialstatus_list["5"] = array( gettext("CONGESTION")	, "5");
-        $dialstatus_list["6"] = array( gettext("CHANUNAVAIL")	, "6");
-        $dialstatus_list["7"] = array( gettext("DONTCALL")		, "7");
-        $dialstatus_list["8"] = array( gettext("TORTURE")		, "8");
-        $dialstatus_list["9"] = array( gettext("INVALIDARGS")	, "9");
+        $dialstatus_list["1"] = array( gettext("ANSWER")        , "1");
+        $dialstatus_list["2"] = array( gettext("BUSY")            , "2");
+        $dialstatus_list["3"] = array( gettext("NOANSWER")        , "3");
+        $dialstatus_list["4"] = array( gettext("CANCEL")        , "4");
+        $dialstatus_list["5"] = array( gettext("CONGESTION")    , "5");
+        $dialstatus_list["6"] = array( gettext("CHANUNAVAIL")    , "6");
+        $dialstatus_list["7"] = array( gettext("DONTCALL")        , "7");
+        $dialstatus_list["8"] = array( gettext("TORTURE")        , "8");
+        $dialstatus_list["9"] = array( gettext("INVALIDARGS")    , "9");
 
         return $dialstatus_list;
     }
@@ -387,14 +387,14 @@ class constants
     public static function getDialStatus_Revert_List()
     {
         $dialstatus_rev_list = array();
-        $dialstatus_rev_list["ANSWER"] 		= 1;
-        $dialstatus_rev_list["BUSY"] 		= 2;
-        $dialstatus_rev_list["NOANSWER"] 	= 3;
-        $dialstatus_rev_list["CANCEL"] 		= 4;
-        $dialstatus_rev_list["CONGESTION"] 	= 5;
+        $dialstatus_rev_list["ANSWER"]         = 1;
+        $dialstatus_rev_list["BUSY"]         = 2;
+        $dialstatus_rev_list["NOANSWER"]     = 3;
+        $dialstatus_rev_list["CANCEL"]         = 4;
+        $dialstatus_rev_list["CONGESTION"]     = 5;
         $dialstatus_rev_list["CHANUNAVAIL"] = 6;
-        $dialstatus_rev_list["DONTCALL"] 	= 7;
-        $dialstatus_rev_list["TORTURE"] 	= 8;
+        $dialstatus_rev_list["DONTCALL"]     = 7;
+        $dialstatus_rev_list["TORTURE"]     = 8;
         $dialstatus_rev_list["INVALIDARGS"] = 9;
 
         return $dialstatus_rev_list;
@@ -595,4 +595,16 @@ class constants
         return $musiconhold_list;
     }
 
+    public static function getTrunkAlgoList()
+    {
+        $list = array();
+        $list["0"] = array( gettext("Use default"), "0");
+        $list["1"] = array( gettext("Trunks list : priority"), "1");
+        $list["2"] = array( gettext("Trunks list : random"), "2");
+        $list["3"] = array( gettext("Trunks list : load balance"), "3");
+        $list["4"] = array( gettext("Trunks list : priority - random"), "4");
+
+        return $list;
+    }
+    
 }

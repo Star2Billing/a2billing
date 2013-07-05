@@ -85,7 +85,7 @@ $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "AGI Request:\n" . print_r($agi->re
 $A2B->get_agi_request_parameter($agi);
 
 if (!$A2B->DbConnect()) {
-    $agi->stream_file('prepaid-final', '#');
+    $agi->stream_file($A2B->agicnf('sound-prepaid-final', 'prepaid-final'), '#');
     exit;
 }
 
@@ -112,12 +112,12 @@ if ($mode == 'standard') {
 
     if (!is_array($arr_monitor)) {
         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "No monitoring configuration found!");
-        $agi->stream_file('prepaid-final', '#');
+        $agi->stream_file($A2B->agicnf('sound-prepaid-final', 'prepaid-final'), '#');
         exit;
     }
 
     for ($i = 0; $i < 10; $i++) {
-        $res_dtmf = $agi->get_data('prepaid-enter-dialcode', 6000, 3);
+        $res_dtmf = $agi->get_data($A2B->agicnf('sound-prepaid-enter-dialcode', 'prepaid-enter-dialcode'), 6000, 3);
         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : " . $res_dtmf["result"]);
         $dial_code = $res_dtmf["result"];
 
@@ -127,7 +127,7 @@ if ($mode == 'standard') {
         }
 
         if (!is_array($arr_monitor[$dial_code])) {
-            $agi->stream_file('prepaid-no-dialcode', '#');
+            $agi->stream_file($A2B->agicnf('sound-prepaid-no-dialcode', 'prepaid-no-dialcode'), '#');
             $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "Dial code : $dial_code not configured in monitoring");
             continue;
         }
