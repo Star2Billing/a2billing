@@ -1438,10 +1438,10 @@ class RateEngine
                         $this->real_answeredtime = $this->answeredtime = 0;
                         if ($A2B->agiconfig['busy_timeout'] > 0)
                             $res_busy = $agi->exec("Busy " . $A2B->agiconfig['busy_timeout']);
-                        $agi->stream_file('prepaid-isbusy', '#');
+                        $agi->stream_file($A2B->agicnf('sound-prepaid-isbusy', 'prepaid-isbusy'), '#');
                     } elseif ($this->dialstatus == "NOANSWER") {
                         $this->real_answeredtime = $this->answeredtime = 0;
-                        $agi->stream_file('prepaid-noanswer', '#');
+                        $agi->stream_file($A2B->agicnf('sound-prepaid-noanswer', 'prepaid-noanswer'), '#');
                     } elseif ($this->dialstatus == "CANCEL") {
                         $this->real_answeredtime = $this->answeredtime = 0;
                     } elseif ($this->dialstatus == "ANSWER") {
@@ -1818,10 +1818,10 @@ class RateEngine
                 $this->real_answeredtime = $this->answeredtime = 0;
                 if ($A2B->agiconfig['busy_timeout'] > 0)
                     $res_busy = $agi->exec("Busy " . $A2B->agiconfig['busy_timeout']);
-                $agi->stream_file('prepaid-isbusy', '#');
+                $agi->stream_file($A2B->agicnf('sound-prepaid-isbusy', 'prepaid-isbusy'), '#');
             } elseif ($this->dialstatus == "NOANSWER") {
                 $this->real_answeredtime = $this->answeredtime = 0;
-                $agi->stream_file('prepaid-noanswer', '#');
+                $agi->stream_file($A2B->agicnf('sound-prepaid-noanswer', 'prepaid-noanswer'), '#');
             } elseif ($this->dialstatus == "CANCEL") {
                 $this->real_answeredtime = $this->answeredtime = 0;
             } elseif (($this->dialstatus == "CHANUNAVAIL") ||
