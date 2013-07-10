@@ -1155,7 +1155,7 @@ class A2Billing
                 $this->debug(INFO, $agi, __FILE__, __LINE__, "EXEC StopMixMonitor (" . $this->uniqueid . ")");
             }
 
-            $this->debug(INFO, $agi, __FILE__, __LINE__, "[" . $this->tech . " Friend][K=$k]:[ANSWEREDTIME=" . $answeredtime . "-DIALSTATUS=" . $dialstatus . "]");
+            $this->debug(INFO, $agi, __FILE__, __LINE__, "[" . $this->tech . " Friend]:[ANSWEREDTIME=" . $answeredtime . "-DIALSTATUS=" . $dialstatus . "]");
 
             //# Ooh, something actually happend!
             if ($dialstatus == "BUSY") {
@@ -1185,7 +1185,7 @@ class A2Billing
             }
 
             if ($answeredtime > 0) {
-                $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_UPDATESYSTEM: usedratecard K=$K - (answeredtime=$answeredtime :: dialstatus=$dialstatus :: cost=$cost)]");
+                $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_UPDATESYSTEM: (answeredtime=$answeredtime :: dialstatus=$dialstatus :: cost=$cost)]");
                 $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, " .
                     " terminatecauseid, stoptime, sessionbill, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES " .
                     "('" . $this->uniqueid . "', '" . $this->channel . "', '" . $this->id_card . "', '" . $this->hostname . "',";
@@ -1731,7 +1731,6 @@ class A2Billing
                         $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
 
                     } else {
-
                         //CALL2DID CDR is not free
                         $cost = ($answeredtime/60) * abs($selling_rate) + abs($connection_charge);
 

@@ -15,8 +15,8 @@
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-function displayPqp($output, $config)
-{
+function displayPqp($output, $config) {
+
 $cssUrl = $config.'css/pQp.css';
 
 echo <<<JAVASCRIPT
@@ -27,15 +27,13 @@ echo <<<JAVASCRIPT
 
     addEvent(window, 'load', loadCSS);
 
-    public function changeTab(tab)
-    {
+    function changeTab(tab) {
         var pQp = document.getElementById('pQp');
         hideAllTabs();
         addClassName(pQp, tab, true);
     }
 
-    public function hideAllTabs()
-    {
+    function hideAllTabs() {
         var pQp = document.getElementById('pQp');
         removeClassName(pQp, 'console');
         removeClassName(pQp, 'speed');
@@ -44,33 +42,32 @@ echo <<<JAVASCRIPT
         removeClassName(pQp, 'files');
     }
 
-    public function toggleDetails()
-    {
+    function toggleDetails(){
         var container = document.getElementById('pqp-container');
 
-        if (PQP_DETAILS) {
+        if(PQP_DETAILS){
             addClassName(container, 'hideDetails', true);
             PQP_DETAILS = false;
-        } else {
+        }
+        else{
             removeClassName(container, 'hideDetails');
             PQP_DETAILS = true;
         }
     }
-    public function toggleHeight()
-    {
+    function toggleHeight(){
         var container = document.getElementById('pqp-container');
 
-        if (PQP_HEIGHT == "short") {
+        if(PQP_HEIGHT == "short"){
             addClassName(container, 'tallDetails', true);
             PQP_HEIGHT = "tall";
-        } else {
+        }
+        else{
             removeClassName(container, 'tallDetails');
             PQP_HEIGHT = "short";
         }
     }
 
-    public function loadCSS()
-    {
+    function loadCSS() {
         var sheet = document.createElement("link");
         sheet.setAttribute("rel", "stylesheet");
         sheet.setAttribute("type", "text/css");
@@ -81,14 +78,13 @@ echo <<<JAVASCRIPT
 
 
     //http://www.bigbold.com/snippets/posts/show/2630
-    public function addClassName(objElement, strClass, blnMayAlreadyExist)
-    {
-       if (objElement.className) {
+    function addClassName(objElement, strClass, blnMayAlreadyExist){
+       if ( objElement.className ){
           var arrList = objElement.className.split(' ');
-          if (blnMayAlreadyExist) {
+          if ( blnMayAlreadyExist ){
              var strClassUpper = strClass.toUpperCase();
-             for (var i = 0; i < arrList.length; i++) {
-                if ( arrList[i].toUpperCase() == strClassUpper ) {
+             for ( var i = 0; i < arrList.length; i++ ){
+                if ( arrList[i].toUpperCase() == strClassUpper ){
                    arrList.splice(i, 1);
                    i--;
                  }
@@ -96,19 +92,19 @@ echo <<<JAVASCRIPT
           }
           arrList[arrList.length] = strClass;
           objElement.className = arrList.join(' ');
-       } else {
+       }
+       else{
           objElement.className = strClass;
           }
     }
 
     //http://www.bigbold.com/snippets/posts/show/2630
-    public function removeClassName(objElement, strClass)
-    {
-       if (objElement.className) {
+    function removeClassName(objElement, strClass){
+       if ( objElement.className ){
           var arrList = objElement.className.split(' ');
           var strClassUpper = strClass.toUpperCase();
-          for (var i = 0; i < arrList.length; i++) {
-             if ( arrList[i].toUpperCase() == strClassUpper ) {
+          for ( var i = 0; i < arrList.length; i++ ){
+             if ( arrList[i].toUpperCase() == strClassUpper ){
                 arrList.splice(i, 1);
                 i--;
              }
@@ -118,13 +114,13 @@ echo <<<JAVASCRIPT
     }
 
     //http://ejohn.org/projects/flexible-javascript-events/
-    public function addEvent( obj, type, fn )
-    {
-      if (obj.attachEvent) {
+    function addEvent( obj, type, fn ) {
+      if ( obj.attachEvent ) {
         obj["e"+type+fn] = fn;
         obj[type+fn] = function() { obj["e"+type+fn]( window.event ) };
         obj.attachEvent( "on"+type, obj[type+fn] );
-      } else {
+      }
+      else{
         obj.addEventListener( type, fn, false );
       }
     }
@@ -169,9 +165,10 @@ PQPTABS;
 
 echo '<div id="pqp-console" class="pqp-box">';
 
-if ($logCount ==  0) {
+if($logCount ==  0) {
     echo '<h3>This panel has no log items.</h3>';
-} else {
+}
+else {
     echo '<table class="side" cellspacing="0">
         <tr>
             <td class="alt1"><var>'.$output['logs']['logCount'].'</var><h4>Logs</h4></td>
@@ -185,17 +182,20 @@ if ($logCount ==  0) {
         <table class="main" cellspacing="0">';
 
         $class = '';
-        foreach ($output['logs']['console'] as $log) {
+        foreach($output['logs']['console'] as $log) {
             echo '<tr class="log-'.$log['type'].'">
                 <td class="type">'.$log['type'].'</td>
                 <td class="'.$class.'">';
-            if ($log['type'] == 'log') {
+            if($log['type'] == 'log') {
                 echo '<div><pre>'.$log['data'].'</pre></div>';
-            } elseif ($log['type'] == 'memory') {
+            }
+            elseif($log['type'] == 'memory') {
                 echo '<div><pre>'.$log['data'].'</pre> <em>'.$log['dataType'].'</em>: '.$log['name'].' </div>';
-            } elseif ($log['type'] == 'speed') {
+            }
+            elseif($log['type'] == 'speed') {
                 echo '<div><pre>'.$log['data'].'</pre> <em>'.$log['name'].'</em></div>';
-            } elseif ($log['type'] == 'error') {
+            }
+            elseif($log['type'] == 'error') {
                 echo '<div><em>Line '.$log['line'].'</em> : '.$log['data'].' <pre>'.$log['file'].'</pre></div>';
             }
 
@@ -211,9 +211,10 @@ echo '</div>';
 
 echo '<div id="pqp-speed" class="pqp-box">';
 
-if ($output['logs']['speedCount'] ==  0) {
+if($output['logs']['speedCount'] ==  0) {
     echo '<h3>This panel has no log items.</h3>';
-} else {
+}
+else {
     echo '<table class="side" cellspacing="0">
           <tr><td><var>'.$output['speedTotals']['total'].'</var><h4>Load Time</h4></td></tr>
           <tr><td class="alt"><var>'.$output['speedTotals']['allowed'].'</var> <h4>Max Execution Time</h4></td></tr>
@@ -221,8 +222,8 @@ if ($output['logs']['speedCount'] ==  0) {
         <table class="main" cellspacing="0">';
 
         $class = '';
-        foreach ($output['logs']['console'] as $log) {
-            if ($log['type'] == 'speed') {
+        foreach($output['logs']['console'] as $log) {
+            if($log['type'] == 'speed') {
                 echo '<tr class="log-'.$log['type'].'">
                 <td class="'.$class.'">';
                 echo '<div><pre>'.$log['data'].'</pre> <em>'.$log['name'].'</em></div>';
@@ -239,9 +240,10 @@ echo '</div>';
 
 echo '<div id="pqp-queries" class="pqp-box">';
 
-if ($output['queryTotals']['count'] ==  0) {
+if($output['queryTotals']['count'] ==  0) {
     echo '<h3>This panel has no log items.</h3>';
-} else {
+}
+else {
     echo '<table class="side" cellspacing="0">
           <tr><td><var>'.$output['queryTotals']['count'].'</var><h4>Total Queries</h4></td></tr>
           <tr><td class="alt"><var>'.$output['queryTotals']['time'].'</var> <h4>Total Time</h4></td></tr>
@@ -250,10 +252,10 @@ if ($output['queryTotals']['count'] ==  0) {
         <table class="main" cellspacing="0">';
 
         $class = '';
-        foreach ($output['queries'] as $query) {
+        foreach($output['queries'] as $query) {
             echo '<tr>
                 <td class="'.$class.'">'.$query['sql'];
-            if ($query['explain']) {
+            if($query['explain']) {
                     echo '<em>
                         Possible keys: <b>'.$query['explain']['possible_keys'].'</b> &middot;
                         Key Used: <b>'.$query['explain']['key'].'</b> &middot;
@@ -274,9 +276,10 @@ echo '</div>';
 
 echo '<div id="pqp-memory" class="pqp-box">';
 
-if ($output['logs']['memoryCount'] ==  0) {
+if($output['logs']['memoryCount'] ==  0) {
     echo '<h3>This panel has no log items.</h3>';
-} else {
+}
+else {
     echo '<table class="side" cellspacing="0">
           <tr><td><var>'.$output['memoryTotals']['used'].'</var><h4>Used Memory</h4></td></tr>
           <tr><td class="alt"><var>'.$output['memoryTotals']['total'].'</var> <h4>Total Available</h4></td></tr>
@@ -284,8 +287,8 @@ if ($output['logs']['memoryCount'] ==  0) {
         <table class="main" cellspacing="0">';
 
         $class = '';
-        foreach ($output['logs']['console'] as $log) {
-            if ($log['type'] == 'memory') {
+        foreach($output['logs']['console'] as $log) {
+            if($log['type'] == 'memory') {
                 echo '<tr class="log-'.$log['type'].'">';
                 echo '<td class="'.$class.'"><b>'.$log['data'].'</b> <em>'.$log['dataType'].'</em>: '.$log['name'].'</td>';
                 echo '</tr>';
@@ -301,18 +304,19 @@ echo '</div>';
 
 echo '<div id="pqp-files" class="pqp-box">';
 
-if ($output['fileTotals']['count'] ==  0) {
+if($output['fileTotals']['count'] ==  0) {
     echo '<h3>This panel has no log items.</h3>';
-} else {
+}
+else {
     echo '<table class="side" cellspacing="0">
-              <tr><td><var>'.$output['fileTotals']['count'].'</var><h4>Total Files</h4></td></tr>
+            <tr><td><var>'.$output['fileTotals']['count'].'</var><h4>Total Files</h4></td></tr>
             <tr><td class="alt"><var>'.$output['fileTotals']['size'].'</var> <h4>Total Size</h4></td></tr>
             <tr><td><var>'.$output['fileTotals']['largest'].'</var> <h4>Largest</h4></td></tr>
          </table>
         <table class="main" cellspacing="0">';
 
         $class ='';
-        foreach ($output['files'] as $file) {
+        foreach($output['files'] as $file) {
             echo '<tr><td class="'.$class.'"><b>'.$file['size'].'</b> '.$file['name'].'</td></tr>';
             if($class == '') $class = 'alt';
             else $class = '';
@@ -342,3 +346,5 @@ FOOTER;
 echo '</div></div>';
 
 }
+
+?>

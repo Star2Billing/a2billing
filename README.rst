@@ -20,7 +20,7 @@ Info
     http://forum.asterisk2billing.org/
 
 * Wiki version of installation
-    - http://www.asterisk2billing.org/documentation/
+    http://www.asterisk2billing.org/documentation/
 
 * Latest development version
     https://github.com/Star2Billing/a2billing
@@ -29,10 +29,17 @@ Info
     https://github.com/Star2Billing/a2billing/issues
 
 
+License
+-------
+
+Copyright (c) 2004-2013 Star2Billing S.L. <info@star2billing.com>
+
+A2Billing is licensed under AGPL: http://www.gnu.org/licenses/agpl.html
+
+
 Support
 -------
 
 Star2Billing S.L. offers consultancy including installation, training and customisation
 
 Please email us at sales@star2billing.com for more information
-
