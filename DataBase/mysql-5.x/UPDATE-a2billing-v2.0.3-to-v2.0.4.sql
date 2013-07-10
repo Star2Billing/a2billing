@@ -31,6 +31,5 @@
  *
 **/
 
-
 -- Update Version
 UPDATE cc_version SET version = '2.0.4';

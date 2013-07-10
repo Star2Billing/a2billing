@@ -4,11 +4,11 @@ REQUIREMENTS
 
 - Apache 2
 
-- Asterisk 1.2 >=
+- Asterisk >= version 1.2
 
 - MySQL 5.x or PostgreSQL 8.x
 
-- PHP 5 >= 5.2.0
+- PHP >= version 5.2.0
 
 - PHP MODULES :
     * PHP-PGSQL or PHP-MYSQLi
@@ -21,7 +21,7 @@ REQUIREMENTS
     * PHP PEAR SOAP
 
 - CallBack Module, Python requirements :
-    * python >= 2.4
+    * python >= version 2.6
     * python-mysqldb
     * python-psycopg2
     * python-sqlalchemy
