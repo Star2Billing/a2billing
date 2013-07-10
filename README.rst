@@ -13,6 +13,9 @@ services, consultancy and support is available.
 see http://www.star2billing.com/ for more details
 
 
+.. image:: https://github.com/Star2Billing/a2billing/raw/master/a2billing_dashboard.png
+
+
 Info
 ----
 
