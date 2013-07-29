@@ -35,7 +35,8 @@ include './lib/customer.defines.php';
 include './lib/customer.smarty.php';
 
 if (!$A2B->config["signup"]['enable_signup']) {
-    exit ();
+    echo ("No Signup page!");
+    exit;
 }
 
 if (!isset ($_SESSION["date_mail"]) || (time() - $_SESSION["date_mail"]) > 60) {
