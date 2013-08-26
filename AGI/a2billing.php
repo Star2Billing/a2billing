@@ -227,7 +227,7 @@ if ($mode == 'standard') {
                         if ($try > 3) {
                             if ($A2B->set_inuse == 1)
                                 $A2B->callingcard_acct_start_inuse($agi, 0);
-                            $agi->hangup();
+                            $RateEngine->hangup($agi, $A2B);
                             exit();
                         }
                     } while ($return);
@@ -316,7 +316,7 @@ if ($mode == 'standard') {
                                 $agi->stream_file($A2B->agicnf('sound-prepaid-final', 'prepaid-final'), '#');
                                 if ($A2B->set_inuse == 1)
                                     $A2B->callingcard_acct_start_inuse($agi, 0);
-                                $agi->hangup();
+                                $RateEngine->hangup($agi, $A2B);
                                 exit();
                             }
                             $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[TRY : $try]");
@@ -371,7 +371,7 @@ if ($mode == 'standard') {
                                 $agi->stream_file($A2B->agicnf('sound-prepaid-final', 'prepaid-final'), '#');
                                 if ($A2B->set_inuse == 1)
                                     $A2B->callingcard_acct_start_inuse($agi, 0);
-                                $agi->hangup();
+                                $RateEngine->hangup($agi, $A2B);
                                 exit();
                             }
                         }
@@ -699,7 +699,7 @@ if ($mode == 'standard') {
     // SAY GOODBYE
     if ($A2B->agiconfig['say_goodbye'] == 1) $agi->stream_file($A2B->agicnf('sound-prepaid-final', 'prepaid-final'), '#');
 
-    $agi->hangup();
+    $RateEngine->hangup($agi, $A2B);
     if ($A2B->set_inuse == 1) $A2B->callingcard_acct_start_inuse($agi, 0);
     $A2B->write_log("[STOP - EXIT]", 0);
     exit();
@@ -715,7 +715,7 @@ if ($mode == 'standard') {
 
     if ($A2B->agiconfig['answer_call'] == 1 && $mode == 'cid-callback') {
         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, '[HANGUP CLI CALLBACK TRIGGER]');
-        $agi->hangup();
+        $RateEngine->hangup($agi, $A2B);
     } elseif ($mode == 'cid-prompt-callback') {
         $agi->answer();
     } else {
@@ -792,7 +792,7 @@ if ($mode == 'standard') {
                                     if ($subtry >= 3) {
                                         if ($A2B->set_inuse == 1)
                                             $A2B->callingcard_acct_start_inuse($agi, 0);
-                                        $agi->hangup();
+                                        $RateEngine->hangup($agi, $A2B);
                                         exit();
                                     }
                                 } while ($res_dtmf["result"] != '1' && $res_dtmf["result"] != '2');
@@ -813,7 +813,7 @@ if ($mode == 'standard') {
                         if (strlen($outbound_destination) <= 0) {
                             if ($A2B->set_inuse == 1)
                                 $A2B->callingcard_acct_start_inuse($agi, 0);
-                            $agi->hangup();
+                            $RateEngine->hangup($agi, $A2B);
                             exit();
                         }
 
@@ -935,7 +935,7 @@ if ($mode == 'standard') {
     // END
     if ($A2B->agiconfig['answer_call'] == 1) {
         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, '[HANGUP ALL CALLBACK TRIGGER]');
-        $agi->hangup();
+        $RateEngine->hangup($agi, $A2B);
     } else {
         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, '[ALL CALLBACK TRIGGER RINGING]');
     }
@@ -1248,7 +1248,7 @@ if ($mode == 'standard') {
 
     if ($error_settings) {
         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK : Error settings accountcode and phonenumber_member]");
-        $agi->hangup();
+        $RateEngine->hangup($agi, $A2B);
         $A2B->write_log("[STOP - EXIT]", 0);
         exit();
     }
@@ -1458,7 +1458,7 @@ if ($mode == 'standard') {
 
     if ($error_settings) {
         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK : Error settings accountcode]");
-        $agi->hangup();
+        $RateEngine->hangup($agi, $A2B);
         $A2B->write_log("[STOP - EXIT]", 0);
         exit();
     }
@@ -1585,9 +1585,9 @@ if ($charge_callback) {
 }// END if ($charge_callback)
 
 if ($mode != 'cid-callback' && $mode != 'all-callback') {
-    $agi->hangup();
+    $RateEngine->hangup($agi, $A2B);
 } elseif ($A2B->agiconfig['answer_call'] == 1) {
-    $agi->hangup();
+    $RateEngine->hangup($agi, $A2B);
 }
 
 // SEND MAIL REMINDER WHEN CREDIT IS TOO LOW

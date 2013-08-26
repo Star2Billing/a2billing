@@ -1474,6 +1474,7 @@ class RateEngine
     */
     public function rate_engine_performcall($agi, $destination, &$A2B, $typecall = 0)
     {
+        $this->dialstatus = 'CHANUNAVAIL';
         $max_long = 36000000; //Maximum 10 hours
         $old_destination = $destination;
 
@@ -1848,6 +1849,23 @@ class RateEngine
 
         return false;
 
+    }
+    
+    public function hangup($agi, &$A2B) {
+        $parts = explode('_', $A2B->agiconfig['asterisk_version']);
+        $asterisk_version = (is_array($parts) && count($parts) == 2) ? intval($parts[1]) : 0;
+        if ($asterisk_version >= 4) { // 1_4 and more
+            $code = 21;
+            $list = constants::getDialStatus_Q931_List();
+            if (isset($list[$this->dialstatus]))
+                $code = $list[$this->dialstatus];
+
+            // make smart hangup
+            $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[SMART HANGUP, Q931 cause: $code ($this->dialstatus)");
+            $agi->exec("Hangup $code");
+        } else {
+            $agi->hangup();
+        }
     }
 
 };

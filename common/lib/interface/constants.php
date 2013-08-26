@@ -400,6 +400,22 @@ class constants
         return $dialstatus_rev_list;
     }
 
+    public static function getDialStatus_Q931_List()
+    {
+        $dialstatus_list = array();
+        $dialstatus_list["ANSWER"]       = 16;
+        $dialstatus_list["BUSY"]         = 17;
+        $dialstatus_list["NOANSWER"]     = 18;
+        $dialstatus_list["CANCEL"]       = 21;
+        $dialstatus_list["CONGESTION"]   = 42;
+        $dialstatus_list["CHANUNAVAIL"]  = 34;
+        $dialstatus_list["DONTCALL"]     = 29;
+        $dialstatus_list["TORTURE"]      = 21;
+        $dialstatus_list["INVALIDARGS"]  = 21;
+
+        return $dialstatus_list;
+    }
+    
     public static function getCardStatus_List()
     {
         $cardstatus_list = array();
