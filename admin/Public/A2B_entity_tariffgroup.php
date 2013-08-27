@@ -62,9 +62,9 @@ $smarty->display('main.tpl');
 ?>
     <SCRIPT LANGUAGE="javascript">
     <!-- Begin
-    public function sendValue(selvalue)
+    function sendValue(selvalue)
     {
-            window.opener.document.<?php echo $popup_formname ?>.<?php echo $popup_fieldname ?>.value = selvalue;
+        window.opener.document.<?php echo $popup_formname ?>.<?php echo $popup_fieldname ?>.value = selvalue;
         window.close();
     }
     // End -->

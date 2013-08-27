@@ -36,8 +36,10 @@ include './lib/customer.module.access.php';
 include './lib/Form/Class.FormHandler.inc.php';
 include './lib/customer.smarty.php';
 
-if (!$A2B->config["signup"]['enable_signup'])
+if (!$A2B->config["signup"]['enable_signup']) {
+    echo ("No Signup page!");
     exit;
+}
 
 //check subscriber
 $table_subscriber = new Table("cc_subscription_signup", "*");
