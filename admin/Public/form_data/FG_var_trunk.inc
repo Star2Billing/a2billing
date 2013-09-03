@@ -107,7 +107,7 @@ if ($popup_select) {
 	$HD_Form -> AddViewElement(gettext("MINUTES USED"), "secondusedreal", "%9", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 	$HD_Form -> AddViewElement(gettext("STATUS"), "status", "7%", "center", "sort", "", "list", $actived_list);
 	$HD_Form -> AddViewElement(gettext("MAXUSE"), "maxuse" , "5%", "center", "sort");
-    $HD_Form -> AddViewElement(gettext("Minutes/day"), "minutes_per_day" , "5%", "center", "sort");
+        $HD_Form -> AddViewElement(gettext("Minutes/day"), "minutes_per_day" , "5%", "center", "sort");
 
 	$HD_Form -> FieldViewElement ('trunkcode, trunkprefix, removeprefix, providertech, providerip, id_provider, secondusedreal, status, maxuse, minutes_per_day');
 }
@@ -157,7 +157,7 @@ if (isset($form_action) && $form_action=="ask-add"){
     $def_value_minutes = "value='0'";
     $def_value_attempts = "value='0'";
     $def_value_statuses = "value='CHANUNAVAIL,CONGESTION'";
-	$def_value_priority = "value='0'";
+    $def_value_priority = "value='0'";
 }
 
 $HD_Form -> AddEditElement (gettext("VOIP-PROVIDER"),
