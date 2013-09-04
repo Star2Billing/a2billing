@@ -14,7 +14,7 @@
  * 3. To run as daemon - use script "checker.init.d.sh" from the same folder,
  *    copy it to /etc/init.d/checker, give 755 rights and change the daemon path in the header, 
  *    then run as "/etc/init.d/checker start"
- * 
+ * 4. IMPORTANT: each trunk is determined by providertech/providerip - keep it unique!
  * 
  * @author Roman Davydov <openvoip.co@gmail.com>
  * @license http://openvoip.co Free (just keep reference to my name and my site)
@@ -320,39 +320,50 @@ OPTIONS:
         // list of channels to hangup
         $hangup = array();
 
+        // prepare channels
+        $channels = array();
+        foreach ($this->channels as $channel) {            
+            // check bridged channel
+            if (isset($channel['BridgedChannel']) && preg_match("/^(.+\/.+)\-.*$/", $channel['BridgedChannel'], $matches)) {
+                $channel_id = strtolower($matches[1]);
+                if (!isset($channels[$channel_id])) {
+                    $channels[$channel_id] = array(
+                        'seconds' => 0,
+                        'channels' => array()
+                    );
+                }
+                $billsec = $this->asm->GetVar($channel['BridgedChannel'], "CDR(billsec)");
+                $channels[$channel_id]['seconds'] += is_array($billsec) && isset($billsec['Value']) ? intval($billsec['Value']) : 0;
+                $channels[$channel_id]['channels'][$channel['BridgedChannel']] = isset($channel['Accountcode']) ? $channel['Accountcode'] : '';
+            }
+        }
+        
+        //print_r($channels);
+        
         // check trunks (minutes_per_day, inuse)
         $sql = "select * from cc_trunk";
         $trunks = $this->query($sql);
-        if (count($trunks) > 0) {
-            foreach ($trunks as $t) {
-                $id = $t['id_trunk'];
-                $minutes_per_day = intval($t['minutes_per_day']);
-                $inuse = intval($t['inuse']);
-                $channel_id = $t['providertech'] . '/' . $t['providerip'];
+        foreach ($trunks as $t) {
+            $id = $t['id_trunk'];
+            $minutes_per_day = intval($t['minutes_per_day']);
+            $inuse = intval($t['inuse']);
+            $channel_id = strtolower($t['providertech'] . '/' . $t['providerip']);
 
-                // check if trunk minutes limit exceeded
-                if ($minutes_per_day > 0) {
-                    $sql = "select * from cc_trunk_counter where id_trunk = '$id' and calldate = CURDATE() and ((seconds / 60) >= $minutes_per_day ) limit 1";
-                    $data = $this->query($sql);
-                    if (count($data) > 0)
-                        $hangup[] = $channel_id;
-                }
+            // check if trunk minutes limit exceeded
+            if ($minutes_per_day > 0 && isset($channels[$channel_id])) {
+                $realtime_seconds = $channels[$channel_id]['seconds'];
+                $sql = "select * from cc_trunk_counter where id_trunk = '$id' and calldate = CURDATE() and ((seconds + $realtime_seconds / 60) >= $minutes_per_day) limit 1";
+                $data = $this->query($sql);
+                if (count($data) > 0)
+                    $hangup = array_merge($hangup, array_keys($channels[$channel_id]['channels']));
+            }
 
-                // check inuse
-                $inuse_real = 0;
-                reset($this->channels);
-                foreach ($this->channels as $channel) {
-                    if (stripos($channel['Channel'], $channel_id) !== false)
-                        $inuse_real++;
-                }
-
-                // update inuse if required
-                if ($inuse_real != $inuse) {
-                    self::log("Fixing 'inuse' for trunk with ID = $id", LOG_INFO);
-                    $sql = "update cc_trunk set inuse = $inuse_real where id_trunk = $id";
-                    $this->query($sql);
-                }
-
+            // check inuse
+            $inuse_real = isset($channels[$channel_id]) ? count($channels[$channel_id]['channels']) : 0;
+            if ($inuse_real != $inuse) {
+                self::log("Fixing 'inuse' for trunk with ID = $id", LOG_INFO);
+                $sql = "update cc_trunk set inuse = $inuse_real where id_trunk = $id";
+                $this->query($sql);
             }
         }
 
@@ -360,23 +371,19 @@ OPTIONS:
         $sql = "select * from cc_card where typepaid = 0 and credit <= 0";
         $data = $this->query($sql);
         foreach ($data as $card) {
-            reset($this->channels);
-            foreach ($this->channels as $channel) {
-                if (isset($channel['Accountcode']) && isset($channel['BridgedChannel']) && strcasecmp($channel['Accountcode'], $card['username']) == 0)
-                    $hangup[] = $channel['BridgedChannel'];
+            foreach ($channels as $channel_id => $info) {
+                foreach ($info['channels'] as $channel => $accountcode) {
+                    if (strcasecmp($accountcode, $card['username']) == 0)
+                        $hangup[] = $channel;
+                }
             }
         }
 
         // hangup channels
-        foreach ($hangup as $channel_id) {
-            reset($this->channels);
-            foreach ($this->channels as $channel) {
-                if (stripos($channel['Channel'], $channel_id) !== false) {
-                    // sending Hangup for the channel
-                    self::log("Hanging up channel '{$channel['Channel']}'", LOG_INFO);
-                    $this->asm->Hangup($channel['Channel']);
-                }
-            }
+        foreach ($hangup as $channel) {
+            // sending Hangup for the channel
+            self::log("Hanging up channel '$channel'", LOG_INFO);
+            $this->asm->Hangup($channel);
         }
 
         // reset channels list
