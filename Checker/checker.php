@@ -352,7 +352,7 @@ OPTIONS:
             // check if trunk minutes limit exceeded
             if ($minutes_per_day > 0 && isset($channels[$channel_id])) {
                 $realtime_seconds = $channels[$channel_id]['seconds'];
-                $sql = "select * from cc_trunk_counter where id_trunk = '$id' and calldate = CURDATE() and ((seconds + $realtime_seconds / 60) >= $minutes_per_day) limit 1";
+                $sql = "select * from cc_trunk_counter where id_trunk = '$id' and calldate = CURDATE() and (((seconds + $realtime_seconds) / 60) >= $minutes_per_day) limit 1";
                 $data = $this->query($sql);
                 if (count($data) > 0)
                     $hangup = array_merge($hangup, array_keys($channels[$channel_id]['channels']));
@@ -380,6 +380,7 @@ OPTIONS:
         }
 
         // hangup channels
+        $hangup = array_unique($hangup);
         foreach ($hangup as $channel) {
             // sending Hangup for the channel
             self::log("Hanging up channel '$channel'", LOG_INFO);
