@@ -108,8 +108,10 @@ if ($popup_select) {
 	$HD_Form -> AddViewElement(gettext("STATUS"), "status", "7%", "center", "sort", "", "list", $actived_list);
 	$HD_Form -> AddViewElement(gettext("MAXUSE"), "maxuse" , "5%", "center", "sort");
         $HD_Form -> AddViewElement(gettext("Minutes/day"), "minutes_per_day" , "5%", "center", "sort");
-
-	$HD_Form -> FieldViewElement ('trunkcode, trunkprefix, removeprefix, providertech, providerip, id_provider, secondusedreal, status, maxuse, minutes_per_day');
+        $HD_Form -> AddViewElement(gettext("Minutes/day used"), "id_trunk" , "5%", "center", "sort", "", "", "", "", "", "", "display_minute_used");
+        $HD_Form -> AddViewElement(gettext("Priority"), "priority" , "5%", "center", "sort");
+        
+	$HD_Form -> FieldViewElement ('trunkcode, trunkprefix, removeprefix, providertech, providerip, id_provider, secondusedreal, status, maxuse, minutes_per_day, id_trunk, priority');
 }
 
 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
@@ -151,13 +153,15 @@ $def_value_minutes = '';
 $def_value_attempts = '';
 $def_value_statuses = '';
 $def_value_priority = '';
-if (isset($form_action) && $form_action=="ask-add"){
+$def_value_attempt_delay = '';
+if (isset($form_action) && $form_action=="ask-add") {
     $def_value_inuse = "value='0'";
     $def_value_maxuse = "value='-1'";
     $def_value_minutes = "value='0'";
     $def_value_attempts = "value='0'";
     $def_value_statuses = "value='CHANUNAVAIL,CONGESTION'";
     $def_value_priority = "value='0'";
+    $def_value_attempt_delay = "value='0'";
 }
 
 $HD_Form -> AddEditElement (gettext("VOIP-PROVIDER"),
@@ -315,8 +319,16 @@ $HD_Form -> AddEditElement (gettext("Priority"),
 	"",
 	"" , "", "", "", "", "", "", gettext("Trunk select priority for tariffplan algorithm"));
 
+$HD_Form -> AddEditElement (gettext("Attempt delay"),
+	"attempt_delay",
+	"",
+	"INPUT",
+	"size=9 $def_value_attempt_delay maxlength=30",
+	"12",
+	"",
+	"" , "", "", "", "", "", "", gettext("Delay between calls to the trunk in seconds, to disable - set to 0 (zero)"));
 	
-$HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk, inuse, maxuse, if_max_use, status, minutes_per_day, attempt_count, attempt_condition, attempt_statuses, priority');
+$HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk, inuse, maxuse, if_max_use, status, minutes_per_day, attempt_count, attempt_condition, attempt_statuses, priority, attempt_delay');
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the trunk below.");

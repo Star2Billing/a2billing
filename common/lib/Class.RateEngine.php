@@ -1225,13 +1225,13 @@ class RateEngine
             $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
             if (!$result) {
                 // insert trunk counter
-                $QUERY = "insert into cc_trunk_counter set id_trunk = '" . $this->usedtrunk . "', calldate = CURDATE(), seconds = 0";
+                $QUERY = "insert into cc_trunk_counter set id_trunk = '" . $this->usedtrunk . "', calldate = CURDATE(), seconds = 0, last_call_time = 0";
                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
                 $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
             }
             
             // add seconds to counter
-            $QUERY = "UPDATE cc_trunk_counter SET seconds = seconds + $sessiontime WHERE id_trunk = '" . $this->usedtrunk . "' and calldate = CURDATE()";
+            $QUERY = "UPDATE cc_trunk_counter SET seconds = seconds + $sessiontime, last_call_time = '" . time() . "' WHERE id_trunk = '" . $this->usedtrunk . "' and calldate = CURDATE()";
             $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
             $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
             
@@ -1317,17 +1317,18 @@ class RateEngine
             $attempt_statuses    = strtolower(preg_replace("/\s/", '', $t['attempt_statuses']));
             $attempt_condition   = $t['attempt_condition'];
             $attempt_count       = $t['attempt_count'];
+            $attempt_delay       = $t['attempt_delay'];
 
-            // check minutes per day
+            // check limits
+            $counters = $A2B->getTrunkCounters($this->usedtrunk);
             $minutes_per_day_reached = false;
-            if ($minutes_per_day > 0) {
-                $QUERY = "select * from cc_trunk_counter where id_trunk = '$this->usedtrunk' and calldate = CURDATE() and ((seconds / 60) >= $minutes_per_day ) limit 1";
-                $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
-                $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
-                $minutes_per_day_reached = (is_array($result) && count($result) > 0);
-            }
+            $trunk_on_pause = false;
+            if ($minutes_per_day > 0 && !is_null($counters))
+                $minutes_per_day_reached = (($counters['seconds'] / 60) > $minutes_per_day);
+            if ($attempt_delay > 0 && !is_null($counters))
+                $trunk_on_pause = (($counters['last_call_time'] + $attempt_delay) >= time());
             
-            if (($maxuse == -1 || $inuse < $maxuse) && !$minutes_per_day_reached) {
+            if (($maxuse == -1 || $inuse < $maxuse) && !$minutes_per_day_reached && !$trunk_on_pause) {
             
                 if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0)
                     $destination = substr($destination, strlen($removeprefix));
@@ -1454,12 +1455,12 @@ class RateEngine
                     return true;
                 }
                 
+            } else if ($minutes_per_day_reached) {
+                $A2B->debug(WARN, $agi, __FILE__, __LINE__, "This trunk cannot be used because minutes limit exceeded. Now use next trunk\n");
+            } else if ($trunk_on_pause) {
+                $A2B->debug(WARN, $agi, __FILE__, __LINE__, "!!!This trunk cannot be used because on pause. Now use next trunk\n");
             } else {
-                if ($minutes_per_day_reached) {
-                    $A2B->debug(WARN, $agi, __FILE__, __LINE__, "This trunk cannot be used because minutes limit exceeded. Now use next trunk\n");
-                } else {
-                    $A2B->debug(WARN, $agi, __FILE__, __LINE__, "This trunk cannot be used because maximum number of connections is reached. Now use next trunk\n");
-                }
+                $A2B->debug(WARN, $agi, __FILE__, __LINE__, "This trunk cannot be used because maximum number of connections is reached. Now use next trunk\n");
             }
             
             $i++;
@@ -1597,23 +1598,24 @@ class RateEngine
             $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "app_callingcard: CIDGROUPID='$cidgroupid' OUTBOUND CID SELECTED IS '$outcid'.");
 
             // get additional trunk params
-            $QUERY = "select minutes_per_day, attempt_statuses, attempt_condition, attempt_count from cc_trunk where id_trunk = '$this->usedtrunk' limit 1";
+            $QUERY = "select minutes_per_day, attempt_statuses, attempt_condition, attempt_count, attempt_delay from cc_trunk where id_trunk = '$this->usedtrunk' limit 1";
             $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
             $minutes_per_day     = intval($result[0][0]);
             $attempt_statuses    = strtolower(preg_replace("/\s/", '', $result[0][1]));
             $attempt_condition   = $result[0][2];
             $attempt_count       = $result[0][3];
+            $attempt_delay       = $result[0][4];
             
-            // check minutes per day
+            // check limits
+            $counters = $A2B->getTrunkCounters($this->usedtrunk);
             $minutes_per_day_reached = false;
-            if ($minutes_per_day > 0) {
-                $QUERY = "select * from cc_trunk_counter where id_trunk = '$this->usedtrunk' and calldate = CURDATE() and ((seconds / 60) >= $minutes_per_day ) limit 1";
-                $A2B->debug( DEBUG, $agi, __FILE__, __LINE__, $QUERY);
-                $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
-                $minutes_per_day_reached = (is_array($result) && count($result) > 0);
-            }
+            $trunk_on_pause = false;
+            if ($minutes_per_day > 0 && !is_null($counters))
+                $minutes_per_day_reached = (($counters['seconds'] / 60) > $minutes_per_day);
+            if ($attempt_delay > 0 && !is_null($counters))
+                $trunk_on_pause = (($counters['last_call_time'] + $attempt_delay) >= time());
             
-            if (($maxuse == -1 || $inuse < $maxuse) && !$minutes_per_day_reached) {
+            if (($maxuse == -1 || $inuse < $maxuse) && !$minutes_per_day_reached && !$trunk_on_pause) {
                 // Count this call on the trunk
                 $this->trunk_start_inuse($agi, $A2B, 1);
 
@@ -1651,6 +1653,8 @@ class RateEngine
                     continue 1;
                 } else if ($minutes_per_day_reached) {
                     $A2B->debug(WARN, $agi, __FILE__, __LINE__, "This trunk cannot be used because minutes limit exceeded. Now use failover trunk\n");
+                } else if ($trunk_on_pause) {
+                    $A2B->debug(WARN, $agi, __FILE__, __LINE__, "This trunk cannot be used because it is on pause. Now use failover trunk\n");
                 } else {
                     $A2B->debug(WARN, $agi, __FILE__, __LINE__, "This trunk cannot be used because maximum number of connections is reached. Now use failover trunk\n");
                 }
@@ -1667,7 +1671,7 @@ class RateEngine
 
             // LOOOOP FOR THE FAILOVER LIMITED TO failover_recursive_limit
             $loop_failover = 0;
-            while ($loop_failover <= $A2B->agiconfig['failover_recursive_limit'] && is_numeric($failover_trunk) && $failover_trunk >= 0 && (($this->dialstatus == "CHANUNAVAIL") || ($this->dialstatus == "CONGESTION") || ($inuse >= $maxuse && $maxuse != -1) || $minutes_per_day_reached)) {
+            while ($loop_failover <= $A2B->agiconfig['failover_recursive_limit'] && is_numeric($failover_trunk) && $failover_trunk >= 0 && (($this->dialstatus == "CHANUNAVAIL") || ($this->dialstatus == "CONGESTION") || ($inuse >= $maxuse && $maxuse != -1) || $minutes_per_day_reached || $trunk_on_pause)) {
                 $loop_failover++;
                 $this->real_answeredtime = $this->answeredtime = 0;
                 $this->usedtrunk = $failover_trunk;
@@ -1676,7 +1680,7 @@ class RateEngine
 
                 $destination = $old_destination;
 
-                $QUERY = "SELECT trunkprefix, providertech, providerip, removeprefix, failover_trunk, status, inuse, maxuse, if_max_use, minutes_per_day, attempt_statuses, attempt_condition, attempt_count FROM cc_trunk WHERE id_trunk = '$failover_trunk'";
+                $QUERY = "SELECT trunkprefix, providertech, providerip, removeprefix, failover_trunk, status, inuse, maxuse, if_max_use, minutes_per_day, attempt_statuses, attempt_condition, attempt_count, attempt_delay FROM cc_trunk WHERE id_trunk = '$failover_trunk'";
                 $A2B->instance_table = new Table();
                 $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
 
@@ -1696,6 +1700,7 @@ class RateEngine
                     $attempt_statuses    = strtolower(preg_replace("/\s/", '', $result[0][10]));
                     $attempt_condition   = $result[0][11];
                     $attempt_count       = $result[0][12];
+                    $attempt_delay       = $result[0][13];
 
                     if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) {
                         $destination = substr($destination, strlen($removeprefix));
@@ -1710,13 +1715,14 @@ class RateEngine
                         continue 2;
                     }
 
-                    // get trunk limits
+                    // check limits
+                    $counters = $A2B->getTrunkCounters($failover_trunk);
                     $minutes_per_day_reached = false;
-                    if ($minutes_per_day > 0) {
-                        $QUERY = "select * from cc_trunk_counter where id_trunk = '$failover_trunk' and calldate = CURDATE() and ((seconds / 60) >= $minutes_per_day ) limit 1";
-                        $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
-                        $minutes_per_day_reached = (is_array($result) && count($result) > 0);
-                    }
+                    $trunk_on_pause = false;
+                    if ($minutes_per_day > 0 && !is_null($counters))
+                        $minutes_per_day_reached = (($counters['seconds'] / 60) > $minutes_per_day);
+                    if ($attempt_delay > 0 && !is_null($counters))
+                        $trunk_on_pause = (($counters['last_call_time'] + $attempt_delay) >= time());
                     
                     if ($maxuse != -1 && $inuse >= $maxuse) {
                         $A2B->debug(WARN, $agi, __FILE__, __LINE__, "Failover trunk cannot be used because maximum number of connections on this trunk is already reached.\n");
@@ -1740,6 +1746,18 @@ class RateEngine
                         
                     } else if ($minutes_per_day_reached) {
                         $A2B->debug( WARN, $agi, __FILE__, __LINE__, "Failover trunk cannot be used because minutes limit exceeded. Now using its failover trunk\n");
+
+                        // IF THE FAILOVER TRUNK IS SAME AS THE ACTUAL TRUNK WE BREAK
+                        if ($next_failover_trunk == $failover_trunk) {
+                            break;
+                        } else {
+                            $failover_trunk = $next_failover_trunk;
+                        }
+                        
+                        continue 1;
+
+                    } else if ($trunk_on_pause) {
+                        $A2B->debug( WARN, $agi, __FILE__, __LINE__, "Failover trunk cannot be used because on pause. Now using its failover trunk\n");
 
                         // IF THE FAILOVER TRUNK IS SAME AS THE ACTUAL TRUNK WE BREAK
                         if ($next_failover_trunk == $failover_trunk) {

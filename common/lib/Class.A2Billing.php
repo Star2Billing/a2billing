@@ -3936,5 +3936,13 @@ class A2Billing
     public function agicnf($key, $default = null) {
         return is_array($this->agiconfig) && isset($this->agiconfig[$key]) ? $this->agiconfig[$key] : $default;
     }
+    
+    public function getTrunkCounters($id_trunk) {
+        $QUERY = "select * from cc_trunk_counter where id_trunk = '$id_trunk' and calldate = CURDATE() limit 1";
+        $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
+        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
+        
+        return (is_array($result) && count($result) > 0) ? $result[0] : null;
+    }
 
 };

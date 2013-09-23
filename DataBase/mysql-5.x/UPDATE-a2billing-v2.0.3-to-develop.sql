@@ -36,7 +36,8 @@ alter table `cc_trunk`
 	add column `attempt_statuses` varchar(255)  COLLATE utf8_bin NULL DEFAULT 'CHANUNAVAIL,CONGESTION' after `minutes_per_day`, 
 	add column `attempt_condition` int(11) unsigned   NULL DEFAULT '0' after `attempt_statuses`, 
 	add column `attempt_count` int(11) unsigned   NULL DEFAULT '0' after `attempt_condition`, COMMENT='',
-	add column `priority` int(11)   NULL DEFAULT '0' after `attempt_count`, COMMENT='';
+	add column `priority` int(11)   NULL DEFAULT '0' after `attempt_count`, COMMENT=''
+        add column `attempt_delay` int(11) DEFAULT '0' after `priority`, COMMENT='';
 
 create table `cc_trunk_counter`(
 	`id_trunk` int(10) unsigned NOT NULL   , 
