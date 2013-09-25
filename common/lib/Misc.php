@@ -437,20 +437,6 @@ function display_minute($sessiontime)
     echo $minutes;
 }
 
-function display_minute_used($id_trunk) {
-    if (empty ($handle))
-        $handle = DbConnect();
-
-    static $instance_table = null;
-    if ($instance_table === null)
-        $instance_table = new Table();
-    
-    $QUERY = "select seconds from cc_trunk_counter where id_trunk = '$id_trunk' and calldate = CURDATE() limit 1";
-    $result = $instance_table->SQLExec($handle, $QUERY);
-    
-    display_minute((is_array($result) && count($result) > 0) ? $result[0]['seconds'] : 0);
-}
-
 function display_2dec($var)
 {
     echo number_format($var, 2);
@@ -1593,4 +1579,30 @@ function Display_Login_Button ($DBHandle, $id)
     </div>';
 
     return $content;
+}
+
+function display_minute_used($id_trunk) {
+    $counters = getTrunkCounters($id_trunk);
+    
+    display_minute(!is_null($counters) ? $counters['seconds'] : 0);
+}
+
+function display_calls_used($id_trunk) {
+    $counters = getTrunkCounters($id_trunk);
+    
+    echo !is_null($counters) ? $counters['success_calls'] : 0;
+}
+
+function getTrunkCounters($id_trunk) {
+    if (empty ($handle))
+        $handle = DbConnect();
+
+    static $instance_table = null;
+    if ($instance_table === null)
+        $instance_table = new Table();
+    
+    $QUERY = "select * from cc_trunk_counter where id_trunk = '$id_trunk' and calldate = CURDATE() limit 1";
+    $result = $instance_table->SQLExec($handle, $QUERY);
+
+    return (is_array($result) && count($result) > 0) ? $result[0] : null;
 }

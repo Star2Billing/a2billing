@@ -110,8 +110,10 @@ if ($popup_select) {
         $HD_Form -> AddViewElement(gettext("Minutes/day"), "minutes_per_day" , "5%", "center", "sort");
         $HD_Form -> AddViewElement(gettext("Minutes/day used"), "id_trunk" , "5%", "center", "sort", "", "", "", "", "", "", "display_minute_used");
         $HD_Form -> AddViewElement(gettext("Priority"), "priority" , "5%", "center", "sort");
+        $HD_Form -> AddViewElement(gettext("Calls/day"), "calls_per_day" , "5%", "center", "sort");
+        $HD_Form -> AddViewElement(gettext("Calls/day used"), "id_trunk" , "5%", "center", "sort", "", "", "", "", "", "", "display_calls_used");
         
-	$HD_Form -> FieldViewElement ('trunkcode, trunkprefix, removeprefix, providertech, providerip, id_provider, secondusedreal, status, maxuse, minutes_per_day, id_trunk, priority');
+	$HD_Form -> FieldViewElement ('trunkcode, trunkprefix, removeprefix, providertech, providerip, id_provider, secondusedreal, status, maxuse, minutes_per_day, id_trunk, priority, calls_per_day, id_trunk');
 }
 
 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
@@ -147,6 +149,7 @@ if ($popup_select) {
 	$HD_Form -> FG_ADDITION = true;
 }
 
+$counters = getTrunkCounters($id);
 $def_value_inuse = '';
 $def_value_maxuse = '';
 $def_value_minutes = '';
@@ -154,7 +157,9 @@ $def_value_attempts = '';
 $def_value_statuses = '';
 $def_value_priority = '';
 $def_value_attempt_delay = '';
+$def_value_calls = '';
 if (isset($form_action) && $form_action=="ask-add") {
+    $counters = null;
     $def_value_inuse = "value='0'";
     $def_value_maxuse = "value='-1'";
     $def_value_minutes = "value='0'";
@@ -162,6 +167,7 @@ if (isset($form_action) && $form_action=="ask-add") {
     $def_value_statuses = "value='CHANUNAVAIL,CONGESTION'";
     $def_value_priority = "value='0'";
     $def_value_attempt_delay = "value='0'";
+    $def_value_calls = "value='0'";
 }
 
 $HD_Form -> AddEditElement (gettext("VOIP-PROVIDER"),
@@ -281,7 +287,7 @@ $HD_Form -> AddEditElement (gettext("Minutes/day"),
 	"size=9 $def_value_minutes maxlength=30",
 	"12",
 	"",
-	"" , "", "", "", "", "", "", gettext("Number of maximum minutes to the gateway per day"));
+	"" , "", "", "", "", "", "", gettext("Number of maximum minutes to the gateway per day, to disable - set to 0 (zero)") . (is_array($counters) ? ". <b>" . sprintf(gettext("Minutes today: %s"), sprintf("%02d", intval($counters['seconds'] / 60)) . ":" . sprintf("%02d", intval($counters['seconds'] % 60))) . '</b>' : ''));
     
 $HD_Form -> AddEditElement (gettext("Attempts"),
 	"attempt_count",
@@ -290,7 +296,7 @@ $HD_Form -> AddEditElement (gettext("Attempts"),
 	"size=9 $def_value_attempts maxlength=30",
 	"12",
 	"",
-	"" , "", "", "", "", "", "", gettext("Additional attempts according attempt condition. To disable - set to 0 (zero)"));
+	"" , "", "", "", "", "", "", gettext("Additional attempts according attempt condition, to disable - set to 0 (zero)"));
 
 $HD_Form -> AddEditElement (gettext("Attempt condition"),
 	"attempt_condition",
@@ -327,9 +333,17 @@ $HD_Form -> AddEditElement (gettext("Attempt delay"),
 	"12",
 	"",
 	"" , "", "", "", "", "", "", gettext("Delay between calls to the trunk in seconds, to disable - set to 0 (zero)"));
-	
-$HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk, inuse, maxuse, if_max_use, status, minutes_per_day, attempt_count, attempt_condition, attempt_statuses, priority, attempt_delay');
 
+$HD_Form -> AddEditElement (gettext("Calls/day"),
+	"calls_per_day",
+	"",
+	"INPUT",
+	"size=9 $def_value_calls maxlength=30",
+	"12",
+	"",
+	"" , "", "", "", "", "", "", gettext("Number of maximum success calls to the gateway per day, to disable - set to 0 (zero)") . (is_array($counters) ? ". <b>" . sprintf(gettext("Calls today: %s"), $counters['success_calls']) . '</b>' : ''));
+
+$HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk, inuse, maxuse, if_max_use, status, minutes_per_day, attempt_count, attempt_condition, attempt_statuses, priority, attempt_delay, calls_per_day');
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the trunk below.");
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");

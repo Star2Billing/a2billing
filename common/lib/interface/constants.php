@@ -619,6 +619,8 @@ class constants
         $list["2"] = array( gettext("Trunks list : random"), "2");
         $list["3"] = array( gettext("Trunks list : load balance"), "3");
         $list["4"] = array( gettext("Trunks list : priority - random"), "4");
+        $list["5"] = array( gettext("Trunks list : minutes per day"), "5");
+        $list["6"] = array( gettext("Trunks list : calls per day"), "6");
 
         return $list;
     }

@@ -38,12 +38,14 @@ alter table `cc_trunk`
 	add column `attempt_count` int(11) unsigned   NULL DEFAULT '0' after `attempt_condition`,
 	add column `priority` int(11)   NULL DEFAULT '0' after `attempt_count`,
         add column `attempt_delay` int(11) DEFAULT '0' after `priority`,
+        add column `calls_per_day` int(11) DEFAULT '0' after `attempt_delay`;
 
 create table `cc_trunk_counter`(
 	`id_trunk` int(10) unsigned NOT NULL,
 	`calldate` date NOT NULL,
 	`seconds` int(11) NULL  DEFAULT '0',
         `last_call_time` int(11) NOT NULL DEFAULT '0',
+        `success_calls` int(11) DEFAULT '0',
 	PRIMARY KEY (`id_trunk`,`calldate`)
 )Engine=MyISAM DEFAULT CHARSET='utf8';
 
