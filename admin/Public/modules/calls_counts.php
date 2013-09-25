@@ -43,8 +43,8 @@ $checkdate = date("Y-m-d");
 $DBHandle = DbConnect();
 
 $QUERY_COUNT_CALL_ALL = "select terminatecauseid, count(*) from cc_call WHERE starttime >= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP GROUP BY terminatecauseid";
-
 $QUERY_COUNT_CALL_BILL = "SELECT sum(sessiontime), sum(sessionbill), sum(buycost) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP ;";
+$QUERY_ACTIVECALLS = "SELECT sum(inuse) FROM cc_card WHERE inuse=1";
 
 $table = new Table('cc_call', '*');
 $result = $table->SQLExec($DBHandle, $QUERY_COUNT_CALL_ALL);
@@ -80,6 +80,9 @@ $result_count_calls_sell = a2b_round($result[0][1]);
 $result_count_calls_buy = a2b_round($result[0][2]);
 $result_count_calls_profit = $result_count_calls_sell-$result_count_calls_buy;
 
+$result = $table->SQLExec($DBHandle, $QUERY_ACTIVECALLS);
+$active_calls = $result[0][0];
+
 ?>
 
 <?php echo gettext("Total Calls");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > <?php echo $result_count_all; ?> </font> <br/>
@@ -103,3 +106,6 @@ $result_count_calls_profit = $result_count_calls_sell-$result_count_calls_buy;
 
 <?php echo gettext("Duration");?>&nbsp;:&nbsp; <font style="color:#EE6564;" >
 <?php if ($result_count_calls_times == null) {echo "0";} else { echo $result_count_calls_times;} ?> </font>&nbsp;<?php echo gettext("sec");?>  <br/>
+
+<?php echo gettext("Active Calls");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
+<?php if($active_calls == null){echo "0";}else{ echo $active_calls;} ?></font><br/>
