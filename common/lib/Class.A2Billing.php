@@ -3938,6 +3938,9 @@ class A2Billing
     }
     
     public function getTrunkCounters($id_trunk) {
+        if (!$this->instance_table instanceof Table)
+            $this->instance_table = new Table();
+        
         $QUERY = "select sql_no_cache * from cc_trunk_counter where id_trunk = '$id_trunk' and calldate = CURDATE() limit 1";
         $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
         

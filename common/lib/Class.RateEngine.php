@@ -1333,6 +1333,7 @@ class RateEngine
 
             // check limits
             $counters = $A2B->getTrunkCounters($this->usedtrunk);
+            $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "Counters: \n" . print_r($counters, true));
             $minutes_per_day_reached = false;
             $trunk_on_pause = false;
             $calls_per_day_reached = false;
@@ -1628,6 +1629,7 @@ class RateEngine
             
             // check limits
             $counters = $A2B->getTrunkCounters($this->usedtrunk);
+            $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "Counters: \n" . print_r($counters, true));
             $minutes_per_day_reached = false;
             $trunk_on_pause = false;
             $calls_per_day_reached = false;
@@ -1745,6 +1747,7 @@ class RateEngine
 
                     // check limits
                     $counters = $A2B->getTrunkCounters($failover_trunk);
+                    $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "Counters: \n" . print_r($counters, true));
                     $minutes_per_day_reached = false;
                     $trunk_on_pause = false;
                     $calls_per_day_reached = false;
