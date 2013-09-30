@@ -358,9 +358,9 @@ OPTIONS:
                     $hangup = array_merge($hangup, array_keys($channels[$channel_id]['channels']));
             }
 
-            // check inuse
+            // check inuse except for "Local" trunks
             $inuse_real = isset($channels[$channel_id]) ? count($channels[$channel_id]['channels']) : 0;
-            if ($inuse_real != $inuse) {
+            if (strcasecmp(trim($t['providertech']), 'local') != 0 && $inuse_real != $inuse) {
                 self::log("Fixing 'inuse' for trunk with ID = $id", LOG_INFO);
                 $sql = "update cc_trunk set inuse = $inuse_real where id_trunk = $id";
                 $this->query($sql);
