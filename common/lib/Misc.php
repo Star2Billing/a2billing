@@ -1601,7 +1601,7 @@ function getTrunkCounters($id_trunk) {
     if ($instance_table === null)
         $instance_table = new Table();
     
-    $QUERY = "select * from cc_trunk_counter where id_trunk = '$id_trunk' and calldate = CURDATE() limit 1";
+    $QUERY = "select sql_no_cache * from cc_trunk_counter where id_trunk = '$id_trunk' and calldate = CURDATE() limit 1";
     $result = $instance_table->SQLExec($handle, $QUERY);
 
     return (is_array($result) && count($result) > 0) ? $result[0] : null;
