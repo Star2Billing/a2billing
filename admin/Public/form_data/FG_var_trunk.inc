@@ -107,11 +107,11 @@ if ($popup_select) {
 	$HD_Form -> AddViewElement(gettext("MINUTES USED"), "secondusedreal", "%9", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 	$HD_Form -> AddViewElement(gettext("STATUS"), "status", "7%", "center", "sort", "", "list", $actived_list);
 	$HD_Form -> AddViewElement(gettext("MAXUSE"), "maxuse" , "5%", "center", "sort");
-        $HD_Form -> AddViewElement(gettext("Minutes/day"), "minutes_per_day" , "5%", "center", "sort");
-        $HD_Form -> AddViewElement(gettext("Minutes/day used"), "id_trunk" , "5%", "center", "sort", "", "", "", "", "", "", "display_minute_used");
-        $HD_Form -> AddViewElement(gettext("Priority"), "priority" , "5%", "center", "sort");
-        $HD_Form -> AddViewElement(gettext("Calls/day"), "calls_per_day" , "5%", "center", "sort");
-        $HD_Form -> AddViewElement(gettext("Calls/day used"), "id_trunk" , "5%", "center", "sort", "", "", "", "", "", "", "display_calls_used");
+	$HD_Form -> AddViewElement(gettext("Minutes/day"), "minutes_per_day" , "5%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("Minutes/day used"), "id_trunk" , "5%", "center", "sort", "", "", "", "", "", "", "display_minute_used");
+	$HD_Form -> AddViewElement(gettext("Priority"), "priority" , "5%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("Calls/day"), "calls_per_day" , "5%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("Calls/day used"), "id_trunk" , "5%", "center", "sort", "", "", "", "", "", "", "display_calls_used");
         
 	$HD_Form -> FieldViewElement ('trunkcode, trunkprefix, removeprefix, providertech, providerip, id_provider, secondusedreal, status, maxuse, minutes_per_day, id_trunk, priority, calls_per_day, id_trunk');
 }
@@ -202,10 +202,10 @@ $HD_Form -> AddEditElement (gettext("REMOVE PREFIX"),
 	"removeprefix",
 	"$value",
 	"INPUT",
-	"size=30 maxlength=20",
+	"size=120",
 	"",
 	gettext("Insert the removeprefix"),
-	"" , "", "", "", "" , "" , "", gettext("Remove prefix from the dialed digits."));
+	"" , "", "", "", "" , "" , "", gettext("Remove prefix from the dialed digits.") . " " . gettext("Supported format: SEARCH_PREFIX[<,>/SEARCH_REGEX/[<->/REMOVE_REGEX/][<->STOP_FLAG]<,>/REMOVE_REGEX/<,>REMOVE_PLAIN<,>etc...] Separators are: <,> - for rules , <-> between SEARCH and REMOVE rules and STOP sign (if 3rd parameter greater than 0 - the rule process will be stoped if current rule was applied), if \"/\" found in the rule - it is being recognized as REGEX."));
 	
 $HD_Form -> AddEditElement (gettext("PROVIDER TECH"),
 	"providertech",

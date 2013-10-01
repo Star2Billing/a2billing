@@ -3950,7 +3950,7 @@ class A2Billing
     /**
      * Smart prefix removing function
      *
-     * @param string $removeprefix Can be just a plain prefix like 008 OR a list in format: /SEARCH_REGEX/<->/REMOVE_REGEX/<->1|0<,>/REMOVE_REGEX/<,>REMOVE_PLAIN etc ... Separators are: <,> - for rules , <-> between SEARCH and REMOVE rules and STOP sign (if 3rd parameter equal to 1 - the rule process will be stoped), if "/" found in the rule - it is being recognized as REGEX
+     * @param string $removeprefix Supported format: SEARCH_PREFIX[<,>/SEARCH_REGEX/<->/REMOVE_REGEX/<->1|0<,>/REMOVE_REGEX/<,>REMOVE_PLAIN<,>etc...] Separators are: <,> - for rules , <-> between SEARCH and REMOVE rules and STOP sign (if 3rd parameter equal to 1 - the rule process will be stoped), if "/" found in the rule - it is being recognized as REGEX
      * @param string $destination Dialed number
      * @return string The fixed destination
      */
