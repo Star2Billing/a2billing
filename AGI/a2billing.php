@@ -841,7 +841,10 @@ if ($mode == 'standard') {
                     $addparameter   = $RateEngine->ratecard_obj[0][42 + $usetrunk_failover];
 
                     $destination = $A2B->destination;
-                    if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
+
+                    // applying prefix rule(s)
+                    $destination = $A2B->removePrefix($removeprefix, $destination);
+                    $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[UPDATED DESTINATION: $destination]");
 
                     $pos_dialingnumber = strpos($ipaddress, '%dialingnumber%');
 
@@ -985,7 +988,10 @@ if ($mode == 'standard') {
                     $addparameter   = $RateEngine->ratecard_obj[0][42 + $usetrunk_failover];
 
                     $destination = $A2B->destination;
-                    if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
+                    
+                    // applying prefix rule(s)
+                    $destination = $A2B->removePrefix($removeprefix, $destination);
+                    $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[UPDATED DESTINATION: $destination]");
 
                     $pos_dialingnumber = strpos($ipaddress, '%dialingnumber%');
 
@@ -1329,7 +1335,10 @@ if ($mode == 'standard') {
                         $addparameter   = $RateEngine->ratecard_obj[0][42 + $usetrunk_failover];
 
                         $destination = $A2B->destination;
-                        if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
+                        
+                        // applying prefix rule(s)
+                        $destination = $A2B->removePrefix($removeprefix, $destination);
+                        $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[UPDATED DESTINATION: $destination]");
 
                         $pos_dialingnumber = strpos($ipaddress, '%dialingnumber%');
 

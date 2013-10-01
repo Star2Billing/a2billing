@@ -3947,4 +3947,32 @@ class A2Billing
         return (is_array($result) && count($result) > 0) ? $result[0] : null;
     }
 
+    /**
+     * Smart prefix removing function
+     *
+     * @param string $removeprefix Can be just a plain prefix like 008 OR a list in format: /SEARCH_REGEX/<->/REMOVE_REGEX/<->1|0<,>/REMOVE_REGEX/<,>REMOVE_PLAIN etc ... Separators are: <,> - for rules , <-> between SEARCH and REMOVE rules and STOP sign (if 3rd parameter equal to 1 - the rule process will be stoped), if "/" found in the rule - it is being recognized as REGEX
+     * @param string $destination Dialed number
+     * @return string The fixed destination
+     */
+    public function removePrefix($removeprefix, $destination) {
+        $rules = preg_split("/\<\,\>/", $removeprefix);
+        foreach ($rules as $rule) {
+            $parts = preg_split("/\<\-\>/", $rule);
+            $search = trim($parts[0]);
+            $replace = isset($parts[1]) ? $parts[1] : '';
+            $stop = isset($parts[2]) ? $parts[2] : false;
+            $old_destination = $destination;
+
+            if ($search{0} == '/') { // it is regex
+                $destination = preg_replace($search, $replace, $destination);
+            } else { // it is plain
+                if (strncmp($destination, $search, strlen($search)) == 0)
+                    $destination = substr_replace($destination, $replace, 0, strlen($search));
+            }
+            if ($old_destination != $destination && $stop)
+                break;
+        }
+        return $destination;
+    }
+
 };

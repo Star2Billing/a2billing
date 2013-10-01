@@ -1348,8 +1348,9 @@ class RateEngine
             
             if (($maxuse == -1 || $inuse < $maxuse) && !$minutes_per_day_reached && !$trunk_on_pause && !$calls_per_day_reached) {
             
-                if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0)
-                    $destination = substr($destination, strlen($removeprefix));
+                // applying prefix rule(s)
+                $destination = $A2B->removePrefix($removeprefix, $destination);
+                $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[UPDATED DESTINATION: $destination]");
 
                 if ($typecall == 1) $timeout = $A2B->config["callback"]['predictivedialer_maxtime_tocall'];
 
@@ -1551,9 +1552,10 @@ class RateEngine
             $maxuse         = $this->ratecard_obj[$k][50 + $usetrunk_failover];
             $ifmaxuse       = $this->ratecard_obj[$k][52 + $usetrunk_failover];
 
-            if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0)
-                $destination = substr($destination, strlen($removeprefix));
-
+            // applying prefix rule(s)
+            $destination = $A2B->removePrefix($removeprefix, $destination);
+            $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[UPDATED DESTINATION: $destination]");
+                
             if ($typecall == 1) $timeout = $A2B->config["callback"]['predictivedialer_maxtime_tocall'];
 
             //$dialparams = "|30|HS($timeout)"; // L(" . $timeout*1000 . ":61000:30000)
@@ -1732,10 +1734,10 @@ class RateEngine
                     $attempt_delay       = $result[0][13];
                     $calls_per_day       = $result[0][14];
 
-                    if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) {
-                        $destination = substr($destination, strlen($removeprefix));
-                    }
-
+                    // applying prefix rule(s)
+                    $destination = $A2B->removePrefix($removeprefix, $destination);
+                    $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[UPDATED DESTINATION: $destination]");
+                
                     // Check if we will be able to use this route:
                     //  if the trunk is activated and
                     //  if there are less connection than it can support or there is an unlimited number of connections
@@ -1933,5 +1935,5 @@ class RateEngine
             $agi->hangup();
         }
     }
-
+    
 };
