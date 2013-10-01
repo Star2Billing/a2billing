@@ -841,7 +841,7 @@ if (sizeof($refill_result)>0 && $refill_result[0]!=null) {
 }
 
 $call_table = new Table('cc_call,cc_prefix','*');
-$call_clause = "card_id = ".$id." AND cc_call.destination = cc_prefix.prefix";
+$call_clause = "card_id = ".$id." AND CAST(cc_call.destination AS CHAR) = cc_prefix.prefix";
 $call_result = $call_table -> Get_list($DBHandle, $call_clause, 'starttime', 'DESC', NULL, NULL, 10, 0);
 if (sizeof($call_result)>0 && $call_result[0]!=null) {
 ?>
