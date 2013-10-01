@@ -31,8 +31,6 @@
  * 
 **/
 
-
-
 getpost_ifset(array('id', 'trunkcode', 'trunkprefix', 'removeprefix', 'providertech', 'providerip', 'addparameter','failover_trunk', 'id_provider', 'popup_select', 'inuse', 'maxuse', 'status', 'if_max_use', 'minutes_per_day', 'attempt_statuses', 'attempt_condition', 'attempt_count'));
 
 $DBHandle  = DbConnect();
@@ -205,7 +203,7 @@ $HD_Form -> AddEditElement (gettext("REMOVE PREFIX"),
 	"size=120",
 	"",
 	gettext("Insert the removeprefix"),
-	"" , "", "", "", "" , "" , "", gettext("Remove prefix from the dialed digits.") . " " . gettext("Supported format: SEARCH_PREFIX[<,>/SEARCH_REGEX/[<->/REMOVE_REGEX/][<->STOP_FLAG]<,>/REMOVE_REGEX/<,>REMOVE_PLAIN<,>etc...] Separators are: <,> - for rules , <-> between SEARCH and REMOVE rules and STOP sign (if 3rd parameter greater than 0 - the rule process will be stoped if current rule was applied), if \"/\" found in the rule - it is being recognized as REGEX."));
+	"" , "", "", "", "" , "" , "", gettext("Remove prefix from the dialed digits.") . " " . gettext("Supported format: SEARCH_PLAIN[{,}/SEARCH_REGEX/[{-}REPLACEMENT][{-}STOP_FLAG]{,}/SEARCH_REGEX/{,}SEARCH_PLAIN{-}REPLACEMENT{,}etc...] Separators are: {,} - between rules , {-} - between SEARCH and REPLACEMENT rules and STOP sign (if 3rd parameter greater than 0 - than rule process will be stoped if current rule was applied; if / found in the rule - it is being recognized as REGEX; default for REPLACEMENT is empty string; default for STOP_FLAG is zero)."));
 	
 $HD_Form -> AddEditElement (gettext("PROVIDER TECH"),
 	"providertech",

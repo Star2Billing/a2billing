@@ -3950,14 +3950,15 @@ class A2Billing
     /**
      * Smart prefix removing function
      *
-     * @param string $removeprefix Supported format: SEARCH_PREFIX[<,>/SEARCH_REGEX/<->/REMOVE_REGEX/<->1|0<,>/REMOVE_REGEX/<,>REMOVE_PLAIN<,>etc...] Separators are: <,> - for rules , <-> between SEARCH and REMOVE rules and STOP sign (if 3rd parameter equal to 1 - the rule process will be stoped), if "/" found in the rule - it is being recognized as REGEX
+     * @param string $removeprefix Supported format: SEARCH_PLAIN[{,}/SEARCH_REGEX/[{-}REPLACEMENT][{-}STOP_FLAG]{,}/SEARCH_REGEX/{,}SEARCH_PLAIN{-}REPLACEMENT{,}etc...] Separators are: {,} - between rules , {-} - between SEARCH and REPLACEMENT rules and STOP sign (if 3rd parameter greater than 0 - than rule process will be stoped if current rule was applied; if / found in the rule - it is being recognized as REGEX; default for REPLACEMENT is empty string; default for STOP_FLAG is zero).
      * @param string $destination Dialed number
      * @return string The fixed destination
      */
     public function removePrefix($removeprefix, $destination) {
-        $rules = preg_split("/\<\,\>/", $removeprefix);
+        $removeprefix = str_replace('\\\\\\\\', '\\', $removeprefix);
+        $rules = preg_split("/\{\,\}/", $removeprefix);
         foreach ($rules as $rule) {
-            $parts = preg_split("/\<\-\>/", $rule);
+            $parts = preg_split("/\{\-\}/", $rule);
             $search = trim($parts[0]);
             $replace = isset($parts[1]) ? $parts[1] : '';
             $stop = isset($parts[2]) ? $parts[2] : false;
