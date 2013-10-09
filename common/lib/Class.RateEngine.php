@@ -878,7 +878,7 @@ class RateEngine
                 $this->freetimetocall_used = $callduration;
                 $callduration = 0;
             }
-            
+
             // Fix for promotion package causing balance to go negative.
             if ($this ->freetimetocall_used <= $callduration){
                 $callduration = $callduration - $this->freetimetocall_used;
@@ -1389,7 +1389,7 @@ class RateEngine
                     $tech                = $result[0][1];
                     $ipaddress           = $result[0][2];
                     $removeprefix        = $result[0][3];
-                    $next_failover_trunk = $result[0][4];
+                    $failover_trunk      = $result[0][4];
                     $status              = $result[0][5];
                     $inuse               = $result[0][6];
                     $maxuse              = $result[0][7];
@@ -1461,11 +1461,9 @@ class RateEngine
                     $A2B->debug(INFO, $agi, __FILE__, __LINE__, "[FAILOVER K=$k]:[ANSTIME=" . $this->answeredtime . "-DIALSTATUS=" . $this->dialstatus . "]");
 
                 }
-                // IF THE FAILOVER TRUNK IS SAME AS THE ACTUAL TRUNK WE BREAK
-                if ($next_failover_trunk == $failover_trunk) {
+                // If the failover trunk is same as the actual trunk we break
+                if ($this->used_trunk == $failover_trunk) {
                     break;
-                } else {
-                    $failover_trunk = $next_failover_trunk;
                 }
 
             } // END FOR LOOP FAILOVER
