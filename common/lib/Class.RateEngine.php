@@ -1462,7 +1462,7 @@ class RateEngine
 
                 }
                 // If the failover trunk is same as the actual trunk we break
-                if ($this->used_trunk == $failover_trunk) {
+                if ($this->usedtrunk == $failover_trunk) {
                     break;
                 }
 
