@@ -49,7 +49,7 @@ include(dirname(__FILE__) . "/lib/interface/constants.php");
 
 $charge_callback = 0;
 $G_startime = time();
-$agi_version = "A2Billing - v2.0.3";
+$agi_version = "A2Billing - v2.0.7";
 
 if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-v')) {
     echo "$agi_version\n";
@@ -134,7 +134,7 @@ $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[INFO : $agi_version]");
 $A2B->get_agi_request_parameter($agi);
 
 if (!$A2B->DbConnect()) {
-    $agi->stream_file($A2B->agicnf('sound-prepaid-final', 'prepaid-final'), '#');
+    $agi->stream_file('prepaid-final', '#');
     exit;
 }
 
@@ -216,11 +216,11 @@ if ($mode == 'standard') {
                     $try = 0;
                     do {
                         $return = FALSE;
-                        $res_dtmf = $agi->get_data($A2B->agicnf('sound-prepaid-enter-pin-lock', 'prepaid-enter-pin-lock'), 3000, 10, '#'); //Please enter your locking code
+                        $res_dtmf = $agi->get_data('prepaid-enter-pin-lock', 3000, 10, '#'); //Please enter your locking code
                         if ($res_dtmf['result'] != $result[0][1]) {
                             $agi->say_digits($res_dtmf['result']);
                             if (strlen($res_dtmf['result']) > 0)
-                                $agi->stream_file($A2B->agicnf('sound-prepaid-no-pin-lock', 'prepaid-no-pin-lock'), '#');
+                                $agi->stream_file('prepaid-no-pin-lock', '#');
                             $try++;
                             $return = TRUE;
                         }
@@ -250,7 +250,7 @@ if ($mode == 'standard') {
 
             if ($A2B->agiconfig['ivr_enable_account_information'] == 1) {
                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, " [GET ACCOUNT INFORMATION]");
-                $res_dtmf = $agi->get_data($A2B->agicnf('sound-prepaid-press4-info', 'prepaid-press4-info'), 5000, 1, '#'); //Press 4 to get information about your account
+                $res_dtmf = $agi->get_data('prepaid-press4-info', 5000, 1, '#'); //Press 4 to get information about your account
                 if ($res_dtmf['result'] == "4") {
 
                     $QUERY = "SELECT UNIX_TIMESTAMP(c.lastuse) as lastuse, UNIX_TIMESTAMP(c.lock_date) as lock_date, UNIX_TIMESTAMP(c.firstusedate) as firstuse
@@ -285,27 +285,27 @@ if ($mode == 'standard') {
                                 $lastcall_info = $result[0];
                                 if (is_array($lastcall_info)) {
                                     $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[INFORMATION MENU]:[OPTION 1]");
-                                    $agi->stream_file($A2B->agicnf('sound-prepaid-lastcall', 'prepaid-lastcall'), '#'); //Your last call was made
+                                    $agi->stream_file('prepaid-lastcall', '#'); //Your last call was made
                                     $agi->exec("SayUnixTime {$card_info['lastuse']}");
-                                    $agi->stream_file($A2B->agicnf('sound-prepaid-call-duration', 'prepaid-call-duration'), '#'); //the duration of the call was
+                                    $agi->stream_file('prepaid-call-duration', '#'); //the duration of the call was
                                     $agi->say_number($card_info['sessiontime']);
-                                    $agi->stream_file($A2B->agicnf('sound-seconds', 'seconds'), '#');
+                                    $agi->stream_file('seconds', '#');
                                 } else {
-                                    $agi->stream_file($A2B->agicnf('sound-prepaid-no-call', 'prepaid-no-call'), '#'); //No call has been made
+                                    $agi->stream_file('prepaid-no-call', '#'); //No call has been made
                                 }
                                 $return = TRUE;
                                 break;
                             case 2 :
                                 if ($card_info['lock_date']) {
-                                    $agi->stream_file($A2B->agicnf('sound-prepaid-account-has-locked', 'prepaid-account-has-locked'), '#'); //Your Account has been locked the
+                                    $agi->stream_file('prepaid-account-has-locked', '#'); //Your Account has been locked the
                                     $agi->exec("SayUnixTime {$card_info['lock_date']}");
                                 } else {
-                                    $agi->stream_file($A2B->agicnf('sound-prepaid-account-nolocked', 'prepaid-account-nolocked'), '#'); //Your account is not locked
+                                    $agi->stream_file('prepaid-account-nolocked', '#'); //Your account is not locked
                                 }
                                 $return = TRUE;
                                 break;
                             case 3 :
-                                $agi->stream_file($A2B->agicnf('sound-prepaid-account-firstused', 'prepaid-account-firstused'), '#'); //Your Account has been used for the first time the
+                                $agi->stream_file('prepaid-account-firstused', '#'); //Your Account has been used for the first time the
                                 $agi->exec("SayUnixTime {$card_info['firstuse']}");
                                 $return = TRUE;
                                 break;
@@ -313,7 +313,7 @@ if ($mode == 'standard') {
                                 $return = FALSE;
                                 break;
                             case '*' :
-                                $agi->stream_file($A2B->agicnf('sound-prepaid-final', 'prepaid-final'), '#');
+                                $agi->stream_file('prepaid-final', '#');
                                 if ($A2B->set_inuse == 1)
                                     $A2B->callingcard_acct_start_inuse($agi, 0);
                                 $RateEngine->hangup($agi, $A2B);
@@ -329,11 +329,11 @@ if ($mode == 'standard') {
                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[LOCKING OPTION]");
 
                 $return = FALSE;
-                $res_dtmf = $agi->get_data($A2B->agicnf('sound-prepaid-press5-lock', 'prepaid-press5-lock'), 5000, 1, '#'); //Press 5 to lock your account
+                $res_dtmf = $agi->get_data('prepaid-press5-lock', 5000, 1, '#'); //Press 5 to lock your account
 
                 if ($res_dtmf['result'] == 5) {
                     for ($ind_lock = 0; $ind_lock <= 3; $ind_lock++) {
-                        $res_dtmf = $agi->get_data($A2B->agicnf('sound-prepaid-enter-code-lock-account', 'prepaid-enter-code-lock-account'), 3000, 10, '#'); //Please, Enter the code you want to use to lock your
+                        $res_dtmf = $agi->get_data('prepaid-enter-code-lock-account', 3000, 10, '#'); //Please, Enter the code you want to use to lock your
                         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[res_dtmf = " . $res_dtmf['result'] . "]");
 
                         if (strlen($res_dtmf['result']) > 0 && is_int(intval($res_dtmf['result']))) {
@@ -343,7 +343,7 @@ if ($mode == 'standard') {
 
                     if (strlen($res_dtmf['result']) > 0 && is_int(intval($res_dtmf['result']))) {
 
-                        $agi->stream_file($A2B->agicnf('sound-prepaid-your-locking-is', 'prepaid-your-locking-is'), '#'); //Your locking code is
+                        $agi->stream_file('prepaid-your-locking-is', '#'); //Your locking code is
                         $agi->say_digits($res_dtmf['result']);
                         $lock_pin = $res_dtmf['result'];
 
@@ -361,14 +361,14 @@ if ($mode == 'standard') {
                                 $QUERY = "UPDATE cc_card SET block = 1, lock_pin = '{$lock_pin}', lock_date = NOW() WHERE username = '{$A2B->username}'";
                                 $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
                                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[QUERY]:[$QUERY]");
-                                $agi->stream_file($A2B->agicnf('sound-prepaid-locking-accepted', 'prepaid-locking-accepted'), '#'); // Your locking code has been accepted
+                                $agi->stream_file('prepaid-locking-accepted', '#'); // Your locking code has been accepted
                                 $return = TRUE;
                                 break;
                             case 9 :
                                 $return = FALSE;
                                 break;
                             case '*' :
-                                $agi->stream_file($A2B->agicnf('sound-prepaid-final', 'prepaid-final'), '#');
+                                $agi->stream_file('prepaid-final', '#');
                                 if ($A2B->set_inuse == 1)
                                     $A2B->callingcard_acct_start_inuse($agi, 0);
                                 $RateEngine->hangup($agi, $A2B);
@@ -383,7 +383,7 @@ if ($mode == 'standard') {
 
             if (!$A2B->enough_credit_to_call()) {
                 // SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL
-                $prompt = $A2B->agicnf('sound-prepaid-no-enough-credit-stop', 'prepaid-no-enough-credit-stop');
+                $prompt = "prepaid-no-enough-credit-stop";
                 $agi->stream_file($prompt, '#');
                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[STOP STREAM FILE $prompt]");
 
@@ -419,7 +419,7 @@ if ($mode == 'standard') {
             $A2B->extension = $agi->request['agi_extension'];
 
             if ($A2B->agiconfig['ivr_voucher'] == 1) {
-                $res_dtmf = $agi->get_data($A2B->agicnf('sound-prepaid-refill_card_with_voucher', 'prepaid-refill_card_with_voucher'), 5000, 1);
+                $res_dtmf = $agi->get_data('prepaid-refill_card_with_voucher', 5000, 1);
                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "RES REFILL CARD VOUCHER DTMF : " . $res_dtmf["result"]);
                 $A2B->ivr_voucher = $res_dtmf["result"];
                 if ((isset($A2B->ivr_voucher)) && ($A2B->ivr_voucher == $A2B->agiconfig['ivr_voucher_prefixe'])) {
@@ -432,14 +432,14 @@ if ($mode == 'standard') {
                 do {
                     $return_mainmenu = FALSE;
 
-                    $res_dtmf = $agi->get_data($A2B->agicnf('sound-prepaid-press9-new-speeddial', 'prepaid-press9-new-speeddial'), 5000, 1); //Press 9 to add a new Speed Dial
+                    $res_dtmf = $agi->get_data("prepaid-press9-new-speeddial", 5000, 1); //Press 9 to add a new Speed Dial
 
                     if ($res_dtmf["result"] == 9) {
                         $try_enter_speeddial = 0;
                         do {
                             $try_enter_speeddial++;
                             $return_enter_speeddial = FALSE;
-                            $res_dtmf = $agi->get_data($A2B->agicnf('sound-prepaid-enter-speeddial', 'prepaid-enter-speeddial'), 3000, 1); //Please enter the speeddial number
+                            $res_dtmf = $agi->get_data("prepaid-enter-speeddial", 3000, 1); //Please enter the speeddial number
                             $speeddial_number = $res_dtmf['result'];
                             $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "SPEEDDIAL DTMF : " . $speeddial_number);
 
@@ -453,9 +453,9 @@ if ($mode == 'standard') {
                                 $id_speeddial = $result[0][1];
                                 if (is_array($result)) {
                                     $agi->say_number($speeddial_number);
-                                    $agi->stream_file($A2B->agicnf('sound-prepaid-is-used-for', 'prepaid-is-used-for'), "#");
+                                    $agi->stream_file("prepaid-is-used-for", "#");
                                     $agi->say_digits($result[0][0]);
-                                        $res_dtmf = $agi->get_data($A2B->agicnf('sound-prepaid-press1-change-speeddial', 'prepaid-press1-change-speeddial'), 3000, 1); //if you want to change it press 1 or an other key to enter an other speed dial number.
+                                        $res_dtmf = $agi->get_data("prepaid-press1-change-speeddial", 3000, 1); //if you want to change it press 1 or an other key to enter an other speed dial number.
                                     if ($res_dtmf['result'] != 1) {
                                         $return_mainmenu = TRUE;
                                         break;
@@ -467,7 +467,7 @@ if ($mode == 'standard') {
                                 do {
                                     $try_phonenumber++;
                                     $return_phonenumber = FALSE;
-                                    $res_dtmf = $agi->get_data($A2B->agicnf('sound-prepaid-phonenumber-to-speeddial', 'prepaid-phonenumber-to-speeddial'), 5000, 30, "#"); //Please enter the phone number followed by the pound key
+                                    $res_dtmf = $agi->get_data("prepaid-phonenumber-to-speeddial", 5000, 30, "#"); //Please enter the phone number followed by the pound key
                                     $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "PHONENUMBER TO SPEEDDIAL DTMF : " . $res_dtmf['result']);
 
                                     if (!empty($res_dtmf["result"]) && is_numeric($res_dtmf["result"]) && $res_dtmf["result"] > 0) break;
@@ -479,12 +479,12 @@ if ($mode == 'standard') {
 
                                 if (!empty($res_dtmf["result"]) && is_numeric($res_dtmf["result"]) && $res_dtmf["result"] > 0) {
                                     $assigned_number = $res_dtmf["result"];
-                                    $agi->stream_file($A2B->agicnf('sound-prepaid-the-phonenumber', 'prepaid-the-phonenumber'), "#"); //The phone number
+                                    $agi->stream_file("prepaid-the-phonenumber", "#"); //The phone number
                                     $agi->say_digits($assigned_number, "#");
-                                    $agi->stream_file($A2B->agicnf('sound-prepaid-assigned-speeddial', 'prepaid-assigned-speeddial'), "#"); //will be assigned to the speed dial number
+                                    $agi->stream_file("prepaid-assigned-speeddial", "#"); //will be assigned to the speed dial number
                                     $agi->say_number($speeddial_number, "#");
 
-                                    $res_dtmf = $agi->get_data($A2B->agicnf('sound-prepaid-press1-add-speeddial', 'prepaid-press1-add-speeddial'), 3000, 1); //If you want to proceed please press 1 or press an other key to cancel ?
+                                    $res_dtmf = $agi->get_data("prepaid-press1-add-speeddial", 3000, 1); //If you want to proceed please press 1 or press an other key to cancel ?
                                     if ($res_dtmf['result'] == 1) {
                                         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "ACTION : " . $action);
                                         if ($action == 'insert')
@@ -494,7 +494,7 @@ if ($mode == 'standard') {
 
                                         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
                                         $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
-                                        $agi->stream_file($A2B->agicnf('sound-prepaid-speeddial-saved', 'prepaid-speeddial-saved')); //The speed dial number has been successfully saved.
+                                        $agi->stream_file("prepaid-speeddial-saved"); //The speed dial number has been successfully saved.
                                         $return_mainmenu = TRUE;
                                         break;
                                     }
@@ -543,7 +543,7 @@ if ($mode == 'standard') {
                         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "TRUNK - dnid : " . $A2B->dnid . " (" . $A2B->agiconfig['use_dnid'] . ")");
                     }
                 } else {
-                    $res_dtmf = $agi->get_data($A2B->agicnf('sound-prepaid-sipiax-press9', 'prepaid-sipiax-press9'), 4000, 1);
+                    $res_dtmf = $agi->get_data('prepaid-sipiax-press9', 4000, 1);
                     $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "RES SIP_IAX_FRIEND DTMF : " . $res_dtmf["result"]);
                     $A2B->sip_iax_buddy = $res_dtmf["result"];
                 }
@@ -564,7 +564,7 @@ if ($mode == 'standard') {
                     $result_callperf = $RateEngine->rate_engine_performcall($agi, $A2B->destination, $A2B);
 
                     if (!$result_callperf) {
-                        $prompt = $A2B->agicnf('sound-prepaid-dest-unreachable', 'prepaid-dest-unreachable');
+                        $prompt = "prepaid-dest-unreachable";
                         $agi->stream_file($prompt, '#');
                     }
                     // INSERT CDR & UPDATE SYSTEM
@@ -613,7 +613,7 @@ if ($mode == 'standard') {
         $A2B->debug(WARN, $agi, __FILE__, __LINE__, "[NO AUTH (CN:".$A2B->accountcode.", cia_res:".$cia_res.", CREDIT:".$A2B->credit.")]");
     }
     # SAY GOODBYE
-    if ($A2B->agiconfig['say_goodbye'] == 1) $agi->stream_file($A2B->agicnf('sound-prepaid-final', 'prepaid-final'), '#');
+    if ($A2B->agiconfig['say_goodbye'] == 1) $agi->stream_file('prepaid-final', '#');
 
 // MODE DID
 } elseif ($mode == 'did') {
@@ -697,7 +697,7 @@ if ($mode == 'standard') {
     }
 
     // SAY GOODBYE
-    if ($A2B->agiconfig['say_goodbye'] == 1) $agi->stream_file($A2B->agicnf('sound-prepaid-final', 'prepaid-final'), '#');
+    if ($A2B->agiconfig['say_goodbye'] == 1) $agi->stream_file('prepaid-final', '#');
 
     $RateEngine->hangup($agi, $A2B);
     if ($A2B->set_inuse == 1) $A2B->callingcard_acct_start_inuse($agi, 0);
@@ -780,7 +780,7 @@ if ($mode == 'standard') {
                             $outbound_destination = $res_dtmf["result"];
 
                             if ($A2B->agiconfig['cid_prompt_callback_confirm_phonenumber'] == 1) {
-                                $agi->stream_file($A2B->agicnf('sound-prepaid-the-number-u-dialed-is', 'prepaid-the-number-u-dialed-is'), '#'); //Your locking code is
+                                $agi->stream_file('prepaid-the-number-u-dialed-is', '#'); //Your locking code is
                                 $agi->say_digits($outbound_destination);
 
                                 $subtry = 0;
@@ -788,7 +788,7 @@ if ($mode == 'standard') {
                                     $subtry++;
                                     //= CONFIRM THE DESTINATION NUMBER
                                     $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[MENU OF CONFIRM (" . $res_dtmf["result"] . ")]");
-                                    $res_dtmf = $agi->get_data($A2B->agicnf('sound-prepaid-re-enter-press1-confirm', 'prepaid-re-enter-press1-confirm'), 4000, 1);
+                                    $res_dtmf = $agi->get_data('prepaid-re-enter-press1-confirm', 4000, 1);
                                     if ($subtry >= 3) {
                                         if ($A2B->set_inuse == 1)
                                             $A2B->callingcard_acct_start_inuse($agi, 0);
@@ -1168,7 +1168,7 @@ if ($mode == 'standard') {
 
             if (!$A2B->enough_credit_to_call()) {
                 // SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL
-                $prompt = $A2B->agicnf('sound-prepaid-no-enough-credit-stop', 'prepaid-no-enough-credit-stop');
+                $prompt = "prepaid-no-enough-credit-stop";
                 $agi->stream_file($prompt, '#');
                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[STOP STREAM FILE $prompt]");
             }
@@ -1177,7 +1177,7 @@ if ($mode == 'standard') {
                 // PERFORM THE CALL
                 $result_callperf = $RateEngine->rate_engine_performcall($agi, $A2B->destination, $A2B);
                 if (!$result_callperf) {
-                    $prompt = $A2B->agicnf('sound-prepaid-dest-unreachable', 'prepaid-dest-unreachable');
+                    $prompt = "prepaid-dest-unreachable";
                     $agi->stream_file($prompt, '#');
                 }
 
@@ -1297,7 +1297,7 @@ if ($mode == 'standard') {
 
             if (!$A2B->enough_credit_to_call()) {
                 // SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL
-                $prompt = $A2B->agicnf('sound-prepaid-no-enough-credit-stop', 'prepaid-no-enough-credit-stop');
+                $prompt = "prepaid-no-enough-credit-stop";
                 $agi->stream_file($prompt, '#');
                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[STOP STREAM FILE $prompt]");
             }
@@ -1509,7 +1509,7 @@ if ($mode == 'standard') {
 
             if (!$A2B->enough_credit_to_call()) {
                 // SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL
-                $prompt = $A2B->agicnf('sound-prepaid-no-enough-credit-stop', 'prepaid-no-enough-credit-stop');
+                $prompt = "prepaid-no-enough-credit-stop";
                 $agi->stream_file($prompt, '#');
                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[STOP STREAM FILE $prompt]");
             }

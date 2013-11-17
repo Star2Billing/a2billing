@@ -29,8 +29,5 @@
  *
 **/
 
-
-ALTER TABLE cc_sip_buddies ADD COLUMN callbackextension VARCHAR( 40 ) DEFAULT NULL;
-
 -- Update Version
-UPDATE cc_version SET version = '2.0.3';
+UPDATE cc_version SET version = '2.0.5';

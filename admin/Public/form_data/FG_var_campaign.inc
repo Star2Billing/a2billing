@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -77,7 +77,7 @@ $HD_Form -> AddViewElement(gettext("STATUS"), "status", "5%", "center", "sort", 
 $HD_Form -> FieldViewElement ('cc_campaign.name, cc_campaign.startingdate, cc_campaign.expirationdate, username,cc_campaign.status');
 
 
-$HD_Form -> CV_NO_FIELDS  = gettext("No campaigns have been created."); 
+$HD_Form -> CV_NO_FIELDS  = gettext("No campaigns have been created.");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -107,20 +107,20 @@ $HD_Form -> AddEditElement ("STATUS",
 
 
 if ($form_action=="ask-add") {
-	
+
 	$HD_Form -> AddEditElement (gettext("CUSTOMER ID"),
-				   "id_card",		
-				   "$value",	
-				   "POPUPVALUE",	
-				   "size=30 maxlength=50 ",	
-				   "4",	
+				   "id_card",
+				   "$value",
+				   "POPUPVALUE",
+				   "size=30 maxlength=50 ",
+				   "4",
 				   gettext("Insert the customer ID"),
-				    "" , "", "", "", "", 				
+				    "" , "", "", "", "",
 					"A2B_entity_card.php?popup_select=1&"
 					, ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
 					gettext("Select the owner of this campaing, but you may not modify it in the future"));
 } else {
-	
+
 	$HD_Form -> AddEditElement (gettext("CUSTOMER ID"),
 		"id_card",
 		'$value',
@@ -149,7 +149,7 @@ if ($form_action!="ask-add") {
 // TODO integrate in new framework
 if ($form_action=="ask-add") {
 	$begin_date = date("Y");
-	$begin_date_plus = date("Y")+25;
+	$begin_date_plus = date("Y") + 10;
 	$end_date = date("-m-d H:i:s");
 	$time = "value= '10:00:00'";
 	$time_plus = "value= '18:00:00'";
@@ -195,7 +195,7 @@ $HD_Form -> AddEditElement (gettext("FREQUENCY"),
 	"size=20 maxlength=10",
 	"4",
 	gettext("Insert the frequency of callback in min "),
-	"" , "", "", "", "" , "", "", gettext("Please insert the frequency in minutes"));	
+	"" , "", "", "", "" , "", "", gettext("Please insert the frequency in minutes"));
 
 $HD_Form -> AddEditElement (gettext("DAILY START TIME"),
 	"daily_start_time",
@@ -214,7 +214,7 @@ $HD_Form -> AddEditElement (gettext("DAILY STOP TIME"),
 	"20",
 	gettext("Insert the daily stop time"),
 	"" , "", "", "", "", "", "res_display_dateformat", gettext("Please respect the format HH:MM:SS. For instance, '00:00:00'"));
-	
+
 
 $HD_Form -> AddEditElement (gettext("MONDAY"),
    "monday",
@@ -224,7 +224,7 @@ $HD_Form -> AddEditElement (gettext("MONDAY"),
    "",
    gettext("Choose if you want to enable the campaign callback for the monday"),
    "" , "", "", "Yes :1, - No:0", "", "" , "", "");
-   
+
 $HD_Form -> AddEditElement (gettext("TUESDAY"),
    "tuesday",
    '1',
@@ -233,7 +233,7 @@ $HD_Form -> AddEditElement (gettext("TUESDAY"),
    "",
    gettext("Choose if you want to enable the campaign callback for the monday"),
    "" , "", "", "Yes :1, - No:0", "", "" , "", "");
-   
+
 $HD_Form -> AddEditElement (gettext("WEDNESDAY"),
    "wednesday",
    '1',
@@ -242,7 +242,7 @@ $HD_Form -> AddEditElement (gettext("WEDNESDAY"),
    "",
    gettext("Choose if you want to enable the campaign callback for the monday"),
    "" , "", "", "Yes :1, - No:0", "", "" , "", "");
-   
+
 $HD_Form -> AddEditElement (gettext("THURSDAY"),
    "thursday",
    '1',
@@ -251,7 +251,7 @@ $HD_Form -> AddEditElement (gettext("THURSDAY"),
    "",
    gettext("Choose if you want to enable the campaign callback for the thursday"),
    "" , "", "", "Yes :1, - No:0", "", "" , "", "");
-   
+
 $HD_Form -> AddEditElement (gettext("FRIDAY"),
    "friday",
    '1',
@@ -260,7 +260,7 @@ $HD_Form -> AddEditElement (gettext("FRIDAY"),
    "",
    gettext("Choose if you want to enable the campaign callback for the friday"),
    "" , "", "", "Yes :1, - No:0", "", "" , "", "");
-   
+
 $HD_Form -> AddEditElement (gettext("SATURDAY"),
    "saturday",
    '0',
@@ -269,7 +269,7 @@ $HD_Form -> AddEditElement (gettext("SATURDAY"),
    "",
    gettext("Choose if you want to enable the campaign callback for the saturday"),
    "" , "", "", "Yes :1, - No:0", "", "" , "", "");
-   
+
 $HD_Form -> AddEditElement (gettext("SUNDAY"),
    "sunday",
    '0',
@@ -278,7 +278,7 @@ $HD_Form -> AddEditElement (gettext("SUNDAY"),
    "",
    gettext("Choose if you want to enable the campaign callback for the sunday"),
    "" , "", "", "Yes :1, - No:0", "", "" , "", "");
-	
+
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"description",
 	'',
@@ -292,26 +292,26 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 $HD_Form -> FieldEditElement ("name, status, id_card $edit_col, id_cid_group, startingdate, expirationdate, frequency, daily_start_time, daily_stop_time, monday, tuesday, wednesday, thursday, friday, saturday, sunday, description" );
 $HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
 
-if ($form_action!="ask-delete") {	
+if ($form_action!="ask-delete") {
 	$DBHandle_max  = DbConnect();
 	$numrow = 0;
 	$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_phonebook");
 	if ( $resmax )
 		$numrow = $resmax -> RecordCount( );
-	
+
 	if ($numrow>0) {
 		$HD_Form -> AddEditElement (gettext("PHONE BOOK"),
-			"phonebook",	
-			'$value',	
-			"SELECT",		
+			"phonebook",
+			'$value',
+			"SELECT",
 			'size="10" multiple="multiple"',
-			"",		
-			"",	
-			"sql",		
-			"campaigns_phonebooks",	
-			"name, id",		
-			"", "", "%1 : (%2)", "", "", "cc_campaign_phonebook:id_phonebook:cc_phonebook LEFT JOIN cc_campaign_phonebook ON cc_phonebook.id=cc_campaign_phonebook.id_phonebook:DISTINCT cc_phonebook.name, cc_phonebook.id: cc_campaign_phonebook.id_campaign = %id:id_campaign:%2 - (%1)::::%1:id='%1'");		
-		
+			"",
+			"",
+			"sql",
+			"campaigns_phonebooks",
+			"name, id",
+			"", "", "%1 : (%2)", "", "", "cc_campaign_phonebook:id_phonebook:cc_phonebook LEFT JOIN cc_campaign_phonebook ON cc_phonebook.id=cc_campaign_phonebook.id_phonebook:DISTINCT cc_phonebook.name, cc_phonebook.id: cc_campaign_phonebook.id_campaign = %id:id_campaign:%2 - (%1)::::%1:id='%1'");
+
 	}
 }
 

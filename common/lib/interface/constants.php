@@ -371,15 +371,15 @@ class constants
     public static function getDialStatusList()
     {
         $dialstatus_list = array();
-        $dialstatus_list["1"] = array( gettext("ANSWER")        , "1");
-        $dialstatus_list["2"] = array( gettext("BUSY")            , "2");
-        $dialstatus_list["3"] = array( gettext("NOANSWER")        , "3");
-        $dialstatus_list["4"] = array( gettext("CANCEL")        , "4");
-        $dialstatus_list["5"] = array( gettext("CONGESTION")    , "5");
-        $dialstatus_list["6"] = array( gettext("CHANUNAVAIL")    , "6");
-        $dialstatus_list["7"] = array( gettext("DONTCALL")        , "7");
-        $dialstatus_list["8"] = array( gettext("TORTURE")        , "8");
-        $dialstatus_list["9"] = array( gettext("INVALIDARGS")    , "9");
+        $dialstatus_list["1"] = array( gettext("ANSWER")		, "1");
+        $dialstatus_list["2"] = array( gettext("BUSY")			, "2");
+        $dialstatus_list["3"] = array( gettext("NOANSWER")		, "3");
+        $dialstatus_list["4"] = array( gettext("CANCEL")		, "4");
+        $dialstatus_list["5"] = array( gettext("CONGESTION")	, "5");
+        $dialstatus_list["6"] = array( gettext("CHANUNAVAIL")	, "6");
+        $dialstatus_list["7"] = array( gettext("DONTCALL")		, "7");
+        $dialstatus_list["8"] = array( gettext("TORTURE")		, "8");
+        $dialstatus_list["9"] = array( gettext("INVALIDARGS")	, "9");
 
         return $dialstatus_list;
     }
@@ -387,14 +387,14 @@ class constants
     public static function getDialStatus_Revert_List()
     {
         $dialstatus_rev_list = array();
-        $dialstatus_rev_list["ANSWER"]         = 1;
-        $dialstatus_rev_list["BUSY"]         = 2;
-        $dialstatus_rev_list["NOANSWER"]     = 3;
-        $dialstatus_rev_list["CANCEL"]         = 4;
-        $dialstatus_rev_list["CONGESTION"]     = 5;
+        $dialstatus_rev_list["ANSWER"] 		= 1;
+        $dialstatus_rev_list["BUSY"] 		= 2;
+        $dialstatus_rev_list["NOANSWER"] 	= 3;
+        $dialstatus_rev_list["CANCEL"] 		= 4;
+        $dialstatus_rev_list["CONGESTION"] 	= 5;
         $dialstatus_rev_list["CHANUNAVAIL"] = 6;
-        $dialstatus_rev_list["DONTCALL"]     = 7;
-        $dialstatus_rev_list["TORTURE"]     = 8;
+        $dialstatus_rev_list["DONTCALL"] 	= 7;
+        $dialstatus_rev_list["TORTURE"] 	= 8;
         $dialstatus_rev_list["INVALIDARGS"] = 9;
 
         return $dialstatus_rev_list;

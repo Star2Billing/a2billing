@@ -131,7 +131,7 @@ echo $CC_help_generate_voucher;
 
                 <?php
                     $begin_date = date("Y");
-                    $begin_date_plus = date("Y")+10;
+                    $begin_date_plus = date("Y") + 10;
                     $end_date = date("-m-d H:i:s");
                     $comp_date = "value='".$begin_date.$end_date."'";
                     $comp_date_plus = "value='".$begin_date_plus.$end_date."'";

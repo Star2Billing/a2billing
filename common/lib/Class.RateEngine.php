@@ -180,7 +180,6 @@ class RateEngine
         
         ORDER BY LENGTH(dialprefix) DESC";
 
-        //$A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
         $A2B->instance_table = new Table();
         $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
 
@@ -891,6 +890,11 @@ class RateEngine
                 $callduration = 0;
             }
 
+            // Fix for promotion package causing balance to go negative.
+            if ($this ->freetimetocall_used <= $callduration){
+                $callduration = $callduration - $this->freetimetocall_used;
+            }
+
             $cost -= ($callduration / 60) * $rateinitial;
             if ($this->debug_st) echo "1.a cost: $cost\n";
             $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[TEMP - CC_RATE_ENGINE_CALCULCOST: 1. COST: $cost]:[ ($callduration/60) * $rateinitial ]");
@@ -1458,10 +1462,10 @@ class RateEngine
                         $this->real_answeredtime = $this->answeredtime = 0;
                         if ($A2B->agiconfig['busy_timeout'] > 0)
                             $res_busy = $agi->exec("Busy " . $A2B->agiconfig['busy_timeout']);
-                        $agi->stream_file($A2B->agicnf('sound-prepaid-isbusy', 'prepaid-isbusy'), '#');
+                        $agi->stream_file('prepaid-isbusy', '#');
                     } elseif ($this->dialstatus == "NOANSWER") {
                         $this->real_answeredtime = $this->answeredtime = 0;
-                        $agi->stream_file($A2B->agicnf('sound-prepaid-noanswer', 'prepaid-noanswer'), '#');
+                        $agi->stream_file('sound-prepaid-noanswer', '#');
                     } elseif ($this->dialstatus == "CANCEL") {
                         $this->real_answeredtime = $this->answeredtime = 0;
                     } elseif ($this->dialstatus == "ANSWER") {
@@ -1887,20 +1891,19 @@ class RateEngine
                 $this->real_answeredtime = $this->answeredtime = 0;
                 if ($A2B->agiconfig['busy_timeout'] > 0)
                     $res_busy = $agi->exec("Busy " . $A2B->agiconfig['busy_timeout']);
-                $agi->stream_file($A2B->agicnf('sound-prepaid-isbusy', 'prepaid-isbusy'), '#');
+                $agi-> stream_file('prepaid-isbusy', '#');
             } elseif ($this->dialstatus == "NOANSWER") {
                 $this->real_answeredtime = $this->answeredtime = 0;
-                $agi->stream_file($A2B->agicnf('sound-prepaid-noanswer', 'prepaid-noanswer'), '#');
+                $agi-> stream_file('prepaid-noanswer', '#');
             } elseif ($this->dialstatus == "CANCEL") {
                 $this->real_answeredtime = $this->answeredtime = 0;
-            } elseif (($this->dialstatus == "CHANUNAVAIL") ||
-                    ($this->dialstatus == "CONGESTION")) {
+            } elseif ($this->dialstatus == "CHANUNAVAIL" || $this->dialstatus == "CONGESTION") {
                 $this->real_answeredtime = $this->answeredtime = 0;
                 // Check if we will failover for LCR/LCD prefix - better false for an exact billing on resell
                 if ($A2B->agiconfig['failover_lc_prefix']) {
                     continue;
                 }
-
+                $this->usedratecard = $k;
                 return false;
             } elseif ($this->dialstatus == "ANSWER") {
                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "-> dialstatus : " . $this->dialstatus . ", answered time is " . $this->answeredtime . " \n");

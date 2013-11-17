@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -75,7 +75,7 @@ $HD_Form -> AddViewElement(gettext("SERVER"), "id_server", "5%", "center", "sort
 $HD_Form -> FieldViewElement ('id, uniqueid, entry_time, status, server_ip, num_attempt, manager_result, callback_time, last_attempt_time, channel, context, id_server');
 
 
-$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO CALLBACK CREATED!"); 
+$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO CALLBACK CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -97,34 +97,34 @@ $HD_Form -> AddEditElement (gettext("SERVER GROUP"),
 	"", "", "%1","", "");
 
 
-$HD_Form -> AddEditElement (gettext("UNIQUEID"),	
-	"uniqueid",		
-	'$value',	
-	"INPUT",	
-	"size=20 maxlength=30",	
-	"3",	
-	gettext("Insert the uniqueid"), 
+$HD_Form -> AddEditElement (gettext("UNIQUEID"),
+	"uniqueid",
+	'$value',
+	"INPUT",
+	"size=20 maxlength=30",
+	"3",
+	gettext("Insert the uniqueid"),
 	"" , "", "",	"", "" , "", "", gettext("This is an identifier to cross check the callback's request.").gettext("(useful if you have requests coming from an other platform through the API))") );
 
 
 if ($form_action=="ask-add") {
 	$begin_date = date("Y");
-	$begin_date_plus = date("Y")+25;	
+	$begin_date_plus = date("Y") + 10;
 	$end_date = date("-m-d H:i:s");
 	$comp_date = "value='".$begin_date.$end_date."'";
 	$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
-	
-	$def_ipserver = " value='localhost' "; 
+
+	$def_ipserver = " value='localhost' ";
 	$def_nbattempt = " value='0' ";
 }
 
-$HD_Form -> AddEditElement (gettext("STATUS"),	
-	"status",			
-	'$value',	
-	"SELECT",	
-	"",	
-	"",	
-	"", 
+$HD_Form -> AddEditElement (gettext("STATUS"),
+	"status",
+	'$value',
+	"SELECT",
+	"",
+	"",
+	"",
 	"list" , "", "",	"", $status_list, "%1", "", "" );
 
 
@@ -138,13 +138,13 @@ $HD_Form -> AddEditElement (gettext("IP SERVER"),
 	"" , "", "",	"", "", "" , "", "");
 
 
-$HD_Form -> AddEditElement (gettext("NUMBER ATTEMPTS"),	
-	"num_attempt",		
-	'$value',	
-	"INPUT",	
-	"size=5 maxlength=10 $def_nbattempt",	
+$HD_Form -> AddEditElement (gettext("NUMBER ATTEMPTS"),
+	"num_attempt",
+	'$value',
+	"INPUT",
+	"size=5 maxlength=10 $def_nbattempt",
 	"4",
-	gettext("Insert the number of attempts"), 
+	gettext("Insert the number of attempts"),
 	"" , "", "",	"", "", "", "", "");
 
 
@@ -176,7 +176,7 @@ $HD_Form -> AddEditElement (gettext("CALLBACK DATE"),
 	"10",
 	"Insert the callback time",
 	"" , "", "",	"", "", "", "NO-NULL", gettext("please use the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
-	
+
 
 $HD_Form -> AddEditElement (gettext("CHANNEL"),
 	"channel",
@@ -186,7 +186,7 @@ $HD_Form -> AddEditElement (gettext("CHANNEL"),
 	"11",
 	gettext("Insert the channel"),
 	"" , "", "",	"", "", "", "", gettext("Channel on which to originate the call (SIP/123@1.1.1.4)"), null, null, gettext("Define all the information requested by asterisk to generate the callback"));
-	
+
 
 $HD_Form -> AddEditElement (gettext("EXTENSION"),
 	"exten",

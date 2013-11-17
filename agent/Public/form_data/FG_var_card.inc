@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -38,7 +38,7 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse',
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
 'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list',
-'status',  'block', 'lock_pin', 'template_invoice', 'template_outstanding', 'description', 'voicemail_activated', 
+'status',  'block', 'lock_pin', 'template_invoice', 'template_outstanding', 'description', 'voicemail_activated',
 'voicemail_permitted','email_notification','credit_notification','notify_email', 'id_seria',
 'company_name' , 'company_website' , 'vat_rn' , 'traffic' , 'traffic_target','discount','restriction' ));
 
@@ -68,14 +68,14 @@ if (DELETE_FK_CARD) {
 	$HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You are going to remove a card that have SIP/IAX accounts and/or CallerIDs attached to it ! Please confirm that you really want to remove this card ? ");
 }
 
-if (has_rights (ACX_GENERATE_CUSTOMER)) { 
+if (has_rights (ACX_GENERATE_CUSTOMER)) {
 	$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 	$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_card_multi.php?stitle=Card&section=".$_SESSION["menu_section"];
 	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Generate Customers");
 	$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/user_multi_add.png" ;
 }
 
-if (has_rights (ACX_CREATE_CUSTOMER)) { 
+if (has_rights (ACX_CREATE_CUSTOMER)) {
 	$HD_Form -> FG_ADDITION = true;
 	$HD_Form ->FG_LIST_ADDING_BUTTON2 = true;
 	$HD_Form ->FG_LIST_ADDING_BUTTON_LINK2 = "A2B_entity_card.php?form_action=ask-add&atmenu=card&stitle=Card&section=".$_SESSION["menu_section"];
@@ -123,7 +123,7 @@ foreach ($show_list_temp as $i => $value) {
 	if (!($pos === false)) {
 		$temp_ar = preg_split('/:/', $a);
 		$b = $temp_ar[1];
-		$a = strtolower(trim($temp_ar[0]));	
+		$a = strtolower(trim($temp_ar[0]));
 		if (strlen($a)>1) {
 		$show_list_sizes[$a] = $b;
 		}
@@ -136,7 +136,7 @@ $show_fields=array();
 $show_fields['id']=array(gettext("ID"), "cc_card.id", "3%", "center", "sort","", "", "", "", "", "", "");
 
 $show_fields['username']=array("Account Number", "username", "14%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
-if (!($popup_select>=1)) 
+if (!($popup_select>=1))
  $show_fields['useralias']=array("<acronym title=\"WEB UI LOGIN\">".gettext("LOGIN")."</acronym>", "useralias", "12%", "center", "sort","", "", "", "", "", "", "");
 
 $show_fields['lastname']=array(gettext("LASTNAME"), "lastname", "7%", "center", "sort", "15","", "", "", "", "", "");
@@ -166,7 +166,7 @@ if (!($popup_select>=1)) {
 	foreach ($show_list_temp as $i => $value) {
                 $show_list[$value]=$value;
 	}
-	
+
 	$FG_COL_QUERY='DISTINCT ';
 }
 $FG_COL_QUERY_FIELD='';
@@ -197,7 +197,7 @@ foreach ($show_list as $i => $value) {
 		$index = $index + 1;
 	}
 }
-if (strlen($FG_COL_QUERY_FIELD)>2){ 
+if (strlen($FG_COL_QUERY_FIELD)>2){
 	$FG_COL_QUERY_FIELD=substr( $FG_COL_QUERY_FIELD,2);
 }
 $FG_COL_QUERY_COUNT = count(preg_split('/,/',$FG_COL_QUERY_FIELD));
@@ -216,8 +216,8 @@ $HD_Form -> FG_LIMITE_DISPLAY = 10;
 
 // Code here for adding the fields in the Export File
 $HD_Form -> FieldExportElement(CARD_EXPORT_FIELD_LIST);
-if (!($popup_select>=1)) $HD_Form -> FG_EXPORT_CSV = true;
-if (!($popup_select>=1)) $HD_Form -> FG_EXPORT_XML = true;
+if (!($popup_select>=1)) $HD_Form -> FG_EXPORT_CSV = false;
+if (!($popup_select>=1)) $HD_Form -> FG_EXPORT_XML = false;
 $HD_Form -> FG_EXPORT_SESSION_VAR = "pr_export_entity_card";
 
 
@@ -259,7 +259,7 @@ $HD_Form -> AddSearchElement_Select(gettext("SELECT CURRENCY"), null, null, null
 
 
 if (($popup_select>=1)) {
-	
+
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;select&gt;</font>';
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
@@ -273,29 +273,29 @@ if (($popup_select>=1)) {
 	}
 
 } else {
-	
+
 	if (has_rights (ACX_EDIT_CUSTOMER)) {
 		$HD_Form -> FG_EDITION = true;
 	}
-	
+
 	$HD_Form -> FG_INFO = true;
 	$HD_Form -> FG_INFO_LINK = "A2B_card_info.php?id=";
-	
-	if (has_rights (ACX_DELETE_CUSTOMER)) { 
+
+	if (has_rights (ACX_DELETE_CUSTOMER)) {
 		$HD_Form -> FG_DELETION = true;
 	}
-	
+
 	$FN_COLUMN_ID="col".($FG_COL_QUERY_COUNT);//get numbers of rows for needed fields
 	$FN_COLUMN_USERNAME="col".($FG_COL_QUERY_COUNT+1);
 	$FN_COLUMN_ALIAS="col".($FG_COL_QUERY_COUNT+2);
-	
-	if (has_rights (ACX_SIPCONF)) { 
+
+	if (has_rights (ACX_SIPCONF)) {
 		$HD_Form -> FG_OTHER_BUTTON1 = true;
 		$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_friend.php?atmenu=sip&form_action=add_sip&stitle=Customers_Card&id_cc_card=|$FN_COLUMN_ID|&cardnumber=|$FN_COLUMN_USERNAME|&useralias=|$FN_COLUMN_ALIAS|";
 		$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-sip.gif";
 		$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("SIP buddy");
 	}
-	
+
 	if (has_rights (ACX_IAXCONF)) {
 		$HD_Form -> FG_OTHER_BUTTON2 = true;
 		$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_friend.php?atmenu=iax&form_action=add_iax&stitle=Customers_Card&id_cc_card=|$FN_COLUMN_ID|&cardnumber=|$FN_COLUMN_USERNAME|&useralias=|$FN_COLUMN_ALIAS|";
@@ -340,7 +340,7 @@ $HD_Form -> AddEditElement (gettext("ACCOUNT NUMBER"),
 			   "4",
 			   gettext("Insert the account number"),
 			   "" , "", "",	"", "" , "", "", '', null, null, gettext("Customer Information"));
-			   
+
 
 $HD_Form -> AddEditElement (gettext("WEBUI LOGIN"),
 			   "useralias",
@@ -362,7 +362,7 @@ $HD_Form -> AddEditElement (gettext("WEBUI PASSWORD"),
 			   "" , "", "",	"", "", "",	"", gettext("Password for customer to access to the web interface and view the balance.") );
 
 
-$balance_delete="";			   
+$balance_delete="";
 if (isset($form_action) && $form_action=="ask-delete") {
 	$HD_Form -> AddEditElement (gettext("BALANCE"),
 			   "credit",
@@ -376,7 +376,7 @@ if (isset($form_action) && $form_action=="ask-delete") {
 	$balance_delete = ",credit";
 }
 
-		   
+
 $HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
 			   "id_group",
 			   "",
@@ -387,7 +387,7 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
 			   "name, id",
 			   " cc_card_group.id_agent=".$_SESSION['agent_id'] , "", "%1", "", "", "", '', "");
 
-		   
+
 $HD_Form -> AddEditElement (gettext("SERIA"),
                "id_seria",
                "",
@@ -504,8 +504,8 @@ $HD_Form -> AddEditElement (gettext("COMPANY NAME"),
 			   "",
 			   gettext("Insert Company name of this customer"),
 			   "" , "", "",	"", "", "" , "NO", "");
-			   
-			   
+
+
 $HD_Form -> AddEditElement (gettext("COMPANY WEBSITE"),
 			   "company_website",
 			   '$value',
@@ -528,7 +528,7 @@ if (isset($form_action) && ($form_action=="ask-add" || $form_action=="add")) {
 				   "tariffgroupname, id",
 				   "cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup AND cc_agent_tariffgroup.id_agent = ".$_SESSION['agent_id'] , "", "%1", "", "");
 
-	$callplan_add = ",tariff";	
+	$callplan_add = ",tariff";
 }
 
 $HD_Form -> AddEditElement (gettext("DIDGROUP"),
@@ -636,8 +636,8 @@ $HD_Form -> AddEditElement (gettext("CREDIT LIMIT NOTIFICATION"),
 			   "",
 			   "",
 			   "",
-			   "list" , "", "", "", $limits_notify_list , "%1", "", 
-			   gettext("currency : ").strtoupper(BASE_CURRENCY).'<BR>'.gettext("Low credit limit to alert the customer"), 
+			   "list" , "", "", "", $limits_notify_list , "%1", "",
+			   gettext("currency : ").strtoupper(BASE_CURRENCY).'<BR>'.gettext("Low credit limit to alert the customer"),
 			   "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>');
 
 
@@ -661,7 +661,7 @@ $HD_Form -> AddEditElement (gettext("EMAIL NOTIFICATION"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
 
-if (ACT_VOICEMAIL) { 
+if (ACT_VOICEMAIL) {
 	$HD_Form -> AddEditElement (gettext("PERMITTED VOICEMAIL"),
 				   "voicemail_permitted",
 				   '1',
@@ -670,7 +670,7 @@ if (ACT_VOICEMAIL) {
 				   "",
 				   gettext("Choose if you want to enable the voicemail functionality for this account"),
 				   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the voicemail functionality for this account."));
-	
+
 	$HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
 				   "voicemail_activated",
 				   '0',
@@ -713,9 +713,9 @@ $HD_Form -> AddEditElement (gettext("ENABLE EXPIRY"),
 
 
 $comp_zero = $comp_date_plus='';
-if (isset($form_action) && $form_action=="ask-add"){
+if (isset($form_action) && $form_action=="ask-add") {
 	$begin_date = date("Y");
-	$begin_date_plus = date("Y")+10;
+	$begin_date_plus = date("Y") + 10;
 	$end_date = date("-m-d H:i:s");
 	$comp_date = "value='".$begin_date.$end_date."'";
 	$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
@@ -809,7 +809,7 @@ $HD_Form -> AddEditElement (gettext("INVOICE DAY"),
 			   "",
 			   "",
 			   "",
-			   "list" , "", "",	"", $invoiceday_list, "%1", "", gettext("Define the day of the month when the system will generate the customer invoice."), 
+			   "list" , "", "",	"", $invoiceday_list, "%1", "", gettext("Define the day of the month when the system will generate the customer invoice."),
 			   '', '', gettext("Invoice Status"));
 
 
@@ -830,7 +830,7 @@ $HD_Form -> AddEditElement (gettext("VAT REGISTRATION NUMBER "),
 			   "size=40 maxlength=40",
 			   "",
 			   gettext("Insert the VAT registration number of this customer"),
-			   "" , "", "",	"", "", "" , "NO", "");			   
+			   "" , "", "",	"", "", "" , "NO", "");
 
 
 $HD_Form -> AddEditElement (gettext("DISCOUNT"),
@@ -840,8 +840,8 @@ $HD_Form -> AddEditElement (gettext("DISCOUNT"),
                "",
                "",
                "",
-               "list" , "", "",     "", $discount_list, "%1", "", ""); 
-				
+               "list" , "", "",     "", $discount_list, "%1", "", "");
+
 
 $HD_Form -> AddEditElement (gettext("TRAFFIC PER MONTH"),
 			   "traffic",
@@ -851,7 +851,7 @@ $HD_Form -> AddEditElement (gettext("TRAFFIC PER MONTH"),
 			   "",
 			   gettext("Insert the traffic per month for this customer"),
 			   "" , "", "",	"", "", "" , "NO", "",
-			   '', '', gettext("TARGET TRAFFIC")); 
+			   '', '', gettext("TARGET TRAFFIC"));
 
 $HD_Form -> AddEditElement (gettext("TARGET TRAFFIC"),
 				"traffic_target",
@@ -862,7 +862,7 @@ $HD_Form -> AddEditElement (gettext("TARGET TRAFFIC"),
 				gettext("Insert the target traffic description"),
 				"" , "", "", "", "" , "", "", "");
 
-				
+
 $HD_Form -> AddEditElement (gettext("RESTRICTION"),
 			   "restriction",
 			   "0",
@@ -871,8 +871,8 @@ $HD_Form -> AddEditElement (gettext("RESTRICTION"),
 			   "",
 			   "",
 			   "list" , "", "",	"", $restriction_list, "%1", "", "",
-			   '', '', gettext("RESTRICTED NUMBERS")); 
-				
+			   '', '', gettext("RESTRICTED NUMBERS"));
+
 $HD_Form -> AddEditElement (gettext("RESTRICTED NUMBERS"),
 			   "restrictednumber",
 			   '$value',
@@ -886,7 +886,7 @@ $HD_Form -> AddEditElement (gettext("RESTRICTED NUMBERS"),
 			   "", "", "", "", "", "cc_restricted_phonenumber:number:number, id_card:id_card = %id::id_card:::::::0");
 
 
-			   
+
 $HD_Form -> AddEditElement (gettext("CALLERID"),
 			   "callerid",
 			   '$value',

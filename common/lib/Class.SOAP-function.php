@@ -681,7 +681,7 @@ class SOAP_A2Billing
         }
 
         $begin_date = date("Y");
-        $begin_date_plus = date("Y")+25;
+        $begin_date_plus = date("Y") + 10;
         $end_date = date("-m-d H:i:s");
         $startingdate = $begin_date.$end_date;
         $expirationdate = $begin_date_plus.$end_date;
@@ -750,7 +750,7 @@ class SOAP_A2Billing
         $func_fields = "voucher, credit, activated, currency, expirationdate";
         $id_name = "id";
 
-        $begin_date_plus = date("Y") + 25;
+        $begin_date_plus = date("Y") + 10;
         $end_date = date("-m-d H:i:s");
         $expirationdate = $begin_date_plus.$end_date;
         $arr_voucher = array();
@@ -926,7 +926,7 @@ class SOAP_A2Billing
         $arr_did = array();
 
         $begin_date = date("Y");
-        $begin_date_plus = date("Y")+25;
+        $begin_date_plus = date("Y") + 10;
         $end_date = date("-m-d H:i:s");
         $startingdate = $begin_date.$end_date;
         $expirationdate = $begin_date_plus.$end_date;
