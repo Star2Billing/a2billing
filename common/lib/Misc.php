@@ -1620,9 +1620,17 @@ function getTrunkCountersDate($id_trunk) {
     static $instance_table = null;
     if ($instance_table === null)
         $instance_table = new Table();
-    
+
+    // getting server GMT
+    $server_GMT = '+00:00';
+    $QUERY = "select * from cc_config where config_key = 'server_GMT' and config_group_title = 'global' limit 1";
+    $result = $instance_table->SQLExec($DBHandle, $QUERY);
+    if (is_array($result) && count($result) > 0)
+        if ($server_GMT_norm = normalizeGMTForMysql($result[0]['config_value']))
+            $server_GMT = $server_GMT_norm;
+
     // getting trunk GMT
-    $trunk_GMT = '+00:00';
+    $trunk_GMT = $server_GMT;
     $QUERY = "select * from cc_trunk where id_trunk = '$id_trunk' limit 1";
     $result = $instance_table->SQLExec($DBHandle, $QUERY);
     if (is_array($result) && count($result) > 0) {
@@ -1638,14 +1646,6 @@ function getTrunkCountersDate($id_trunk) {
         }
     }
     
-    // getting server GMT
-    $server_GMT = '+00:00';
-    $QUERY = "select * from cc_config where config_key = 'server_GMT' and config_group_title = 'global' limit 1";
-    $result = $instance_table->SQLExec($DBHandle, $QUERY);
-    if (is_array($result) && count($result) > 0)
-        if ($server_GMT_norm = normalizeGMTForMysql($result[0]['config_value']))
-            $server_GMT = $server_GMT_norm;
-
     // getting date
     $QUERY = "select DATE(CONVERT_TZ(NOW(), '$server_GMT', '$trunk_GMT')) as counter_date";
     $result = $instance_table->SQLExec($DBHandle, $QUERY);

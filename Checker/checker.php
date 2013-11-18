@@ -351,8 +351,17 @@ OPTIONS:
 
             // check if trunk minutes limit exceeded
             if ($minutes_per_day > 0 && isset($channels[$channel_id])) {
+                // getting server GMT
+                $server_GMT = '+00:00';
+                $sql = "select * from cc_config where config_key = 'server_GMT' and config_group_title = 'global' limit 1";
+                $data = $this->query($sql);
+                if (count($data) > 0) {
+                    if ($server_GMT_norm = self::normalizeGMTForMysql($data[0]['config_value']))
+                        $server_GMT = $server_GMT_norm;
+                }
+
                 // getting trunk GMT
-                $trunk_GMT = '+00:00';
+                $trunk_GMT = $server_GMT;
                 $id_timezone = intval($t['trunk_GMT']);
                 if ($id_timezone > 0) {
                     $sql = "select * from cc_timezone where id = '$id_timezone' limit 1";
@@ -362,16 +371,7 @@ OPTIONS:
                             $trunk_GMT = $trunk_GMT_norm;
                     }
                 }
-                
-                // getting server GMT
-                $server_GMT = '+00:00';
-                $sql = "select * from cc_config where config_key = 'server_GMT' and config_group_title = 'global' limit 1";
-                $data = $this->query($sql);
-                if (count($data) > 0) {
-                    if ($server_GMT_norm = self::normalizeGMTForMysql($data[0]['config_value']))
-                        $server_GMT = $server_GMT_norm;
-                }
-                
+
                 // getting realtime seconds
                 $realtime_seconds = $channels[$channel_id]['seconds'];
                 $sql = "select * from cc_trunk_counter where (id_trunk = '$id') and (calldate = DATE(CONVERT_TZ(NOW(), '$server_GMT', '$trunk_GMT'))) and (((seconds + $realtime_seconds) / 60) >= $minutes_per_day) limit 1";
