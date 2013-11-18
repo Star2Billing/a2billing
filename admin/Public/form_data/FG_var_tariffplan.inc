@@ -56,7 +56,7 @@ $HD_Form -> FG_FK_TABLENAMES = array("cc_ratecard");
 $HD_Form -> FG_FK_EDITION_CLAUSE = array(" idtariffplan ");
 $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You are going as well to remove all the rates attached to this ratecard! Please comfirm that you really want to remove this ratecard and those rates ? ");
 
-$trunk_algo_list = Constants::getTrunkAlgoList();
+$trunk_algo_list = Constants::getTrunkAlgo_List();
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "4%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("TARIFFNAME"), "tariffname", "18%", "center", "sort");

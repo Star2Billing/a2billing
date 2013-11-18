@@ -611,7 +611,7 @@ class constants
         return $musiconhold_list;
     }
 
-    public static function getTrunkAlgoList()
+    public static function getTrunkAlgo_List()
     {
         $list = array();
         $list["0"] = array( gettext("Use default"), "0");
@@ -621,6 +621,27 @@ class constants
         $list["4"] = array( gettext("Trunks list : priority - random"), "4");
         $list["5"] = array( gettext("Trunks list : minutes per day"), "5");
         $list["6"] = array( gettext("Trunks list : calls per day"), "6");
+
+        return $list;
+    }
+    
+    public static function getTimezones_List() {
+        if (empty ($handle))
+            $handle = DbConnect();
+
+        static $instance_table = null;
+        if ($instance_table === null)
+            $instance_table = new Table();
+        
+        $QUERY = "select * from cc_timezone order by gmtoffset asc";
+        $result = $instance_table->SQLExec($handle, $QUERY);
+        
+        $list = array();
+        if (is_array($result) && count($result) > 0) {
+            foreach ($result as $row) {
+                $list[$row['id']] = array( $row['gmtzone'], $row['id']);
+            }
+        }
 
         return $list;
     }

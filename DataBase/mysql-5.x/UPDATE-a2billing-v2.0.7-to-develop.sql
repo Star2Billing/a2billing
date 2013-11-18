@@ -37,6 +37,7 @@ alter table `cc_trunk`
 	add column `priority` int(11)   NULL DEFAULT '0' after `attempt_count`,
 	add column `attempt_delay` int(11) DEFAULT '0' after `priority`,
 	add column `calls_per_day` int(11) DEFAULT '0' after `attempt_delay`,
+    add column `trunk_GMT` int(11) DEFAULT '0' after `calls_per_day`,
 	change `removeprefix` `removeprefix` varchar (2048)  NULL;
 
 create table `cc_trunk_counter`(

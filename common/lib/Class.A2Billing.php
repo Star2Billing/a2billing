@@ -33,6 +33,8 @@
  *
 **/
 
+//include_once(FSROOT . "lib/Misc.php");
+
 define('A2B_CONFIG_DIR', '/etc/');
 define('AST_CONFIG_DIR', '/etc/asterisk/');
 define('DEFAULT_A2BILLING_CONFIG', A2B_CONFIG_DIR . 'a2billing.conf');
@@ -3936,16 +3938,6 @@ class A2Billing
         return is_array($this->agiconfig) && isset($this->agiconfig[$key]) ? $this->agiconfig[$key] : $default;
     }
     
-    public function getTrunkCounters($id_trunk) {
-        if (!$this->instance_table instanceof Table)
-            $this->instance_table = new Table();
-        
-        $QUERY = "select sql_no_cache * from cc_trunk_counter where id_trunk = '$id_trunk' and calldate = CURDATE() limit 1";
-        $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
-        
-        return (is_array($result) && count($result) > 0) ? $result[0] : null;
-    }
-
     /**
      * Smart prefix removing function
      *

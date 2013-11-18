@@ -1223,22 +1223,8 @@ class RateEngine
             $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
             $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
             
-            // updating trunk counter
-            $QUERY = "select calldate, seconds from cc_trunk_counter where id_trunk = '" . $this->usedtrunk . "' and calldate = CURDATE() limit 1";
-            $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
-            $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
-            if (!$result) {
-                // insert trunk counter
-                $QUERY = "insert into cc_trunk_counter set id_trunk = '" . $this->usedtrunk . "', calldate = CURDATE(), seconds = 0, last_call_time = 0, success_calls = 0";
-                $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
-                $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
-            }
-            
-            // add seconds to counter
-            $QUERY = "UPDATE cc_trunk_counter SET seconds = seconds + $sessiontime, last_call_time = '" . time() . "', success_calls = success_calls + 1 WHERE id_trunk = '" . $this->usedtrunk . "' and calldate = CURDATE()";
-            $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, $QUERY);
-            $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
-            
+            // updating trunk counters
+            updateTrunkCounters($this->usedtrunk, $sessiontime);
         }
     }
 
@@ -1295,7 +1281,6 @@ class RateEngine
         $A2B->instance_table = new Table();
         $QUERY = "
             select t.* from cc_trunk t 
-            left join cc_trunk_counter tc on (tc.id_trunk = t.id_trunk and tc.calldate = CURDATE())
             where t.id_trunk in (select tp_t.idtrunk from cc_tariffplan_trunk tp_t where tp_t.idtariffplan = '" . $tp['id'] . "') and t.status = 1 
             order by $algo
         ";
@@ -1336,7 +1321,7 @@ class RateEngine
             $calls_per_day       = $t['calls_per_day'];
 
             // check limits
-            $counters = $A2B->getTrunkCounters($this->usedtrunk);
+            $counters = getTrunkCounters($this->usedtrunk);
             $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "Counters: \n" . print_r($counters, true));
             $minutes_per_day_reached = false;
             $trunk_on_pause = false;
@@ -1634,7 +1619,7 @@ class RateEngine
             $calls_per_day       = $result[0][5];
             
             // check limits
-            $counters = $A2B->getTrunkCounters($this->usedtrunk);
+            $counters = getTrunkCounters($this->usedtrunk);
             $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "Counters: \n" . print_r($counters, true));
             $minutes_per_day_reached = false;
             $trunk_on_pause = false;
@@ -1752,7 +1737,7 @@ class RateEngine
                     }
 
                     // check limits
-                    $counters = $A2B->getTrunkCounters($failover_trunk);
+                    $counters = getTrunkCounters($failover_trunk);
                     $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "Counters: \n" . print_r($counters, true));
                     $minutes_per_day_reached = false;
                     $trunk_on_pause = false;

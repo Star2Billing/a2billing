@@ -31,7 +31,7 @@
  * 
 **/
 
-getpost_ifset(array('id', 'trunkcode', 'trunkprefix', 'removeprefix', 'providertech', 'providerip', 'addparameter','failover_trunk', 'id_provider', 'popup_select', 'inuse', 'maxuse', 'status', 'if_max_use', 'minutes_per_day', 'attempt_statuses', 'attempt_condition', 'attempt_count'));
+getpost_ifset(array('id', 'trunkcode', 'trunkprefix', 'removeprefix', 'providertech', 'providerip', 'addparameter','failover_trunk', 'id_provider', 'popup_select', 'inuse', 'maxuse', 'status', 'if_max_use', 'minutes_per_day', 'attempt_condition', 'attempt_statuses', 'attempt_count, attempt_statuses, priority, attempt_delay, calls_per_day', 'trunk_GMT'));
 
 $DBHandle  = DbConnect();
 $instance_table = new Table();
@@ -79,6 +79,8 @@ $attempt_cond_list = array();
 $attempt_cond_list["0"] = array( gettext("Dialstatus in the list"), "0");
 $attempt_cond_list["1"] = array( gettext("Dialstatus not in the list"), "1");
 
+$timezone_list = constants::getTimezones_List();
+
 // Dependent Tables
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;
 $HD_Form -> FG_FK_DELETE_CONFIRM = true;
@@ -106,12 +108,13 @@ if ($popup_select) {
 	$HD_Form -> AddViewElement(gettext("STATUS"), "status", "7%", "center", "sort", "", "list", $actived_list);
 	$HD_Form -> AddViewElement(gettext("MAXUSE"), "maxuse" , "5%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("Minutes/day"), "minutes_per_day" , "5%", "center", "sort");
-	$HD_Form -> AddViewElement(gettext("Minutes/day used"), "id_trunk" , "5%", "center", "sort", "", "", "", "", "", "", "display_minute_used");
+	$HD_Form -> AddViewElement(gettext("Minutes/day used"), "id_trunk" , "5%", "center", "", "", "", "", "", "", "", "display_minute_used");
 	$HD_Form -> AddViewElement(gettext("Priority"), "priority" , "5%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("Calls/day"), "calls_per_day" , "5%", "center", "sort");
-	$HD_Form -> AddViewElement(gettext("Calls/day used"), "id_trunk" , "5%", "center", "sort", "", "", "", "", "", "", "display_calls_used");
+	$HD_Form -> AddViewElement(gettext("Calls/day used"), "id_trunk" , "5%", "center", "", "", "", "", "", "", "", "display_calls_used");
+    $HD_Form -> AddViewElement(gettext("TIMEZONE"), "trunk_GMT", "%1", "center", "SORT", "30", "", "", "", "", "", "display_timezone");
         
-	$HD_Form -> FieldViewElement ('trunkcode, trunkprefix, removeprefix, providertech, providerip, id_provider, secondusedreal, status, maxuse, minutes_per_day, id_trunk, priority, calls_per_day, id_trunk');
+	$HD_Form -> FieldViewElement ('trunkcode, trunkprefix, removeprefix, providertech, providerip, id_provider, secondusedreal, status, maxuse, minutes_per_day, id_trunk, priority, calls_per_day, id_trunk, trunk_GMT');
 }
 
 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
@@ -341,7 +344,16 @@ $HD_Form -> AddEditElement (gettext("Calls/day"),
 	"",
 	"" , "", "", "", "", "", "", gettext("Number of maximum success calls to the gateway per day, to disable - set to 0 (zero)") . (is_array($counters) ? ". <b>" . sprintf(gettext("Calls today: %s"), $counters['success_calls']) . '</b>' : ''));
 
-$HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk, inuse, maxuse, if_max_use, status, minutes_per_day, attempt_count, attempt_condition, attempt_statuses, priority, attempt_delay, calls_per_day');
+$HD_Form -> AddEditElement (gettext("Timezone"),
+	"trunk_GMT",
+	'$value',
+	"SELECT",
+	"",
+	"",
+	"",
+	"list" , "", "", "", $timezone_list, "%1" , "", gettext("Trunk timezone"));
+    
+$HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk, inuse, maxuse, if_max_use, status, minutes_per_day, attempt_count, attempt_condition, attempt_statuses, priority, attempt_delay, calls_per_day, trunk_GMT');
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the trunk below.");
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
