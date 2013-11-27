@@ -1281,6 +1281,7 @@ class RateEngine
         $A2B->instance_table = new Table();
         $QUERY = "
             select t.* from cc_trunk t 
+            left join cc_trunk_counter tc on (tc.id_trunk = t.id_trunk and tc.calldate = getCurDateByTrunkTZ(t.id_trunk))
             where t.id_trunk in (select tp_t.idtrunk from cc_tariffplan_trunk tp_t where tp_t.idtariffplan = '" . $tp['id'] . "') and t.status = 1 
             order by $algo
         ";

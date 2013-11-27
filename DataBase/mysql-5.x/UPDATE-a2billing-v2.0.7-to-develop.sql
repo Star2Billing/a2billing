@@ -63,3 +63,39 @@ create table `cc_tariffplan_trunk`(
 	`idtrunk` int(11) NOT NULL,
 	PRIMARY KEY (`idtariffplan`,`idtrunk`)
 )Engine=MyISAM DEFAULT CHARSET='utf8';
+
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS `a2billing`.`getCurDateByTrunkTZ`$$
+CREATE FUNCTION `a2billing`.`getCurDateByTrunkTZ`(id_trunk INT)
+RETURNS DATE DETERMINISTIC
+BEGIN
+	declare server_GMT varchar(10);
+	declare trunk_GMT varchar(10);
+	
+	-- getting server GMT
+	select config_value into server_GMT from cc_config where config_key = 'server_GMT' and config_group_title = 'global' and (config_value REGEXP "^(GMT)?(\\-|\\+)[[:digit:]]{1,2}\\:[[:digit:]]{1,2}$") limit 1;
+	IF (ISNULL(server_GMT)) THEN
+		set server_GMT = '+00:00';
+	ELSE
+		IF SUBSTRING(server_GMT, 1, 3) LIKE 'gmt' THEN
+			set server_GMT = SUBSTRING(server_GMT, 4);
+		END IF;
+	END IF;
+
+	-- getting trunk GMT
+	select tz.gmttime into trunk_GMT from cc_timezone tz where tz.id = (select t.trunk_GMT from cc_trunk t where t.id_trunk = id_trunk limit 1) limit 1;
+	IF (ISNULL(trunk_GMT)) THEN
+		set trunk_GMT = '+00:00';
+	ELSE
+		IF SUBSTRING(trunk_GMT, 1, 3) LIKE 'gmt' THEN
+			set trunk_GMT = SUBSTRING(trunk_GMT, 4);
+		END IF;
+	END IF;
+
+	-- adjusting current date
+	return DATE(CONVERT_TZ(NOW(), server_GMT, trunk_GMT));
+
+END$$
+DELIMITER ;
+

@@ -1605,52 +1605,10 @@ function getTrunkCounters($id_trunk) {
     if ($instance_table === null)
         $instance_table = new Table();
     
-    $date = getTrunkCountersDate($id_trunk);
-    $QUERY = "select * from cc_trunk_counter where id_trunk = '$id_trunk' and calldate = '$date' limit 1";
+    $QUERY = "select * from cc_trunk_counter where id_trunk = '$id_trunk' and calldate = getCurDateByTrunkTZ($id_trunk) limit 1";
     $result = $instance_table->SQLExec($DBHandle, $QUERY);
     
     return (is_array($result) && count($result) > 0) ? $result[0] : null;
-}
-
-function getTrunkCountersDate($id_trunk) {
-    global $DBHandle;
-    if (!is_object($DBHandle))
-        $DBHandle = DbConnect();
-
-    static $instance_table = null;
-    if ($instance_table === null)
-        $instance_table = new Table();
-
-    // getting server GMT
-    $server_GMT = '+00:00';
-    $QUERY = "select * from cc_config where config_key = 'server_GMT' and config_group_title = 'global' limit 1";
-    $result = $instance_table->SQLExec($DBHandle, $QUERY);
-    if (is_array($result) && count($result) > 0)
-        if ($server_GMT_norm = normalizeGMTForMysql($result[0]['config_value']))
-            $server_GMT = $server_GMT_norm;
-
-    // getting trunk GMT
-    $trunk_GMT = $server_GMT;
-    $QUERY = "select * from cc_trunk where id_trunk = '$id_trunk' limit 1";
-    $result = $instance_table->SQLExec($DBHandle, $QUERY);
-    if (is_array($result) && count($result) > 0) {
-        $id_timezone = intval($result[0]['trunk_GMT']);
-        if ($id_timezone > 0) {
-            // getting GMT from table by id
-            $QUERY = "select * from cc_timezone where id = '$id_timezone' limit 1";
-            $result = $instance_table->SQLExec($DBHandle, $QUERY);
-            if (is_array($result) && count($result) > 0) {
-                if ($trunk_GMT_norm = normalizeGMTForMysql($result[0]['gmttime']))
-                    $trunk_GMT = $trunk_GMT_norm;
-            }
-        }
-    }
-    
-    // getting date
-    $QUERY = "select DATE(CONVERT_TZ(NOW(), '$server_GMT', '$trunk_GMT')) as counter_date";
-    $result = $instance_table->SQLExec($DBHandle, $QUERY);
-    
-    return (is_array($result) && count($result) > 0) ? $result[0]['counter_date'] : date('Y-m-d');
 }
 
 function updateTrunkCounters($id_trunk, $sessiontime) {
@@ -1667,21 +1625,13 @@ function updateTrunkCounters($id_trunk, $sessiontime) {
         $instance_table = new Table();
         
     $counters = getTrunkCounters($id_trunk);
-    $date = getTrunkCountersDate($id_trunk);
-    
     if (!$counters) {
-        $QUERY = "insert into cc_trunk_counter set id_trunk = '$id_trunk', calldate = '$date', seconds = 0, last_call_time = 0, success_calls = 0";
+        $QUERY = "insert into cc_trunk_counter set id_trunk = '$id_trunk', calldate = getCurDateByTrunkTZ($id_trunk), seconds = 0, last_call_time = 0, success_calls = 0";
         $instance_table->SQLExec($DBHandle, $QUERY, 0);
     }
     
-    $QUERY = "UPDATE cc_trunk_counter SET seconds = seconds + $sessiontime, last_call_time = '" . time() . "', success_calls = success_calls + 1 WHERE id_trunk = '$id_trunk' and calldate = '$date'";
+    $QUERY = "UPDATE cc_trunk_counter SET seconds = seconds + $sessiontime, last_call_time = '" . time() . "', success_calls = success_calls + 1 WHERE id_trunk = '$id_trunk' and calldate = getCurDateByTrunkTZ($id_trunk)";
     $instance_table->SQLExec($DBHandle, $QUERY, 0);
-}
-
-function normalizeGMTForMysql($gmt) {
-    $gmt = str_replace("GMT", "", trim($gmt));
-    
-    return preg_match("/^(\-|\+)\d{1,2}\:\d{1,2}$/", $gmt) ? $gmt : null;
 }
 
 function display_timezone($id_tz) {
