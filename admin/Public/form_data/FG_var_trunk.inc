@@ -80,6 +80,7 @@ $attempt_cond_list["0"] = array( gettext("Dialstatus in the list"), "0");
 $attempt_cond_list["1"] = array( gettext("Dialstatus not in the list"), "1");
 
 $timezone_list = constants::getTimezones_List();
+$timezone_list['0'] = array(gettext("Not set"), '0');
 
 // Dependent Tables
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;
