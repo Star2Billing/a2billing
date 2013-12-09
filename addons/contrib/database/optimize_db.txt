@@ -1,0 +1,11 @@
+
+
+-- Mysql tips
+
+OPTIMIZE TABLE cc_card;
+OPTIMIZE TABLE cc_call;
+
+Maybe you need to rebuild your indexes. 
+To rebuild your indexes, the easiest way to do so for a MyISAM table is to use the following statement, which rebuilds the index file:
+
+REPAIR TABLE tbl_name QUICK;

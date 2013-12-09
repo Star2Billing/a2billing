@@ -1,0 +1,86 @@
+select.icon-menu option {
+    background-repeat:no-repeat;
+    background-position:bottom left;
+    padding-left:30px;
+}
+a:link {
+   	font-family: Arial,Verdana;
+	color: #005298;
+	text-decoration: none;
+}
+
+a:visited {
+   	font-family: Arial,Verdana;
+	color: #005298;
+	text-decoration: none;
+}
+
+a:active {
+   	font-family: Arial,Verdana;
+	color: #005298;
+	text-decoration: none;
+}
+
+a:hover {
+   	font-family: Arial,Verdana;
+	color: #3b60af;
+	
+}
+
+table {
+	font-family: Arial,Verdana;
+	font-size: 7px;
+}
+
+.table_auth {
+	border: #3399ff dotted 1px;
+}
+
+body {
+	font-family: Arial,Verdana;
+	color: #666666;
+	background: #FCFCFC;
+}
+
+
+
+.upload_textfield {
+	font-family: Arial,Verdana;
+	font-size: 9px;
+	color: #666666;
+	border: solid 1px;
+	border-color: #DBDBDB;
+	background-image: url('../images/textfield.gif');
+}
+
+.upload_button {
+	font-family: Arial,Verdana;
+	font-size: 10px;
+	color: #FFFFFF;
+	background-color: #3399FF;
+	border: solid 0px;
+}
+
+textarea {
+	font-family: Arial,Verdana;
+	font-size: 9px;
+	color: #666666;
+	background-color: #FFFFFF;
+	border: solid 1px;
+	border-color: #DBDBDB;
+	overflow:hidden;
+}
+
+.text-copy_link {
+	color: #C0C0C0;
+	text-decoration: none;
+	font-size: 9px;
+	cursor: default;
+}
+
+.select {
+	font-family: Arial,Verdana;
+	font-size: 9px;
+	color: #666666;
+	background-color: #FFFFFF;
+}

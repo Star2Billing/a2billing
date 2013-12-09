@@ -1,0 +1,94 @@
+***************************************************************************************************
+*                                                                                                 *
+* a2billing 1.x (c) AGPL 2003-2010                                                                *
+* Documentation Code                                                                              *
+*                                                                                                 * 
+* Title: WSDL Callback Sample                                                                     *
+* Date: April 2009                                                                                *
+* Version: 1.0                                                                                    *
+* Author:                                                                                         *
+* Status: To verify for 1.4                                                                       *
+*                                                                                                 *
+***************************************************************************************************
+
+
+http://domain/webservice/SOAP/soap-callback-server?wsdl
+
+
+<?xml version="1.0"?>
+
+<definitions name="Callback" targetNamespace="urn:Callback" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:Callback" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+	<types xmlns="http://schemas.xmlsoap.org/wsdl/">
+	</types>
+	
+	<message name="RequestRequest">
+		<part name="security_key" type="xsd:string" />
+		<part name="pn_callingparty" type="xsd:string"/>
+		<part name="pn_calledparty" type="xsd:string"/>
+		<part name="callerid" type="xsd:string" />
+		<part name="callback_time" type="xsd:string" />
+		<part name="uniqueid" type="xsd:string" />
+	</message>
+	
+	<message name="RequestResponse">
+		<part name="id" type="xsd:string" />
+		<part name="result" type="xsd:string" />
+		<part name="details" type="xsd:string" />
+	</message>
+	
+	<message name="StatusRequest">
+		<part name="security_key" type="xsd:string" />
+		<part name="id" type="xsd:string" />
+	</message>
+		
+	<message name="StatusResponse">
+		<part name="uniqueid" type="xsd:string" />
+		<part name="result" type="xsd:string" />
+		<part name="details" type="xsd:string" />
+	</message>
+	
+	<portType name="CallbackPort">
+		<operation name="Request">
+			<input message="tns:RequestRequest" />
+			<output message="tns:RequestResponse" />
+		</operation>
+		
+		<operation name="Status">
+			<input message="tns:StatusRequest" />
+			<output message="tns:StatusResponse" />
+		</operation>
+	</portType>
+	
+	<binding name="CallbackBinding" type="tns:CallbackPort">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="Request">
+			<soap:operation soapAction="http://schemas.xmlsoap.org/soap/envelope/#Callback#Request" />
+			<input>
+				<soap:body use="encoded" namespace="http://schemas.xmlsoap.org/soap/envelope/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			
+			<output>
+				<soap:body use="encoded" namespace="http://schemas.xmlsoap.org/soap/envelope/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		
+		<operation name="Status">
+			<soap:operation soapAction="http://schemas.xmlsoap.org/soap/envelope/#Callback#Status" />
+			<input>
+				<soap:body use="encoded" namespace="http://schemas.xmlsoap.org/soap/envelope/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+		
+			<output>
+				<soap:body use="encoded" namespace="http://schemas.xmlsoap.org/soap/envelope/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+	</binding>
+	
+	<service name="CallbackService">
+		<documentation />
+		<port name="CallbackPort" binding="tns:CallbackBinding">
+			<soap:address location="http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/api/SOAP/callback-exec.php" />
+		</port>
+	</service>
+</definitions>

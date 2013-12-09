@@ -1,0 +1,92 @@
+***************************************************************************************************
+*                                                                                                 *
+* a2billing 1.x (c) AGPL 2003-2010                                                                *
+* Documentation                                                                                   *
+*                                                                                                 * 
+* Title:  Payment Module - EPayment                                                               *
+* Date: April 2009                                                                                *
+* Version: 1.0                                                                                    *
+* Author: AB                                                                                      *
+* Status: Draft - Verify section 7                                                                *
+*                                                                                                 *
+***************************************************************************************************
+
+
+
+1. INTRODUCTION:
+
+	A2Billing EPayment Module will help you to deal with online payment gates and will provide to
+	your customers new ways to transfer credit in your A2Billing Accounts.
+	The actual epayment gateway supported by this module are : 
+	Paypal, MoneyBooker, PlugNPay
+	
+
+2. INSTALLATION GUIDE:
+
+	1. Add into your a2billing.conf the following option
+				
+	[epayment_method]
+	enable = yes
+	; eg, http://localhost or https://localhost - should not be empty for productive servers
+	http_server = http://localhost
+	; secure webserver for checkout procedure?
+	enable_ssl = true
+	http_domain = 202.154.239.73
+	dir_ws_http = "/~areski/svn/a2billing/payment/A2BCustomer_UI/"
+	
+	; maybe try with :
+	; Define here the URL to notify the payment
+	; payment_notify_url=...
+	
+	;define the different amount of purchase that would be available - 5 amount maximum (5:10:15)
+	purchase_amount=1:2:5:10:20
+	; Item name that would be display to the user when he will buy credit
+	item_name="Credit Purchase"		
+	; Currency for the Credit purchase, only one can be define here
+	currency_code=USD
+		
+	; Define here the URL of paypal gateway the payment (to test with paypal sandbox)
+	;paypal_payment_url=https://secure.paypal.com/cgi-bin/webscr
+	paypal_payment_url=https://www.sandbox.paypal.com/cgi-bin/webscr		
+		
+		
+	; paypal log file, to log all the transaction & error
+	paypal_logfile=/tmp/a2billing_paypal.log
+	
+
+	
+	2. Put the contents of the all folder to the coresponding folders of the A2Billing application.
+	
+	3. Run the Database Scripts given in the A2BCustomer/lib/epayment/Database Directory.
+	
+	4. Open the A2BCustomer_UI/lib/epayment/includes/configure.php and change the settings.
+	
+	5. By default all payment gateways are configured to their test URLs, like paypal have a
+	   sandbox to the test. if you want to run them in live working mode. please comment the line. 
+		/A2BCustomer_UI/lib/epayment/methods/paypal.php
+		
+		$this->form_action_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+		comment the above line. and un comment the other line.
+
+	   	$this->form_action_url = 'https://secure.paypal.com/cgi-bin/webscr';
+
+	6. Turn on the Auto Return from the in your Paypal Account from paypal website.
+	   Go to Tab "Profile" then under "Selling Preferences" go to "Website Payment Prefrences"
+	   Turn on Auto Return and Provide Return Path like. and also turn on the Payment data transfer.
+		e.g  http://a2billing.com/A2BCustomer_UI/checkout_process.php
+
+
+
+3. Help
+
+	1. if you still see the old interface for payment in the Customer Interface. 
+	   then please check your a2billing.conf file in the /etc/asterisk/ directory. and confirm 
+	   that [webcustomerui] section contain "paymentmethod" flad and it is set to 'yes'.
+	
+	2. if you have some problems in payment processing. then please go to admin interface and 
+	   check for the payment gateway settings. by clicking on the "view detail" button infront of it.
+	
+	3. if you want to disable some payment gate. then go the admin interface and in left menu
+	   section go to "Billing". in the billing section you will find a link "View Payment Methods". 
+	   in that page you will find all the modules listed. click on the "View details" link and 
+	   first  option will help you to disable and enable the payment method.

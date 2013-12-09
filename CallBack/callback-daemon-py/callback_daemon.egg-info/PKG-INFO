@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: callback-daemon
+Version: 1.0.prod-r1528
+Summary: This Package provide a callback daemon for a2billing
+Home-page: http://www.asterisk2billing.org/
+Author: Belaid Arezqui
+Author-email: areski@gmail.com
+License: GPL
+Description: UNKNOWN
+Keywords: callback a2billing daemon
+Platform: UNKNOWN

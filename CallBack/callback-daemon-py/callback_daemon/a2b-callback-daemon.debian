@@ -1,0 +1,106 @@
+#! /bin/sh
+#
+#  a2b_callback_daemon
+#
+
+NAME="a2b-callback-daemon"
+DESC="A2Billing Callback Daemon"
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+DAEMON=/usr/bin/a2b_callback_daemon
+PIDFILE=/var/run/$NAME.pid
+
+trap "" 1
+export LANG=C
+export PATH
+
+set -e
+if [ -x $DAEMON ] ; then
+        HAVE_DAEMON=1
+else
+        echo "No $NAME installed"
+        exit 0
+fi
+
+. /lib/lsb/init-functions
+
+status() {
+	plist=`ps auxw | grep "$DAEMON" | grep -v grep | awk '{print $2}' | tr '\012' ' '`
+	if [ "$plist" = "" ]; then
+			echo "$DESC is stopped"
+			return 1
+	else
+			echo "$DESC is running: $plist"
+			return 0
+	fi
+}
+
+case "$1" in
+  start)
+  	if status > /dev/null; then
+		echo "$DESC is already running. Use restart."
+		exit 0
+	fi
+
+  	log_daemon_msg " Starting $NAME  : $NAME"
+    if start-stop-daemon --start --quiet --oknodo --pidfile $PIDFILE --exec $DAEMON; then
+	    echo `ps axf | grep -v grep | grep $DAEMON | head -n1 | awk '{print $1}'` > $PIDFILE
+		log_end_msg 0
+	else
+		log_end_msg 1
+	fi
+
+    ;;
+
+  stop)
+    log_daemon_msg "Stopping $NAME : $NAME"
+    if start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE; then
+    	rm -rf $PIDFILE 2> /dev/null
+		log_end_msg 0
+	else
+		log_end_msg 1
+	fi
+    ;;
+
+  status)
+        status
+        exit $?
+        ;;
+
+  reload-config)
+    log_daemon_msg "Reloading $NAME configuration"
+    if start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE --signal HUP --exec $DAEMON; then
+		log_end_msg 0
+	else
+		log_end_msg 1
+	fi
+    ;;
+
+  restart-daemon)
+    log_daemon_msg "Restarting $NAME"
+    if start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE --oknodo --exec $DAEMON  --retry 30; then
+    	rm -rf $PIDFILE 2> /dev/null
+
+		if start-stop-daemon --start --quiet --oknodo --make-pidfile --pidfile $PIDFILE --exec $DAEMON; then
+			echo `ps axf | grep -v grep | grep $DAEMON | head -n1 | awk '{print $1}'` > $PIDFILE
+			log_end_msg 0
+		else
+			log_end_msg 1
+		fi
+
+    else
+		log_end_msg 1
+	fi
+    ;;
+
+  restart)
+    $0 restart-daemon
+    exit $?
+    ;;
+
+  *)
+    log_success_msg "Usage: /etc/init.d/$NAME {start|stop|status|reload-config|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0

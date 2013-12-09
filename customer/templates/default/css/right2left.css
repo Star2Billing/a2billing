@@ -1,0 +1,65 @@
+#left-sidebar {
+	width: 200px;
+	float: right;
+	padding-top: 20px;
+}
+
+
+/* Sidebar */
+
+#nav, #nav ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-align:right;
+}
+
+
+#nav li span { /* used for un-linked menu items */
+	display: block;
+	padding: 6px 10px;
+	font-weight: bold;
+	color: #666;
+}
+
+#nav li span#configParent, #nav li span #configuration {
+	display: inline;
+	font-weight: normal;
+	padding: 0;	
+	text-align:right;
+}
+
+
+#nav li a {
+	display: block;
+	font-size: 12px;
+	padding: 4px 0px 4px 10px;
+	text-decoration: none;
+	color : #444444;
+}
+
+
+#nav ul li span,#nav ul li a {
+	padding: 2px 10px 4px 2px;
+	font-size: 10px;	
+	height : 11px;
+}
+
+#leftmenu-top{
+	background: url(../images/bg-menu-right-up.png) no-repeat;
+	background-position: top left; 
+	padding-top: 30px;
+}
+#leftmenu-middle{
+	background: url(../images/bg-menu-right-middle.png) repeat-y;
+	background-position: center left; 
+	padding-left : 20px;
+}
+#leftmenu-down{
+	background: url(../images/bg-menu-right-down.png) no-repeat;
+	background-position: bottom left; 
+	padding-bottom: 30px;
+}
+
+
+ 

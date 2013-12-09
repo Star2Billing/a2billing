@@ -1,0 +1,22 @@
+
+-- ---===========------===========------===========------===========------===========-----
+-- 								LOGROTATE FOR A2BILLING
+-- ---===========------===========------===========------===========------===========-----
+
+
+This logrotate setup will rotate the log files weekly cycling them 5 times so for example, log files will be 
+the newest log files, followed by filename.1, filename.2 all the way to filename.5 (the oldest). 
+
+
+Ensure you created the directory : mkdir /var/log/asterisk/a2billing/
+
+then create the file /etc/logrotate.d/a2billing , paste the file logrotate/a2billing
+
+/var/log/asterisk/a2billing/*.log {
+	weekly
+	rotate 5
+	size = 20M
+	olddir /var/log/asterisk/a2billing/old
+	missingok
+	compress
+}

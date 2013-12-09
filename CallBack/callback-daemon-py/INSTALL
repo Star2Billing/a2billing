@@ -1,0 +1,76 @@
+--------------------------------------------------------------------------------
+                        INSTALL A2B CALLBACK DAEMON
+--------------------------------------------------------------------------------
+
+
+- REQUIREMENTS
+=============================
+python
+python-mysqldb
+python-psycopg2
+python-sqlalchemy
+
+
+
+1) INSTALL DAEMON : CENTOS / REDHAT
+=====================================
+
+  Install from egg :
+  	easy_install dist/a2b_callback_daemon-versionXXX.egg
+  
+  Install Init Script :
+    cp a2b-callback-daemon.rc /etc/init.d/a2b-callback-daemon
+    chmod +x /etc/init.d/a2b-callback-daemon
+ 
+  Add a service to start at boot :
+    chkconfig --add a2b-callback-daemon
+    chkconfig a2b-callback-daemon on
+  
+  Start Daemon :
+    service a2b-callback-daemon start
+
+
+
+2) INSTALL DAEMON : Debian
+=============================
+
+  Install from egg :
+  	easy_install dist/a2b_callback_daemon-versionXXX.egg
+  
+  Install Init Script :
+    cp a2b-callback-daemon.debian /etc/init.d/a2b-callback-daemon
+    chmod +x /etc/init.d/a2b-callback-daemon
+ 
+    update-rc.d a2b-callback-daemon defaults 40 60
+    * to remove update-rc.d -f a2b-callback-daemon remove
+ 
+  Start Daemon :
+    /etc/init.d/a2b-callback-daemon start
+  
+
+3) RUN DEBUG MODE
+=============================
+	
+	cd CallBack/callback-daemon-py/callback_daemon
+	./a2b_callback_daemon.py --nodaemon
+	
+
+
+# ADDITIONAL INFO
+=============================
+
+	a) rebuild the source :
+		
+		python setup.py build
+	
+	b) create a new egg :
+		
+		python setup.py bdist_egg
+	
+	c) Build RPMs :
+	
+		python setup.py bdist_rpm
+
+
+
+		

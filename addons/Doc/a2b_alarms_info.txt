@@ -1,0 +1,79 @@
+***************************************************************************************************
+*                                                                                                 *
+* a2billing 1.x (c) AGPL 2003-2010                                                                *
+* Documentation                                                                                   *
+*                                                                                                 * 
+* Title: Alarms                                                                                   *
+* Date: April 2009                                                                                *
+* Version: 1.0                                                                                    *
+* Author: AB                                                                                      *
+* Status: Draft                                                                                   *
+*                                                                                                 *
+***************************************************************************************************
+
+
+	The Document Explains you following topics
+	1. Introduction
+	2. Alarms Types
+	3. Alarms Periods
+	4. Setup Alarms in your Asterisk2Billing
+
+
+1. INTRODUCTION
+	
+	Astersik2Billing gives adminstrators, the power to get informed about the calls rates, 
+	durations, status, etc... 
+	It has a power backendframework which allow you to create different types of Alarms to get 
+	the current statistics & relevant information about call durations in any trunk.
+	You are able to create these alarms on daily, weekly, and monthly basis.
+
+2. ALARM TYPES
+	
+	Asterisk2Billing provide you two types of Alarms. 
+	
+	2.1 ASR (Answer Seize Ratio)
+		This type of Alarm helps to monitor the Answer Seize Ratio in any Trunk.
+	2.2 ALOC (Average Length of Call)
+		This type of Alarm helps to monitor the average lenght of a call in a given Trunk.
+	2.3 CIC (Consecutive Incomplete Calls)
+		This type of Alarm helps to monitor the rate of imcomplete calls
+	
+3. ALARMS PERIODS
+	
+	Asterisk2Billing provide you with 04 type of periods that help you to apply recurring Alarms.
+	
+	3.1 Daily
+		This will daily send you an email containing your Alarm Information.
+	3.2 Weekly
+		This will Weekly send you an email containing your Alarm Information 
+		(it will apply for a 7days period from the current day).
+	3.3 Monday to Sunday
+		This will Weekly send you an email containing your Alarm Information.
+	3.4 Montly
+		This will send you an email at the end of the every month containing 
+		your Alarm Information.
+	
+4. SETUP ALARMS IN ASTERISK2BILLING
+	
+	Admin Site:		
+		
+		4.1) ADD NEW ALARMS
+			a) Expand the TAB "RECURRING SERVICE" in the Left Menu.
+			b) Click on the  TAB "Add ALARM" in the Left Menu.
+			
+		This will lead you to a page that will help you to create new ALARM. Every alarms you 
+		create will be binded with a Trunk.
+		
+		Here you have to provide the following information.
+		a) NAME: This is the name of the Alarm that you are going to create.
+		b) PERIOD: Select the Period/Interval type that you want to use. already explained above.
+		c) TYPE: Select the type of the Alarm.			
+		d) MAX VALUE: Enter the maximun value (between 0 and 1 sec for ASR, 
+			      greater than 0sec for ALOC and CIC).
+		e) MIN VALUE: Enter the minimun value (between 0 and 1 sec for ASR, 
+			      greater than or equal to 0sec for ALOC and CIC).
+		f) TRUNK: Select the trunk on which you want to apply this.
+		g) STATUS: if you want to make this Alarm Active then select Active otherwise Inactive.
+		h) EMAIL TO SEND ALARM: Enter the Email Address on which you want to receive this
+				        Alarm information.
+

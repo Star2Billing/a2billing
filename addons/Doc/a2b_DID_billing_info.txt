@@ -1,0 +1,153 @@
+***************************************************************************************************
+*                                                                                                 *
+* a2billing 1.x (c) AGPL 2003-2010                                                                *
+* Documentation                                                                                   *
+*                                                                                                 * 
+* Title: DID Billing                                                                              *
+* Date: April 2009                                                                                *
+* Version:                                                                                        *
+* Author: AB                                                                                      *
+* Status:                                                                                         *
+*                                                                                                 *
+***************************************************************************************************
+
+
+DID BILLING
+
+	The Document Explains you following topics
+	1. Introduction
+	2. DID Billing
+	3. Invoicing
+	4. Setup Your DID in A2Billing
+
+
+1. INTRODUCTION
+	
+	Astersik2Billing provides an extensive functionality to handle the DID calls and its Billing.
+	You can Create the DID Groups in our A2Billing Admin Web Application. and Add DID to the Groups.
+	DID can be Assigned to Card to re-route the calls to a SIP/IAX Client. 
+	You can active or deactivate your DIDs.
+
+2. DID BILLING
+	
+	In the DID Billing A2Billing offer's 4 Powerful ways to carry out billing.
+	
+	1. Fix per Month + Dialout Rate.
+	In this type of billing You have a Fix Recurring cost of for your DID. and You also have to
+	pay per call you made.	
+	2. Fix per Month
+	In this type of DID Billing you only have a fixed recurring cost for your DID for every month.
+	3. Only Dialout Rate
+	Only dial out charges apply on all out going did calls.
+	4. Free
+	There is no cost for all calls made through this did.
+
+3. INVOICING
+	
+	A2Billing Provides DID Calls Billing information in a Separate section. you can Check the billing 
+	information for your any type of DID Billing. You can view your DID Calls by the help of powerfull
+	invoicing provided by Asterisk2Billing.
+	
+	1. Client Side
+	
+	At the Client Side you can view the DID billing Information in the invoices and call details in 
+	following 3 sections.
+	1.1) Unbilled Detail
+		1-1.1) Go to Inovoice Tab in the left menu
+		1.1.2) Click on the "Unbilled Details"
+		Here you will be able to view the DID Calls made in the current period.	
+	1.2) Billed Detail
+		1.2.1) Go to Inovoice Tab in the left menu
+		1.2.2) Click on the "Billed Details"
+		Here you will be able to view the DID Calls made in the previous billed period. You can 
+		also go through all previous billed periods.
+	1.3) Call Details
+		1.2.1) Go to Inovoice Tab in the left menu
+		1.2.2) Click on the "Call Details"
+		This page will by default show you DID Calls of today. You can also go through all DID 
+		Call history using Filter on the top of page.
+		
+	2. Admin Side
+	
+	At the admin side you can view the DID Billing information in the 2 sections.
+	
+	2.1) View Unbilled Invoices
+		2-1.1) Go to Billing Tab in the left menu
+		2.1.2) Click on the "View Unbilled Invoices"
+		This will lead you to the page which will show you all Cards, By using Action Column you 
+		can Click on the "DETAIL" button that will take you to the details of the Invoice, and you
+		can see the DID billing information in the DID Section.
+	2.2) View Billed Invoices	
+		2-2.1) Go to Billing Tab in the left menu
+		2.2.2) Click on the "View Billed Invoices"
+		This will lead you to the page which will show you all Cards, By using Action column you 
+		can click on the "INVOICES" and you will reach and page that will show you all billed 
+		invoices and Clicking on the "DETAILS" and you can see the DID billing information in the 
+		DID Section.
+	
+4. SETUP YOUR DID IN A2BILLING
+	
+	Admin Site:
+	
+		4.1) DID GROUP		
+			a) Expand the TAB "DID" in the Left Menu.
+			b) Click on the  TAB "Add DID Group" in the Left Menu.
+			
+		This will lead you to a page that will help you to add the DID Group. 
+		DID Group offer you the Group of the DID Numbers which you can selec for any Card.
+		
+		To list you existing DID Groups you should:
+			a) Expand the TAB "DID" in the Left Menu.
+			b) Click on the  TAB "List DID Group" in the Left Menu.
+		
+		4.2) DID
+			a) Expand the TAB "DID" in the Left Menu.
+			b) Click on the  TAB "Add DID" in the Left Menu.
+			
+		This will lead you to a page that will help you to create new DID. DID can be assigned 
+		to a Card to re-route the calls. You have to provide the following information in 
+		this page.
+		Here you have to provide the following information.
+			a) DID: this is the DID Number that you want to use.
+			b) BILLING: Selec the billing type that you want to use. already explained above.
+			c) START DATE: When you want this DID to start working.
+			d) EXPIRY DATE: When this DID will be no more available for use.
+			e) GROUP: This is the DID Group in which you want to add this DID.
+			f) COUNTRY: This is the country in which this DID will be used.
+			g) ACTIVATED: if you want to make this DID Active then select YES otherwise NO.
+			h) FIXMONTHLYRATE: Fix monthly rate is the amount that you want to charge as 
+			   recurring charges that will be included along with call rates.
+			   
+		To list the all DID that you have already created please do the following steps.
+			a) Expand the TAB "DID" in the Left Menu.
+			b) Click on the  TAB "List DID" in the Left Menu.		 
+		
+		4.3) DESTINATION
+			a) Expand the TAB "DID" in the Left Menu.
+			b) Click on the  TAB "Add Destination" in the Left Menu.			
+		
+		By clicking on the "Add Destination" you will reach to the page which will help you to
+                assign a Destination to you did. and select a Card to associate with that Destination.
+		You are require to fill the information in the form to create your Destination.
+			a) DESTINATION: Enter your phone number that you wish to call, e.g 3748949999 
+			or SIP/jeremy@124.126.45.3. 
+			if the call is the VoIP call VOIP_CALL must be set to YES.
+			b) ID CARD: Enter/Select the CARD ID which you want to bind with this Destination.
+			c) DID: Select your DID for this Destination.
+			d) ACTIVATED: To make this Destination Active please select YES otherwise NO.
+			e) PRIORITY: Select the priority of this call. 1 is Highest priority and 
+			5 is Lowest.
+			f) VOIP_CALL: if you have enterd a SIP Destination. 
+			Then you must select this to YES as this will be need a VoIP call.
+		
+	Client Site:
+	
+	Client Web Interface help the users to manage their DIDs. They can perform following 
+	functionalites.
+		a) Add Destination to their DIDs.
+		b) Request for DIDs.
+		c) Release the DIDs.
+		
+	To access the client side DIDs Page.
+		a) Login to Client Site
+		b) Click on the TAB "DID" in Left Menu.

@@ -1,0 +1,61 @@
+#!/bin/sh
+#
+# a2b-callback-daemon : Start/Stop the a2b callback daemon
+#
+# chkconfig: 2345 40 60
+# description: a2b-callback-daemon is a daemon who check if there is calls with state 'PENDING' in database to place it
+# processname: a2b-callback-daemon
+# pidfile: /var/run/a2b-callback-daemon.pid
+
+# Source function library.
+INITD=/etc/rc.d/init.d
+. $INITD/functions
+
+
+NAME='a2b-callback-daemon'
+DAEMON='/usr/bin/a2b_callback_daemon'
+LOG='/var/log/a2b-callback-daemon.log'
+# Clean
+
+# See how we were called.
+case "$1" in
+  start)
+	status $DAEMON
+	r=$?;
+
+	if [ $r -eq 0 ]; then 
+		echo "Already running $NAME: "
+		exit $r; 
+	fi
+
+	daemon $DAEMON
+	echo "Starting $NAME: "
+	touch /var/lock/subsys/a2b-callback-daemon
+	;;
+  stop)
+  	killproc $DAEMON
+	echo "Stopping $NAME: "	
+	rm -f /var/lock/subsys/a2b-callback-daemon
+	;;
+  status)
+	status $DAEMON
+	r=$?; 
+	if [ $r -ne 0 ]; then 
+		exit $r; 
+	fi
+	;;
+  start_log)
+	$0 status
+	$0 start
+	tail -f $LOG
+	;;
+  restart)
+	$0 stop
+	$0 start
+	;;
+  *)
+	echo "Usage: $0 {start|start_log|stop|status|restart}"
+	exit 1
+esac
+
+exit 0

@@ -1,0 +1,77 @@
+***************************************************************************************************
+*                                                                                                 *
+* a2billing 1.x (c) AGPL 2003-2010                                                                *
+* Documentation                                                                                   *
+*                                                                                                 *
+* Title: MAIL TEMPLATE                                                                            *
+* Date: April 2009                                                                                *
+* Version: 1.0                                                                                    *
+* Author: AB                                                                                      *
+* Status: Draft                                                                                   *
+*                                                                                                 *
+***************************************************************************************************
+
+
+MAIL TEMPLATE
+
+	The Document Explains you following topics :
+		1. Introduction
+		2. How to configure your mail template
+		3. Link List
+
+
+1. INTRODUCTION
+
+	Astersik2Billing provides different mail templates that will work with the mailer functionality.
+	During the A2Billing workflows, several mails can be sent to the different members of the
+	system (Admin, Customer, Agents)
+
+	Some of those emails will need to be customized in order to reflect your system live installation.
+
+	For instance, the mail template "SIGNUP CONFIRMATION" needs to contain a link to your customer panel,
+	by defaul it contains link to YourDomain website as an example.
+
+
+2. HOW TO CONFIGURE
+
+	1) Open the "Mail" section and click on "Mail templates"
+
+	2) Select the template to edit, for instance click on edit for "Login Information" template.
+
+		You are now able to adjust the template to reflect your installation.
+
+		The sample data will look like :
+		" ...
+		http://myaccount.YourDomain.com/
+
+		Kind regards,
+		YourDomain
+		http://www.YourDomain.com"
+
+		Change this with you website URL and your company name.
+
+
+3. LINK LIST
+
+	1) CUSTOMER URL
+
+		Depending of your install this url will change, if you decide to install a2billing into
+		the root directory of your local server, you will have something like :
+
+		http://localhost/customer/
+
+	2) SIGNUP URL
+
+		This will show the signup module for your new customers :
+		http://localhost/customer/signup.php
+
+	3) ACTIVATION URL
+
+		Once the new customer signup, they will receive an email with an activation link
+		http://localhost/customer/activate.php?key$loginkey
+
+		this link needs to be followed by "?key$loginkey"
+
+
+
+

@@ -1,0 +1,8 @@
+/var/log/asterisk/a2billing/*.log {
+	weekly
+	rotate 5
+	size = 20M
+	olddir /var/log/asterisk/a2billing/old
+	missingok
+	compress
+}

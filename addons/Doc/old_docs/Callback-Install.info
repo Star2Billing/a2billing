@@ -1,0 +1,183 @@
+
+-----===========------===========------===========------===========------===========-----
+							Callback-daemon Install Instructions
+-----===========------===========------===========------===========------===========-----
+
+
+
+REQUERIMENTS
+
+	Callback-daemon
+		o Perl >= 5.6.1
+	
+	Perl module DBD::Pg
+	(yum install perl-DBD-Pg)
+	
+	Perl module Config::IniFiles
+	
+	perl -MCPAN -e shell
+	> install Config::IniFiles
+	> reload
+	
+	; for webservice
+	pear install --alldeps SOAP-0.9.4
+
+INSTALL
+
+	mkdir /var/lib/asterisk/a2billing
+	
+	# copy the callback-daemon directory in /var/lib/asterisk/a2billing
+	cp -rf callback-daemon /var/lib/asterisk/a2billing/
+	
+	cd /var/lib/asterisk/a2billing/callback-daemon/
+	
+	
+	
+	CHKCONFIG : RUNLEVEL FILES
+		Each  service  which  should be manageable by chkconfig needs two or more commented lines added to its init.d script. The first line
+		tells chkconfig what runlevels the service should be started in by default, as well as the start and stop priority  levels.  If  the
+		service  should  not,  by  default, be started in any runlevels, a - should be used in place of the runlevels list.  The second line
+		contains a description for the service, and may be extended across multiple lines with backslash continuation.
+	
+	you may need to check the priority of postgresql or mysql through : 
+	ls -la /etc/rc3.d/
+	
+	then set the priority of the runlevel accordingly, edit a2billing-callback-daemon.rc
+	# chkconfig: levels S K
+	in our script : # chkconfig: 2345 80 80
+	
+	
+	CALLBACK-DAEMON :
+		
+		Edit a2billing-callback-daemon and change configurations if needed;
+		
+		install --owner=root --group=root --mode=700 a2billing-callback-daemon /usr/local/bin/
+		
+		If you are using any Linux Red Hat system based (SYSV):
+			install --owner=root --group=root --mode=700 a2billing-callback-daemon.rc /etc/rc.d/init.d/a2billing-callback-daemon
+			chkconfig --add a2billing-callback-daemon && chkconfig a2billing-callback-daemon on
+		else:
+			You have to adapt a2billing-callback-daemon.rc script for your system.
+	
+	
+	service a2billing-callback-daemon start
+	
+	if you change the place for install 
+	dont forget to change into the perl script (a2billing-callback-daemon) ->  use lib '/var/lib/asterisk/a2billing/callback-daemon/lib';
+	and in the rc file -> A2BDAEMON='/var/lib/asterisk/a2billing/callback-daemon/a2billing-callback-daemon'
+	
+	when the daemon is started you should see [START] into the log file (/var/log/asterisk/a2billing-daemon-callback.log)
+	
+	
+
+
+-----===========------===========------===========------===========------===========-----
+							Configure manager
+-----===========------===========------===========------===========------===========-----
+
+You have to enable manager connections on the servers where is runnning the callback daemon.
+
+edit /etc/asterisk/manager.conf :
+
+	[general]
+	enabled = yes
+	port = 5038
+	bindaddr = 0.0.0.0
+	
+	[myasterisk]
+	secret = mycode
+	;deny=0.0.0.0/0.0.0.0
+	;permit=209.16.236.73/255.255.255.0
+	read = system,call,log,verbose,command,agent,user
+	write = system,call,log,verbose,command,agent,user
+	
+	
+	This will allow connection from anywhere , so you can be more restrictive using deny, permit 
+	
+	deny=0.0.0.0/0.0.0.0
+	permit=**my-ip**/255.255.255.0
+	
+	That will allow connections only from **my-ip**
+
+
+
+
+-----===========------===========------===========------===========------===========-----
+							Daemon scheduler
+-----===========------===========------===========------===========------===========-----
+
+If you need to run the callback system only at some time of the day you can proceed as follow :
+
+	# Type as root :
+	crontab -e
+	
+	# Add these lines :
+	
+	59   9 * * * /etc/a2billing-callback-daemon-start
+	59  16 * * * /etc/a2billing-callback-daemon-stop
+	
+	And copy a2billing-callback-daemon-* /etc/.
+	chmod 755 /etc/a2billing-callback-daemon-*
+	
+
+
+
+
+-----===========------===========------===========------===========------===========-----
+							Callback-daemon INFO
+-----===========------===========------===========------===========------===========-----
+
+
+You might be able to view here all the pending and performed callback with their current status. 
+Different parameters determine the callback or the way to reach the user, the time when the callback 
+will be performed, the result of the last attempts, etc...
+
+
+The web interface have 2 options :
+	o Show Callbacks
+	o Add new Callback
+	
+	you can add a new call back you will need to fell the fields 
+	UNIQUEID : kind of uniqueID to track the transaction
+	STATUS : Pending
+	CHANNEL : SIP/XXXXXX@167.1.2.10  replace XXXXXX by your phone number
+	EXTEN : 1000 (whatever number but at least 4 digits)
+	CONTEXT : mycontext (this is the asterisk context for the application you want to reach)
+	PRIORITY : 1
+	
+	
+	
+	We have a new daemon running as a service on your box "service callback-daemon"
+	log file can be found : /var/log/asterisk/daemon-callback.log
+
+
+
+
+-----===========------===========------===========------===========------===========-----
+							Http-API/Web Service INFO
+-----===========------===========------===========------===========------===========-----
+
+REQUERIMENTS
+
+	If pear, the PEAR package manager, is installed on your machine, run the following command in your shell:
+
+	% pear install --alldeps SOAP-0.9.4
+	
+	It install SOAP package correctly with all its dependencies.
+
+
+
+
+
+webservice with a parameter for call_time:
+WEB SERVICE DESCRIPTION :
+	http://domain/path/soap/soap-callback-server.php?wsdl
+	...
+	<message name="Service_CallbackRequest">
+	<part name="security_key" type="xsd:string"/>
+	<part name="keyword" type="xsd:string"/>
+	<part name="product_code" type="xsd:string"/>
+	<part name="phone_number" type="xsd:string"/>
+	<part name="callerid" type="xsd:string"/>
+	</message>
+	...

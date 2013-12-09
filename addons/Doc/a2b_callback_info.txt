@@ -1,0 +1,115 @@
+***************************************************************************************************
+*                                                                                                 *
+* a2billing 1.x (c) AGPL 2003-2010                                                                *
+* Documentation                                                                                   *
+*                                                                                                 * 
+* Title: Callback                                                                                 *
+* Date: April 2009                                                                                *
+* Version: 1.0                                                                                    *
+* Author: AB                                                                                      *
+* Status: Draft                                                                                   *
+*                                                                                                 *
+***************************************************************************************************
+
+
+CALLBACK
+
+	The Document Explains you following topics
+	1. Introduction
+	2. Basic description of the Callback
+	3. Table CallBack
+	4. CallBack Solution
+		4.1 Web Callback
+		4.2 ANI Callback
+		4.3 DID Callback
+		4.4 API Callback.
+
+
+
+1. INTRODUCTION
+	
+	Astersik2Billing provides an extensive functionality to handle the Callback.
+	It supply solutions for Web Callback, ANI Callback, DID Callback, API Callback.
+
+
+
+2. BASIC DESCRIPTION OF THE CALLBACK
+
+	Description of the Callback in 10 steps :
+	
+		1. The client makes a phone call to one of our access numbers. His Caller ID 
+		information must be available from his phone carrier (not blocked).
+		
+		2. The server sees the incoming call and processes it with the appropriate context 
+		(ex. cid-callback)
+		
+		3. The custom_calling_card context will call the AGI provided with 
+		A2Billing (a2billing.php) and uses it in cid-callback mode. 
+		
+		4. The AGI will check the detected Caller ID and check if it’s an existing client. 
+		If that is the case, it will schedule a callback for that client and it will hang up 
+		the line.
+		
+		5. A few seconds later, the server calls the client and use an another context that 
+		will let A2Billing know that this is the 2nd phase of a callback process.
+		
+		6. A2Billing will use the number called to lookup various account specific information
+		(account balance, currency settings, and so on).
+		
+		7. As soon as the client picks up the line, A2Billing will play his remaining balance,
+	 	and invite him to dial a number
+		
+		8. The client dials a number
+		
+		9. A2Billing will tell the maximum time for the call and so on.
+		
+		10. ...
+		
+		
+		
+3. TABLE CALLBACK_SPOOL
+
+	
+	id			Id of the table
+	uniqueid 	 	Unique ID to cross-check with other platform 
+	entry_time		Time the record is stored in this table
+	status 	 		enum('NEW', 'QUEUE', 'SENT', 'UPDATED', 'DEAD')	
+	server_ip 	 	Server IP receive the callback to initiate and handle
+	
+	num_attempt		number of attempt
+	last_attempt_time	Time the record is stored in this table
+	manager_result		Originate
+	agi_result		Ok, Hangup, etc...
+	
+	callback_time		Time to start to initiate the callback
+	
+	channel			Channel on which to originate the call (SIP/123@1.1.1.4)
+	exten			Extension to use on connect (must use Context & Priority with it)
+	context			Context to use on connect (must use Exten & Priority with it)
+	priority		Priority to use on connect (must use Context & Exten with it)
+	application		Application to use on connect : meetme or other 
+				(use Data for parameters)
+	data			Data if Application parameter is used
+	timeout			Timeout for the connection to happen (30000)
+	callerid		CallerID to use for the call
+	variable		Callback info for Asterisk
+				(variable list to transfer to the channel) 
+				var1=23|var2=24|var3=25 
+	account			Account code for the call for billing purpose
+	async			For the origination to be asynchronous (allows multiple calls to be 
+				generated without waiting for a response)
+	actionid		The request identifier. It allows you to identify the response to this
+				request. You may use a number or a string. 
+				Useful when you make several simultaneous requests. 
+				ActionID: ABC45678901234
+
+
+4. Issue with remove international prefix
+
+	Remove international prefix doesnt work on call-back, the callerID is used to outbound and also to authenticate the call,
+	so if you get 0034XXX, you have to :
+	Either parse the callerID before callback context and remove the 00 (any international prefix) in front of the CallerID
+	or set the rates inside the ratecard with the international prefix, like 0034, 0044
+	
+	
+	

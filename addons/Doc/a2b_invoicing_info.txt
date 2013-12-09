@@ -1,0 +1,137 @@
+***************************************************************************************************
+*                                                                                                 *
+* a2billing 1.x (c) AGPL 2003-2010                                                                *
+* Documentation                                                                                   *
+*                                                                                                 * 
+* Title: Invoicing System                                                                         *
+* Date: April 2009                                                                                *
+* Version: 1.0                                                                                    *
+* Author: AB                                                                                      *
+* Status: Draft for 1.3.4 - Needs updates for 1.4                                                 *
+*                                                                                                 *
+***************************************************************************************************
+
+
+
+INVOCING
+
+	The document explains you following topics.
+	1. Introduction.
+	2. Client Side Invoicing Introduction & Guide.
+	3. Admin Side Invoicing Introduction & Guide.
+	4. Setup Your Invoicing in A2Billing using Invoicing Cront.
+
+
+
+1. INTRODUCTION
+
+	Asterisk2Billing provides a comprehensive Invocing system for both client and Administrators. 
+	Client side invoicing involves information about the current billing information summary and 
+	its details.
+	Asterisk2Billing is also capable enough to provide past billing information. It shows all 
+	billed invoices history, You can view all invoices, export them into pdf format.
+	
+	Asterisk2Billing also provides administrators a powerfull management platform to manage the 
+	billing information for all users.
+
+
+
+2. CLIENT SIDE INVOICING INTRODUCTION & GUIDE.
+
+	In the Client Side Asterisk2Billing provide the customer a real time updated Billing information.
+	You can view the following information at the Client Side Website.
+
+	1. Call Details
+	2. UnBilled Summary
+	3. UnBilled Details
+	4. Billed Summary
+	5. Billed Details
+
+	1. Call Details
+	
+		a) Go to Invoice tab at Left Side Menu.
+		b) Click on the "Call Details"
+		This will open the call details page that will show you the current day calls. By the
+		Search Filter you are facilitated with different search options, so that you can search 
+		through call history. In Call Details you will see both DID Calls and Normal Calls made.
+	
+	2. UnBilled Summary
+	
+		a) Go to Invoice tab at Left Side Menu.
+		b) Click on the "UnBilled Summary"
+		This is the Unbilled Summary of you account. 
+		This will show you current period charges summary.
+		
+	3. UnBilled Details
+	
+		a) Go to Invoice tab at Left Side Menu.
+		b) Click on the "UnBilled Details"
+		This is the Unbilled Details of you account. This will show you current period charges. 
+		You will see your calls by Destination and Date.
+		You will be able to see your DID Billing Information here.
+	
+	4. Billed Summary
+		
+		a) Go to Invoice tab at Left Side Menu.
+		b) Click on the "Billed Summary"
+		This is the billed Summary of you account. 
+		This will show you the previous billed period charges summary.
+	
+	5. Billed Details
+		
+		a) Go to Invoice tab at Left Side Menu.
+		b) Click on the "Billed Details"
+		This is the billed details of you account. 
+		This will show you previous billed period charges. 
+		You will see your calls by destination and date.
+		You will be able to see your DID Billing Information here. 
+		In this Section You will be able see all previous billed invoices.
+
+
+
+3. ADMIN SIDE INVOICING INTRODUCTION & GUIDE.
+
+	At the Admin Side Website administrators are facilitated with Invoicing Management. 
+	That help them to view the Current Unbilled and Billed Invoicing information.
+	
+	1. View UnBilled Invoices
+	2. View Billed Invoices
+	
+	You can get better inner picture by reading following detailed information.
+	
+	1. View UnBilled Invoices
+	
+		a) Go to Billing tab at Left Side Menu.
+		b) Click on the "View UnBilled Invoices"
+		This will lead you to the page in which you will be able to see the Summary 
+		of each card. Action Column of the Data Grid will help you for 2 Actions.
+			1.1 By Clicking on the Detail button it will lead you to the Details 
+			of the Unbilled invoices.
+			1.2 By Clicking on the Email Button it will Generate the Invoice in pdf Format
+			and will Email it to the User. A Successfull delivery of the Email will
+			show you a "Email Sent Successfully to abc@xyz.com" message.
+	
+	2. View Billed Invoices
+	
+		a) Go to Billing tab at Left Side Menu.
+		b) Click on the "View Billed Invoices"
+		This will lead you to the page in which you will be able to see the Summary of each card.
+		Action Column of the Data Grid will help you for 2 Actions.
+			1.1 By Clicking on the Invoices button it will lead you to the page that will 
+			show you the all previous billed invoices.
+			1.2 By Clicking on the Payments Button it will lead you to the page that will 
+			show you the all previous payments received for the card.
+
+
+
+4. SETUP YOUR INVOICING IN A2BILLING USING INVOICING CRONT.
+	
+	Cront for Automatic Invoice Generation is located into 
+	/A2Billing_AGI/libs_a2billing/crontjob/a2billing_invoice_cront.php
+	You should run this cront. this will get the billing date information from our a2billing.conf.
+	
+
+
+
+
+

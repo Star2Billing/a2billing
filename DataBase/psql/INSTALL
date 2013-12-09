@@ -1,0 +1,19 @@
+1) create database and users
+
+	su - postgres
+	psql -f a2billing-createdb-user-v1.0.0.sql template1
+
+2) create language (version 8.4 or less)
+
+	psql -f a2billing-createlang-v1.0.0.sql -U a2billinguser mya2billing
+
+3) create and update tables
+
+	psql -f a2billing-schema-v1.4.0.sql -U a2billinguser mya2billing
+
+	psql -f a2billing-prefix-table-v1.4.0.sql -U a2billinguser mya2billing
+
+	psql -f UPDATE-a2billing-v1.4.0-to-v1.4.1.sql -U a2billinguser mya2billing
+	psql -f UPDATE-a2billing-v1.4.1-to-v1.4.2.sql -U a2billinguser mya2billing
+	psql -f UPDATE-a2billing-v1.4.2-to-v1.4.3.sql -U a2billinguser mya2billing
+	so on...

@@ -1,0 +1,10 @@
+
+Database Install for A2Billing
+------------------------------
+
+Install the followings script :
+	> a2billing-schema-v1.4.0.sql
+	> a2billing-prefix-table-v1.4.0.sql
+
+
+Then apply all migration from UPDATE-a2billing-v1.4.0-to-v1.4.1.sql

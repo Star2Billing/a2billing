@@ -1,0 +1,15 @@
+INSTALL
+setup.cfg
+setup.py
+callback_daemon/a2b-callback-daemon.debian
+callback_daemon/a2b-callback-daemon.rc
+callback_daemon/a2b_callback_daemon.py
+callback_daemon/daemon.py
+callback_daemon/database.py
+callback_daemon/manager.py
+callback_daemon.egg-info/PKG-INFO
+callback_daemon.egg-info/SOURCES.txt
+callback_daemon.egg-info/dependency_links.txt
+callback_daemon.egg-info/entry_points.txt
+callback_daemon.egg-info/top_level.txt
+dist/callback_daemon-1.0.prod_r1527-py2.5.egg

@@ -1,0 +1,117 @@
+***************************************************************************************************
+*                                                                                                 *
+* a2billing 1.x (c) AGPL 2003-2010                                                                *
+* Documentation                                                                                   *
+*                                                                                                 * 
+* Title: Ratecard Display API / SOAP Service                                                      *
+* Date: April 2009                                                                                *
+* Version: 1.0                                                                                    *
+* Author: AB, AEP                                                                                 *
+* Status: Draft  - Valid for 1.3.4 Needs changes for 1.4                                          *
+*                                                                                                 *
+***************************************************************************************************
+
+
+
+1. INTRODUCTION
+
+Rate API is a Webservice that enable you to integrate it in your Website and Display the Calling
+Rates for Different Countries.
+
+
+
+2. INSTALLATION
+
+You can integrate the API with following steps.
+
+   i). Paste the Following line in your page, Where you want to display data from this API.
+
+OBS! THIS URL NEEDS TO BE VERIFIED FOR 1.4
+
+include ("<Web Server Address>a2billing/trunk/webservice/
+display_ratecard.php?ratecardid=6&key=0951aa29a67836b860b0865bc495225c&
+page_url=<Your PAGE URL>&
+field_to_display=t1.destination,t5.countryprefix,t1.dialprefix,t1.rateinitial&
+column_name=Destination,Country,Prefix,Rate/Min&field_type=,,money&
+".$_SERVER['QUERY_STRING']);
+
+("http://localhost/A2Billing_UI/api/
+display_ratecard.php?key=0951aa29a67836b860b0865bc495225c&
+page_url=localhost/index.php&
+field_to_display=t1.destination,t1.dialprefix,t1.rateinitial&
+column_name=Destination,Prefix,Rate/Min&field_type=,,money&
+".$_SERVER['QUERY_STRING']);
+
+
+
+
+3. QUERY STRING PARAMETERS EXPLANATION
+
+   1) Key 
+   		this is API Security Key. You must change it in order to ensure security for 
+		your API. You can change your security key in the /etc/asterisk/a2billing.conf 
+		in the webui section.
+		
+   2) page_url 
+   		this is the URL of your Page in which you are calling this API.
+		page_url=http://localhost/myrates.php
+		
+   3) field_to_display :
+   		this is List of Fields, that you want to display in your page.
+		ie, t1.destination,t1.dialprefix,t1.rateinitial
+		
+   4) column_name 
+   		this is the List of Names of Columns according to the field to display.
+   		column_name=Destination,Prefix,Rate/Min
+		
+   5) css_url 
+   		You can change the design by setting your own css 
+		
+   6) ratecardid
+		this is the ID of the Rate Card if you want to dispaly only a single ratecard.
+		
+   7) nb_display_lines
+   		this is maximum lines per page.
+		
+   8) filter 
+   		the value of filter can be those both, empty or just one of them:
+		"coutryname,prefix" 
+		it will display the country selection dropbox and the input for for prefix
+		
+   9) prefix_select
+   		i.e 32 only prefix start by 32
+		
+   10) currency_select 
+   		currency code i.e USD
+		
+   11) merge_form 
+   		value accepted : 0 or 1
+		1 for merge form search and 1 seaparated search form by default 0
+		
+   12) fullhtmlpage 
+   		value accepted : 0 or 1 
+		1 will show the html header in the page
+		if not we will advice to add the css in your html page to display nicely 
+		the ratecard add : 
+<link href="http://a2billingserver/webservice/api_ratecard.css" rel="stylesheet" type="text/css">
+
+
+
+
+4. TROUBLESHOOTING
+
+	a) Error: need to define page_url!!!. this  means that you dont have defined the page_url 
+	variable
+	
+	b) Error: page_url need to start by http:// or https://. 
+	This Error means that your page_url variable is not containing the URL starting with 
+	http or https. Your page_url must look like http://myhomepage/test.php
+	
+	c) 400 Bad Request. That mean that your have invalid Key. Please make sure that you are 
+	providing correct key.
+	
+	d) Ensure that the htaccess in "api" directory will authorize your server IP
+	
+	
+	
+	

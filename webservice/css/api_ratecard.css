@@ -1,0 +1,96 @@
+
+/* H1 class is used to set the style oh search title*/
+/* the class below are used to set the div parametres
+.title : for the div contained search title
+.serach : for the div contained the search form
+.result : for the div contained the result table
+.serchelement: for the element in the search form
+*/
+.title {
+	width:100%;
+}
+.search {
+	width:100%;
+	padding-left: 0px;
+	padding-top: 0px;
+}
+
+.result {
+	width:100%; 
+	margin-top:40px;
+	padding:20px;
+	padding-left: 0px;
+	padding-top: 0px;
+}
+
+.searchelement {
+	width:100%; 
+	margin-top:10px; 
+	padding-left: 10px;
+}
+/*a class is used to set the style for letters links to search country
+*/
+a {
+	font-family: Arial,Verdana;
+	font-size: 10px; 
+	color: #3399FF;
+	letter-spacing:3px; 
+	text-decoration: none;
+}
+a:hover {
+	color: #55AAFF;
+	text-decoration: underline;
+}
+
+/* the class below are used to set the result table display styles
+.table_title : for the head of the result table
+.tabletr_0 : for the no shaded tr
+.tabletr_1 : for the shaded tr
+table a: to define the display style of the order links
+*/
+
+
+.table_title {
+	BORDER-BOTTOM: #f1f1f1 1px solid; 
+	BORDER-LEFT: #f1f1f1 1px solid; 
+	BORDER-RIGHT: #f1f1f1 1px solid; 
+	BORDER-TOP: #f1f1f1 1px solid; 
+	background-color: #DADFB3;
+}
+.tabletr_0 {
+	border-left: #DBDBDB solid 1px;
+	border-bottom: #DBDBDB solid 1px;
+
+}
+.tabletr_1 {
+	border-left: #DBDBDB solid 1px;
+	border-bottom: #DBDBDB solid 1px;
+	background-color: #E8EBCF;
+}
+table a {
+	font-family: Arial,Verdana;
+	color: #3399FF;
+	text-decoration: none;
+	letter-spacing:0px; 
+}
+/*.textfield class for dial code input text*/
+.textfield {
+	font-family: Arial,Verdana;
+	font-size: 10px;
+	color: #000033;
+	border-color: #DBDBDB;
+}
+
+/* for the button "search" */
+.button {
+	background-color: #FFFFFF;
+	border: #000033 solid 1px;
+}
+
+/* for the select list "country and currency" */
+.select {
+	font-family: Arial,Verdana;
+	font-size: 9px;
+	color: #000033;
+	background-color: #FFFFFF;
+}

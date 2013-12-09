@@ -1,0 +1,140 @@
+
+
+====================================================================
+	A2Billing : QUICK INSTALLATION GUIDE FOR WEB INTERFACE
+====================================================================
+
+
+
+1. Edit common/lib/Class.A2Billing.php and set AST_CONFIG_DIR 
+	
+	mkdir /usr/local/a2billing
+	cp * /usr/local/a2billing/
+	ls /usr/local/a2billing/
+	you might see this :
+	*	a2billing.conf    admin    AGI    CallBack   common    customer  LICENSE	 addons    agent  CHANGELOG  Cronjobs  DataBase  
+
+
+2. link the a2billing directories in your DocumentRoot directory of your web server.
+	 
+	 mkdir /var/www/html/a2billing
+	 
+	 	FROM httpd.conf 
+		# DocumentRoot: The directory out of which you will serve your
+		# documents. By default, all requests are taken from this directory, but
+		# symbolic links and aliases may be used to point to other locations.
+		#
+	 
+	 ln -s /usr/local/a2billing/admin/ /var/www/html/a2billing/admin
+	 ln -s /usr/local/a2billing/admin/ /var/www/html/a2billing/customer
+ 	 ln -s /usr/local/a2billing/admin/ /var/www/html/a2billing/agent
+ 	  
+	 	 
+3. Ensure that you have create the Database with the right schema mysql or postgresql
+
+
+4. Setup your Database into the application
+
+	cp a2billing.conf /etc/asterisk/a2billing.conf
+	
+	vim /etc/asterisk/a2billing.conf
+	
+	see section [database]
+	
+    * hostname : This is the Database host name (ie: localhost)
+    
+    * port: Database port (ie: 5432)
+    
+    * user: Username to access to the database (ie: username)
+    
+    * password: Database password of the user (ie: mypassword)
+    
+    * dbname: Name of the Database (ie: a2billing)
+    
+    * dbtype: Database type, support postgres or mysql (ie: mysql)
+
+	
+5. Set the permissions for /etc/asterisk ( in Debian use www-data instead of apache ) 
+
+	chown -R asterisk:apache /etc/asterisk
+	chmod -R 774 /etc/asterisk
+
+
+6. Set the permissions for ADODB 
+	
+	* cd A2Billing_UI/lib
+	* chown -R apache ADODB_cache
+	* chgrp -R apache ADODB_cache
+
+	* cd A2BCustomer_UI/lib
+	* chown -R apache ADODB_cache
+	* chgrp -R apache ADODB_cache
+
+7. Gettext locales on Ubuntu
+	* check the supported : locale -a
+	* sudo locale-gen en_US pt_BR zh_TW es_ES fr_FR it_IT pl_PL ro_RO ru_RU tr_TR ur_PK uk_UA
+	
+
+8. Configure Customer MusicOnHold
+	
+	add in /etc/asterisk/musiconhold.conf
+	
+	; class definitions For AreskiCC
+	acc_1 => mp3:/var/lib/asterisk/mohmp3/acc_1
+	acc_2 => mp3:/var/lib/asterisk/mohmp3/acc_2
+	acc_3 => mp3:/var/lib/asterisk/mohmp3/acc_3
+	acc_4 => mp3:/var/lib/asterisk/mohmp3/acc_4
+	acc_5 => mp3:/var/lib/asterisk/mohmp3/acc_5
+	acc_6 => mp3:/var/lib/asterisk/mohmp3/acc_6
+	acc_7 => mp3:/var/lib/asterisk/mohmp3/acc_7
+	acc_8 => mp3:/var/lib/asterisk/mohmp3/acc_8
+	acc_9 => mp3:/var/lib/asterisk/mohmp3/acc_9
+	acc_10 => mp3:/var/lib/asterisk/mohmp3/acc_10
+	
+	
+	mkdir -p /var/lib/asterisk/mohmp3/acc_1
+	mkdir -p /var/lib/asterisk/mohmp3/acc_2
+	  ...
+	
+	chown asterisk:apache /var/lib/asterisk/mohmp3/acc_*
+	chmod 774 /var/lib/asterisk/mohmp3/acc_*
+	
+	
+	* Set asterisk user and apache group permissions ( in Debian use www-data instead of apache )
+	
+	mkdir -p /var/lib/asterisk/sounds/a2billing
+	chown asterisk:apache /var/lib/asterisk/sounds/a2billing
+	chmod 774 /var/lib/asterisk/sounds/a2billing
+
+
+
+9. Configure Asterisk manager
+
+	Edit /etc/asterisk/manager.conf
+
+		[general]
+		enabled = yes
+		port = 5038
+		bindaddr = 127.0.0.1
+		
+		[myasterisk]
+		secret = mycode
+		;deny=0.0.0.0/0.0.0.0
+		;permit=209.16.236.73/255.255.255.0
+		read = system,call,log,verbose,command,agent,user
+		write = system,call,log,verbose,command,agent,user
+
+
+
+10. Install dependencies for Webservices
+
+	* Install php Pear module
+	
+		yum install php-pear
+		
+		
+	 * PEAR SOAP class
+	
+		pear install --alldeps SOAP-0.12.0
+
+

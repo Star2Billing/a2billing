@@ -1,0 +1,86 @@
+***************************************************************************************************
+*                                                                                                 *
+* a2billing 1.x (c) AGPL 2003-2010                                                                *
+* Documentation                                                                                   *
+*                                                                                                 * 
+* Title: Import Rates                                                                             *
+* Date: April 2009                                                                                *
+* Version: 1.0                                                                                    *
+* Author: AB AEP                                                                                  *
+* Status: Draft                                                                                   *
+*                                                                                                 *
+***************************************************************************************************
+
+
+
+To import rate cards, your cvs file has to be formatted in a specific way.
+
+1)
+	Obtain your vendors rates in cvs.
+
+2) 
+	Open it in your favorite spreadsheet or database editor.
+
+3) 
+	Find and arrange the columns so that the first three are:
+		dialprefix - dial prefix
+		destination - country
+		rate initial - how much you charge
+
+4) 
+	Find any of the other fields in your file that have data such as:
+		buyrate - how much you pay provider per minute
+		buyrateinitblock - minimum time provider bills you
+		buyrateincrement - billing time increment from provider
+		initblock - minimum time your bill caller
+		billingblock - billing time increment to caller
+		connect charge  - connect charge to caller
+		disconnect charge - disconnect charge to caller
+		(there are additional fields not listed here available as well)                          
+		Once you have found them, we suggest renaming them appropriately to lessen confusion.
+		
+	You may also find some cvs files have the country and city code in seperate fields, 
+	you going to have to append the latter to the first and call it dialprefix.
+
+5) 
+	Check that the field arrangement has the following order: dialprefix, destination, rate initial
+	Additional fields can be in any order you like, but take note of the order for later.
+
+6) 
+	Preparing the file to import.
+	The file has to be cvs format. Comma seperated format, but we cant use commas. 
+	The accepted characters are: ';'  ':' 
+	You must save the file using one of the above as the seperator.
+	You can use excel to edit the file and an editor to find and replace all ',' with ';' 
+	and save in the Unix Unicode UT8 format.
+	
+	Your file should look like this:
+		dialprefix;destination;rate initial;buyrate;initblock
+		119370;afghanistan cellular;0.8135;0.3135;30
+		1193;afghanistan proper;0.7866;0.2866;30
+		1135538;albania cellular;0.7076;0.2076;30
+
+7)
+	Open the a2billing page in your browser. 
+	Find : Import RateCard
+	
+	'Choose the ratecard to import', 
+	'Choose the trunk to use',
+	'Choose the additionnal field that you want to import from your cvs file'
+	
+	Here you will add any additional fields you described in the file.
+	Select the field and use the right green arrow to bring over. 
+	Do this for all fields you have in the file. Make sure they are in the order
+	you noted earler. Make any order adjustments by selecting and using the
+	red up/down arrows to move.
+
+8) 
+	Once you are finished "Choose File" and then "Import RateCard". If all is well
+	you will see all of your field headers match up. Once you confirm they do, 
+	hit "Continue to Import the RateCard". (It may ask you to select the file again)
+
+9) 
+	You will then get a confirmation of how many rates were successfully imported.
+
+
+

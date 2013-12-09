@@ -1,0 +1,193 @@
+***************************************************************************************************
+*                                                                                                 *
+* a2billing 1.4 (c) AGPL 2003-2009                                                                *
+* Documentation                                                                                   *
+*                                                                                                 * 
+* Title: Smarty Templates                                                                         *
+* Date: April 2009                                                                                *
+* Version: 1.                                                                                     *
+* Author: AB                                                                                      *
+* Status: Draft                                                                                   *
+*                                                                                                 *
+***************************************************************************************************
+
+
+Smarty Template in Asterisk2Billing
+
+	The document explains you following topics.
+	1. Introduction.
+	2. Client Side Smarty Templates.
+	3. Admin Side Smarty Templates.
+	4. Adding New Design Template for Asterisk2Billing
+
+
+1. INTRODUCTION
+	
+	Asterisk2Billing implements the Smarty Template on both Admin and Client Side. 
+	So that Users can be change the graphical look and feel of the applications to fit their 
+	needs and desire.
+
+
+2. Client Side Smarty Templates.
+	
+	In the Client Side Asterisk2Billing implments the Smarty templates.
+	
+	Following is the guide which will help you to implement the New Templates and Modify the 
+	existings.
+	
+	2.1. Smarty Template Folders Guide
+	
+	Smarty Template folders and files are located at following address
+	
+			---A2BCustomer_UI/
+				|
+				|----templates/	
+				|		|
+				|		|----default/
+				|		|		|
+				|		|		|----images/
+				|		|		|----css/
+				|		|		|----index.tpl
+				|		|		|----main.tpl
+				|		|		|----PP_error.tpl
+				|		|		|----header.tpl
+				|		|		|----footer.tpl
+				|		|
+				|		|
+				|		|----design1/
+				|
+				|----lib/
+					  |
+					  |----smarty.php
+					  |----defines.php
+					  |----Smarty/
+					  
+						  
+	By default in customer side there are 2 templates. following is the explanation for files.
+	
+	2.1.1 index.tpl
+	This is smarty template file for the Index Page. 
+	Index page help user to login to the customer website. If you want to modify the login page 
+	design you need to edit this template file.
+	
+	2.1.2 main.tpl
+	This is smarty template file that is applied on each and every page of client side website. 
+	This template help us to maintain the design of the leftside menu, width of menu section and 
+	width of content section. You can modify the width of sections and Left side menu in this file.
+	
+	2.1.3 PP_error.tpl
+	This template is for error page. you can modify the design of error page that is displayed when
+	there is some error in the application e.g Access Denied Error.
+	
+	2.1.4 header.tpl
+	This template is for client side website header. you can modify the header design using this 
+	template file. All CSS files for this client side website are included in this file.
+	
+	2.1.5 footer.tpl
+	Footer.tpl is template file for the footer section present on each and every page almost.
+	
+	2.1.5 lib/smarty.php
+	This is the file which contain logic to control the dynamic activites in the template files like 
+	passing different values from php variables to smarty variables. if you want to pass some value 
+	from php to smarty template you need to add logic in this file.
+	
+		For Example:
+			$smarty->assign("CCMAINTITLE", CCMAINTITLE);
+			Where CCMAINTITLE is defined as constant containg page title.
+	2.1.6 defines.php
+	defines.php contains different constant variables that contains information that is loaded from 
+	a2billing.conf configuration file.
+	
+	2.1.7 lib/Smarty/
+	This folder cotains the smarty template latest version files. You can put your latest downloaded 
+	version of smarty template here.
+	
+3. Admin Side Smarty Templates
+In the Client Side Asterisk2Billing implments the Smarty templates.
+	
+	Following is the guide which will help you to implement the New Templates and 
+	Modify the existings.
+	
+	3.1. Smarty Template Folders Guide
+	
+	Smarty Template folders and files are located at following address
+	
+			---A2Billing_UI
+				|
+				|----Public/
+				|		|
+				|		|----templates/	
+				|				|
+				|				|----default/
+				|				|	|
+				|					|----images/
+				|					|----css/
+				|					|----index.tpl
+				|					|----main.tpl
+				|					|----PP_error.tpl
+				|					|----header.tpl
+				|					|----footer.tpl
+				|					|----signup_ 
+				|					|----signup_ 					
+				|
+				|----lib/
+						|
+						|----smarty.php
+						|----define.php
+					
+	3.1.1 index.tpl
+	This is smarty template file for the Index Page. Index page help user to login to the Admin
+	Side Website. If you want to modify the login page design you need to edit this template file.
+	
+	3.1.2 main.tpl
+	This is smarty template file that is applied on each and every page of Admin side website. 
+	This template help us to maintain the design of the leftside menu, width of menu section and 
+	width of content section. You can modify the width of sections and Left side menu in this file. 
+	
+	3.1.3 PP_error.tpl
+	This template is for error page. you can modify the design of error page that is displayed
+	when there is some error in the application e.g Access Denied Error.
+	
+	3.1.4 header.tpl
+	This template is for Admin side website header. You can modify the header design using this 
+	template file. All CSS files are included in this header template.
+	
+	3.1.5 footer.tpl
+	Footer.tpl is template file for the footer section present on each and every page almost.
+	
+	3.1.6 signup_header.tpl
+	This template file is for the signup user module and used for header of this section.
+	
+	3.1.7 signup_footer.tpl
+	This template file is for the signup user module and used for footer of this section.
+	
+4. Adding New Design Template for Asterisk2Billing
+	Asterisk2billing facilitate you to add your customized designs for its both admin and client 
+	side websites. You need to follow the following steps to add a new design to Asterisk2billing.
+	
+	a) Locate the templates directory. You can simply copy the default folder and paste it there 
+	and  then rename it. This will become your new  template.
+	b) You need to Modify the CSS files if you want to modify the Color Schemes, Fonts, Widht and
+	Heights of different area's.
+	c) You have you modify the Template Files. if you want to change the header and footer of the
+	Asterisk2Billign Application you need to edit the header and footer templates.
+	d) When you are done with all modifications needed. You have to Add this Tempalte into the 
+	template select list which you can see under the Left side menu on both admin and client side 
+	of application.
+	e) Go to main.tpl and edit it. Locate the html code for the Select list
+		For Example:
+				
+		<form action="{$PAGE_SELF}" method="post">
+			<select name="cssname" class="form_input_select" >
+				<option value="default" {checkseleted file="default"}>Default</option>
+			</select>
+			<input type="submit" value="Change" class="form_input_button" >
+		</form>
+			
+	You need to add a option in it for your own Template. For Example:
+		
+		<option value="Template2" {checkseleted file="default"}>BlueIce</option>
+		
+	Here Template2 is Name of the Template directory that you created in templates directory 
+	and Blueice is the Name to display in the select list.
+

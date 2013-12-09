@@ -1,0 +1,50 @@
+***************************************************************************************************
+*                                                                                                 *
+* a2billing 1.x (c) AGPL 2003-2010                                                                *
+* Documentation                                                                                   *
+*                                                                                                 * 
+* Title: Asterisk channel variables                                                               *
+* Date: April 2009                                                                                *
+* Version: 1.0                                                                                    *
+* Author: AB                                                                                      *
+* Status: Final                                                                                   *
+*                                                                                                 *
+***************************************************************************************************
+
+
+
+Asterisk channel variable DIALSTATUS
+------------------------------------------
+
+Contains a text string signifying result of the last dial attempt :
+
+* ANSWER: Call is answered. A successful dial. The caller reached the callee.
+* BUSY: Busy signal. The dial command reached its number but the number is busy.
+* NOANSWER: No answer. The dial command reached its number, the number rang for too long, 
+	then the dial timed out.
+* CANCEL: Call is cancelled. The dial command reached its number but the caller hung up before 
+	the callee picked up.
+* CONGESTION: Congestion. This status is usually a sign that the dialled number is not recognised.
+* CHANUNAVAIL: Channel unavailable. On SIP, peer may not be registered.
+* DONTCALL: Privacy mode, callee rejected the call
+* TORTURE: Privacy mode, callee chose to send caller to torture menu
+* INVALIDARGS: Error parsing Dial command arguments (added for Asterisk 1.4.1, SVN r53135-53136) 
+
+
+
+A2Billing Translation to :
+
+	1 => ANSWER / ANSWERED
+	2 => BUSY
+	3 => NOANSWER
+	4 => CANCEL
+	5 => CONGESTION
+	6 => CHANUNAVAIL
+	7 => DONTCALL
+	8 => TORTURE
+	9 => INVALIDARGS
+
+
+
+ 
+ 

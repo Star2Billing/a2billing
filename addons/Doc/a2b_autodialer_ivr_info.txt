@@ -1,0 +1,45 @@
+***************************************************************************************************
+*                                                                                                 *
+* a2billing 1.x (c) AGPL 2003-2010                                                                *
+* Documentation                                                                                   *
+*                                                                                                 * 
+* Title: IVR, Mysql and autodialer interaction                                                    *
+* Date: April 2009                                                                                *
+* Version:                                                                                        *
+* Author:                                                                                         *
+* Status: Draft                                                                                   *
+*                                                                                                 *
+***************************************************************************************************
+
+This document provides some tips in how to update phonenumber status after an action 
+on the IVR context. 
+
+;Be careful with the lines that have been broken during the editing of this document.
+
+status => 0:Run, 1:onHold, 2: Stop
+
+
+So you will need a similar script as below on your dialplan :
+
+
+; We have to retrieve ${id_phonenumber} & ${id_campaign}
+exten => _X.,n,Set(id_phonenumber=${CUT(CALLERID(name),\,,1)}) 
+exten => _X.,n,Set(id_campaign=${CUT(CALLERID(name),\,,2)}) 
+exten => _X.,n,NoOp(id_campaign = ${id_campaign}, id_phonenumber = ${id_phonenumber})
+
+ 
+;connect to database
+exten => _X.,n,MYSQL(Connect connid localhost a2billinguser a2billingpassword a2bdbname)
+
+;Update the status of the phone number
+; to put on Hold
+; exten => _X.,n,MYSQL(Query resultid ${connid} UPDATE\ cc_campain_phonestatus\ SET\ status=1\ 
+WHERE\ id_phonenumber=\${id_phonenumber}\ AND\ id_campaign=\${id_campaign}) 
+
+; to put on Stop
+exten => _X.,n,MYSQL(Query resultid ${connid} UPDATE\ cc_campain_phonestatus\ SET\ status=2\ 
+WHERE\ id_phonenumber=\${id_phonenumber}\ AND\ id_campaign=\${id_campaign}) 
+
+
+exten => _X.,n,MYSQL(Clear ${resultid})
+exten => _X.,n,MYSQL(Disconnect ${connid})                      ;closes database connection

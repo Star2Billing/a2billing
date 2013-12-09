@@ -1,0 +1,162 @@
+***************************************************************************************************
+*                                                                                                 *
+* a2billing 1.x (c) AGPL 2003-2010                                                                *
+* Documentation Code                                                                              *
+*                                                                                                 * 
+* Title: WebServices                                                                        	  *
+* Date: April 2009                                                                                *
+* Version: 1.1                                                                                    *
+* Author:                                                                                         *
+* Status: To verify for 1.5.1                                                                     *
+*                                                                                                 *
+***************************************************************************************************
+
+
+ > SOAP DOCUMENTATION
+------------------------
+
+
+SOAP Result Normalization :
+    * return an array with ($result, $message)
+    * $result can be $bool, $int, $string, $array
+    * in case of Error : $result is type string and == 'ERROR', $message will contain a description of the error
+    * in case of Success : $result contains either an $bool, $int, $string or $array, $message could be empty
+
+
+
+ > WEBSERVICES DESCRIPTION
+-----------------------------
+
+//Update the currency list
+array (bool $status, $message) Update_Currencies_list(string $security_key)
+
+
+//Reload the SIP / IAX Asterisk Config
+array (bool $status, $message) Reload_Asterisk_SIP_IAX(string $security_key)
+
+
+//Verify credential : pwd in encrypt
+array (bool $status, $message) Authenticate_Admin(string $security_key, string $username, string $pwd)
+
+
+//Update Admin password
+array (bool $status, $message) Set_AdminPwd(string $security_key, string $username, string $pwd)
+
+
+//Add Notification
+// $priority => 0:Low ; 1:Medium ; 2:High
+array (bool $status, $message) Write_Notification(string $security_key, string $from, string $subject, integer $priority)
+
+
+//Create customer group with name =$instance_name.$instance, $instance_name = 'VillageTelco'
+array (string $instance, $message) Create_Instance(string $security_key, string $instance_name)
+
+
+//Update the Description of the Instance, $description = "Village Telco ....";
+array(bool $status, string $message) Set_InstanceDescription(string $security_key, string $instance, string $description)
+
+
+//Returns list of customer groups
+array (array(string $group_name, string $group_description, string $provisioning), $message) Get_CustomerGroups(string $security_key)
+
+
+//Get list of all currencies ($currency is the ISO-xxx)
+array (array(string $currency, string $name), $message) Get_Currencies(string $security_key);
+
+
+//Get list of all currencies value
+array (array(float $currency, string $base_currency), $message) Get_Currencies_value(string $security_key, string $currency);
+
+
+//Get list of all countries ($country is the ISO-xxx)
+array (array(int id_country, string $code, string $name), $message) Get_Countries(string $security_key);
+
+
+//Get list of languages supported
+array(array(string $language, string $name), string $message) Get_Languages(string $security_key);
+
+
+//Usage :
+//Get_Setting($security_key, 'base_currency')
+//Get_Setting($security_key, 'base_country')
+//Get_Setting($security_key, 'base_language')
+array (string $result, $message) Get_Setting($security_key, $setting_key)
+
+
+//Usage :
+//Set_Setting($security_key, 'base_currency', 'USD')
+//Set_Setting($security_key, 'base_country', 'USA')
+//Set_Setting($security_key, 'base_language', 'en')
+array (string $result, $message) Set_Setting($security_key, $setting_key, $value)
+
+
+//Create DID group associated with $instance
+array(int $id_didgroup, string $message) Create_DIDGroup(string $security_key, string $instance)
+
+
+//Create provider associated with $instance
+array(int $id_provider, string $message) Create_Provider(string $security_key, string $instance)
+
+
+//Create ratecard associated with $instance
+array(int $id_ratecard, string $message) Create_Ratecard(string $security_key, $instance)
+
+
+//Create callplan associated with $instance
+array(int $id_callplan, string $message) Create_Callplan(string $security_key, string $instance, int $id_ratecard)
+
+
+//Create a set of vouchers //Wouldn't the instance be needed?
+array(array (int $voucher_key), string $message) Create_Voucher(string $security_key, string $instance, float $credit, int $units, string $currency)
+
+
+//Create a set of accounts
+//Default values ($activated = true, $status = 1, $simultaccess = 0, $typepaid =0, $sip_buddy=1, $iax_buddy=1, $voicemail_enabled = true)
+array( array(int $account_number, int $account_id), string $message) = Create_Customer(string $security_key, string $instance, int $id_didgroup,  int $units , int $accountnumber_len,
+float $balance, bool $activated, int $status, int $simultaccess, string $currency, int $typepaid, int $sip_buddy, int $iax_buddy, string $language, bool $voicemail_enabled)
+
+
+//Validate DID Prefix
+array (bool $status, $message) Validate_DIDPrefix(string $security_key, string $did_prefix)
+
+
+//Local DID number are created by server side, 7 digits Questions: should I define the did_suffix?
+array(array (int $id_did), string $message) Create_DID(string $security_key, array(int $account_id), int $id_didgroup, float $rate, float $connection_charge, string $did_prefix, string $did_suffix, int $id_country)
+
+
+
+*** Providers ***
+
+//Get the Provider list with details
+array(array (string $name, string $description, string $uri_trunk, string $uri_rate,string $uri_image), string $message) Get_ProvisioningList(string $security_key);
+
+//Request to the Provider the Trunk configuration
+array(string $result, string $message) Create_TrunkConfig(string $security_key, string $instance, string $uri_trunk, string $activation_code)
+
+
+//Retrieve the rates from the Provider
+array(array(string $prefix, string $destination, float $buyrate, float $sellrate), string $message) Get_Rates(string $security_key, string $uri_rate, string $activation_code, float $margin);
+
+
+//Add Rates into A2Billing
+array(bool $result, string $message) Create_Rates(string $security_key, string $instance, array(string $prefix, string $destination, float $buyrate, float $sellrate))
+
+
+*** Update rates ***
+
+// Update the rates of an existing provisioning
+array(bool $result, string $message) Update_Rates(string $security_key, string $instance, array(string $prefix, string $destination, float $buyrate))
+
+
+
+*** Services ***
+
+// Retrieve the list of subscription Service
+array(array $result, string $message) Get_Subscription_Signup(string $security_key)
+
+
+*** Updates Card ***
+
+// Update Account Status
+array(bool $result, string $message) Account_Status_Update($security_key, $card_id, $cardnumber, $status)
+

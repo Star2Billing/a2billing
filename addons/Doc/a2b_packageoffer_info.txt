@@ -1,0 +1,78 @@
+***************************************************************************************************
+*                                                                                                 *
+* a2billing 1.x (c) AGPL 2003-2010                                                                *
+* Documentation                                                                                   *
+*                                                                                                 * 
+* Title: PACKAGE OFFER                                                                            *
+* Date: April 2009                                                                                *
+* Version: 1.0                                                                                    *
+* Author: AB                                                                                      *
+* Status: Draft                                                                                   *
+*                                                                                                 *
+***************************************************************************************************
+
+
+PACKAGE OFFER
+
+	The Document explains how use the package offer system to offer free minute to your customer.
+	
+	This will drive you through the following steps :
+		1. Create a Package
+		2. Create a Package Group
+		3. Configure the Call Plan
+
+
+
+
+1. CREATE A PACKAGE
+
+	You have to create one package for each gratuity that you want to offer.
+	
+	Go in the section "PACKAGE OFFER" -> and click on "ADD"
+	
+	In this page, you can see the list of package already created and 
+	you can add a new one by clicking on the link in the upper right "Add Package".
+	
+	The followings parameters have to be set :
+		- label
+		- package type(Unlimited calls , number of free calls , Free seconds)
+		- billing type (Monthly or Weekly)
+		- startday (The value will be related to billingtype . if monthly accepted value are 1-31 ; if Weekly accepted value 1-7 (Monday toSunday))
+		- free units (amount of free units, in seconds,for the FREE SECONDS	mode. For NUMBER OF FREE CALLS insert the number of free calls )
+
+	Once you have created a package, you have then to edit it in order to apply the rates to it.
+
+
+2. CREATE PACKAGE GROUP
+
+	After the previous step, you have now to create a Package Group.
+
+	Go into the section : "PACKAGE OFFER" -> -> and click on "Group"
+	
+	In this page, you can see the list of group package already created, and 
+	you can add a new one by clicking on the link in the upper right "Add Package Group"
+	
+	The followings parameters have to be set :
+		- name,
+		- description
+	
+	Once you created the package group, you have then to edit it in order to link it to somes package offer.
+	
+
+3. CONFIGURE CALLPLAN
+
+	you have to hook the package group to the call plan.
+	
+	Go into the section : "RATES" -> -> and click on "Call Plan"
+	
+	Edit the Call Plan that you want use for the gratuity and choose the package group that you defined before.
+
+	Now for each calls on this call plan, if the call use a rate defined, the system will then apply the gratuity linked to this rate.
+	
+	In package system some parameter are important, those parameters are defined in the agi-conf (System settings -> group list - agi-conf)
+	
+		- Max Time For Unlimited | Calls maxtime_tounlimited_calls | 5400 | For unlimited calls, limit the duration: amount in seconds
+		- Max Time For Free | Calls maxtime_tofree_calls | 5400 | For free calls, limit the duration: amount in seconds
+
+
+
