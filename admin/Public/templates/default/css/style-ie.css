@@ -1,3 +1,0 @@
-#page-wrap {
-	width:expression(document.body.clientWidth < 1002? "1000px" : "auto");
-}
