@@ -12,8 +12,7 @@ apt-get update
 apt-get -y upgrade
 
 apt-get -y install asterisk
-apt-get -y install mysql-client mysql-server apache2 libapache2-mod-php5 pwgen python-setuptools vim-tiny php5-mysql openssh-server
-apt-get -y install wget sox mpg123 flite
+apt-get -y install mysql-client mysql-server apache2 libapache2-mod-php5 php5-mysql
 apt-get -y install php-pear php-db php5-gd php5-curl php-soap
 
 mkdir -p /usr/share/a2billing/latest/
