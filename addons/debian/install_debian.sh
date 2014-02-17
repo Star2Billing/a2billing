@@ -12,7 +12,7 @@ apt-get update
 apt-get -y upgrade
 
 apt-get -y install asterisk
-apt-get -y install mysql-client mysql-server apache2 libapache2-mod-php5 php5-mysql
+apt-get -y install mysql-client mysql-server apache2 libapache2-mod-php5 php5-mysql vim-tiny
 apt-get -y install php-pear php-db php5-gd php5-curl php-soap
 
 mkdir -p /usr/share/a2billing/latest/
@@ -65,3 +65,10 @@ echo '
 mysql -uroot -ppassword -e "CREATE DATABASE a2billing_db;"
 cd /usr/share/a2billing/latest/DataBase/mysql-5.x
 cat a2billing-schema-v1.4.0.sql UPDATE-a2billing-v1.4.0-to-v1.4.1.sql UPDATE-a2billing-v1.4.1-to-v1.4.2.sql UPDATE-a2billing-v1.4.2-to-v1.4.3.sql UPDATE-a2billing-v1.4.3-to-v1.4.4.sql UPDATE-a2billing-v1.4.4-to-v1.4.4.1.sql UPDATE-a2billing-v1.4.4.1-to-v1.4.5.sql UPDATE-a2billing-v1.4.5-to-v1.5.0.sql UPDATE-a2billing-v1.5.0-to-v1.5.1.sql UPDATE-a2billing-v1.5.1-to-v1.6.0.sql UPDATE-a2billing-v1.6.0-to-v1.6.1.sql UPDATE-a2billing-v1.6.1-to-v1.6.2.sql UPDATE-a2billing-v1.6.2-to-v1.7.0.sql UPDATE-a2billing-v1.7.0-to-v1.7.1.sql UPDATE-a2billing-v1.7.1-to-v1.7.2.sql UPDATE-a2billing-v1.7.2-to-v1.8.0.sql UPDATE-a2billing-v1.8.0-to-v1.8.1.sql UPDATE-a2billing-v1.8.1-to-v1.8.2.sql UPDATE-a2billing-v1.8.2-to-v1.8.3.sql UPDATE-a2billing-v1.8.3-to-v1.8.4.sql UPDATE-a2billing-v1.8.4-to-v1.8.5.sql UPDATE-a2billing-v1.8.5-to-v1.8.6.sql UPDATE-a2billing-v1.8.6-to-v1.9.0.sql UPDATE-a2billing-v1.9.0-to-v1.9.1.sql UPDATE-a2billing-v1.9.1-to-v1.9.2.sql UPDATE-a2billing-v1.9.2-to-v1.9.3.sql UPDATE-a2billing-v1.9.3-to-v1.9.4.sql UPDATE-a2billing-v1.9.4-to-v1.9.5.sql UPDATE-a2billing-v1.9.5-to-v2.0.sql UPDATE-a2billing-v2.0-to-v2.0.3.sql UPDATE-a2billing-v2.0.3-to-v2.0.4.sql UPDATE-a2billing-v2.0.4-to-v2.0.5.sql UPDATE-a2billing-v2.0.5-to-v2.0.6.sql UPDATE-a2billing-v2.0.6-to-v2.0.7.sql | mysql --user=root --password=password  a2billing_db
+
+sed -i "s/a2billing_dbuser/root/g" /etc/a2billing.conf
+sed -i "s/a2billing_dbpassword/password/g" /etc/a2billing.conf
+sed -i "s/a2billing_dbname/a2billing_db/g" /etc/a2billing.conf
+
+/etc/init.d/mysql restart
+/etc/init.d/apache2 restart
