@@ -29,6 +29,13 @@
  *
 **/
 
+-- ICustomer bundle specific SQL changes
+
+alter table `cc_version`
+        add primary key(`version`);
+
+-- Openvoip.co customization SQL changes
+
 alter table `cc_trunk`
 	add column `minutes_per_day` int(11)   NULL DEFAULT '0' after `if_max_use`,
 	add column `attempt_statuses` varchar(255)  COLLATE utf8_bin NULL DEFAULT 'CHANUNAVAIL,CONGESTION' after `minutes_per_day`,
@@ -98,4 +105,6 @@ BEGIN
 
 END$$
 DELIMITER ;
+
+-- END Openvoip.co customization SQL changes
 

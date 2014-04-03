@@ -338,7 +338,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   "INPUT",
 				    "size=20 $maxi2 maxlength=40",
-				   "4",
+				   "",
 				   gettext("Insert the webui login"),
 				   "" , "", "",	"", "" , "", "", "");
 
