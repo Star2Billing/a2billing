@@ -324,28 +324,36 @@ A2BILLING INSTALLATION GUIDE
 
         You can add the following cron jobs to your /etc/crontab or create a file with the jobs in /var/spool/cron/a2billing
 
-            -  update the currency table
+            -  update the currency table::
+
                 0 6 * * * php /usr/local/src/a2billing/Cronjobs/currencies_update_yahoo.php
 
-            -  manage the monthly services subscription
+            -  manage the monthly services subscription::
+
                 0 6 1 * * php /usr/local/src/a2billing/Cronjobs/a2billing_subscription_fee.php
 
-            -  To check account of each Users and send an email if the balance is less than the user have choice.
+            -  To check account of each Users and send an email if the balance is less than the user have choice::
+
                 0 * * * * php /usr/local/src/a2billing/Cronjobs/a2billing_notify_account.php
 
-            -  this script will browse all the DID that are reserve and check if the customer need to pay for it bill them or warn them per email to know if they want to pay in order to keep their DIDs
+            -  this script will browse all the DID that are reserve and check if the customer need to pay for it bill them or warn them per email to know if they want to pay in order to keep their DIDs::
+
                 0 2 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_bill_diduse.php
 
-            -  This script will take care of the recurring service.
+            -  This script will take care of the recurring service. ::
+
                 0 12 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_batch_process.php
 
-            - Generate Invoices at 6am everyday
+            - Generate Invoices at 6am everyday::
+
                 0 6 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_batch_billing.php
 
-            -  to proceed the autodialer
+            -  to proceed the autodialer::
+
                 * / 5 * * * * php /usr/local/src/a2billing/Cronjobs/a2billing_batch_autodialer.php
 
-            -  manage alarms
+            -  manage alarms::
+
                 0 * * * * php /usr/local/src/a2billing/Cronjobs/a2billing_alarm.php
 
 
