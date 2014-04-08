@@ -307,31 +307,34 @@ A2BILLING INSTALLATION GUIDE
 
         The second context [did], will be used to route inward calls back to the users. Calls to the clients (DID) are handled inside of the [did] context. The script a2billing.php in did mode is responsible of routing the call back to one of our users.
 
-        Edit extension.conf
-            - vi /etc/asterisk/extensions.conf
+        Edit extension.conf::
 
-        and the following contexts
+            vi /etc/asterisk/extensions.conf
 
-        | [a2billing]
-        | include => a2billing_callingcard
-        | include => a2billing_monitoring
-        | include => a2billing_voucher
+        and the following contexts::
 
-        | [a2billing_callingcard]
-        | ; CallingCard application
-        | exten => _X.,1,NoOp(A2Billing Start)
-        | exten => _X.,n,DeadAgi(a2billing.php|1)
-        | exten => _X.,n,Hangup
+         [a2billing]
+         include => a2billing_callingcard
+         include => a2billing_monitoring
+         include => a2billing_voucher
 
-        | [a2billing_voucher]
-        | exten => _X.,1,Answer(1)
-        | exten => _X.,n,DeadAgi(a2billing.php|1|voucher)
-        | ;exten => _X.,n,AGI(a2billing.php|1|voucher|44) ; will add 44 in front of the callerID for the CID authentication
-        | exten => _X.,n,Hangup
+         [a2billing_callingcard]
+         ; CallingCard application
+         exten => _X.,1,NoOp(A2Billing Start)
+         exten => _X.,n,DeadAgi(a2billing.php|1)
+         exten => _X.,n,Hangup
 
-        | [a2billing_did]
-        | exten => _X.,1,DeadAgi(a2billing.php|1|did)
-        | exten => _X.,2,Hangup
+         [a2billing_voucher]
+         exten => _X.,1,Answer(1)
+         exten => _X.,n,DeadAgi(a2billing.php|1|voucher)
+         ;exten => _X.,n,AGI(a2billing.php|1|voucher44) ; will add 44 in front of the callerID for the CID authentication
+         exten => _X.,n,Hangup
+
+         [a2billing_did]
+         exten => _X.,1,DeadAgi(a2billing.php|1|did)
+         exten => _X.,2,Hangup
+
+        Note that newer versions of Asterisk use a comma (,) instead of a pipe (|) to separate the AGI arguments.
 
 
     2.8. Step 8: Configure recurring services
