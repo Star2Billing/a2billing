@@ -224,24 +224,30 @@ A2BILLING INSTALLATION GUIDE
 
     2.5. Step 6: Install The AGI components
 
-        Copy or create a symbolic link of the entire content of the AGI directory into asterisk agi-bin directory.
-            - mkdir /usr/share/asterisk/agi-bin
-            - chown asterisk:asterisk /usr/share/asterisk/agi-bin
+        Copy or create a symbolic link of the entire content of the AGI directory into asterisk agi-bin directory. ::
 
-        Option 1
-            - cd /usr/local/src/a2billing/AGI
-            - cp a2billing.php /usr/share/asterisk/agi-bin/
-            - cp a2billing-monitoring.php /usr/share/asterisk/agi-bin/
-            - cp -Rf lib /usr/share/asterisk/agi-bin/
+            mkdir /usr/share/asterisk/agi-bin
+            chown asterisk:asterisk /usr/share/asterisk/agi-bin
 
-        Option 2
-            - ln -s /usr/local/src/a2billing/AGI/a2billing.php /usr/share/asterisk/agi-bin/a2billing.php
-            - ln -s /usr/local/src/a2billing/AGI/lib /usr/share/asterisk/agi-bin/lib
+        Option 1::
 
-        Make sure the scripts are executable
-            - chmod +x /usr/share/asterisk/agi-bin/a2billing.php
-        (if you are going to run the monitoring AGI script)
-            - chmod +x /usr/share/asterisk/agi-bin/a2billing_monitoring.php
+            cd /usr/local/src/a2billing/AGI
+            cp a2billing.php /usr/share/asterisk/agi-bin/
+            cp a2billing-monitoring.php /usr/share/asterisk/agi-bin/
+            cp -Rf ../common/lib /usr/share/asterisk/agi-bin/
+
+        Option 2::
+
+            ln -s /usr/local/src/a2billing/AGI/a2billing.php /usr/share/asterisk/agi-bin/a2billing.php
+            ln -s /usr/local/src/a2billing/AGI/lib /usr/share/asterisk/agi-bin/lib
+
+        Make sure the scripts are executable::
+
+            chmod +x /usr/share/asterisk/agi-bin/a2billing.php
+
+        (if you are going to run the monitoring AGI script)::
+
+            chmod +x /usr/share/asterisk/agi-bin/a2billing_monitoring.php
 
 
     2.6. Step 5: Install web-based Graphical interfaces
