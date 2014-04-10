@@ -725,6 +725,9 @@ class A2Billing
         if (!(stripos($input, ' or true') === FALSE)) {
             return false;
         }
+        if (strlen($input) >= 30) {
+            return false;
+        }
         $input = addslashes($input);
         return $input;
     }
