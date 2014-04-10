@@ -133,6 +133,7 @@ class A2Billing
     public $uniqueid;
     public $accountcode;
     public $dnid;
+    public $orig_dnid;
     public $extension;
 
     // from apply_rules, if a prefix is removed we keep it to track exactly what the user introduce
@@ -689,7 +690,6 @@ class A2Billing
     }
 
 
-
     /*
     * intialize evironement variables from the agi values
     */
@@ -699,7 +699,7 @@ class A2Billing
         $this->channel     = $agi->request['agi_channel'];
         $this->uniqueid    = $agi->request['agi_uniqueid'];
         $this->accountcode = $agi->request['agi_accountcode'];
-        //$this->dnid      = $agi->request['agi_dnid'];
+        $this->orig_dnid   = $agi->request['agi_dnid'];
         $extension         = str_replace("|", '', $agi->request['agi_extension']);
         $extension         = str_replace(",", '', $extension);
         $extension         = str_replace("(", '', $extension);
@@ -2496,14 +2496,12 @@ class A2Billing
 
         if (!is_array($result)) {
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CID_SANITIZE - CID: NO DATA]");
-
             return '';
         }
         for ($i = 0; $i < count($result); $i++) {
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CID_SANITIZE - CID COMPARING: " . substr($result[$i][0], strlen($this->CallerID) * -1) . " to " . $this->CallerID . "]");
             if (substr($result[$i][0], strlen($this->CallerID) * -1) == $this->CallerID) {
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CID_SANITIZE - CID: " . $result[$i][0] . "]");
-
                 return $result[$i][0];
             }
         }
