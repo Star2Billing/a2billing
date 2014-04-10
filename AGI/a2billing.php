@@ -415,8 +415,8 @@ if ($mode == 'standard') {
                 }
             }
 
-            $A2B->dnid = $agi->request['agi_dnid'];
-            $A2B->extension = $agi->request['agi_extension'];
+            $A2B->dnid = $A2B->orig_dnid;
+            $A2B->extension = $A2B->orig_ext;
 
             if ($A2B->agiconfig['ivr_voucher'] == 1) {
                 $res_dtmf = $agi->get_data('prepaid-refill_card_with_voucher', 5000, 1);
@@ -630,7 +630,7 @@ if ($mode == 'standard') {
     $RateEngine->Reinit();
     $A2B->Reinit();
 
-    $mydnid = $agi->request['agi_extension'];
+    $mydnid = $A2B->orig_ext;
 
     if (strlen($mydnid) > 0) {
         $A2B->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - [CallerID=" . $A2B->CallerID . "]:[DID=" . $mydnid . "]");

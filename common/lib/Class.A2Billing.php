@@ -690,23 +690,61 @@ class A2Billing
         }
     }
 
+    /*
+     * function sanitize_agi_data
+     */
+    public function sanitize_agi_data($input)
+    {
+        // Remove whitespaces (not a must though)
+        $input = trim($input);
+        $input = str_replace('--', '', $input);
+        $input = str_replace(';', '', $input);
+        $input = str_replace('/*', '', $input);
+        $input = str_replace('(', '', $input);
+        $input = str_replace('[', '', $input);
+        // Sql Injection
+        $input = str_ireplace('HAVING', '', $input);
+        $input = str_ireplace('UNION', '', $input);
+        $input = str_ireplace('SUBSTRING', '', $input);
+        $input = str_ireplace('INSERT', '', $input);
+        $input = str_ireplace('INTO', '', $input);
+        $input = str_ireplace('ASCII', '', $input);
+        $input = str_ireplace('SHA1', '', $input);
+        $input = str_ireplace('MD5', '', $input);
+        $input = str_ireplace('ROW_COUNT', '', $input);
+        $input = str_ireplace('CONCAT', '', $input);
+        $input = str_ireplace('WHERE', '', $input);
+        $input = str_ireplace('SELECT', '', $input);
+        $input = str_ireplace('UPDATE', '', $input);
+        $input = str_ireplace('TRUE', '', $input);
+        $input = str_ireplace('FALSE', '', $input);
+
+        if (!(stripos($input, ' or 1') === FALSE)) {
+            return false;
+        }
+        if (!(stripos($input, ' or true') === FALSE)) {
+            return false;
+        }
+        $input = addslashes($input);
+        return $input;
+    }
 
     /*
     * intialize evironement variables from the agi values
     */
     public function get_agi_request_parameter($agi)
     {
-        $this->CallerID    = $agi->request['agi_callerid'];
-        $this->channel     = $agi->request['agi_channel'];
-        $this->uniqueid    = $agi->request['agi_uniqueid'];
-        $this->accountcode = $agi->request['agi_accountcode'];
-        $this->orig_dnid   = $agi->request['agi_dnid'];
-        $this->orig_ext    = $agi->request['agi_extension'] ;
+        $this->CallerID    = sanitize_agi_data($agi->request['agi_callerid']);
+        $this->channel     = sanitize_agi_data($agi->request['agi_channel']);
+        $this->uniqueid    = sanitize_agi_data($agi->request['agi_uniqueid']);
+        $this->accountcode = sanitize_agi_data($agi->request['agi_accountcode']);
+        $this->orig_dnid   = sanitize_agi_data($agi->request['agi_dnid']);
+        $this->orig_ext    = sanitize_agi_data($agi->request['agi_extension']);
         $extension         = str_replace("|", '', $agi->request['agi_extension']);
         $extension         = str_replace(",", '', $extension);
         $extension         = str_replace("(", '', $extension);
         $extension         = str_replace(")", '', $extension);
-        $this->dnid        = $agi->request['agi_extension'] ;
+        $this->dnid        = sanitize_agi_data($agi->request['agi_extension']);
 
         //Call function to find the cid number
         $this->isolate_cid();
