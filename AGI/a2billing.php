@@ -631,7 +631,6 @@ if ($mode == 'standard') {
     $A2B->Reinit();
 
     $mydnid = $agi->request['agi_extension'];
-    if ($A2B->CC_TESTING) $mydnid = '11111111';
 
     if (strlen($mydnid) > 0) {
         $A2B->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - [CallerID=" . $A2B->CallerID . "]:[DID=" . $mydnid . "]");

@@ -134,6 +134,7 @@ class A2Billing
     public $accountcode;
     public $dnid;
     public $orig_dnid;
+    public $orig_ext;
     public $extension;
 
     // from apply_rules, if a prefix is removed we keep it to track exactly what the user introduce
@@ -700,6 +701,7 @@ class A2Billing
         $this->uniqueid    = $agi->request['agi_uniqueid'];
         $this->accountcode = $agi->request['agi_accountcode'];
         $this->orig_dnid   = $agi->request['agi_dnid'];
+        $this->orig_ext    = $agi->request['agi_extension'] ;
         $extension         = str_replace("|", '', $agi->request['agi_extension']);
         $extension         = str_replace(",", '', $extension);
         $extension         = str_replace("(", '', $extension);
