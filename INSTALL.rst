@@ -47,18 +47,21 @@ A2BILLING INSTALLATION GUIDE
 
 1.3 Pre-required software packages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    A2billing requires the packages of a LAMP (PHP5) installation. To install the necessary packages, run the following commands:
-        - apt-get install libapache2-mod-php5 php5 php5-common
-        - apt-get install php5-cli php5-mysql mysql-server apache2 php5-gd
-        - apt-get install openssh-server subversion
+    A2billing requires the packages of a LAMP (PHP5) installation. To install the necessary packages, run the following commands: ::
 
-    A2Billing also requires MCrypt module for PHP5
-        - apt-get install php5-mcrypt
+        apt-get install libapache2-mod-php5 php5 php5-common
+        apt-get install php5-cli php5-mysql mysql-server apache2 php5-gd
+        apt-get install openssh-server subversion
 
-    Asterisk is of course also needed.
-        - apt-get install asterisk
+    A2Billing also requires MCrypt module for PHP5::
 
-	1.3.1 Extra software to support text-to-speech IVR monitoring
+        apt-get install php5-mcrypt
+
+    Asterisk is of course also needed. ::
+
+        apt-get install asterisk
+
+    1.3.1 Extra software to support text-to-speech IVR monitoring
 
         Version 1.7.1 includes a new AGI mode that allows the monitoring of the a2billing system via an IVR.
 
@@ -93,17 +96,19 @@ A2BILLING INSTALLATION GUIDE
 
     2.1. Step 1: Download and unpack source code
 
-        Create a a2billing folder under /usr/local/src
+        Create a a2billing folder under /usr/local/src::
 
-            - mkdir /usr/local/src/a2billing
+            mkdir /usr/local/src/a2billing
 
         Unpack the code
 
-        Download the code from the SVN repository run:
-            - svn co --username guest --password guest http://svn.a2billing.net/svn/asterisk2billing/tags/1-current /usr/local/src/a2billing/
+        Download the code from the SVN repository run: ::
+
+            svn co --username guest --password guest http://svn.a2billing.net/svn/asterisk2billing/tags/1-current /usr/local/src/a2billing/
 
         At the end of this step you should have a a2billing tree structure that should look like:
-            - /usr/local/src/a2billing/
+
+        /usr/local/src/a2billing/
 
         Files :
             - AGI
@@ -123,25 +128,26 @@ A2BILLING INSTALLATION GUIDE
 
     2.2. Step 2: Prepare the Database
 
-        We will now create a MySQL database (mya2billing) for the billing software. The file a2billing-createdb-user.sql includes a script that creates the database with the correct access control users and permissions.
+        We will now create a MySQL database (mya2billing) for the billing software. The file a2billing-createdb-user.sql includes a script that creates the database with the correct access control users and permissions. ::
 
-        - cd /usr/local/src/a2billing
-
-        - mysql -u root -p < DataBase/mysql-5.x/a2billing-createdb-user.sql
+            cd /usr/local/src/a2billing
+            mysql -u root -p < DataBase/mysql-5.x/a2billing-createdb-user.sql
 
         The script with create a database, username and password with the following default values
             - Database name is: mya2billing
             - Database user is: a2billinguser
             - User password is: a2billing
 
-        After creating the database structure, we will create a set of tables and insert some initial basic configuration data
-            - cd DataBase/mysql-5.x/
-            - ./install-db.sh
+        After creating the database structure, we will create a set of tables and insert some initial basic configuration data::
 
-        **Checkpoint 1 :** Check that the database (my2billing) and that (97) tables have been created.
-            - mysql -u root -p mya2billing
-            - mysql>show tables
-            - mysql>exit
+            cd DataBase/mysql-5.x/
+            ./install-db.sh
+
+        **Checkpoint 1 :** Check that the database (my2billing) and that (97) tables have been created. ::
+
+            mysql -u root -p mya2billing
+            mysql>show tables
+            mysql>exit
 
 
     2.3. Step 3: Edit the a2billing.conf configuration file
@@ -151,16 +157,20 @@ A2BILLING INSTALLATION GUIDE
 
         a2billing.conf -> /usr/local/src/a2billing/a2billing.conf
 
-        Option 1
-        - cp /usr/local/src/a2billing/a2billing.conf /etc/
+        Option 1::
 
-        Option 2
-        - ln -s /usr/local/src/a2billing/a2billing.conf /etc/a2billing.conf
+          cp /usr/local/src/a2billing/a2billing.conf /etc/
 
-        Open the file with your favorite text editor (vi is used in this example). If you are new to Linux, we recommend you to use the text editor Gedit.
-        - vi /etc/a2billing.conf
+        Option 2::
 
-        The only parameters that you need to change here is the database connection information, an example follows:
+          ln -s /usr/local/src/a2billing/a2billing.conf /etc/a2billing.conf
+
+        Open the file with your favorite text editor (vi is used in this example). If you are new to Linux, we recommend you to use the text editor Gedit. ::
+
+          vi /etc/a2billing.conf
+
+        The only parameters that you need to change here is the database connection information, an example follows: ::
+
             [database]
             hostname = localhost
             port = 3306
@@ -177,7 +187,8 @@ A2BILLING INSTALLATION GUIDE
 
         2.4.1. SIP and IAX
 
-            First we will set a few file permissions (chmod, chown) and create (touch) the SIP and IAX configuration files for Asterisk.
+            First we will set a few file permissions (chmod, chown) and create (touch) the SIP and IAX configuration files for Asterisk.::
+
                 chmod 777 /etc/asterisk
                 touch /etc/asterisk/additional_a2billing_iax.conf
                 touch /etc/asterisk/additional_a2billing_sip.conf
@@ -188,47 +199,55 @@ A2BILLING INSTALLATION GUIDE
 
         2.4.2. Sound files
 
-            Run the sounds installation script available in the addons folder (IMPORTANT: the script assumes that asterisk sounds are under /usr/share/asterisk/sounds/)
-                - /usr/local/src/a2billing/addons/install_a2b_sounds_deb.sh
-                - chown -R asterisk:asterisk /usr/share/asterisk/sounds/
+            Run the sounds installation script available in the addons folder (IMPORTANT: the script assumes that asterisk sounds are under /usr/share/asterisk/sounds/)::
+
+                /usr/local/src/a2billing/addons/install_a2b_sounds_deb.sh
+                chown -R asterisk:asterisk /usr/share/asterisk/sounds/
 
         2.4.3. Configure Asterisk Manager
 
-            Configure the Asterisk Manager by editing the manager.conf file.
-            - vi /etc/asterisk/manager.conf
+            Configure the Asterisk Manager by editing the manager.conf file. ::
 
-            Notice that we are using the default values (myasterisk, mycode) in this section. The configuration should look like this
-            [general]
-            enabled = yes
-            port = 5038
-            bindaddr = 0.0.0.0
+              vi /etc/asterisk/manager.conf
 
-            [myasterisk]
-            secret=mycode
-            read=system,call,log,verbose,command,agent,user
-            write=system,call,log,verbose,command,agent,user
+            Notice that we are using the default values (myasterisk, mycode) in this section. The configuration should look like this::
 
+                [general]
+                enabled = yes
+                port = 5038
+                bindaddr = 0.0.0.0
+
+                [myasterisk]
+                secret=mycode
+                read=system,call,log,verbose,command,agent,user
+                write=system,call,log,verbose,command,agent,user
 
     2.5. Step 6: Install The AGI components
 
-        Copy or create a symbolic link of the entire content of the AGI directory into asterisk agi-bin directory.
-            - mkdir /usr/share/asterisk/agi-bin
-            - chown asterisk:asterisk /usr/share/asterisk/agi-bin
+        Copy or create a symbolic link of the entire content of the AGI directory into asterisk agi-bin directory. ::
 
-        Option 1
-            - cd /usr/local/src/a2billing/AGI
-            - cp a2billing.php /usr/share/asterisk/agi-bin/
-            - cp a2billing-monitoring.php /usr/share/asterisk/agi-bin/
-            - cp -Rf lib /usr/share/asterisk/agi-bin/
+            mkdir /usr/share/asterisk/agi-bin
+            chown asterisk:asterisk /usr/share/asterisk/agi-bin
 
-        Option 2
-            - ln -s /usr/local/src/a2billing/AGI/a2billing.php /usr/share/asterisk/agi-bin/a2billing.php
-            - ln -s /usr/local/src/a2billing/AGI/lib /usr/share/asterisk/agi-bin/lib
+        Option 1::
 
-        Make sure the scripts are executable
-            - chmod +x /usr/share/asterisk/agi-bin/a2billing.php
-        (if you are going to run the monitoring AGI script)
-            - chmod +x /usr/share/asterisk/agi-bin/a2billing_monitoring.php
+            cd /usr/local/src/a2billing/AGI
+            cp a2billing.php /usr/share/asterisk/agi-bin/
+            cp a2billing-monitoring.php /usr/share/asterisk/agi-bin/
+            cp -Rf ../common/lib /usr/share/asterisk/agi-bin/
+
+        Option 2::
+
+            ln -s /usr/local/src/a2billing/AGI/a2billing.php /usr/share/asterisk/agi-bin/a2billing.php
+            ln -s /usr/local/src/a2billing/AGI/lib /usr/share/asterisk/agi-bin/lib
+
+        Make sure the scripts are executable::
+
+            chmod +x /usr/share/asterisk/agi-bin/a2billing.php
+
+        (if you are going to run the monitoring AGI script)::
+
+            chmod +x /usr/share/asterisk/agi-bin/a2billing_monitoring.php
 
 
     2.6. Step 5: Install web-based Graphical interfaces
@@ -238,40 +257,46 @@ A2BILLING INSTALLATION GUIDE
 
         Place the directories "admin" and "customer" into your webserver document root.
 
-        Create a2billing folder in your web root folder
-            - mkdir /var/www/a2billing
-            - chown www-data:www-data /var/www/a2billing
+        Create a2billing folder in your web root folder::
 
-        Create folder directory for monitoring Scripts
-            - mkdir -p /var/lib/a2billing/script
+            mkdir /var/www/a2billing
+            chown www-data:www-data /var/www/a2billing
 
-        Create folder directory for Cronts PID
-            - mkdir -p /var/run/a2billing
+        Create folder directory for monitoring Scripts::
 
-        Option 1
-            - cp -rf /usr/local/src/a2billing/admin /var/www/a2billing
-            - cp -rf /usr/local/src/a2billing/agent /var/www/a2billing
-            - cp -rf /usr/local/src/a2billing/customer /var/www/a2billing
-            - cp -rf /usr/local/src/a2billing/common /var/www/a2billing
+            mkdir -p /var/lib/a2billing/script
 
-        Option 2
-            - ln -s /usr/local/src/a2billing/admin /var/www/a2billing/admin
-            - ln -s /usr/local/src/a2billing/agent /var/www/a2billing/agent
-            - ln -s /usr/local/src/a2billing/customer /var/www/a2billing/customer
-            - ln -s /usr/local/src/a2billing/common /var/www/a2billing/common
+        Create folder directory for Cronts PID::
 
-        Fix the permissions of the templates_c folder in each of the UI
-            - chmod 755 /usr/local/src/a2billing/admin/templates_c
-            - chmod 755 /usr/local/src/a2billing/customer/templates_c
-            - chmod 755 /usr/local/src/a2billing/agent/templates_c
-            - chown -Rf www-data:www-data /usr/local/src/a2billing/admin/templates_c
-            - chown -Rf www-data:www-data /usr/local/src/a2billing/customer/templates_c
-            - chown -Rf www-data:www-data /usr/local/src/a2billing/agent/templates_c
+            mkdir -p /var/run/a2billing
+
+        Option 1::
+
+            cp -rf /usr/local/src/a2billing/admin /var/www/a2billing
+            cp -rf /usr/local/src/a2billing/agent /var/www/a2billing
+            cp -rf /usr/local/src/a2billing/customer /var/www/a2billing
+            cp -rf /usr/local/src/a2billing/common /var/www/a2billing
+
+        Option 2::
+
+            ln -s /usr/local/src/a2billing/admin /var/www/a2billing/admin
+            ln -s /usr/local/src/a2billing/agent /var/www/a2billing/agent
+            ln -s /usr/local/src/a2billing/customer /var/www/a2billing/customer
+            ln -s /usr/local/src/a2billing/common /var/www/a2billing/common
+
+        Fix the permissions of the templates_c folder in each of the UI::
+
+            chmod 755 /usr/local/src/a2billing/admin/templates_c
+            chmod 755 /usr/local/src/a2billing/customer/templates_c
+            chmod 755 /usr/local/src/a2billing/agent/templates_c
+            chown -Rf www-data:www-data /usr/local/src/a2billing/admin/templates_c
+            chown -Rf www-data:www-data /usr/local/src/a2billing/customer/templates_c
+            chown -Rf www-data:www-data /usr/local/src/a2billing/agent/templates_c
 
 
         Checkpoint 2: Direct a browser to the administrative web interface (http://<ip-addr>/a2billing/admin) and login as administrator. Default passwords are:
-            user: root
-            pass: changepassword
+            - user: root
+            - pass: changepassword
 
 
     2.7. Step 7: Create a dialplan for A2Billing
@@ -282,31 +307,34 @@ A2BILLING INSTALLATION GUIDE
 
         The second context [did], will be used to route inward calls back to the users. Calls to the clients (DID) are handled inside of the [did] context. The script a2billing.php in did mode is responsible of routing the call back to one of our users.
 
-        Edit extension.conf
-            - vi /etc/asterisk/extensions.conf
+        Edit extension.conf::
 
-        and the following contexts
+            vi /etc/asterisk/extensions.conf
 
-        | [a2billing]
-        | include => a2billing_callingcard
-        | include => a2billing_monitoring
-        | include => a2billing_voucher
+        and the following contexts::
 
-        | [a2billing_callingcard]
-        | ; CallingCard application
-        | exten => _X.,1,NoOp(A2Billing Start)
-        | exten => _X.,n,DeadAgi(a2billing.php|1)
-        | exten => _X.,n,Hangup
+         [a2billing]
+         include => a2billing_callingcard
+         include => a2billing_monitoring
+         include => a2billing_voucher
 
-        | [a2billing_voucher]
-        | exten => _X.,1,Answer(1)
-        | exten => _X.,n,DeadAgi(a2billing.php|1|voucher)
-        | ;exten => _X.,n,AGI(a2billing.php|1|voucher|44) ; will add 44 in front of the callerID for the CID authentication
-        | exten => _X.,n,Hangup
+         [a2billing_callingcard]
+         ; CallingCard application
+         exten => _X.,1,NoOp(A2Billing Start)
+         exten => _X.,n,DeadAgi(a2billing.php|1)
+         exten => _X.,n,Hangup
 
-        | [a2billing_did]
-        | exten => _X.,1,DeadAgi(a2billing.php|1|did)
-        | exten => _X.,2,Hangup
+         [a2billing_voucher]
+         exten => _X.,1,Answer(1)
+         exten => _X.,n,DeadAgi(a2billing.php|1|voucher)
+         ;exten => _X.,n,AGI(a2billing.php|1|voucher44) ; will add 44 in front of the callerID for the CID authentication
+         exten => _X.,n,Hangup
+
+         [a2billing_did]
+         exten => _X.,1,DeadAgi(a2billing.php|1|did)
+         exten => _X.,2,Hangup
+
+        Note that newer versions of Asterisk use a comma (,) instead of a pipe (|) to separate the AGI arguments.
 
 
     2.8. Step 8: Configure recurring services
@@ -315,28 +343,36 @@ A2BILLING INSTALLATION GUIDE
 
         You can add the following cron jobs to your /etc/crontab or create a file with the jobs in /var/spool/cron/a2billing
 
-            -  update the currency table
+            -  update the currency table::
+
                 0 6 * * * php /usr/local/src/a2billing/Cronjobs/currencies_update_yahoo.php
 
-            -  manage the monthly services subscription
+            -  manage the monthly services subscription::
+
                 0 6 1 * * php /usr/local/src/a2billing/Cronjobs/a2billing_subscription_fee.php
 
-            -  To check account of each Users and send an email if the balance is less than the user have choice.
+            -  To check account of each Users and send an email if the balance is less than the user have choice::
+
                 0 * * * * php /usr/local/src/a2billing/Cronjobs/a2billing_notify_account.php
 
-            -  this script will browse all the DID that are reserve and check if the customer need to pay for it bill them or warn them per email to know if they want to pay in order to keep their DIDs
+            -  this script will browse all the DID that are reserve and check if the customer need to pay for it bill them or warn them per email to know if they want to pay in order to keep their DIDs::
+
                 0 2 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_bill_diduse.php
 
-            -  This script will take care of the recurring service.
+            -  This script will take care of the recurring service. ::
+
                 0 12 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_batch_process.php
 
-            - Generate Invoices at 6am everyday
+            - Generate Invoices at 6am everyday::
+
                 0 6 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_batch_billing.php
 
-            -  to proceed the autodialer
+            -  to proceed the autodialer::
+
                 * / 5 * * * * php /usr/local/src/a2billing/Cronjobs/a2billing_batch_autodialer.php
 
-            -  manage alarms
+            -  manage alarms::
+
                 0 * * * * php /usr/local/src/a2billing/Cronjobs/a2billing_alarm.php
 
 
@@ -344,31 +380,39 @@ A2BILLING INSTALLATION GUIDE
 
         The call back daemon is responsible of reading from the database the pool of calls stored for call back and trigger those calls periodically.
 
-        The daemon is written in Python. Install the python-setuptools and use easy_install to install the callback_daemon
-            - apt-get install python-setuptools python-mysqldb python-psycopg2 python-sqlalchemy
-            - cd /usr/local/src/a2billing/CallBack
-            - easy_install callback-daemon-py/dist/callback_daemon-1.0.prod_r1527-py2.5.egg
+        The daemon is written in Python. Install the python-setuptools and use easy_install to install the callback_daemon::
 
-        Install the init.d startup script
-            - cd /usr/local/src/a2billing/CallBack/callback-daemon-py/callback_daemon/
+            apt-get install python-setuptools python-mysqldb python-psycopg2 python-sqlalchemy
+            cd /usr/local/src/a2billing/CallBack
+            easy_install callback-daemon-py/dist/callback_daemon-1.0.prod_r1527-py2.5.egg
 
-        For Debian :
-            - cp a2b-callback-daemon.debian  /etc/init.d/a2b-callback-daemon
+        Install the init.d startup script::
 
-        For RedHat :
-            - cp a2b-callback-daemon.rc /etc/init.d/a2b-callback-daemon
-            - chmod +x /etc/init.d/a2b-callback-daemon
+            cd /usr/local/src/a2billing/CallBack/callback-daemon-py/callback_daemon/
+
+        For Debian::
+
+            cp a2b-callback-daemon.debian  /etc/init.d/a2b-callback-daemon
+
+        For RedHat::
+
+            cp a2b-callback-daemon.rc /etc/init.d/a2b-callback-daemon
+            chmod +x /etc/init.d/a2b-callback-daemon
 
         Make sure the daemon starts
-            For Debian :
-                - update-rc.d a2b-callback-daemon defaults 40 60
+            For Debian::
 
-                If you need to remove the daemon in the future run
-                - update-rc.d -f a2b-callback-daemon remove
-            For RedHat :
-                - chkconfig --add a2b-callback-daemon
-                - service a2b-callback-daemon start
-                - chkconfig a2b-callback-daemon on
+                update-rc.d a2b-callback-daemon defaults 40 60
+
+            If you need to remove the daemon in the future run::
+
+                  update-rc.d -f a2b-callback-daemon remove
+
+            For RedHat::
+
+                chkconfig --add a2b-callback-daemon
+                service a2b-callback-daemon start
+                chkconfig a2b-callback-daemon on
 
 
     2.10. Step 10: Enable Monitoring

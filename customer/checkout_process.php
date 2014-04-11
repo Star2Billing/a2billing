@@ -79,7 +79,7 @@ $item_id = $transaction_data[0][13];
 $amount = $transaction_data[0][2];
 $item_type = $transaction_data[0][14];
 
-//Update the Transaction Status to 1
+//Update the Transaction Status to 2
 $QUERY = "UPDATE cc_epayment_log SET status = 2 WHERE id = ".$transactionID;
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY = $QUERY");
 $paymentTable->SQLExec ($DBHandle_max, $QUERY);

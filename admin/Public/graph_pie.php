@@ -88,11 +88,7 @@ getpost_ifset(array ('before', 'after'));
 
 $SQLcmd = '';
 
-if (isset ($dst) && ($dst > 0)) {
-    if (strlen($SQLcmd) > 0)
-        $SQLcmd .= " AND ";
-    $SQLcmd .= " calledstation='$dst' ";
-}
+$SQLcmd = do_field ( $SQLcmd, 'dst', 'calledstation' );
 
 if (isset ($customer) && ($customer > 0)) {
     if (strlen($SQLcmd) > 0)

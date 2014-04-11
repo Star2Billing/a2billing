@@ -268,6 +268,11 @@ function sanitize_data($input)
         $input = str_ireplace('MD5', '', $input);
         $input = str_ireplace('ROW_COUNT', '', $input);
         $input = str_ireplace('SELECT', '', $input);
+        $input = str_ireplace('INSERT', '', $input);
+        $input = str_ireplace('DROP', '', $input);
+        $input = str_ireplace('DELETE', '', $input);
+        $input = str_ireplace('CONCAT', '', $input);
+        $input = str_ireplace('WHERE', '', $input);
         $input = str_ireplace('UPDATE', '', $input);
 
         if (!(stripos($input, ' or 1') === FALSE)) {

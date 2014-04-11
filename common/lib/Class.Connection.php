@@ -66,7 +66,6 @@ class Connection
         if (empty (self :: $DBHandler)) {
             $connection = new Connection();
         }
-
         return self :: $DBHandler;
     }
 
@@ -77,7 +76,6 @@ class Connection
         } else {
             $connection = self :: $DBHandler;
         }
-
         if (DB_TYPE == "postgres") {
             if (empty (self :: $MytoPgklass)) {
                 self :: $MytoPgklass = new MytoPg(0);
@@ -86,8 +84,6 @@ class Connection
             // convert MySQLisms to be Postgres compatible
             self :: $MytoPgklass -> My_to_Pg($QUERY);
         }
-
         return $connection -> Execute($QUERY);
     }
-
 }

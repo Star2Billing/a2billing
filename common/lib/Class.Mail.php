@@ -140,10 +140,11 @@ class Mail
             if (!empty ($lg)) {
                 $tmpl_clause .= " AND ( id_language = '$lg' OR  id_language = 'en' )";
                 $order_field = 'id_language';
-                if (strcasecmp($lg, 'en') < 0)
+                if (strcasecmp($lg, 'en') < 0) {
                     $order = 'ASC';
-                else
+                } else {
                     $order = 'DESC';
+                }
             } elseif (!is_null($id_card) && is_numeric($id_card)) {
                 $card_table = new Table("cc_card", "*, IF((typepaid=1) AND (creditlimit IS NOT NULL), credit + creditlimit, credit) AS real_credit");
                 $card_clause = " id = " . $id_card;
@@ -154,10 +155,11 @@ class Mail
                 if (!empty ($language)) {
                     $tmpl_clause .= " AND ( id_language = '$language' OR  id_language = 'en' )";
                     $order_field = 'id_language';
-                    if (strcasecmp($language, 'en') < 0)
+                    if (strcasecmp($language, 'en') < 0) {
                         $order = 'ASC';
-                    else
+                    } else {
                         $order = 'DESC';
+                    }
                 }
             }
             $result_tmpl = $tmpl_table->Get_list($DBHandle, $tmpl_clause, $order_field, $order);
