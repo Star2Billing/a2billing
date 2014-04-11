@@ -716,6 +716,8 @@ class A2Billing
         $input = str_ireplace('WHERE', '', $input);
         $input = str_ireplace('SELECT', '', $input);
         $input = str_ireplace('UPDATE', '', $input);
+        $input = str_ireplace('DROP', '', $input);
+        $input = str_ireplace('DELETE', '', $input);
         $input = str_ireplace('TRUE', '', $input);
         $input = str_ireplace('FALSE', '', $input);
 
