@@ -76,14 +76,15 @@ Class Notification {
 
     public static function getAllKey()
     {
-        return array("sip_iax_changed" 		=> gettext("New SIP & IAX added : Friends conf have to be generated"),
-                      "sip_changed" 		=> gettext("New SIP added : Sip Friends conf have to be generated"),
-                      "iax_changed"			=> gettext("New IAX added : IAX Friends conf have to be generated"),
-                      "ticket_added_agent" 	=> gettext("New Ticket added by agent"),
-                      "ticket_added_cust" 	=> gettext("New Ticket added by customer"),
-                      "did_destination_edited_cust" => gettext("DID Destination edited by customer"),
-                      "remittance_added_agent"	=> gettext("New Remittance request added"),
-                      "added_new_signup"	=> gettext("Added new sign-up"));
+        return array(
+            "sip_iax_changed" => gettext("New SIP & IAX added : Friends conf have to be generated"),
+            "sip_changed" => gettext("New SIP added : Sip Friends conf have to be generated"),
+            "iax_changed" => gettext("New IAX added : IAX Friends conf have to be generated"),
+            "ticket_added_agent" => gettext("New Ticket added by agent"),
+            "ticket_added_cust" => gettext("New Ticket added by customer"),
+            "did_destination_edited_cust" => gettext("DID Destination edited by customer"),
+            "remittance_added_agent" => gettext("New Remittance request added"),
+            "added_new_signup" => gettext("Added new sign-up"));
     }
     public function getId()
     {
@@ -187,8 +188,6 @@ Class Notification {
             }
             $link .= $this->link_id;
         }
-
         return $link;
     }
-
 }

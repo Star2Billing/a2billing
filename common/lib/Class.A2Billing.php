@@ -256,12 +256,10 @@ class A2Billing
     public function debug($level, $agi, $file, $line, $buffer_debug)
     {
         $file = basename($file);
-
         // VERBOSE
         if ($this->agiconfig['verbosity_level'] >= $level && $agi) {
             $agi->verbose('file:' . $file . ' - line:' . $line . ' - uniqueid:' . $this->uniqueid . ' - ' . $buffer_debug);
         }
-
         // LOG INTO FILE
         if ($this->agiconfig['logging_level'] >= $level) {
             $this->write_log($buffer_debug, 1, "[file:$file - line:$line - uniqueid:" . $this->uniqueid . "]:");
@@ -273,12 +271,9 @@ class A2Billing
     */
     public function write_log($output, $tobuffer = 1, $line_file_info = '')
     {
-        //$tobuffer = 0;
-
         if (strlen($this->log_file) > 1) {
             $string_log = "[" . date("d/m/Y H:i:s") . "]:" . $line_file_info . "[CallerID:" . $this->CallerID . "]:[CN:" . $this->cardnumber . "]:[$output]\n";
             if ($this->CC_TESTING) echo $string_log;
-
             $this->BUFFER .= $string_log;
             if (!$tobuffer || $this->CC_TESTING) {
                 error_log($this->BUFFER, 3, $this->log_file);
@@ -319,12 +314,6 @@ class A2Billing
             exit;
         }
 
-        /*  We don't need to do this twice.  load_conf_db() will do it
-        // If optconfig is specified, stuff vals and vars into 'a2billing' config array.
-        foreach ($optconfig as $var=>$val) {
-            $this->config["agi-conf$idconfig"][$var] = $val;
-        }*/
-
         // conf for the database connection
         if (!isset($this->config['database']['hostname'])) $this->config['database']['hostname'] = 'localhost';
         if (!isset($this->config['database']['port']))     $this->config['database']['port']     = '5432';
@@ -341,14 +330,11 @@ class A2Billing
     public function load_conf_db(&$agi, $config = NULL, $webui = 0, $idconfig = 1, $optconfig = array())
     {
         $this->idconfig = $idconfig;
-        // load config
         $config_table = new Table("cc_config", "config_key as cfgkey, config_value as cfgvalue, config_group_title as cfggname, config_valuetype as cfgtype");
         $this->DbConnect();
-
         $config_res = $config_table->Get_list($this->DBHandle, "");
         if (!$config_res) {
             echo 'Error : cannot load conf : load_conf_db';
-
             return false;
         }
 
@@ -615,7 +601,6 @@ class A2Billing
     {
         global $agi;
         static $busy = false;
-
         if ($this->agiconfig['debug'] != false) {
             if (!$busy) { // no conlogs inside conlog!!!
                 $busy = true;
@@ -632,7 +617,6 @@ class A2Billing
     {
         // MENU LANGUAGE
         if ($this->agiconfig['play_menulanguage'] == 1) {
-
             $list_prompt_menulang = explode(':', $this->agiconfig['conf_order_menulang']);
             $i = 1;
             foreach ($list_prompt_menulang as $lg_value) {
@@ -646,7 +630,6 @@ class A2Billing
             }
 
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RES Menu Language DTMF : " . $res_dtmf["result"]);
-
             $this->languageselected = $res_dtmf["result"];
 
             if ($this->languageselected > 0 && $this->languageselected <= sizeof($list_prompt_menulang)) {
@@ -657,13 +640,9 @@ class A2Billing
                 } else {
                     $language = 'en';
                 }
-
             }
-
             $this->current_language = $language;
-
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, " CURRENT LANGUAGE : " . $language);
-
 
             if ($this->agiconfig['asterisk_version'] == "1_2") {
                 $lg_var_set = 'LANGUAGE()';
