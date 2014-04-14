@@ -718,17 +718,17 @@ class A2Billing
     */
     public function get_agi_request_parameter($agi)
     {
-        $this->CallerID    = sanitize_agi_data($agi->request['agi_callerid']);
-        $this->channel     = sanitize_agi_data($agi->request['agi_channel']);
-        $this->uniqueid    = sanitize_agi_data($agi->request['agi_uniqueid']);
-        $this->accountcode = sanitize_agi_data($agi->request['agi_accountcode']);
-        $this->orig_dnid   = sanitize_agi_data($agi->request['agi_dnid']);
-        $this->orig_ext    = sanitize_agi_data($agi->request['agi_extension']);
+        $this->CallerID    = $this->sanitize_agi_data($agi->request['agi_callerid']);
+        $this->channel     = $this->sanitize_agi_data($agi->request['agi_channel']);
+        $this->uniqueid    = $this->sanitize_agi_data($agi->request['agi_uniqueid']);
+        $this->accountcode = $this->sanitize_agi_data($agi->request['agi_accountcode']);
+        $this->orig_dnid   = $this->sanitize_agi_data($agi->request['agi_dnid']);
+        $this->orig_ext    = $this->sanitize_agi_data($agi->request['agi_extension']);
         $extension         = str_replace("|", '', $agi->request['agi_extension']);
         $extension         = str_replace(",", '', $extension);
         $extension         = str_replace("(", '', $extension);
         $extension         = str_replace(")", '', $extension);
-        $this->dnid        = sanitize_agi_data($agi->request['agi_extension']);
+        $this->dnid        = $this->sanitize_agi_data($agi->request['agi_extension']);
 
         //Call function to find the cid number
         $this->isolate_cid();
