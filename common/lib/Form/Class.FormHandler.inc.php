@@ -543,23 +543,44 @@ class FormHandler
 
 		$this -> set_regular_expression();
 
-		$this->_action = $action ? $action : $_SERVER['PHP_SELF'];
+		$this ->_action = $action ? $action : $_SERVER['PHP_SELF'];
 
         // If anti CSRF protection is enabled
         if ($this->FG_CSRF_STATUS == true) {
             // Initializing anti csrf token (Generate a key, concat it with salt and hash it)
             $this -> FG_CSRF_TOKEN_KEY = $this->genCsrfTokenKey();
-            $this -> FG_CSRF_TOKEN     = $this->FG_CSRF_TOKEN_SALT.$this->FG_CSRF_TOKEN_KEY;
-            $this -> FG_CSRF_TOKEN     = hash('SHA256', $this->FG_CSRF_TOKEN);
+            $this -> FG_CSRF_TOKEN = $this->FG_CSRF_TOKEN_SALT.$this->FG_CSRF_TOKEN_KEY;
+            $this -> FG_CSRF_TOKEN = hash('SHA256', $this->FG_CSRF_TOKEN);
+            $this -> FG_FORM_UNIQID = uniqid();
+            // print $this -> FG_FORM_UNIQID;
+            // echo "<br/>------_POST-------<br/>";
+            // print_r($_POST);
+            // echo "<br/>-------_SESSION------<br/>";
+            // print_r($_SESSION);
 
-            $this -> FG_FORM_UNIQID                                   = uniqid();
-            $this -> FG_FORM_RECEIVED_UNIQID                          = $_POST[$this->FG_FORM_UNIQID_FIELD];
-            $this -> FG_CSRF_RECEIVED_TOKEN                           = $_SESSION[$this->FG_FORM_RECEIVED_UNIQID]['CSRF_TOKEN'];
-            $_SESSION['CSRF_TOKEN'][$this->FG_FORM_RECEIVED_UNIQID] = $this->FG_CSRF_TOKEN;
+            $this -> FG_FORM_RECEIVED_UNIQID = $_POST[$this->FG_FORM_UNIQID_FIELD];
+            $this -> FG_FORM_RECEIVED_TOKEN = $_POST[$this->FG_CSRF_FIELD];
+            $this -> FG_CSRF_RECEIVED_TOKEN = $_SESSION['CSRF_TOKEN'][$this->FG_FORM_RECEIVED_UNIQID];
+            $_SESSION['CSRF_TOKEN'][$this->FG_FORM_UNIQID] = $this->FG_CSRF_TOKEN;
+            // echo "<br/>------_SESSION::-------<br/>";
+            // print_r($_SESSION);
 
             if ($this->FG_DEBUG) {
+                echo 'FG_FORM_UNIQID : '.$this->FG_FORM_UNIQID.'<br />';
                 echo 'CSRF NEW TOKEN : '.$this->FG_CSRF_TOKEN.'<br />';
                 echo 'CSRF RECEIVED TOKEN : '.$this->FG_CSRF_RECEIVED_TOKEN.'<br />';
+            }
+            if (!empty($_POST)) {
+                // Check CSRF
+                if (!$this -> FG_CSRF_RECEIVED_TOKEN or
+                    ($this -> FG_CSRF_RECEIVED_TOKEN != $this -> FG_FORM_RECEIVED_TOKEN)){
+                    echo "CSRF Error!";
+                    exit();
+                } else {
+                    //Remove key from the session
+                    // echo "Remove key from the session";
+                    unset($_SESSION['CSRF_TOKEN'][$this->FG_FORM_RECEIVED_UNIQID]);
+                }
             }
         }
 
@@ -736,7 +757,6 @@ class FormHandler
 	 * @ 6. $char_limit
 	 * @ 7. $lie_type ("lie", "list") , where lie is used for sql. ( TODO : any reason to keep lie instead of sql ?.)
 	 * @ 8. $lie_with (SQL query with the tag '%1' || a defined list: $tablelist["nbcode"] )
-
 	 * OLD
 	 * @ 8. $lie_with tablename
 	 * @ 9. $lie_fieldname
@@ -865,11 +885,9 @@ class FormHandler
 	 * @.8 $feed_selectfield - if the fieldtype = SELECT, [define a sql to feed it] OR [define a array to use]
 	 * @.9 $displayformat_selectfield - if the fieldtype = SELECT and fieldname of sql > 1 is useful to define the format to show the data (ie: "%1 : (%2)")
 	 * @.10 $config_radiobouttonfield - if the fieldtype = RADIOBUTTON : config format - valuename1 :value1, valuename2 :value2,...  (ie: "Yes :t, - No:f")
-
 	 * @.12 $check_emptyvalue - ("no" or "yes") if "no" we we check the regularexpression only if a value has been entered
 	 * @.13 $attach2table - yes
 	 * @.14 $attach2table_conf - "doc_tariff:call_tariff_id:call_tariff:webm_retention, id, country_id:id IN (select call_tariff_id from doc_tariff where document_id = %id) AND cttype='PHONE':document_id:%1 - (%3):2:country:label, id:%1:id='%1'"
-
 	 * @.END $comment - set a comment to display below the field
      */
 

@@ -2,20 +2,14 @@
 
 $processed = $this->getProcessed();
 
-if ($form_action == "ask-delete")
-{
-    if ($this -> isFKDataExists() == false)
-    {
-        //if($this-> FG_FK_DELETE_ALLOWED == true && $this->FG_FK_WARNONLY == false)
-        {
-            $this-> FG_FK_DELETE_ALLOWED = false;
-            $this -> FG_ISCHILDS = false;
-            $this-> FG_FK_WARNONLY = false;
-            $this->FG_FK_DELETE_CONFIRM = false;
-        }
-
+if ($form_action == "ask-delete") {
+    if ($this -> isFKDataExists() == false) {
+        //if($this-> FG_FK_DELETE_ALLOWED == true && $this->FG_FK_WARNONLY == false){
+        $this-> FG_FK_DELETE_ALLOWED = false;
+        $this -> FG_ISCHILDS = false;
+        $this-> FG_FK_WARNONLY = false;
+        $this->FG_FK_DELETE_CONFIRM = false;
     }
-
 }
 ?>
 
@@ -103,6 +97,14 @@ else
     <?php }else { ?>
     <INPUT type="hidden" name="form_action" value="delete">
     <?php }  ?>
+    <?php
+        if ($this->FG_CSRF_STATUS == true) {
+    ?>
+        <input type="hidden" name="<?php echo $this->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $this->FG_FORM_UNIQID; ?>" />
+        <input type="hidden" name="<?php echo $this->FG_CSRF_FIELD ?>" value="<?php echo $this->FG_CSRF_TOKEN; ?>" />
+    <?php
+        }
+    ?>
 
 	<?php
 	if (!is_null($this->FG_QUERY_EDITION_HIDDEN_FIELDS) && $this->FG_QUERY_EDITION_HIDDEN_FIELDS!=""){

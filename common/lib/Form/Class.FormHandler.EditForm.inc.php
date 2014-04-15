@@ -30,22 +30,22 @@ function sendtolittle(direction)
 <FORM action=<?php echo $_SERVER['PHP_SELF']?> method=post name="myForm" id="myForm">
 
 <table class="editform_table1" cellspacing="2">
-        <INPUT type="hidden" name="id" value="<?php echo $id?>">
-        <INPUT type="hidden" name="form_action" value="edit">
-        <INPUT type="hidden" name="sub_action" value="">
-        <INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
-        <INPUT type="hidden" name="stitle" value="<?php echo $stitle?>">
-        <INPUT type="hidden" name="current_page" value="<?php echo $processed['current_page'];?>">
-        <INPUT type="hidden" name="order" value="<?php echo $processed['order'];?>">
-        <INPUT type="hidden" name="sens" value="<?php echo $processed['sens'];?>">
-        <?php
-        if ($this->FG_CSRF_STATUS == true) {
-        ?>
-            <input type="hidden" name="<?php echo $this->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $this->FG_FORM_UNIQID; ?>" />
-            <input type="hidden" name="<?php echo $this->FG_CSRF_FIELD ?>" value="<?php echo $this->FG_CSRF_TOKEN; ?>" />
-        <?php
-        }
-        ?>
+    <INPUT type="hidden" name="id" value="<?php echo $id?>">
+    <INPUT type="hidden" name="form_action" value="edit">
+    <INPUT type="hidden" name="sub_action" value="">
+    <INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
+    <INPUT type="hidden" name="stitle" value="<?php echo $stitle?>">
+    <INPUT type="hidden" name="current_page" value="<?php echo $processed['current_page'];?>">
+    <INPUT type="hidden" name="order" value="<?php echo $processed['order'];?>">
+    <INPUT type="hidden" name="sens" value="<?php echo $processed['sens'];?>">
+    <?php
+    if ($this->FG_CSRF_STATUS == true) {
+    ?>
+        <input type="hidden" name="<?php echo $this->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $this->FG_FORM_UNIQID; ?>" />
+        <input type="hidden" name="<?php echo $this->FG_CSRF_FIELD ?>" value="<?php echo $this->FG_CSRF_TOKEN; ?>" />
+    <?php
+    }
+    ?>
 
 <?php
     if (!empty($this->FG_QUERY_EDITION_HIDDEN_FIELDS)) {

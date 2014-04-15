@@ -1082,7 +1082,6 @@ function sendtolittle(direction)
           </b></div>
       </blockquote>
       <br>
-
             <TABLE width="85%" border=0 align="center" cellPadding=2 cellSpacing=2 style="PADDING-BOTTOM: 7px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; PADDING-TOP: 5px">
                   <FORM action=<?php echo $PHP_SELF?> id=form1 method=post name=form1>
                   <INPUT type="hidden" name="id" value="<?php echo $id?>">
