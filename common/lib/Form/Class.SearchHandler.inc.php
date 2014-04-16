@@ -8,9 +8,17 @@ if ($this->FG_FILTER_SEARCH_FORM) {
     <center>
         <b><?php echo $this -> FG_FILTER_SEARCH_TOP_TEXT?></b>
         <table class="searchhandler_table1">
-        <FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=<?php echo $processed['s']?>&t=<?php echo $processed['t']?>&order=<?php echo $processed['order']?>&sens=<?php echo $processed['sens']?>&current_page=<?php echo $processed['current_page']?>">
+        <FORM METHOD="POST" ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=<?php echo $processed['s']?>&t=<?php echo $processed['t']?>&order=<?php echo $processed['order']?>&sens=<?php echo $processed['sens']?>&current_page=<?php echo $processed['current_page']?>">
         <INPUT TYPE="hidden" NAME="posted_search" value="1">
         <INPUT TYPE="hidden" NAME="current_page" value="0">
+        <?php
+            if ($this->FG_CSRF_STATUS == true) {
+        ?>
+            <INPUT type="hidden" name="<?php echo $this->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $this->FG_FORM_UNIQID; ?>" />
+            <INPUT type="hidden" name="<?php echo $this->FG_CSRF_FIELD ?>" value="<?php echo $this->FG_CSRF_TOKEN; ?>" />
+        <?php
+            }
+        ?>
 
         <?php if ($this -> FG_FILTER_SEARCH_1_TIME) { ?>
             <tr>

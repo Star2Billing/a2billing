@@ -62,7 +62,9 @@ if (isset($posted) && !$popup_select) {
 
 	if (is_string ($tariffgroup) && strlen(trim($tariffgroup))>0) {
 
-		$HD_Form = new FormHandler("cc_callplan_lcr", "Rates");
+		// $HD_Form = new FormHandler("cc_callplan_lcr", "Rates");
+        $HD_Form -> FG_TABLE_NAME = "cc_callplan_lcr";
+        $HD_Form -> FG_INSTANCE_NAME = "Rates";
 		$HD_Form -> FG_TABLE_ID = 'id';
 		$use_lcr_callplan = true;
 		$HD_Form -> SQL_GROUP = " GROUP BY dialprefix ";

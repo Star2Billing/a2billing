@@ -222,6 +222,14 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
         <tbody>
         <form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
         <INPUT type="hidden" name="batchupdate" value="1">
+        <?php
+            if ($HD_Form->FG_CSRF_STATUS == true) {
+        ?>
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+        <?php
+            }
+        ?>
         <tr>
           <td align="left" class="bgcolor_001" >
                   <input name="check[upd_inuse]" type="checkbox" <?php if ($check["upd_inuse"]=="on") echo "checked"?>>
@@ -476,10 +484,18 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 } // END if ($form_action == "list")
 ?>
 
-<?php  if ( !USE_REALTIME && isset($_SESSION["is_sip_iax_change"]) && $_SESSION["is_sip_iax_change"]) { ?>
+<?php  if (!USE_REALTIME && isset($_SESSION["is_sip_iax_change"]) && $_SESSION["is_sip_iax_change"]) { ?>
       <table width="<?php echo $HD_Form -> FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >
         <TR><TD style="border-bottom: medium dotted #ED2525" align="center"> <?php echo gettext("Changes detected on SIP/IAX Friends");?></TD></TR>
         <TR><FORM NAME="sipfriend">
+            <?php
+                if ($HD_Form->FG_CSRF_STATUS == true) {
+            ?>
+                <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+                <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+            <?php
+                }
+            ?>
             <td height="31" class="bgcolor_013" style="padding-left: 5px; padding-right: 3px;" align="center">
             <font color=white><b>
             <?php  if ( isset($_SESSION["is_sip_changed"]) && $_SESSION["is_sip_changed"] ) { ?>
