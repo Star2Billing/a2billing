@@ -2018,9 +2018,18 @@ class FormHandler
 	<?php  if (!empty($this->FG_TOP_FILTER_NAME)) echo "<font size=\"1\">$this->FG_TOP_FILTER_NAME</font><br>"; ?>
 
 	<!-- ** ** ** ** ** Part for the select form  ** ** ** ** ** -->
-	<FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
-	<INPUT TYPE="hidden" NAME="posted" value=1>
-	<INPUT TYPE="hidden" NAME="current_page" value=0>
+	<FORM METHOD="POST" ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
+	<INPUT TYPE="hidden" NAME="posted" value="1">
+	<INPUT TYPE="hidden" NAME="current_page" value="0">
+    <?php
+        if ($this->FG_CSRF_STATUS == true) {
+    ?>
+        <INPUT type="hidden" name="<?php echo $this->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $this->FG_FORM_UNIQID; ?>" />
+        <INPUT type="hidden" name="<?php echo $this->FG_CSRF_FIELD ?>" value="<?php echo $this->FG_CSRF_TOKEN; ?>" />
+    <?php
+        }
+    ?>
+
 		<table class="form_selectform" cellspacing="1">
 
 			<tr>
@@ -2082,9 +2091,18 @@ class FormHandler
 	  <!-- ** ** ** ** ** Part for the select form  ** ** ** ** ** -->
 
 		<table class="form_selectform" >
-			<FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
-				<INPUT TYPE="hidden" NAME="posted" value=1>
-				<INPUT TYPE="hidden" NAME="current_page" value=0>
+			<FORM METHOD="POST" ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
+				<INPUT TYPE="hidden" NAME="posted" value="1">
+				<INPUT TYPE="hidden" NAME="current_page" value="0">
+
+                <?php
+                    if ($this->FG_CSRF_STATUS == true) {
+                ?>
+                    <INPUT type="hidden" name="<?php echo $this->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $this->FG_FORM_UNIQID; ?>" />
+                    <INPUT type="hidden" name="<?php echo $this->FG_CSRF_FIELD ?>" value="<?php echo $this->FG_CSRF_TOKEN; ?>" />
+                <?php
+                    }
+                ?>
 
 			<tr>
 				<td align="left" valign="top" class="form_selectform_td1">

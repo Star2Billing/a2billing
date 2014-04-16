@@ -44,7 +44,7 @@ if (!has_rights (ACX_ACXSETTING)) {
     die();
 }
 
-$HD_Form -> setDBHandler (DbConnect());
+$HD_Form -> setDBHandler(DbConnect());
 $HD_Form -> init();
 
 if ($id!="" || !is_null($id)) {
@@ -72,17 +72,15 @@ if ($form_action == "list") {
 ?>
 <br>
 <script language="javascript">
-function go(URL)
-{
-    if ( Check() ) {
+function go(URL) {
+    if (Check()) {
         document.searchform.action = URL;
         alert(document.searchform.action);
         document.searchform.submit();
     }
 }
 
-function Check()
-{
+function Check() {
     if (document.searchform.filterradio[1].value == "payment") {
         if (document.searchform.paymenttext.value < 0) {
             alert("Payment amount cannot be less than Zero.");
@@ -91,13 +89,21 @@ function Check()
             return false;
         }
     }
-
     return true;
 }
 </script>
+
 <form name="searchform" id="searchform" method="post" action="A2B_entity_config.php">
     <input type="hidden" name="searchenabled" value="yes">
     <input type="hidden" name="posted" value="1">
+    <?php
+        if ($HD_Form->FG_CSRF_STATUS == true) {
+    ?>
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+    <?php
+        }
+    ?>
 
     <table class="bar-status" width="85%" border="0" cellspacing="1" cellpadding="2" align="center">
 

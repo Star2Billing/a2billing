@@ -234,6 +234,14 @@ $list_country = $instance_table_country->Get_list($HD_Form->DBHandle, $FG_TABLE_
 <?php } ?>
 <table align="center"  class="bgcolor_001" border="0" width="65%">
 <form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+<?php
+    if ($HD_Form->FG_CSRF_STATUS == true) {
+?>
+    <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+    <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+<?php
+    }
+?>
 <tr>
     <td align="left" width="100%">
     <strong>1)</strong> <?php echo gettext("Length of card number :");?>
