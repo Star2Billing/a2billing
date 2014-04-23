@@ -48,9 +48,8 @@ getpost_ifset(array (
 ));
 
 $DBHandle = DbConnect();
-echo $form_action;
-if ($form_action == "ask-modif") {
 
+if ($form_action == "ask-modif") {
     check_demo_mode();
 
     $table_old_pwd = new Table("cc_ui_authen", " login");
@@ -77,28 +76,23 @@ function CheckPassword()
     if (document.frmPass.NewPassword.value =='') {
         alert('<?php echo gettext("No value in New Password entered")?>');
         document.frmPass.NewPassword.focus();
-
         return false;
     }
     if (document.frmPass.CNewPassword.value =='') {
         alert('<?php echo gettext("No Value in Confirm New Password entered")?>');
         document.frmPass.CNewPassword.focus();
-
         return false;
     }
     if (document.frmPass.NewPassword.value.length < 5) {
         alert('<?php echo gettext("Password length should be greater than or equal to 5")?>');
         document.frmPass.NewPassword.focus();
-
         return false;
     }
     if (document.frmPass.CNewPassword.value != document.frmPass.NewPassword.value) {
         alert('<?php echo gettext("Value mismatch, New Password should be equal to Confirm New Password")?>');
         document.frmPass.NewPassword.focus();
-
         return false;
     }
-
     return true;
 }
 </script>

@@ -174,7 +174,7 @@ $message_types = Constants::getMsgTypeList();
 ?>
 
 <form action="<?php echo $PHP_SELF.'?id='.$id ?>" method="post" >
-     <input id="action" type="hidden" name="action" value="<?php echo $action;?>"/>
+    <input id="action" type="hidden" name="action" value="<?php echo $action;?>"/>
     <input id="id_msg" type="hidden" name="id_msg" value="<?php echo $id_msg;?>"/>
     <table class="epayment_conf_table">
         <tr>
@@ -223,7 +223,6 @@ if (!is_array($messages)) { ?>
 <?php
 foreach ($messages as $message) {
     ?>
-
     <div id="msg" class="<?php echo $message_types[$message['type']][2];?>" style="margin-top:0px;position:relative;<?php if($message['logo']==0)echo 'background-image:none;padding-left:10px;'; ?>" >
         <?php if ($message['order_display']>0) { ?>
             <img id="<?php echo $message['id']; ?>" onmouseover="this.style.cursor='pointer'" class="up" src="<?php echo Images_Path ?>/arrow_up.png"  border="0" style="position:absolute;right:60px;top:0;display:none"/>
@@ -249,7 +248,6 @@ $(function() {
 });
 
 $(document).ready(function () {
-
     $('.msg_info , .msg_success , .msg_warning , .msg_error').mouseover(function () {
         $(this).children(".up,.down,.delete,.edit").show();
          });

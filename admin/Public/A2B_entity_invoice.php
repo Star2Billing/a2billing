@@ -108,10 +108,10 @@ $smarty->display('footer.tpl');
 <script type="text/javascript">
 $(document).ready(function () {
     $('.lock').click(function () {
-            $.get("A2B_entity_invoice.php", { id: ""+ this.id, action: "lock" },
-                  function(data){
-                    location.reload(true);
-                  });
+        $.get("A2B_entity_invoice.php", { id: ""+ this.id, action: "lock" },
+            function(data){
+                location.reload(true);
             });
+        });
 });
 </script>

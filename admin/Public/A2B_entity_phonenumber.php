@@ -181,6 +181,14 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
         <tbody>
         <form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
         <INPUT type="hidden" name="batchupdate" value="1">
+        <?php
+            if ($HD_Form->FG_CSRF_STATUS == true) {
+        ?>
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+        <?php
+            }
+        ?>
         <tr>
           <td align="left"  class="bgcolor_001">
               <input name="check[upd_id_phonebook]" type="checkbox" <?php if ($check["upd_id_phonebook"]=="on") echo "checked"?> >

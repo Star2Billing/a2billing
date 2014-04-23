@@ -59,9 +59,8 @@ if ($action=="load") {
 if ($popup_select) {
 ?>
 <SCRIPT LANGUAGE="javascript">
-<!-- Begin
-function sendValue(selvalue)
-{
+<!--
+function sendValue(selvalue) {
     $.getJSON("A2B_entity_mailtemplate.php", { id: ""+ selvalue, action: "load" },
     function(data){
         window.opener.document.getElementById('msg_mail').value = data.messagetext;
@@ -70,8 +69,7 @@ function sendValue(selvalue)
         window.opener.document.getElementById('subject').value = data.subject;
         window.close();
     });
-}
-// End -->
+} -->
 </script>
 <?php
 }
@@ -103,18 +101,18 @@ if (isset($form_action) && $form_action=="list") {
                   <input type="hidden" name="popup_select" value="<?php echo $popup_select; ?>" />
           <?php } ?>
           <td align="left" width="75%">
-                    <?php
-                        $handle = DbConnect();
-                        $instance_table = new Table();
-                        $QUERY =  "SELECT code, name FROM cc_iso639 order by code";
-                        $result = $instance_table -> SQLExec ($handle, $QUERY);
-                        if (is_array($result)) {
-                            $num_cur = count($result);
-                            for ($i=0;$i<$num_cur;$i++) {
-                                $languages_list[$result[$i][0]] = array (0 => $result[$i][0], 1 => $result[$i][1]);
-                            }
+                <?php
+                    $handle = DbConnect();
+                    $instance_table = new Table();
+                    $QUERY =  "SELECT code, name FROM cc_iso639 order by code";
+                    $result = $instance_table -> SQLExec ($handle, $QUERY);
+                    if (is_array($result)) {
+                        $num_cur = count($result);
+                        for ($i=0;$i<$num_cur;$i++) {
+                            $languages_list[$result[$i][0]] = array (0 => $result[$i][0], 1 => $result[$i][1]);
                         }
-                    ?>
+                    }
+                ?>
                 <select NAME="languages" size="1" class="form_input_select" onChange="form.submit()">
                     <?php
                     foreach ($languages_list as $key => $lang_value) {
