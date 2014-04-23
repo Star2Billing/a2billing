@@ -150,17 +150,16 @@ $smarty->display('main.tpl');
 if ($popup_select) {
 ?>
 <SCRIPT LANGUAGE="javascript">
-<!-- Begin
+<!--
 function sendValue(selvalue, othervalue)
 {
-        window.opener.document.<?php echo $popup_formname ?>.<?php echo $popup_fieldname ?>.value = selvalue;
-        if (othervalue && window.opener.document.<?php echo $popup_formname ?>.accountcode) {
-                window.opener.document.<?php echo $popup_formname ?>.accountcode.value = othervalue;
-        }
-        window.close();
+    window.opener.document.<?php echo $popup_formname ?>.<?php echo $popup_fieldname ?>.value = selvalue;
+    if (othervalue && window.opener.document.<?php echo $popup_formname ?>.accountcode) {
+        window.opener.document.<?php echo $popup_formname ?>.accountcode.value = othervalue;
+    }
+    window.close();
 }
-
-// End -->
+-->
 </SCRIPT>
 <?php
 }
@@ -220,7 +219,7 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 <b>&nbsp;<?php echo $HD_Form -> FG_NB_RECORD ?> <?php echo gettext("cards selected!"); ?>&nbsp;<?php echo gettext("Use the options below to batch update the selected cards.");?></b>
        <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
         <tbody>
-        <form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+        <FORM name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
         <INPUT type="hidden" name="batchupdate" value="1">
         <?php
             if ($HD_Form->FG_CSRF_STATUS == true) {

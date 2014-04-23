@@ -66,56 +66,41 @@ echo $CC_help_import_did;
 
 <script language="JavaScript">
 <!--
-function sendtofield(form)
-{
+function sendtofield(form) {
     if (form.listemail.value.length < 5) {
         alert ('<?php echo addslashes(gettext("Insert emails on the Field!")); ?>');
         form.listemail.focus ();
-
         return (false);
     }
-
     document.forms["prefs"].elements["task"].value = "field";
     document.forms[0].submit();
 }
 
-function sendtoupload(form)
-{
+function sendtoupload(form) {
     if (form.the_file.value.length < 2) {
         alert ('<?php echo addslashes(gettext("Please, you must first select a file !")); ?>');
         form.the_file.focus ();
-
         return (false);
     }
-
     return true;
 }
 
-//-->
-</script>
-
-<script language="JavaScript" type="text/javascript">
-<!--
-function deselectHeaders()
-{
+function deselectHeaders() {
     document.prefs.unselected_search_sources[0].selected = false;
     document.prefs.selected_search_sources[0].selected = false;
 }
 
-function resetHidden()
-{
+function resetHidden() {
     var tmp = '';
     for (i = 1; i < document.prefs.selected_search_sources.length; i++) {
         tmp += document.prefs.selected_search_sources[i].value;
         if (i < document.prefs.selected_search_sources.length - 1)
             tmp += "\t";
     }
-
     document.prefs.search_sources.value = tmp;
 }
 
-function addSource()
-{
+function addSource() {
     for (i = 1; i < document.prefs.unselected_search_sources.length; i++) {
         if (document.prefs.unselected_search_sources[i].selected) {
             document.prefs.selected_search_sources[document.prefs.selected_search_sources.length] = new Option(document.prefs.unselected_search_sources[i].text, document.prefs.unselected_search_sources[i].value);
@@ -123,12 +108,10 @@ function addSource()
             i--;
         }
     }
-
     resetHidden();
 }
 
-function removeSource()
-{
+function removeSource() {
     for (i = 1; i < document.prefs.selected_search_sources.length; i++) {
         if (document.prefs.selected_search_sources[i].selected) {
             document.prefs.unselected_search_sources[document.prefs.unselected_search_sources.length] = new Option(document.prefs.selected_search_sources[i].text, document.prefs.selected_search_sources[i].value)
@@ -136,12 +119,10 @@ function removeSource()
             i--;
         }
     }
-
     resetHidden();
 }
 
-function moveSourceUp()
-{
+function moveSourceUp() {
     var sel = document.prefs.selected_search_sources.selectedIndex;
     //var sel = document.prefs["selected_search_sources[]"].selectedIndex;
 
@@ -174,12 +155,10 @@ function moveSourceUp()
 
         document.prefs.selected_search_sources.selectedIndex = sel - 1;
     }
-
     resetHidden();
 }
 
-function moveSourceDown()
-{
+function moveSourceDown() {
     var sel = document.prefs.selected_search_sources.selectedIndex;
 
     if (sel == -1 || document.prefs.selected_search_sources.length <= 2) return;

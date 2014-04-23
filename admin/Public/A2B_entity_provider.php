@@ -50,10 +50,12 @@ if ($id != "" || !is_null($id)) {
     $HD_Form->FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form->FG_EDITION_CLAUSE);
 }
 
-if (!isset ($form_action))
+if (!isset ($form_action)) {
     $form_action = "list"; //ask-add
-if (!isset ($action))
+}
+if (!isset ($action)) {
     $action = $form_action;
+}
 
 $list = $HD_Form->perform_action($form_action);
 
@@ -61,22 +63,22 @@ $list = $HD_Form->perform_action($form_action);
 $smarty->display('main.tpl');
 if ($popup_select) {
 ?>
-    <SCRIPT LANGUAGE="javascript">
-    <!-- Begin
-    function sendValue(selvalue)
-    {
-        window.opener.document.<?php echo $popup_formname ?>.<?php echo $popup_fieldname ?>.value = selvalue;
-        window.close();
-    }
-    // End -->
-    </script>
+<SCRIPT LANGUAGE="javascript">
+<!--
+function sendValue(selvalue) {
+    window.opener.document.<?php echo $popup_formname ?>.<?php echo $popup_fieldname ?>.value = selvalue;
+    window.close();
+}
+// -->
+</script>
 <?php
 
 }
 
 // #### HELP SECTION
-if (!$popup_select)
+if (!$popup_select) {
     echo $CC_help_provider;
+}
 
 echo $CALL_LABS;
 
@@ -88,5 +90,6 @@ echo "<br/>";
 $HD_Form->create_form($form_action, $list, $id = null);
 
 // #### FOOTER SECTION
-if (!$popup_select)
+if (!$popup_select) {
     $smarty->display('footer.tpl');
+}

@@ -227,23 +227,32 @@ $HD_Form -> create_search_form();
 ?>
 <center>
 <FORM name="frm_archive" id="frm_archive" method="post" action="A2B_call_archiving.php">
-<table class="bar-status" width="50%" border="0" cellspacing="1" cellpadding="2" align="center">
-            <tbody>
-            <tr>
-                <td width="30%" align="left" valign="top" class="bgcolor_004">
-                    <font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("ARCHIVING OPTIONS");?></font>
+    <?php
+        if ($HD_Form->FG_CSRF_STATUS == true) {
+    ?>
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+    <?php
+        }
+    ?>
+    <table class="bar-status" width="50%" border="0" cellspacing="1" cellpadding="2" align="center">
+        <tbody>
+        <tr>
+            <td width="30%" align="left" valign="top" class="bgcolor_004">
+                <font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("ARCHIVING OPTIONS");?></font>
+            </td>
+            <td width="70%" align="CENTER" class="bgcolor_005">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center"><tr>
+              <td class="fontstyle_searchoptions">
+            <select name="archiveselect" class="form_input_select" onchange="form.submit();">
+            <option value="" ><?php echo gettext("Customer Archiving");?></option>
+            <option value="" ><?php echo gettext("Calls Archiving");?></option>
+            </select>
                 </td>
-                <td width="70%" align="CENTER" class="bgcolor_005">
-                <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center"><tr>
-                  <td class="fontstyle_searchoptions">
-                <select name="archiveselect" class="form_input_select" onchange="form.submit();">
-                <option value="" ><?php echo gettext("Customer Archiving");?></option>
-                <option value="" ><?php echo gettext("Calls Archiving");?></option>
-                </select>
-                    </td>
-                </tr></table></td>
-            </tr>
-        </tbody></table>
+            </tr></table></td>
+        </tr>
+        </tbody>
+    </table>
 </FORM>
 </center>
 
