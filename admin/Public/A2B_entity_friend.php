@@ -197,12 +197,24 @@ if ($form_action=='list') {
     if (!USE_REALTIME) {
     ?>
           <table width="<?php echo $HD_Form -> FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >
-            <TR><TD  align="center"> <?php echo gettext("Link to Generate on SIP/IAX Friends")?> &nbsp;:&nbsp;
-            </TD></TR>
-            <TR><TD  align="center">
-            <b><?php echo gettext("Realtime not active, you have to use the conf file for your system"); ?></b>
-            </TD></TR>
-            <TR><FORM NAME="sipfriend">
+            <TR>
+                <TD  align="center"> <?php echo gettext("Link to Generate on SIP/IAX Friends")?> &nbsp;:&nbsp;</TD>
+            </TR>
+            <TR>
+                <TD  align="center">
+                <b><?php echo gettext("Realtime not active, you have to use the conf file for your system"); ?></b>
+                </TD>
+            </TR>
+            <TR>
+            <FORM NAME="sipfriend">
+                <?php
+                    if ($HD_Form->FG_CSRF_STATUS == true) {
+                ?>
+                    <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+                    <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+                <?php
+                    }
+                ?>
                 <td height="31" style="padding-left: 5px; padding-right: 3px;" align="center" >
                 <b>
                 SIP : <input class="form_input_button"  TYPE="button" VALUE=" <?php echo gettext("GENERATE ADDITIONAL_A2BILLING_SIP.CONF"); ?> "
@@ -229,22 +241,30 @@ if ($form_action=='list') {
 <div align="center">
 <table width="40%" border="0" align="center" cellpadding="0" cellspacing="1">
     <tr>
-      <td  class="bgcolor_021">
-      <table width="100%" border="0" cellspacing="1" cellpadding="0">
-          <form name="form1" method="post" action="">
-          <tr>
-            <td bgcolor="#FFFFFF" class="fontstyle_006" width="100%">&nbsp;<?php echo gettext("CONFIGURATION TYPE")?> </td>
-            <td bgcolor="#FFFFFF" class="fontstyle_006" align="center">
-               <select name="atmenu" id="col_configtype" onChange="window.document.form1.elements['PMChange'].value='Change';window.document.form1.submit();">
-                 <option value="iax" <?php if($atmenu == "iax")echo "selected"?>><?php echo gettext("IAX")?></option>
-                 <option value="sip" <?php if($atmenu == "sip")echo "selected"?>><?php echo gettext("SIP")?></option>
-               </select>
-              <input name="PMChange" type="hidden" id="PMChange">
+        <td  class="bgcolor_021">
+        <table width="100%" border="0" cellspacing="1" cellpadding="0">
+            <FORM name="form1" method="post" action="">
+            <?php
+              if ($HD_Form->FG_CSRF_STATUS == true) {
+            ?>
+                <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+                <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+            <?php
+                }
+            ?>
 
-            </td>
-          </tr>
-          </form>
-      </table></td>
+            <tr>
+                <td bgcolor="#FFFFFF" class="fontstyle_006" width="100%">&nbsp;<?php echo gettext("CONFIGURATION TYPE")?> </td>
+                <td bgcolor="#FFFFFF" class="fontstyle_006" align="center">
+                   <select name="atmenu" id="col_configtype" onChange="window.document.form1.elements['PMChange'].value='Change';window.document.form1.submit();">
+                     <option value="iax" <?php if($atmenu == "iax")echo "selected"?>><?php echo gettext("IAX")?></option>
+                     <option value="sip" <?php if($atmenu == "sip")echo "selected"?>><?php echo gettext("SIP")?></option>
+                   </select>
+                  <input name="PMChange" type="hidden" id="PMChange">
+                </td>
+            </tr>
+            </FORM>
+        </table></td>
     </tr>
 </table>
 </div>

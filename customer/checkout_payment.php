@@ -96,22 +96,18 @@ $payment_modules = new payment;
 
 ?>
 <script language="javascript">
-function checkamount()
-{
-     if (document.checkout_amount.amount == "") {
-        alert('Please enter some amount.');
 
+function checkamount() {
+    if (document.checkout_amount.amount == "") {
+        alert('Please enter some amount.');
         return false;
     }
-
     return true;
 }
-</script>
-<script language="javascript"><!--
+
 var selected;
 
-function selectRowEffect(object, buttonSelect)
-{
+function selectRowEffect(object, buttonSelect) {
     if (!selected) {
         if (document.getElementById) {
             selected = document.getElementById('defaultSelected');
@@ -123,7 +119,6 @@ function selectRowEffect(object, buttonSelect)
     if (selected) selected.className = 'moduleRow';
     object.className = 'moduleRowSelected';
     selected = object;
-
     // one button is not an array
     if (document.checkout_payment.payment[0]) {
         document.checkout_payment.payment[buttonSelect].checked=true;
@@ -132,13 +127,11 @@ function selectRowEffect(object, buttonSelect)
     }
 }
 
-function rowOverEffect(object)
-{
+function rowOverEffect(object) {
     if (object.className == 'moduleRow') object.className = 'moduleRowOver';
 }
 
-function rowOutEffect(object)
-{
+function rowOutEffect(object) {
     if (object.className == 'moduleRowOver') object.className = 'moduleRow';
 }
 //--></script>
@@ -155,11 +148,19 @@ function rowOutEffect(object)
 $form_action_url = tep_href_link("checkout_confirmation.php", '', 'SSL');
 echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="checkamount()"');
 ?>
+    <?php
+        if ($HD_Form->FG_CSRF_STATUS == true) {
+    ?>
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+    <?php
+        }
+    ?>
 
-    <input name="item_id" type=hidden value="<?php echo $item_id?>">
-    <input name="item_type" type=hidden value="<?php echo $item_type?>">
+    <input name="item_id" type="hidden" value="<?php echo $item_id?>">
+    <input name="item_type" type="hidden" value="<?php echo $item_type?>">
 
-    <table width="80%" cellspacing="0" cellpadding="2" align=center>
+    <table width="80%" cellspacing="0" cellpadding="2" align="center">
     <?php
     if (isset($payment_error) && is_object(${$payment_error}) && ($error = ${$payment_error}->get_error())) {
           write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR ".$error['title']." ".$error['error']);
@@ -344,15 +345,16 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
          <br/>
 
       <table class="infoBox" width="80%" cellspacing="0" cellpadding="2" align=center>
-          <tr height="20">
-          <td  align=left class="main"> <b>Continue Checkout Procedure</b><br>to confirm this order.
-
+        <tr height="20">
+          <td  align=left class="main">
+              <b>Continue Checkout Procedure</b><br>to confirm this order.
           </td>
           <td align=right halign=center >
-            <input type="image" src="<?php echo Images_Path;?>/button_continue.gif" alt="Continue" border="0" title="Continue">
-             &nbsp;</td>
-          </tr>
-         </table>
+              <input type="image" src="<?php echo Images_Path;?>/button_continue.gif" alt="Continue" border="0" title="Continue">
+              &nbsp;
+          </td>
+        </tr>
+      </table>
          <?php } ?>
      </form>
 
