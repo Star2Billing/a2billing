@@ -81,13 +81,17 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
     $instance_table_friend = new Table('cc_card');
     $instance_table_friend -> Update_table ($HD_Form -> DBHandle, $friend_param_update, "id='$id_cc_card'", $func_table = null);
 
-    if ( $form_action == "add_sip" )	$TABLE_BUDDY = 'cc_sip_buddies';
-    else 	$TABLE_BUDDY = 'cc_iax_buddies';
-
+    if ( $form_action == "add_sip" ) {
+        $TABLE_BUDDY = 'cc_sip_buddies';
+    } else {
+        $TABLE_BUDDY = 'cc_iax_buddies';
+    }
     $instance_table_friend = new Table($TABLE_BUDDY,'*');
     $list_friend = $instance_table_friend -> Get_list ($HD_Form -> DBHandle, "id_cc_card='$id_cc_card'", null, null, null, null);
 
-    if (is_array($list_friend) && count($list_friend)>0) { Header ("Location: ".$HD_Form->FG_GO_LINK_AFTER_ACTION); exit();}
+    if (is_array($list_friend) && count($list_friend)>0) {
+        Header ("Location: ".$HD_Form->FG_GO_LINK_AFTER_ACTION); exit();
+    }
 
     $form_action = "add";
 
@@ -119,15 +123,14 @@ if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
 if (!USE_REALTIME) {
-
     // CHECK THE ACTION AND SET THE IS_SIP_IAX_CHANGE IF WE ADD/EDIT/REMOVE A RECORD
     if ($form_action == "add" || $form_action == "edit" || $form_action == "delete") {
         $_SESSION["is_sip_iax_change"]=1;
         if ($atmenu=='sip') {
             $_SESSION["is_sip_changed"]=1;
-          } else {
-              $_SESSION["is_iax_changed"]=1;
-          }
+        } else {
+            $_SESSION["is_iax_changed"]=1;
+        }
     }
 }
 
@@ -141,9 +144,18 @@ if ($form_action=='list') {
     echo $CC_help_sipfriend_list;
 
     if ( isset($_SESSION["is_sip_iax_change"]) && $_SESSION["is_sip_iax_change"]) { ?>
-          <table width="<?php echo $HD_Form -> FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >
+        <table width="<?php echo $HD_Form -> FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >
             <TR><TD style="border-bottom: medium dotted #ED2525" align="center"> <?php echo gettext("Changes detected on SIP/IAX Friends")?></TD></TR>
-            <TR><FORM NAME="sipfriend">
+            <TR>
+                <FORM NAME="sipfriend">
+                <?php
+                    if ($HD_Form->FG_CSRF_STATUS == true) {
+                ?>
+                    <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+                    <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+                <?php
+                    }
+                ?>
                 <td height="31" style="padding-left: 5px; padding-right: 3px;" align="center" class="bgcolor_013">
                 <font color=white><b>
                 <?php  if ( isset($_SESSION["is_sip_changed"]) && $_SESSION["is_sip_changed"] ) { ?>
@@ -154,9 +166,10 @@ if ($form_action=='list') {
                 IAX : <input class="form_input_button"  TYPE="button" VALUE=" GENERATE ADDITIONAL_A2BILLING_IAX.CONF "
                 onClick="self.location.href='./CC_generate_friend_file.php?atmenu=iaxfriend';">
                 <?php } ?>
-                </b></font></td></FORM>
+                </b></font></td>
+                </FORM>
             </TR>
-           </table>
+        </table>
     <?php  } // endif is_sip_iax_change
 
 }else echo $CC_help_sipfriend_edit;
@@ -169,6 +182,14 @@ if ($form_action=='list') {
       <td  class="bgcolor_021">
       <table width="100%" border="0" cellspacing="1" cellpadding="0">
           <form name="form1" method="post" action="">
+          <?php
+            if ($HD_Form->FG_CSRF_STATUS == true) {
+          ?>
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+          <?php
+            }
+          ?>
           <tr>
             <td bgcolor="#FFFFFF" class="fontstyle_006" width="100%">&nbsp;<?php echo gettext("CONFIGURATION TYPE")?> </td>
             <td bgcolor="#FFFFFF" class="fontstyle_006" align="center">
@@ -185,6 +206,7 @@ if ($form_action=='list') {
     </tr>
 </table>
 </div>
+
 <?php
 }
 
