@@ -277,9 +277,17 @@ if ($form_action=='list') {
 
 <center>
 <b>&nbsp;<?php echo $HD_Form -> FG_NB_RECORD ?> <?php echo gettext("cards selected!"); ?>&nbsp;<?php echo gettext("Use the options below to batch update the selected cards.");?></b>
-       <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
-        <tbody>
-        <form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+    <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
+    <tbody>
+    <form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+        <?php
+            if ($HD_Form->FG_CSRF_STATUS == true) {
+        ?>
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+        <?php
+            }
+        ?>
         <INPUT type="hidden" name="batchupdate" value="1">
         <tr>
           <td align="left" class="bgcolor_001" >
@@ -309,10 +317,10 @@ if ($form_action=='list') {
                 <input class="form_input_button"  value=" <?php echo gettext("BATCH UPDATE VOIP SETTINGS");?>  " type="submit">
             </td>
         </tr>
-        </form>
-        </table>
-</center>
-    </div>
+    </form>
+    </table>
+  </center>
+  </div>
 </div>
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
 

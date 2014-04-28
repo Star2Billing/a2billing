@@ -39,7 +39,7 @@ getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate'
 'additional_block_charge', 'additional_block_charge_time', 'additional_grace','minimal_cost', 'idtariffgroup'));
 
 // put all the destination name to lowercase
-if ($_POST["destination"]){
+if ($_POST["destination"]) {
 	$_POST["destination"] = strtolower ($_POST["destination"]);
 }
 $HD_Form = new FormHandler("cc_callplan_lcr LEFT JOIN cc_agent_tariffgroup ON tariffgroup_id=cc_agent_tariffgroup.id_tariffgroup", "Rates");
