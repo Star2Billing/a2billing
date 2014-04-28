@@ -105,8 +105,9 @@ if (is_string($tariffgroup) && strlen(trim($tariffgroup)) > 0) {
 }
 
 if (($form_action == "list") && ($HD_Form->FG_FILTER_SEARCH_FORM) && ($_POST['posted_search'] == 1) && is_numeric($mytariffgroup_id)) {
-    if (!empty ($HD_Form->FG_TABLE_CLAUSE))
+    if (!empty ($HD_Form->FG_TABLE_CLAUSE)) {
         $HD_Form->FG_TABLE_CLAUSE .= ' AND ';
+    }
 
     $HD_Form->FG_TABLE_CLAUSE = "idtariffplan='$mytariff_id'";
 
@@ -132,19 +133,19 @@ if (!$popup_select) {
 }
 
 // DISPLAY THE UPDATE MESSAGE
-if (isset ($update_msg) && strlen($update_msg) > 0)
+if (isset ($update_msg) && strlen($update_msg) > 0) {
     echo $update_msg;
+}
 
 if ($popup_select) {
 ?>
 <SCRIPT LANGUAGE="javascript">
-<!-- Begin
-function sendValue(selvalue)
-{
+<!--
+function sendValue(selvalue) {
     window.opener.document.<?php echo $popup_formname ?>.<?php echo $popup_fieldname ?>.value = selvalue;
     window.close();
 }
-// End -->
+-->
 </script>
 <?php
 }

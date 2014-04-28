@@ -124,7 +124,7 @@ if ($nbcard>0 && $action=="generate" && $nb_error==0) {
         $instance_iax_table = new Table($FG_TABLE_IAX_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
     }
 
-    if ( (isset($sip)) ||  (isset($iax)) ) {
+    if (isset($sip) ||  isset($iax)) {
         $list_names = explode(",",$FG_QUERY_ADITION_SIP_IAX);
         $type = FRIEND_TYPE;
         $allow = FRIEND_ALLOW;
@@ -146,7 +146,7 @@ if ($nbcard>0 && $action=="generate" && $nb_error==0) {
     $field_insert_refill = " credit,card_id, description";
     $instance_refill_table = new Table("cc_logrefill", $field_insert_refill);
 
-    for ($k=0;$k<$nbcard;$k++) {
+    for ($k=0; $k<$nbcard; $k++) {
         $arr_card_alias = gen_card_with_alias("cc_card", 0, $cardnumberlenght_list);
         $cardnum = $arr_card_alias[0];
         $useralias = $arr_card_alias[1];
@@ -154,15 +154,16 @@ if ($nbcard>0 && $action=="generate" && $nb_error==0) {
         $passui_secret = MDP_NUMERIC(5).MDP_STRING(10).MDP_NUMERIC(5);
         $FG_ADITION_SECOND_ADD_VALUE  = "'$cardnum', '$useralias', '$addcredit', '$choose_tariff', 't', '$gen_id', '', '', '', '', '', '', '', '', $choose_simultaccess, '$choose_currency', $choose_typepaid, $creditlimit, $enableexpire, '$expirationdate', $expiredays, '$passui_secret', '$runservice', '$tag', '$id_group', '$discount', '$id_seria'";
 
-        if (DB_TYPE != "postgres") $FG_ADITION_SECOND_ADD_VALUE .= ",now() ";
-
+        if (DB_TYPE != "postgres") {
+            $FG_ADITION_SECOND_ADD_VALUE .= ",now() ";
+        }
         if (isset($sip)) $FG_ADITION_SECOND_ADD_VALUE .= ", 1";
         if (isset($iax)) $FG_ADITION_SECOND_ADD_VALUE .= ", 1";
 
         $id_cc_card = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null, $HD_Form -> FG_TABLE_ID);
         //create refill for each cards
 
-        if ($addcredit>0) {
+        if ($addcredit > 0) {
             $value_insert_refill = "'$addcredit', '$id_cc_card', '$description_refill' ";
             $instance_refill_table -> Add_table ($HD_Form -> DBHandle, $value_insert_refill, null, null);
         }
@@ -317,6 +318,14 @@ $list_group = $instance_table_group  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE
 <?php }?>
 <table align="center"  class="bgcolor_001" border="0" width="65%">
 <form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+<?php
+    if ($HD_Form->FG_CSRF_STATUS == true) {
+?>
+    <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+    <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+<?php
+    }
+?>
 <tr>
     <td align="left" width="100%">
     <strong>1)</strong> <?php echo gettext("Length of card number :");?>

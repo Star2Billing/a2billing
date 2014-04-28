@@ -197,12 +197,24 @@ if ($form_action=='list') {
     if (!USE_REALTIME) {
     ?>
           <table width="<?php echo $HD_Form -> FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >
-            <TR><TD  align="center"> <?php echo gettext("Link to Generate on SIP/IAX Friends")?> &nbsp;:&nbsp;
-            </TD></TR>
-            <TR><TD  align="center">
-            <b><?php echo gettext("Realtime not active, you have to use the conf file for your system"); ?></b>
-            </TD></TR>
-            <TR><FORM NAME="sipfriend">
+            <TR>
+                <TD  align="center"> <?php echo gettext("Link to Generate on SIP/IAX Friends")?> &nbsp;:&nbsp;</TD>
+            </TR>
+            <TR>
+                <TD  align="center">
+                <b><?php echo gettext("Realtime not active, you have to use the conf file for your system"); ?></b>
+                </TD>
+            </TR>
+            <TR>
+            <FORM NAME="sipfriend">
+                <?php
+                    if ($HD_Form->FG_CSRF_STATUS == true) {
+                ?>
+                    <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+                    <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+                <?php
+                    }
+                ?>
                 <td height="31" style="padding-left: 5px; padding-right: 3px;" align="center" >
                 <b>
                 SIP : <input class="form_input_button"  TYPE="button" VALUE=" <?php echo gettext("GENERATE ADDITIONAL_A2BILLING_SIP.CONF"); ?> "
@@ -229,22 +241,30 @@ if ($form_action=='list') {
 <div align="center">
 <table width="40%" border="0" align="center" cellpadding="0" cellspacing="1">
     <tr>
-      <td  class="bgcolor_021">
-      <table width="100%" border="0" cellspacing="1" cellpadding="0">
-          <form name="form1" method="post" action="">
-          <tr>
-            <td bgcolor="#FFFFFF" class="fontstyle_006" width="100%">&nbsp;<?php echo gettext("CONFIGURATION TYPE")?> </td>
-            <td bgcolor="#FFFFFF" class="fontstyle_006" align="center">
-               <select name="atmenu" id="col_configtype" onChange="window.document.form1.elements['PMChange'].value='Change';window.document.form1.submit();">
-                 <option value="iax" <?php if($atmenu == "iax")echo "selected"?>><?php echo gettext("IAX")?></option>
-                 <option value="sip" <?php if($atmenu == "sip")echo "selected"?>><?php echo gettext("SIP")?></option>
-               </select>
-              <input name="PMChange" type="hidden" id="PMChange">
+        <td  class="bgcolor_021">
+        <table width="100%" border="0" cellspacing="1" cellpadding="0">
+            <FORM name="form1" method="post" action="">
+            <?php
+              if ($HD_Form->FG_CSRF_STATUS == true) {
+            ?>
+                <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+                <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+            <?php
+                }
+            ?>
 
-            </td>
-          </tr>
-          </form>
-      </table></td>
+            <tr>
+                <td bgcolor="#FFFFFF" class="fontstyle_006" width="100%">&nbsp;<?php echo gettext("CONFIGURATION TYPE")?> </td>
+                <td bgcolor="#FFFFFF" class="fontstyle_006" align="center">
+                   <select name="atmenu" id="col_configtype" onChange="window.document.form1.elements['PMChange'].value='Change';window.document.form1.submit();">
+                     <option value="iax" <?php if($atmenu == "iax")echo "selected"?>><?php echo gettext("IAX")?></option>
+                     <option value="sip" <?php if($atmenu == "sip")echo "selected"?>><?php echo gettext("SIP")?></option>
+                   </select>
+                  <input name="PMChange" type="hidden" id="PMChange">
+                </td>
+            </tr>
+            </FORM>
+        </table></td>
     </tr>
 </table>
 </div>
@@ -257,9 +277,17 @@ if ($form_action=='list') {
 
 <center>
 <b>&nbsp;<?php echo $HD_Form -> FG_NB_RECORD ?> <?php echo gettext("cards selected!"); ?>&nbsp;<?php echo gettext("Use the options below to batch update the selected cards.");?></b>
-       <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
-        <tbody>
-        <form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+    <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
+    <tbody>
+    <form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+        <?php
+            if ($HD_Form->FG_CSRF_STATUS == true) {
+        ?>
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+        <?php
+            }
+        ?>
         <INPUT type="hidden" name="batchupdate" value="1">
         <tr>
           <td align="left" class="bgcolor_001" >
@@ -289,10 +317,10 @@ if ($form_action=='list') {
                 <input class="form_input_button"  value=" <?php echo gettext("BATCH UPDATE VOIP SETTINGS");?>  " type="submit">
             </td>
         </tr>
-        </form>
-        </table>
-</center>
-    </div>
+    </form>
+    </table>
+  </center>
+  </div>
 </div>
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
 
