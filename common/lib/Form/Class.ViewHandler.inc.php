@@ -37,15 +37,12 @@ if ((count($list)>0) && is_array($list)){
 ?>
 
 <script language="JavaScript" type="text/JavaScript">
-<!--
-function openURLFilter(theLINK)
-{
+function openURLFilter(theLINK) {
 	selInd = document.theFormFilter.choose_list.selectedIndex;
 	if(selInd==0){return false;}
 	goURL = document.theFormFilter.choose_list.options[selInd].value;
 	this.location.href = theLINK + goURL;
 }
-//-->
 </script>
 
 <img src="<?php echo Images_Path_Main;?>/clear.gif" width="1" height="1"/>
@@ -75,7 +72,8 @@ function openURLFilter(theLINK)
         </TR>
 	   <?php  } //END IF ?>
 	   <?php  IF ($this -> CV_DISPLAY_FILTER_ABOVE_TABLE){ ?>
-	   <TR><FORM NAME="theFormFilter">
+	   <TR>
+	   <FORM NAME="theFormFilter">
 	   		<input type="hidden" name="popup_select" value="<?php echo $processed['popup_select']?>">
 			<input type="hidden" name="popup_formname" value="<?php echo $processed['popup_formname']?>">
 			<input type="hidden" name="popup_fieldname" value="<?php echo $processed['popup_fieldname']?>">
@@ -83,18 +81,19 @@ function openURLFilter(theLINK)
             <TD class="tdstyle_002"><SPAN>
 				<SELECT name="choose_list" size="1" class="form_input_select" style="width: 185px;" onchange="openURLFilter('<?php echo $_SERVER['PHP_SELF'].$this->CV_FILTER_ABOVE_TABLE_PARAM?>')">
 
-					<OPTION><?php echo gettext("Sort");?></OPTION>
+				<OPTION><?php echo gettext("Sort");?></OPTION>
 
-					<?php
-						// TODO not sure for what should be used that, because exist already a filter.
-						if (!isset($list_site)) $list_site = $list;
-						foreach ($list_site as $recordset){
-					?>
-					<OPTION class=input value='<?php echo $recordset[0]?>'  <?php if ($recordset[0]==$site_id) echo "selected";?>><?php echo $recordset[1]?></OPTION>
-					<?php 	 }
-					?>
+				<?php
+					// TODO not sure for what should be used that, because exist already a filter.
+					if (!isset($list_site)) $list_site = $list;
+					foreach ($list_site as $recordset){
+				?>
+				<OPTION class=input value='<?php echo $recordset[0]?>'  <?php if ($recordset[0]==$site_id) echo "selected";?>><?php echo $recordset[1]?></OPTION>
+				<?php 	 }
+				?>
 				</SELECT>
-			  </SPAN></TD></FORM>
+			  </SPAN></TD>
+		</FORM>
         </TR>
 		<?php  } //END IF ?>
 

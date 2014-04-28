@@ -65,7 +65,6 @@ echo $CC_help_import_did;
 ?>
 
 <script language="JavaScript">
-<!--
 function sendtofield(form) {
     if (form.listemail.value.length < 5) {
         alert ('<?php echo addslashes(gettext("Insert emails on the Field!")); ?>');
@@ -202,44 +201,44 @@ function moveSourceDown() {
     resetHidden();
 }
 
-// -->
 </script>
 
 <center>
-        <b><?php echo gettext("New DID have to be imported from a CSV file.");?>.</b></br></br>
-        <table width="95%" border="0" cellspacing="2" align="center" class="records">
+<b><?php echo gettext("New DID have to be imported from a CSV file.");?>.</b></br></br>
+<table width="95%" border="0" cellspacing="2" align="center" class="records">
 
-              <form name="prefs" enctype="multipart/form-data" action="A2B_entity_did_import_analyse.php" method="post">
+    <form name="prefs" enctype="multipart/form-data" action="A2B_entity_did_import_analyse.php" method="post">
+    <tr>
+        <td colspan="2" align=center>
+        <?php echo gettext("Choose a DIDGroup to use");?> :
+        <select NAME="didgroup" size="1"  class="form_input_select"  style="width=250">
+            <option value=''><?php echo gettext("Choose a DIDGroup");?></option>
 
-                <tr>
-                  <td colspan="2" align=center>
-                  <?php echo gettext("Choose a DIDGroup to use");?> :
-                  <select NAME="didgroup" size="1"  class="form_input_select"  style="width=250">
-                                <option value=''><?php echo gettext("Choose a DIDGroup");?></option>
+            <?php
+            foreach ($list_tariffname as $recordset) {
+            ?>
+                <option class=input value='<?php  echo $recordset[0]?>-:-<?php  echo $recordset[1]?>' <?php if ($recordset[0]==$didgroup) echo "selected";?>><?php echo $recordset[1]?></option>
+            <?php
+            }
+            ?>
+        </select>
+        <br>
+        <br>
+        <?php echo gettext("Choose a Country to use");?> :
+        <select NAME="countryID" size="1" class="form_input_select" style="width=250">
+            <option value=''><?php echo gettext("Choose a Country");?></option>
 
-                                <?php
-                                 foreach ($list_tariffname as $recordset) {
-                                ?>
-                                    <option class=input value='<?php  echo $recordset[0]?>-:-<?php  echo $recordset[1]?>' <?php if ($recordset[0]==$didgroup) echo "selected";?>><?php echo $recordset[1]?></option>
-                                <?php 	 }
-                                ?>
-                        </select>
-                        <br>
-                        <br>
-                        <?php echo gettext("Choose a Country to use");?> :
-                        <select NAME="countryID" size="1" class="form_input_select" style="width=250">
-                                <option value=''><?php echo gettext("Choose a Country");?></option>
+            <?php
+            foreach ($list_countryname as $recordset) {
+            ?>
+                <option class=input value='<?php  echo $recordset[0]?>-:-<?php  echo $recordset[1]?>' <?php if ($recordset[0]== $countryID) echo "selected";?>><?php echo $recordset[1]?></option>
+            <?php
+                }
+            ?>
+        </select>
+        <br><br>
 
-                                <?php
-                                 foreach ($list_countryname as $recordset) {
-                                ?>
-                                    <option class=input value='<?php  echo $recordset[0]?>-:-<?php  echo $recordset[1]?>' <?php if ($recordset[0]== $countryID) echo "selected";?>><?php echo $recordset[1]?></option>
-                                <?php 	 }
-                                ?>
-                        </select>
-                        <br><br>
-
-                <?php echo gettext("These fields are mandatory");?><br>
+    <?php echo gettext("These fields are mandatory");?><br>
 
 <select  name="bydefault" multiple="multiple" size="2" class="form_input_select" width="40">
     <option value="bb1"><?php echo gettext("DID");?></option>
@@ -259,8 +258,6 @@ function moveSourceDown() {
                 <option value="startingdate"><?php echo gettext("startingdate");?></option>
                 <option value="expirationdate"><?php echo gettext("expirationdate");?></option>
                 <option value="billingtype"><?php echo gettext("billingtype");?></option>
-
-    down_black
             </select>
         </td>
 
@@ -281,46 +278,47 @@ function moveSourceDown() {
             <a href="" onclick="moveSourceDown(); return false;"><img src="<?php echo Images_Path;?>/down_black.png" alt="move down" title="move down" border="0"></a>
         </td>
     </tr>
-</tbody></table>
+</tbody>
+</table>
 
-                </td></tr>
+    </td></tr>
 
-                <tr>
-                  <td colspan="2">
-                    <div align="center"><span class="textcomment">
+    <tr>
+      <td colspan="2">
+        <div align="center"><span class="textcomment">
 
-                      <?php echo gettext("Use the example below  to format the CSV file. Fields are separated by [,] or [;]");?><br/>
-                      <?php echo gettext("(dot) . is used for decimal format.");?>
-                      <br/>
-                      <a href="importsamples.php?sample=did_Complex" target="superframe"><?php echo gettext("Complex Sample");?></a> -
-                      <a href="importsamples.php?sample=did_Simple" target="superframe"> <?php echo gettext("Simple Sample");?></a>
-                      </span></div>
+            <?php echo gettext("Use the example below  to format the CSV file. Fields are separated by [,] or [;]");?><br/>
+            <?php echo gettext("(dot) . is used for decimal format.");?>
+            <br/>
+            <a href="importsamples.php?sample=did_Complex" target="superframe"><?php echo gettext("Complex Sample");?></a> -
+            <a href="importsamples.php?sample=did_Simple" target="superframe"> <?php echo gettext("Simple Sample");?></a>
+            </span></div>
 
-                        <center>
-                            <iframe name="superframe" src="importsamples.php?sample=did_Simple" BGCOLOR=white	width=600 height=80 marginWidth=10 marginHeight=10  frameBorder=1  scrolling=yes>
+            <center>
+            <iframe name="superframe" src="importsamples.php?sample=did_Simple" BGCOLOR=white	width=600 height=80 marginWidth=10 marginHeight=10  frameBorder=1  scrolling=yes>
 
-                            </iframe>
-                        </center>
+            </iframe>
+            </center>
 
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="2">
-                    <p align="center"><span class="textcomment">
-                      <?php echo gettext("The maximum file size is ");?>
-                      <?php echo $my_max_file_size / 1024?>
-                      KB </span><br>
-                      <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $my_max_file_size?>">
-                      <input type="hidden" name="task" value="upload">
-                      <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
-                      <input type="submit"  value="Import DID" onFocus=this.select() class="form_input_button" name="submit1" onClick="return sendtoupload(this.form);">
+      </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+        <p align="center"><span class="textcomment">
+            <?php echo gettext("The maximum file size is ");?>
+            <?php echo $my_max_file_size / 1024?>
+            KB </span><br>
+            <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $my_max_file_size?>">
+            <input type="hidden" name="task" value="upload">
+            <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
+            <input type="submit"  value="Import DID" onFocus=this.select() class="form_input_button" name="submit1" onClick="return sendtoupload(this.form);">
 
-                       </p>
-                  </td>
-                </tr>
+            </p>
+      </td>
+    </tr>
 
-              </form>
-            </table>
+  </form>
+</table>
 </center>
 
 <?php

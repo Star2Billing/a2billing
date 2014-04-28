@@ -68,14 +68,11 @@ $smarty->display('main.tpl');
 if ($popup_select) {
 ?>
 <SCRIPT LANGUAGE="javascript">
-<!--
-function sendValue(selvalue)
-{
+function sendValue(selvalue) {
     window.opener.document.<?php echo $popup_formname ?>.<?php echo $popup_fieldname ?>.value = selvalue;
     window.opener.$("#selectagent").change();
     window.close();
 }
--->
 </script>
 <?php
 

@@ -236,13 +236,10 @@ if (isset ($update_msg) && strlen($update_msg) > 0)
 if ($popup_select && empty($package) && !is_numeric($package) ) {
 ?>
 <SCRIPT LANGUAGE="javascript">
-<!-- Begin
-function sendValue(selvalue)
-{
+function sendValue(selvalue) {
     window.opener.document.<?php echo $popup_formname ?>.<?php echo $popup_fieldname ?>.value = selvalue;
     window.close();
 }
-// End -->
 </script>
 <?php
 
@@ -252,13 +249,11 @@ if ($popup_select && is_numeric($package)) {
 $HD_Form-> CV_FOLLOWPARAMETERS .= "&package=".$package;
 ?>
 <SCRIPT LANGUAGE="javascript">
-<!-- Begin
 function sendValue(selvalue)
 {
      // redirect browser to the grabbed value (hopefully a URL)
     window.opener.location.href= <?php echo '"A2B_package_manage_rates.php?id='.$package.'&addrate="'; ?>+selvalue;
 }
-// End -->
 </script>
 <?php
 }

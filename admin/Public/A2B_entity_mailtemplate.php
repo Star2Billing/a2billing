@@ -59,7 +59,6 @@ if ($action=="load") {
 if ($popup_select) {
 ?>
 <SCRIPT LANGUAGE="javascript">
-<!--
 function sendValue(selvalue) {
     $.getJSON("A2B_entity_mailtemplate.php", { id: ""+ selvalue, action: "load" },
     function(data){
@@ -69,7 +68,7 @@ function sendValue(selvalue) {
         window.opener.document.getElementById('subject').value = data.subject;
         window.close();
     });
-} -->
+}
 </script>
 <?php
 }
