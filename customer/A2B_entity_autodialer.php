@@ -60,7 +60,6 @@ if (strlen($add_callerid)>0  && is_numeric($add_callerid)) {
 
         $QUERY = "INSERT INTO cc_callerid (id_cc_card, cid) VALUES ('".$_SESSION["card_id"]."', '".$add_callerid."')";
         $result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
-
     }
 }
 

@@ -193,6 +193,7 @@ function loadtmpl() {
 }
 </script>
 <script language="JavaScript" src="javascript/card.js"></script>
+
 <div class="toggle_hide2show">
 <?php
     if ($_REQUEST['id']==null) {
@@ -218,9 +219,17 @@ function loadtmpl() {
 ?>
 <FORM action="<?php echo $_SERVER['PHP_SELF']?>" method="post" name="mass_mail">
 <table class="editform_table1" cellspacing="2">
-<?php
-    if (isset($submit)) {
-?>
+    <?php
+        if ($HD_Form->FG_CSRF_STATUS == true) {
+    ?>
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+    <?php
+        }
+    ?>
+    <?php
+        if (isset($submit)) {
+    ?>
     <TR>
       <td align="center" colspan="2"><?php echo gettext("The e-mail has been sent to "); echo $total_customer; echo gettext(" customer(s)!")?></td>
     </TR>
@@ -229,10 +238,10 @@ function loadtmpl() {
       <td align="center" colspan="2"><br/><?php echo gettext("There is some error sending e-mail :");?>
 
       <div class="scroll">
-    <pre>
-      <?php echo $error_msg; ?>
-    </pre>
-</div>
+        <pre>
+          <?php echo $error_msg; ?>
+        </pre>
+      </div>
 
       </td>
     </tr>

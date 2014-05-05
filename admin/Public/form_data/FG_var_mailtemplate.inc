@@ -31,7 +31,7 @@
  *
 **/
 
-getpost_ifset(array('id', 'IDCust', 'mailtype', 'fromemail', 'fromname', 'subject', 'messagetext','languages','id_language'));
+getpost_ifset(array('id', 'IDCust', 'mailtype', 'fromemail', 'fromname', 'subject', 'messagetext', 'languages','id_language'));
 
 
 // Get Latest id from the table
