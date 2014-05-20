@@ -14,11 +14,9 @@ if ($form_action == "ask-delete") {
 ?>
 
 <script language="JavaScript" type="text/JavaScript">
-<!--
 function sendto(action, record, field_inst, instance){
   document.myForm.submit();
 }
-//-->
 </script>
 
 <?php

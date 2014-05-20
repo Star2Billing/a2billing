@@ -4,27 +4,22 @@ $processed = $this->getProcessed();
 
 <script language="JavaScript" src="./javascript/calonlydays.js"></script>
 <script language="JavaScript" type="text/JavaScript">
-<!--
+
 function MM_openBrWindow(theURL,winName,features) {
-  window.open(theURL,winName,features);
+    window.open(theURL,winName,features);
 }
 
-function sendto(action, record, field_inst, instance)
-{
-  //alert ("action:" + action);
-  document.myForm.form_action.value = action;
-  document.myForm.sub_action.value = record;
-  if (field_inst != null) document.myForm.elements[field_inst].value = instance;
-  document.myForm.submit();
+function sendto(action, record, field_inst, instance) {
+    document.myForm.form_action.value = action;
+    document.myForm.sub_action.value = record;
+    if (field_inst != null) document.myForm.elements[field_inst].value = instance;
+    document.myForm.submit();
 }
 
-function sendtolittle(direction)
-{
-  document.myForm.action=direction;
-  document.myForm.submit();
-
+function sendtolittle(direction) {
+    document.myForm.action=direction;
+    document.myForm.submit();
 }
-//-->
 </script>
 
 <FORM action=<?php echo $_SERVER['PHP_SELF']?> method=post name="myForm" id="myForm">

@@ -766,7 +766,7 @@ CREATE TABLE cc_sip_buddies (
 );
 
 
--- Empty password view for OpenSips
+-- Empty password view for OpenSips / Kamailio
 CREATE OR REPLACE VIEW cc_sip_buddies_empty AS
   SELECT id, id_cc_card, name, accountcode, regexten, amaflags, callgroup, callerid, canreinvite, context,
   DEFAULTip, dtmfmode, fromuser, fromdomain, host, insecure, language, mailbox, md5secret, nat, permit,

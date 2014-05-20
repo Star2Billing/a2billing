@@ -245,7 +245,7 @@ function cleanInput($input)
 /*
  * function sanitize_data
  */
-function sanitize_data($input)
+function sanitize_data($input, $strong=true)
 {
     if (is_array($input)) {
         foreach ($input as $var => $val) {
@@ -269,17 +269,22 @@ function sanitize_data($input)
         $input = str_ireplace('ROW_COUNT', '', $input);
         $input = str_ireplace('SELECT', '', $input);
         $input = str_ireplace('INSERT', '', $input);
+        $input = str_ireplace('CASE WHEN', '', $input);
+        $input = str_ireplace('INFORMATION_SCHEMA', '', $input);
         $input = str_ireplace('DROP', '', $input);
+        $input = str_ireplace('RLIKE', '', $input);
+        $input = str_ireplace(' IF', '', $input);
+        $input = str_ireplace(' OR ', '', $input);
+        $input = str_ireplace('\\', '', $input);
         //$input = str_ireplace('DELETE', '', $input);
         $input = str_ireplace('CONCAT', '', $input);
         $input = str_ireplace('WHERE', '', $input);
         $input = str_ireplace('UPDATE', '', $input);
+        $input = str_ireplace(' or 1', '', $input);
+        $input = str_ireplace(' or true', '', $input);
 
-        if (!(stripos($input, ' or 1') === FALSE)) {
-            return false;
-        }
-        if (!(stripos($input, ' or true') === FALSE)) {
-            return false;
+        if ($strong) {
+            $input = str_ireplace('=', '', $input);
         }
 
         if (get_magic_quotes_gpc()) {
@@ -307,38 +312,30 @@ function getpost_ifset($test_vars)
         if (isset ($_POST[$test_var])) {
             global $$test_var;
             $$test_var = $_POST[$test_var];
-            $$test_var = sanitize_data($$test_var);
-            if ($test_var == 'username' || $test_var == 'filterprefix') {
-                //rebuild the search parameter to filter character to format card number
-                $filtered_char = array (
-                    " ",
-                    "-",
-                    "_",
-                    "(",
-                    ")",
-                    "+"
-                );
-                $$test_var = str_replace($filtered_char, "", $$test_var);
 
-            }
         } elseif (isset ($_GET[$test_var])) {
             global $$test_var;
             $$test_var = $_GET[$test_var];
+        }
+        // doesnt seem to work - release sanitize for some field
+        if ($test_var == 'messagetext' || $test_var == 'messagetext') {
+            $$test_var = sanitize_data($$test_var, false);
+        } else {
             $$test_var = sanitize_data($$test_var);
+        }
+        //rebuild the search parameter to filter character to format card number
+        if ($test_var == 'username' || $test_var == 'filterprefix') {
             //rebuild the search parameter to filter character to format card number
-            if ($test_var == 'username' || $test_var == 'filterprefix') {
-                //rebuild the search parameter to filter character to format card number
-                $filtered_char = array (
-                    " ",
-                    "-",
-                    "_",
-                    "(",
-                    ")",
-                    "/",
-                    "\\"
-                );
-                $$test_var = str_replace($filtered_char, "", $$test_var);
-            }
+            $filtered_char = array (
+                " ",
+                "-",
+                "_",
+                "(",
+                ")",
+                "/",
+                "\\"
+            );
+            $$test_var = str_replace($filtered_char, "", $$test_var);
         }
     }
 }
