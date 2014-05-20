@@ -57,16 +57,17 @@ if ($batchupdate == 1 && is_array($check)) {
     $SQL_REFILL="";
     $HD_Form->prepare_list_subselection('list');
 
-    if (isset($check['upd_credit'])||(strlen(trim($upd_credit))>0)) {//set to refil
+    if (isset($check['upd_credit']) || (strlen(trim($upd_credit)) > 0)) {
+        //set to refill
         $SQL_REFILL_CREDIT="";
         $SQL_REFILL_WHERE="";
         if ($type["upd_credit"] == 1) {//equal
             $SQL_REFILL_CREDIT="($upd_credit -credit) ";
             $SQL_REFILL_WHERE=" AND $upd_credit<>credit ";//never write 0 refill
         } elseif ($type["upd_credit"] == 2) {//+-
-             $SQL_REFILL_CREDIT="($upd_credit) ";
+            $SQL_REFILL_CREDIT="($upd_credit) ";
         } else {
-             $SQL_REFILL_CREDIT="(-$upd_credit) ";
+            $SQL_REFILL_CREDIT="(-$upd_credit) ";
         }
         $SQL_REFILL="INSERT INTO cc_logrefill (credit,card_id,description,refill_type)
         SELECT $SQL_REFILL_CREDIT,a.id,'$upd_description','$upd_refill_type' from  ".$HD_Form->FG_TABLE_NAME."  as a ";
