@@ -173,6 +173,7 @@ if ($form_action=='list' && !($popup_select>=1)) {
     <div class="tohide" style="display:none;">
 
 <?php
+
 // #### CREATE SEARCH FORM
 if ($form_action == "list") {
     $HD_Form -> create_search_form();

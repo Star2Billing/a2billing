@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -46,7 +46,7 @@
  *          Rob Birkinshaw <robert.birkinshaw@utah.edu>
  */
 
-// add for a2billing 
+// add for a2billing
 include_once ("../lib/admin.defines.php");
 include_once ("../lib/admin.module.access.php");
 include_once ("../lib/regular_express.inc");
@@ -58,6 +58,9 @@ if (!has_rights(ACX_ACXSETTING)) {
 	Header("Location: PP_error.php?c=accessdenied");
 	die();
 }
+
+getpost_ifset(array('tryUpdate', 'themd5', 'updateSection', 'section_text'));
+
 
 check_demo_mode_intro();
 
@@ -159,14 +162,14 @@ if (isset ($_GET['file'])) // conf file requested via menu link
 			}
 
 		}
-		elseif ($_POST['tryUpdate']) // update button pushed from edit section page
+		elseif ($tryUpdate) // update button pushed from edit section page
 		{
 			// create HTML header and left menu
 			$page->OC_HTML_doHtmlHeader_a2billing($smarty);
 			$page->OC_HTML_doSideMenu($menuList);
 
 			// attempt to write the changes
-			$result = $conf->OC_writeConfSection($_POST['themd5'], $_POST['updateSection'], $_POST['section_text']);
+			$result = $conf->OC_writeConfSection($themd5, $updateSection, $section_text);
 
 			if (!$result) {
 				echo "Write failed!<br>";

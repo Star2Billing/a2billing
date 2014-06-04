@@ -729,7 +729,7 @@ class FormHandler
 		return $this->_processed;
 	}
 
-	function cleanInput($input)
+	function sanitize_tag($input)
 	{
 		$search = array(
 		    '@<script[^>]*?>.*?</script>@si',   // Strip out javascript

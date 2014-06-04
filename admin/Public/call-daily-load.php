@@ -166,7 +166,7 @@ if (strpos($SQLcmd, 'WHERE') > 0) {
     $FG_TABLE_CLAUSE = substr($date_clause,5);
 }
 
-if ($_POST['posted']==1) {
+if ($posted==1) {
     $list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
 
     $instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);

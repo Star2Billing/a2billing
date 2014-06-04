@@ -226,9 +226,9 @@ function write_log($logfile, $output)
 }
 
 /*
- * function cleanInput
+ * function sanitize_tag
  */
-function cleanInput($input)
+function sanitize_tag($input)
 {
     $search = array (
         '@<script[^>]*?>.*?</script>@si', // Strip out javascript
@@ -245,17 +245,18 @@ function cleanInput($input)
 /*
  * function sanitize_data
  */
-function sanitize_data($input, $strong=true)
+function sanitize_data($input)
 {
     if (is_array($input)) {
+        // Sanitize Array
         foreach ($input as $var => $val) {
             $output[$var] = sanitize_data($val);
         }
     } else {
-
         // Remove whitespaces (not a must though)
         $input = trim($input);
         $input = str_replace('--', '', $input);
+        $input = str_replace('..', '', $input);
         $input = str_replace(';', '', $input);
         $input = str_replace('/*', '', $input);
 
@@ -282,20 +283,30 @@ function sanitize_data($input, $strong=true)
         $input = str_ireplace('UPDATE', '', $input);
         $input = str_ireplace(' or 1', '', $input);
         $input = str_ireplace(' or true', '', $input);
-
-        if ($strong) {
-            $input = str_ireplace('=', '', $input);
-        }
+        $input = str_ireplace('=', '', $input);
 
         if (get_magic_quotes_gpc()) {
             $input = stripslashes($input);
         }
-        $input = cleanInput($input);
+        $input = sanitize_tag($input);
 
         $output = addslashes($input);
     }
-
     return $output;
+}
+
+/*
+ * Sanitize all Post Get variables
+ */
+function sanitize_post_get() {
+    foreach ($_POST as $key => $value) {
+        $value = filter_var($value, FILTER_CALLBACK, array("options"=>"sanitize_data"));
+        $_POST[$key] = $value;
+    }
+    foreach ($_GET as $key => $value) {
+        $value = filter_var($value, FILTER_CALLBACK, array("options"=>"sanitize_data"));
+        $_GET[$key] = $value;
+    }
 }
 
 /*
@@ -317,12 +328,7 @@ function getpost_ifset($test_vars)
             global $$test_var;
             $$test_var = $_GET[$test_var];
         }
-        // doesnt seem to work - release sanitize for some field
-        if ($test_var == 'messagetext' || $test_var == 'messagetext') {
-            $$test_var = sanitize_data($$test_var, false);
-        } else {
-            $$test_var = sanitize_data($$test_var);
-        }
+        $$test_var = sanitize_data($$test_var);
         //rebuild the search parameter to filter character to format card number
         if ($test_var == 'username' || $test_var == 'filterprefix') {
             //rebuild the search parameter to filter character to format card number

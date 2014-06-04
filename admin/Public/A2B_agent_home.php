@@ -62,7 +62,7 @@ if (!empty($action)) {
                 $count = $result[0][0];
                 $fields="id_agent,type,message,order_display,logo";
                 if(empty($logo))$logo=0;
-                $values="$id,$type,'".addslashes($_POST['message'])."',$count,$logo";
+                $values="$id,$type,$message,$count,$logo";
                 $return=$instance_table->Add_table($DBHandle, $values, $fields);
                 if($return)$result_param ="success";
                 else $result_param ="faild";
@@ -93,7 +93,7 @@ if (!empty($action)) {
                 $clause = "id = $id_msg";
                 $instance_table = new Table("cc_message_agent","*");
                 if(empty($logo))$logo=0;
-                $values="type = $type, message ='".addslashes($_POST['message'])."',logo = $logo";
+                $values="type = $type, message = '$message',logo = $logo";
                 $return=$instance_table -> Update_table($DBHandle, $values, $clause);
                 if($return)$result_param ="success";
                 else $result_param ="faild";
