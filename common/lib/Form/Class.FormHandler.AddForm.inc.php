@@ -6,7 +6,7 @@ $processed = $this->getProcessed();
 
 <script language="JavaScript" src="./javascript/calonlydays.js"></script>
 
-    <FORM action=<?php echo $_SERVER['PHP_SELF']; ?> id="myForm" method="post" name="myForm">
+    <FORM action=<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL); ?> id="myForm" method="post" name="myForm">
 
     <TABLE cellspacing="2" class="addform_table1">
         <INPUT type="hidden" name="form_action" value="add">

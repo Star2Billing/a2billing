@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -91,10 +91,10 @@ $HD_Form -> AddEditElement (gettext("CITY"),
 
 $HD_Form -> AddEditElement (gettext("STATE/PROVINCE"),
 			   "state",
-			   '$value',	
-			   "INPUT",	
-			   "size=30 maxlength=40",	
-			   "11",	
+			   '$value',
+			   "INPUT",
+			   "size=30 maxlength=40",
+			   "11",
 			   gettext("Insert the state"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
@@ -111,10 +111,10 @@ $HD_Form -> AddEditElement (gettext("COUNTRY"),
 
 
 $HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
-			   "zipcode",			
+			   "zipcode",
 			   '$value',
-			   "INPUT",	
-			   "size=30 maxlength=20",	
+			   "INPUT",
+			   "size=30 maxlength=20",
 			   "0",
 			   gettext("Insert the zipcode"),
 			   "" , "", "",	"", "", "" , "NO", "");
@@ -128,23 +128,23 @@ $HD_Form -> AddEditElement (gettext("TIMEZONE"),
 			   "cc_timezone",
 			   "gmtzone, id",
 			   "", "", "%1", "", "", "", "" );
-			   
+
 $HD_Form -> AddEditElement (gettext("PHONE NUMBER"),
-			   "phone",			
-			   '$value',	
-			   "INPUT",	
-			   "size=30 maxlength=20",	
-			   "7",	
+			   "phone",
+			   '$value',
+			   "INPUT",
+			   "size=30 maxlength=20",
+			   "7",
 			   gettext("Insert the phone number of the customers"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
 
 $HD_Form -> AddEditElement (gettext("FAX NUMBER"),
-			   "fax",			
-			   '$value',	
-			   "INPUT",	
+			   "fax",
+			   '$value',
+			   "INPUT",
 			   "size=30 maxlength=20",
-			   "",	
+			   "",
 			   gettext("Insert the fax number of the customers"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
@@ -171,7 +171,7 @@ $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily update your informat
 $HD_Form -> FG_INTRO_TEXT_ADITION = '';
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your record has been updated.")."<br>";
 
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?message=success";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?message=success";
 
 
 

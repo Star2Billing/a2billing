@@ -480,9 +480,9 @@ function GenImgName()
     elseif( $supported & IMG_GIF ) $img_format="gif";
     elseif( $supported & IMG_JPG ) $img_format="jpeg";
 
-    if( !isset($_SERVER['PHP_SELF']) )
+    if( !isset(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)) )
     JpGraphError::Raise(" Can't access PHP_SELF, PHP global variable. You can't run PHP from command line if you want to use the 'auto' naming of cache or image files.");
-    $fname = basename($_SERVER['PHP_SELF']);
+    $fname = basename(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL));
     if ( !empty($_SERVER['QUERY_STRING']) ) {
     $q = @$_SERVER['QUERY_STRING'];
     $fname .= '?'.preg_replace("/\W/", "_", $q).'.'.$img_format;
@@ -1371,7 +1371,7 @@ class Graph
     global $_SERVER;
 
     if( $aCacheName=='auto' )
-        $aCacheName=basename($_SERVER['PHP_SELF']);
+        $aCacheName=basename(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL));
 
     $this->csimcachename = CSIMCACHE_DIR.$aCacheName;
     $this->csimcachetimeout = $aTimeOut;

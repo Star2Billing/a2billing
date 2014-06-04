@@ -95,7 +95,7 @@ if (isset($form_action) && $form_action=="list") {
 ?>
 <table align="center" class="bgcolor_001" border="0" width="30%">
     <tr>
-        <form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+        <form name="theForm" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) ?>">
           <?php if ($popup_select) { ?>
                   <input type="hidden" name="popup_select" value="<?php echo $popup_select; ?>" />
           <?php } ?>

@@ -219,7 +219,7 @@ function removeSource()
 <br/>
 <div align="center">
         <table width="95%" border="0" cellspacing="2" align="center" class="editform_table1">
-              <form name="prefs" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+              <form name="prefs" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>" method="post">
                 <?php
                     if ($HD_Form->FG_CSRF_STATUS == true) {
                 ?>

@@ -8,7 +8,7 @@ if ($this->FG_FILTER_SEARCH_FORM) {
     <center>
         <b><?php echo $this -> FG_FILTER_SEARCH_TOP_TEXT?></b>
         <table class="searchhandler_table1">
-        <FORM METHOD="POST" ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=<?php echo $processed['s']?>&t=<?php echo $processed['t']?>&order=<?php echo $processed['order']?>&sens=<?php echo $processed['sens']?>&current_page=<?php echo $processed['current_page']?>">
+        <FORM METHOD="POST" ACTION="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>?s=<?php echo $processed['s']?>&t=<?php echo $processed['t']?>&order=<?php echo $processed['order']?>&sens=<?php echo $processed['sens']?>&current_page=<?php echo $processed['current_page']?>">
         <INPUT TYPE="hidden" NAME="posted_search" value="1">
         <INPUT TYPE="hidden" NAME="current_page" value="0">
         <?php
@@ -295,9 +295,9 @@ if ($this->FG_FILTER_SEARCH_FORM) {
                 <td class="bgcolor_005" align="center">
                     <input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main;?>/button-search.gif" />
                     <?php if (isset($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]) && strlen($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME])>10 ) { ?>
-                        - <a href="<?php echo $_SERVER['PHP_SELF']?>?cancelsearch=true"><font color="red"><b><img src="<?php echo KICON_PATH; ?>/button_cancel.gif" height="16"> Cancel Search</b></font></a>&nbsp;
+                        - <a href="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>?cancelsearch=true"><font color="red"><b><img src="<?php echo KICON_PATH; ?>/button_cancel.gif" height="16"> Cancel Search</b></font></a>&nbsp;
                         <?php if ($this -> FG_FILTER_SEARCH_DELETE_ALL) { ?>
-                            - <a href="<?php echo $_SERVER['PHP_SELF']?>?deleteselected=true" onclick="return confirm('<?php echo "Are you sure to delete ".$this -> FG_NB_RECORD." selected records?";?>');"><font color="red"><b>Delete All</b></font></a>
+                            - <a href="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>?deleteselected=true" onclick="return confirm('<?php echo "Are you sure to delete ".$this -> FG_NB_RECORD." selected records?";?>');"><font color="red"><b>Delete All</b></font></a>
                         <?php } ?>
                     <?php } ?>
                   </td>
@@ -322,7 +322,7 @@ if ($this->FG_FILTER_SEARCH_FORM) {
 <b><?php echo gettext("There is");?>&nbsp;<?php echo $nb_record ?>&nbsp;<?php echo gettext("selected, use the option below if you are willing to make a batch updated of the selected cards.");?></b>
        <table cellspacing="1"  class="searchhandler_table4">
         <tbody>
-        <form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+        <form name="updateForm" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>" method="post">
         <INPUT type="hidden" name="batchupdate" value="1">
 
         <tr>

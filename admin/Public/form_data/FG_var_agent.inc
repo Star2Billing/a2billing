@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,14 +27,14 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
 
-getpost_ifset(array('id', 'login', 'passwd', 'active', 'location', 'id_tariffgroup', 'options', 'credit', 
-'currency', 'locale', 'commission', 'vat', 'banner', 'language', 'perms', 'lastname', 'firstname', 'address', 'city', 'state', 
+getpost_ifset(array('id', 'login', 'passwd', 'active', 'location', 'id_tariffgroup', 'options', 'credit',
+'currency', 'locale', 'commission', 'vat', 'banner', 'language', 'perms', 'lastname', 'firstname', 'address', 'city', 'state',
 'country', 'zipcode', 'phone', 'email', 'fax'));
 
 
@@ -100,7 +100,7 @@ if ($popup_select) {
 	$HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "14%", "center", "sort");
 	$HD_Form -> AddViewElement("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
 	$HD_Form -> AddViewElement(gettext("ACTIVE"), "active", "3%", "center", "sort", "", "list", $yesno);
-	
+
 	$HD_Form -> FieldViewElement ('id, login, passwd, lastname, currency, active');
 } else {
 	$HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
@@ -113,7 +113,7 @@ if ($popup_select) {
 	$HD_Form -> AddViewElement(gettext("COMMISSION"), "com_balance", "7%", "center", "sort");
 	$HD_Form -> AddViewElement("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
 	$HD_Form -> AddViewElement(gettext("ACTIVE"), "active", "5%", "center", "sort", "", "list", $yesno);
-	
+
 	$HD_Form -> FieldViewElement ('id, datecreation, login, passwd, firstname, lastname, credit, com_balance, currency, active');
 }
 
@@ -136,19 +136,19 @@ if ($popup_select) {
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
 	elseif ($popup_select == 2)
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col0|');";
-	
+
 } else {
 	$HD_Form -> FG_INFO = true;
 	$HD_Form -> FG_INFO_LINK = "A2B_agent_info.php?id=";
 }
 
 if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
-	
+
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_ADDITION = true;
 	$HD_Form -> FG_DELETION = true;
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("LOGIN"),
 			"login",
 			'$value',
@@ -157,7 +157,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 			"3",
 			gettext("Insert the login"),
 			"" , "", "", "", "" , "", "", "");
-	
+
 	$HD_Form -> AddEditElement (gettext("PASSWORD"),
 			"passwd",
 			'$value',
@@ -166,7 +166,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 			"3",
 			gettext("Insert the password"),
 			"" , "", "", "", "", "", "", "");
-	
+
 	$HD_Form -> AddEditElement (gettext("PERMISSION"),
 			"perms",
 			'$value',
@@ -175,7 +175,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 			"", "",
 			"list", "", "description, id", "", $right_list, "%1" , "",
 			gettext("To select several rights in the above ListBox, hold the CTRL key down while clicking the items") );
-			
+
 	$HD_Form -> AddEditElement (gettext("ACTIVE"),
 		   "active",
 		   '1',
@@ -184,14 +184,14 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 		   "",
 		   gettext("Choose if you want to active the agent"),
 		   "" , "", "" , "Yes :1, - No:0",  "", "" , "", gettext("Enable agent"));
-	
+
 	if ($form_action =="ask-add" || $form_action=="add") {
 		$balance_access = "value = '0'";
 		$default_label_value = "0";
 	} else {
 		$balance_access = 'readonly';
 	}
-		   
+
 	$HD_Form -> AddEditElement (gettext("BALANCE"),
 		   "credit",
 		   "",
@@ -209,14 +209,14 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 		   "",
 		   gettext("amount of commission"),
 		   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
-	
+
 	$HD_Form -> AddEditElement (gettext("CURRENCY"),
 		   "currency",
 		   "",
 		   "SELECT",
 		   "",
 		   "", "", "list" , "", "",	"", $currency_list, "%1", "", gettext("Currency used at the customer end.") );
-	
+
 	$HD_Form -> AddEditElement (gettext("COMMISSION PERCENTAGE"),
 		   "commission",
 		   "",
@@ -234,7 +234,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 		   "12",
 		   gettext("treshold remittance"),
 		   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
-	
+
 	$HD_Form -> AddEditElement (gettext("VAT"),
 		   "vat",
 		   "",
@@ -243,7 +243,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 		   "12",
 		   gettext("Insert the VAT"),
 		   "" , "", "",	"", "", "", "NO-NULL", gettext("VAT"));
-	
+
 	$HD_Form -> AddEditElement (gettext("LANGUAGE"),
 		   "language",
 		   "",
@@ -252,7 +252,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 		   "",
 		   "",
 		   "list" , "", "",	"", $language_list, "%1", "", "" );
-	
+
 	$HD_Form -> AddEditElement (gettext("COMPANY"),
 			"company",
 			'$value',
@@ -261,7 +261,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 			"",
 			gettext("Insert the company"),
 			"" , "", "", "", "", "", "", "");
-	
+
 	$HD_Form -> AddEditElement (gettext("LAST NAME"),
 			"lastname",
 			'$value',
@@ -270,7 +270,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 			"",
 			gettext("Insert the lastname"),
 			"" , "", "", "", "", "", "", "");
-	
+
 	$HD_Form -> AddEditElement (gettext("FIRST NAME"),
 			"firstname",
 			'$value',
@@ -279,7 +279,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 			"",
 			gettext("Insert the firstname"),
 			"" , "", "", "", "", "", "", "");
-	
+
 	$HD_Form -> AddEditElement (gettext("ADDRESS"),
 			"address",
 			'$value',
@@ -288,7 +288,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 			"",
 			gettext("Insert the address"),
 			"" , "", "", "", "", "", "", "");
-	
+
 	$HD_Form -> AddEditElement (gettext("CITY"),
 			"city",
 			'$value',
@@ -297,7 +297,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 			"",
 			gettext("Insert the city"),
 			"" , "", "", "", "", "", "", "");
-			
+
 	$HD_Form -> AddEditElement (gettext("STATE"),
 			"state",
 			'$value',
@@ -306,7 +306,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 			"",
 			gettext("Insert the state"),
 			"" , "", "", "", "", "", "", "");
-	
+
 	$HD_Form -> AddEditElement (gettext("COUNTRY"),
 			"country",
 			'$value',
@@ -315,7 +315,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 			"",
 			gettext("Insert the country"),
 			"" , "", "", "", "", "", "", "");
-	
+
 	$HD_Form -> AddEditElement (gettext("ZIPCODE"),
 			"zipcode",
 			'$value',
@@ -324,7 +324,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 			"",
 			gettext("Insert the zip code"),
 			"" , "", "", "", "", "", "", "");
-	
+
 	$HD_Form -> AddEditElement (gettext("EMAIL"),
 			"email",
 			'$value',
@@ -333,7 +333,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 			"1",
 			gettext("Insert the email"),
 			"" , "", "", "", "" , "", "NO", "");
-	
+
 	$HD_Form -> AddEditElement (gettext("PHONE"),
 			"phone",
 			'$value',
@@ -342,7 +342,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 			"",
 			gettext("Insert the telephone number"),
 			"" , "", "", "", "" , "", "", "");
-	
+
 	$HD_Form -> AddEditElement (gettext("FAX"),
 			"fax",
 			'$value',
@@ -351,7 +351,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 			"",
 			gettext("Insert the fax number"),
 			"" , "", "", "", "" , "", "", "");
-			
+
 	$HD_Form -> AddEditElement (gettext("BANK INFO"),
 					"bank_info",
 					'',
@@ -359,53 +359,53 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 					"cols=50 rows=4",
 					"",
 					gettext("Insert the bank info of this agent"),
-					"" , "", "", "", "" , "", "", "");		
-		
-		
+					"" , "", "", "", "" , "", "", "");
+
+
 	$DBHandle_max  = DbConnect();
 	$numrow = 0;
 	$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_tariffgroup");
 	if ( $resmax )
 		$numrow = $resmax -> RecordCount();
 
-	if ($numrow > 0) { 
+	if ($numrow > 0) {
 		$HD_Form -> AddEditElement (gettext("CALL PLAN USABLE"),
-			"tariffgroup",	
-			'$value',	
-			"SELECT",		
+			"tariffgroup",
+			'$value',
+			"SELECT",
 			'size="10" multiple="multiple"',
-			"",		
-			"",	
-			"sql",		
-			"cc_agent_tariffgroup",	
-			"label, id",		
+			"",
+			"",
+			"sql",
+			"cc_agent_tariffgroup",
+			"label, id",
 			"", "", "%1 : (%2)", "", "", "cc_agent_tariffgroup:id_tariffgroup:cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_tariffgroup.id=cc_agent_tariffgroup.id_tariffgroup:DISTINCT cc_tariffgroup.tariffgroupname, cc_tariffgroup.id: cc_agent_tariffgroup.id_agent = %id:id_agent:%2 - (%1)::::%1:id='%1'");
 	}
-	
-		
+
+
     $FG_QUERY_EDITION = 'login, passwd, perms, active, credit,com_balance, currency, commission,threshold_remittance, vat, language, company, lastname, firstname, address, city, state, country, zipcode, email, phone,  fax,bank_info';
     $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
-	
+
 	$HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
-	
+
 	$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'creation_agent_refill';
-	
+
 	$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the")." ".$HD_Form->FG_INSTANCE_NAME;
 	$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
 	$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
-	
-	
+
+
 	$HD_Form -> FG_INTRO_TEXT_ADITION = '';
 	$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
-	
-	
+
+
 	$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 	$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
-	
-	
-	$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-	$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-	$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-	
-	
-}	
+
+
+	$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
+	$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
+	$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
+
+
+}

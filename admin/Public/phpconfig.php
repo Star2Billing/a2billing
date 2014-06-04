@@ -129,7 +129,7 @@ if (isset ($_GET['file'])) // conf file requested via menu link
 
 		// side menu population of file sections
 		foreach ($conf->_OC_the_sections as $record) {
-			$menuList[$record[0]] = $_SERVER['PHP_SELF'] . "?file=" . $_GET['file'] . "&section_conf=$record[0]";
+			$menuList[$record[0]] = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) . "?file=" . $_GET['file'] . "&section_conf=$record[0]";
 		}
 
 		if ($_GET['section_conf']) // sidemenu link was clicked (edit section)
@@ -236,7 +236,7 @@ elseif (isset ($_GET['reset'])) // top menu "re-read conf" pushed
 
 	if ($files) {
 		foreach ($files as $file) {
-			$menuList[$file] = $_SERVER['PHP_SELF'] . "?file=$file&section_conf=$file";
+			$menuList[$file] = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) . "?file=$file&section_conf=$file";
 			// HTML output
 			$page->OC_HTML_setMenuList($menuList);
 		}

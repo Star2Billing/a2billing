@@ -3,6 +3,9 @@
 function array_map_recursive( $func, $arr )
 {
     $newArr = array();
+    if (!$arr) {
+        return $newArr;
+    }
     foreach ($arr as $key => $value) {
         $newArr[ $key ] = ( is_array( $value ) ? array_map_recursive( $func, $value ) : $func( $value ) );
     }

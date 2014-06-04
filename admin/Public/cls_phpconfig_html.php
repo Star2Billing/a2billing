@@ -577,7 +577,7 @@ var $_OC_HTML_colspan = "3";
 //////////////////////////////////////////////////////////
     public function OC_HTML_doConfigurationForm($file,$section,$theItems,$md5)
     {
-    $action = $_SERVER['PHP_SELF']."?file=$file";
+    $action = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?file=$file";
         ?>
 
             <form  name="section_form" method="post" action="<?php echo $action ?>">

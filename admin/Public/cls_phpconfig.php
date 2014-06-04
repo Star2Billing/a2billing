@@ -97,7 +97,7 @@ class Open_Conf
         // build directory name => link menu list
         foreach ($newvalue as $item)
         {
-            $this->_OC_conf_dirs[$item] = $_SERVER['PHP_SELF'] . '?dir=' . $item;
+            $this->_OC_conf_dirs[$item] = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) . '?dir=' . $item;
         }
     }
 
@@ -120,7 +120,7 @@ class Open_Conf
 		{
 			exit();
 		}
-            
+
         $this->OC_setConfFile($this->_OC_conf_dir . '/' . basename($confFile));
 
         $this->_OC_the_file = array();
@@ -435,7 +435,7 @@ class Open_Conf
             echo 'Access file: ' .$this->_OC_access_file . 'not found!<br>';
             return(false);
         }
-		
+
         $file = fopen($this->_OC_access_file, "r");
 
         while (!feof($file))
@@ -443,7 +443,7 @@ class Open_Conf
             $accessFile[] = fgets($file);
         }
 
-        fclose($file);		
+        fclose($file);
 
         foreach ($accessFile as $line)
         {

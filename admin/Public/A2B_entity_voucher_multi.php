@@ -100,7 +100,7 @@ echo $CC_help_generate_voucher;
 <div align="center">
 <table align="center" class="bgcolor_001" border="0" width="65%">
 <tbody><tr>
-<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+<form name="theForm" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) ?>">
     <?php
         if ($HD_Form->FG_CSRF_STATUS == true) {
     ?>

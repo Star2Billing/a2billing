@@ -543,7 +543,7 @@ class FormHandler
 
 		$this -> set_regular_expression();
 
-		$this ->_action = $action ? $action : $_SERVER['PHP_SELF'];
+		$this ->_action = $action ? $action : filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);
 
         // If anti CSRF protection is enabled
         if ($this->FG_CSRF_STATUS == true) {
@@ -616,7 +616,6 @@ class FormHandler
 		if($this -> FG_ENABLE_LOG == 1) {
 			$this -> logger = new Logger();
 		}
-
 	}
 
 
@@ -672,8 +671,8 @@ class FormHandler
 		$ext_link ='';
 		if (is_numeric($processed['current_page']))$ext_link.="&current_page=".$processed['current_page'];
 		if (!empty($processed['order']) && !empty($processed['sens']))$ext_link.="&order=".$processed['order']."&sens=".$processed['sens'];
-		$this -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit".$ext_link."&id=";
-		$this -> FG_DELETION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-delete".$ext_link."&id=";
+		$this -> FG_EDITION_LINK	= filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?form_action=ask-edit".$ext_link."&id=";
+		$this -> FG_DELETION_LINK	= filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?form_action=ask-delete".$ext_link."&id=";
 
 		$this -> FG_DELETE_ALT = gettext("Delete this ").$this -> FG_INSTANCE_NAME;
 		$this -> FG_EDIT_ALT = gettext("Edit this ").$this -> FG_INSTANCE_NAME;
@@ -1169,14 +1168,14 @@ class FormHandler
 			case "ask-add":
 			case "add":
 			   if(!$this->FG_ADDITION){
-			   		Header ("Location: ". $_SERVER['PHP_SELF']);
+			   		Header ("Location: ". filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL));
 			   		die();
 			   	}
 			   break;
 			case "ask-edit":
 			case "edit":
 				 if(!$this->FG_EDITION){
-			   		Header ("Location: ". $_SERVER['PHP_SELF']);
+			   		Header ("Location: ". filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL));
 			   		die();
 			   	}
 			   break;
@@ -1184,7 +1183,7 @@ class FormHandler
 			case "ask-delete":
 			case "delete":
 			   if(!$this->FG_DELETION){
-			   		Header ("Location: ". $_SERVER['PHP_SELF']);
+			   		Header ("Location: ". filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL));
 			   		die();
 			   }
 			   break;
@@ -1207,7 +1206,7 @@ class FormHandler
 			if(!empty($this->FG_GO_LINK_AFTER_ACTION_DELETE)){
 				Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_DELETE.$processed['id']);
 			}else{
-				Header ("Location: ". $_SERVER['PHP_SELF']);
+				Header ("Location: ". filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL));
 			}
 			die();
 		}
@@ -1232,7 +1231,7 @@ class FormHandler
                     case 'edit':
                     case 'delete':
                         if ($this->_processed[$this->FG_CSRF_RECEIVED_FIELD] != $this->FG_CSRF_RECEIVED_TOKEN) {
-                            Header ("Location: ". $_SERVER['PHP_SELF']);
+                            Header ("Location: ". filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL));
                             die();
                         }
                     break;
@@ -2018,7 +2017,7 @@ class FormHandler
 	<?php  if (!empty($this->FG_TOP_FILTER_NAME)) echo "<font size=\"1\">$this->FG_TOP_FILTER_NAME</font><br>"; ?>
 
 	<!-- ** ** ** ** ** Part for the select form  ** ** ** ** ** -->
-	<FORM METHOD="POST" ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
+	<FORM METHOD="POST" ACTION="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 	<INPUT TYPE="hidden" NAME="posted" value="1">
 	<INPUT TYPE="hidden" NAME="current_page" value="0">
     <?php
@@ -2054,7 +2053,7 @@ class FormHandler
 						<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main;?>/button-search.gif" />
 						<?php
 						if(!empty($_SESSION['def_ratecard_tariffgroup'])) { ?>
-                    	- <a href="<?php echo $_SERVER['PHP_SELF']?>?cancelsearch_callplanlcr=true"><font color="red"><b><img src="<?php echo KICON_PATH; ?>/button_cancel.gif" height="16"> Cancel Search</b></font></a>&nbsp;
+                    	- <a href="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>?cancelsearch_callplanlcr=true"><font color="red"><b><img src="<?php echo KICON_PATH; ?>/button_cancel.gif" height="16"> Cancel Search</b></font></a>&nbsp;
                     <?php } ?>
 	  				</td>
 
@@ -2091,7 +2090,7 @@ class FormHandler
 	  <!-- ** ** ** ** ** Part for the select form  ** ** ** ** ** -->
 
 		<table class="form_selectform" >
-			<FORM METHOD="POST" ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
+			<FORM METHOD="POST" ACTION="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 				<INPUT TYPE="hidden" NAME="posted" value="1">
 				<INPUT TYPE="hidden" NAME="current_page" value="0">
 

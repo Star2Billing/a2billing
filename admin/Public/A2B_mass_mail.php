@@ -217,7 +217,7 @@ function loadtmpl() {
 }
 
 ?>
-<FORM action="<?php echo $_SERVER['PHP_SELF']?>" method="post" name="mass_mail">
+<FORM action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>" method="post" name="mass_mail">
 <table class="editform_table1" cellspacing="2">
     <?php
         if ($HD_Form->FG_CSRF_STATUS == true) {

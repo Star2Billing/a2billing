@@ -299,13 +299,39 @@ function sanitize_data($input)
  * Sanitize all Post Get variables
  */
 function sanitize_post_get() {
-    foreach ($_POST as $key => $value) {
-        $value = filter_var($value, FILTER_CALLBACK, array("options"=>"sanitize_data"));
-        $_POST[$key] = $value;
+    if ($_POST) {
+        foreach ($_POST as $key => $value) {
+            $key = filter_var($key, FILTER_CALLBACK, array("options"=>"sanitize_data"));
+            $value = filter_var($value, FILTER_CALLBACK, array("options"=>"sanitize_data"));
+            $key = filter_var($key, FILTER_SANITIZE_STRING);
+            if (is_array($value)) {
+                foreach ($value as $subkey => $subvalue) {
+                    $subkey = filter_var($subkey, FILTER_SANITIZE_STRING);
+                    $subvalue = filter_var($subvalue, FILTER_SANITIZE_STRING);
+                    $value[$subkey] = $subvalue;
+                }
+            } else {
+                $value = filter_var($value, FILTER_SANITIZE_STRING);
+            }
+            $_POST[$key] = $value;
+        }
     }
-    foreach ($_GET as $key => $value) {
-        $value = filter_var($value, FILTER_CALLBACK, array("options"=>"sanitize_data"));
-        $_GET[$key] = $value;
+    if ($_GET) {
+        foreach ($_GET as $key => $value) {
+            $key = filter_var($key, FILTER_CALLBACK, array("options"=>"sanitize_data"));
+            $value = filter_var($value, FILTER_CALLBACK, array("options"=>"sanitize_data"));
+            $key = filter_var($key, FILTER_SANITIZE_STRING);
+            if (is_array($value)) {
+                foreach ($value as $subkey => $subvalue) {
+                    $subkey = filter_var($subkey, FILTER_SANITIZE_STRING);
+                    $subvalue = filter_var($subvalue, FILTER_SANITIZE_STRING);
+                    $value[$subkey] = $subvalue;
+                }
+            } else {
+                $value = filter_var($value, FILTER_SANITIZE_STRING);
+            }
+            $_GET[$key] = $value;
+        }
     }
 }
 

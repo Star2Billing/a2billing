@@ -317,7 +317,7 @@ $list_group = $instance_table_group  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE
     <br/>
 <?php }?>
 <table align="center"  class="bgcolor_001" border="0" width="65%">
-<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+<form name="theForm" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) ?>" method="POST">
 <?php
     if ($HD_Form->FG_CSRF_STATUS == true) {
 ?>

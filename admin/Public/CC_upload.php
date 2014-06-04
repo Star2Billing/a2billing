@@ -199,7 +199,7 @@ $smarty->display('main.tpl');
 </table>
 
 <table width="560" cellspacing="5" cellpadding="2" border="0" style="padding-top:5px;padding-left=5px;padding-bottom:5px;padding-right:5px">
-  <form method='post' enctype='multipart/form-data' action='<?php echo $_SERVER['PHP_SELF'];?>?method=upload'>
+  <form method='post' enctype='multipart/form-data' action='<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);?>?method=upload'>
   <input type="hidden" value="<?php echo $acc?>" name="acc"/>
  <?php for ($i = 0; $i < $files_to_upload; $i++) { ?>
          <tr>
@@ -276,13 +276,13 @@ $smarty->display('main.tpl');
     ?>
 
         <tr>
-            <td width="30%"><A href='<?php echo $_SERVER['PHP_SELF'];?>?method=download&amp;file=<?php echo $entry;?>&<?php echo $pass_param?>'><?php echo $entry;?></a></td>
+            <td width="30%"><A href='<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);?>?method=download&amp;file=<?php echo $entry;?>&<?php echo $pass_param?>'><?php echo $entry;?></a></td>
             <td align="center" width="5%"><?php  echo strtoupper(substr($entry,-3));?></td>
             <td align="center" width="5%"><?php echo $filesize;?></td>
             <td align="center" width="5%">
-                <A href="javascript:if(confirm('<?php echo gettext("Are you sure to delete ");?> <?php echo $entry;?>?')) location.href='<?php echo $_SERVER['PHP_SELF'];?>?method=delete&amp;file=<?php echo $entry;?>&<?php echo $pass_param?>';"><img src='<?php echo $dir_img?>/cross.gif' alt='Delete <?php echo $entry;?>' border=0></a>
-                <A href='<?php echo $_SERVER['PHP_SELF'];?>?method=download&amp;file=<?php echo $entry;?>&<?php echo $pass_param?>'><img src='<?php echo $dir_img?>/dl.gif' alt='Download <?php echo $entry;?>' border=0></a>
-                <A href="javascript: var inserttext = ''; if(inserttext = prompt('Rename <?php echo $entry;?>. Fill in the new name for the file.','<?php echo $entry;?>')) location.href='<?php echo $_SERVER['PHP_SELF'];?>?method=rename&<?php echo $pass_param?>&amp;file=<?php echo $entry;?>&amp;to='+inserttext; "><img src='<?php echo $dir_img?>/edit.gif' alt='Rename <?php echo $entry;?>' border=0></a>
+                <A href="javascript:if(confirm('<?php echo gettext("Are you sure to delete ");?> <?php echo $entry;?>?')) location.href='<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);?>?method=delete&amp;file=<?php echo $entry;?>&<?php echo $pass_param?>';"><img src='<?php echo $dir_img?>/cross.gif' alt='Delete <?php echo $entry;?>' border=0></a>
+                <A href='<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);?>?method=download&amp;file=<?php echo $entry;?>&<?php echo $pass_param?>'><img src='<?php echo $dir_img?>/dl.gif' alt='Download <?php echo $entry;?>' border=0></a>
+                <A href="javascript: var inserttext = ''; if(inserttext = prompt('Rename <?php echo $entry;?>. Fill in the new name for the file.','<?php echo $entry;?>')) location.href='<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);?>?method=rename&<?php echo $pass_param?>&amp;file=<?php echo $entry;?>&amp;to='+inserttext; "><img src='<?php echo $dir_img?>/edit.gif' alt='Rename <?php echo $entry;?>' border=0></a>
             </td>
         </tr>
     <?php

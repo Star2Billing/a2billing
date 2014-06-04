@@ -68,4 +68,4 @@ $HD_Form -> FG_OTHER_BUTTON1_ALT = 'URL';
 $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path ."/link.png";
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:elegantBOX('".$A2B->config['signup']['urlcustomerinterface']."signup.php?key=|col0|',400);";
 
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF'];
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);

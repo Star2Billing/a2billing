@@ -64,7 +64,7 @@ function sendValue(selvalue)
 {
      // redirect browser to the grabbed value (hopefully a URL)
     window.opener.location.href= <?php echo '"A2B_invoice_manage_payment.php?id='.$invoice.'&addpayment="'; ?>+selvalue;
-    self.location.href = "<?php echo $_SERVER['PHP_SELF']."?popup_select=1&invoice=$invoice&card=$card"?>";
+    self.location.href = "<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?popup_select=1&invoice=$invoice&card=$card"?>";
 }
 // End -->
 </script>
