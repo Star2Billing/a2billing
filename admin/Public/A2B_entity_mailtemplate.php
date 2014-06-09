@@ -43,7 +43,7 @@ if (! has_rights (ACX_MAIL)) {
     die();
 }
 
-getpost_ifset(array('languages','id','action'));
+getpost_ifset(array('languages', 'id', 'action'));
 
 if ($action=="load") {
     $DBHandle=DbConnect();

@@ -492,7 +492,7 @@
 
 	{/if}
 
-	{if ($ACXMAIL  > 0 and false)}
+	{if ($ACXMAIL  > 0)}
 	<!-- Disabled Mail feature -->
 	<div class="toggle_menu"><li>
 	<a href="javascript:;" class="toggle_menu" target="_self"> <div> <div id="menutitlebutton"> <img id="img17"

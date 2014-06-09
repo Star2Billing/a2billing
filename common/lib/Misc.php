@@ -283,7 +283,11 @@ function sanitize_data($input)
         $input = str_ireplace('UPDATE', '', $input);
         $input = str_ireplace(' or 1', '', $input);
         $input = str_ireplace(' or true', '', $input);
+        //Permutation - in mailing admin/Public/A2B_entity_mailtemplate.php
+        // we use url with key=$loginkey$
+        $input = str_ireplace('=$', '+$', $input);
         $input = str_ireplace('=', '', $input);
+        $input = str_ireplace('+$', '=$', $input);
 
         if (get_magic_quotes_gpc()) {
             $input = stripslashes($input);
