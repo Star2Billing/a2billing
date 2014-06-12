@@ -117,9 +117,9 @@ function& adodb_log_sql(&$connx,$sql,$inputarr)
         }
         if (isset($_SERVER['HTTP_HOST'])) {
             $tracer .= '<br>'.$_SERVER['HTTP_HOST'];
-            if (isset($_SERVER['PHP_SELF'])) $tracer .= htmlspecialchars($_SERVER['PHP_SELF']);
+            if (isset(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL))) $tracer .= htmlspecialchars(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL));
         } else
-            if (isset($_SERVER['PHP_SELF'])) $tracer .= '<br>'.htmlspecialchars($_SERVER['PHP_SELF']);
+            if (isset(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL))) $tracer .= '<br>'.htmlspecialchars(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL));
         //$tracer .= (string) adodb_backtrace(false);
 
         $tracer = (string) substr($tracer,0,500);
@@ -732,7 +732,7 @@ Committed_AS:   348732 kB
             global $ADODB_LOG_CONN;
             break;
         case 'poll':
-            $self = htmlspecialchars($_SERVER['PHP_SELF']);
+            $self = htmlspecialchars(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL));
             echo "<iframe width=720 height=80%
                 src=\"{$self}?do=poll2&hidem=1\"></iframe>";
             break;
@@ -908,7 +908,7 @@ Committed_AS:   348732 kB
 
     public function DoSQLForm()
     {
-        $PHP_SELF = htmlspecialchars($_SERVER['PHP_SELF']);
+        $PHP_SELF = htmlspecialchars(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL));
         $sql = isset($_REQUEST['sql']) ? $_REQUEST['sql'] : '';
 
         if (isset($_SESSION['phplens_sqlrows'])) $rows = $_SESSION['phplens_sqlrows'];

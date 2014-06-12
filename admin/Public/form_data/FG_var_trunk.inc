@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -156,7 +156,7 @@ $HD_Form -> AddEditElement (gettext("VOIP-PROVIDER"),
 	"cc_provider",
 	"provider_name, id",
 	"", "", "%1","", "", '', '<OPTION  value="-1" selected>NOT DEFINED</OPTION>');
-	
+
 $HD_Form -> AddEditElement (gettext("LABEL"),
 	"trunkcode",
 	"$value",
@@ -174,7 +174,7 @@ $HD_Form -> AddEditElement (gettext("ADD PREFIX"),
 	"",
 	gettext("Insert the trunkprefix"),
 	"" , "", "", "", "" , "" , "", gettext("Add a prefix to the dialled digits."));
-	
+
 $HD_Form -> AddEditElement (gettext("REMOVE PREFIX"),
 	"removeprefix",
 	"$value",
@@ -183,7 +183,7 @@ $HD_Form -> AddEditElement (gettext("REMOVE PREFIX"),
 	"",
 	gettext("Insert the removeprefix"),
 	"" , "", "", "", "" , "" , "", gettext("Remove prefix from the dialed digits."));
-	
+
 $HD_Form -> AddEditElement (gettext("PROVIDER TECH"),
 	"providertech",
 	"$value",
@@ -192,7 +192,7 @@ $HD_Form -> AddEditElement (gettext("PROVIDER TECH"),
 	"0",
 	gettext("Insert the providertech"),
 	"" , "", "", "", "" , "" , "", gettext("Technology used on the trunk (SIP,IAX2,ZAP,H323)"));
-	
+
 $HD_Form -> AddEditElement (gettext("PROVIDER IP"),
 	"providerip",
 	"$value",
@@ -210,7 +210,7 @@ $HD_Form -> AddEditElement (gettext("ADDITIONAL PARAMETER"),
 	"",
 	gettext("Insert Additional parameters"),
 	"" , "", "", "", "" , "" , "", gettext("Define any additional parameters that will be used when running the Dial Command in Asterisk. Use the following tags as variables  %dialingnumber%, %cardnumber%. ie 'D(ww%cardnumber%wwwwwwwwww%dialingnumber%)'"));
-	
+
 $HD_Form -> AddEditElement (gettext("FAILOVER TRUNK"),
 	"failover_trunk",
 	'$value',
@@ -247,7 +247,7 @@ $HD_Form -> AddEditElement ("IFMAXUSED",
 	"",
 	"",
 	"list" , "", "", "", $maxuse_behaviour_list, "%1" , "", gettext("Specifies which trunk to use when the maximum number of connections is reached"));
-	
+
 $HD_Form -> AddEditElement ("STATUS",
 	"status",
 	'$value',
@@ -271,8 +271,8 @@ $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = 'Fill correctly the fields to add a new '.$HD_Form->FG_INSTANCE_NAME;
 
-//$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+//$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
 
 

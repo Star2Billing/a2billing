@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -79,7 +79,7 @@ $operatemode_list["0"] = array(gettext("Allow be charged into negative balance")
 $operatemode_list["1"] = array(gettext("Do partial charge but never go into negative balance"),"1");
 
 $usegroup_list = array();
-$usegroup_list["0"] = array(gettext("List of groups below"),"0"); 
+$usegroup_list["0"] = array(gettext("List of groups below"),"0");
 $usegroup_list["1"] = array(gettext("Any group"),"1");
 
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "15%", "center", "sort");
@@ -96,7 +96,7 @@ $HD_Form -> AddViewElement(gettext("TOTALCREDIT"), "totalcredit", "10%", "center
 $HD_Form -> FieldViewElement ('name, amount, period, status, numberofrun, datelastrun, totalcardperform, totalcredit');
 
 
-$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");  
+$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -140,7 +140,7 @@ $HD_Form -> AddEditElement (gettext("RULE"),
 	"",
 	"",
 	"list" , "", "", "", $rule_list, "%1", "", gettext("where X - day number (X) in days <br>	and Y = number set in period field"));
-	
+
 $HD_Form -> AddEditElement ("DAY NUMBER (X)",
 	"daynumber",
 	"$value",
@@ -167,7 +167,7 @@ $HD_Form -> AddEditElement ("STOP MODE",
 	"",
 	"",
 	"list" , "", "", "", $stopmode_list, "%1" , "", "");
-	
+
 $HD_Form -> AddEditElement ("MAX NUMBER OF CYCLES BY CARD",
 	"maxnumbercycle",
 	"$value",
@@ -176,7 +176,7 @@ $HD_Form -> AddEditElement ("MAX NUMBER OF CYCLES BY CARD",
 	"4",
 	gettext("Insert the max number of cycle"),
 	"" , "", "", "", "", "" , "NO-NULL", gettext("Set the maximum number of times that the service should be applied."));
-	
+
 $HD_Form -> AddEditElement ("STATUS",
 	"status",
 	'$value',
@@ -204,7 +204,7 @@ $HD_Form -> AddEditElement (gettext("CALL PLAN"),
        "cc_tariffgroup union select '--ANY--',0",
        "tariffgroupname, id",
        "", "", "%1", "", "");
- 
+
 $HD_Form -> AddEditElement (gettext("OPERATE MODE"),
         "operate_mode",
         '$value',
@@ -213,7 +213,7 @@ $HD_Form -> AddEditElement (gettext("OPERATE MODE"),
         "",
         "",
         "list" , "", "", "", $operatemode_list, "%1", "", gettext("If you want to charge only part of sum in case if current balance less then amount, select second option. Will be charged only part of amount, cause balance to be 0.0"));
- 
+
 $HD_Form -> AddEditElement (gettext("SKIP GROUP"),
         "use_group",
         '$value',
@@ -229,17 +229,17 @@ $resmax = $DBHandle_max -> Execute("SELECT * FROM cc_card_group");
 if ( $resmax )
 	$numrow = $resmax -> RecordCount( );
 
-if ($numrow > 0) { 
+if ($numrow > 0) {
 	$HD_Form -> AddEditElement (gettext("CARD GROUP"),
-		"service",	
-		'$value',	
-		"SELECT",		
+		"service",
+		'$value',
+		"SELECT",
 		'size="10" multiple="multiple"',
-		"",		
-		"",	
-		"sql",		
-		"cards_services",	
-		"name, id",		
+		"",
+		"",
+		"sql",
+		"cards_services",
+		"name, id",
 		"", "", "%1 : (%2)", "", "", "cc_cardgroup_service:id_card_group:cc_card_group LEFT JOIN cc_cardgroup_service ON cc_card_group.id=cc_cardgroup_service.id_card_group:DISTINCT cc_card_group.name, cc_card_group.id: cc_cardgroup_service.id_service = %id:id_service:%2 - (%1)::::%1:id='%1'");
 }
 
@@ -260,7 +260,7 @@ $HD_Form->FG_TEXT_ADITION_CONFIRMATION = gettext("Your new") . " " . $HD_Form->F
 $HD_Form->FG_BUTTON_EDITION_SRC = $HD_Form->FG_BUTTON_ADITION_SRC = Images_Path . "/cormfirmboton.gif";
 $HD_Form->FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form->FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
 
-$HD_Form->FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF'] . "?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form->FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF'] . "?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form->FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF'] . "?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form->FG_GO_LINK_AFTER_ACTION_ADD = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) . "?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form->FG_GO_LINK_AFTER_ACTION_EDIT = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) . "?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form->FG_GO_LINK_AFTER_ACTION_DELETE = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) . "?atmenu=document&stitle=Document&wh=AC&id=";
 

@@ -195,7 +195,7 @@ if ($form_action == "purchase" || $form_action == "add") {
 <div align="center">
 <table>
 <tr><td>
-<FORM action="<?php echo $_SERVER['PHP_SELF']; ?> " method="get">
+<FORM action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL); ?> " method="get">
 <?php
 $res = "<select class=\"form_input_select\" name=\"rating\" onchange=\"this.form.submit();\">\n";
 for ($i=0; $i<=9;$i++) {

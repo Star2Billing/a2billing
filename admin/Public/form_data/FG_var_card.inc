@@ -32,7 +32,6 @@
 **/
 
 
-
 getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff',
 'id_didgroup','id_campaign', 'callback', 'simultaccess', 'currency','typepaid', 'creditlimit',
 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse',
@@ -1025,9 +1024,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 		NotificationsDAO::AddNotification($key,Notification::$HIGH,$who,$who_id);
 	}
 
-	$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?section=".$_SESSION["menu_section"]."&id=";
-	$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?section=".$_SESSION["menu_section"]."&id=";
-	$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?section=".$_SESSION["menu_section"]."&id=";
+	$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?section=".$_SESSION["menu_section"]."&id=";
+	$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?section=".$_SESSION["menu_section"]."&id=";
+	$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?section=".$_SESSION["menu_section"]."&id=";
 }
-
-

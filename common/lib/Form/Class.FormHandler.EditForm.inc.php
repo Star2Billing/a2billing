@@ -22,7 +22,7 @@ function sendtolittle(direction) {
 }
 </script>
 
-<FORM action=<?php echo $_SERVER['PHP_SELF']?> method=post name="myForm" id="myForm">
+<FORM action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) ?>" method="POST" name="myForm" id="myForm">
 
 <table class="editform_table1" cellspacing="2">
     <INPUT type="hidden" name="id" value="<?php echo $id?>">

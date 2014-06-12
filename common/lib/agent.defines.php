@@ -31,6 +31,20 @@
  *
 **/
 
+/* prevent XSS */
+$_GET   = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+$_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+// $PHPSELF = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);
+
+define ("WRITELOG_QUERY", false);
+define ("FSROOT", substr(dirname(__FILE__),0,-3));
+define ("LIBDIR", FSROOT."lib/");
+
+// INCLUDE MISC
+include (FSROOT."lib/Misc.php");
+
+sanitize_post_get();
+
 define ("PHP_QUICK_PROFILER", false);
 // Include PHP-Quick-Profiler
 require_once 'PhpQuickProfiler.php';
@@ -49,9 +63,6 @@ include_once (dirname(__FILE__)."/Class.Realtime.php");
 
 // USE PHPMAILER
 include_once (FSROOT."lib/mail/class.phpmailer.php");
-
-// INCLUDE MISC
-include (FSROOT."lib/Misc.php");
 include (dirname(__FILE__)."/Class.NotificationsDAO.php");
 include (dirname(__FILE__)."/Class.Notification.php");
 include (dirname(__FILE__)."/Class.Mail.php");

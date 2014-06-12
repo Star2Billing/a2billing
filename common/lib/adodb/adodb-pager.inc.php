@@ -61,7 +61,7 @@ class ADODB_Pager
     global $PHP_SELF;
 
         $curr_page = $id.'_curr_page';
-        $PHP_SELF = htmlspecialchars($_SERVER['PHP_SELF']); // htmlspecialchars() to prevent XSS attacks
+        $PHP_SELF = htmlspecialchars(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)); // htmlspecialchars() to prevent XSS attacks
 
         $this->sql = $sql;
         $this->id = $id;

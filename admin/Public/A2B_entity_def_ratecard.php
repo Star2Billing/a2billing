@@ -296,7 +296,7 @@ if ($form_action == "list" && !$popup_select) {
 
 <b>&nbsp;<?php echo $HD_Form -> FG_NB_RECORD ?> <?php echo gettext("rates selected!"); ?>&nbsp;<?php echo gettext("Use the options below to batch update the selected rates.");?></b>
 <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
-    <FORM name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+    <FORM name="updateForm" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>" method="post">
         <INPUT type="hidden" name="batchupdate" value="1">
         <INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
         <INPUT type="hidden" name="popup_select" value="<?php echo $popup_select?>">

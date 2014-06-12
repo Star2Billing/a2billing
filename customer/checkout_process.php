@@ -35,20 +35,21 @@ include './lib/customer.defines.php';
 
 getpost_ifset(array('transactionID', 'sess_id', 'key', 'mc_currency', 'currency', 'md5sig', 'merchant_id', 'mb_amount', 'status', 'mb_currency', 'transaction_id', 'mc_fee', 'card_number'));
 
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."EPAYMENT : transactionID=$transactionID - transactionKey=$key \n -POST Var \n".print_r($_POST, true));
+$trans_str = "transactionID=$transactionID";
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."EPAYMENT : $trans_str - transactionKey=$key \n -POST Var \n".print_r($_POST, true));
 
 if (!is_int($transactionID) or !is_int($sess_id) or !is_int($mb_amount) or !is_int($transaction_id) or !is_int($card_number)){
-    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Wrong transactionID/sess_id/mb_amount");
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : Wrong transactionID/sess_id/mb_amount");
     exit();
 }
 
-if ($sess_id =="") {
-    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO SESSION ID PROVIDED IN RETURN URL TO PAYMENT MODULE");
+if ($sess_id == "") {
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : ERROR NO SESSION ID PROVIDED IN RETURN URL TO PAYMENT MODULE");
     exit();
 }
 
 if ($transactionID == "") {
-    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." NO TRANSACTION ID PROVIDED IN REQUEST");
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : NO TRANSACTION ID PROVIDED IN REQUEST");
     exit();
 }
 
@@ -90,11 +91,11 @@ $paymentTable->SQLExec ($DBHandle_max, $QUERY);
 
 if (!is_array($transaction_data) && count($transaction_data) == 0) {
     write_log(LOGFILE_EPAYMENT, basename(__FILE__).
-        ' line:'.__LINE__."- transactionID=$transactionID"." ERROR INVALID TRANSACTION ID PROVIDED, TRANSACTION ID =".$transactionID);
+        ' line:'.__LINE__."- $trans_str : ERROR INVALID TRANSACTION ID PROVIDED, TRANSACTION ID =".$transactionID);
     exit();
 } else {
     write_log(LOGFILE_EPAYMENT, basename(__FILE__).
-        ' line:'.__LINE__."- transactionID=$transactionID"." EPAYMENT RESPONSE: TRANSACTIONID = ".$transactionID.
+        ' line:'.__LINE__."- $trans_str : EPAYMENT RESPONSE: TRANSACTIONID = ".$transactionID.
         " FROM ".$transaction_data[0][4]."; FOR CUSTOMER ID ".$transaction_data[0][1]."; OF AMOUNT ".$transaction_data[0][2]);
 }
 
@@ -253,7 +254,7 @@ if ($security_verify == false) {
         //TODO create mail class for agent
         $mail = new Mail('epaymentverify', $id);
     } catch (A2bMailException $e) {
-        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO EMAIL TEMPLATE FOUND");
+        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : ERROR NO EMAIL TEMPLATE FOUND");
         exit();
     }
     $mail->replaceInEmail(Mail::$TIME_KEY,date("y-m-d H:i:s"));
@@ -273,7 +274,7 @@ if ($newkey == $key) {
     write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."----NEW KEY =".$newkey." OLD KEY= ".$key." ------- Transaction Key Verification Failed:".$transaction_data[0][8]."^".$transactionID."^".$transaction_data[0][2]."^".$transaction_data[0][1]." ------------\n");
     exit();
 }
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ---------- TRANSACTION INFO ------------\n".print_r($transaction_data,1));
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : ---------- TRANSACTION INFO ------------\n".print_r($transaction_data,1));
 $payment_modules = new payment($transaction_data[0][4]);
 // load the before_process function from the payment modules
 //$payment_modules->before_process();
@@ -284,7 +285,7 @@ $resmax = $DBHandle_max -> Execute($QUERY);
 if ($resmax) {
     $numrow = $resmax -> RecordCount();
 } else {
-    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO SUCH CUSTOMER EXISTS, CUSTOMER ID = ".$transaction_data[0][1]);
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : ERROR NO SUCH CUSTOMER EXISTS, CUSTOMER ID = ".$transaction_data[0][1]);
     exit(gettext("No Such Customer exists."));
 }
 $customer_info = $resmax -> fetchRow();
@@ -306,7 +307,7 @@ if (empty($item_type)) {
     $inv_vat_amount= $inv_amount * $VAT / 100;
     $inv_total_amount = $inv_amount + ($inv_amount * $VAT / 100);
     if ($inv_total_amount != $amount) {
-        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR PAYMENT INVOICE $inv_total_amount != $amount_paid");
+        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : ERROR PAYMENT INVOICE $inv_total_amount != $amount_paid");
         exit();
     }
 }
@@ -329,9 +330,9 @@ if ($customer_info[0] > 0 && $orderStatus == 2) {
     if ($customer_info[0] == $list_tariff_card[0][0]) {
         $id = $list_tariff_card[0][1];
     }
-    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." CARD FOUND IN DB ($id)");
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : CARD FOUND IN DB ($id)");
 } else {
-    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR CUSTOMER INFO OR ORDERSTATUS ($orderStatus)\n".print_r($_POST, true)."\n");
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : ERROR CUSTOMER INFO OR ORDERSTATUS ($orderStatus)\n".print_r($_POST, true)."\n");
 }
 
 if ($id > 0) {
@@ -342,7 +343,7 @@ if ($id > 0) {
         $param_update .= " credit = credit+'".$amount_without_vat."'";
         $FG_EDITION_CLAUSE = " id='$id'";
         $instance_table -> Update_table ($DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
-        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Update_table cc_card : $param_update - CLAUSE : $FG_EDITION_CLAUSE");
+        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : Update_table cc_card : $param_update - CLAUSE : $FG_EDITION_CLAUSE");
 
         $table_transaction = new Table();
         $result_agent = $table_transaction -> SQLExec($DBHandle,"SELECT cc_card_group.id_agent FROM cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card.id = $id");
@@ -358,13 +359,13 @@ if ($id > 0) {
         $value_insert = "'$nowDate', '".$amount_without_vat."', '$id', '".$transaction_data[0][4]."',$id_agent_insert";
         $instance_sub_table = new Table("cc_logrefill", $field_insert);
         $id_logrefill = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null, 'id');
-        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logrefill : $field_insert - VALUES $value_insert");
+        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : Add_table cc_logrefill : $field_insert - VALUES $value_insert");
 
         $field_insert = "date, payment, card_id, id_logrefill, description, agent_id";
         $value_insert = "'$nowDate', '".$amount_paid."', '$id', '$id_logrefill', '".$transaction_data[0][4]."',$id_agent_insert ";
         $instance_sub_table = new Table("cc_logpayment", $field_insert);
         $id_payment = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
-        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
+        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : Add_table cc_logpayment : $field_insert - VALUES $value_insert");
 
         //ADD an INVOICE
         $reference = generate_invoice_reference();
@@ -415,13 +416,13 @@ if ($id > 0) {
                 $value_insert = "'".$id_payment."', '$id', '$commission','$description_commission','$id_agent','$commission_percent','0'";
                 $commission_table = new Table("cc_agent_commission", $field_insert);
                 $id_commission = $commission_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
-                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_agent_commission : $field_insert - VALUES $value_insert");
+                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : Add_table cc_agent_commission : $field_insert - VALUES $value_insert");
 
                 $table_agent = new Table('cc_agent');
                 $param_update_agent = "com_balance = com_balance + '".$commission."'";
                 $clause_update_agent = " id='".$id_agent."'";
                 $table_agent -> Update_table ($DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
-                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Update_table cc_agent : $param_update_agent - CLAUSE : $clause_update_agent");
+                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : Update_table cc_agent : $param_update_agent - CLAUSE : $clause_update_agent");
             }
 
         }
@@ -439,7 +440,7 @@ if ($id > 0) {
                 $value_insert = "'$nowDate', '".$amount_paid."', '$id', '(".$transaction_data[0][4].") ".gettext('Invoice Payment Ref: ')."$reference '";
                 $instance_sub_table = new Table("cc_logpayment", $field_insert);
                 $id_payment = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
-                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
+                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : Add_table cc_logpayment : $field_insert - VALUES $value_insert");
 
                 //update invoice to paid
                 $invoice = new Invoice($item_id);
@@ -542,11 +543,11 @@ if ( ($orderStatus != 2) && ($transaction_data[0][4]=='plugnpay')) {
 }
 
 if ( ($orderStatus == 0) && ($transaction_data[0][4]=='iridium')) {
-    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT ORDER STATUS  = ".$statusmessage);
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : EPAYMENT ORDER STATUS  = ".$statusmessage);
     die();
 }
 
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT ORDER STATUS  = ".$statusmessage);
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : EPAYMENT ORDER STATUS  = ".$statusmessage);
 
 // CHECK IF THE EMAIL ADDRESS IS CORRECT
 if (preg_match("/^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+[.](([a-z]{2,3})|([a-z]{3}[.]{1}[a-z]{2}))$/i", $customer_info["email"])) {
@@ -563,7 +564,7 @@ if (preg_match("/^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z
         $mail->send($customer_info["email"]);
 
         write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-SENDING EMAIL TO CUSTOMER ".$customer_info["email"]);
-        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"."- MAILTO:".$customer_info["email"]."-Sub=".$mail->getTitle()." , mtext=".$mail->getMessage());
+        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str :- MAILTO:".$customer_info["email"]."-Sub=".$mail->getTitle()." , mtext=".$mail->getMessage());
 
         // Add Post information / useful to track down payment transaction without having to log
         $mail->AddToMessage("\n\n\n\n"."-POST Var \n".print_r($_POST, true));
@@ -571,17 +572,17 @@ if (preg_match("/^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z
         $mail->send(ADMIN_EMAIL);
 
     } catch (A2bMailException $e) {
-        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO EMAIL TEMPLATE FOUND");
+        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : ERROR NO EMAIL TEMPLATE FOUND");
     }
 
 } else {
-    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Customer : no email info !!!");
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : Customer : no email info !!!");
 }
 
 // load the after_process function from the payment modules
 $payment_modules->after_process();
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT ORDER STATUS ID = ".$orderStatus." ".$statusmessage);
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ----EPAYMENT TRANSACTION END----");
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : EPAYMENT ORDER STATUS ID = ".$orderStatus." ".$statusmessage);
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : ----EPAYMENT TRANSACTION END----");
 
 if ($transaction_data[0][4]=='plugnpay') {
     Header ("Location: userinfo.php");

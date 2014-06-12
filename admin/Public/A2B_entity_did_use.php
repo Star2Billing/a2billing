@@ -65,7 +65,7 @@ switch ($actionbtn) {
     case "release_did":
     echo $CC_help_release_did;
     ?>
-    <FORM action=<?php echo $_SERVER['PHP_SELF']?> id=form1 method=post name=form1>
+    <FORM action=<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?> id=form1 method=post name=form1>
         <INPUT type="hidden" name="did" value="<?php echo $did?>">
         <INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
         <INPUT type="hidden" name="actionbtn" value="ask_release">

@@ -218,9 +218,9 @@ function write_log($logfile, $output)
 }
 
 /*
- * function cleanInput
+ * function sanitize_tag
  */
-function cleanInput($input)
+function sanitize_tag($input)
 {
     $search = array (
             '@<script[^>]*?>.*?</script>@si', // Strip out javascript
@@ -261,7 +261,7 @@ function sanitize_data($input)
         if (get_magic_quotes_gpc()) {
             $input = stripslashes($input);
         }
-        $input = cleanInput($input);
+        $input = sanitize_tag($input);
 
         $output = addslashes($input);
     }

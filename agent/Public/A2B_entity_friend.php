@@ -112,8 +112,8 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
     $HD_Form->_vars = array_merge((array) $_GET, (array) $_POST);
 }
 
-$HD_Form -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&atmenu=$atmenu&id=";
-$HD_Form -> FG_DELETION_LINK = $_SERVER['PHP_SELF']."?form_action=ask-delete&atmenu=$atmenu&id=";
+$HD_Form -> FG_EDITION_LINK	= filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?form_action=ask-edit&atmenu=$atmenu&id=";
+$HD_Form -> FG_DELETION_LINK = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?form_action=ask-delete&atmenu=$atmenu&id=";
 
 if ($id!="" || !is_null($id)) {
     $HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);

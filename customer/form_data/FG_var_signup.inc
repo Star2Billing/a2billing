@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -172,7 +172,7 @@ if (isset ($form_action) && $form_action == "ask-add") {
 	$comp_zero = "value='0'";
 }
 if (LASTNAME_ENABLE)  {
-$HD_Form->AddEditElement(gettext("LASTNAME"), 
+$HD_Form->AddEditElement(gettext("LASTNAME"),
 		"lastname",
 		'$value',
 		"INPUT",
@@ -181,7 +181,7 @@ $HD_Form->AddEditElement(gettext("LASTNAME"),
 $lastname_editFG = "lastname,";
 }
 if (FIRSTNAME_ENABLE)  {
-$HD_Form->AddEditElement(gettext("FIRSTNAME"), 
+$HD_Form->AddEditElement(gettext("FIRSTNAME"),
 		"firstname",
 		'$value',
 		"INPUT",
@@ -189,14 +189,14 @@ $HD_Form->AddEditElement(gettext("FIRSTNAME"),
 		gettext("Insert your firstname"), "", "", "", "", "", "", "", "");
 $firstname_editFG = "firstname,";
 }
-$HD_Form->AddEditElement(gettext("EMAIL"), 
+$HD_Form->AddEditElement(gettext("EMAIL"),
 		"email",
 		'$value',
 		"INPUT",
 		"size=30 maxlength=70", "1",
 		gettext("Insert your email"), "", "", "", "", "", "", "", "");
 if (ADDRESS_ENABLE)  {
-$HD_Form->AddEditElement(gettext("ADDRESS"), 
+$HD_Form->AddEditElement(gettext("ADDRESS"),
 		"address",
 		'$value',
 		"INPUT",
@@ -205,7 +205,7 @@ $HD_Form->AddEditElement(gettext("ADDRESS"),
 $address_editFG = "address,";
 }
 if (CITY_ENABLE)  {
-$HD_Form->AddEditElement(gettext("CITY"), 
+$HD_Form->AddEditElement(gettext("CITY"),
 		"city",
 		'$value',
 		"INPUT",
@@ -214,8 +214,8 @@ $HD_Form->AddEditElement(gettext("CITY"),
 $city_editFG = "city,";
 }
 if (STATE_ENABLE)  {
-$HD_Form->AddEditElement(gettext("STATE/PROVINCE"), 
-		"state", 
+$HD_Form->AddEditElement(gettext("STATE/PROVINCE"),
+		"state",
 		'$value',
 		"INPUT",
 		"size=30 maxlength=40", "11",
@@ -226,12 +226,12 @@ if ($form_action == 'ask-add') {
 	$country_default_val = 'USA';
 }
 if (COUNTRY_ENABLE)  {
-$HD_Form->AddEditElement(gettext("COUNTRY"), 
-					"country", 
-					"$country_default_val", 
-					"SELECT", "", "", "", 
-					"sql", 
-					"cc_country", "countryname, countrycode", 
+$HD_Form->AddEditElement(gettext("COUNTRY"),
+					"country",
+					"$country_default_val",
+					"SELECT", "", "", "",
+					"sql",
+					"cc_country", "countryname, countrycode",
 					"", "", "%1", "", "", "", '');
 $country_editFG = "country,";
 }
@@ -254,69 +254,69 @@ foreach ($timezone_list as $key => $cur_value) {
 	}
 }
 if (TIMEZONE_ENABLE)  {
-$HD_Form->AddEditElement(gettext("TIMEZONE"), 
-								"id_timezone", 
-								"$timezone_default_val", 
-								"SELECT", 
-								"", "", "", 
-								"list", "", "", "", 
-								$timezone_list, 
+$HD_Form->AddEditElement(gettext("TIMEZONE"),
+								"id_timezone",
+								"$timezone_default_val",
+								"SELECT",
+								"", "", "",
+								"list", "", "", "",
+								$timezone_list,
 								"%1", "", "");
 $id_timezone_editFG = "id_timezone,";
 }
 if (PHONE_ENABLE)  {
-$HD_Form->AddEditElement(gettext("PHONENUMBER"), 
-								"phone", 
-								'$value', 
-								"INPUT", "size=30 maxlength=20", 
+$HD_Form->AddEditElement(gettext("PHONENUMBER"),
+								"phone",
+								'$value',
+								"INPUT", "size=30 maxlength=20",
 								"7", gettext("Insert your phone number"), "", "", "", "", "", "", "", "");
 $phone_editFG = "phone,";
 }
 if (FAX_ENABLE)  {
-$HD_Form->AddEditElement(gettext("FAXNUMBER"), 
-								"fax", 
-								'$value', 
-								"INPUT", "size=30 maxlength=20", 
+$HD_Form->AddEditElement(gettext("FAXNUMBER"),
+								"fax",
+								'$value',
+								"INPUT", "size=30 maxlength=20",
 								"", gettext("Insert your fax number"), "", "", "", "", "", "", "", "");
 $fax_editFG = "fax,";
 }
 if (COMP_ENABLE)  {
-$HD_Form->AddEditElement(gettext("COMPANY NAME"), 
-								"company_name", 
-								'$value', 
-								"INPUT", "size=40 maxlength=50", 
+$HD_Form->AddEditElement(gettext("COMPANY NAME"),
+								"company_name",
+								'$value',
+								"INPUT", "size=40 maxlength=50",
 								"", gettext("Insert Company name of this customer"), "", "", "", "", "", "", "NO", "");
 $company_name_editFG = "company_name,";
 }
 if (COMP_WEB_ENABLE)  {
-$HD_Form->AddEditElement(gettext("COMPANY WEBSITE"), 
-								"company_website", 
-								'$value', 
-								"INPUT", "size=40 maxlength=60", 
+$HD_Form->AddEditElement(gettext("COMPANY WEBSITE"),
+								"company_website",
+								'$value',
+								"INPUT", "size=40 maxlength=60",
 								"", gettext("Insert the company website of this customer"), "", "", "", "", "", "", "NO", "");
 $company_website_editFG = "company_website,";
 }
 if (VAT_RN_ENABLE)  {
-$HD_Form->AddEditElement(gettext("VAT REGISTRATION NUMBER "), 
-								"VAT_RN", 
-								'$value', 
-								"INPUT", "size=40 maxlength=40", 
+$HD_Form->AddEditElement(gettext("VAT REGISTRATION NUMBER "),
+								"VAT_RN",
+								'$value',
+								"INPUT", "size=40 maxlength=40",
 								"", gettext("Insert the VAT registration number of this customer"), "", "", "", "", "", "", "NO", "");
 $VAT_RN_editFG = "VAT_RN,";
 }
 if (TRAFFIC_ENABLE)  {
-$HD_Form->AddEditElement(gettext("TRAFFIC PER MONTH"), 
-								"traffic", 
-								'$value', 
-								"INPUT", "size=30 maxlength=20", 
+$HD_Form->AddEditElement(gettext("TRAFFIC PER MONTH"),
+								"traffic",
+								'$value',
+								"INPUT", "size=30 maxlength=20",
 								"4", gettext("Insert the traffic per month for this customer"), "", "", "", "", "", "", "NO", "");
 $traffic_editFG = "traffic,";
 }
 if (TRAFFIC_TARGET_ENABLE)  {
-$HD_Form->AddEditElement(gettext("TARGET TRAFFIC"), 
-								"traffic_target", 
-								'', 
-								"TEXTAREA", "cols=50 rows=4", 
+$HD_Form->AddEditElement(gettext("TARGET TRAFFIC"),
+								"traffic_target",
+								'',
+								"TEXTAREA", "cols=50 rows=4",
 								"", gettext("Insert the target traffic description"), "", "", "", "", "", "", "", "");
 $traffic_target_editFG = "traffic_target,";
 }
@@ -411,7 +411,7 @@ if (is_numeric($subscriber_signup)) {
 		$HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS .= ", tariff";
 		$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE .= ", $id_callplan";
 	}
-	
+
 	// HIDDEN VALUE
 	$HD_Form->FG_ADITION_HIDDEN_PARAM = 'subscriber_signup';
 	$HD_Form->FG_ADITION_HIDDEN_PARAM_VALUE = "$subscriber_signup";
@@ -434,7 +434,7 @@ $HD_Form->FG_ADD_PAGE_CONFIRM_BUTTON = gettext("SIGNUP");
 
 $HD_Form->FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'processing_card_signup';
 
-$HD_Form->FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF'] . "?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form->FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF'] . "?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form->FG_GO_LINK_AFTER_ACTION_EDIT = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) . "?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form->FG_GO_LINK_AFTER_ACTION_DELETE = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) . "?atmenu=document&stitle=Document&wh=AC&id=";
 
 

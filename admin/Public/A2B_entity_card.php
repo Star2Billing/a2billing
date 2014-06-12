@@ -173,6 +173,7 @@ if ($form_action=='list' && !($popup_select>=1)) {
     <div class="tohide" style="display:none;">
 
 <?php
+
 // #### CREATE SEARCH FORM
 if ($form_action == "list") {
     $HD_Form -> create_search_form();
@@ -217,7 +218,7 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 <b>&nbsp;<?php echo $HD_Form -> FG_NB_RECORD ?> <?php echo gettext("cards selected!"); ?>&nbsp;<?php echo gettext("Use the options below to batch update the selected cards.");?></b>
    <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
     <tbody>
-    <FORM name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+    <FORM name="updateForm" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>" method="post">
     <INPUT type="hidden" name="batchupdate" value="1">
     <?php
         if ($HD_Form->FG_CSRF_STATUS == true) {

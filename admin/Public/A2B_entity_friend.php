@@ -161,8 +161,8 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
     $HD_Form->_vars = array_merge((array) $_GET, (array) $_POST);
 }
 
-$HD_Form -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&atmenu=$atmenu&id=";
-$HD_Form -> FG_DELETION_LINK = $_SERVER['PHP_SELF']."?form_action=ask-delete&atmenu=$atmenu&id=";
+$HD_Form -> FG_EDITION_LINK	= filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?form_action=ask-edit&atmenu=$atmenu&id=";
+$HD_Form -> FG_DELETION_LINK = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?form_action=ask-delete&atmenu=$atmenu&id=";
 
 if ($id!="" || !is_null($id)) {
     $HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
@@ -279,7 +279,7 @@ if ($form_action=='list') {
 <b>&nbsp;<?php echo $HD_Form -> FG_NB_RECORD ?> <?php echo gettext("cards selected!"); ?>&nbsp;<?php echo gettext("Use the options below to batch update the selected cards.");?></b>
     <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
     <tbody>
-    <form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+    <form name="updateForm" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>" method="post">
         <?php
             if ($HD_Form->FG_CSRF_STATUS == true) {
         ?>

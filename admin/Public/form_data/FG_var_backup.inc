@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -53,7 +53,7 @@ if ($form_action == 'add'){
         // Make the backup stuff here and redirect to success page
         //mysqldump -all --databases mya2billing -ua2billinguser -pa2billing > /tmp/test.sql
         //pg_dump -c -d -U a2billinguser -h localhost -f /tmp/test.sql mya2billing
-		
+
         if (DB_TYPE != 'postgres'){
 			$run_backup=MYSQLDUMP." -all --databases ".DBNAME." -u'".USER."' -p'".PASS."' > '{$backup_file}'";
         }else{
@@ -122,7 +122,7 @@ $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONTINUE button.");
 
 
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
 
 

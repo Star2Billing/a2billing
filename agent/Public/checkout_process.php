@@ -90,7 +90,7 @@ if (!is_array($transaction_data) && count($transaction_data) == 0) {
 }
 
 $security_verify = true;
-$transaction_detail = serialize($_POST);
+$transaction_detail = base64_encode(serialize($_POST));
 
 $currencyObject = new currencies();
 $currencies_list = get_currencies();

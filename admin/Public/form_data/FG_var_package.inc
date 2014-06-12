@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -70,7 +70,7 @@ $HD_Form -> AddViewElement(gettext("FREE"), "freetimetocall", "17%", "center", "
 $HD_Form -> FieldViewElement ('label, creationdate, packagetype, billingtype, startday, '.$filter_unit);
 
 $HD_Form -> FG_ACTION_SIZE_COLUMN='15%';
-$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");  
+$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -83,29 +83,29 @@ $HD_Form -> FG_OTHER_BUTTON1_ALT = gettext("Add rates");
 $HD_Form -> FG_OTHER_BUTTON1_IMG = "";
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "A2B_package_manage_rates.php?id=|param|";
 $HD_Form -> AddEditElement (gettext("LABEL"),
-	"label",	
-	'$value',	
-	"INPUT",	
-	"size=30 maxlength=30",	
-	"0",	
+	"label",
+	'$value',
+	"INPUT",
+	"size=30 maxlength=30",
+	"0",
 	gettext("Insert the package label"),
 	"" , "", "",	"", "", "", "",	"");
 
 $HD_Form -> AddEditElement (gettext("PACKAGE TYPE"),
-	"packagetype",		
-	'$value',	
-	"SELECT",	
-	"",	
-	"",	
+	"packagetype",
+	'$value',
+	"SELECT",
+	"",
+	"",
 	"",
 	"list" , "", "", "", $packagetype_list, "%1", "", "");
 
 $HD_Form -> AddEditElement (gettext("BILLING TYPE"),
 	"billingtype",
-	'$value',	
-	"SELECT",	
-	"",	
-	"",	
+	'$value',
+	"SELECT",
+	"",
+	"",
 	"",
 	"list" , "", "", "", $billingtype_list, "%1", "", "");
 
@@ -115,25 +115,25 @@ if (isset($form_action) && $form_action=="ask-add") {
 
 $HD_Form -> AddEditElement (gettext("STARTING DAY"),
    "startday",
-   '$value',	
-   "INPUT",	
-   "size=10 $default_init maxlength=5",	
-   "4",	
-   gettext("Insert the start day"),			   
+   '$value',
+   "INPUT",
+   "size=10 $default_init maxlength=5",
+   "4",
+   gettext("Insert the start day"),
    "" , "", "",	"", "", "", "", gettext("The value will be related to billing type ; if monthly accepted value are 1-31 ; if Weekly accepted value 1-7 (Monday to Sunday) "));
 
 
 $HD_Form -> AddEditElement (gettext("FREE UNITS"),
-   "freetimetocall",	
-   '$value',	
-   "INPUT",	
-   "size=10 maxlength=10",	
-   "4",	
+   "freetimetocall",
+   '$value',
+   "INPUT",
+   "size=10 maxlength=10",
+   "4",
    gettext("Insert the amount of free time to call (seconds)"),
    "" , "", "",	"", "", "", "", gettext("Insert the amount of free units, in seconds,for the FREE SECONDS mode. For NUMBER OF FREE CALLS insert the number of free calls"));
-   
 
-	
+
+
 
 $HD_Form -> FieldEditElement ('label, packagetype, billingtype, startday, freetimetocall');
 
@@ -148,9 +148,9 @@ $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Setup those values to create the new")." ".$HD_Form->FG_INSTANCE_NAME;
 
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
 
 
 
