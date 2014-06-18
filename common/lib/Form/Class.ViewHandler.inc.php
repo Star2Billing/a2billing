@@ -121,7 +121,6 @@ function openURLFilter(theLINK) {
             <?php
                 foreach ($processed as $key => $val) {
                     if (strlen($key) >=1 && $key!='current_page' && $key!='id') {
-                        echo "key:$key";
                 ?>
                    <input type="hidden" name="<?php echo $key?>" value="<?php echo $val?>">
                 <?php
