@@ -47,21 +47,23 @@ $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 /********************************* BATCH UPDATE ***********************************/
-getpost_ifset(array('upd_callerid', 'upd_context', 'batchupdate', 'check', 'type', 'mode'));
+getpost_ifset(array('upd_callerid', 'upd_context', 'batchupdate', 'check', 'type', 'mode', 'atmenu'));
+
 
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)) {
-    $SQL_REFILL="";
-    $HD_Form->prepare_list_subselection('list');
+    $SQL_REFILL = "";
+    $HD_Form -> prepare_list_subselection('list');
 
     // Array ( [upd_simultaccess] => on [upd_currency] => on )
-    $loop_pass=0;
+    $loop_pass = 0;
     $SQL_UPDATE = '';
-    foreach ($check as $ind_field => $ind_val) {
+    foreach($check as $ind_field => $ind_val) {
         //echo "<br>::> $ind_field -";
         $myfield = substr($ind_field,4);
-        if ($loop_pass!=0) $SQL_UPDATE.=',';
-
+        if ($loop_pass != 0) {
+            $SQL_UPDATE.=',';
+        }
         // Standard update mode
         if (!isset($mode["$ind_field"]) || $mode["$ind_field"]==1) {
             if (!isset($type["$ind_field"])) {
@@ -96,14 +98,12 @@ if ($batchupdate == 1 && is_array($check)) {
     if (!$HD_Form -> DBHandle -> Execute("begin")) {
         $update_msg = $update_msg_error;
     } else {
-
         if (!$HD_Form -> DBHandle -> Execute($SQL_UPDATE)) {
             $update_msg = $update_msg_error;
         }
         if (! $res = $HD_Form -> DBHandle -> Execute("commit")) {
             $update_msg = '<center><font color="green"><b>'.gettext('The batch update has been successfully perform!').'</b></font></center>';
         }
-
     };
 }
 
@@ -134,8 +134,11 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
     $instance_table_friend = new Table('cc_card');
     $instance_table_friend -> Update_table ($HD_Form -> DBHandle, $friend_param_update, "id='$id_cc_card'", $func_table = null);
 
-    if ( $form_action == "add_sip" )	$TABLE_BUDDY = 'cc_sip_buddies';
-    else 	$TABLE_BUDDY = 'cc_iax_buddies';
+    if ($form_action == "add_sip") {
+        $TABLE_BUDDY = 'cc_sip_buddies';
+    } else {
+        $TABLE_BUDDY = 'cc_iax_buddies';
+    }
 
     $instance_table_friend = new Table($TABLE_BUDDY,'*');
     $list_friend = $instance_table_friend -> Get_list ($HD_Form -> DBHandle, "id_cc_card='$id_cc_card'", null, null, null, null);
@@ -161,10 +164,10 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
     $HD_Form->_vars = array_merge((array) $_GET, (array) $_POST);
 }
 
-$HD_Form -> FG_EDITION_LINK	= filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?form_action=ask-edit&atmenu=$atmenu&id=";
+$HD_Form -> FG_EDITION_LINK = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?form_action=ask-edit&atmenu=$atmenu&id=";
 $HD_Form -> FG_DELETION_LINK = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?form_action=ask-delete&atmenu=$atmenu&id=";
 
-if ($id!="" || !is_null($id)) {
+if ($id != "" || !is_null($id)) {
     $HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
 }
 
@@ -176,9 +179,9 @@ if (!USE_REALTIME) {
     if ($form_action == "add" || $form_action == "edit" || $form_action == "delete") {
         if ($atmenu=='sip') {
             $key = "sip_changed";
-          } else {
-              $key = "iax_changed";
-          }
+        } else {
+            $key = "iax_changed";
+        }
         if ($_SESSION["user_type"]=="ADMIN") {$who= Notification::$ADMIN;$id=$_SESSION['admin_id'];} elseif ($_SESSION["user_type"]=="AGENT") {$who= Notification::$AGENT;$id=$_SESSION['agent_id'];} else {$who=Notification::$UNKNOWN;$id=-1;}
         NotificationsDAO::AddNotification($key,Notification::$HIGH,$who,$id);
     }
@@ -252,7 +255,6 @@ if ($form_action=='list') {
             <?php
                 }
             ?>
-
             <tr>
                 <td bgcolor="#FFFFFF" class="fontstyle_006" width="100%">&nbsp;<?php echo gettext("CONFIGURATION TYPE")?> </td>
                 <td bgcolor="#FFFFFF" class="fontstyle_006" align="center">
@@ -290,30 +292,29 @@ if ($form_action=='list') {
         ?>
         <INPUT type="hidden" name="batchupdate" value="1">
         <tr>
-          <td align="left" class="bgcolor_001" >
-                  <input name="check[upd_callerid]" type="checkbox" <?php if ($check["upd_callerid"]=="on") echo "checked"?>>
-          </td>
-          <td align="left"  class="bgcolor_001">
+            <td align="left" class="bgcolor_001" >
+                <input name="check[upd_callerid]" type="checkbox" <?php if ($check["upd_callerid"]=="on") echo "checked"?>>
+            </td>
+            <td align="left"  class="bgcolor_001">
                 1)&nbsp;<?php echo gettext("CallerID"); ?>&nbsp;:
                 <input class="form_input_text"  name="upd_callerid" size="30" maxlength="40" value="<?php if (isset($upd_callerid)) echo $upd_callerid;?>">
                 <br/>
-          </td>
+            </td>
         </tr>
 
         <tr>
-          <td align="left" class="bgcolor_001" >
-                  <input name="check[upd_context]" type="checkbox" <?php if ($check["upd_context"]=="on") echo "checked"?>>
-          </td>
-          <td align="left"  class="bgcolor_001">
+            <td align="left" class="bgcolor_001" >
+                <input name="check[upd_context]" type="checkbox" <?php if ($check["upd_context"]=="on") echo "checked"?>>
+            </td>
+            <td align="left"  class="bgcolor_001">
                 2)&nbsp;<?php echo gettext("Context"); ?>&nbsp;:
                 <input class="form_input_text"  name="upd_context" size="30" maxlength="40" value="<?php if (isset($upd_context)) echo $upd_context;?>">
                 <br/>
-          </td>
+            </td>
         </tr>
-
         <tr>
             <td align="right" class="bgcolor_001"></td>
-             <td align="right"  class="bgcolor_001">
+            <td align="right"  class="bgcolor_001">
                 <input class="form_input_button"  value=" <?php echo gettext("BATCH UPDATE VOIP SETTINGS");?>  " type="submit">
             </td>
         </tr>
