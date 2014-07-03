@@ -266,7 +266,8 @@ function sanitize_data($input)
         $input = str_ireplace('SUBSTRING', '', $input);
         $input = str_ireplace('ASCII', '', $input);
         $input = str_ireplace('SHA1', '', $input);
-        $input = str_ireplace('MD5', '', $input);
+        #MD5 is used by md5secret
+        #$input = str_ireplace('MD5', '', $input);
         $input = str_ireplace('ROW_COUNT', '', $input);
         $input = str_ireplace('SELECT', '', $input);
         $input = str_ireplace('INSERT', '', $input);
