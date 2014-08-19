@@ -1138,11 +1138,8 @@ class RateEngine
         $id_card_package_offer = (!is_numeric($id_card_package_offer)) ? 'NULL' : "'$id_card_package_offer'";
         $calldestination = (!is_numeric($calldestination)) ? 'DEFAULT' : "'$calldestination'";
 
-        $QUERY_COLUMN = "uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, " .
-            " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, " .
-            " id_trunk, src, sipiax, buycost, id_card_package_offer, dnid, destination";
-        $QUERY = "INSERT INTO cc_call ($QUERY_COLUMN) VALUES ('" . $A2B->uniqueid . "', '" . $A2B->channel . "', " .
-            "$card_id, '" . $A2B->hostname . "', ";
+        $QUERY_COLUMN = "uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax, buycost, id_card_package_offer, dnid, destination";
+        $QUERY = "INSERT INTO cc_call ($QUERY_COLUMN $A2B->CDR_CUSTOM_SQL) VALUES ('" . $A2B->uniqueid . "', '" . $A2B->channel . "', " . "$card_id, '" . $A2B->hostname . "', ";
 
         if ($A2B->config["global"]['cache_enabled']) {
             $QUERY .= " datetime(strftime('%s', 'now') - $sessiontime, 'unixepoch', 'localtime')";
@@ -1157,9 +1154,7 @@ class RateEngine
             $QUERY .= "now()";
         }
 
-        $QUERY .= " , '$signe_cc_call" . a2b_round(abs($cost)) . "', " .
-                    " $id_tariffgroup, $id_tariffplan, $id_ratecard, '" . $this->usedtrunk . "', '" . $A2B->CallerID . "', '$calltype', " .
-                    " '$buycost', $id_card_package_offer, '" . $A2B->dnid . "', $calldestination)";
+        $QUERY .= " , '$signe_cc_call" . a2b_round(abs($cost)) . "', " . " $id_tariffgroup, $id_tariffplan, $id_ratecard, '" . $this->usedtrunk . "', '" . $A2B->CallerID . "', '$calltype', " . " '$buycost', $id_card_package_offer, '" . $A2B->dnid . "', $calldestination $A2B->CDR_CUSTOM_VAL)";
 
         if ($A2B->config["global"]['cache_enabled']) {
              //insert query in the cache system

@@ -207,6 +207,10 @@ class A2Billing
 
     public $callback_beep_to_enter_destination = False;
 
+    // custom CDR variables
+    public $CDR_CUSTOM_SQL = '';
+    public $CDR_CUSTOM_VAL = '';
+
     /**
     * CC_TESTING variables
     * for developer purpose, will replace some get_data inputs in order to test the application from shell
@@ -718,6 +722,14 @@ class A2Billing
     */
     public function get_agi_request_parameter($agi)
     {
+        $A2B_CUSTOM1 = substr($agi->get_variable("A2B_CUSTOM1", true), 0, 20);
+        $A2B_CUSTOM2 = substr($agi->get_variable("A2B_CUSTOM2", true), 0, 20);
+        $A2B_CUSTOM1 = $this->sanitize_agi_data($A2B_CUSTOM1);
+        $A2B_CUSTOM2 = $this->sanitize_agi_data($A2B_CUSTOM2);
+
+        $this->CDR_CUSTOM_SQL = ", a2b_custom1, a2b_custom2";
+        $this->CDR_CUSTOM_VAL = ", '" . $A2B_CUSTOM1 . "', '" . $A2B_CUSTOM2 . "'";
+
         $this->CallerID    = $this->sanitize_agi_data($agi->request['agi_callerid']);
         $this->channel     = $this->sanitize_agi_data($agi->request['agi_channel']);
         $this->uniqueid    = $this->sanitize_agi_data($agi->request['agi_uniqueid']);
@@ -1210,11 +1222,8 @@ class A2Billing
 
             if ($answeredtime > 0) {
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_UPDATESYSTEM: (answeredtime=$answeredtime :: dialstatus=$dialstatus :: cost=$cost)]");
-                $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, " .
-                    " terminatecauseid, stoptime, sessionbill, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES " .
-                    "('" . $this->uniqueid . "', '" . $this->channel . "', '" . $this->id_card . "', '" . $this->hostname . "',";
-                $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-                $QUERY .= ", '$answeredtime', '" . $card_alias . "', '$terminatecauseid', now(), '0', '0', '0', '0', '$this->CallerID', '1' )";
+
+                $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, terminatecauseid, stoptime, sessionbill, id_tariffplan, id_ratecard, id_trunk, src, sipiax $this->CDR_CUSTOM_SQL) VALUES ('" . $this->uniqueid . "', '" . $this->channel . "', '" . $this->id_card . "', '" . $this->hostname . "', CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND, '$answeredtime', '" . $card_alias . "', '$terminatecauseid', now(), '0', '0', '0', '0', '$this->CallerID', '1' $this->CDR_CUSTOM_VAL)";
 
                 $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
 
@@ -1368,10 +1377,8 @@ class A2Billing
                         }
 
                         $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, " .
-                            " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES " .
-                            "('" . $this->uniqueid . "', '" . $this->channel . "', '" . $this->id_card . "', '" . $this->hostname . "',";
-                        $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-                        $QUERY .= ", '$answeredtime', '" . $inst_listdestination[4] . "', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' )";
+                            " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax $this->CDR_CUSTOM_SQL) VALUES " .
+                            "('" . $this->uniqueid . "', '" . $this->channel . "', '" . $this->id_card . "', '" . $this->hostname . "', CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND, '$answeredtime', '" . $inst_listdestination[4] . "', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' $this->CDR_CUSTOM_VAL)";
 
                         $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
@@ -1634,11 +1641,7 @@ class A2Billing
                         //CALL2DID CDR is free
 
                         /* CDR A-LEG OF DID CALL */
-                        $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, " .
-                                " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES " .
-                                "('" . $this->uniqueid . "', '" . $this->channel . "', '" . $my_id_card . "', '" . $this->hostname . "',";
-                        $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-                        $QUERY .= ", '$answeredtime', '" . $inst_listdestination[10] . "', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' )";
+                        $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax $this->CDR_CUSTOM_SQL) VALUES ('" . $this->uniqueid . "', '" . $this->channel . "', '" . $my_id_card . "', '" . $this->hostname . "', CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND, '$answeredtime', '" . $inst_listdestination[10] . "', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' $this->CDR_CUSTOM_VAL)";
 
                         $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
@@ -1649,11 +1652,7 @@ class A2Billing
                         $cost = ($answeredtime/60) * abs($selling_rate) + abs($connection_charge);
 
                         /* CDR A-LEG OF DID CALL */
-                        $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, " .
-                                " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES " .
-                                "('" . $this->uniqueid . "', '" . $this->channel . "', '" . $my_id_card . "', '" . $this->hostname . "',";
-                        $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-                        $QUERY .= ", '$answeredtime', '". $listdestination[0][10] . "', '$terminatecauseid', now(), '$cost', '0', '0', '0', '0', '$this->CallerID', '3' )";
+                        $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax $this->CDR_CUSTOM_SQL) VALUES ('" . $this->uniqueid . "', '" . $this->channel . "', '" . $my_id_card . "', '" . $this->hostname . "', CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND, '$answeredtime', '". $listdestination[0][10] . "', '$terminatecauseid', now(), '$cost', '0', '0', '0', '0', '$this->CallerID', '3' $this->CDR_CUSTOM_VAL)";
 
                         $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
@@ -1745,11 +1744,7 @@ class A2Billing
                         //CALL2DID CDR is free
 
                         /* CDR A-LEG OF DID CALL */
-                        $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, " .
-                                " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES " .
-                                "('" . $this->uniqueid . "', '" . $this->channel . "', '" . $my_id_card . "', '" . $this->hostname . "',";
-                        $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-                        $QUERY .= ", '$answeredtime', '" . $inst_listdestination[10] . "', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' )";
+                        $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax $this->CDR_CUSTOM_SQL) VALUES ('" . $this->uniqueid . "', '" . $this->channel . "', '" . $my_id_card . "', '" . $this->hostname . "', CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND, '$answeredtime', '" . $inst_listdestination[10] . "', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' $this->CDR_CUSTOM_VAL)";
 
                         $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
@@ -1759,11 +1754,7 @@ class A2Billing
                         $cost = ($answeredtime/60) * abs($selling_rate) + abs($connection_charge);
 
                         /* CDR A-LEG OF DID CALL */
-                        $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, " .
-                                " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES " .
-                                "('" . $this->uniqueid . "', '" . $this->channel . "', '" . $my_id_card . "', '" . $this->hostname . "',";
-                        $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-                        $QUERY .= ", '$answeredtime', '". $listdestination[0][10] . "', '$terminatecauseid', now(), '$cost', '0', '0', '0', '0', '$this->CallerID', '3' )";
+                        $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax $this->CDR_CUSTOM_SQL) VALUES " . "('" . $this->uniqueid . "', '" . $this->channel . "', '" . $my_id_card . "', '" . $this->hostname . "', CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND, '$answeredtime', '". $listdestination[0][10] . "', '$terminatecauseid', now(), '$cost', '0', '0', '0', '0', '$this->CallerID', '3' $this->CDR_CUSTOM_VAL)";
 
                         $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
@@ -1903,11 +1894,9 @@ class A2Billing
             $aleg_retail_cost += $aleg_retail_connect_charge;
             $aleg_retail_cost += ($aleg_retail_callduration / 60) * $aleg_retail_cost_min;
 
-            $QUERY_COLUMN = " uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, " .
-                            " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, " .
-                            " id_trunk, src, sipiax, buycost, dnid";
+            $QUERY_COLUMN = " uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax, buycost, dnid";
             $calltype = '7'; // DID-ALEG
-            $QUERY = "INSERT INTO cc_call ($QUERY_COLUMN) VALUES (" .
+            $QUERY = "INSERT INTO cc_call ($QUERY_COLUMN $this->CDR_CUSTOM_SQL) VALUES (" .
                         "'" . $this->uniqueid . "', " .
                         "'" . $this->channel . "'," .
                         "'" . $this->id_card . "'," .
@@ -1927,7 +1916,7 @@ class A2Billing
                         "'$calltype', " .
                         "'$aleg_carrier_cost', " .
                         "'" . $this->dnid . "'" .
-                        ")";
+                        "$this->CDR_CUSTOM_VAL)";
 
             $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
             $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
@@ -1944,12 +1933,10 @@ class A2Billing
             $terminatecauseid = 1; // ANSWERED
             $aleg_carrier_cost = 0;
 
-            $QUERY_COLUMN = " uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, " .
-                            " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, " .
-                            " id_trunk, src, sipiax, buycost, dnid";
+            $QUERY_COLUMN = " uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard,  id_trunk, src, sipiax, buycost, dnid";
 
             $calltype = '7'; // DID-ALEG
-            $QUERY = "INSERT INTO cc_call ($QUERY_COLUMN) VALUES (" .
+            $QUERY = "INSERT INTO cc_call ($QUERY_COLUMN $this->CDR_CUSTOM_SQL) VALUES (" .
                         "'" . $this->uniqueid . "', " .
                         "'" . $this->channel . "'," .
                         "'" . $this->id_card . "'," .
@@ -1969,7 +1956,7 @@ class A2Billing
                         "'$calltype', " .
                         "'$aleg_carrier_cost', " .
                         "'" . $this->dnid . "'" .
-                        ")";
+                        "$this->CDR_CUSTOM_VAL )";
 
             $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
             $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL ZERO - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
@@ -2632,9 +2619,7 @@ class A2Billing
 
         $duration = time() - $now;
         ///create campaign cdr
-        $QUERY_CALL = "INSERT INTO cc_call (uniqueid, sessionid, card_id,calledstation, sipiax, sessionbill , sessiontime , stoptime ,starttime) VALUES ('" . $this->uniqueid . "', '" . $this->channel . "', '" .
-                $userid . "','" . $called . "',6, " . $cost . ", " . $duration . " , CURRENT_TIMESTAMP , ";
-        $QUERY_CALL .= "DATE_SUB(CURRENT_TIMESTAMP, INTERVAL $duration SECOND )";
+        $QUERY_CALL = "INSERT INTO cc_call (uniqueid, sessionid, card_id, calledstation, sipiax, sessionbill, sessiontime, stoptime, starttime $this->CDR_CUSTOM_SQL) VALUES ('" . $this->uniqueid . "', '" . $this->channel . "', '" . $userid . "','" . $called . "',6, " . $cost . ", " . $duration . " , CURRENT_TIMESTAMP , DATE_SUB(CURRENT_TIMESTAMP, INTERVAL $duration SECOND) $this->CDR_CUSTOM_VAL)";
 
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[INSERT CAMPAIGN CALL : " . $QUERY_CALL);
         $this->instance_table->SQLExec($this->DBHandle, $QUERY_CALL);
