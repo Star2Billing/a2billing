@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2014 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -36,22 +36,21 @@ include './lib/customer.defines.php';
 getpost_ifset(array('transactionID', 'sess_id', 'key', 'mc_currency', 'currency', 'md5sig', 'merchant_id', 'mb_amount', 'status', 'mb_currency', 'transaction_id', 'mc_fee', 'card_number'));
 
 $trans_str = "transactionID=$transactionID";
+
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."EPAYMENT : $trans_str - transactionKey=$key \n -Vars: $transactionID : $sess_id : $transaction_id : $card_number");
+
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."EPAYMENT : $trans_str - transactionKey=$key \n -POST Var \n".print_r($_POST, true));
 
-if (!is_int($transactionID) or !is_int($sess_id) or !is_int($mb_amount) or !is_int($transaction_id) or !is_int($card_number)){
-    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : Wrong transactionID/sess_id/mb_amount");
+if (!intval($transactionID) > 0) {
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : Wrong transactionID ($transactionID) provided in request");
     exit();
 }
 
 if ($sess_id == "") {
-    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : ERROR NO SESSION ID PROVIDED IN RETURN URL TO PAYMENT MODULE");
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : Error no session id provided in return url to payment module");
     exit();
 }
 
-if ($transactionID == "") {
-    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : NO TRANSACTION ID PROVIDED IN REQUEST");
-    exit();
-}
 
 include './lib/customer.module.access.php';
 include './lib/Form/Class.FormHandler.inc.php';
