@@ -32,29 +32,14 @@
     module to connect to Postgresql & Mysql Database and manipulate database information .
 
 '''
-
-__author__ = "Belaid Arezqui (areski@gmail.com)"
-__copyright__ = "Copyright (C) Belaid Arezqui"
-
-__revision__ = "$Id$"
-__version__ = "1.00"
-
-
-
-# ------------------------------ IMPORT ------------------------------
-import sys
-INTP_VER = sys.version_info[:2]
-if INTP_VER < (2, 2):
-    raise RuntimeError("Python v.2.2 or later needed")
-
 import ConfigParser
 
 from sqlalchemy import *
 from sqlalchemy import orm
 from sqlalchemy.orm import sessionmaker
-import datetime, time
+import datetime
+import time
 
-# ------------------------------ CLASS ------------------------------
 
 class SQLError(Exception):
     ''' Error exception class '''
@@ -65,9 +50,13 @@ class SQLError(Exception):
     def __str__(self):
         return repr(self.value)
 
-class ConnectionError(Exception): pass
 
-class SQlRow_Empty(Exception): pass
+class ConnectionError(Exception):
+    pass
+
+
+class SQlRow_Empty(Exception):
+    pass
 
 
 # Class for the ORM
@@ -121,18 +110,16 @@ class callback_database:
         self.dbpasswd = cp.get(self.section, 'password')
         self.dbtype = cp.get(self.section, 'dbtype')
 
-
-    def status_on (self, status):
-        if (status.lower()=='on') :
+    def status_on(self, status):
+        if (status.lower() == 'on'):
             return 'ACTIVE'
         else:
             return 'INACTIVE'
 
-
-    def db_connect (self):
-
-        if (len(self.dbpasswd) > 0) :
-            connection_string = self.dbtype + "://" + self.dbuser + ":" + self.dbpasswd + "@" + self.dbhost + "/" + self.dbname
+    def db_connect(self):
+        if (len(self.dbpasswd) > 0):
+            connection_string = self.dbtype + "://" + self.dbuser + ":" + \
+                self.dbpasswd + "@" + self.dbhost + "/" + self.dbname
         else:
             connection_string = self.dbtype + "://" + self.dbuser + "@" + self.dbhost + "/" + self.dbname
 
@@ -163,33 +150,28 @@ class callback_database:
             #print "connection error to " + connection_string
             raise ConnectionError(error_message)
 
-
-    def db_close (self):
+    def db_close(self):
         try:
             self.session.flush()
         except Exception, error_message:
             raise SQLError(error_message)
 
-
     def count_callback_spool(self):
-        return self.CallBack_Spool_q.filter((self.cc_callback_spool.c.status=='PENDING')).count()
-
+        return self.CallBack_Spool_q.filter((self.cc_callback_spool.c.status == 'PENDING')).count()
 
     def find_server_manager(self, c_id_group):
 
         get_Server_Manager = self.Server_Manager_q.filter(
-                                 (self.cc_server_manager.c.id_group==c_id_group)
-                                 ).all()
+            (self.cc_server_manager.c.id_group == c_id_group)
+        ).all()
         return get_Server_Manager
 
-
     def find_server_manager_roundrobin(self, c_id_group):
-
         nball_Server_Manager = self.Server_Manager_q.filter(
-                                 (self.cc_server_manager.c.id_group==c_id_group)
-                                 ).count()
+            (self.cc_server_manager.c.id_group == c_id_group)
+        ).count()
         if (nball_Server_Manager == 0):
-            raise SQlRow_Empty("No Server_Manager has been found for this idgroup : "+ str(c_id_group))
+            raise SQlRow_Empty("No Server_Manager has been found for this idgroup : " + str(c_id_group))
 
         nb_sel_Server_Manager = (self.count_server_manager % nball_Server_Manager) + 1
         selected_Server_Manager = self.Server_Manager_q.get(nb_sel_Server_Manager)
@@ -197,18 +179,15 @@ class callback_database:
 
         return selected_Server_Manager
 
-
-    def find_callback_request(self, c_status = 'PENDING', c_hours = 24):
-
+    def find_callback_request(self, c_status='PENDING', c_hours=24):
         get_CallBack_Spool = self.CallBack_Spool_q.filter(
-                                 (self.cc_callback_spool.c.status==c_status) &
-                                 (self.cc_callback_spool.c.entry_time > datetime.datetime.now() - datetime.timedelta(hours=c_hours)) &
-                                 ((self.cc_callback_spool.c.callback_time==None) | (self.cc_callback_spool.c.callback_time < datetime.datetime.now()))
-                                 ).all()
+            (self.cc_callback_spool.c.status == c_status) &
+            (self.cc_callback_spool.c.entry_time > datetime.datetime.now() - datetime.timedelta(hours=c_hours)) &
+            ((self.cc_callback_spool.c.callback_time == None) | (self.cc_callback_spool.c. callback_time < datetime.datetime.now()))
+        ).all()
         return get_CallBack_Spool
 
-
-    def update_callback_request (self, c_id, c_status):
+    def update_callback_request(self, c_id, c_status):
         try:
             get_CallBack_Spool = self.CallBack_Spool_q.filter((self.cc_callback_spool.c.id == c_id)).one()
             get_CallBack_Spool.status = c_status
@@ -217,8 +196,7 @@ class callback_database:
             #print "--- nothing to update ---"
             pass
 
-
-    def update_callback_request_server (self, c_id, c_status, c_id_server, c_manager_result):
+    def update_callback_request_server(self, c_id, c_status, c_id_server, c_manager_result):
         try:
             get_CallBack_Spool = self.CallBack_Spool_q.filter((self.cc_callback_spool.c.id == c_id)).one()
             get_CallBack_Spool.status = c_status
@@ -247,11 +225,10 @@ if __name__ == "__main__":
         print p.id,' ===========>>> >>> ',p.uniqueid, '>> ',p.status, '>> ',p.num_attempt, ' ::>> ',p.id_server, ' ::>> ',p.manager_result
 
 
+    inst_cb_db.update_callback_request(5, 'SENT')
+    inst_cb_db.update_callback_request(5, 'SENT')
 
-    inst_cb_db.update_callback_request (5, 'SENT')
-    inst_cb_db.update_callback_request (5, 'SENT')
-
-    inst_cb_db.update_callback_request_server (5, 'SENT', 77, 'rhaaaaaaaa')
+    inst_cb_db.update_callback_request_server(5, 'SENT', 77, 'rhaaaaaaaa')
 
     print
     get_Server_Manager = inst_cb_db.find_server_manager(1)
