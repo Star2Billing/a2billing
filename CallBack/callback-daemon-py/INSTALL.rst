@@ -16,14 +16,14 @@ REQUIREMENTS
 1) INSTALL DAEMON : CENTOS / REDHAT
 -----------------------------------
 
-Install from egg :
+Install from egg:
     easy_install dist/a2b_callback_daemon-versionXXX.egg
 
-Install Init Script :
+Install Init Script:
     cp a2b-callback-daemon.rc /etc/init.d/a2b-callback-daemon
     chmod +x /etc/init.d/a2b-callback-daemon
 
-Add a service to start at boot :
+Add a service to start at boot:
     chkconfig --add a2b-callback-daemon
     chkconfig a2b-callback-daemon on
 
@@ -32,20 +32,20 @@ Start Daemon :
 
 
 
-2) INSTALL DAEMON : Debian
+2) INSTALL DAEMON : DEBIAN
 --------------------------
 
-Install from egg :
+Install from egg:
     easy_install dist/a2b_callback_daemon-versionXXX.egg
 
-Install Init Script :
+Install Init script:
     cp a2b-callback-daemon.debian /etc/init.d/a2b-callback-daemon
     chmod +x /etc/init.d/a2b-callback-daemon
 
     update-rc.d a2b-callback-daemon defaults 40 60
     * to remove update-rc.d -f a2b-callback-daemon remove
 
-Start Daemon :
+Start daemon:
     /etc/init.d/a2b-callback-daemon start
 
 

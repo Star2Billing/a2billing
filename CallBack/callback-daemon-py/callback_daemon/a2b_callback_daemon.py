@@ -32,13 +32,6 @@ Daemon to proceed Call-Back request from the a2billing plaftorm
 kill -9 `cat /var/run/a2b-callback-daemon.pid`
 '''
 
-__author__ = "Belaid Arezqui (areski@gmail.com)"
-__copyright__ = "Copyright (C) Belaid Arezqui"
-
-__revision__ = "$Id$"
-__version__ = "1.1"
-
-# Load Python modules
 import threading
 import signal
 import daemon
@@ -49,10 +42,6 @@ import sys
 import time
 #import asterisk.manager
 import manager
-
-INTP_VER = sys.version_info[:2]
-if INTP_VER < (2, 2):
-    raise RuntimeError("Python v.2.2 or later needed")
 
 
 # Daemon Config File
@@ -153,8 +142,8 @@ class CallBackAction(object):
         for current_request in request_list:
             try:
                 get_Server_Manager = self.inst_cb_db.find_server_manager_roundrobin(current_request.id_server_group)
-                # print (get_Server_Manager.id + ' : ' + get_Server_Manager.id_group + ' :  ' +
-                #     get_Server_Manager.server_ip + ' : ' + get_Server_Manager.manager_username)
+                # print "%s;%s;%s;%s" % (get_Server_Manager.id, get_Server_Manager.id_group,
+                #     get_Server_Manager.server_ip, get_Server_Manager.manager_username)
             except:
                 logging.error("ERROR to find the Server Manager for the Id group : %s" %
                               str(current_request.id_server_group))
@@ -162,6 +151,8 @@ class CallBackAction(object):
                 continue
 
             # Connect to Manager
+            logging.debug("We will try to connect to the manager : host=%s, username=%s" %
+                          (get_Server_Manager.manager_host, get_Server_Manager.manager_username))
             try:
                 self.inst_callback_manager.connect(
                     get_Server_Manager.manager_host,
@@ -169,6 +160,7 @@ class CallBackAction(object):
                     get_Server_Manager.manager_secret)
             except:
                 # cannot connect to the manager
+                logging.error("ERROR cannot connect to the manager")
                 self.inst_cb_db.update_callback_request(current_request.id, 'ERROR')
                 continue
 

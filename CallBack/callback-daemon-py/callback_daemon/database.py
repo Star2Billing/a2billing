@@ -38,7 +38,6 @@ from sqlalchemy import *
 from sqlalchemy import orm
 from sqlalchemy.orm import sessionmaker
 import datetime
-import time
 
 
 class SQLError(Exception):
@@ -167,14 +166,21 @@ class callback_database:
         return get_Server_Manager
 
     def find_server_manager_roundrobin(self, c_id_group):
-        nball_Server_Manager = self.Server_Manager_q.filter(
+        cnt_servermanager = self.Server_Manager_q.filter(
             (self.cc_server_manager.c.id_group == c_id_group)
         ).count()
-        if (nball_Server_Manager == 0):
+        if not cnt_servermanager:
             raise SQlRow_Empty("No Server_Manager has been found for this idgroup : " + str(c_id_group))
 
-        nb_sel_Server_Manager = (self.count_server_manager % nball_Server_Manager) + 1
-        selected_Server_Manager = self.Server_Manager_q.get(nb_sel_Server_Manager)
+        list_servermanager = self.Server_Manager_q.filter(
+            (self.cc_server_manager.c.id_group == c_id_group)
+        ).all()
+        select_servermanager = (self.count_server_manager % cnt_servermanager) + 1
+        #selected_Server_Manager = self.Server_Manager_q.get(select_servermanager)
+        selected_Server_Manager = list_servermanager[select_servermanager - 1]
+        # print (selected_Server_Manager)
+        # print (dir(selected_Server_Manager))
+        # print (selected_Server_Manager.server_ip)
         self.count_server_manager = self.count_server_manager + 1
 
         return selected_Server_Manager
@@ -214,7 +220,6 @@ class callback_database:
 
 if __name__ == "__main__":
 
-    """
     print "\n\n"
     inst_cb_db = callback_database()
     print inst_cb_db.count_callback_spool()
@@ -222,24 +227,20 @@ if __name__ == "__main__":
     print
     get_CallBack_Spool = inst_cb_db.find_callback_request('SENT', 121212)
     for p in get_CallBack_Spool[0:5]:
-        print p.id,' ===========>>> >>> ',p.uniqueid, '>> ',p.status, '>> ',p.num_attempt, ' ::>> ',p.id_server, ' ::>> ',p.manager_result
-
+        print "%d ==> %s, %s, %d, %d, %s" % (p.id, p.uniqueid, p.status, p.num_attempt, p.id_server, p.manager_result)
 
     inst_cb_db.update_callback_request(5, 'SENT')
-    inst_cb_db.update_callback_request(5, 'SENT')
+    inst_cb_db.update_callback_request_server(5, 'SENT', 77, 'this is a test')
 
-    inst_cb_db.update_callback_request_server(5, 'SENT', 77, 'rhaaaaaaaa')
-
-    print
+    print ""
     get_Server_Manager = inst_cb_db.find_server_manager(1)
     for p in get_Server_Manager[0:5]:
-        print p.id,' ===========>>> >>> ',p.id_group, '>> ',p.server_ip, '>> ',p.manager_username
-
+        print "%d ==> %d, %d, %s" % (p.id, p.id_group, p.server_ip, p.manager_username)
 
     try:
-        get_Server_Manager = inst_cb_db.find_server_manager_roundrobin(11)
-        print get_Server_Manager.id,' ===========>>> >>> ',get_Server_Manager.id_group, '>> ',get_Server_Manager.server_ip, '>> ',get_Server_Manager.manager_username
+        server_manager = inst_cb_db.find_server_manager_roundrobin(11)
+        print ("%d ==> %d, %d, %s" %
+            (server_manager.id, server_manager.id_group, server_manager.server_ip, server_manager.manager_username))
     except:
         print "--- no manager ---"
         pass
-    """
