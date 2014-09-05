@@ -57,13 +57,17 @@ Start daemon:
 
 
 
-# ADDITIONAL INFO
------------------
+4) ADDITIONAL INFO
+------------------
 
-    a) rebuild the source :
+    a) Rebuild the source:
 
         python setup.py build
 
-    b) create a new egg :
+    b) Create a new egg:
 
         python setup.py bdist_egg
+
+    c) Kill Daemon:
+
+        kill -9 `cat /var/run/a2b-callback-daemon.pid`
