@@ -582,6 +582,8 @@ class A2Billing
         if (!isset($this->config["agi-conf$idconfig"]['cheat_on_announcement_time'])) $this->config["agi-conf$idconfig"]['cheat_on_announcement_time'] = 0;
         if (!isset($this->config["agi-conf$idconfig"]['busy_timeout'])) $this->config["agi-conf$idconfig"]['busy_timeout'] = 1;
         if (!isset($this->config["agi-conf$idconfig"]['lcr_mode'])) $this->config["agi-conf$idconfig"]['lcr_mode'] = 0;
+        if (!isset($this->config["agi-conf$idconfig"]['default_accountcode'])) $this->config["agi-conf$idconfig"]['default_accountcode'] = '';
+        if (!isset($this->config["agi-conf$idconfig"]['default_accountcode_all'])) $this->config["agi-conf$idconfig"]['default_accountcode_all'] = 0;
 
         // Define the agiconfig property
         $this->agiconfig = $this->config["agi-conf$idconfig"];
@@ -733,7 +735,6 @@ class A2Billing
         $this->CallerID    = $this->sanitize_agi_data($agi->request['agi_callerid']);
         $this->channel     = $this->sanitize_agi_data($agi->request['agi_channel']);
         $this->uniqueid    = $this->sanitize_agi_data($agi->request['agi_uniqueid']);
-        $this->accountcode = $this->sanitize_agi_data($agi->request['agi_accountcode']);
         $this->orig_dnid   = $this->sanitize_agi_data($agi->request['agi_dnid']);
         $this->orig_ext    = $this->sanitize_agi_data($agi->request['agi_extension']);
         $extension         = str_replace("|", '', $agi->request['agi_extension']);
@@ -741,7 +742,13 @@ class A2Billing
         $extension         = str_replace("(", '', $extension);
         $extension         = str_replace(")", '', $extension);
         $this->dnid        = $this->sanitize_agi_data($agi->request['agi_extension']);
-
+        if ($this->agiconfig['default_accountcode_all'] && !empty($this->agiconfig['default_accountcode'])) {
+            $this->accountcode = $this->agiconfig['default_accountcode'];
+        } elseif (empty($agi->request['agi_accountcode']) && !empty($this->agiconfig['default_accountcode'])) {
+            $this->accountcode = $this->agiconfig['default_accountcode'];
+        } else {
+            $this->accountcode = $this->sanitize_agi_data($agi->request['agi_accountcode']);
+        }
         //Call function to find the cid number
         $this->isolate_cid();
 
