@@ -151,7 +151,7 @@ class RateEngine
         id_cc_package_offer, tp_trunk.status, rt_trunk.status, tp_trunk.inuse, rt_trunk.inuse,
         tp_trunk.maxuse, rt_trunk.maxuse, tp_trunk.if_max_use, rt_trunk.if_max_use, cc_ratecard.rounding_calltime AS rounding_calltime,
         cc_ratecard.rounding_threshold AS rounding_threshold, cc_ratecard.additional_block_charge AS additional_block_charge, cc_ratecard.additional_block_charge_time AS additional_block_charge_time,
-        cc_ratecard.additional_grace AS additional_grace, cc_ratecard.minimal_cost AS minimal_cost, disconnectcharge_after, announce_time_correction
+        cc_ratecard.additional_grace AS additional_grace, cc_ratecard.minimal_cost AS minimal_cost, disconnectcharge_after, announce_time_correction, cc_tariffplan.id AS tp_id
 
         FROM cc_tariffgroup
         RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup = cc_tariffgroup.id
@@ -1329,7 +1329,7 @@ class RateEngine
             $calls_per_day_reached = false;
             if (!is_null($counters)) {
                 if ($minutes_per_day > 0)
-                    $minutes_per_day_reached = (($counters['seconds'] / 60) > $minutes_per_day);
+                    $minutes_per_day_reached = ($counters['minutes'] > $minutes_per_day);
                 if ($attempt_delay > 0)
                     $trunk_on_pause = (($counters['last_call_time'] + $attempt_delay) >= time());
                 if ($calls_per_day > 0)
@@ -1441,8 +1441,22 @@ class RateEngine
                     $A2B->debug(INFO, $agi, __FILE__, __LINE__, "EXEC StopMixMonitor (" . $A2B->uniqueid . ")");
                 }
                 
-                $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[DIALSTATUS=" . $this->dialstatus . "]");
+                $hc_code = $agi->get_variable("HANGUPCAUSE");
+                $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[DIALSTATUS=" . $this->dialstatus . ", HANGUPCAUSE=$hc_code]");
                 if (($this->dialstatus == "CHANUNAVAIL") || ($this->dialstatus == "CONGESTION")) {
+                    $tp_id = $this->ratecard_obj[$i]['tp_id'];
+                    $A2B->instance_table = new Table();
+                    $result = $A2B->instance_table->SQLExec($A2B->DBHandle, "SELECT * FROM cc_tariffplan WHERE id = '$tp_id'");
+                    if (is_array($result) && count($result) > 0) {
+                        $break_codes = $result[0]['algo_break_hc'];
+                        if (strlen($break_codes) > 0) {
+                            $break_codes = explode(',', $break_codes);
+                            if (is_array($break_codes) && in_array($code, $break_codes)) {
+                                $A2B->debug(INFO, $agi, __FILE__, __LINE__, "Interrupting TRUNK ALGO because break code matched ( $hc_code )");
+                                break;
+                            }
+                        }
+                    }
                 } else {
                     if ($this->dialstatus == "BUSY") {
                         $this->real_answeredtime = $this->answeredtime = 0;
@@ -1627,7 +1641,7 @@ class RateEngine
             $calls_per_day_reached = false;
             if (!is_null($counters)) {
                 if ($minutes_per_day > 0)
-                    $minutes_per_day_reached = (($counters['seconds'] / 60) > $minutes_per_day);
+                    $minutes_per_day_reached = ($counters['minutes'] > $minutes_per_day);
                 if ($attempt_delay > 0)
                     $trunk_on_pause = (($counters['last_call_time'] + $attempt_delay) >= time());
                 if ($calls_per_day > 0)
@@ -1745,7 +1759,7 @@ class RateEngine
                     $calls_per_day_reached = false;
                     if (!is_null($counters)) {
                         if ($minutes_per_day > 0)
-                            $minutes_per_day_reached = (($counters['seconds'] / 60) > $minutes_per_day);
+                            $minutes_per_day_reached = ($counters['minutes'] > $minutes_per_day);
                         if ($attempt_delay > 0)
                             $trunk_on_pause = (($counters['last_call_time'] + $attempt_delay) >= time());
                         if ($calls_per_day > 0)

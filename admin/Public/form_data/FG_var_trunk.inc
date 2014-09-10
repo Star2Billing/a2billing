@@ -110,12 +110,13 @@ if ($popup_select) {
 	$HD_Form -> AddViewElement(gettext("MAXUSE"), "maxuse" , "5%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("Minutes/day"), "minutes_per_day" , "5%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("Minutes/day used"), "id_trunk" , "5%", "center", "", "", "", "", "", "", "", "display_minute_used");
+        $HD_Form -> AddViewElement(gettext("Whole Minutes/day used"), "id_trunk" , "5%", "center", "", "", "", "", "", "", "", "display_wholeminute_used");
 	$HD_Form -> AddViewElement(gettext("Priority"), "priority" , "5%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("Calls/day"), "calls_per_day" , "5%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("Calls/day used"), "id_trunk" , "5%", "center", "", "", "", "", "", "", "", "display_calls_used");
-    $HD_Form -> AddViewElement(gettext("TIMEZONE"), "trunk_GMT", "%1", "center", "SORT", "30", "", "", "", "", "", "display_timezone");
+        $HD_Form -> AddViewElement(gettext("TIMEZONE"), "trunk_GMT", "%1", "center", "SORT", "30", "", "", "", "", "", "display_timezone");
         
-	$HD_Form -> FieldViewElement ('trunkcode, trunkprefix, removeprefix, providertech, providerip, id_provider, secondusedreal, status, maxuse, minutes_per_day, id_trunk, priority, calls_per_day, id_trunk, trunk_GMT');
+	$HD_Form -> FieldViewElement ('trunkcode, trunkprefix, removeprefix, providertech, providerip, id_provider, secondusedreal, status, maxuse, minutes_per_day, id_trunk, id_trunk, priority, calls_per_day, id_trunk, trunk_GMT');
 }
 
 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
@@ -289,7 +290,7 @@ $HD_Form -> AddEditElement (gettext("Minutes/day"),
 	"size=9 $def_value_minutes maxlength=30",
 	"12",
 	"",
-	"" , "", "", "", "", "", "", gettext("Number of maximum minutes to the gateway per day, to disable - set to 0 (zero)") . (is_array($counters) ? ". <b>" . sprintf(gettext("Minutes today: %s"), sprintf("%02d", intval($counters['seconds'] / 60)) . ":" . sprintf("%02d", intval($counters['seconds'] % 60))) . '</b>' : ''));
+	"" , "", "", "", "", "", "", gettext("Number of maximum minutes to the gateway per day, to disable - set to 0 (zero)") . (is_array($counters) ? ". <b>" . sprintf(gettext("Minutes today: %s"), sprintf("%02d", intval($counters['seconds'] / 60)) . ":" . sprintf("%02d", intval($counters['seconds'] % 60))) . sprintf(", Whole minutes today: %ld", $counters['minutes']) . '</b>' : ''));
     
 $HD_Form -> AddEditElement (gettext("Attempts"),
 	"attempt_count",
@@ -314,7 +315,7 @@ $HD_Form -> AddEditElement (gettext("Attempt dial status(es) list"),
 	"$value",
 	"INPUT",
 	"size=100 $def_value_statuses maxlength=255",
-	"0",
+	"",
 	"",
 	"" , "", "", "", "", "", "", gettext("The list of dialstatuses (comma (,) as separator). Use any of: ANSWER,BUSY,NOANSWER,CONGESTION,CHANUNAVAIL,DONTCALL,TORTURE,INVALIDARGS"));
 

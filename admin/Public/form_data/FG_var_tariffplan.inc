@@ -170,30 +170,36 @@ $HD_Form -> AddEditElement (gettext("TRUNK SELECT ALGO"),
 	"",
 	"list" , "", "", "", $trunk_algo_list, "%1", "", gettext("Trunk selection algorithm. Use default for the standard functionality."));
 
+$HD_Form -> AddEditElement (gettext("ALGO BREAK CODE"),
+	"algo_break_hc",
+	"$value",
+	"INPUT",
+	"size=100 maxlength=1024",
+	"",
+	"",
+	"", "", "", "", "", "", "", gettext("In case of 'CONGESTION' from a trunk - use this setting to recognize a hangup cause and break algo. This field should contain a comma separated list of HANGUPCAUSE codes or be empty to do nothing"));
 
-	
 $DBHandle_max  = DbConnect();
 $numrow = 0;
 $resmax = $DBHandle_max -> Execute("SELECT * FROM cc_trunk");
 if ( $resmax )
-	$numrow = $resmax -> RecordCount( );
+    $numrow = $resmax -> RecordCount( );
 
 if ($numrow>0){ 
-	$HD_Form -> AddEditElement (gettext("TRUNKS"),
-		"trunk",	
-		'$value',	
-		"SELECT",		
-		'size="10" multiple="multiple"',
-		"",		
-		"",	
-		"sql",		
-		"cc_tariffplan_trunk",	
-		"label, id",
-		"", "", "%1 : (%2)", "", "", "cc_tariffplan_trunk:idtrunk:cc_trunk LEFT JOIN cc_tariffplan_trunk ON cc_trunk.id_trunk=cc_tariffplan_trunk.idtrunk:DISTINCT cc_trunk.trunkcode, cc_trunk.id_trunk: cc_tariffplan_trunk.idtariffplan = %id:idtariffplan:%2 - (%1)::::%1:id='%1'");	
+    $HD_Form -> AddEditElement (gettext("TRUNKS"),
+        "trunk",	
+        '$value',	
+        "SELECT",		
+        'size="10" multiple="multiple"',
+        "",		
+        "",	
+        "sql",		
+        "cc_tariffplan_trunk",	
+        "label, id",
+        "", "", "%1 : (%2)", "", "", "cc_tariffplan_trunk:idtrunk:cc_trunk LEFT JOIN cc_tariffplan_trunk ON cc_trunk.id_trunk=cc_tariffplan_trunk.idtrunk:DISTINCT cc_trunk.trunkcode, cc_trunk.id_trunk: cc_tariffplan_trunk.idtariffplan = %id:idtariffplan:%2 - (%1)::::%1:id='%1'");
 }
-
 	
-$HD_Form -> FieldEditElement ('tariffname, startingdate, expirationdate, id_trunk, description, dnidprefix, calleridprefix, trunk_algo');
+$HD_Form -> FieldEditElement ('tariffname, startingdate, expirationdate, id_trunk, description, dnidprefix, calleridprefix, trunk_algo, algo_break_hc');
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the rate card.");

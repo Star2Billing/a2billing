@@ -1586,6 +1586,12 @@ function display_minute_used($id_trunk) {
     display_minute(!is_null($counters) ? $counters['seconds'] : 0);
 }
 
+function display_wholeminute_used($id_trunk) {
+    $counters = getTrunkCounters($id_trunk);
+    
+    echo !is_null($counters) ? $counters['minutes'] : 0;
+}
+
 function display_calls_used($id_trunk) {
     $counters = getTrunkCounters($id_trunk);
     
@@ -1626,11 +1632,13 @@ function updateTrunkCounters($id_trunk, $sessiontime) {
         
     $counters = getTrunkCounters($id_trunk);
     if (!$counters) {
-        $QUERY = "insert into cc_trunk_counter set id_trunk = '$id_trunk', calldate = getCurDateByTrunkTZ($id_trunk), seconds = 0, last_call_time = 0, success_calls = 0";
+        $QUERY = "insert into cc_trunk_counter set id_trunk = '$id_trunk', calldate = getCurDateByTrunkTZ($id_trunk), seconds = 0, last_call_time = 0, success_calls = 0, minutes = 0";
         $instance_table->SQLExec($DBHandle, $QUERY, 0);
     }
     
-    $QUERY = "UPDATE cc_trunk_counter SET seconds = seconds + $sessiontime, last_call_time = '" . time() . "', success_calls = success_calls + 1 WHERE id_trunk = '$id_trunk' and calldate = getCurDateByTrunkTZ($id_trunk)";
+    $minutes = ceil($sessiontime / 60);
+    
+    $QUERY = "UPDATE cc_trunk_counter SET minutes = minutes + $minutes,  seconds = seconds + $sessiontime, last_call_time = '" . time() . "', success_calls = success_calls + 1 WHERE id_trunk = '$id_trunk' and calldate = getCurDateByTrunkTZ($id_trunk)";
     $instance_table->SQLExec($DBHandle, $QUERY, 0);
 }
 
