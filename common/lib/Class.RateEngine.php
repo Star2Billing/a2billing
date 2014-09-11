@@ -1445,12 +1445,14 @@ class RateEngine
                 $hc_code = $hc_code['data'];
                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[DIALSTATUS=" . $this->dialstatus . ", HANGUPCAUSE=$hc_code]");
                 if (($this->dialstatus == "CHANUNAVAIL") || ($this->dialstatus == "CONGESTION")) {
-                    $tp_id = $this->ratecard_obj[$i]['tp_id'];
+                    $QUERY = "SELECT * FROM cc_tariffplan WHERE id = '" . $this->ratecard_obj[$i]['tp_id'] . "'";
+                    $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[$QUERY]");
                     $A2B->instance_table = new Table();
-                    $result = $A2B->instance_table->SQLExec($A2B->DBHandle, "SELECT * FROM cc_tariffplan WHERE id = '$tp_id'");
+                    $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
                     if (is_array($result) && count($result) > 0) {
                         $break_codes = $result[0]['algo_break_hc'];
                         if (strlen($break_codes) > 0) {
+                            $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[BREAKING HANGUPCAUSE CODES: $break_codes]");
                             $break_codes = explode(',', $break_codes);
                             if (is_array($break_codes) && in_array($code, $break_codes)) {
                                 $A2B->debug(INFO, $agi, __FILE__, __LINE__, "Interrupting TRUNK ALGO because break code matched ( $hc_code )");
