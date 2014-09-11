@@ -1442,6 +1442,7 @@ class RateEngine
                 }
                 
                 $hc_code = $agi->get_variable("HANGUPCAUSE");
+                $hc_code = $hc_code['data'];
                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[DIALSTATUS=" . $this->dialstatus . ", HANGUPCAUSE=$hc_code]");
                 if (($this->dialstatus == "CHANUNAVAIL") || ($this->dialstatus == "CONGESTION")) {
                     $tp_id = $this->ratecard_obj[$i]['tp_id'];
