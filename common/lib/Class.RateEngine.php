@@ -1445,7 +1445,7 @@ class RateEngine
                 $hc_code = $hc_code['data'];
                 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[DIALSTATUS=" . $this->dialstatus . ", HANGUPCAUSE=$hc_code]");
                 if (($this->dialstatus == "CHANUNAVAIL") || ($this->dialstatus == "CONGESTION")) {
-                    $QUERY = "SELECT * FROM cc_tariffplan WHERE id = '" . $this->ratecard_obj[$i]['tp_id'] . "'";
+                    $QUERY = "SELECT * FROM cc_tariffplan WHERE id = '" . $this->ratecard_obj[$k]['tp_id'] . "'";
                     $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[$QUERY]");
                     $A2B->instance_table = new Table();
                     $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
