@@ -1454,7 +1454,7 @@ class RateEngine
                         if (strlen($break_codes) > 0) {
                             $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[BREAKING HANGUPCAUSE CODES: $break_codes]");
                             $break_codes = explode(',', $break_codes);
-                            if (is_array($break_codes) && in_array($code, $break_codes)) {
+                            if (is_array($break_codes) && in_array($hc_code, $break_codes)) {
                                 $A2B->debug(INFO, $agi, __FILE__, __LINE__, "Interrupting TRUNK ALGO because break code matched ( $hc_code )");
                                 break;
                             }
