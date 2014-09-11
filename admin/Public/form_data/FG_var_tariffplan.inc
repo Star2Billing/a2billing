@@ -170,14 +170,14 @@ $HD_Form -> AddEditElement (gettext("TRUNK SELECT ALGO"),
 	"",
 	"list" , "", "", "", $trunk_algo_list, "%1", "", gettext("Trunk selection algorithm. Use default for the standard functionality."));
 
-$HD_Form -> AddEditElement (gettext("ALGO BREAK CODE"),
+$HD_Form -> AddEditElement (gettext("ALGO BREAK CODE(S)"),
 	"algo_break_hc",
 	"$value",
 	"INPUT",
 	"size=100 maxlength=1024",
 	"",
 	"",
-	"", "", "", "", "", "", "", gettext("In case of 'CONGESTION' from a trunk - use this setting to recognize a hangup cause and break algo. This field should contain a comma separated list of HANGUPCAUSE codes or be empty to do nothing"));
+	"", "", "", "", "", "", "", gettext("Use this setting to recognize a hangup cause and break algo if code matches. This field should contain a comma separated list of HANGUPCAUSE codes or be empty to do nothing"));
 
 $DBHandle_max  = DbConnect();
 $numrow = 0;
