@@ -195,6 +195,7 @@ class CallBackAction(object):
                     current_request.variable)
             except:
                 # cannot connect to the manager
+                logging.error("Error connecting to the manager 2: %s" % reason)
                 self.inst_cb_db.update_callback_request(current_request.id, 'ERROR')
                 continue
 
