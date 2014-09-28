@@ -229,7 +229,7 @@ if (!isset($currencies_list[strtoupper($curr)][2]) || !is_numeric($currencies_li
                                     <?php echo $item->getDescription(); ?>
                                 </td>
                                 <td align="right">
-                                    <?php echo number_format(round(amount_convert($item->getPrice()),6),6); ?>
+                                    <?php echo number_format(amount_convert($item->getPrice()),6); ?>
                                 </td>
                             </tr>
                             <?php
@@ -254,13 +254,20 @@ if (!isset($currencies_list[strtoupper($curr)][2]) || !is_numeric($currencies_li
                             <tr class="extotal">
                                 <td class="one"></td>
                                 <td class="two"><?php echo gettext("Total Page")." ".$page ?></td>
-                                <td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(ceil(amount_convert(ceil($price*100)/100)*100)/100,2)." $display_curr"; ?></div></div></td>
+                                <td class="three"><div class="inctotal">
+                                    <div class="inctotal inner">
+                                        <?php echo number_format(amount_convert($price),2)." $display_curr"; ?></div>
+                                    </div>
+                                </td>
                             </tr>
             <?php } ?>
                             <tr class="inctotal">
                                 <td class="one"></td>
                                 <td class="two"><?php echo gettext("Total Receipt :") ?></td>
-                                <td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(ceil(amount_convert(ceil($totalprice*100)/100)*100)/100,2)." $display_curr"; ?></div></div></td>
+                                <td class="three">
+                                    <div class="inctotal inner"><?php echo number_format(amount_convert($totalprice),2)." $display_curr"; ?>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody></table>
                 </td>
