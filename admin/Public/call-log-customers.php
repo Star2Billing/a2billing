@@ -53,8 +53,8 @@ if (($download == "file") && $file) {
         $dl_full = MONITOR_PATH . "/" . $value_de;
         $dl_name = $value_de;
 
-        if (! file_exists ( $dl_full )) {
-            echo gettext ( "ERROR: Cannot download file " . $dl_full . ", it does not exist.<br>" );
+        if (!file_exists ($dl_full)) {
+            echo gettext ("ERROR: Cannot download file " . $dl_full . ", it does not exist.<br>");
             exit ();
         }
 
