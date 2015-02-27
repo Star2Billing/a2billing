@@ -1478,6 +1478,7 @@ INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) V
 INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(253, 'SRB', '381', 'Serbia, Republic of');
 INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(254, 'CPT', '0', 'Clipperton Island');
 INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(255, 'TAA', '0', 'Tristan da Cunha');
+INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) VALUES(256, 'UNK', '381', 'Kosovo');
 
 -- --------------------------------------------------------
 

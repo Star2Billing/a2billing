@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2014 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -53,8 +53,8 @@ if (($download == "file") && $file) {
         $dl_full = MONITOR_PATH . "/" . $value_de;
         $dl_name = $value_de;
 
-        if (! file_exists ( $dl_full )) {
-            echo gettext ( "ERROR: Cannot download file " . $dl_full . ", it does not exist.<br>" );
+        if (!file_exists ($dl_full)) {
+            echo gettext ("ERROR: Cannot download file " . $dl_full . ", it does not exist.<br>");
             exit ();
         }
 

@@ -8,7 +8,7 @@ A2BILLING INSTALLATION GUIDE
 -----------
 
     A2Billing is a voip billing software licensed under the AGPL 3.
-    Copyright (C) 2004-2013 - Star2billing S.L. http://www.star2billing.com/
+    Copyright (C) 2004-2015 - Star2billing S.L. http://www.star2billing.com/
 
     This document focuses on the installation of A2Billing system for the Asterisk open source PBX. The document covers the installation and basic configuration of
     A2Billing. A2billing is an open source implementation of a telecommunication billing and added value services platform.

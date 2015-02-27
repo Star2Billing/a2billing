@@ -52,7 +52,8 @@ Not all manager actions are implmented as of yet, feel free to add them
 and submit patches.
 """
 
-import sys,os
+import sys
+import os
 import socket
 import threading
 import Queue
@@ -94,7 +95,7 @@ class ManagerMsg(object):
 
             # locate the ':' in our message, if there is one
             if line.find(':') > -1:
-                item = [x.strip() for x in line.split(':',1)]
+                item = [x.strip() for x in line.split(':', 1)]
 
                 # if this is a header
                 if len(item) == 2:
@@ -239,12 +240,12 @@ class Manager(object):
         # generate the command
         for key, value in cdict.items():
             if isinstance(value, list):
-               for item in value:
-                  item = tuple([key, item])
-                  clist.append('%s: %s' % item)
+                for item in value:
+                    item = tuple([key, item])
+                    clist.append('%s: %s' % item)
             else:
-               item = tuple([key, value])
-               clist.append('%s: %s' % item)
+                item = tuple([key, value])
+                clist.append('%s: %s' % item)
         clist.append(EOL)
         command = EOL.join(clist)
 
@@ -254,7 +255,7 @@ class Manager(object):
         except socket.error, (errno, reason):
             raise ManagerSocketException(errno, reason)
 
-        self._reswaiting.insert(0,1)
+        self._reswaiting.insert(0, 1)
         response = self._response_queue.get()
         self._reswaiting.pop(0)
 
@@ -297,12 +298,14 @@ class Manager(object):
 
                         # if we are no longer connected we probably did not
                         # recieve a full message, don't try to handle it
-                        if not self._connected.isSet(): break
+                        if not self._connected.isSet():
+                            break
 
                         # make sure our line is a string
                         assert type(line) in StringTypes
 
-                        lines.append(line) # add the line to our message
+                        # add the line to our message
+                        lines.append(line)
 
                         # if the line is our EOL marker we have a complete message
                         if line == EOL:
@@ -310,8 +313,10 @@ class Manager(object):
 
                         # check to see if this is the greeting line
                         if line.find('/') >= 0 and line.find(':') < 0:
-                            self.title = line.split('/')[0].strip() # store the title of the manager we are connecting to
-                            self.version = line.split('/')[1].strip() # store the version of the manager we are connecting to
+                            # store the title of the manager we are connecting to
+                            self.title = line.split('/')[0].strip()
+                            # store the version of the manager we are connecting to
+                            self.version = line.split('/')[1].strip()
                             break
 
                         #sleep(.001)  # waste some time before reading another line
@@ -391,7 +396,6 @@ class Manager(object):
             # wait for our data receiving thread to exit
             t.join()
 
-
     def event_dispatch(self):
         """This thread is responsible fore dispatching events"""
 
@@ -412,8 +416,8 @@ class Manager(object):
 
             # now execute the functions
             for callback in callbacks:
-               if callback(ev, self):
-                  break
+                if callback(ev, self):
+                    break
 
     def connect(self, host, port=5038):
         """Connect to the manager interface"""
@@ -429,7 +433,7 @@ class Manager(object):
         # create our socket and connect
         try:
             self._sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self._sock.connect((host,port))
+            self._sock.connect((host, port))
         except socket.error, (errno, reason):
             raise ManagerSocketException(errno, reason)
 
@@ -467,30 +471,29 @@ class Manager(object):
 
         self._running.clear()
 
-
     def login(self, username, secret):
         """Login to the manager, throws ManagerAuthException when login fails"""
 
-        cdict = {'Action':'Login'}
+        cdict = {'Action': 'Login'}
         cdict['Username'] = username
         cdict['Secret'] = secret
         response = self.send_action(cdict)
 
         if response.get_header('Response') == 'Error':
-           raise ManagerAuthException(response.get_header('Message'))
+            raise ManagerAuthException(response.get_header('Message'))
 
         return response
 
     def ping(self):
         """Send a ping action to the manager"""
-        cdict = {'Action':'Ping'}
+        cdict = {'Action': 'Ping'}
         response = self.send_action(cdict)
         return response
 
     def logoff(self):
         """Logoff from the manager"""
 
-        cdict = {'Action':'Logoff'}
+        cdict = {'Action': 'Logoff'}
         response = self.send_action(cdict)
 
         # Clear connection
@@ -502,16 +505,16 @@ class Manager(object):
     def hangup(self, channel):
         """Hanup the specfied channel"""
 
-        cdict = {'Action':'Hangup'}
+        cdict = {'Action': 'Hangup'}
         cdict['Channel'] = channel
         response = self.send_action(cdict)
 
         return response
 
-    def status(self, channel = ''):
+    def status(self, channel=''):
         """Get a status message from asterisk"""
 
-        cdict = {'Action':'Status'}
+        cdict = {'Action': 'Status'}
         cdict['Channel'] = channel
         response = self.send_action(cdict)
 
@@ -520,12 +523,14 @@ class Manager(object):
     def redirect(self, channel, exten, priority='1', extra_channel='', context=''):
         """Redirect a channel"""
 
-        cdict = {'Action':'Redirect'}
+        cdict = {'Action': 'Redirect'}
         cdict['Channel'] = channel
         cdict['Exten'] = exten
         cdict['Priority'] = priority
-        if context:   cdict['Context']  = context
-        if extra_channel: cdict['ExtraChannel'] = extra_channel
+        if context:
+            cdict['Context'] = context
+        if extra_channel:
+            cdict['ExtraChannel'] = extra_channel
         response = self.send_action(cdict)
 
         return response
@@ -533,23 +538,33 @@ class Manager(object):
     def originate(self, channel, exten, context='', priority='', timeout='', caller_id='', async=False, account='', application='', data='', variables={}, ActionID=''):
         """Originate a call"""
 
-        cdict = {'Action':'Originate'}
+        cdict = {'Action': 'Originate'}
         cdict['Channel'] = channel
         cdict['Exten'] = exten
-        if context:   cdict['Context']  = context
-        if priority:  cdict['Priority'] = priority
-        if timeout:   cdict['Timeout']  = timeout
-        if caller_id: cdict['CallerID'] = caller_id
-        if async:     cdict['Async']    = 'yes'
-        if account:   cdict['Account']  = account
-        if application: cdict['Application']  = application
-        if data:        cdict['Data'] = data
-        if ActionID:        cdict['ActionID'] = ActionID
+        if context:
+            cdict['Context'] = context
+        if priority:
+            cdict['Priority'] = priority
+        if timeout:
+            cdict['Timeout'] = timeout
+        if caller_id:
+            cdict['CallerID'] = caller_id
+        if async:
+            cdict['Async'] = 'yes'
+        if account:
+            cdict['Account'] = account
+        if application:
+            cdict['Application'] = application
+        if data:
+            cdict['Data'] = data
+        if ActionID:
+            cdict['ActionID'] = ActionID
         # join dict of vairables together in a string in the form of 'key=val|key=val'
         # with the latest CVS HEAD this is no longer necessary
         # if variables: cdict['Variable'] = '|'.join(['='.join((str(key), str(value))) for key, value in variables.items()])
         #if variables: cdict['Variable'] = ['='.join((str(key), str(value))) for key, value in variables.items()]
-        if variables: cdict['Variable'] = variables
+        if variables:
+            cdict['Variable'] = variables
 
         response = self.send_action(cdict)
 
@@ -558,7 +573,7 @@ class Manager(object):
     def mailbox_status(self, mailbox):
         """Get the status of the specfied mailbox"""
 
-        cdict = {'Action':'MailboxStatus'}
+        cdict = {'Action': 'MailboxStatus'}
         cdict['Mailbox'] = mailbox
         response = self.send_action(cdict)
 
@@ -567,7 +582,7 @@ class Manager(object):
     def command(self, command):
         """Execute a command"""
 
-        cdict = {'Action':'Command'}
+        cdict = {'Action': 'Command'}
         cdict['Command'] = command
         response = self.send_action(cdict)
 
@@ -576,7 +591,7 @@ class Manager(object):
     def extension_state(self, exten, context):
         """Get the state of an extension"""
 
-        cdict = {'Action':'ExtensionState'}
+        cdict = {'Action': 'ExtensionState'}
         cdict['Exten'] = exten
         cdict['Context'] = context
         response = self.send_action(cdict)
@@ -586,7 +601,7 @@ class Manager(object):
     def absolute_timeout(self, channel, timeout):
         """Set an absolute timeout on a channel"""
 
-        cdict = {'Action':'AbsoluteTimeout'}
+        cdict = {'Action': 'AbsoluteTimeout'}
         cdict['Channel'] = channel
         cdict['Timeout'] = timeout
         response = self.send_action(cdict)
@@ -594,13 +609,20 @@ class Manager(object):
         return response
 
     def mailbox_count(self, mailbox):
-        cdict = {'Action':'MailboxCount'}
+        cdict = {'Action': 'MailboxCount'}
         cdict['Mailbox'] = mailbox
         response = self.send_action(cdict)
 
         return response
 
-class ManagerException(Exception): pass
-class ManagerSocketException(ManagerException): pass
-class ManagerAuthException(ManagerException): pass
 
+class ManagerException(Exception):
+    pass
+
+
+class ManagerSocketException(ManagerException):
+    pass
+
+
+class ManagerAuthException(ManagerException):
+    pass

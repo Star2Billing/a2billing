@@ -9,7 +9,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2014 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -49,7 +49,7 @@ include(dirname(__FILE__) . "/lib/interface/constants.php");
 
 $charge_callback = 0;
 $G_startime = time();
-$agi_version = "A2Billing - v2.0.16";
+$agi_version = "A2Billing - v2.1.0";
 
 if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-v')) {
     echo "$agi_version\n";

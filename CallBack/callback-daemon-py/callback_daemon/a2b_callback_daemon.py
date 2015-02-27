@@ -7,7 +7,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -32,13 +32,6 @@ Daemon to proceed Call-Back request from the a2billing plaftorm
 kill -9 `cat /var/run/a2b-callback-daemon.pid`
 '''
 
-__author__ = "Belaid Arezqui (areski@gmail.com)"
-__copyright__ = "Copyright (C) Belaid Arezqui"
-
-__revision__ = "$Id$"
-__version__ = "1.00"
-
-# Load Python modules
 import threading
 import signal
 import daemon
@@ -49,10 +42,6 @@ import sys
 import time
 #import asterisk.manager
 import manager
-
-INTP_VER = sys.version_info[:2]
-if INTP_VER < (2, 2):
-    raise RuntimeError("Python v.2.2 or later needed")
 
 
 # Daemon Config File
@@ -72,7 +61,8 @@ shutdown_all = threading.Event()
 
 def handler(signum, frame):
     logging.debug('Signal handler called with signal %d', signum)
-    logging.debug("At " + str(frame.f_code.co_name) + " in " + str(frame.f_code.co_filename) + " line " + str(frame.f_lineno))
+    logging.debug("At " + str(frame.f_code.co_name) + " in " +
+                  str(frame.f_code.co_filename) + " line " + str(frame.f_lineno))
     shutdown_all.set()
     sys.exit()
 
@@ -149,62 +139,64 @@ class CallBackAction(object):
         if (len(request_list) > 0):
             logging.info(request_list)
 
-        prev_id_server_group = -1
-        id_server_group = None
         for current_request in request_list:
-
-            #print current_request.id,' : ',current_request.channel,' : ',current_request.context,' : ',current_request.exten,' : ',current_request.priority,' : '
             try:
                 get_Server_Manager = self.inst_cb_db.find_server_manager_roundrobin(current_request.id_server_group)
-                #print get_Server_Manager.id,' : ',get_Server_Manager.id_group, ' :  ',get_Server_Manager.server_ip, ' : ',get_Server_Manager.manager_username
+                # print "%s;%s;%s;%s" % (get_Server_Manager.id, get_Server_Manager.id_group,
+                #     get_Server_Manager.server_ip, get_Server_Manager.manager_username)
             except:
-                logging.error("ERROR to find the Server Manager for the Id group : " + str(current_request.id_server_group))
+                logging.error("ERROR to find the Server Manager for the Id group : %s" %
+                              str(current_request.id_server_group))
                 self.inst_cb_db.update_callback_request(current_request.id, 'ERROR')
                 continue
 
             # Connect to Manager
+            logging.debug("We will try to connect to the manager : host=%s, username=%s" %
+                          (get_Server_Manager.manager_host, get_Server_Manager.manager_username))
             try:
-                self.inst_callback_manager.connect(get_Server_Manager.manager_host, get_Server_Manager.manager_username, get_Server_Manager.manager_secret)
+                self.inst_callback_manager.connect(
+                    get_Server_Manager.manager_host,
+                    get_Server_Manager.manager_username,
+                    get_Server_Manager.manager_secret)
             except:
                 # cannot connect to the manager
-                self.inst_cb_db.update_callback_request(
-                            current_request.id,
-                            'ERROR')
+                logging.error("ERROR cannot connect to the manager")
+                self.inst_cb_db.update_callback_request(current_request.id, 'ERROR')
                 continue
 
             current_channel = current_request.channel
 
             # UPDATE Callback Request to "Perform Status"
-            self.inst_cb_db.update_callback_request(
-                        current_request.id,
-                        'PROCESSING')
+            self.inst_cb_db.update_callback_request(current_request.id, 'PROCESSING')
 
             """
-            id ; uniqueid ; entry_time ; status; server_ip ; num_attempt ; last_attempt_time ; manager_result ; agi_result ; callback_time ; channel ; exten
-            context ; priority ; application ; data ; timeout ; callerid ; variable ; account ; async ; actionid ; id_server ;  id_server_group
+            id ; uniqueid ; entry_time ; status; server_ip ; num_attempt ; last_attempt_time ;
+            manager_result ; agi_result ; callback_time ; channel ; exten
+            context ; priority ; application ; data ; timeout ; callerid ; variable ; account ;
+            async ; actionid ; id_server ;  id_server_group
             """
             self.num_placed = self.num_placed + 1
 
             # Initiate call
-            logging.info("try_originate : " + current_request.channel + " : " + current_request.exten + " : " + current_request.context)
+            logging.info("try_originate : " + current_request.channel + " : " +
+                         current_request.exten + " : " + current_request.context)
             try:
                 res_orig = self.inst_callback_manager.try_originate(
-                                                current_channel,
-                                                current_request.exten,
-                                                current_request.context,
-                                                current_request.priority,
-                                                current_request.timeout,
-                                                current_request.callerid,
-                                                False,
-                                                current_request.account,
-                                                current_request.application,
-                                                current_request.data,
-                                                current_request.variable)
+                    current_channel,
+                    current_request.exten,
+                    current_request.context,
+                    current_request.priority,
+                    current_request.timeout,
+                    current_request.callerid,
+                    False,
+                    current_request.account,
+                    current_request.application,
+                    current_request.data,
+                    current_request.variable)
             except:
                 # cannot connect to the manager
-                self.inst_cb_db.update_callback_request(
-                            current_request.id,
-                            'ERROR')
+                logging.error("Error connecting to the manager 2: %s" % reason)
+                self.inst_cb_db.update_callback_request(current_request.id, 'ERROR')
                 continue
 
             str_manager_res = str(res_orig)
@@ -213,19 +205,20 @@ class CallBackAction(object):
             if (str_manager_res.find('Success') == -1):
                 # Callback Failed
                 self.inst_cb_db.update_callback_request_server(
-                            current_request.id,
-                            'ERROR',
-                            get_Server_Manager.id,
-                            str_manager_res)
+                    current_request.id,
+                    'ERROR',
+                    get_Server_Manager.id,
+                    str_manager_res)
             else:
                 # Callback Successful
                 self.inst_cb_db.update_callback_request_server(
-                            current_request.id,
-                            'SENT',
-                            get_Server_Manager.id,
-                            str_manager_res)
+                    current_request.id,
+                    'SENT',
+                    get_Server_Manager.id,
+                    str_manager_res)
 
-            logging.info("[" + time.strftime("%Y/%m/%d %H:%M:%S", time.localtime()) + "] Placed " + str(self.num_placed) + " calls")
+            logging.info("[" + time.strftime("%Y/%m/%d %H:%M:%S", time.localtime()) + "] Placed " +
+                         str(self.num_placed) + " calls")
 
             """
             self.inst_cb_db.update_callback_request(
@@ -243,11 +236,11 @@ class callback_manager(object):
 
     def connect(self, host, login, password):
         if (self._manager_host != host or
-            self._manager_login != login or
-            self._manager_passw != password or
-            self._manager == None):
+           self._manager_login != login or
+           self._manager_passw != password or
+           self._manager is None):
             # we have different manager parameter so let s connect
-            if self._manager != None:
+            if self._manager is not None:
                 self.disconnect()
             self._manager_host = host
             self._manager_login = login
@@ -276,20 +269,22 @@ class callback_manager(object):
 
         return True
 
-    def try_originate(self, channel = None, exten = None, context = None, priority = None, timeout = None, caller_id = None, async = True, account = None, application = None, data = None, variables = None, actionid = None):
+    def try_originate(self, channel=None, exten=None, context=None, priority=None, timeout=None,
+                      caller_id=None, async=True, account=None, application=None, data=None,
+                      variables=None, actionid=None):
         response = self._manager.originate(
-                    channel,
-                    exten,
-                    context,
-                    priority,
-                    timeout,
-                    caller_id,
-                    async,
-                    account,
-                    application,
-                    data,
-                    variables,
-                    actionid)
+            channel,
+            exten,
+            context,
+            priority,
+            timeout,
+            caller_id,
+            async,
+            account,
+            application,
+            data,
+            variables,
+            actionid)
         return response
 
     def disconnect(self):
@@ -297,36 +292,8 @@ class callback_manager(object):
         self._manager = None
 
 
-# ------------------------------ FUNCTION MAIN  ------------------------------
-
 def main():
     CallBackDaemon().main()
-
-
-# ------------------------------ COMMON FUNCTION ------------------------------
-
-def IsInt(str):
-    """ Is the given string an integer?    """
-    ok = 1
-    try:
-        int(str)
-    except ValueError:
-        ok = 0
-    except TypeError:
-        ok = 0
-    return ok
-
-
-def readToEnd(manager, message, END_SIGNAL='--END COMMAND--'):
-    """Read until the end of the current command"""
-    result = []
-    while manager._running.isSet():
-        current = message.data
-        if current.strip() == END_SIGNAL:
-            return result
-        else:
-            result.append(current.rstrip('\n'))
-        message = manager._response_queue.get()
 
 
 # ------------------------------ MAIN ------------------------------

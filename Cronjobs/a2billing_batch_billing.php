@@ -9,7 +9,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2014 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -179,7 +179,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
                 $clause_call_billing .= "stoptime >= '" . $result[0][1] . "' AND ";
                 $clause_charge .= "creationdate >= '" . $result[0][1] . "' AND  ";
                 $desc_billing = "Calls cost between the " . $result[0][1] . " and " . $date_now;
-                $desc_billing_postpaid = "Amount for period between the " .date("Y-m-d", strtotime($result[0][1]) + $oneday). " and " . $date_now;
+                $desc_billing_postpaid = "Amount for period between the " .date("Y-m-d", strtotime($result[0][1])). " and " . $date_now;
                 $start_date = $result[0][1];
                 $lastbilling_invoice = $result[0][2];
             } else {

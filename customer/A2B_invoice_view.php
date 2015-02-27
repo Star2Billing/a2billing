@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2014 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -226,13 +226,13 @@ if (!$popup_select) {
                     <?php echo $item->getDescription(); ?>
                 </td>
                 <td align="right">
-                    <?php echo number_format(round(amount_convert($item->getPrice()),2),2); ?>
+                    <?php echo number_format(amount_convert($item->getPrice()),2); ?>
                 </td>
                 <td align="right">
-                    <?php echo number_format(round($item->getVAT(),2),2)."%"; ?>
+                    <?php echo number_format($item->getVAT(),2)."%"; ?>
                 </td>
                 <td align="right">
-                    <?php echo number_format(round(amount_convert($item->getPrice())*(1+($item->getVAT()/100)),2),2); ?>
+                    <?php echo number_format(amount_convert($item->getPrice())*(1+($item->getVAT()/100)),2); ?>
                 </td>
             </tr>
              <?php  $i++;} ?>
@@ -241,42 +241,43 @@ if (!$popup_select) {
       </td>
     </tr>
     <?php
-        $price_without_vat = 0;
-        $price_with_vat = 0;
-        $vat_array = array();
-        foreach ($items as $item) {
-             $price_without_vat = $price_without_vat + $item->getPrice();
-            $price_with_vat = $price_with_vat + ($item->getPrice()*(1+($item->getVAT()/100)));
-            if (array_key_exists("".$item->getVAT(),$vat_array)) {
-                $vat_array[$item->getVAT()] = $vat_array[$item->getVAT()] + $item->getPrice()*($item->getVAT()/100) ;
-            } else {
-                $vat_array[$item->getVAT()] =  $item->getPrice()*($item->getVAT()/100) ;
-            }
-         }
-
-         ?>
-
+      $price_without_vat = 0;
+      $price_with_vat = 0;
+      $vat_array = array();
+      foreach ($items as $item) {
+        $price_without_vat = $price_without_vat + $item->getPrice();
+        $price_with_vat = $price_with_vat + ($item->getPrice()*(1+($item->getVAT()/100)));
+        if (array_key_exists("".$item->getVAT(),$vat_array)) {
+          $vat_array[$item->getVAT()] = $vat_array[$item->getVAT()] + $item->getPrice()*($item->getVAT()/100) ;
+        } else {
+          $vat_array[$item->getVAT()] =  $item->getPrice()*($item->getVAT()/100) ;
+        }
+      }
+    ?>
     <tr>
       <td colspan="3">
         <table class="total">
-         <tbody><tr class="extotal">
-           <td class="one"></td>
-           <td class="two"><?php echo gettext("Subtotal excl. VAT:"); ?></td>
-           <td class="three"><?php echo number_format(round(amount_convert($price_without_vat)*100)/100,2)." $display_curr"; ?></td>
-         </tr>
-
-         <?php foreach ($vat_array as $key => $val) { ?>
-                 <tr class="vat">
-                   <td class="one"></td>
-                   <td class="two"><?php echo gettext("VAT")."$key%:"; ?></td>
-                   <td class="three"><?php echo number_format(round(amount_convert($val),2),2)." $display_curr"; ?></td>
-                 </tr>
-         <?php } ?>
-         <tr class="inctotal">
-           <td class="one"></td>
-           <td class="two"><?php echo gettext("Total incl. VAT:") ?></td>
-           <td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(round(amount_convert($price_with_vat)*100)/100,2)." $display_curr"; ?></div></div></td>
-         </tr>
+          <tbody><tr class="extotal">
+            <td class="one"></td>
+            <td class="two"><?php echo gettext("Subtotal excl. VAT:"); ?></td>
+            <td class="three"><?php echo number_format(amount_convert($price_without_vat),2)." $display_curr"; ?></td>
+          </tr>
+          <?php foreach ($vat_array as $key => $val) { ?>
+            <tr class="vat">
+              <td class="one"></td>
+              <td class="two"><?php echo gettext("VAT")."$key%:"; ?></td>
+              <td class="three"><?php echo number_format(amount_convert($val),2)." $display_curr"; ?></td>
+            </tr>
+          <?php } ?>
+          <tr class="inctotal">
+            <td class="one"></td>
+            <td class="two"><?php echo gettext("Total incl. VAT:") ?></td>
+            <td class="three">
+              <div class="inctotal inner">
+                <?php echo number_format(amount_convert($price_with_vat),2)." $display_curr"; ?>
+              </div>
+             </td>
+          </tr>
         </tbody></table>
       </td>
     </tr>
