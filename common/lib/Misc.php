@@ -359,20 +359,22 @@ function getpost_ifset($test_vars)
             global $$test_var;
             $$test_var = $_GET[$test_var];
         }
-        $$test_var = sanitize_data($$test_var);
-        //rebuild the search parameter to filter character to format card number
-        if ($test_var == 'username' || $test_var == 'filterprefix') {
+        if (isset($$test_var)) {
+            $$test_var = sanitize_data($$test_var);
             //rebuild the search parameter to filter character to format card number
-            $filtered_char = array (
-                " ",
-                "-",
-                "_",
-                "(",
-                ")",
-                "/",
-                "\\"
-            );
-            $$test_var = str_replace($filtered_char, "", $$test_var);
+            if ($test_var == 'username' || $test_var == 'filterprefix') {
+                //rebuild the search parameter to filter character to format card number
+                $filtered_char = array (
+                    " ",
+                    "-",
+                    "_",
+                    "(",
+                    ")",
+                    "/",
+                    "\\"
+                );
+                $$test_var = str_replace($filtered_char, "", $$test_var);
+            }
         }
     }
 }
@@ -1524,9 +1526,7 @@ function check_cp()
     $pos = strpos($pageURL, 'phpsysinfo');
 
     if ($pos === false) {
-
         $footer_content = file_get_contents("templates/default/footer.tpl");
-
         $pos_copyright = strpos($footer_content, '$COPYRIGHT');
         if ($pos_copyright === false) {
             return $ret_val;
