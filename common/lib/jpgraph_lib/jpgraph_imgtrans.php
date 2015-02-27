@@ -1,38 +1,36 @@
 <?php
 //=======================================================================
-// File:	JPGRAPH_IMGTRANS.PHP
-// Description:	Extension for JpGraph to do some simple img transformations
-// Created: 	2003-09-06
-// Author:	Johan Persson (johanp@aditus.nu)
-// Ver:		$Id: jpgraph_imgtrans.php,v 1.1.2.3 2004/03/27 12:20:45 aditus Exp $
+// File:        JPGRAPH_IMGTRANS.PHP
+// Description: Extension for JpGraph to do some simple img transformations
+// Created:     2003-09-06
+// Ver:         $Id: jpgraph_imgtrans.php 1106 2009-02-22 20:16:35Z ljp $
 //
-// License:	This code is released under QPL 1.0
-// Copyright (C) 2003 Johan Persson
+// Copyright (c) Asial Corporation. All rights reserved.
 //========================================================================
 
 //------------------------------------------------------------------------
 // Class ImgTrans
 // Perform some simple image transformations.
 //------------------------------------------------------------------------
-class imgtrans
-{
-    public $gdImg=null;
+class ImgTrans {
+    private $gdImg=null;
 
-    public function ImgTrans($aGdImg)
-    {
-    // Constructor
-    $this->gdImg = $aGdImg;
+    function __construct($aGdImg) {
+        // Constructor
+        $this->gdImg = $aGdImg;
     }
 
     // --------------------------------------------------------------------
     // _TransVert3D() and _TransHor3D() are helper methods to
     // Skew3D().
     // --------------------------------------------------------------------
-    public function _TransVert3D($aGdImg,$aHorizon=100,$aSkewDist=120,$aDir=SKEW3D_DOWN,$aMinSize=true,$aFillColor='#FFFFFF',$aQuality=false,$aBorder=false,$aHorizonPos=0.5)
-    {
-    // Parameter check
-    if ($aHorizonPos < 0 || $aHorizonPos > 1.0) {
-        JpGraphError::Raise("Value for image transformation out of bounds.\nVanishing point on horizon must be specified as a value between 0 and 1.");
+    function _TransVert3D($aGdImg,$aHorizon=100,$aSkewDist=120,$aDir=SKEW3D_DOWN,$aMinSize=true,$aFillColor='#FFFFFF',$aQuality=false,$aBorder=false,$aHorizonPos=0.5) {
+
+
+        // Parameter check
+    if( $aHorizonPos < 0 || $aHorizonPos > 1.0 ) {
+        JpGraphError::RaiseL(9001);
+        //("Value for image transformation out of bounds.\nVanishing point on horizon must be specified as a value between 0 and 1.");
     }
 
     $w = imagesx($aGdImg);
@@ -41,16 +39,16 @@ class imgtrans
     // Create new image
     $ww = $w;
     if( $aMinSize )
-        $hh = ceil($h * $aHorizon / ($aSkewDist+$h));
+    $hh = ceil($h * $aHorizon / ($aSkewDist+$h));
     else
-        $hh = $h;
+    $hh = $h;
 
     $newgdh = imagecreatetruecolor($ww,$hh);
     $crgb = new RGB( $newgdh );
     $fillColor = $crgb->Allocate($aFillColor);
     imagefilledrectangle($newgdh,0,0,$ww-1,$hh-1,$fillColor);
 
-    if ($aBorder) {
+    if( $aBorder ) {
         $colidx = $crgb->Allocate($aBorder);
         imagerectangle($newgdh,0,0,$ww-1,$hh-1,$colidx);
     }
@@ -58,43 +56,44 @@ class imgtrans
     $mid = round($w * $aHorizonPos);
 
     $last=$h;
-    for ($y=0; $y < $h; ++$y) {
+    for($y=0; $y < $h; ++$y) {
 
         $yp = $h-$y-1;
         $yt = floor($yp * $aHorizon / ($aSkewDist + $yp));
 
-        if (!$aQuality) {
-        if( $last <= $yt ) continue ;
-        $last = $yt;
+        if( !$aQuality ) {
+            if( $last <= $yt ) continue ;
+            $last = $yt;
         }
 
-        for ($x=0; $x < $w; ++$x) {
-        $xt = ($x-$mid) * $aSkewDist / ($aSkewDist + $yp);
-        if( $aDir == SKEW3D_UP )
+        for($x=0; $x < $w; ++$x) {
+            $xt = ($x-$mid) * $aSkewDist / ($aSkewDist + $yp);
+            if( $aDir == SKEW3D_UP )
             $rgb = imagecolorat($aGdImg,$x,$h-$y-1);
-        else
+            else
             $rgb = imagecolorat($aGdImg,$x,$y);
-        $r = ($rgb >> 16) & 0xFF;
-        $g = ($rgb >> 8) & 0xFF;
-        $b = $rgb & 0xFF;
-        $colidx = imagecolorallocate($newgdh,$r,$g,$b);
-        $xt = round($xt+$mid);
-        if ($aDir == SKEW3D_UP) {
-            $syt = $yt;
-        } else {
-            $syt = $hh-$yt-1;
-        }
+            $r = ($rgb >> 16) & 0xFF;
+            $g = ($rgb >> 8) & 0xFF;
+            $b = $rgb & 0xFF;
+            $colidx = imagecolorallocate($newgdh,$r,$g,$b);
+            $xt = round($xt+$mid);
+            if( $aDir == SKEW3D_UP ) {
+                $syt = $yt;
+            }
+            else {
+                $syt = $hh-$yt-1;
+            }
 
-        if ( !empty($set[$yt]) ) {
-            $nrgb = imagecolorat($newgdh,$xt,$syt);
-            $nr = ($nrgb >> 16) & 0xFF;
-            $ng = ($nrgb >> 8) & 0xFF;
-            $nb = $nrgb & 0xFF;
-            $colidx = imagecolorallocate($newgdh,floor(($r+$nr)/2),
-                         floor(($g+$ng)/2),floor(($b+$nb)/2));
-        }
+            if( !empty($set[$yt]) ) {
+                $nrgb = imagecolorat($newgdh,$xt,$syt);
+                $nr = ($nrgb >> 16) & 0xFF;
+                $ng = ($nrgb >> 8) & 0xFF;
+                $nb = $nrgb & 0xFF;
+                $colidx = imagecolorallocate($newgdh,floor(($r+$nr)/2),
+                floor(($g+$ng)/2),floor(($b+$nb)/2));
+            }
 
-        imagesetpixel($newgdh,$xt,$syt,$colidx);
+            imagesetpixel($newgdh,$xt,$syt,$colidx);
         }
 
         $set[$yt] = true;
@@ -107,71 +106,72 @@ class imgtrans
     // _TransVert3D() and _TransHor3D() are helper methods to
     // Skew3D().
     // --------------------------------------------------------------------
-    public function _TransHor3D($aGdImg,$aHorizon=100,$aSkewDist=120,$aDir=SKEW3D_LEFT,$aMinSize=true,$aFillColor='#FFFFFF',$aQuality=false,$aBorder=false,$aHorizonPos=0.5)
-    {
-    $w = imagesx($aGdImg);
-    $h = imagesy($aGdImg);
+    function _TransHor3D($aGdImg,$aHorizon=100,$aSkewDist=120,$aDir=SKEW3D_LEFT,$aMinSize=true,$aFillColor='#FFFFFF',$aQuality=false,$aBorder=false,$aHorizonPos=0.5) {
 
-    // Create new image
-    $hh = $h;
-    if( $aMinSize )
+        $w = imagesx($aGdImg);
+        $h = imagesy($aGdImg);
+
+        // Create new image
+        $hh = $h;
+        if( $aMinSize )
         $ww = ceil($w * $aHorizon / ($aSkewDist+$w));
-    else
+        else
         $ww = $w;
 
-    $newgdh = imagecreatetruecolor($ww,$hh);
-    $crgb = new RGB( $newgdh );
-    $fillColor = $crgb->Allocate($aFillColor);
-    imagefilledrectangle($newgdh,0,0,$ww-1,$hh-1,$fillColor);
+        $newgdh = imagecreatetruecolor($ww,$hh);
+        $crgb = new RGB( $newgdh );
+        $fillColor = $crgb->Allocate($aFillColor);
+        imagefilledrectangle($newgdh,0,0,$ww-1,$hh-1,$fillColor);
 
-    if ($aBorder) {
-        $colidx = $crgb->Allocate($aBorder);
-        imagerectangle($newgdh,0,0,$ww-1,$hh-1,$colidx);
-    }
-
-    $mid = round($h * $aHorizonPos);
-
-    $last = -1;
-    for ($x=0; $x < $w-1; ++$x) {
-        $xt = floor($x * $aHorizon / ($aSkewDist + $x));
-        if (!$aQuality) {
-        if( $last >= $xt ) continue ;
-        $last = $xt;
+        if( $aBorder ) {
+            $colidx = $crgb->Allocate($aBorder);
+            imagerectangle($newgdh,0,0,$ww-1,$hh-1,$colidx);
         }
 
-        for ($y=0; $y < $h; ++$y) {
-        $yp = $h-$y-1;
-        $yt = ($yp-$mid) * $aSkewDist / ($aSkewDist + $x);
+        $mid = round($h * $aHorizonPos);
 
-        if( $aDir == SKEW3D_RIGHT )
-            $rgb = imagecolorat($aGdImg,$w-$x-1,$y);
-        else
-            $rgb = imagecolorat($aGdImg,$x,$y);
-        $r = ($rgb >> 16) & 0xFF;
-        $g = ($rgb >> 8) & 0xFF;
-        $b = $rgb & 0xFF;
-        $colidx = imagecolorallocate($newgdh,$r,$g,$b);
-        $yt = floor($hh-$yt-$mid-1);
-        if ($aDir == SKEW3D_RIGHT) {
-            $sxt = $ww-$xt-1;
-        } else
-            $sxt = $xt ;
+        $last = -1;
+        for($x=0; $x < $w-1; ++$x) {
+            $xt = floor($x * $aHorizon / ($aSkewDist + $x));
+            if( !$aQuality ) {
+                if( $last >= $xt ) continue ;
+                $last = $xt;
+            }
 
-        if ( !empty($set[$xt]) ) {
-            $nrgb = imagecolorat($newgdh,$sxt,$yt);
-            $nr = ($nrgb >> 16) & 0xFF;
-            $ng = ($nrgb >> 8) & 0xFF;
-            $nb = $nrgb & 0xFF;
-            $colidx = imagecolorallocate($newgdh,floor(($r+$nr)/2),
-                         floor(($g+$ng)/2),floor(($b+$nb)/2));
+            for($y=0; $y < $h; ++$y) {
+                $yp = $h-$y-1;
+                $yt = ($yp-$mid) * $aSkewDist / ($aSkewDist + $x);
+
+                if( $aDir == SKEW3D_RIGHT )
+                $rgb = imagecolorat($aGdImg,$w-$x-1,$y);
+                else
+                $rgb = imagecolorat($aGdImg,$x,$y);
+                $r = ($rgb >> 16) & 0xFF;
+                $g = ($rgb >> 8) & 0xFF;
+                $b = $rgb & 0xFF;
+                $colidx = imagecolorallocate($newgdh,$r,$g,$b);
+                $yt = floor($hh-$yt-$mid-1);
+                if( $aDir == SKEW3D_RIGHT ) {
+                    $sxt = $ww-$xt-1;
+                }
+                else
+                $sxt = $xt ;
+
+                if( !empty($set[$xt]) ) {
+                    $nrgb = imagecolorat($newgdh,$sxt,$yt);
+                    $nr = ($nrgb >> 16) & 0xFF;
+                    $ng = ($nrgb >> 8) & 0xFF;
+                    $nb = $nrgb & 0xFF;
+                    $colidx = imagecolorallocate($newgdh,floor(($r+$nr)/2),
+                    floor(($g+$ng)/2),floor(($b+$nb)/2));
+                }
+                imagesetpixel($newgdh,$sxt,$yt,$colidx);
+            }
+
+            $set[$xt] = true;
         }
-        imagesetpixel($newgdh,$sxt,$yt,$colidx);
-        }
 
-        $set[$xt] = true;
-    }
-
-    return $newgdh;
+        return $newgdh;
     }
 
     // --------------------------------------------------------------------
@@ -204,20 +204,20 @@ class imgtrans
     // * $aBorder, if set to anything besides false this will draw a
     //   a border of the speciied color around the image
     // --------------------------------------------------------------------
-    public function Skew3D($aHorizon=120,$aSkewDist=150,$aDir=SKEW3D_DOWN,$aHiQuality=false,$aMinSize=true,$aFillColor='#FFFFFF',$aBorder=false)
-    {
-    return $this->_Skew3D($this->gdImg,$aHorizon,$aSkewDist,$aDir,$aHiQuality,
-                  $aMinSize,$aFillColor,$aBorder);
+    function Skew3D($aHorizon=120,$aSkewDist=150,$aDir=SKEW3D_DOWN,$aHiQuality=false,$aMinSize=true,$aFillColor='#FFFFFF',$aBorder=false) {
+        return $this->_Skew3D($this->gdImg,$aHorizon,$aSkewDist,$aDir,$aHiQuality,
+        $aMinSize,$aFillColor,$aBorder);
     }
 
-    public function _Skew3D($aGdImg,$aHorizon=120,$aSkewDist=150,$aDir=SKEW3D_DOWN,$aHiQuality=false,$aMinSize=true,$aFillColor='#FFFFFF',$aBorder=false)
-    {
-    if( $aDir == SKEW3D_DOWN || $aDir == SKEW3D_UP )
-
+    function _Skew3D($aGdImg,$aHorizon=120,$aSkewDist=150,$aDir=SKEW3D_DOWN,$aHiQuality=false,$aMinSize=true,$aFillColor='#FFFFFF',$aBorder=false) {
+        if( $aDir == SKEW3D_DOWN || $aDir == SKEW3D_UP )
         return $this->_TransVert3D($aGdImg,$aHorizon,$aSkewDist,$aDir,$aMinSize,$aFillColor,$aHiQuality,$aBorder);
-    else
+        else
         return $this->_TransHor3D($aGdImg,$aHorizon,$aSkewDist,$aDir,$aMinSize,$aFillColor,$aHiQuality,$aBorder);
 
     }
 
 }
+
+
+?>
