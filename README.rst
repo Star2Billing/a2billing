@@ -35,7 +35,7 @@ Info
 License
 -------
 
-Copyright (c) 2004-2013 Star2Billing S.L. <info@star2billing.com>
+Copyright (c) 2004-2015 Star2Billing S.L. <info@star2billing.com>
 
 A2Billing is licensed under AGPL: http://www.gnu.org/licenses/agpl.html
 
