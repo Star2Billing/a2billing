@@ -870,6 +870,16 @@ class A2Billing
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[REDIAL : DTMF DESTINATION ::> " . $this->destination . "]");
         }
 
+        //REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
+        if (strlen($this->destination) <= 2 && is_numeric($this->destination) && $this->destination >= 0) {
+            $QUERY = "SELECT phone FROM cc_speeddial WHERE id_cc_card = '" . $this->id_card . "' AND speeddial = '" . $this->destination . "'";
+            $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
+            if (is_array($result)) {
+                $this->destination = $result[0][0];
+            }
+            $this->debug(INFO, $agi, __FILE__, __LINE__, "SPEEDIAL REPLACE DESTINATION ::> " . $this->destination);
+        }
+
         //Check if Account have restriction
         if ($this->restriction == 1 || $this->restriction == 2) {
 
@@ -901,14 +911,6 @@ class A2Billing
                     return -1;
                 }
             }
-        }
-
-        //REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
-        if (strlen($this->destination) <= 2 && is_numeric($this->destination) && $this->destination >= 0) {
-            $QUERY = "SELECT phone FROM cc_speeddial WHERE id_cc_card = '" . $this->id_card . "' AND speeddial = '" . $this->destination . "'";
-            $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
-            if (is_array($result)) $this->destination = $result[0][0];
-            $this->debug(INFO, $agi, __FILE__, __LINE__, "SPEEDIAL REPLACE DESTINATION ::> " . $this->destination);
         }
 
         // FOR TESTING : ENABLE THE DESTINATION NUMBER
