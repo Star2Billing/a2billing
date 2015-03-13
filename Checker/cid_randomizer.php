@@ -24,6 +24,21 @@ if (!file_exists($filename)) {
 }
 
 if ($cid = getNextNumber($filename)) {
+    if (preg_match("/x/i", $cid)) {
+        for ($i = 0; $i < strlen($cid); $i++) {
+            switch (strtolower($cid[$i])) {
+                case 'x':
+                    $cid[$i] = rand(0, 9);
+                    break;
+                case 'z':
+                    $cid[$i] = rand(1, 9);
+                    break;
+                case 'n':
+                    $cid[$i] = rand(2, 9);
+                    break;
+            }
+        }
+    }
     $agi->verbose("New CID: " . $cid);
     $agi->set_variable('CALLERID(num)', $cid);
 }
@@ -63,7 +78,6 @@ function getNextNumber($filename) {
                         $number = $tmp_number;
                         break;
                     } else {
-                        echo count($cache) .' - '.  $cidsn ."\n";
                         if (count($cache) >= $cidsn) {
                          $cache = array($tmp_number);
                          $number = $tmp_number;
