@@ -19,7 +19,10 @@ class OneWorldApi implements IApi {
         $api->registerApi('card_tariff', array($this, 'card_tariff'));
         $api->registerApi('card_tariff_change', array($this, 'card_tariff_change'));
         $api->registerApi('call_rate', array($this, 'call_rate'));
-        $api->registerApi('voucher_activate', array($this, 'voucher_activate'));
+        $api->registerApi('did_find', array($this, 'did_find'));
+        $api->registerApi('did_buy', array($this, 'did_buy'));
+        $api->registerApi('did_list', array($this, 'did_list'));
+        $api->registerApi('did_release', array($this, 'did_release'));
         
         $this->api = $api;
         $this->base_currency = $api->getParam('base_currency');
@@ -271,7 +274,7 @@ class OneWorldApi implements IApi {
         $data = $this->api->query($sql);
         
         if (!isset($data['affected_rows']) || !$data['affected_rows']) {
-            $this->response(false, array('msg' => isset($data['error']) ? $data['error'] : 'Cannot change tariff.'));
+            return $this->response(false, array('msg' => isset($data['error']) ? $data['error'] : 'Cannot change tariff.'));
         } else {
             // TODO: additional actions
             
@@ -407,6 +410,162 @@ class OneWorldApi implements IApi {
             $this->response(false, array('msg' => isset($data['error']) ? $data['error'] : 'Cannot add balance.'));
                 
         return $this->card_balance();
+    }
+    
+    public function did_find() {
+        $country = $this->api->escape($this->api->getQueryParam('country', ''));
+        $prefix = $this->api->escape($this->api->getQueryParam('prefix', ''));
+        $max_rate = floatval($this->api->getQueryParam('max_rate', 0));
+        
+        $sql = "select d.id, c.countryname, d.did, d.billingtype, d.fixrate, d.selling_rate from cc_did d left join cc_country c on c.id = d.id_cc_country where d.activated = '1' and d.reserved = '0' and d.iduser = '0'";
+        if (strlen($country)) {
+            $sql .= " and lower(c.countryname) like '%" . strtolower($country) . "%'";
+        }
+        if (strlen($prefix)) {
+            $sql .= " and d.did like '" . $prefix . "%'";
+        }
+        if ($max_rate) {
+            $sql .= " and d.fixrate <= '" . $max_rate . "'";
+        }
+        $sql .= " order by d.did asc";
+        
+        $data = $this->api->query($sql);
+        
+        return $this->response(true, array('data' => $data));
+    }
+
+    public function did_list() {
+        $username = $this->api->escape($this->api->getQueryParam('username', ''));
+        
+        $sql = "select * from cc_card where username = '$username' limit 1";
+        $data = $this->api->query($sql);
+        if (!count($data))
+            return $this->response(false, array('msg' => 'Billing record not found.'));
+        
+        $card = $data[0];
+
+        $sql = "select d.id, c.countryname, d.did, d.billingtype, d.fixrate, d.selling_rate from cc_did d left join cc_country c on c.id = d.id_cc_country where d.activated = '1' and d.reserved = '1' and d.iduser = '{$card['id']}'";
+        $data = $this->api->query($sql);
+        
+        return $this->response(true, array('data' => $data));
+    }
+    
+    public function did_buy() {
+        $username = $this->api->escape($this->api->getQueryParam('username', ''));
+        $destination = $this->api->escape($this->api->getQueryParam('destination', ''));
+        $did_id = intval($this->api->getQueryParam('did_id', 0));
+        
+        $sql = "select * from cc_card where username = '$username' limit 1";
+        $data = $this->api->query($sql);
+        if (!count($data))
+            return $this->response(false, array('msg' => 'Billing record not found.'));
+        
+        $card = $data[0];
+        
+        $sql = "select * from cc_did where id = '$did_id' limit 1";
+        $data = $this->api->query($sql);
+        if (!count($data))
+            return $this->response(false, array('msg' => 'DID record not found.'));
+        
+        $did = $data[0];
+        
+        if ($did['activated'] != '1' || $did['iduser'] != '0' || $did['reserved'] != '0')
+            return $this->response(false, array('msg' => 'Bad DID record.'));
+        
+        if ($did['billingtype'] < 2 && $card['credit'] < $did['fixrate'])
+            return $this->response(false, array('msg' => 'No enough balance.'));
+        
+        // update DID
+        $sql = "update cc_did set iduser = '{$card['id']}', reserved = '1' where id = '$did_id' limit 1";
+        $data = $this->api->query($sql);
+        if (!isset($data['affected_rows']) || !$data['affected_rows'])
+            return $this->response(false, array('msg' => isset($data['error']) ? $data['error'] : 'Cannot assign DID.'));
+            
+        // update cc_charge
+        $sql = "insert into cc_charge set id_cc_card = '{$card['id']}', amount = '{$did['fixrate']}', chargetype = '2', id_cc_did = '$did_id'";
+        $data = $this->api->query($sql);
+        if (!isset($data['insert_id']) || !$data['insert_id'])
+            return $this->response(false, array('msg' => isset($data['error']) ? $data['error'] : 'Cannot create charge record.'));
+                
+        // update cc_card
+        $sql = "update cc_card set credit = credit - '{$did['fixrate']}' where id = '{$card['id']}' limit 1";
+        $data = $this->api->query($sql);
+        if (!isset($data['affected_rows']) || !$data['affected_rows'])
+            return $this->response(false, array('msg' => isset($data['error']) ? $data['error'] : 'Cannot deduct balance.'));
+        
+        // update cc_did_use previous record
+        $sql = "select * from cc_did_use where id_did = '$did_id' and activated = '0' limit 1";
+        $data = $this->api->query($sql);
+        if (count($data)) {
+            $did_use = $data[0];
+            $sql = "update cc_did_use set releasedate = now() where id = '{$did_use['id']}' limit 1";
+            $this->api->query($sql);
+        }
+                
+        // update cc_did_use with new data
+        $sql = "insert into cc_did_use set activated = '1', id_cc_card = '{$card['id']}', id_did = '$did_id', month_payed = '1'";
+        $data = $this->api->query($sql);
+        if (!isset($data['insert_id']) || !$data['insert_id'])
+            return $this->response(false, array('msg' => isset($data['error']) ? $data['error'] : 'Cannot create DID use record.'));
+        
+        // adding default voip destination
+        if (strlen($destination)) {
+            $sql = "insert into cc_did_destination set activated = '1', id_cc_card = '{$card['id']}', id_cc_did = '$did_id', destination = '$destination', voip_call = '1', validated = '1', priority = '0'";
+            $data = $this->api->query($sql);
+            if (!isset($data['insert_id']) || !$data['insert_id'])
+                return $this->response(false, array('msg' => isset($data['error']) ? $data['error'] : 'Cannot create DID destination record.'));
+        }
+
+        return $this->response(true);
+    }
+
+    public function did_release() {
+        $username = $this->api->escape($this->api->getQueryParam('username', ''));
+        $did_id = intval($this->api->getQueryParam('did_id', 0));
+        
+        $sql = "select * from cc_card where username = '$username' limit 1";
+        $data = $this->api->query($sql);
+        if (!count($data))
+            return $this->response(false, array('msg' => 'Billing record not found.'));
+        
+        $card = $data[0];
+        
+        $sql = "select * from cc_did where id = '$did_id' limit 1";
+        $data = $this->api->query($sql);
+        if (!count($data))
+            return $this->response(false, array('msg' => 'DID record not found.'));
+        
+        $did = $data[0];
+        
+        if ($did['iduser'] != $card['id'])
+            return $this->response(false, array('msg' => 'Bad DID record.'));
+        
+        // update DID
+        $sql = "update cc_did set iduser = '0', reserved = '0' where id = '$did_id' limit 1";
+        $data = $this->api->query($sql);
+        if (!isset($data['affected_rows']) || !$data['affected_rows'])
+            return $this->response(false, array('msg' => isset($data['error']) ? $data['error'] : 'Cannot release DID.'));
+        
+        // update cc_did_use previous record
+        $sql = "select * from cc_did_use where id_did = '$did_id' and activated = '1' limit 1";
+        $data = $this->api->query($sql);
+        if (count($data)) {
+            $did_use = $data[0];
+            $sql = "update cc_did_use set releasedate = now() where id = '{$did_use['id']}' limit 1";
+            $this->api->query($sql);
+        }
+
+        // update cc_did_use with new data
+        $sql = "insert into cc_did_use set activated = '0', id_did = '$did_id'";
+        $data = $this->api->query($sql);
+        if (!isset($data['insert_id']) || !$data['insert_id'])
+            return $this->response(false, array('msg' => isset($data['error']) ? $data['error'] : 'Cannot create DID use record.'));
+        
+        // remove destinations
+        $sql = "delete from cc_did_destination where id_cc_did = '$did_id'";
+        $this->api->query($sql);
+        
+        return $this->response(true);
     }
     
 }
