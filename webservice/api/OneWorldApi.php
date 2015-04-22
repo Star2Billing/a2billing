@@ -23,7 +23,8 @@ class OneWorldApi implements IApi {
         $api->registerApi('did_buy', array($this, 'did_buy'));
         $api->registerApi('did_list', array($this, 'did_list'));
         $api->registerApi('did_release', array($this, 'did_release'));
-        
+        $api->registerApi('voucher_activate', array($this, 'voucher_activate'));
+
         $this->api = $api;
         $this->base_currency = $api->getParam('base_currency');
         $data = $api->query("select lower(currency) currency, value from cc_currencies");
