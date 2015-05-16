@@ -44,7 +44,7 @@ class Connection
         if (DB_TYPE == "postgres") {
             $datasource = 'pgsql://' . USER . ':' . PASS . '@' . HOST . '/' . DBNAME;
         } else {
-            $datasource = 'mysql://' . USER . ':' . PASS . '@' . HOST . '/' . DBNAME;
+            $datasource = 'mysqli://' . USER . ':' . PASS . '@' . HOST . '/' . DBNAME;
         }
 
         $DBHandle = NewADOConnection($datasource);
