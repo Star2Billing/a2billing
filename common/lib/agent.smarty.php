@@ -31,6 +31,8 @@
  *
 **/
 
+use Factory\SmartyFactory;
+
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 define( 'FULL_PATH', dirname(__FILE__) . '/' );
@@ -38,9 +40,7 @@ define( 'SMARTY_DIR', FULL_PATH . '/smarty/' );
 define( 'TEMPLATE_DIR',  '../Public/templates/' );
 define( 'TEMPLATE_C_DIR', '../templates_c/' );
 
-require_once SMARTY_DIR . 'Smarty.class.php';
-
-$smarty = new Smarty;
+$smarty = SmartyFactory::getInstance();
 
 $skin_name = $_SESSION["stylefile"];
 
@@ -79,7 +79,7 @@ $smarty->assign("ACXVOIPCONF", $ACXVOIPCONF);
 
 $smarty->assign("LCMODAL", LCMODAL);
 
-getpost_ifset(array('section'));
+getpost_ifset(['section']);
 
 if (!empty($section)) {
     $_SESSION["menu_section"] = $section;
