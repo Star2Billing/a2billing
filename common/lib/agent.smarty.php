@@ -36,7 +36,7 @@ use Factory\SmartyFactory;
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 define( 'FULL_PATH', dirname(__FILE__) . '/' );
-define( 'SMARTY_DIR', FULL_PATH . '/smarty/' );
+define( 'SMARTY_DIR', FULL_PATH . '../../vendor/smarty/smarty/libs/' );
 define( 'TEMPLATE_DIR',  '../Public/templates/' );
 define( 'TEMPLATE_C_DIR', '../templates_c/' );
 
