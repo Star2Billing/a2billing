@@ -9,3 +9,4 @@
 # PhpStorm
 .idea/
 *.iml
+/vendor/

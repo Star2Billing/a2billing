@@ -31,15 +31,16 @@
  *
 **/
 
+use Factory\SmartyFactory;
+
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 define( 'FULL_PATH', dirname(__FILE__) . '/' );
-define( 'SMARTY_DIR', FULL_PATH . '/smarty/' );
+define( 'SMARTY_DIR', FULL_PATH . '../../vendor/smarty/smarty/libs/' );
 define( 'TEMPLATE_DIR',  '../Public/templates/' );
 define( 'TEMPLATE_C_DIR', '../templates_c/' );
 
-require_once SMARTY_DIR . 'Smarty.class.php';
-$smarty = new Smarty;
+$smarty = SmartyFactory::getInstance();
 
 $skin_name = $_SESSION["stylefile"];
 

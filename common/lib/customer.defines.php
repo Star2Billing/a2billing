@@ -31,6 +31,8 @@
  *
 **/
 
+require_once __DIR__ . '/../../vendor/autoload.php';
+
 /* prevent XSS */
 $_GET   = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
 $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -52,7 +54,6 @@ $profiler = new PhpQuickProfiler(PhpQuickProfiler::getMicroTime());
 
 include (FSROOT."lib/interface/constants.php");
 include_once (dirname(__FILE__)."/Class.A2Billing.php");
-require_once 'adodb/adodb.inc.php'; // AdoDB
 include_once (dirname(__FILE__)."/Class.Table.php");
 include_once (dirname(__FILE__)."/Class.Connection.php");
 include_once (dirname(__FILE__)."/Class.Realtime.php");

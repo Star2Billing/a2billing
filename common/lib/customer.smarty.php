@@ -31,16 +31,16 @@
  *
 **/
 
+use Factory\SmartyFactory;
+
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 define( 'FULL_PATH', dirname(__FILE__) . '/' );
-define( 'SMARTY_DIR', FULL_PATH . '/smarty/' );
+define( 'SMARTY_DIR', FULL_PATH . '../../vendor/smarty/smarty/libs/' );
 define( 'TEMPLATE_DIR',  './templates/' );
 define( 'TEMPLATE_C_DIR', './templates_c/' );
 
-require_once SMARTY_DIR . 'Smarty.class.php';
-
-$smarty = new Smarty;
+$smarty = SmartyFactory::getInstance();
 
 $skin_name = $_SESSION["stylefile"];
 
@@ -78,7 +78,7 @@ if ($exporttype != "" && $exporttype != "html") {
     $smarty->assign("EXPORT", 0);
 }
 
-getpost_ifset(array('section'));
+getpost_ifset(['section']);
 
 if (!empty($section)) {
     $_SESSION["menu_section"] = intval($section);
