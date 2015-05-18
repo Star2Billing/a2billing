@@ -102,9 +102,9 @@ A2BILLING INSTALLATION GUIDE
 
         Unpack the code
 
-        Download the code from the SVN repository run: ::
+        Download the code from the GIT repository run: ::
 
-            svn co --username guest --password guest http://svn.a2billing.net/svn/asterisk2billing/tags/1-current /usr/local/src/a2billing/
+            git clone https://github.com/Star2Billing/a2billing.git /usr/local/src/a2billing/ && rm -rf /usr/local/src/a2billing/.git
 
         At the end of this step you should have a a2billing tree structure that should look like:
 
