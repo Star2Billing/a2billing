@@ -3607,7 +3607,6 @@ class A2Billing
     {
         $ADODB_CACHE_DIR = '/tmp';
         /* $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC; */
-        require_once 'adodb/adodb.inc.php';
 
         if ($this->config['database']['dbtype'] == "postgres") {
             $datasource = 'pgsql://' . $this->config['database']['user'] . ':' . $this->config['database']['password'] . '@' . $this->config['database']['hostname'] . '/' . $this->config['database']['dbname'];
