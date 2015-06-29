@@ -1219,6 +1219,7 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
 {
     $FG_DEBUG = 0;
     $strong_currency = 'EUR';
+    // http://download.finance.yahoo.com/d/quotes.csv?s=USDEUR=X+USDGBP=X&f=sl1d1t1c1ohgv&e=.csv
     $url = "http://download.finance.yahoo.com/d/quotes.csv?s=";
     $return = "";
 
@@ -1226,7 +1227,7 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
     $old_currencies = $instance_table->SQLExec($DBHandle, $QUERY);
 
     // we will retrieve a .CSV file e.g. USD to EUR and USD to CAD with a URL like:
-    // http://download.finance.yahoo.com/d/quotes.csv?s=USDEUR=X+USDCAD=X&f=l1
+    // http://download.finance.yahoo.com/d/quotes.csv?s=USDEUR=X+USDCAD=X&f=sl1d1t1c1ohgv
     if (is_array($old_currencies)) {
         $num_cur = count($old_currencies);
         if ($FG_DEBUG >= 1)
@@ -1235,8 +1236,8 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
             if ($FG_DEBUG >= 1)
                 $return .= $old_currencies[$i][0] . ' - ' . $old_currencies[$i][1] . ' - ' . $old_currencies[$i][2] . "\n";
             // Finish and add termination ?
-            if ($i +1 == $num_cur) {
-                $url .= $strong_currency . $old_currencies[$i][1] . "=X&f=l1";
+            if ($i+1 == $num_cur) {
+                $url .= $strong_currency . $old_currencies[$i][1] . "=X&f=sl1d1t1c1ohgv";
             } else {
                 $url .= $strong_currency . $old_currencies[$i][1] . "=X+";
             }
@@ -1252,37 +1253,41 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
             return gettext("Can't find our base_currency in cc_currencies.") . ' ' . gettext('Currency update ABORTED.');
         }
 
-        // Call wget to download the URL to the .CVS file
-        $command = "wget '" . $url . "' -O /tmp/currencies.cvs  2>&1";
+        // Call wget to download the URL to the .CSV file
+        $command = "wget '" . $url . "' -O /tmp/currencies.csv  2>&1";
         exec($command, $output);
         if ($FG_DEBUG >= 1)
-            $return .= "wget '" . $url . "' -O /tmp/currencies.cvs\n" . $output;
+            $return .= "wget '" . $url . "' -O /tmp/currencies.csv\n" . $output;
 
         // get the file with the currencies to update the database
-        $currencies = file("/tmp/currencies.cvs");
+        $currencies = file("/tmp/currencies.csv");
 
         // trim off any leading/trailing comments/headers that may have been added
-        $i = 0;
-        while (!is_numeric(trim($currencies[$i]))) {
-            $i++;
-        }
-        $currencies = array_slice($currencies, $i, $num_cur);
+        // $i = 0;
+        // while (!is_numeric(trim($currencies[$i]))) {
+        //     $i++;
+        //     if ($i > 200) {
+        //         return "Error Currency Loop";
+        //     }
+        // }
+        // $currencies = array_slice($currencies, $i, $num_cur);
 
         // do some simple checks to try to verify we've received exactly one
         // valid response for each currency we requested
         $num_res = count($currencies);
-        if ($num_res < $num_cur) {
-            return gettext("The CSV file doesn't contain all the currencies we requested.") . ' ' . gettext('Currency update ABORTED.');
-        }
-        for ($i = 0; $i < $num_cur; $i++) {
-            if (!is_numeric(trim($currencies[$i]))) {
-                return gettext("At least one of the entries in the CSV file isn't a number.") . ' ' . gettext('Currency update ABORTED.');
-            }
-        }
+        // if ($num_res < $num_cur) {
+        //     return gettext("The CSV file doesn't contain all the currencies we requested.") . ' ' . gettext('Currency update ABORTED.');
+        // }
+        // for ($i = 0; $i < $num_cur; $i++) {
+        //     if (!is_numeric(trim($currencies[$i]))) {
+        //         return gettext("At least one of the entries in the CSV file isn't a number.") . ' ' . gettext('Currency update ABORTED.');
+        //     }
+        // }
 
         // Find base_currency's value in $strong_currency to help avoid Yahoo's
         // early truncation,  and therefore win back a lot of accuracy
-        $base_value = $currencies[$index_base_currency];
+        $line_base_value = $currencies[$index_base_currency];
+        $base_value = explode(',', $line_base_value)[1];
 
         // Check our base_currency will still fund our addiction to tea and biscuits
         if (round($base_value, 5) < 0.00001) {
@@ -1291,9 +1296,10 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
 
         // update each row we originally retrieved from cc_currencies
         $i = 0;
-        foreach ($currencies as $currency) {
-
-            $currency = trim($currency);
+        foreach ($currencies as $line_currency) {
+            $i++;
+            $line_currency = trim($line_currency);
+            $currency = trim(explode(',', $line_currency)[1]);
 
             if ($currency != 0) {
                 $currency = $base_value / $currency;
@@ -1305,11 +1311,11 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
             }
 
             // if the currency is base_currency then set to exactly 1.00000
-            if ($i == $index_base_currency)
+            if ($i == $index_base_currency) {
                 $currency = 1;
+            }
 
             $QUERY = "UPDATE cc_currencies SET value='$currency'";
-
             // if we've changed base_currency,  update each SQL row to reflect this
             if (BASE_CURRENCY != $old_currencies[$i][2]) {
                 $QUERY .= ", basecurrency='" . BASE_CURRENCY . "'";
@@ -1320,9 +1326,9 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
             if ($FG_DEBUG >= 1)
                 $return .= "$QUERY -> [$result]\n";
 
-            $i++;
-            if ($i > 2000)
+            if ($i > 200) {
                 return $return;
+            }
         }
         $return .= gettext('Success! All currencies are now updated.');
     }
