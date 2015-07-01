@@ -76,6 +76,22 @@ A2BILLING INSTALLATION GUIDE
         Do not forget to register your voice!
 
 
+1.3 PHP Composer
+~~~~~~~~~~~~~~~~
+
+A PHP dependency manager called Composer is used to install PHP packages needed for A2Billing.
+https://getcomposer.org/
+
+You can follow those steps to install PHP composer:
+
+    # Got to you A2Billing Install directory
+    $ cd /usr/local/a2billing
+
+    $ curl -sS https://getcomposer.org/installer | php
+
+    $ php composer.phar update
+    $ php composer.phar install
+
 
 2. Installation
 ~~~~~~~~~~~~~~~
