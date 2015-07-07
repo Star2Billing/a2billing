@@ -10,12 +10,15 @@ A2BILLING INSTALLATION GUIDE
 A2Billing is a voip billing software licensed under the AGPL 3.
 Copyright (C) 2004-2015 - Star2billing S.L. http://www.star2billing.com/
 
-This document focuses on the installation of A2Billing system for the Asterisk open source PBX. The document covers the installation and basic configuration of
-A2Billing. A2billing is an open source implementation of a telecommunication billing and added value services platform.
+This document focuses on the installation of A2Billing system for the Asterisk
+open source PBX. The document covers the installation and basic configuration
+of A2Billing. A2billing is an open source implementation of a telecommunication
+billing and added value services platform.
 
-A2billing is a LAMP (Linux Apache Mysql(Postgresql) PHP) application that interfaces with Asterisk using both the AMI and AGI interfaces.
+A2billing is a LAMP (Linux/Apache/Mysql/PHP) application that interfaces with
+Asterisk using both the AMI and AGI interfaces.
 
-This documentation has been tested using Debian etch, Debian etch and half, Ubuntu 8.04 and Ubuntu 8.10 and A2Billing.
+This documentation has been tested using Ubuntu 12.04.
 
 
 1. A2Billing installation guide
@@ -74,13 +77,12 @@ The new monitoring feature requires text-to-speech TTS support, the
 default TTS engine is Cepstral (http://www.cepstral.com/) although
 a2billing can support Festival too.
 
-Install Cepstral (default path: /opt/swift) and make a symbolic link:
-- ln -s /opt/swift/bin/swift /usr/bin/swift
+Install Cepstral (default path: /opt/swift) and make a symbolic link::
+
+    ln -s /opt/swift/bin/swift /usr/bin/swift
 
 Make sure that the dynamic libraries are linked, create a file called
 cepstral.conf under /etc/ld.so.conf.d/ including the path : /opt/swift/lib
-
-Do not forget to register your voice!
 
 
 1.3 PHP Composer
@@ -129,24 +131,25 @@ Download the code from the GIT repository run: ::
 
     git clone https://github.com/Star2Billing/a2billing.git /usr/local/src/a2billing/ && rm -rf /usr/local/src/a2billing/.git
 
-At the end of this step you should have a a2billing tree structure that should look like:
+At the end of this step you should have a a2billing tree structure that should look like::
 
-/usr/local/src/a2billing/
+    /usr/local/src/a2billing/
 
-Files :
-    - AGI
-    - CHANGELOG
-    - COPYING
-    - CallBack
-    - Cronjobs : Recurrent services run via crontab
-    - DataBase : Database Schema / DB Installation
-    - FEATURES_LIST
-    - a2billing.conf : Main Configuration file
-    - addons : Sounds and other addons
-    - admin : Admin UI
-    - agent : Agent UI
-    - customer : Customer UI
-    - webservice
+Files::
+
+    AGI
+    CHANGELOG
+    COPYING
+    CallBack
+    Cronjobs : Recurrent services run via crontab
+    DataBase : Database Schema / DB Installation
+    FEATURES_LIST
+    a2billing.conf : Main Configuration file
+    addons : Sounds and other addons
+    admin : Admin UI
+    agent : Agent UI
+    customer : Customer UI
+    webservice
 
 
 2.2. Step 2: Prepare the Database
