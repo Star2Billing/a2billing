@@ -472,17 +472,21 @@ configured via the new Monitoring Menu under Maintenance.
 SQL queries can be performed and shell scripts can be invoked.
 Place your scripts under /var/lib/a2billing/script/
 
+
 2.11. Step 11: Security features via IVR (Monitor account and locking calling card)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Two new IVR menus are now available via the main a2billing.php AGI. The menus
 needs to be enabled setting the variables in the agi-conf menu (GUI system settings)
 
-Locking Options IVR menu
-ivr_enable_locking_option = true (default: false)
+Locking Options IVR menu::
+
+    ivr_enable_locking_option = true (default: false)
 
 
-Monitoring your Calling Card IVR menu
-ivr_enable_account_information = true (default: false)
+Monitoring your Calling Card IVR menu::
+
+    ivr_enable_account_information = true (default: false)
 
 
 3. Support
