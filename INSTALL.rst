@@ -397,8 +397,8 @@ the jobs in /var/spool/cron/a2billing
 
 
 - This script will browse all the DID that are reserve and check if the customer
-need to pay for it bill them or warn them per email to know if they want to pay
-in order to keep their DIDs::
+  need to pay for it bill them or warn them per email to know if they want to pay
+  in order to keep their DIDs::
 
     0 2 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_bill_diduse.php
 
