@@ -1285,17 +1285,17 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
         // }
 
         // Find base_currency's value in $strong_currency to help avoid Yahoo's
-        // early truncation,  and therefore win back a lot of accuracy
+        // early truncation, and therefore keep a level of accuracy
         $line_base_value = $currencies[$index_base_currency];
         $base_value = explode(',', $line_base_value)[1];
 
         // Check our base_currency will still fund our addiction to tea and biscuits
         if (round($base_value, 5) < 0.00001) {
-            return gettext('Our base_currency seems to be worthless.') . ' ' . gettext('Currency update ABORTED.');
+            return gettext('The base_currency is too small. Currency update ABORTED!');
         }
 
         // update each row we originally retrieved from cc_currencies
-        $i = 0;
+        $i = -1;
         foreach ($currencies as $line_currency) {
             $i++;
             $line_currency = trim($line_currency);
