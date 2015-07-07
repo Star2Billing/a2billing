@@ -84,11 +84,8 @@ https://getcomposer.org/
 
 You can follow those steps to install PHP composer:
 
-    # Got to you A2Billing Install directory
     $ cd /usr/local/a2billing
-
     $ curl -sS https://getcomposer.org/installer | php
-
     $ php composer.phar update
     $ php composer.phar install
 
