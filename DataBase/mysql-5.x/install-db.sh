@@ -23,6 +23,7 @@ sqllist=(
     UPDATE-a2billing-v2.0.12-to-v2.0.13.sql UPDATE-a2billing-v2.0.13-to-v2.0.14.sql
     UPDATE-a2billing-v2.0.14-to-v2.0.15.sql UPDATE-a2billing-v2.0.15-to-v2.0.16.sql
     UPDATE-a2billing-v2.0.16-to-v2.0.17.sql UPDATE-a2billing-v2.0.17-to-v2.1.0.sql
+    UPDATE-a2billing-v2.1.0-to-v2.1.1.sql
  )
 
 echo ""
