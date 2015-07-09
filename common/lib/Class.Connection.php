@@ -44,17 +44,15 @@ class Connection
         if (DB_TYPE == "postgres") {
             $datasource = 'pgsql://' . USER . ':' . PASS . '@' . HOST . '/' . DBNAME;
         } else {
-            $datasource = 'mysql://' . USER . ':' . PASS . '@' . HOST . '/' . DBNAME;
+            $datasource = 'mysqli://' . USER . ':' . PASS . '@' . HOST . '/' . DBNAME;
         }
 
         $DBHandle = NewADOConnection($datasource);
         if (!$DBHandle)
             die("Connection failed");
 
-        if (DB_TYPE == "mysqli") {
+        if (DB_TYPE == "mysql") {
             $DBHandle->Execute('SET AUTOCOMMIT=1');
-        }
-        if (DB_TYPE == "mysqli" || DB_TYPE == "mysql") {
             $DBHandle->Execute("SET NAMES 'UTF8'");
         }
 

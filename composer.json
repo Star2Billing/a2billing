@@ -1,0 +1,21 @@
+{
+  "name": "start2billing/a2billing",
+  "description": "Phone billing system based on PHP",
+  "autoload": {
+    "psr-4": {
+      "": "src/"
+    }
+  },
+  "require": {
+    "adodb/adodb-php": "dev-master",
+    "smarty/smarty": "^3.1@dev"
+  },
+  "license": "AGPL",
+  "authors": [
+    {
+      "name": "Areski Belaid",
+      "email": "areski@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev"
+}

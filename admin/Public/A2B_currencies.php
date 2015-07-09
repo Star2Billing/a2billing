@@ -50,10 +50,11 @@ $HD_Form -> init();
 
 /********************************* BATCH UPDATE CURRENCY TABLE ***********************************/
 $A2B -> DBHandle = $HD_Form -> DBHandle;
+
 if ($updatecurrency == 1) {
-
+    // Check demo mode
     check_demo_mode();
-
+    // Update Currencies
     $instance_table = new Table();
     $A2B -> set_instance_table ($instance_table);
     $return = currencies_update_yahoo($A2B -> DBHandle, $A2B -> instance_table);

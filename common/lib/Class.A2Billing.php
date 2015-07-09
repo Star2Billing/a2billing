@@ -870,6 +870,16 @@ class A2Billing
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[REDIAL : DTMF DESTINATION ::> " . $this->destination . "]");
         }
 
+        //REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
+        if (strlen($this->destination) <= 2 && is_numeric($this->destination) && $this->destination >= 0) {
+            $QUERY = "SELECT phone FROM cc_speeddial WHERE id_cc_card = '" . $this->id_card . "' AND speeddial = '" . $this->destination . "'";
+            $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
+            if (is_array($result)) {
+                $this->destination = $result[0][0];
+            }
+            $this->debug(INFO, $agi, __FILE__, __LINE__, "SPEEDIAL REPLACE DESTINATION ::> " . $this->destination);
+        }
+
         //Check if Account have restriction
         if ($this->restriction == 1 || $this->restriction == 2) {
 
@@ -901,14 +911,6 @@ class A2Billing
                     return -1;
                 }
             }
-        }
-
-        //REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
-        if (strlen($this->destination) <= 2 && is_numeric($this->destination) && $this->destination >= 0) {
-            $QUERY = "SELECT phone FROM cc_speeddial WHERE id_cc_card = '" . $this->id_card . "' AND speeddial = '" . $this->destination . "'";
-            $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
-            if (is_array($result)) $this->destination = $result[0][0];
-            $this->debug(INFO, $agi, __FILE__, __LINE__, "SPEEDIAL REPLACE DESTINATION ::> " . $this->destination);
         }
 
         // FOR TESTING : ENABLE THE DESTINATION NUMBER
@@ -3605,7 +3607,6 @@ class A2Billing
     {
         $ADODB_CACHE_DIR = '/tmp';
         /* $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC; */
-        require_once 'adodb/adodb.inc.php';
 
         if ($this->config['database']['dbtype'] == "postgres") {
             $datasource = 'pgsql://' . $this->config['database']['user'] . ':' . $this->config['database']['password'] . '@' . $this->config['database']['hostname'] . '/' . $this->config['database']['dbname'];
@@ -3613,12 +3614,12 @@ class A2Billing
             $datasource = 'mysqli://' . $this->config['database']['user'] . ':' . $this->config['database']['password'] . '@' . $this->config['database']['hostname'] . '/' . $this->config['database']['dbname'];
         }
         $this->DBHandle = NewADOConnection($datasource);
-        if (!$this->DBHandle) die("Connection failed");
-
-        if ($this->config['database']['dbtype'] == "mysqli") {
+        if (!$this->DBHandle) {
+            die("Connection failed");
+        }
+        if ($this->config['database']['dbtype'] == "mysql") {
             $this->DBHandle->Execute('SET AUTOCOMMIT = 1');
         }
-
         return true;
     }
 
@@ -3652,7 +3653,7 @@ class A2Billing
                 $this->debug(FATAL, $agi, __FILE__, __LINE__, "[DB CONNECTION LOST] CDR NOT POSTED");
                 die("Reconnection failed");
             }
-            if ($this->config['database']['dbtype'] == "mysqli") {
+            if ($this->config['database']['dbtype'] == "mysql") {
                 $this->DBHandle->Execute('SET AUTOCOMMIT = 1');
             }
 
