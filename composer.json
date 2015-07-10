@@ -17,5 +17,8 @@
       "email": "areski@gmail.com"
     }
   ],
-  "minimum-stability": "dev"
+  "minimum-stability": "dev",
+  "require-dev": {
+    "phpunit/phpunit": "^5.0@dev"
+  }
 }
