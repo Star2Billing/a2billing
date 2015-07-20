@@ -1051,6 +1051,7 @@ class A2Billing
 
             // STRIP * FROM DESTINATION NUMBER
             $this->destination = str_replace('*', '', $this->destination);
+            $this->destination = str_replace('.', '', $this->destination);
 
             $this->save_redial_number($agi, $this->destination);
 
@@ -1242,21 +1243,17 @@ class A2Billing
 
         if ($this->voicemail) {
 
-            if (($dialstatus == "CHANUNAVAIL") ||
-                ($dialstatus == "CONGESTION") ||
-                ($dialstatus == "NOANSWER")) {
+            if (($dialstatus == "CHANUNAVAIL") || ($dialstatus == "CONGESTION") || ($dialstatus == "NOANSWER")) {
                 // The following section will send the caller to VoiceMail
                 // with the unavailable priority.
                 $this->debug(INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL UNAVAILABLE - GOTO VOICEMAIL ($dest_username)");
-
                 $vm_parameters = $this->format_parameters($dest_username . '|u');
                 $agi->exec(VoiceMail, $vm_parameters);
             }
 
             if (($dialstatus == "BUSY")) {
                 // The following section will send the caller to VoiceMail with the busy priority.
-                $this->debug(INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL BUSY - GOTO VOICEMAIL ($dest_username)");
-
+                $this->debug(INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL BUSY - GO VOICEMAIL ($dest_username)");
                 $vm_parameters = $this->format_parameters($dest_username . '|b');
                 $agi->exec(VoiceMail, $vm_parameters);
             }
