@@ -39,6 +39,8 @@ if (function_exists('pcntl_signal')) {
 
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 include(dirname(__FILE__) . "/lib/Class.Table.php");
 include(dirname(__FILE__) . "/lib/Class.A2Billing.php");
 include(dirname(__FILE__) . "/lib/Class.RateEngine.php");
