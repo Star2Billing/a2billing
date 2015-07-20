@@ -39,6 +39,8 @@ if (function_exists('pcntl_signal')) {
 
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 include(dirname(__FILE__) . "/lib/Class.Table.php");
 include(dirname(__FILE__) . "/lib/Class.A2Billing.php");
 include(dirname(__FILE__) . "/lib/Class.RateEngine.php");
@@ -49,7 +51,7 @@ include(dirname(__FILE__) . "/lib/interface/constants.php");
 
 $charge_callback = 0;
 $G_startime = time();
-$agi_version = "A2Billing - v2.1.1";
+$agi_version = "A2Billing - v2.1.2";
 
 if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-v')) {
     echo "$agi_version\n";
