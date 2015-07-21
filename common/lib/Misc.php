@@ -1287,7 +1287,11 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
         // Find base_currency's value in $strong_currency to help avoid Yahoo's
         // early truncation, and therefore keep a level of accuracy
         $line_base_value = $currencies[$index_base_currency];
-        $base_value = explode(',', $line_base_value)[1];
+        $arr_value = explode(',', $line_base_value);
+        if (!is_array($arr_value)) {
+            return gettext('Error fetching currencies... Currency update ABORTED!');
+        }
+        $base_value = $arr_value[1];
 
         // Check our base_currency will still fund our addiction to tea and biscuits
         if (round($base_value, 5) < 0.00001) {
