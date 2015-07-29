@@ -31,7 +31,7 @@
  *
 **/
 
-use Factory\SmartyFactory;
+// use Factory\SmartyFactory;
 
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
@@ -40,7 +40,11 @@ define( 'SMARTY_DIR', FULL_PATH . '../../vendor/smarty/smarty/libs/' );
 define( 'TEMPLATE_DIR',  './templates/' );
 define( 'TEMPLATE_C_DIR', './templates_c/' );
 
-$smarty = SmartyFactory::getInstance();
+// $smarty = SmartyFactory::getInstance();
+#Remove the factory, for some reasons it doesnt work on PHP 5.3 / CentOs 6
+
+require_once SMARTY_DIR . 'SmartyBC.class.php';
+$smarty = new SmartyBC();
 
 $skin_name = $_SESSION["stylefile"];
 

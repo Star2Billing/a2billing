@@ -1303,7 +1303,8 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
         foreach ($currencies as $line_currency) {
             $i++;
             $line_currency = trim($line_currency);
-            $currency = trim(explode(',', $line_currency)[1]);
+            $line_ex = explode(',', $line_currency);
+            $currency = trim($line_ex[1]);
 
             if ($currency != 0) {
                 $currency = $base_value / $currency;
