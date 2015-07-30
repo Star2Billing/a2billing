@@ -2,17 +2,18 @@
 REQUIREMENTS
 ------------
 
-- Apache 2
+- Apache2
 
 - Asterisk >= version 1.2
 
-- MySQL 5.x or PostgreSQL 8.x
+- MySQL 5.x
 
-- PHP >= version 5.2.0
+- PHP >= version 5.3.0
 
 - PHP MODULES :
     * PHP-PGSQL or PHP-MYSQLi
     * PHP-MCRYPT
+    * PHP-XML
     * PHP_POSIX
     * PHP-GD
     * PHP-PCNTL
