@@ -83,7 +83,7 @@ $smarty->assign("ACXVOIPCONF", $ACXVOIPCONF);
 
 $smarty->assign("LCMODAL", LCMODAL);
 
-getpost_ifset(['section']);
+getpost_ifset(array('section'));
 
 if (!empty($section)) {
     $_SESSION["menu_section"] = $section;
