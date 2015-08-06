@@ -82,7 +82,7 @@ if ($exporttype != "" && $exporttype != "html") {
     $smarty->assign("EXPORT", 0);
 }
 
-getpost_ifset(['section']);
+getpost_ifset(array('section'));
 
 if (!empty($section)) {
     $_SESSION["menu_section"] = intval($section);

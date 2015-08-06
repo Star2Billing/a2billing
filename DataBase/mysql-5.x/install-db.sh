@@ -24,8 +24,8 @@ sqllist=(
     UPDATE-a2billing-v2.0.14-to-v2.0.15.sql UPDATE-a2billing-v2.0.15-to-v2.0.16.sql
     UPDATE-a2billing-v2.0.16-to-v2.0.17.sql UPDATE-a2billing-v2.0.17-to-v2.1.0.sql
     UPDATE-a2billing-v2.1.0-to-v2.1.1.sql UPDATE-a2billing-v2.1.1-to-v2.1.2.sql
-    UPDATE-a2billing-v2.1.2-to-v2.1.3.sql
- )
+    UPDATE-a2billing-v2.1.2-to-v2.1.3.sql UPDATE-a2billing-v2.1.3-to-v2.1.4.sql
+)
 
 echo ""
 echo "Install A2Billing Database"
