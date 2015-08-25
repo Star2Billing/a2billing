@@ -203,14 +203,16 @@ for ($i=0 ; $i<count($data) ; $i++) {
         $at_least_one_data = true;
 
 }
-if (!$at_least_one_data)
+
+if (!$at_least_one_data) {
     $data[0] = 1;
+}
 
 /**************************************/
 
 $data = array_reverse($data);
 
-$graph = new PieGraph(475, 200, "auto");
+$graph = new PieGraph(800, 300, "auto");
 $graph->SetShadow();
 
 $graph->title->Set($title_graph);
@@ -218,7 +220,8 @@ $graph->title->SetFont(FF_FONT1, FS_BOLD);
 
 $p1 = new PiePlot3D($data);
 $p1->ExplodeSlice(2);
-$p1->SetCenter(0.35);
+// $p1->SetCenter(0.35);
+$p1->SetCenter(0.4, 0.4);
 //print_r($gDateLocale->GetShortMonth());
 //Array ( [0] => Jan [1] => Feb [2] => Mar [3] => Apr [4] => May [5] => Jun [6] => Jul [7] => Aug [8] => Sep [9] => Oct [10] => Nov [11] => Dec )
 //$p1->SetLegends($gDateLocale->GetShortMonth());
