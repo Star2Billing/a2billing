@@ -103,18 +103,15 @@ $transaction_detail = serialize($_POST);
 
 $currencyObject = new currencies();
 $currencies_list = get_currencies();
+
 switch ($transaction_data[0][4]) {
     case "paypal":
+        // Set currency & Amount
         $currCurrency = $mc_currency;
         if ($A2B->config['epayment_method']['charge_paypal_fee']==1) {
             $currAmount = $transaction_data[0][2] ;
         } else {
             $currAmount = $transaction_data[0][2] - $mc_fee;
-        }
-        $postvars = array();
-        $req = 'cmd=_notify-validate';
-        foreach ($_POST as $vkey => $Value) {
-            $req .= "&" . $vkey . "=" . urlencode ($Value);
         }
 
         // Check amount is correct
@@ -124,42 +121,68 @@ switch ($transaction_data[0][4]) {
             sleep(3);
         }
 
-        // Headers PayPal system to validate
-        $header .= "POST /cgi-bin/webscr HTTP/1.1\r\n";
-        $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
-        $header .= "Host: www.paypal.com\r\n";
-        $header .= "Content-Length: " . strlen ($req) . "\r\n\r\n";
-        for ($i = 1; $i <=3; $i++) {
-            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-OPENDING HTTP CONNECTION TO ".PAYPAL_VERIFY_URL);
-            $fp = fsockopen (PAYPAL_VERIFY_URL, 443, $errno, $errstr, 30);
-            if ($fp) {
-                break;
-            } else {
-                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." -Try#".$i." Failed to open HTTP Connection : ".$errstr.". Error Code: ".$errno);
-                sleep(3);
-            }
+        // Reading POSTed data directly from $_POST causes serialization issues with array data in the POST.
+        // Instead, read raw POST data from the input stream.
+        $raw_post_data = file_get_contents('php://input');
+        $raw_post_array = explode('&', $raw_post_data);
+        $myPost = array();
+        foreach ($raw_post_array as $keyval) {
+          $keyval = explode ('=', $keyval);
+          if (count($keyval) == 2)
+             $myPost[$keyval[0]] = urldecode($keyval[1]);
         }
-        if (!$fp) {
-            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-Failed to open HTTP Connection: ".$errstr.". Error Code: ".$errno);
-            exit();
+        // read the IPN message sent from PayPal and prepend 'cmd=_notify-validate'
+        $req = 'cmd=_notify-validate';
+        if(function_exists('get_magic_quotes_gpc')) {
+           $get_magic_quotes_exists = true;
+        }
+        foreach ($myPost as $lkey => $value) {
+           if($get_magic_quotes_exists == true && get_magic_quotes_gpc() == 1) {
+                $value = urlencode(stripslashes($value));
+           } else {
+                $value = urlencode($value);
+           }
+           $req .= "&$lkey=$value";
+        }
+
+        // Step 2: POST IPN data back to PayPal to validate
+
+        define("USE_PAYPAL_SANDBOX", false);
+        if (USE_PAYPAL_SANDBOX == true) {
+            $paypal_url = "https://www.sandbox.paypal.com/cgi-bin/webscr";
         } else {
-            fputs ($fp, $header . $req);
-            $flag_ver = False;
-            while (!feof($fp)) {
-                $res = fgets ($fp, 1024);
-                $gather_res .= $res;
-                $res = trim($res);
-                if (strcmp ($res, "VERIFIED") == 0) {
-                    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-PAYPAL Transaction Verification Status: Verified ");
-                    $flag_ver = True;
-                }
-            }
-            if (!$flag_ver) {
-                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-PAYPAL Transaction Verification Status: Failed \nreq=$req\n$gather_res");
-                $security_verify = false;
-            }
+            $paypal_url = "https://www.paypal.com/cgi-bin/webscr";
         }
-        fclose ($fp);
+        $ch = curl_init($paypal_url);
+        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $req);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        curl_setopt($ch, CURLOPT_FORBID_REUSE, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: Close'));
+        // In wamp-like environments that do not come bundled with root authority certificates,
+        // please download 'cacert.pem' from "http://curl.haxx.se/docs/caextract.html" and set
+        // the directory path of the certificate as shown below:
+        // curl_setopt($ch, CURLOPT_CAINFO, dirname(__FILE__) . '/cacert.pem');
+        if( !($res = curl_exec($ch)) ) {
+            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." Got " . curl_error($ch) . " when processing IPN data");
+            curl_close($ch);
+            exit;
+        }
+        curl_close($ch);
+
+        // inspect IPN validation result and act accordingly
+        if (strcmp ($res, "VERIFIED") == 0) {
+            // The IPN is verified, process it
+            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-PAYPAL Transaction Verification Status: Verified ");
+        } else if (strcmp ($res, "INVALID") == 0) {
+            // IPN invalid, log for manual investigation
+            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-PAYPAL Transaction Verification Status: Failed \nreq: $req\nres: $res");
+                $security_verify = false;
+        }
+
         break;
 
     case "moneybookers":
