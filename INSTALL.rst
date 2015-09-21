@@ -70,12 +70,12 @@ Asterisk is of course also needed::
 1.3.1 Extra software to support text-to-speech IVR monitoring
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Version 1.7.1 includes a new AGI mode that allows the monitoring of
+Since version 1.7 we include an AGI mode that allows the monitoring of
 the a2billing system via an IVR.
 
-The new monitoring feature requires text-to-speech TTS support, the
+The monitoring feature requires text-to-speech TTS support, the
 default TTS engine is Cepstral (http://www.cepstral.com/) although
-a2billing can support Festival too.
+A2Billing can support Festival too.
 
 Install Cepstral (default path: /opt/swift) and make a symbolic link::
 
