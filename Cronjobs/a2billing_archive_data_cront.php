@@ -66,10 +66,10 @@ if (!defined('PID')) {
 
 $pH= new ProcessHandler();
 if ($pH->isActive()) {
-        die(); // Already running!
-        } else {
-                $pH->activate();
-                }
+    die(); // Already running!
+} else {
+    $pH->activate();
+}
 
 $A2B = new A2Billing();
 $A2B->load_conf($agi, NULL, 0, $idconfig);

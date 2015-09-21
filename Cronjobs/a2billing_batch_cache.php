@@ -73,10 +73,10 @@ if (!defined('PID')) {
 // CHECK IF THE CRONT PROCESS IS ALREADY RUNNING
 $pH= new ProcessHandler();
 if ($pH->isActive()) {
-        die(); // Already running!
-        } else {
-                $pH->activate();
-                }
+    die(); // Already running!
+} else {
+    $pH->activate();
+}
 
 $verbose_level = 1;
 $nb_record = 100;
