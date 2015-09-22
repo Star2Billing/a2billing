@@ -24,6 +24,7 @@ class OneWorldApi implements IApi {
         $api->registerApi('did_list', array($this, 'did_list'));
         $api->registerApi('did_release', array($this, 'did_release'));
         $api->registerApi('voucher_activate', array($this, 'voucher_activate'));
+        $api->registerApi('conference_create', array($this, 'conference_create'));
 
         $this->api = $api;
         $this->base_currency = $api->getParam('base_currency');
@@ -568,5 +569,52 @@ class OneWorldApi implements IApi {
         
         return $this->response(true);
     }
+
+    /**
+     * Creates new conference with unique N digit number, minimum 5
+     * Requires an asterisk DB available with "meetme" table, extconfig should be configured on asterisk!
+     */
+    public function conference_create() {
+        $username = $this->api->escape($this->api->getQueryParam('username', ''));
+        $pin = $this->api->escape($this->api->getQueryParam('pin', ''));
+        $length = max(intval($this->api->getQueryParam('length', 6)), 5);
+        $response = "";
+        
+        // meetme table location
+        $database = "asterisk";
+        $table = "meetme";
+
+        // get next incremental ID
+        $sql = "select AUTO_INCREMENT id from information_schema.tables where table_name = '$table' and table_schema = '$database'";
+        $data = $this->api->query($sql);
+        $next_id = count($data) ? $data[0]['id'] : 1;
+        
+        // generate padding
+        $padding = "";
+        for ($i = 0; $i < $length - strlen($next_id); $i++)
+            $padding .= rand(0, 9);
+        
+        // generating confno
+        $confno = $next_id . $padding;
+        
+        $fields = array(
+            "confno = '$confno'",
+            "pin = '$pin'",
+            "opts = 'MA'",
+            "owner = '$username'",
+            "starttime = now()"
+        );
+        $sql = "insert into $database.$table set " . join(', ', $fields);
+        
+        try {
+            $result = $this->api->query($sql);
+            $response = (isset($result['insert_id']) && $result['insert_id'] > 0) ? $this->response(true, array('confno' => $confno)) : $this->response(false, array('msg' => "Cannot create conference"));
+        } catch (Exception $e) {
+            $response = $this->response(false, array('msg' => $e->getMessage()));
+        }
+        
+        return $response;
+    }
+    
     
 }

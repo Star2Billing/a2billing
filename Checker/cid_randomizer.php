@@ -5,7 +5,7 @@
  * CallerID randomizer checker.
  * It gets CID randomly from file but never repeats CID until ALL CIDs were used.
  * 
- * How to use: exten => s,n,AGI(cid_randomizer.php,PATH/TO/FILE/WITH/CIDS); one CID per line
+ * How to use: exten => s,n,AGI(cid_randomizer.php,PATH/TO/FILE/WITH/CIDS,DISABLE_CACHE); one CID per line
  * 
  * @author Roman Davydov <openvoip.co@gmail.com>
  * @license http://openvoip.co Free (just keep reference to my name and my site)
@@ -17,13 +17,14 @@ require_once('phpagi.php');
 
 $agi = new AGI();
 $filename = ($argc > 1 ? $argv[1] : '');
+$disable_cache = intval($argc > 2 ? $argv[2] : 0);
 
 if (!file_exists($filename)) {
     $agi->verbose("CID filename not found");
     exit;
 }
 
-if ($cid = getNextNumber($filename)) {
+if ($cid = getNextNumber($filename, $disable_cache)) {
     if (preg_match("/x/i", $cid)) {
         for ($i = 0; $i < strlen($cid); $i++) {
             switch (strtolower($cid[$i])) {
@@ -49,12 +50,12 @@ exit;
 
 // functions
 
-function getNextNumber($filename) {
+function getNextNumber($filename, $disable_cache) {
     // check the cache
+    $cache = array();
     $modified = filemtime($filename);
     $cache_filename = '/tmp/' . basename($filename) . '_' . ($modified === false ? '' : date('U', $modified));
-    $cache = array();
-    if (file_exists($cache_filename) && is_readable($cache_filename)) {
+    if (!$disable_cache && file_exists($cache_filename) && is_readable($cache_filename)) {
         $cache = unserialize(file_get_contents($cache_filename));
         if (!is_array($cache)) {
             $cache = array();
@@ -73,15 +74,20 @@ function getNextNumber($filename) {
             if ($cidsn > 0) {
                 while(true) {
                     $tmp_number = $cids[rand(0, $cidsn - 1)];
-                    if (!in_array($tmp_number, $cache)) {
-                        $cache[] = $tmp_number;
+                    if ($disable_cache) {
                         $number = $tmp_number;
                         break;
                     } else {
-                        if (count($cache) >= $cidsn) {
-                         $cache = array($tmp_number);
-                         $number = $tmp_number;
-                         break;
+                        if (!in_array($tmp_number, $cache)) {
+                            $cache[] = $tmp_number;
+                            $number = $tmp_number;
+                            break;
+                        } else {
+                            if (count($cache) >= $cidsn) {
+                                $cache = array($tmp_number);
+                                $number = $tmp_number;
+                                break;
+                            }
                         }
                     }
                 }
@@ -90,7 +96,7 @@ function getNextNumber($filename) {
     }
     
     // update cache
-    if ($number != null) {
+    if (!$disable_cache && $number != null) {
         file_put_contents($cache_filename, serialize($cache));
     }
 
