@@ -70,6 +70,7 @@ function getNextNumber($filename, $disable_cache) {
         if (is_array($cids) && count($cids) > 0) {
             $cids = array_map('trim', $cids);
             $cids = array_filter($cids);
+            $cids = array_unique($cids);
             $cidsn = count($cids);
             if ($cidsn > 0) {
                 while(true) {
