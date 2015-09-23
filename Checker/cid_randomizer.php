@@ -5,7 +5,8 @@
  * CallerID randomizer checker.
  * It gets CID randomly from file but never repeats CID until ALL CIDs were used.
  * 
- * How to use: exten => s,n,AGI(cid_randomizer.php,PATH/TO/FILE/WITH/CIDS,DISABLE_CACHE); one CID per line
+ * How to use: exten => s,n,AGI(cid_randomizer.php,PATH/TO/FILE/WITH/CIDS[,DISABLE_CACHE]); one CID per line
+ * For example: exten => s,n,AGI(cid_randomizer.php,/tmp/list.txt,1) OR exten => s,n,AGI(cid_randomizer.php,/tmp/list.txt);
  * 
  * @author Roman Davydov <openvoip.co@gmail.com>
  * @license http://openvoip.co Free (just keep reference to my name and my site)
@@ -25,7 +26,7 @@ if (!file_exists($filename)) {
 }
 
 if ($cid = getNextNumber($filename, $disable_cache)) {
-    if (preg_match("/x/i", $cid)) {
+    if (preg_match("/[xzn]/i", $cid)) {
         for ($i = 0; $i < strlen($cid); $i++) {
             switch (strtolower($cid[$i])) {
                 case 'x':
@@ -42,6 +43,8 @@ if ($cid = getNextNumber($filename, $disable_cache)) {
     }
     $agi->verbose("New CID: " . $cid);
     $agi->set_variable('CALLERID(num)', $cid);
+} else {
+    $agi->verbose("New CID is not obtained!");
 }
 
 // go back to the dialplan
@@ -65,33 +68,31 @@ function getNextNumber($filename, $disable_cache) {
     // getting data
     $data = file_get_contents($filename);
     $number = null;
-    if ($data !== false && strlen($data) > 0) {
+    if (is_string($data) && strlen($data) > 0) {
         $cids = preg_split("/(\n)|(\r\n)|(\n\r)/m", $data);
         if (is_array($cids) && count($cids) > 0) {
             $cids = array_map('trim', $cids);
             $cids = array_filter($cids);
-            $cids = array_unique($cids);
+            $cids = array_merge(array_unique($cids), array()); // to reassign indexes
             $cidsn = count($cids);
-            if ($cidsn > 0) {
-                while(true) {
-                    $tmp_number = $cids[rand(0, $cidsn - 1)];
-                    if ($disable_cache) {
+            $protection = 0;
+            while ($protection < ($cidsn * 100)) { // protect from infinite loops
+                $tmp_number = $cids[rand(0, $cidsn - 1)];
+                if ($disable_cache) {
+                    $number = $tmp_number;
+                    break;
+                } else {
+                    if (!in_array($tmp_number, $cache)) { // try to search in cache for unique value
+                        $cache[] = $tmp_number;
                         $number = $tmp_number;
                         break;
-                    } else {
-                        if (!in_array($tmp_number, $cache)) {
-                            $cache[] = $tmp_number;
-                            $number = $tmp_number;
-                            break;
-                        } else {
-                            if (count($cache) >= $cidsn) {
-                                $cache = array($tmp_number);
-                                $number = $tmp_number;
-                                break;
-                            }
-                        }
+                    } else if (!count(array_diff($cids, $cache))) { // no more variants, reset cache
+                        $cache = array($tmp_number);
+                        $number = $tmp_number;
+                        break;
                     }
                 }
+                $protection++;
             }
         }
     }
