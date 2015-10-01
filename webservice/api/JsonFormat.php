@@ -10,7 +10,10 @@ class JsonFormat implements IApi {
 
     public function format($data) {
         
-        echo json_encode($data);
+        if (!is_array($data))
+            $data = array('data' => $data);
+        
+        return json_encode($data);
         
     }
     

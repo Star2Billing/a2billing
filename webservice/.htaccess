@@ -1,3 +1,4 @@
 
 order deny,allow
 deny from all
+allow from all 127.0.0.1

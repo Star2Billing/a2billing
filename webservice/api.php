@@ -146,31 +146,44 @@ class Api {
             $this->format[$name] = $callback;
     }
     
-    public function process() {
+    private function check() {
         $ips = $this->getParam('api_ip_auth', null, 'webui');
         if (strlen($ips) > 0 && $ips != '*') {
             if (!in_array($_SERVER['REMOTE_ADDR'], explode(';', $ips))) {
-                echo 'Your IP is not allowed';
-                return;
+                return 'Your IP is not allowed';
             }
         }
         
         if (strtolower(md5($this->getParam('api_security_key', null, 'webui'))) != strtolower($this->getQueryParam('api_security_key', 'error'))) {
-            echo 'Wrong API key';
-            return;
+            return 'Wrong API key';
         }
-        
-        $method = $this->getQueryParam('api_method');
-        if (!is_null($method) && strlen($method) > 0 && array_key_exists($method, $this->api)) {
-            $data = call_user_func($this->api[$method]);
-            $format = $this->getQueryParam('api_format');
-            if (!is_null($format) && strlen($format) > 0 && array_key_exists($format, $this->format)) {
-                call_user_func($this->format[$format], $data);
+
+        return $error;
+    }
+    
+    public function process() {
+        $data = '';
+        $ips = $this->getParam('api_ip_auth', null, 'webui');
+        if (!strlen($ips) || $ips == '*' || in_array($_SERVER['REMOTE_ADDR'], explode(';', $ips))) {
+            if (strtolower(md5($this->getParam('api_security_key', null, 'webui'))) == strtolower($this->getQueryParam('api_security_key', 'error'))) {
+                $method = $this->getQueryParam('api_method');
+                if (!is_null($method) && strlen($method) > 0 && array_key_exists($method, $this->api) && is_callable($this->api[$method])) {
+                    $data = call_user_func($this->api[$method]);
+                } else {
+                    $data = 'Wrong API method';
+                }
             } else {
-                print_r($data);
+                $data = 'Wrong API key';
             }
         } else {
-            echo 'Wrong API method';
+            $data = 'Your IP is not allowed';
+        }
+        
+        $format = $this->getQueryParam('api_format');
+        if (!is_null($format) && strlen($format) > 0 && array_key_exists($format, $this->format) && is_callable($this->format[$format])) {
+            echo call_user_func($this->format[$format], $data);
+        } else {
+            print_r($data);
         }
     }
     
