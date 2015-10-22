@@ -1113,10 +1113,8 @@ class FormHandler
 
 	function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null)
 	{
-
-
   		$fldtype = $fld.'type';
-        if(empty($processed)) {
+        if (empty($processed)) {
         	$processed = $this->getProcessed();
         }
 
@@ -1140,7 +1138,7 @@ class FormHandler
 			}
 
 			if ($simple==0){
-				if (isset ($processed[$fldtype])){
+                if (isset ($processed[$fldtype])){
 					switch ($processed[$fldtype]) {
 						case 1:	$sql = "$sql='".$processed[$fld]."'";  break;
 						case 2: $sql = "$sql $LIKE '".$processed[$fld]."%'".$CONVERT;  break;
@@ -1382,19 +1380,19 @@ class FormHandler
 
 				foreach ($this->FG_FILTER_SEARCH_FORM_1C as $r){
 					$search_parameters .= "|$r[1]=".$processed[$r[1]]."|$r[2]=".$processed[$r[2]];
-					$SQLcmd = $this->do_field($SQLcmd, $r[1],0,$processed);
+					$SQLcmd = $this->do_field($SQLcmd, $r[1], 0, $processed);
 				}
 
 				foreach ($this->FG_FILTER_SEARCH_FORM_2C as $r){
 					$search_parameters .= "|$r[1]=".$processed[$r[1]]."|$r[2]=".$processed[$r[2]];
 					$search_parameters .= "|$r[3]=".$processed[$r[3]]."|$r[4]=".$processed[$r[4]];
-					$SQLcmd = $this->do_field_duration($SQLcmd,$r[1],$r[5]);
-					$SQLcmd = $this->do_field_duration($SQLcmd,$r[3],$r[5]);
+					$SQLcmd = $this->do_field_duration($SQLcmd, $r[1], $r[5]);
+					$SQLcmd = $this->do_field_duration($SQLcmd, $r[3], $r[5]);
 				}
 
 				foreach ($this->FG_FILTER_SEARCH_FORM_SELECT as $r){
 					$search_parameters .= "|$r[2]=".$processed[$r[2]];
-					$SQLcmd = $this->do_field($SQLcmd, $r[2], 1,null,$r[4]);
+					$SQLcmd = $this->do_field($SQLcmd, $r[2], 1, null, $r[4]);
 				}
 
 				$_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME] = $search_parameters;
