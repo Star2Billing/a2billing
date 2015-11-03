@@ -2686,8 +2686,10 @@ class A2Billing
                                 $this->debug(INFO, $agi, __FILE__, __LINE__, "[CN:$card_gen|CA:$card_alias] Found similar account! Continue...");
                                 continue;
                             }
+                            break;
+                        } else {
+                            $this->debug(INFO, $agi, __FILE__, __LINE__, "[CN:$card_gen|CA:$card_alias][resmax:$resmax]");
                         }
-                        break;
                     }
                     $uipass = $this->MDP(10).$this->MDP(5);
                     $typepaid = ($this->agiconfig['cid_auto_create_card_typepaid'] == "POSTPAID") ? 1 : 0;
