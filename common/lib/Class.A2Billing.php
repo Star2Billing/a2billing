@@ -2683,6 +2683,7 @@ class A2Billing
                         if ($resmax) {
                             $numrow = $resmax->RecordCount();
                             if ($numrow != 0) {
+                                $this->debug(INFO, $agi, __FILE__, __LINE__, "[CN:$card_gen|CA:$card_alias] Found similar account! Continue...");
                                 continue;
                             }
                         }
@@ -2701,7 +2702,7 @@ class A2Billing
                     }
 
                     $result = $this->instance_table->Add_table($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_card', 'id');
-                    $this->debug(INFO, $agi, __FILE__, __LINE__, "[CARDNUMBER: $card_gen]:[CREATED:$result]");
+                    $this->debug(INFO, $agi, __FILE__, __LINE__, "[CARDNUMBER:$card_gen]:[CREATED:$result]:[QUERY_VALUES:$QUERY_VALUES]");
 
                     //CREATE A CARD AND AN INSTANCE IN CC_CALLERID
                     $QUERY_FIELS = 'cid, id_cc_card';
