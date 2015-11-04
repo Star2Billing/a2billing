@@ -2679,17 +2679,19 @@ class A2Billing
                         $card_gen = $this->MDP($this->agiconfig['cid_auto_create_card_len']);
                         $card_alias = $this->MDP($this->agiconfig['cid_auto_create_card_len']);
                         $numrow = 0;
-                        $resmax = $this->DBHandle->Execute("SELECT username, useralias FROM $FG_TABLE_NAME WHERE username = '$card_gen' AND useralias = '$card_alias'");
-                        if ($resmax) {
+                        $cardexist_query = "SELECT username, useralias FROM $FG_TABLE_NAME WHERE username = '$card_gen' OR useralias = '$card_alias'";
+
+                        $resmax = $this->instance_table->SQLExec($this->DBHandle, $cardexist_query);
+                        if (!is_array($resmax)) {
+                            $this->debug(INFO, $agi, __FILE__, __LINE__, "[CN:$card_gen|CA:$card_alias|Query:$cardexist_query][resmax:$resmax] Not Card found...");
+                        } else {
                             $numrow = $resmax->RecordCount();
-                            if ($numrow != 0) {
-                                $this->debug(INFO, $agi, __FILE__, __LINE__, "[CN:$card_gen|CA:$card_alias] Found similar account! Continue...");
+                            if ($numrow > 0) {
+                                $this->debug(INFO, $agi, __FILE__, __LINE__, "[CN:$card_gen|CA:$card_alias|Query:$cardexist_query] Found similar account! Continue...");
                                 continue;
                             }
-                            break;
-                        } else {
-                            $this->debug(INFO, $agi, __FILE__, __LINE__, "[CN:$card_gen|CA:$card_alias][resmax:$resmax]");
                         }
+                        break;
                     }
                     $uipass = $this->MDP(10).$this->MDP(5);
                     $typepaid = ($this->agiconfig['cid_auto_create_card_typepaid'] == "POSTPAID") ? 1 : 0;
