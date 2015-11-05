@@ -2679,7 +2679,7 @@ class A2Billing
                         $card_gen = $this->MDP($this->agiconfig['cid_auto_create_card_len']);
                         $card_alias = $this->MDP($this->agiconfig['cid_auto_create_card_len']);
                         $numrow = 0;
-                        $cardexist_query = "SELECT username, useralias FROM $FG_TABLE_NAME WHERE username = '$card_gen' OR useralias = '$card_alias'";
+                        $cardexist_query = "SELECT username, useralias FROM cc_card WHERE username = '$card_gen' OR useralias = '$card_alias'";
 
                         $resmax = $this->instance_table->SQLExec($this->DBHandle, $cardexist_query);
                         if (!is_array($resmax)) {
