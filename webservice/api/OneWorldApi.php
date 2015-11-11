@@ -670,7 +670,7 @@ class OneWorldApi implements IApi {
             $A2B -> agiconfig['say_timetocall']=0;
             $A2B -> extension = $A2B -> dnid = $A2B -> destination = $username;
 
-            $resfindrate = $RateEngine->rate_engine_findrates($A2B, $number, $card["tariff"]);
+            $resfindrate = $RateEngine->rate_engine_findrates($A2B, $username, $card["tariff"]);
 
             // IF FIND RATE
             if ($resfindrate!=0) {
@@ -696,7 +696,7 @@ class OneWorldApi implements IApi {
                     $failover_trunk	= $RateEngine -> ratecard_obj[0][40+$usetrunk_failover];
                     $addparameter	= $RateEngine -> ratecard_obj[0][42+$usetrunk_failover];
 
-                    $destination = $number;
+                    $destination = $username;
                     if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
 
                     $pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
@@ -737,9 +737,9 @@ class OneWorldApi implements IApi {
                     $num_attempt = 0;
 
                     if ($A2B->config['global']['asterisk_version'] == "1_2" || $A2B->config['global']['asterisk_version'] == "1_4") {
-                        $variable = "CALLED=$number|CALLING=$username|CBID=$uniqueid|LEG=".$A2B->cardnumber;
+                        $variable = "CALLED=$username|CALLING=$number|CBID=$uniqueid|LEG=".$A2B->cardnumber;
                     } else {
-                        $variable = "CALLED=$number,CALLING=$username,CBID=$uniqueid,LEG=".$A2B->cardnumber;
+                        $variable = "CALLED=$username,CALLING=$number,CBID=$uniqueid,LEG=".$A2B->cardnumber;
                     }
 
                     $QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority," .
