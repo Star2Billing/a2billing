@@ -25,6 +25,7 @@ class OneWorldApi implements IApi {
         $api->registerApi('did_release', array($this, 'did_release'));
         $api->registerApi('voucher_activate', array($this, 'voucher_activate'));
         $api->registerApi('conference_create', array($this, 'conference_create'));
+        $api->registerApi('callback_create', array($this, 'callback_create'));
 
         $this->api = $api;
         $this->base_currency = $api->getParam('base_currency');
@@ -616,5 +617,145 @@ class OneWorldApi implements IApi {
         return $response;
     }
     
+    public function callback_create() {
+        $lib = dirname(__FILE__) . '/../lib';
+        
+        require_once "$lib/Class.A2Billing.php";
+        require_once "$lib/adodb/adodb.inc.php";
+        require_once "$lib/Class.Table.php";
+        require_once "$lib/Class.Connection.php";
+        require_once "$lib/Class.Realtime.php";
+        require_once "$lib/Class.RateEngine.php";
+
+        $A2B = new A2Billing();
+
+        // LOAD THE CONFIGURATION
+        $res_load_conf = $A2B -> load_conf($agi, A2B_CONFIG_DIR."a2billing.conf", 1);
+        if (!$res_load_conf)
+            return $this->response(false, array('msg' => 'Cannot load A2B config'));
+
+        $username = $this->api->escape($this->api->getQueryParam('username', ''));
+        $number = $this->api->getQueryParam('number', '');
+        $destination = $this->api->getQueryParam('destination', '');
+        
+        $sql = "select * from cc_card where username = '$username' limit 1";
+        $data = $this->api->query($sql);
+        if (!count($data))
+            return $this->response(false, array('msg' => 'Billing record not found.'));
+        
+        $card = $data[0];
+        
+        if (strlen($number) < 6)
+            return $this->response(false, array('msg' => 'Bad number "' . $number . '"'));
+
+        $A2B -> DBHandle = DbConnect();
+        $instance_table = new Table();
+        $A2B -> set_instance_table ($instance_table);
+        $A2B -> cardnumber = $username;
+
+        if ($A2B -> callingcard_ivr_authenticate_light ($error_msg)) {
+
+            $RateEngine = new RateEngine();
+            $RateEngine -> webui = 0;
+            // LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
+
+            $A2B -> agiconfig['accountcode']=$username;
+            $A2B -> agiconfig['use_dnid']=1;
+            $A2B -> agiconfig['say_timetocall']=0;
+            $A2B -> extension = $A2B -> dnid = $A2B -> destination = $username;
+
+            $resfindrate = $RateEngine->rate_engine_findrates($A2B, $number, $card["tariff"]);
+
+            // IF FIND RATE
+            if ($resfindrate!=0) {
+                $res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
+                if ($res_all_calcultimeout) {
+
+                    // MAKE THE CALL
+                    if ($RateEngine -> ratecard_obj[0][34]!='-1') {
+                        $usetrunk = 34;
+                        $usetrunk_failover = 1;
+                        $RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[0][34];
+                    } else {
+                        $usetrunk = 29;
+                        $RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[0][29];
+                        $usetrunk_failover = 0;
+                    }
+
+                    $prefix		= $RateEngine -> ratecard_obj[0][$usetrunk+1];
+                    $tech 		= $RateEngine -> ratecard_obj[0][$usetrunk+2];
+                    $ipaddress 		= $RateEngine -> ratecard_obj[0][$usetrunk+3];
+                    $removeprefix 	= $RateEngine -> ratecard_obj[0][$usetrunk+4];
+                    $timeout		= $RateEngine -> ratecard_obj[0]['timeout'];
+                    $failover_trunk	= $RateEngine -> ratecard_obj[0][40+$usetrunk_failover];
+                    $addparameter	= $RateEngine -> ratecard_obj[0][42+$usetrunk_failover];
+
+                    $destination = $number;
+                    if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
+
+                    $pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
+                    $ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
+                    $ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
+
+                    $dialparams = '';
+                    if ($pos_dialingnumber !== false) {
+                        $dialstr = "$tech/$ipaddress".$dialparams;
+                    } else {
+                        if ($A2B->agiconfig['switchdialcommand'] == 1) {
+                            $dialstr = "$tech/$prefix$destination@$ipaddress".$dialparams;
+                        } else {
+                            $dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
+                        }
+                    }
+
+                    //ADDITIONAL PARAMETER 			%dialingnumber%,	%cardnumber%
+                    if (strlen($addparameter)>0) {
+                        $addparameter = str_replace("%cardnumber%", $A2B->cardnumber, $addparameter);
+                        $addparameter = str_replace("%dialingnumber%", $prefix.$destination, $addparameter);
+                        $dialstr .= $addparameter;
+                    }
+
+                    $channel= $dialstr;
+                    $exten = $number;
+                    $context = $A2B -> config["callback"]['context_callback'];
+                    $id_server_group = $A2B -> config["callback"]['id_server_group'];
+                    $priority=1;
+                    $timeout = $A2B -> config["callback"]['timeout']*1000;
+                    $application='';
+                    $callerid = $A2B -> config["callback"]['callerid'];
+                    $account = $username;
+
+                    $uniqueid 	=  MDP_NUMERIC(5).'-'.MDP_STRING(7);
+                    $status = 'PENDING';
+                    $server_ip = 'localhost';
+                    $num_attempt = 0;
+
+                    if ($A2B->config['global']['asterisk_version'] == "1_2" || $A2B->config['global']['asterisk_version'] == "1_4") {
+                        $variable = "CALLED=$number|CALLING=$username|CBID=$uniqueid|LEG=".$A2B->cardnumber;
+                    } else {
+                        $variable = "CALLED=$number,CALLING=$username,CBID=$uniqueid,LEG=".$A2B->cardnumber;
+                    }
+
+                    $QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority," .
+                             " variable, id_server_group, callback_time, account, callerid, timeout ) " .
+                             " VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority'," .
+                             " '$variable', '$id_server_group',  now(), '$account', '$callerid', '30000')";
+                    $res = $A2B -> DBHandle -> Execute($QUERY);
+
+                    if (!$res) {
+                        return $this->response(false, array('msg' => 'Cannot insert the callback request in the spool!'));
+                    } else {
+                        return $this->response(true);
+                    }
+                } else {
+                    return $this->response(false, array('msg' => 'You don t have enough credit to call you back!'));
+                }
+            } else {
+                return $this->response(false, array('msg' => 'There is no route to call back your phonenumber!'));
+            }
+        } else {
+            return $this->response(false, array('msg' => strip_tags($error_msg)));
+        }
+    }
     
 }
