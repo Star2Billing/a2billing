@@ -620,6 +620,10 @@ class OneWorldApi implements IApi {
     public function callback_create() {
         $lib = dirname(__FILE__) . '/../lib';
         
+        define ("FSROOT", substr($lib,0,-3));
+        
+        require_once "$lib/Misc.php";
+        require_once "$lib/interface/constants.php";
         require_once "$lib/Class.A2Billing.php";
         require_once "$lib/adodb/adodb.inc.php";
         require_once "$lib/Class.Table.php";
@@ -634,6 +638,8 @@ class OneWorldApi implements IApi {
         if (!$res_load_conf)
             return $this->response(false, array('msg' => 'Cannot load A2B config'));
 
+        require_once "$lib/common.defines.php";
+        
         $username = $this->api->escape($this->api->getQueryParam('username', ''));
         $number = $this->api->getQueryParam('number', '');
         $destination = $this->api->getQueryParam('destination', '');
@@ -722,7 +728,7 @@ class OneWorldApi implements IApi {
                     $priority=1;
                     $timeout = $A2B -> config["callback"]['timeout']*1000;
                     $application='';
-                    $callerid = $A2B -> config["callback"]['callerid'];
+                    $callerid = $username; // was before: $A2B -> config["callback"]['callerid'];
                     $account = $username;
 
                     $uniqueid 	=  MDP_NUMERIC(5).'-'.MDP_STRING(7);
