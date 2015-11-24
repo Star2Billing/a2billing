@@ -11,6 +11,7 @@ class OneWorldApi implements IApi {
         $api->registerApi('card_create', array($this, 'card_create'));
         $api->registerApi('card_delete', array($this, 'card_delete'));
         $api->registerApi('card_find', array($this, 'card_find'));
+        $api->registerApi('card_pin_update', array($this, 'card_pin_update'));
         $api->registerApi('tariff_find', array($this, 'tariff_find'));
         $api->registerApi('helper_param_get', array($this, 'helper_param_get'));
         $api->registerApi('helper_currency_convert', array($this, 'helper_currency_convert'));
@@ -140,6 +141,7 @@ class OneWorldApi implements IApi {
         $username = $this->api->escape($this->api->getQueryParam('username', ''));
         $password = $this->api->escape($this->api->getQueryParam('password', ''));
         $tariff = intval($this->api->getQueryParam('tariff', 0));
+        $pin = $this->api->escape($this->api->getQueryParam('pin', ''));
         
         $sql = "select * from cc_tariffgroup where id = '$tariff'";
         $data = $this->api->query($sql);
@@ -173,7 +175,9 @@ class OneWorldApi implements IApi {
             'simultaccess' => '0',
             'max_concurrent' => '1',
             'redial' => '',
-            'tag' => 'oneworld'
+            'tag' => 'oneworld',
+            'block' => '1',
+            'lock_pin' => $pin
         );
                 
         $fields = array();
@@ -196,6 +200,26 @@ class OneWorldApi implements IApi {
         }
         
         return $response;
+    }
+    
+    public function card_pin_update() {
+        $username = $this->api->escape($this->api->getQueryParam('username', ''));
+        $pin = $this->api->escape($this->api->getQueryParam('pin', ''));
+        
+        $sql = "select * from cc_card where username = '$username' limit 1";
+        $data = $this->api->query($sql);
+        if (!count($data))
+            return $this->response(false, array('msg' => 'Billing record not found.'));
+        
+        $card = $data[0];
+        
+        $sql = "update cc_card set lock_pin = '$pin' where id = '{$card['id']}' limit 1";
+        $data = $this->api->query($sql);
+        
+        if (!isset($data['affected_rows']) || !$data['affected_rows'])
+            return $this->response(false, array('msg' => isset($data['error']) ? $data['error'] : 'Pin is not changed.'));
+        
+        return $this->response(true);
     }
     
     public function card_delete() {
