@@ -881,7 +881,7 @@ class FormBO
         global $A2B;
         $FormHandler = FormHandler::GetInstance();
         $processed = $FormHandler->getProcessed();
-        if ($processed['added_refill']==1) {
+        if ($processed['added_refill'] == 1) {
             $id_payment = $FormHandler -> RESULT_QUERY;
             // CREATE REFILL
             $field_insert = "date, credit, card_id ,refill_type, description";
@@ -893,21 +893,22 @@ class FormBO
             $card_table = new Table('cc_card','vat');
             $card_clause = "id = ".$card_id;
             $card_result = $card_table -> Get_list($FormHandler->DBHandle, $card_clause, 0);
-            if(!is_array($card_result)||empty($card_result[0][0])||!is_numeric($card_result[0][0]))
+            if(!is_array($card_result)||empty($card_result[0][0])||!is_numeric($card_result[0][0])) {
                 $vat=0;
-            else
+            } else {
                 $vat = $card_result[0][0];
+            }
             $credit_without_vat = $credit / (1+$vat/100);
 
             $value_insert = " '$date' , '$credit_without_vat', '$card_id','$refill_type', '$description' ";
             $instance_sub_table = new Table("cc_logrefill", $field_insert);
             $id_refill = $instance_sub_table -> Add_table ($FormHandler->DBHandle, $value_insert, null, null,"id");
-            // REFILL CARD .. UPADTE CARD
+            // REFILL CARD - UPDATE CARD
             $instance_table_card = new Table("cc_card");
             $param_update_card = "credit = credit + '".$credit_without_vat."'";
             $clause_update_card = " id='$card_id'";
             $instance_table_card -> Update_table ($FormHandler->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
-            //LINK THE REFILL TO THE PAYMENT .. UPADTE PAYMENT
+            // LINK THE REFILL TO THE PAYMENT .. UPADTE PAYMENT
             $instance_table_pay = new Table("cc_logpayment");
             $param_update_pay = "id_logrefill = '".$id_refill."'";
             $clause_update_pay = " id ='$id_payment'";
