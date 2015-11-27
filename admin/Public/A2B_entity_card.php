@@ -175,7 +175,6 @@ if ($form_action=='list' && !($popup_select>=1)) {
     <div class="tohide" style="display:none;">
 
 <?php
-
 // #### CREATE SEARCH FORM
 if ($form_action == "list") {
     $HD_Form -> create_search_form();
@@ -195,17 +194,17 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
     $list_tariff = $instance_table_tariff -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
     $nb_tariff = count($list_tariff);
 
-    $instance_table_group=  new Table("cc_card_group"," id, name ");
+    $instance_table_group = new Table("cc_card_group"," id, name ");
     $list_group = $instance_table_group  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
 
-    $instance_table_agent=  new Table("cc_agent"," id, login ");
+    $instance_table_agent = new Table("cc_agent"," id, login ");
     $list_agent = $instance_table_agent  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "login", "ASC", null, null, null, null);
 
-    $instance_table_seria=  new Table("cc_card_seria"," id, name");
+    $instance_table_seria = new Table("cc_card_seria"," id, name");
     $list_seria  = $instance_table_seria -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
 
-    $list_refill_type=Constants::getRefillType_List();
-    $list_refill_type["-1"]=array("NO REFILL","-1");
+    $list_refill_type = Constants::getRefillType_List();
+    $list_refill_type["-1"] = array("NO REFILL","-1");
 
     $instance_table_country = new Table("cc_country", " countrycode, countryname ");
     $list_country = $instance_table_country->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "countryname", "ASC", null, null, null, null);
