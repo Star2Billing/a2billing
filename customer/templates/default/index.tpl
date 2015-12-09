@@ -1,3 +1,4 @@
+{php} header('X-Frame-Options: SAMEORIGIN'); {/php}
 <HTML>
 <HEAD>
 	<link rel="shortcut icon" href="templates/{$SKIN_NAME}/images/a2billing-icon-32x32.ico">
