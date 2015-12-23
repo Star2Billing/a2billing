@@ -54,10 +54,12 @@ $QUERY = "SELECT username, credit, lastname, firstname, address, city, state, co
 $DBHandle_max = DbConnect();
 $numrow = 0;
 $resmax = $DBHandle_max -> Execute($QUERY);
-if ($resmax)
+if ($resmax) {
     $numrow = $resmax -> RecordCount();
-
-if ($numrow == 0) exit();
+}
+if ($numrow == 0) {
+    exit();
+}
 $customer_info =$resmax -> fetchRow();
 
 if ($customer_info[14] != "1" && $customer_info[14] != "8") {
@@ -81,9 +83,9 @@ if ($callback) {
             $RateEngine -> webui = 0;
             // LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
 
-            $A2B -> agiconfig['accountcode']=$_SESSION["pr_login"];
-            $A2B -> agiconfig['use_dnid']=1;
-            $A2B -> agiconfig['say_timetocall']=0;
+            $A2B -> agiconfig['accountcode'] = $_SESSION["pr_login"];
+            $A2B -> agiconfig['use_dnid'] = 1;
+            $A2B -> agiconfig['say_timetocall'] = 0;
             $A2B -> extension = $A2B -> dnid = $A2B -> destination = $called;
 
             $resfindrate = $RateEngine->rate_engine_findrates($A2B, $called, $_SESSION["tariff"]);
@@ -113,7 +115,9 @@ if ($callback) {
                     $addparameter	= $RateEngine -> ratecard_obj[0][42+$usetrunk_failover];
 
                     $destination = $called;
-                    if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
+                    if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) {
+                        $destination= substr($destination, strlen($removeprefix));
+                    }
 
                     $pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
                     $ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
@@ -137,13 +141,13 @@ if ($callback) {
                         $dialstr .= $addparameter;
                     }
 
-                    $channel= $dialstr;
+                    $channel = $dialstr;
                     $exten = $calling;
                     $context = $A2B -> config["callback"]['context_callback'];
                     $id_server_group = $A2B -> config["callback"]['id_server_group'];
-                    $priority=1;
+                    $priority =1;
                     $timeout = $A2B -> config["callback"]['timeout']*1000;
-                    $application='';
+                    $application = '';
                     $callerid = $A2B -> config["callback"]['callerid'];
                     $account = $_SESSION["pr_login"];
 
@@ -159,9 +163,9 @@ if ($callback) {
                     }
 
                     $QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority," .
-                             " variable, id_server_group, callback_time, account, callerid, timeout ) " .
-                             " VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority'," .
-                             " '$variable', '$id_server_group',  now(), '$account', '$callerid', '30000')";
+                        " variable, id_server_group, callback_time, account, callerid, timeout ) " .
+                        " VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority'," .
+                        " '$variable', '$id_server_group',  now(), '$account', '$callerid', '30000')";
                     $res = $A2B -> DBHandle -> Execute($QUERY);
 
                     if (!$res) {
