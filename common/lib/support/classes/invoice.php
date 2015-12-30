@@ -112,12 +112,10 @@ class invoice
                 $result[$i] = $comment;
                 $i++;
             }
-            //sort r�sult by date
             return $result;
-
-        } else
-
+        } else {
             return null;
+        }
 
     }
 
@@ -158,13 +156,10 @@ class invoice
                     $i++;
                 }
             }
-            //sort r�sult by date
             return $result;
-
-        } else
-
+        } else {
             return null;
-
+        }
     }
 
     public function loadPayments()
@@ -175,12 +170,10 @@ class invoice
             $CLAUSE = " id_invoice = " . $this->id . " AND id_payment = cc_logpayment.id";
             $result = null;
             $result = $instance_sub_table->Get_list($DBHandle, $CLAUSE, "date", "ASC");
-
             return $result;
-
-        } else
-
+        } else {
             return null;
+        }
     }
 
     public function delPayment($idpayment)
@@ -191,9 +184,9 @@ class invoice
             $CLAUSE = " id_invoice = " . $this->id . " AND id_payment = $idpayment";
             $result = null;
             $instance_sub_table->Delete_table($DBHandle, $CLAUSE);
-        } else
-
+        } else {
             return null;
+        }
     }
 
     public function addPayment($idpayment)
@@ -204,9 +197,9 @@ class invoice
             $fields = " id_invoice , id_payment";
             $values = " $this->id , $idpayment	";
             $instance_sub_table->Add_table($DBHandle, $values, $fields);
-        } else
-
+        } else {
             return null;
+        }
     }
 
     public function changeStatus($status)
@@ -229,10 +222,9 @@ class invoice
                     }
                 }
             }
-
-        } else
-
+        } else {
             return null;
+        }
     }
 
     public function insertInvoiceItem($desc, $price, $VAT)
@@ -266,7 +258,6 @@ class invoice
                 return "PAID";
 
         }
-
     }
 
 }

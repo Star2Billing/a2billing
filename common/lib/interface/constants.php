@@ -92,7 +92,7 @@ class constants
 
     public function getPeriodsList()
     {
-          $period_list = array();
+        $period_list = array();
         $period_list["1"]  = array( "Hourly", "1");
         $period_list["2"]  = array( "Daily", "2");
         $period_list["3"]  = array( "Weekly", "3");
@@ -128,7 +128,7 @@ class constants
 
     public static function getActivationTrueFalse_Revert_List()
     {
-                $cnts = new Constants();
+        $cnts = new Constants();
 
         return $cnts->reverse_array(Constants::getActivationTrueFalseList());
     }
@@ -158,7 +158,7 @@ class constants
     public static function getSimultAccessList()
     {
         $billingtype_list_short = array();
-          $simultaccess_list["0"] = array( gettext("INDIVIDUAL ACCESS"), "0");
+        $simultaccess_list["0"] = array( gettext("INDIVIDUAL ACCESS"), "0");
         $simultaccess_list["1"] = array( gettext("SIMULTANEOUS ACCESS"), "1");
 
         return $billingtype_list_short;
@@ -175,7 +175,7 @@ class constants
 
     public static function getPaidTypeList_Revert_List()
     {
-            $cnts = new Constants();
+        $cnts = new Constants();
 
         return $cnts->reverse_array($cnts->getPaidTypeList());
     }
@@ -202,7 +202,7 @@ class constants
 
     public static function getInvoiceStatusList_Revert_List()
     {
-                $cnts = new Constants();
+        $cnts = new Constants();
 
         return $cnts->reverse_array(Constants::getInvoiceStatusList());
     }
@@ -228,7 +228,7 @@ class constants
 
     public static function getInvoicePaidStatusList_Revert_List()
     {
-                $cnts = new Constants();
+        $cnts = new Constants();
 
         return $cnts->reverse_array(Constants::getInvoicePaidStatusList());
     }
@@ -363,7 +363,7 @@ class constants
 
     public static function getUsed_revert_List()
     {
-                $cnts = new Constants();
+        $cnts = new Constants();
 
         return $cnts->reverse_array(Constants::getUsedList());
     }
@@ -418,8 +418,7 @@ class constants
 
     public static function getCardStatus_Revert_List()
     {
-            $cnts=new Constants();
-
+        $cnts=new Constants();
         return $cnts->reverse_array(Constants::getCardStatus_List());
     }
 
@@ -473,7 +472,7 @@ class constants
 
     public static function getCardAccess_Revert_List()
     {
-            $cnts= new Constants();
+        $cnts= new Constants();
 
         return $cnts->reverse_array(Constants::getCardAccess_List());
     }
@@ -553,8 +552,9 @@ class constants
     public static function getInvoiceDay_List()
     {
         $invoiceday_list = array();
-        for ($k=1;$k<=28;$k++)
+        for ($k=1;$k<=28;$k++) {
             $invoiceday_list["$k"]  = array("$k", "$k");
+        }
 
         return $invoiceday_list;
     }
@@ -578,7 +578,7 @@ class constants
         $idx = 0;
         foreach ($values as $val) {
              $limits_notify [$idx] = array($val,$val);
-            $idx++;
+             $idx++;
         }
 
         return $limits_notify;

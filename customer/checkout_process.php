@@ -269,7 +269,7 @@ write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."curr amount $c
 $amount_paid = convert_currency($currencies_list, $currAmount, $currCurrency, BASE_CURRENCY);
 $amount_without_vat = $amount_paid / (1+$VAT/100);
 
-//If security verification fails then send an email to administrator as it may be a possible attack on epayment security.
+// if security verification fails then send an email to administrator to warn risk of attack
 if ($security_verify == false) {
     write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- security_verify == False | END");
     try {
@@ -301,14 +301,13 @@ $payment_modules = new payment($transaction_data[0][4]);
 // load the before_process function from the payment modules
 //$payment_modules->before_process();
 
-$QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency, useralias, uipass " .
-         "FROM cc_card WHERE id = '".$transaction_data[0][1]."'";
+$QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency, useralias, uipass FROM cc_card WHERE id = '".$transaction_data[0][1]."'";
 $resmax = $DBHandle_max -> Execute($QUERY);
 if ($resmax) {
     $numrow = $resmax -> RecordCount();
 } else {
     write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : ERROR NO SUCH CUSTOMER EXISTS, CUSTOMER ID = ".$transaction_data[0][1]);
-    exit(gettext("No Such Customer exists."));
+    exit("No Such Customer exists.");
 }
 $customer_info = $resmax -> fetchRow();
 $nowDate = date("Y-m-d H:i:s");
@@ -357,7 +356,9 @@ if ($customer_info[0] > 0 && $orderStatus == 2) {
     write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : ERROR CUSTOMER INFO OR ORDERSTATUS ($orderStatus)\n".print_r($_POST, true)."\n");
 }
 
+
 if ($id > 0) {
+
     if (strcasecmp("invoice",$item_type)!=0) {
         #Payment not related to a Postpaid invoice
         $addcredit = $transaction_data[0][2];
@@ -391,7 +392,7 @@ if ($id > 0) {
 
         //ADD an INVOICE
         $reference = generate_invoice_reference();
-        $field_insert = "date, id_card, title ,reference, description,status,paid_status";
+        $field_insert = "date, id_card, title ,reference, description, status, paid_status";
         $date = $nowDate;
         $card_id = $id;
         $title = gettext("CUSTOMER REFILL");
@@ -574,7 +575,6 @@ write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : 
 // CHECK IF THE EMAIL ADDRESS IS CORRECT
 if (preg_match("/^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+[.](([a-z]{2,3})|([a-z]{3}[.]{1}[a-z]{2}))$/i", $customer_info["email"])) {
     // FIND THE TEMPLATE APPROPRIATE
-
     try {
         $mail = new Mail(Mail::$TYPE_PAYMENT,$id);
         write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-SENDING EMAIL TO CUSTOMER ".$customer_info["email"]);
@@ -596,7 +596,6 @@ if (preg_match("/^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z
     } catch (A2bMailException $e) {
         write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : ERROR NO EMAIL TEMPLATE FOUND");
     }
-
 } else {
     write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-$trans_str : Customer : no email info !!!");
 }
