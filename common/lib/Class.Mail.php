@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Rachid <rachid.belaid@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -140,10 +140,11 @@ class Mail
             if (!empty ($lg)) {
                 $tmpl_clause .= " AND ( id_language = '$lg' OR  id_language = 'en' )";
                 $order_field = 'id_language';
-                if (strcasecmp($lg, 'en') < 0)
+                if (strcasecmp($lg, 'en') < 0) {
                     $order = 'ASC';
-                else
+                } else {
                     $order = 'DESC';
+                }
             } elseif (!is_null($id_card) && is_numeric($id_card)) {
                 $card_table = new Table("cc_card", "*, IF((typepaid=1) AND (creditlimit IS NOT NULL), credit + creditlimit, credit) AS real_credit");
                 $card_clause = " id = " . $id_card;
@@ -154,10 +155,11 @@ class Mail
                 if (!empty ($language)) {
                     $tmpl_clause .= " AND ( id_language = '$language' OR  id_language = 'en' )";
                     $order_field = 'id_language';
-                    if (strcasecmp($language, 'en') < 0)
+                    if (strcasecmp($language, 'en') < 0) {
                         $order = 'ASC';
-                    else
+                    } else {
                         $order = 'DESC';
+                    }
                 }
             }
             $result_tmpl = $tmpl_table->Get_list($DBHandle, $tmpl_clause, $order_field, $order);

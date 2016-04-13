@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,14 +27,14 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
 
-getpost_ifset(array('id', 'message', 'location', 'id_tariffgroup', 'options', 'credit', 
-'currency', 'locale', 'commission', 'vat', 'banner', 'language', 'perms', 'lastname', 'firstname', 'address', 'city', 'state', 
+getpost_ifset(array('id', 'message', 'location', 'id_tariffgroup', 'options', 'credit',
+'currency', 'locale', 'commission', 'vat', 'banner', 'language', 'perms', 'lastname', 'firstname', 'address', 'city', 'state',
 'country', 'zipcode', 'phone', 'email', 'fax'));
 
 
@@ -87,7 +87,7 @@ $HD_Form -> AddEditElement (gettext("CITY"),
 		"",
 		gettext("Insert the city"),
 		"" , "", "", "", "", "", "", "");
-		
+
 $HD_Form -> AddEditElement (gettext("STATE"),
 		"state",
 		'$value',
@@ -141,7 +141,7 @@ $HD_Form -> AddEditElement (gettext("FAX"),
 		"",
 		gettext("Insert the fax number"),
 		"" , "", "", "", "" , "", "", "");
-		
+
 
 $HD_Form -> AddEditElement (gettext("COMPANY"),
 		"company",
@@ -151,7 +151,7 @@ $HD_Form -> AddEditElement (gettext("COMPANY"),
 		"",
 		gettext("Insert the company"),
 		"" , "", "", "", "", "", "", "");
-	
+
 $FG_QUERY_EDITION = ' lastname, firstname, address, city, state, country, zipcode, email, phone,  fax, company';
 
 $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
@@ -161,6 +161,6 @@ $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify your informations");
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?message=success";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?message=success";
 
 

@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -90,26 +90,23 @@ foreach ($payments as $payment) {
 ?>
 
 <SCRIPT LANGUAGE="javascript">
-<!-- Begin
+<!--
 var win= null;
-function addpayment(selvalue)
-{
+function addpayment(selvalue) {
     //test si win est encore ouvert et close ou refresh
     win=MM_openBrWindow('A2B_entity_payment_invoice.php?popup_select=1&invoice=<?php echo $id ?>&card=<?php echo $invoice->getCard() ?>','','scrollbars=yes,resizable=yes,width=700,height=500');
 }
-function delpayment()
-{
+function delpayment() {
     //test si val is not null & numeric
     if ($('#payment').val()!=null) {
         self.location.href= "A2B_invoice_manage_payment.php?id=<?php echo $id; ?>&delpayment="+$('#payment').val();
     }
 }
 
-function changeStatus()
-{
+function changeStatus() {
     self.location.href= "A2B_invoice_manage_payment.php?id=<?php echo $id; ?>&status=<?php echo ($invoice->getPaidStatus()+1)%2; ?>";
 }
-// End -->
+// -->
 
 </script>
 <table class="invoice_table" >

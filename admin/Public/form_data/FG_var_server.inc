@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -56,7 +56,7 @@ $HD_Form -> AddViewElement(gettext("LASTTIME USED"), "lasttime_used", "15%", "ce
 $HD_Form -> FieldViewElement ('id_group, id_group, server_ip, manager_host, manager_username, lasttime_used');
 
 
-$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!"); 
+$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -76,39 +76,39 @@ $HD_Form -> AddEditElement (gettext("SERVER GROUP"),
 				"name, id",
 				"", "", "%1","", "");
 
-$HD_Form -> AddEditElement (gettext("SERVER HOSTNAME"),	
-			   "server_ip",		
-			   '$value',	
-			   "INPUT",	
-			   "size=30 maxlength=40",	
+$HD_Form -> AddEditElement (gettext("SERVER HOSTNAME"),
+			   "server_ip",
+			   '$value',
+			   "INPUT",
+			   "size=30 maxlength=40",
 			   "3",
 			   gettext("Insert the server hostname"),
 			   "" , "", "",	"", "" , "", "", "");
 
-$HD_Form -> AddEditElement (gettext("MANAGER HOST"),	
-			   "manager_host",		
-			   '$value',	
-			   "INPUT",	
-			   "size=30 maxlength=40",	
+$HD_Form -> AddEditElement (gettext("MANAGER HOST"),
+			   "manager_host",
+			   '$value',
+			   "INPUT",
+			   "size=30 maxlength=40",
 			   "9",
 			   gettext("Insert the manager host"),
 			   "" , "", "",	"", "" , "", "", "");
 
 $HD_Form -> AddEditElement (gettext("MANAGER USERNAME"),
-			   "manager_username",		
-			   '$value',	
-			   "INPUT",	
-			   "size=30 maxlength=40",	
-			   "9",	
+			   "manager_username",
+			   '$value',
+			   "INPUT",
+			   "size=30 maxlength=40",
+			   "9",
 			   gettext("Insert the manager username"),
 			   "" , "", "",	"", "" , "", "", "");
 
 $HD_Form -> AddEditElement (gettext("MANAGER SECRET"),
-			   "manager_secret",		
-			   '$value',	
-			   "INPUT",	
-			   "size=30 maxlength=40",	
-			   "",	
+			   "manager_secret",
+			   '$value',
+			   "INPUT",
+			   "size=30 maxlength=40",
+			   "",
 			   gettext("Insert the manager secret"),
 			   "" , "", "",	"", "" , "", "", "");
 
@@ -140,9 +140,9 @@ $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Setup those values to create the new")." ".$HD_Form->FG_INSTANCE_NAME;
 
 
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
 
 
 

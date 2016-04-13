@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -68,10 +68,12 @@ if ($id != "" || !is_null($id)) {
     $HD_Form->FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form->FG_EDITION_CLAUSE);
 }
 
-if (!isset ($form_action))
+if (!isset ($form_action)) {
     $form_action = "list"; //ask-add
-if (!isset ($action))
+}
+if (!isset ($action)) {
     $action = $form_action;
+}
 
 $list = $HD_Form->perform_action($form_action);
 
@@ -93,10 +95,10 @@ $smarty->display('footer.tpl');
 <script type="text/javascript">
 $(document).ready(function () {
     $('.lock').click(function () {
-            $.get("A2B_entity_receipt.php", { id: ""+ this.id, action: "lock" },
-                  function(data){
-                    location.reload(true);
-                  });
+        $.get("A2B_entity_receipt.php", { id: ""+ this.id, action: "lock" },
+            function(data){
+                location.reload(true);
             });
+        });
 });
 </script>

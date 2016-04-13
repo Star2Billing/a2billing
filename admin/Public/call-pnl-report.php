@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -42,24 +42,9 @@ if (!has_rights(ACX_CALL_REPORT)) {
     die();
 }
 
-getpost_ifset(array (
-    'posted',
-    'Period',
-    'frommonth',
-    'fromstatsmonth',
-    'tomonth',
-    'tostatsmonth',
-    'fromday',
-    'fromstatsday_sday',
-    'fromstatsmonth_sday',
-    'today',
-    'tostatsday_sday',
-    'tostatsmonth_sday',
-    'current_page',
-    'lst_time',
-    'group_id',
-    'report_type'
-));
+getpost_ifset(array ( 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday',
+    'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page',
+    'lst_time', 'group_id', 'report_type'));
 
 //     Initialization of variables	///////////////////////////////
 
@@ -68,13 +53,19 @@ $QUERY = '';
 $from_to = '';
 $bool = false;
 
+$HD_Form = new FormHandler("pnl_report","PNL Report");
+
+$HD_Form -> setDBHandler (DbConnect());
+$HD_Form -> init();
+
 //     Generating WHERE CLAUSE		///////////////////////////////
 
 normalize_day_of_month($fromstatsday_sday, $fromstatsmonth_sday, 1);
 normalize_day_of_month($tostatsday_sday, $tostatsmonth_sday, 1);
 if ($Period == "Time" && $lst_time != "") {
-    if (strlen($condition) > 0)
+    if (strlen($condition) > 0) {
         $condition .= " AND ";
+    }
     if (DB_TYPE == "postgres") {
         switch ($lst_time) {
             case 1 :
@@ -92,7 +83,6 @@ if ($Period == "Time" && $lst_time != "") {
             case 5 :
                 $condition .= "CURRENT_TIMESTAMP - interval '1 month' <= cdr.starttime";
                 break;
-
         }
     } else {
         switch ($lst_time) {
@@ -164,6 +154,14 @@ $smarty->display('main.tpl');
 <FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
     <INPUT TYPE="hidden" NAME="posted" value=1>
     <INPUT TYPE="hidden" NAME="current_page" value=0>
+    <?php
+        if ($HD_Form->FG_CSRF_STATUS == true) {
+    ?>
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+    <?php
+        }
+    ?>
         <table class="bar-status" width="85%" border="0" cellspacing="1" cellpadding="2" align="center">
             <tr>
                 <td align="left" class="bgcolor_004">
@@ -272,24 +270,19 @@ $smarty->display('main.tpl');
 
 <?php
 
-$HD_Form = new FormHandler("pnl_report","PNL Report");
-
-$HD_Form -> setDBHandler (DbConnect());
-$HD_Form -> init();
-
-$condition1=str_replace('cdr.starttime','date',$condition);
-$condition2=str_replace('cdr.starttime','firstusedate',$condition);
-$payphones=$A2B->config["webui"]["report_pnl_pay_phones"];
-$tallfree=$A2B->config["webui"]["report_pnl_tall_free"];
-$payphones=str_replace(' ','',$payphones);
-$tallfree=str_replace(' ','',$tallfree);
-$payphones=str_replace('),(',' ,1 as dnid_type union select ',$payphones);
-$payphones=str_replace(')',' ,1  ',$payphones);
-$tallfree=str_replace('),(',' ,2  union select ',$tallfree);
-$tallfree=str_replace(')',' ,2 ',$tallfree);
-$tallfree=str_replace('(',' select ',$tallfree);
-$payphones=str_replace('(',' select ',$payphones);
-$dnids="select 'dnid' as dnid, 0.1 as sell_cost,0.1 as cost,0 as dnid_type";
+$condition1 = str_replace('cdr.starttime','date',$condition);
+$condition2 = str_replace('cdr.starttime','firstusedate',$condition);
+$payphones = $A2B->config["webui"]["report_pnl_pay_phones"];
+$tallfree = $A2B->config["webui"]["report_pnl_tall_free"];
+$payphones = str_replace(' ','',$payphones);
+$tallfree = str_replace(' ','',$tallfree);
+$payphones = str_replace('),(',' ,1 as dnid_type union select ',$payphones);
+$payphones = str_replace(')',' ,1  ',$payphones);
+$tallfree = str_replace('),(',' ,2  union select ',$tallfree);
+$tallfree = str_replace(')',' ,2 ',$tallfree);
+$tallfree = str_replace('(',' select ',$tallfree);
+$payphones = str_replace('(',' select ',$payphones);
+$dnids = "select 'dnid' as dnid, 0.1 as sell_cost,0.1 as cost,0 as dnid_type";
 
 if (strlen($tallfree)>0)$dnids.=" union ".$tallfree;
 if (strlen($payphones)>0)$dnids.=" union ".$payphones;
@@ -363,47 +356,46 @@ from(
 if (!isset($group_id)) {
  if ($report_type==1) {
      $HD_Form -> DBHandle -> Execute("create temporary table pnl_report_sub1 as
-                       select cc.id_group,sum(cr.credit) as credits from cc_logrefill cr
-                         left join cc_card  cc on cc.id=cr.card_id
-                             where refill_type=1 and $condition1
-                             group by id_group");
+        select cc.id_group,sum(cr.credit) as credits from cc_logrefill cr
+            left join cc_card  cc on cc.id=cr.card_id
+        where refill_type=1 and $condition1
+            group by id_group");
      $HD_Form -> DBHandle -> Execute("create index pnl_report_sub1_get on pnl_report_sub1(id_group)");
      $HD_Form -> DBHandle -> Execute("create temporary table pnl_report_sub2 as
-                        select cc.id_group,-sum(cr.credit) as charges from cc_logrefill cr
-                             left join cc_card  cc on cc.id=cr.card_id
-                              where refill_type=2 and $condition1
-                         group by  id_group ");
+        select cc.id_group,-sum(cr.credit) as charges from cc_logrefill cr
+            left join cc_card  cc on cc.id=cr.card_id
+        where refill_type=2 and $condition1
+            group by  id_group ");
      $HD_Form -> DBHandle -> Execute("create index pnl_report_sub2_get on pnl_report_sub2(id_group)");
      $HD_Form -> DBHandle -> Execute("create temporary table pnl_report_sub3 as
-                         select id_group,count(*) as first_use from cc_card
-                           where $condition2 group by id_group");
+        select id_group,count(*) as first_use from cc_card
+        where $condition2 group by id_group");
  $HD_Form -> DBHandle -> Execute("create index pnl_report_sub3_get on pnl_report_sub3(id_group)");
 
  $QUERY.=" left join cc_card_group as cg on cg.id=id_group left join pnl_report_sub1 as t2 on t1.id_group=t2.id_group
        left join pnl_report_sub2  as t3 on t1.id_group=t3.id_group
        left join  pnl_report_sub3 as t4 on t1.id_group=t4.id_group
-     )as result
-    )as final
+     ) as result
+    ) as final
 ";
   } elseif ($report_type==2) {
      $HD_Form -> DBHandle -> Execute("create temporary table pnl_report_sub1 as
-        select cc.tariff as id_tariffgroup,
-                 sum(case when refill_type=1 then cr.credit else 0 end ) as credits,
-             - sum(case when refill_type=2 then  cr.credit else 0 end ) as charges
+        select cc.tariff as id_tariffgroup, sum(case when refill_type=1 then cr.credit else 0 end ) as credits,
+            - sum(case when refill_type=2 then  cr.credit else 0 end ) as charges
                 from cc_logrefill cr left join cc_card as  cc on cc.id=cr.card_id
             where $condition1
             group by cc.tariff");
      $HD_Form -> DBHandle -> Execute("create temporary table pnl_report_sub2 as
-                        select tariff as id_tariffgroup,count(*) as first_use
-                        from cc_card where $condition2
-                     group by tariff");
+        select tariff as id_tariffgroup,count(*) as first_use
+        from cc_card where $condition2
+        group by tariff");
      $HD_Form -> DBHandle -> Execute("create index pnl_report_sub1_get on pnl_report_sub1(id_tariffgroup)");
      $HD_Form -> DBHandle -> Execute("create index pnl_report_sub2_get on pnl_report_sub2(id_tariffgroup)");
      $QUERY.=" left join cc_tariffgroup as cg on cg.id=id_tariffgroup
-           left join pnl_report_sub1 as t2 on t1.id_tariffgroup=t2.id_tariffgroup
-           left join  pnl_report_sub2 as t4 on t1.id_tariffgroup=t4.id_tariffgroup
-     )as result
-    )as final
+                left join pnl_report_sub1 as t2 on t1.id_tariffgroup=t2.id_tariffgroup
+                left join pnl_report_sub2 as t4 on t1.id_tariffgroup=t4.id_tariffgroup
+            ) as result
+        )as final
 ";
   }
 } else {
@@ -424,8 +416,7 @@ $FG_TABLE_INTERN_COLOR = "#EDF3FF";
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
 
-function linktonext_1($value)
-{
+function linktonext_1($value) {
     $handle = DbConnect();
         $inst_table = new Table("cc_card_group", "id");
         $FG_TABLE_CLAUSE = "name = '$value'";
@@ -437,8 +428,8 @@ function linktonext_1($value)
         echo $value;
     }
 }
-function linktonext_2($value)
-{
+
+function linktonext_2($value) {
         $handle = DbConnect();
         $inst_table = new Table("cc_tariffgroup", "id");
         $FG_TABLE_CLAUSE = "tariffgroupname = '$value'";
@@ -497,7 +488,7 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'pnl_selection';
 $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;
-$HD_Form -> FieldViewElement ($FG_COL_QUERY);
+$HD_Form -> FieldViewElement($FG_COL_QUERY);
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO INFO!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
@@ -543,10 +534,10 @@ if ($res) {
     <td class='tableBody'><?php gettext('Margin');?></td>
     <td class='tableBody'><?php gettext('Total Profit');?></td></tr>
     <?php
-    $roa=array();
-    $row =$res -> fetchRow();
+    $roa = array();
+    $row = $res -> fetchRow();
     echo "<TR>";
-    for ($k=0;$k<18;$k++) {
+    for ($k=0; $k<18; $k++) {
         echo "<TD class='tableBody'>";
          if ($k<3) {
             echo $row[$k];

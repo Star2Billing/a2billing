@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -146,7 +146,15 @@ function CheckForm()
 //-->
 </script>
 <table width="85%" border="0" align="center" cellpadding="0" cellspacing="0">
-<form  name="Dupload" enctype="multipart/form-data" action="A2B_entity_restore.php" method="POST">
+<form name="Dupload" enctype="multipart/form-data" action="A2B_entity_restore.php" method="POST">
+    <?php
+        if ($HD_Form->FG_CSRF_STATUS == true) {
+    ?>
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+    <?php
+        }
+    ?>
     <TR valign="middle">
         <TD align="center">
             <?php echo gettext("Upload a database backup")?>&nbsp;<input type="file" name="databasebackup" value="">

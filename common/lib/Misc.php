@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -226,9 +226,9 @@ function write_log($logfile, $output)
 }
 
 /*
- * function cleanInput
+ * function sanitize_tag
  */
-function cleanInput($input)
+function sanitize_tag($input)
 {
     $search = array (
         '@<script[^>]*?>.*?</script>@si', // Strip out javascript
@@ -248,14 +248,15 @@ function cleanInput($input)
 function sanitize_data($input)
 {
     if (is_array($input)) {
+        // Sanitize Array
         foreach ($input as $var => $val) {
             $output[$var] = sanitize_data($val);
         }
     } else {
-
         // Remove whitespaces (not a must though)
         $input = trim($input);
         $input = str_replace('--', '', $input);
+        $input = str_replace('..', '', $input);
         $input = str_replace(';', '', $input);
         $input = str_replace('/*', '', $input);
 
@@ -265,27 +266,78 @@ function sanitize_data($input)
         $input = str_ireplace('SUBSTRING', '', $input);
         $input = str_ireplace('ASCII', '', $input);
         $input = str_ireplace('SHA1', '', $input);
-        $input = str_ireplace('MD5', '', $input);
+        #MD5 is used by md5secret
+        #$input = str_ireplace('MD5', '', $input);
         $input = str_ireplace('ROW_COUNT', '', $input);
         $input = str_ireplace('SELECT', '', $input);
+        $input = str_ireplace('INSERT', '', $input);
+        $input = str_ireplace('CASE WHEN', '', $input);
+        $input = str_ireplace('INFORMATION_SCHEMA', '', $input);
+        $input = str_ireplace('DROP', '', $input);
+        $input = str_ireplace('RLIKE', '', $input);
+        $input = str_ireplace(' IF', '', $input);
+        $input = str_ireplace(' OR ', '', $input);
+        $input = str_ireplace('\\', '', $input);
+        //$input = str_ireplace('DELETE', '', $input);
+        $input = str_ireplace('CONCAT', '', $input);
+        $input = str_ireplace('WHERE', '', $input);
         $input = str_ireplace('UPDATE', '', $input);
-
-        if (!(stripos($input, ' or 1') === FALSE)) {
-            return false;
-        }
-        if (!(stripos($input, ' or true') === FALSE)) {
-            return false;
-        }
+        $input = str_ireplace(' or 1', '', $input);
+        $input = str_ireplace(' or true', '', $input);
+        //Permutation - in mailing admin/Public/A2B_entity_mailtemplate.php
+        // we use url with key=$loginkey$
+        $input = str_ireplace('=$', '+$', $input);
+        $input = str_ireplace('=', '', $input);
+        $input = str_ireplace('+$', '=$', $input);
 
         if (get_magic_quotes_gpc()) {
             $input = stripslashes($input);
         }
-        $input = cleanInput($input);
+        $input = sanitize_tag($input);
 
         $output = addslashes($input);
     }
-
     return $output;
+}
+
+/*
+ * Sanitize all Post Get variables
+ */
+function sanitize_post_get() {
+    if ($_POST) {
+        foreach ($_POST as $key => $value) {
+            $key = filter_var($key, FILTER_CALLBACK, array("options"=>"sanitize_data"));
+            $value = filter_var($value, FILTER_CALLBACK, array("options"=>"sanitize_data"));
+            $key = filter_var($key, FILTER_SANITIZE_STRING);
+            if (is_array($value)) {
+                foreach ($value as $subkey => $subvalue) {
+                    $subkey = filter_var($subkey, FILTER_SANITIZE_STRING);
+                    $subvalue = filter_var($subvalue, FILTER_SANITIZE_STRING);
+                    $value[$subkey] = $subvalue;
+                }
+            } else {
+                $value = filter_var($value, FILTER_SANITIZE_STRING);
+            }
+            $_POST[$key] = $value;
+        }
+    }
+    if ($_GET) {
+        foreach ($_GET as $key => $value) {
+            $key = filter_var($key, FILTER_CALLBACK, array("options"=>"sanitize_data"));
+            $value = filter_var($value, FILTER_CALLBACK, array("options"=>"sanitize_data"));
+            $key = filter_var($key, FILTER_SANITIZE_STRING);
+            if (is_array($value)) {
+                foreach ($value as $subkey => $subvalue) {
+                    $subkey = filter_var($subkey, FILTER_SANITIZE_STRING);
+                    $subvalue = filter_var($subvalue, FILTER_SANITIZE_STRING);
+                    $value[$subkey] = $subvalue;
+                }
+            } else {
+                $value = filter_var($value, FILTER_SANITIZE_STRING);
+            }
+            $_GET[$key] = $value;
+        }
+    }
 }
 
 /*
@@ -302,23 +354,12 @@ function getpost_ifset($test_vars)
         if (isset ($_POST[$test_var])) {
             global $$test_var;
             $$test_var = $_POST[$test_var];
-            $$test_var = sanitize_data($$test_var);
-            if ($test_var == 'username' || $test_var == 'filterprefix') {
-                //rebuild the search parameter to filter character to format card number
-                $filtered_char = array (
-                    " ",
-                    "-",
-                    "_",
-                    "(",
-                    ")",
-                    "+"
-                );
-                $$test_var = str_replace($filtered_char, "", $$test_var);
 
-            }
         } elseif (isset ($_GET[$test_var])) {
             global $$test_var;
             $$test_var = $_GET[$test_var];
+        }
+        if (isset($$test_var)) {
             $$test_var = sanitize_data($$test_var);
             //rebuild the search parameter to filter character to format card number
             if ($test_var == 'username' || $test_var == 'filterprefix') {
@@ -742,7 +783,7 @@ function generate_unique_value($table, $len, $field)
  */
 function gen_card_with_alias($table = "cc_card", $api = 0, $length_cardnumber = LEN_CARDNUMBER, $DBHandle = null)
 {
-    if (!is_object($DBHandle)) {
+    if (!isset($DBHandle)) {
         $DBHandle = DbConnect();
     }
 
@@ -1178,6 +1219,7 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
 {
     $FG_DEBUG = 0;
     $strong_currency = 'EUR';
+    // http://download.finance.yahoo.com/d/quotes.csv?s=USDEUR=X+USDGBP=X&f=sl1d1t1c1ohgv&e=.csv
     $url = "http://download.finance.yahoo.com/d/quotes.csv?s=";
     $return = "";
 
@@ -1185,7 +1227,7 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
     $old_currencies = $instance_table->SQLExec($DBHandle, $QUERY);
 
     // we will retrieve a .CSV file e.g. USD to EUR and USD to CAD with a URL like:
-    // http://download.finance.yahoo.com/d/quotes.csv?s=USDEUR=X+USDCAD=X&f=l1
+    // http://download.finance.yahoo.com/d/quotes.csv?s=USDEUR=X+USDCAD=X&f=sl1d1t1c1ohgv
     if (is_array($old_currencies)) {
         $num_cur = count($old_currencies);
         if ($FG_DEBUG >= 1)
@@ -1194,8 +1236,8 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
             if ($FG_DEBUG >= 1)
                 $return .= $old_currencies[$i][0] . ' - ' . $old_currencies[$i][1] . ' - ' . $old_currencies[$i][2] . "\n";
             // Finish and add termination ?
-            if ($i +1 == $num_cur) {
-                $url .= $strong_currency . $old_currencies[$i][1] . "=X&f=l1";
+            if ($i+1 == $num_cur) {
+                $url .= $strong_currency . $old_currencies[$i][1] . "=X&f=sl1d1t1c1ohgv";
             } else {
                 $url .= $strong_currency . $old_currencies[$i][1] . "=X+";
             }
@@ -1211,48 +1253,58 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
             return gettext("Can't find our base_currency in cc_currencies.") . ' ' . gettext('Currency update ABORTED.');
         }
 
-        // Call wget to download the URL to the .CVS file
-        $command = "wget '" . $url . "' -O /tmp/currencies.cvs  2>&1";
+        // Call wget to download the URL to the .CSV file
+        $command = "wget '" . $url . "' -O /tmp/currencies.csv  2>&1";
         exec($command, $output);
         if ($FG_DEBUG >= 1)
-            $return .= "wget '" . $url . "' -O /tmp/currencies.cvs\n" . $output;
+            $return .= "wget '" . $url . "' -O /tmp/currencies.csv\n" . $output;
 
         // get the file with the currencies to update the database
-        $currencies = file("/tmp/currencies.cvs");
+        $currencies = file("/tmp/currencies.csv");
 
         // trim off any leading/trailing comments/headers that may have been added
-        $i = 0;
-        while (!is_numeric(trim($currencies[$i]))) {
-            $i++;
-        }
-        $currencies = array_slice($currencies, $i, $num_cur);
+        // $i = 0;
+        // while (!is_numeric(trim($currencies[$i]))) {
+        //     $i++;
+        //     if ($i > 200) {
+        //         return "Error Currency Loop";
+        //     }
+        // }
+        // $currencies = array_slice($currencies, $i, $num_cur);
 
         // do some simple checks to try to verify we've received exactly one
         // valid response for each currency we requested
         $num_res = count($currencies);
-        if ($num_res < $num_cur) {
-            return gettext("The CSV file doesn't contain all the currencies we requested.") . ' ' . gettext('Currency update ABORTED.');
-        }
-        for ($i = 0; $i < $num_cur; $i++) {
-            if (!is_numeric(trim($currencies[$i]))) {
-                return gettext("At least one of the entries in the CSV file isn't a number.") . ' ' . gettext('Currency update ABORTED.');
-            }
-        }
+        // if ($num_res < $num_cur) {
+        //     return gettext("The CSV file doesn't contain all the currencies we requested.") . ' ' . gettext('Currency update ABORTED.');
+        // }
+        // for ($i = 0; $i < $num_cur; $i++) {
+        //     if (!is_numeric(trim($currencies[$i]))) {
+        //         return gettext("At least one of the entries in the CSV file isn't a number.") . ' ' . gettext('Currency update ABORTED.');
+        //     }
+        // }
 
         // Find base_currency's value in $strong_currency to help avoid Yahoo's
-        // early truncation,  and therefore win back a lot of accuracy
-        $base_value = $currencies[$index_base_currency];
+        // early truncation, and therefore keep a level of accuracy
+        $line_base_value = $currencies[$index_base_currency];
+        $arr_value = explode(',', $line_base_value);
+        if (!is_array($arr_value)) {
+            return gettext('Error fetching currencies... Currency update ABORTED!');
+        }
+        $base_value = $arr_value[1];
 
         // Check our base_currency will still fund our addiction to tea and biscuits
         if (round($base_value, 5) < 0.00001) {
-            return gettext('Our base_currency seems to be worthless.') . ' ' . gettext('Currency update ABORTED.');
+            return gettext('The base_currency is too small. Currency update ABORTED!');
         }
 
         // update each row we originally retrieved from cc_currencies
-        $i = 0;
-        foreach ($currencies as $currency) {
-
-            $currency = trim($currency);
+        $i = -1;
+        foreach ($currencies as $line_currency) {
+            $i++;
+            $line_currency = trim($line_currency);
+            $line_ex = explode(',', $line_currency);
+            $currency = trim($line_ex[1]);
 
             if ($currency != 0) {
                 $currency = $base_value / $currency;
@@ -1264,11 +1316,11 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
             }
 
             // if the currency is base_currency then set to exactly 1.00000
-            if ($i == $index_base_currency)
+            if ($i == $index_base_currency) {
                 $currency = 1;
+            }
 
             $QUERY = "UPDATE cc_currencies SET value='$currency'";
-
             // if we've changed base_currency,  update each SQL row to reflect this
             if (BASE_CURRENCY != $old_currencies[$i][2]) {
                 $QUERY .= ", basecurrency='" . BASE_CURRENCY . "'";
@@ -1279,9 +1331,9 @@ function currencies_update_yahoo ($DBHandle, $instance_table)
             if ($FG_DEBUG >= 1)
                 $return .= "$QUERY -> [$result]\n";
 
-            $i++;
-            if ($i > 2000)
+            if ($i > 200) {
                 return $return;
+            }
         }
         $return .= gettext('Success! All currencies are now updated.');
     }
@@ -1485,9 +1537,7 @@ function check_cp()
     $pos = strpos($pageURL, 'phpsysinfo');
 
     if ($pos === false) {
-
         $footer_content = file_get_contents("templates/default/footer.tpl");
-
         $pos_copyright = strpos($footer_content, '$COPYRIGHT');
         if ($pos_copyright === false) {
             return $ret_val;

@@ -4,48 +4,43 @@ $processed = $this->getProcessed();
 
 <script language="JavaScript" src="./javascript/calonlydays.js"></script>
 <script language="JavaScript" type="text/JavaScript">
-<!--
+
 function MM_openBrWindow(theURL,winName,features) {
-  window.open(theURL,winName,features);
+    window.open(theURL,winName,features);
 }
 
-function sendto(action, record, field_inst, instance)
-{
-  //alert ("action:" + action);
-  document.myForm.form_action.value = action;
-  document.myForm.sub_action.value = record;
-  if (field_inst != null) document.myForm.elements[field_inst].value = instance;
-  document.myForm.submit();
+function sendto(action, record, field_inst, instance) {
+    document.myForm.form_action.value = action;
+    document.myForm.sub_action.value = record;
+    if (field_inst != null) document.myForm.elements[field_inst].value = instance;
+    document.myForm.submit();
 }
 
-function sendtolittle(direction)
-{
-  document.myForm.action=direction;
-  document.myForm.submit();
-
+function sendtolittle(direction) {
+    document.myForm.action=direction;
+    document.myForm.submit();
 }
-//-->
 </script>
 
-<FORM action=<?php echo $_SERVER['PHP_SELF']?> method=post name="myForm" id="myForm">
+<FORM action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) ?>" method="POST" name="myForm" id="myForm">
 
 <table class="editform_table1" cellspacing="2">
-        <INPUT type="hidden" name="id" value="<?php echo $id?>">
-        <INPUT type="hidden" name="form_action" value="edit">
-        <INPUT type="hidden" name="sub_action" value="">
-        <INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
-        <INPUT type="hidden" name="stitle" value="<?php echo $stitle?>">
-        <INPUT type="hidden" name="current_page" value="<?php echo $processed['current_page'];?>">
-        <INPUT type="hidden" name="order" value="<?php echo $processed['order'];?>">
-        <INPUT type="hidden" name="sens" value="<?php echo $processed['sens'];?>">
-        <?php
-        if ($this->FG_CSRF_STATUS == true) {
-        ?>
-            <input type="hidden" name="<?php echo $this->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $this->FG_FORM_UNIQID; ?>" />
-            <input type="hidden" name="<?php echo $this->FG_CSRF_FIELD ?>" value="<?php echo $this->FG_CSRF_TOKEN; ?>" />
-        <?php
-        }
-        ?>
+    <INPUT type="hidden" name="id" value="<?php echo $id?>">
+    <INPUT type="hidden" name="form_action" value="edit">
+    <INPUT type="hidden" name="sub_action" value="">
+    <INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
+    <INPUT type="hidden" name="stitle" value="<?php echo $stitle?>">
+    <INPUT type="hidden" name="current_page" value="<?php echo $processed['current_page'];?>">
+    <INPUT type="hidden" name="order" value="<?php echo $processed['order'];?>">
+    <INPUT type="hidden" name="sens" value="<?php echo $processed['sens'];?>">
+    <?php
+    if ($this->FG_CSRF_STATUS == true) {
+    ?>
+        <input type="hidden" name="<?php echo $this->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $this->FG_FORM_UNIQID; ?>" />
+        <input type="hidden" name="<?php echo $this->FG_CSRF_FIELD ?>" value="<?php echo $this->FG_CSRF_TOKEN; ?>" />
+    <?php
+    }
+    ?>
 
 <?php
     if (!empty($this->FG_QUERY_EDITION_HIDDEN_FIELDS)) {

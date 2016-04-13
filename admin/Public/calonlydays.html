@@ -31,19 +31,11 @@ var obj_caller = (window.opener ? window.opener.calendars[num_id] : null);
 // function passing selected date to calling window
 function set_datetime(day, b_close) {
 	if (!obj_caller) return;
-
-//	alert('day '+day+' time '+document.cal.time.value);
-	
-
 	var dt_datetime = obj_caller.prs_time((document.cal ? document.cal.time.value : ''),day);
-
-//	alert('result '+dt_datetime);
-
 	if (dt_datetime == -1) return;
 	window.close();
 	obj_caller.target.value = dt_datetime;
 }
-
 </script>
 </head>
 <body bgcolor="#FFFFFF" marginheight="5" marginwidth="5" topmargin="5" leftmargin="5" rightmargin="5">
@@ -62,7 +54,7 @@ for (var n=0; n<7; n++){
 	document.write('<td bgcolor="#87cefa" align="center"><font color="#ffffff">')
 	document.write('<a href="javascript:set_datetime('+n+',true);">');
 	document.write(ARR_WEEKDAYS[(NUM_WEEKSTART+n)%7]+'</font></td>');
-}	
+}
 document.write('</tr>');
 
 if (obj_caller && obj_caller.time_comp)
@@ -72,4 +64,3 @@ if (obj_caller && obj_caller.time_comp)
 </table>
 </body>
 </html>
-

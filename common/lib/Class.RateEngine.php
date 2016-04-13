@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -1149,11 +1149,8 @@ class RateEngine
         $id_card_package_offer = (!is_numeric($id_card_package_offer)) ? 'NULL' : "'$id_card_package_offer'";
         $calldestination = (!is_numeric($calldestination)) ? 'DEFAULT' : "'$calldestination'";
 
-        $QUERY_COLUMN = "uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, " .
-            " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, " .
-            " id_trunk, src, sipiax, buycost, id_card_package_offer, dnid, destination";
-        $QUERY = "INSERT INTO cc_call ($QUERY_COLUMN) VALUES ('" . $A2B->uniqueid . "', '" . $A2B->channel . "', " .
-            "$card_id, '" . $A2B->hostname . "', ";
+        $QUERY_COLUMN = "uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax, buycost, id_card_package_offer, dnid, destination";
+        $QUERY = "INSERT INTO cc_call ($QUERY_COLUMN $A2B->CDR_CUSTOM_SQL) VALUES ('" . $A2B->uniqueid . "', '" . $A2B->channel . "', " . "$card_id, '" . $A2B->hostname . "', ";
 
         if ($A2B->config["global"]['cache_enabled']) {
             $QUERY .= " datetime(strftime('%s', 'now') - $sessiontime, 'unixepoch', 'localtime')";
@@ -1168,9 +1165,7 @@ class RateEngine
             $QUERY .= "now()";
         }
 
-        $QUERY .= " , '$signe_cc_call" . a2b_round(abs($cost)) . "', " .
-                    " $id_tariffgroup, $id_tariffplan, $id_ratecard, '" . $this->usedtrunk . "', '" . $A2B->CallerID . "', '$calltype', " .
-                    " '$buycost', $id_card_package_offer, '" . $A2B->dnid . "', $calldestination)";
+        $QUERY .= " , '$signe_cc_call" . a2b_round(abs($cost)) . "', " . " $id_tariffgroup, $id_tariffplan, $id_ratecard, '" . $this->usedtrunk . "', '" . $A2B->CallerID . "', '$calltype', " . " '$buycost', $id_card_package_offer, '" . $A2B->dnid . "', $calldestination $A2B->CDR_CUSTOM_VAL)";
 
         if ($A2B->config["global"]['cache_enabled']) {
              //insert query in the cache system
@@ -1733,7 +1728,7 @@ class RateEngine
                     $tech                = $result[0][1];
                     $ipaddress           = $result[0][2];
                     $removeprefix        = $result[0][3];
-                    $next_failover_trunk = $result[0][4]; // @TODO: Add random failover trunks
+                    $failover_trunk      = $result[0][4];
                     $status              = $result[0][5];
                     $inuse               = $result[0][6];
                     $maxuse              = $result[0][7];
@@ -1745,10 +1740,10 @@ class RateEngine
                     $attempt_delay       = $result[0][13];
                     $calls_per_day       = $result[0][14];
 
-                    // applying prefix rule(s)
-                    $destination = $A2B->removePrefix($removeprefix, $destination);
-                    $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[UPDATED DESTINATION: $destination]");
-                
+                    if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) {
+                        $destination = substr($destination, strlen($removeprefix));
+                    }
+
                     // Check if we will be able to use this route:
                     //  if the trunk is activated and
                     //  if there are less connection than it can support or there is an unlimited number of connections
@@ -1884,11 +1879,9 @@ class RateEngine
                     $A2B->debug(INFO, $agi, __FILE__, __LINE__, "[FAILOVER K=$k]:[ANSTIME=" . $this->answeredtime . "-DIALSTATUS=" . $this->dialstatus . "]");
 
                 }
-                // IF THE FAILOVER TRUNK IS SAME AS THE ACTUAL TRUNK WE BREAK
-                if ($next_failover_trunk == $failover_trunk) {
+                // If the failover trunk is same as the actual trunk we break
+                if ($this->usedtrunk == $failover_trunk) {
                     break;
-                } else {
-                    $failover_trunk = $next_failover_trunk;
                 }
 
             } // END FOR LOOP FAILOVER
@@ -1926,7 +1919,6 @@ class RateEngine
         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[USEDRATECARD - FAIL =" . $this->usedratecard . "]");
 
         return false;
-
     }
     
     public function hangup($agi, &$A2B) {

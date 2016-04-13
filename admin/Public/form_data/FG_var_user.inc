@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -66,7 +66,7 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = $ADDING_BUTTON_IMG1;
 
 if (is_numeric($groupID)) {
 	$FG_TABLE_CLAUSE = "groupid='$groupID'";
-} 
+}
 //else select all
 
 $HD_Form -> FG_TABLE_CLAUSE = $FG_TABLE_CLAUSE;
@@ -114,7 +114,7 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
 
 if (!$popup_select) {
-	$HD_Form -> FG_ADDITION = true;	
+	$HD_Form -> FG_ADDITION = true;
 	$HD_Form -> FG_INFO = true;
 	$HD_Form -> FG_INFO_LINK = "A2B_admin_info.php?groupID=$groupID&id=";
 }
@@ -122,7 +122,7 @@ if (!$popup_select) {
 if (has_rights (ACX_MODIFY_ADMINS) && !($popup_select)) {
 	$HD_Form -> FG_DELETION = true;
 	$HD_Form -> FG_EDITION = true;
-	
+
 	if ($form_action!="ask-add" && $form_action!="add") {
 		$HD_Form -> AddEditElement (gettext("USERID"),
 			"userid",
@@ -133,7 +133,7 @@ if (has_rights (ACX_MODIFY_ADMINS) && !($popup_select)) {
 			gettext("Insert the userid"),
 			"" , "", "", "", "", "", "", "" );
 	}
-	
+
 	$HD_Form -> AddEditElement (gettext("LOGIN"),
 		"login",
 		'$value',
@@ -142,16 +142,16 @@ if (has_rights (ACX_MODIFY_ADMINS) && !($popup_select)) {
 		"3",
 		gettext("Insert the username"),
 		"" , "", "", "", "" , "", "", "");
-		
+
 	$HD_Form -> AddEditElement (gettext("PASSWORD"),
 		"pwd_encoded",
 		'$value',
 		"INPUT",
-		"type=password size=30 maxlength=15",
+		"type=password size=30 maxlength=30",
 		"3",
 		gettext("Insert the Reseller password"),
 		"" , "", "", "", "", "", "", "");
-	
+
 	if ($groupID!="0") {
 		$HD_Form -> AddEditElement (gettext("PERMISSION"),
 			"perms",
@@ -162,8 +162,8 @@ if (has_rights (ACX_MODIFY_ADMINS) && !($popup_select)) {
 			"list", "", "description, id", "", $right_list, "%1" , "",
 			gettext("To select several rights in the above ListBox, hold the CTRL key down while clicking the items") );
 	}
-	
-	
+
+
 	$HD_Form -> AddEditElement (gettext("NAME"),
 		"name",
 		'$value',
@@ -172,7 +172,7 @@ if (has_rights (ACX_MODIFY_ADMINS) && !($popup_select)) {
 		"",
 		gettext("Insert the name"),
 		"" , "", "", "", "", "", "", "");
-	
+
 	$HD_Form -> AddEditElement (gettext("ADDRESS"),
 		"direction",
 		'$value',
@@ -189,7 +189,7 @@ if (has_rights (ACX_MODIFY_ADMINS) && !($popup_select)) {
 		"",
 		gettext("Insert the country"),
 		"" , "", "", "", "" , "", "", "");
-	
+
 	$HD_Form -> AddEditElement (gettext("ZIPCODE"),
 		"zipcode",
 		'$value',
@@ -198,7 +198,7 @@ if (has_rights (ACX_MODIFY_ADMINS) && !($popup_select)) {
 		"",
 		gettext("Insert the zip code"),
 		"" , "", "", "", "", "", "", "");
-	
+
 	$HD_Form -> AddEditElement (gettext("STATE"),
 		"state",
 		'$value',
@@ -215,7 +215,7 @@ if (has_rights (ACX_MODIFY_ADMINS) && !($popup_select)) {
 		"",
 		gettext("Insert the country"),
 		"" , "", "", "", "" , "", "", "");
-	
+
 	$HD_Form -> AddEditElement (gettext("PHONE"),
 		"phone",
 		'$value',
@@ -224,7 +224,7 @@ if (has_rights (ACX_MODIFY_ADMINS) && !($popup_select)) {
 		"",
 		gettext("Insert the telephone number"),
 		"" , "", "", "", "" , "", "", "");
-	
+
 	$HD_Form -> AddEditElement (gettext("FAX"),
 		"fax",
 		'$value',
@@ -241,8 +241,8 @@ if (has_rights (ACX_MODIFY_ADMINS) && !($popup_select)) {
 		"",
 		gettext("Insert the email"),
 		"" , "", "", "", "" , "", "", "");
-		
-	
+
+
 	if (($groupID=="2") || ($groupID=="3")) {
 		if ($groupID=="2") {
 			$HD_Form -> AddEditElement ("UserID",
@@ -266,36 +266,36 @@ if (has_rights (ACX_MODIFY_ADMINS) && !($popup_select)) {
 				"groupID='1'", "", "%2 (%1)", "", "" );
 		}
 	}
-	
+
 	if ($form_action!="ask-add" && $form_action!="add") {
 	        $FG_QUERY_EDITION='userid, ';
 	}
-	
+
 	$FG_QUERY_EDITION .= 'login, ';
-	
+
 	$FG_QUERY_EDITION .='pwd_encoded,  ';
-	
+
 	if ($groupID!="0") {
 		$FG_QUERY_EDITION .= 'perms, ';
 	}
-	
+
 	$FG_QUERY_EDITION .= 'name, direction,city, zipcode, state,country, phone, fax,email';
-	
+
 	$HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
-	
+
 	$HD_Form -> FG_EDITION_CLAUSE = " userid='%id'";
-	
+
 	if (is_numeric($groupID)) {
 		$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= "groupID";
 		$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .= "$groupID";
-	
+
 		$HD_Form -> FG_QUERY_EDITION_HIDDEN_FIELDS  = "groupID";
 		$HD_Form -> FG_QUERY_EDITION_HIDDEN_VALUE   = "$groupID";
-	
+
 		if ($groupID=="0") {
 			$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= ", perms";
 			$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .= ", 5242879";
-	
+
 			$HD_Form -> FG_QUERY_EDITION_HIDDEN_FIELDS .= ", perms";
 			$HD_Form -> FG_QUERY_EDITION_HIDDEN_VALUE  .= ", 5242879";
 		}
@@ -303,33 +303,33 @@ if (has_rights (ACX_MODIFY_ADMINS) && !($popup_select)) {
 		$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= "groupID";
 		$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .= "1";
 	}
-	
+
 	if (($popup_select>=1)){
 		$HD_Form -> FG_OTHER_BUTTON1 = true;
 		$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;select&gt;</font>';
 		$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
-		
+
 		if ($popup_select==1) {
 			$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
 		}
 	}
-	
+
 	$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the")." ".$HD_Form->FG_INSTANCE_NAME;
 	$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
 	$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
-	
-	
+
+
 	$HD_Form -> FG_INTRO_TEXT_ADITION = '';
 	$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
-	
-	
+
+
 	$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 	$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
-	
-	
-	$HD_Form -> FG_GO_LINK_AFTER_ACTION = $_SERVER['PHP_SELF']."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
-	$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
-	$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
-	$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
+
+
+	$HD_Form -> FG_GO_LINK_AFTER_ACTION = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
+	$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
+	$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
+	$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
 }
 

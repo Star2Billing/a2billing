@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,16 +27,15 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
-
 
 
 getpost_ifset(array('id', 'config_title', 'config_key', 'config_value', 'config_description', 'config_group_title', 'groupselect', 'filterKey', 'rbKey', 'filterDescription', 'rbDesc', 'filterValue', 'rbValue', 'posted','agi_conf'));
 
-// This will generate agi-confx 
-// agi-confx is duplication of Global configuration and list of configurations of : agi-conf1 
+// This will generate agi-confx
+// agi-confx is duplication of Global configuration and list of configurations of : agi-conf1
 if ($agi_conf) {
 	check_demo_mode();
 	$groupselect = add_agi_confx();
@@ -84,7 +83,6 @@ $HD_Form -> FG_TABLE_DEFAULT_ORDER = "config_group_title";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
 if ($groupselect != "-1" && $groupselect != "") {
-	$HD_Form = new FormHandler("cc_config", gettext("Configuration"));
 	$HD_Form -> FG_TABLE_ID = "id";
 	$HD_Form -> FG_TABLE_CLAUSE = " config_group_title = '$groupselect'";
 	$_SESSION['ss_groupselect'] = $HD_Form -> FG_TABLE_CLAUSE;
@@ -145,7 +143,7 @@ if($form_action == "list") {
 	$_SESSION['ss_groupselect'] = '';
 	$_SESSION['groupselect'] = '';
 } else {
-	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['ss_groupselect']; 
+	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['ss_groupselect'];
 }
 
 $HD_Form -> FG_EDITION_CLAUSE = "id = %id";
@@ -180,7 +178,7 @@ $HD_Form -> AddEditElement (gettext("GROUP"),
 	"",
 	gettext("This is the group of the configuration. Not editable!"),
 	"" , "", "", "", "", "", "", gettext("Group Name of the configuration variable"));
-	
+
 
 $HD_Form -> AddEditElement (gettext("TITLE"),
 	"config_title",
@@ -199,7 +197,7 @@ $HD_Form -> AddEditElement (gettext("KEY"),
 	"",
 	gettext("Insert the TITLE"),
 	"" , "", "", "", "" , "", "" ,gettext("Key name of the configuration variable"));
-	
+
 if ($setbool) {
 	$HD_Form -> AddEditElement (gettext("VALUE"),
 	   "config_value",
@@ -207,7 +205,7 @@ if ($setbool) {
 	   "SELECT",
 	   "","","",
 	   "list" , "", "",	"", $value_list, "%1", "", "" );
-	
+
 } else {
 	$HD_Form -> AddEditElement (gettext("VALUE"),
 		"config_value",
@@ -250,8 +248,4 @@ $HD_Form -> FG_INTRO_TEXT_EDITION= '';
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
 
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-
-
-
-
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";

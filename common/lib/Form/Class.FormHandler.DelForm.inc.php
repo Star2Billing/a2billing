@@ -2,36 +2,28 @@
 
 $processed = $this->getProcessed();
 
-if ($form_action == "ask-delete")
-{
-    if ($this -> isFKDataExists() == false)
-    {
-        //if($this-> FG_FK_DELETE_ALLOWED == true && $this->FG_FK_WARNONLY == false)
-        {
-            $this-> FG_FK_DELETE_ALLOWED = false;
-            $this -> FG_ISCHILDS = false;
-            $this-> FG_FK_WARNONLY = false;
-            $this->FG_FK_DELETE_CONFIRM = false;
-        }
-
+if ($form_action == "ask-delete") {
+    if ($this -> isFKDataExists() == false) {
+        //if($this-> FG_FK_DELETE_ALLOWED == true && $this->FG_FK_WARNONLY == false){
+        $this-> FG_FK_DELETE_ALLOWED = false;
+        $this -> FG_ISCHILDS = false;
+        $this-> FG_FK_WARNONLY = false;
+        $this->FG_FK_DELETE_CONFIRM = false;
     }
-
 }
 ?>
 
 <script language="JavaScript" type="text/JavaScript">
-<!--
 function sendto(action, record, field_inst, instance){
   document.myForm.submit();
 }
-//-->
 </script>
 
 <?php
 if ($this->FG_FK_DELETE_CONFIRM && $form_action == "ask-del-confirm" && $this-> FG_FK_DELETE_ALLOWED)
 { ?>
 
-<FORM action=<?php echo $_SERVER['PHP_SELF']?> id="myForm" method="post" name="myForm">
+<FORM action=<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?> id="myForm" method="post" name="myForm">
 	<INPUT type="hidden" name="id" value="<?php echo $id?>">
 	<INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
 	<INPUT type="hidden" name="form_action" value="delete">
@@ -91,7 +83,7 @@ else
 	  	<td class="delform_table3_td1" valign="top"> <span class="textnegrita"><?php echo $this->FG_INTRO_TEXT_ASK_DELETION?></span></td>
 	</tr>
 </table>
-<FORM action=<?php echo $_SERVER['PHP_SELF']?> id="myForm" method="post" name="myForm">
+<FORM action=<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?> id="myForm" method="post" name="myForm">
 	<INPUT type="hidden" name="id" value="<?php echo $id?>">
 	<INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
     <INPUT type="hidden" name="fkCount" value="<?php echo $this -> FG_FK_RECORDS_COUNT;?>">
@@ -103,6 +95,14 @@ else
     <?php }else { ?>
     <INPUT type="hidden" name="form_action" value="delete">
     <?php }  ?>
+    <?php
+        if ($this->FG_CSRF_STATUS == true) {
+    ?>
+        <input type="hidden" name="<?php echo $this->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $this->FG_FORM_UNIQID; ?>" />
+        <input type="hidden" name="<?php echo $this->FG_CSRF_FIELD ?>" value="<?php echo $this->FG_CSRF_TOKEN; ?>" />
+    <?php
+        }
+    ?>
 
 	<?php
 	if (!is_null($this->FG_QUERY_EDITION_HIDDEN_FIELDS) && $this->FG_QUERY_EDITION_HIDDEN_FIELDS!=""){

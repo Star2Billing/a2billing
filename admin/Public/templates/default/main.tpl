@@ -6,27 +6,27 @@
 		<ul id="menu_horizontal">
 			<li class="topmenu-left-button" style="border:none;">
 				<div style="width:100%;height:100%;text-align:center;" >
-					<a href="PP_intro.php"> 
+					<a href="PP_intro.php">
 							<strong> {php} echo gettext("HOME");{/php}</strong>&nbsp;
-						<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/house.png"> 
+						<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/house.png">
 					</a>
 				</div>
 			</li>
 			{if ($ACXDASHBOARD > 0) }
 			<li class="topmenu-left-button" >
 				<div style="width:100%;height:100%;text-align:center;" >
-					<a href="dashboard.php" > 
+					<a href="dashboard.php" >
 						<strong> {php} echo gettext("DASHBOARD");{/php}</strong>&nbsp;
-						<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/chart_bar.png"> 
+						<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/chart_bar.png">
 					</a>
 				</div>
 			</li>
 			{/if}
 			<li class="topmenu-left-button">
 				<div style="width:100%;height:100%;text-align:center;" >
-					 <a href="A2B_notification.php" > 
+					 <a href="A2B_notification.php" >
 						<strong > {php} echo gettext("NOTIFICATION");{/php}</strong>&nbsp;
-					<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/email.png"> 
+					<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/email.png">
 					{if ($NEW_NOTIFICATION > 0) }
 						<strong style="font-size:8px; color:red;"> NEW</strong>
 					{else}
@@ -44,7 +44,7 @@
 		</ul>
 
 	</div>
-	
+
 {/if}
 
 {if ($popupwindow == 0)}
@@ -54,7 +54,7 @@
 <div id="leftmenu-middle">
 
 <ul id="nav">
-  
+
   	{if ($ACXCUSTOMER > 0) }
   	<div class="toggle_menu"><li>
 	<a href="javascript:;" class="toggle_menu" target="_self"> <div> <div id="menutitlebutton"> <img id="img1"
@@ -265,7 +265,7 @@
 		</ul>
 	</div>
 	{/if}
-	
+
 
 	{if ($ACXOUTBOUNDCID > 0)}
 	<div class="toggle_menu"><li>
@@ -291,7 +291,7 @@
 	{/if}
 
 
-	
+
 	{if ($ACXBILLING > 0)}
 	<div class="toggle_menu"><li>
 	<a href="javascript:;" class="toggle_menu" target="_self"> <div> <div id="menutitlebutton"> <img id="img10"
@@ -355,7 +355,7 @@
 	</div>
 	{/if}
 
-	
+
 	{if ($ACXPACKAGEOFFER > 0)}
 	<div class="toggle_menu"><li>
 	<a href="javascript:;" class="toggle_menu" target="_self"> <div> <div id="menutitlebutton"> <img id="img12"
@@ -378,7 +378,7 @@
 		</ul>
 	</div>
 	{/if}
-	
+
 
 	{if ($ACXCRONTSERVICE  > 0)}
 	<div class="toggle_menu"><li>
@@ -405,7 +405,7 @@
 		</ul>
 	</div>
 	{/if}
-	
+
 
 	{if ($ACXCALLBACK  > 0)}
 	<div class="toggle_menu"><li>
@@ -447,17 +447,13 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_campaign.php?section=15">{php} echo gettext("Add");{/php}</a></li>
-				<li><a href="A2B_entity_campaign_config.php?section=15">{php} echo gettext("Config");{/php}</a></li>
-				<li><a href="A2B_entity_phonebook.php?section=15">{php} echo gettext("Phone Book");{/php}</a></li>
-				<li><a href="A2B_entity_phonenumber.php?section=15">»» {php} echo gettext("Add Number");{/php}</a></li>
-				<li><a href="A2B_phonelist_import.php?section=15">»» {php} echo gettext("Import");{/php}</a></li>
+				<li><a href="A2B_entity_campaign.php?section=15">{php} echo gettext("Autodialer");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
 	{/if}
 
-	
+
 	{if ($ACXMAINTENANCE  > 0)}
 	<div class="toggle_menu"><li>
 	<a href="javascript:;" class="toggle_menu" target="_self"> <div> <div id="menutitlebutton"> <img id="img16"
@@ -489,10 +485,11 @@
 			</ul></li>
 		</ul>
 	</div>
-	
+
 	{/if}
-	
+
 	{if ($ACXMAIL  > 0)}
+	<!-- Disabled Mail feature -->
 	<div class="toggle_menu"><li>
 	<a href="javascript:;" class="toggle_menu" target="_self"> <div> <div id="menutitlebutton"> <img id="img17"
 	{if ($section == "17")}
@@ -515,7 +512,7 @@
 	</div>
 	{/if}
 
-	
+
 	{if ($ACXSETTING  > 0)}
 	<div class="toggle_menu"><li>
 	<a href="javascript:;" class="toggle_menu" target="_self"> <div> <div id="menutitlebutton"> <img id="img18"
@@ -542,11 +539,11 @@
 			</ul></li>
 		</ul>
 	</div>
-	
+
 	{/if}
-	
+
 </ul>
-	
+
 <br/>
 <ul id="nav"><li>
 	<ul><li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit"><strong>{php} echo gettext("Change Password");{/php}</strong> <img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/key.png"> </a></li></ul>
@@ -567,6 +564,7 @@
 		<a href="PP_intro.php?ui_language=french" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/fr.gif" border="0" title="French" alt="French"></a>
 		<a href="PP_intro.php?ui_language=spanish" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/es.gif" border="0" title="Spanish" alt="Spanish"></a>
 		<a href="PP_intro.php?ui_language=greek" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/gr.gif" border="0" title="Greek" alt="Greek"></a>
+		<a href="PP_intro.php?ui_language=italian" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/it.gif" border="0" title="Italian" alt="Italian"></a>
 	</td>
 </tr>
 </table>
@@ -578,7 +576,7 @@
 		<p>Thank you for using A2Billing. However, we have detected that you have edited the Author’s names, Copyright or licensing information in the A2Billing Management Interface.</p>
 		<p>The <a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html" target="_blank">AGPL 3</a> license under which you are allowed to use A2Billing requires that the original copyright and license must be displayed and kept intact. Without this information being displayed, you do not have a right to use the software.</p>
 		<p>However, if it is important to you that the Author’s names, Copyright and License information is not displayed, possibly for publicity purposes; then we can offer you additional permissions to use and convey A2Billing, with these items removed, for a fee that will be used to help sponsor the continued development of A2Billing.</p>
-		<p>For more information, please go to <a target="_blank" href="http://www.star2billing.com/licensing">http://www.star2billing.com/licensing</a>.</p>
+		<p>For more information, please go to <a target="_blank" href="http://www.asterisk2billing.org/pricing/rebranding/">http://www.asterisk2billing.org/pricing/rebranding/</a>.</p>
 		<p>Yours,<br/>
 		The A2Billing Team<br/>
 		Star2Billing S.L</p>
@@ -600,6 +598,6 @@
     loadLicenceModal();
 </script>
 {/if}
- 
+
 {$MAIN_MSG}
 

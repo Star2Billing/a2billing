@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -46,15 +46,12 @@ if (! has_rights (ACX_DID)) {
 
 getpost_ifset(array('country', 'area', 'nxx', 'number', 'ID', 'rating'));
 
-function unavailable()
-{
+function unavailable() {
     return "Sorry, the DID selection service is currently unavailable because of uplink error, please come back and try again later or contact us about available DIDs (include country and area codes to your request).";
 }
 
-function getcountry($arr, $selected=0, $id=0)
-{
-    if($arr === false)
-
+function getcountry($arr, $selected=0, $id=0) {
+    if ($arr === false)
         return unavailable();
     $res = "<select class=\"form_input_select\" name=\"country\" onchange=\"this.form.elements['area'].value=0; this.form.elements['nxx'].value=0; this.form.elements['number'].value=0; this.form.submit();\">\n";
     $res .= "<option value=\"0\">Select a Country</option>\n";
@@ -74,10 +71,8 @@ function getcountry($arr, $selected=0, $id=0)
     return $res;
 }
 
-function getarea($arr, $selected=0)
-{
+function getarea($arr, $selected=0) {
     if($arr === false)
-
         return unavailable();
     $res = "<select class=\"form_input_select\" name=\"area\" onchange=\"this.form.elements['nxx'].value=0; this.form.elements['number'].value=0; this.form.submit();\">\n";
     $res .= "<option value=\"0\">Select an area code</option>\n";
@@ -98,10 +93,8 @@ function getarea($arr, $selected=0)
     return $res;
 }
 
-function getnxx($arr, $selected=0)
-{
+function getnxx($arr, $selected=0) {
     if($arr === false)
-
         return unavailable();
     $res = "<select class=\"form_input_select\" name=\"nxx\" onchange=\"this.form.elements['number'].value=0; this.form.submit();\">\n";
     $res .= "<option value=\"0\">Select rate center</option>\n";
@@ -121,10 +114,8 @@ function getnxx($arr, $selected=0)
     return $res;
 }
 
-function getnumber($arr, $country, $selected=0)
-{
+function getnumber($arr, $country, $selected=0) {
     if($arr === false)
-
         return unavailable();
     $res = "<select class=\"form_input_select\" name=\"number\" onchange=\"this.form.submit();\">\n";
     $res .= "<option value=\"0\">Select a number</option>\n";
@@ -150,16 +141,17 @@ ini_set("precision", "16");
 $didx = new didx();
 
 if ($form_action == "purchase" || $form_action == "add") {
-    if($form_action == "purchase")
+    if($form_action == "purchase") {
         $form_action = "ask-add";
+    }
     $HD_Form -> init();
     $list = $HD_Form -> perform_action($form_action);
     $smarty->display('main.tpl');
 
-        $res = $didx->BuyDIDByNumber($did,"$did@".DIDX_RING_TO);
-        if($res < 0)
-                echo "Error $res while setting up the DID $did.";
-    else {
+    $res = $didx->BuyDIDByNumber($did,"$did@".DIDX_RING_TO);
+    if ($res < 0) {
+            echo "Error $res while setting up the DID $did.";
+    } else {
         echo "The DID $did successfully purchased on DIDX";
         // #### TOP SECTION PAGE
         $HD_Form -> create_toppage ($form_action);
@@ -167,9 +159,7 @@ if ($form_action == "purchase" || $form_action == "add") {
         $HD_Form -> create_form ($form_action, $list, $id=null) ;
     }
 } else {
-
     $smarty->display('main.tpl');
-
     echo $CC_help_list_did;
 
     if (!empty($country))
@@ -205,7 +195,7 @@ if ($form_action == "purchase" || $form_action == "add") {
 <div align="center">
 <table>
 <tr><td>
-<FORM action="<?php echo $_SERVER['PHP_SELF']; ?> " method="get">
+<FORM action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL); ?> " method="get">
 <?php
 $res = "<select class=\"form_input_select\" name=\"rating\" onchange=\"this.form.submit();\">\n";
 for ($i=0; $i<=9;$i++) {

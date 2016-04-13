@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -97,60 +97,66 @@ $smarty->display('main.tpl');
 echo $CC_help_generate_voucher;
 
 ?>
-      <div align="center">
-       <table align="center" class="bgcolor_001" border="0" width="65%">
-        <tbody><tr>
-        <form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-          <td align="left" width="75%">
+<div align="center">
+<table align="center" class="bgcolor_001" border="0" width="65%">
+<tbody><tr>
+<form name="theForm" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) ?>">
+    <?php
+        if ($HD_Form->FG_CSRF_STATUS == true) {
+    ?>
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+    <?php
+        }
+    ?>
+    <td align="left" width="75%">
+        <strong>1)</strong>
+        <select name="choose_list" size="1" class="form_input_select">
+            <option value=""><?php echo gettext("Choose the number of vouchers to create");?></option>
+            <option class="input" value="5"><?php echo gettext("5 Voucher");?></option>
+            <option class="input" value="10"><?php echo gettext("10 Vouchers");?></option>
+            <option class="input" value="50"><?php echo gettext("50 Vouchers");?></option>
+            <option class="input" value="100"><?php echo gettext("100 Vouchers");?></option>
+            <option class="input" value="200"><?php echo gettext("200 Vouchers");?></option>
+            <option class="input" value="500"><?php echo gettext("500 Vouchers");?></option>
+        </select>
+        <br/>
 
-                  <strong>1)</strong>
-                <select name="choose_list" size="1" class="form_input_select">
-                        <option value=""><?php echo gettext("Choose the number of vouchers to create");?></option>
-                        <option class="input" value="5"><?php echo gettext("5 Voucher");?></option>
-                        <option class="input" value="10"><?php echo gettext("10 Vouchers");?></option>
-                        <option class="input" value="50"><?php echo gettext("50 Vouchers");?></option>
-                        <option class="input" value="100"><?php echo gettext("100 Vouchers");?></option>
-                        <option class="input" value="200"><?php echo gettext("200 Vouchers");?></option>
-                        <option class="input" value="500"><?php echo gettext("500 Vouchers");?></option>
-                    </select>
-                    <br/>
+        <strong>2)</strong>
+        <?php echo gettext("Amount of credit");?> : 	<input class="form_input_text" name="addcredit" size="10" maxlength="10" >
+        <br/>
 
-                  <strong>2)</strong>
-                <?php echo gettext("Amount of credit");?> : 	<input class="form_input_text" name="addcredit" size="10" maxlength="10" >
-                <br/>
+        <strong>3)</strong>
+        <select NAME="choose_currency" size="1" class="form_input_select">
+        <?php
+        foreach ($currencies_list as $key => $cur_value) {
+        ?>
+        <option value='<?php echo $key ?>'><?php echo $cur_value[1].' ('.$cur_value[2].')' ?></option>
+        <?php } ?>
+        </select>
+        <br/>
 
-                <strong>3)</strong>
-                <select NAME="choose_currency" size="1" class="form_input_select">
-                    <?php
-                    foreach ($currencies_list as $key => $cur_value) {
-                ?>
-                    <option value='<?php echo $key ?>'><?php echo $cur_value[1].' ('.$cur_value[2].')' ?></option>
-                <?php } ?>
-                   </select>
-                <br/>
-
-                <?php
-                    $begin_date = date("Y");
-                    $begin_date_plus = date("Y") + 10;
-                    $end_date = date("-m-d H:i:s");
-                    $comp_date = "value='".$begin_date.$end_date."'";
-                    $comp_date_plus = "value='".$begin_date_plus.$end_date."'";
-                ?>
-                <strong>4)</strong>
-                <?php echo gettext("Expiration date");?> : <input class="form_input_text"  name="expirationdate" size="40" maxlength="40" <?php echo $comp_date_plus; ?>> <?php echo gettext("(respect the format YYYY-MM-DD HH:MM:SS)");?>
-                <br/>
-                <strong>5)</strong>
-                <?php echo gettext("Tag");?> : <input class="form_input_text"  name="tag_list" size="40" maxlength="40" >
-
+        <?php
+            $begin_date = date("Y");
+            $begin_date_plus = date("Y") + 10;
+            $end_date = date("-m-d H:i:s");
+            $comp_date = "value='".$begin_date.$end_date."'";
+            $comp_date_plus = "value='".$begin_date_plus.$end_date."'";
+        ?>
+        <strong>4)</strong>
+        <?php echo gettext("Expiration date");?> : <input class="form_input_text"  name="expirationdate" size="40" maxlength="40" <?php echo $comp_date_plus; ?>> <?php echo gettext("(respect the format YYYY-MM-DD HH:MM:SS)");?>
+        <br/>
+        <strong>5)</strong>
+        <?php echo gettext("Tag");?> : <input class="form_input_text"  name="tag_list" size="40" maxlength="40">
         </td>
         <td align="left" valign="bottom">
-                <input class="form_input_button" value=" GENERATE VOUCHER " type="submit">
+            <input class="form_input_button" value=" GENERATE VOUCHER " type="submit">
         </td>
-         </form>
-        </tr>
-      </tbody></table>
-      <br>
-    </div>
+</form>
+</tr>
+</tbody></table>
+<br>
+</div>
 
 <?php
 
@@ -159,10 +165,12 @@ $HD_Form -> create_toppage ($form_action);
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 $_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR]= "SELECT ".$HD_Form -> FG_EXPORT_FIELD_LIST." FROM $HD_Form->FG_TABLE_NAME";
-if (strlen($HD_Form->FG_TABLE_CLAUSE)>1)
+if (strlen($HD_Form->FG_TABLE_CLAUSE)>1) {
     $_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR] .= " WHERE $HD_Form->FG_TABLE_CLAUSE ";
-if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_Form->FG_SENS) && ($HD_Form->FG_SENS!=''))
+}
+if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_Form->FG_SENS) && ($HD_Form->FG_SENS!='')) {
     $_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR].= " ORDER BY $HD_Form->FG_ORDER $HD_Form->FG_SENS";
+}
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');

@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -92,11 +92,7 @@ if (is_null($order) || is_null($sens)) {
 $SQLcmd = '';
 
 $SQLcmd .= 'cc_card_group.id_agent = '.$_SESSION['agent_id'];
-if (isset ($dst) && ($dst > 0)) {
-    if (strlen($SQLcmd) > 0)
-        $SQLcmd .= " AND ";
-    $SQLcmd .= " calledstation='$dst' ";
-}
+$SQLcmd = do_field ( $SQLcmd, 'dst', 'calledstation' );
 if (isset ($entercustomer) && ($entercustomer > 0)) {
     if (strlen($SQLcmd) > 0)
         $SQLcmd .= " AND ";

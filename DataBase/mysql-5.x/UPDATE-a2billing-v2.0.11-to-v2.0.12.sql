@@ -1,4 +1,3 @@
-<?php
 
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
@@ -28,45 +27,11 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
 **/
 
-include './lib/customer.defines.php';
-include './lib/customer.module.access.php';
-include './lib/Form/Class.FormHandler.inc.php';
-include './form_data/FG_var_campaign.inc';
-include 'lib/customer.smarty.php';
+-- Update Version
+UPDATE cc_version SET version = '2.0.12';
 
-if (!has_rights(ACX_AUTODIALER)) {
-    Header("HTTP/1.0 401 Unauthorized");
-    Header("Location: PP_error.php?c=accessdenied");
-    die();
-}
-
-$HD_Form->setDBHandler(DbConnect());
-$HD_Form->init();
-
-if ($id != "" || !is_null($id)) {
-    $HD_Form->FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form->FG_EDITION_CLAUSE);
-}
-
-if (!isset ($form_action))
-    $form_action = "list"; //ask-add
-if (!isset ($action))
-    $action = $form_action;
-
-$list = $HD_Form->perform_action($form_action);
-
-// #### HEADER SECTION
-$smarty->display('main.tpl');
-
-// #### HELP SECTION
-echo $CC_help_campaign;
-
-// #### TOP SECTION PAGE
-$HD_Form->create_toppage($form_action);
-
-$HD_Form->create_form($form_action, $list, $id = null);
-
-// #### FOOTER SECTION
-$smarty->display('footer.tpl');
+CREATE OR REPLACE VIEW cc_sip_buddies_empty AS
+     SELECT id, id_cc_card, name, accountcode, regexten, amaflags, callgroup, callerid, canreinvite, context, DEFAULTip, dtmfmode, fromuser, fromdomain, host, insecure, language, mailbox, '' as md5secret, nat, deny, permit, mask, pickupgroup, port, qualify, restrictcid, rtptimeout, rtpholdtimeout, '' as secret, type, username, disallow, allow, musiconhold, regseconds, ipaddr, cancallforward, fullcontact, setvar, regserver, lastms, defaultuser, auth, subscribemwi, vmexten, cid_number, callingpres, usereqphone, incominglimit, subscribecontext, musicclass, mohsuggest, allowtransfer, autoframing, maxcallbitrate, outboundproxy, rtpkeepalive, useragent, callbackextension
+     FROM cc_sip_buddies;

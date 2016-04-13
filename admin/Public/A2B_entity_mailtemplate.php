@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -43,7 +43,7 @@ if (! has_rights (ACX_MAIL)) {
     die();
 }
 
-getpost_ifset(array('languages','id','action'));
+getpost_ifset(array('languages', 'id', 'action'));
 
 if ($action=="load") {
     $DBHandle=DbConnect();
@@ -59,9 +59,7 @@ if ($action=="load") {
 if ($popup_select) {
 ?>
 <SCRIPT LANGUAGE="javascript">
-<!-- Begin
-function sendValue(selvalue)
-{
+function sendValue(selvalue) {
     $.getJSON("A2B_entity_mailtemplate.php", { id: ""+ selvalue, action: "load" },
     function(data){
         window.opener.document.getElementById('msg_mail').value = data.messagetext;
@@ -71,7 +69,6 @@ function sendValue(selvalue)
         window.close();
     });
 }
-// End -->
 </script>
 <?php
 }
@@ -98,23 +95,23 @@ if (isset($form_action) && $form_action=="list") {
 ?>
 <table align="center" class="bgcolor_001" border="0" width="30%">
     <tr>
-        <form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+        <form name="theForm" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) ?>">
           <?php if ($popup_select) { ?>
                   <input type="hidden" name="popup_select" value="<?php echo $popup_select; ?>" />
           <?php } ?>
           <td align="left" width="75%">
-                    <?php
-                        $handle = DbConnect();
-                        $instance_table = new Table();
-                        $QUERY =  "SELECT code, name FROM cc_iso639 order by code";
-                        $result = $instance_table -> SQLExec ($handle, $QUERY);
-                        if (is_array($result)) {
-                            $num_cur = count($result);
-                            for ($i=0;$i<$num_cur;$i++) {
-                                $languages_list[$result[$i][0]] = array (0 => $result[$i][0], 1 => $result[$i][1]);
-                            }
+                <?php
+                    $handle = DbConnect();
+                    $instance_table = new Table();
+                    $QUERY =  "SELECT code, name FROM cc_iso639 order by code";
+                    $result = $instance_table -> SQLExec ($handle, $QUERY);
+                    if (is_array($result)) {
+                        $num_cur = count($result);
+                        for ($i=0;$i<$num_cur;$i++) {
+                            $languages_list[$result[$i][0]] = array (0 => $result[$i][0], 1 => $result[$i][1]);
                         }
-                    ?>
+                    }
+                ?>
                 <select NAME="languages" size="1" class="form_input_select" onChange="form.submit()">
                     <?php
                     foreach ($languages_list as $key => $lang_value) {

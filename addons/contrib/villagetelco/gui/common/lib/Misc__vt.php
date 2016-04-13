@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -218,9 +218,9 @@ function write_log($logfile, $output)
 }
 
 /*
- * function cleanInput
+ * function sanitize_tag
  */
-function cleanInput($input)
+function sanitize_tag($input)
 {
     $search = array (
             '@<script[^>]*?>.*?</script>@si', // Strip out javascript
@@ -261,7 +261,7 @@ function sanitize_data($input)
         if (get_magic_quotes_gpc()) {
             $input = stripslashes($input);
         }
-        $input = cleanInput($input);
+        $input = sanitize_tag($input);
 
         $output = addslashes($input);
     }

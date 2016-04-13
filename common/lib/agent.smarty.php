@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -31,16 +31,20 @@
  *
 **/
 
+// use Factory\SmartyFactory;
+
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 define( 'FULL_PATH', dirname(__FILE__) . '/' );
-define( 'SMARTY_DIR', FULL_PATH . '/smarty/' );
+define( 'SMARTY_DIR', FULL_PATH . '../../vendor/smarty/smarty/libs/' );
 define( 'TEMPLATE_DIR',  '../Public/templates/' );
 define( 'TEMPLATE_C_DIR', '../templates_c/' );
 
-require_once SMARTY_DIR . 'Smarty.class.php';
+// $smarty = SmartyFactory::getInstance();
+#Remove the factory, for some reasons it doesnt work on PHP 5.3 / CentOs 6
 
-$smarty = new Smarty;
+require_once SMARTY_DIR . 'SmartyBC.class.php';
+$smarty = new SmartyBC();
 
 $skin_name = $_SESSION["stylefile"];
 

@@ -39,7 +39,7 @@
 	<form name="form" method="POST" action="PP_intro.php" onsubmit="return test()">
 	<input type="hidden" name="done" value="submit_log">
 
-	
+
 	<div id="login-wrapper" class="login-border-up">
 	<div class="login-border-down">
 	<div class="login-border-center">
@@ -76,7 +76,7 @@
                 </select>
             </td>
 			<td><input type="submit" name="submit" value="{php} echo gettext("LOGIN");{/php}" class="form_input_button"></td>
-			</tr>           
+			</tr>
 
 			</table>
 		</td>
@@ -85,7 +85,7 @@
   	</center>
   	</div>
   	</div>
-  	
+
   	<div style="color:#BC2222;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;padding-left:10px;" >
   	{if ($error == 1)}
 			{php} echo gettext("AUTHENTICATION REFUSED, please check your user/password!");{/php}
@@ -95,12 +95,12 @@
 			{php} echo gettext("BLOCKED ACCOUNT, Please contact the administrator!");{/php}
     {/if}
     </div>
+
     <div id="footer_index"><div style=" border: solid 1px #F4F4F4; text-align:center;">{$COPYRIGHT}</div></div>
-    
+
   	</div>
-  	
-  	
 	</form>
+
 {literal}
 <script LANGUAGE="JavaScript">
 	document.form.pr_login.focus();
@@ -109,5 +109,3 @@
         });
 </script>
 {/literal}
-
-

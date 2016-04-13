@@ -1,4 +1,4 @@
-{php} 
+{php}
         global $profiler;
         global $G_instance_Query_trace;
 

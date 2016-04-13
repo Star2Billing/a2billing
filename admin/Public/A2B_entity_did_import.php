@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -65,57 +65,41 @@ echo $CC_help_import_did;
 ?>
 
 <script language="JavaScript">
-<!--
-function sendtofield(form)
-{
+function sendtofield(form) {
     if (form.listemail.value.length < 5) {
         alert ('<?php echo addslashes(gettext("Insert emails on the Field!")); ?>');
         form.listemail.focus ();
-
         return (false);
     }
-
     document.forms["prefs"].elements["task"].value = "field";
     document.forms[0].submit();
 }
 
-function sendtoupload(form)
-{
+function sendtoupload(form) {
     if (form.the_file.value.length < 2) {
         alert ('<?php echo addslashes(gettext("Please, you must first select a file !")); ?>');
         form.the_file.focus ();
-
         return (false);
     }
-
     return true;
 }
 
-//-->
-</script>
-
-<script language="JavaScript" type="text/javascript">
-<!--
-function deselectHeaders()
-{
+function deselectHeaders() {
     document.prefs.unselected_search_sources[0].selected = false;
     document.prefs.selected_search_sources[0].selected = false;
 }
 
-function resetHidden()
-{
+function resetHidden() {
     var tmp = '';
     for (i = 1; i < document.prefs.selected_search_sources.length; i++) {
         tmp += document.prefs.selected_search_sources[i].value;
         if (i < document.prefs.selected_search_sources.length - 1)
             tmp += "\t";
     }
-
     document.prefs.search_sources.value = tmp;
 }
 
-function addSource()
-{
+function addSource() {
     for (i = 1; i < document.prefs.unselected_search_sources.length; i++) {
         if (document.prefs.unselected_search_sources[i].selected) {
             document.prefs.selected_search_sources[document.prefs.selected_search_sources.length] = new Option(document.prefs.unselected_search_sources[i].text, document.prefs.unselected_search_sources[i].value);
@@ -123,12 +107,10 @@ function addSource()
             i--;
         }
     }
-
     resetHidden();
 }
 
-function removeSource()
-{
+function removeSource() {
     for (i = 1; i < document.prefs.selected_search_sources.length; i++) {
         if (document.prefs.selected_search_sources[i].selected) {
             document.prefs.unselected_search_sources[document.prefs.unselected_search_sources.length] = new Option(document.prefs.selected_search_sources[i].text, document.prefs.selected_search_sources[i].value)
@@ -136,12 +118,10 @@ function removeSource()
             i--;
         }
     }
-
     resetHidden();
 }
 
-function moveSourceUp()
-{
+function moveSourceUp() {
     var sel = document.prefs.selected_search_sources.selectedIndex;
     //var sel = document.prefs["selected_search_sources[]"].selectedIndex;
 
@@ -174,12 +154,10 @@ function moveSourceUp()
 
         document.prefs.selected_search_sources.selectedIndex = sel - 1;
     }
-
     resetHidden();
 }
 
-function moveSourceDown()
-{
+function moveSourceDown() {
     var sel = document.prefs.selected_search_sources.selectedIndex;
 
     if (sel == -1 || document.prefs.selected_search_sources.length <= 2) return;
@@ -223,44 +201,44 @@ function moveSourceDown()
     resetHidden();
 }
 
-// -->
 </script>
 
 <center>
-        <b><?php echo gettext("New DID have to be imported from a CSV file.");?>.</b></br></br>
-        <table width="95%" border="0" cellspacing="2" align="center" class="records">
+<b><?php echo gettext("New DID have to be imported from a CSV file.");?>.</b></br></br>
+<table width="95%" border="0" cellspacing="2" align="center" class="records">
 
-              <form name="prefs" enctype="multipart/form-data" action="A2B_entity_did_import_analyse.php" method="post">
+    <form name="prefs" enctype="multipart/form-data" action="A2B_entity_did_import_analyse.php" method="post">
+    <tr>
+        <td colspan="2" align=center>
+        <?php echo gettext("Choose a DIDGroup to use");?> :
+        <select NAME="didgroup" size="1"  class="form_input_select"  style="width=250">
+            <option value=''><?php echo gettext("Choose a DIDGroup");?></option>
 
-                <tr>
-                  <td colspan="2" align=center>
-                  <?php echo gettext("Choose a DIDGroup to use");?> :
-                  <select NAME="didgroup" size="1"  class="form_input_select"  style="width=250">
-                                <option value=''><?php echo gettext("Choose a DIDGroup");?></option>
+            <?php
+            foreach ($list_tariffname as $recordset) {
+            ?>
+                <option class=input value='<?php  echo $recordset[0]?>-:-<?php  echo $recordset[1]?>' <?php if ($recordset[0]==$didgroup) echo "selected";?>><?php echo $recordset[1]?></option>
+            <?php
+            }
+            ?>
+        </select>
+        <br>
+        <br>
+        <?php echo gettext("Choose a Country to use");?> :
+        <select NAME="countryID" size="1" class="form_input_select" style="width=250">
+            <option value=''><?php echo gettext("Choose a Country");?></option>
 
-                                <?php
-                                 foreach ($list_tariffname as $recordset) {
-                                ?>
-                                    <option class=input value='<?php  echo $recordset[0]?>-:-<?php  echo $recordset[1]?>' <?php if ($recordset[0]==$didgroup) echo "selected";?>><?php echo $recordset[1]?></option>
-                                <?php 	 }
-                                ?>
-                        </select>
-                        <br>
-                        <br>
-                        <?php echo gettext("Choose a Country to use");?> :
-                        <select NAME="countryID" size="1" class="form_input_select" style="width=250">
-                                <option value=''><?php echo gettext("Choose a Country");?></option>
+            <?php
+            foreach ($list_countryname as $recordset) {
+            ?>
+                <option class=input value='<?php  echo $recordset[0]?>-:-<?php  echo $recordset[1]?>' <?php if ($recordset[0]== $countryID) echo "selected";?>><?php echo $recordset[1]?></option>
+            <?php
+                }
+            ?>
+        </select>
+        <br><br>
 
-                                <?php
-                                 foreach ($list_countryname as $recordset) {
-                                ?>
-                                    <option class=input value='<?php  echo $recordset[0]?>-:-<?php  echo $recordset[1]?>' <?php if ($recordset[0]== $countryID) echo "selected";?>><?php echo $recordset[1]?></option>
-                                <?php 	 }
-                                ?>
-                        </select>
-                        <br><br>
-
-                <?php echo gettext("These fields are mandatory");?><br>
+    <?php echo gettext("These fields are mandatory");?><br>
 
 <select  name="bydefault" multiple="multiple" size="2" class="form_input_select" width="40">
     <option value="bb1"><?php echo gettext("DID");?></option>
@@ -280,8 +258,6 @@ function moveSourceDown()
                 <option value="startingdate"><?php echo gettext("startingdate");?></option>
                 <option value="expirationdate"><?php echo gettext("expirationdate");?></option>
                 <option value="billingtype"><?php echo gettext("billingtype");?></option>
-
-    down_black
             </select>
         </td>
 
@@ -302,46 +278,47 @@ function moveSourceDown()
             <a href="" onclick="moveSourceDown(); return false;"><img src="<?php echo Images_Path;?>/down_black.png" alt="move down" title="move down" border="0"></a>
         </td>
     </tr>
-</tbody></table>
+</tbody>
+</table>
 
-                </td></tr>
+    </td></tr>
 
-                <tr>
-                  <td colspan="2">
-                    <div align="center"><span class="textcomment">
+    <tr>
+      <td colspan="2">
+        <div align="center"><span class="textcomment">
 
-                      <?php echo gettext("Use the example below  to format the CSV file. Fields are separated by [,] or [;]");?><br/>
-                      <?php echo gettext("(dot) . is used for decimal format.");?>
-                      <br/>
-                      <a href="importsamples.php?sample=did_Complex" target="superframe"><?php echo gettext("Complex Sample");?></a> -
-                      <a href="importsamples.php?sample=did_Simple" target="superframe"> <?php echo gettext("Simple Sample");?></a>
-                      </span></div>
+            <?php echo gettext("Use the example below  to format the CSV file. Fields are separated by [,] or [;]");?><br/>
+            <?php echo gettext("(dot) . is used for decimal format.");?>
+            <br/>
+            <a href="importsamples.php?sample=did_Complex" target="superframe"><?php echo gettext("Complex Sample");?></a> -
+            <a href="importsamples.php?sample=did_Simple" target="superframe"> <?php echo gettext("Simple Sample");?></a>
+            </span></div>
 
-                        <center>
-                            <iframe name="superframe" src="importsamples.php?sample=did_Simple" BGCOLOR=white	width=600 height=80 marginWidth=10 marginHeight=10  frameBorder=1  scrolling=yes>
+            <center>
+            <iframe name="superframe" src="importsamples.php?sample=did_Simple" BGCOLOR=white	width=600 height=80 marginWidth=10 marginHeight=10  frameBorder=1  scrolling=yes>
 
-                            </iframe>
-                        </center>
+            </iframe>
+            </center>
 
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="2">
-                    <p align="center"><span class="textcomment">
-                      <?php echo gettext("The maximum file size is ");?>
-                      <?php echo $my_max_file_size / 1024?>
-                      KB </span><br>
-                      <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $my_max_file_size?>">
-                      <input type="hidden" name="task" value="upload">
-                      <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
-                      <input type="submit"  value="Import DID" onFocus=this.select() class="form_input_button" name="submit1" onClick="return sendtoupload(this.form);">
+      </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+        <p align="center"><span class="textcomment">
+            <?php echo gettext("The maximum file size is ");?>
+            <?php echo $my_max_file_size / 1024?>
+            KB </span><br>
+            <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $my_max_file_size?>">
+            <input type="hidden" name="task" value="upload">
+            <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
+            <input type="submit"  value="Import DID" onFocus=this.select() class="form_input_button" name="submit1" onClick="return sendtoupload(this.form);">
 
-                       </p>
-                  </td>
-                </tr>
+            </p>
+      </td>
+    </tr>
 
-              </form>
-            </table>
+  </form>
+</table>
 </center>
 
 <?php

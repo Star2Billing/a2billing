@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,15 +27,15 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
 
 getpost_ifset(array('id', 'id_card', 'date','title','description'));
-   
- 
+
+
 if (!isset($form_action) || $form_action=="list") {
 	$list_query = "cc_invoice LEFT JOIN cc_card ON cc_card.id=id_card ";
 	$list_query .= "LEFT JOIN (SELECT st1.id_invoice, TRUNCATE(SUM(st1.price*(1+(st1.vat/100))),2) as total_price " .
@@ -54,7 +54,7 @@ $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 $HD_Form -> FG_FK_WARNONLY = true;
 $HD_Form -> FG_FK_TABLENAMES = array("cc_invoice_item");
 $HD_Form -> FG_FK_EDITION_CLAUSE = array(" id_invoice ");
- 
+
 $HD_Form -> FG_INFO = true;
 $HD_Form -> FG_INFO_LINK = "A2B_invoice_view.php?id=";
 $HD_Form -> FG_INFO_ALT = "VIEW";
@@ -107,7 +107,7 @@ $HD_Form -> AddViewElement(gettext("AMOUNT INCL VAT"), "total_price", "10%", "ce
 $HD_Form -> FieldViewElement ("cc_invoice.id, cc_invoice.reference, username, cc_invoice.date,title, cc_invoice.paid_status, cc_invoice.status as cc_invoice_status,$filter_amount_with_vat");
 
 
-$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
+$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -137,14 +137,14 @@ $HD_Form -> FG_DELETION = true;
 $HD_Form -> FG_ADDITION = true;
 
 $HD_Form -> AddEditElement (gettext("ID CUSTOMER"),
-			   "id_card",		
-			   "$value", "POPUPVALUE", "size=30 maxlength=50",	
+			   "id_card",
+			   "$value", "POPUPVALUE", "size=30 maxlength=50",
 			   "4",	gettext("Insert the Customer ID"),
-			    "" , "", "", "", "", 				
+			    "" , "", "", "", "",
 				"A2B_entity_card.php?popup_select=1&", ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
 				gettext("Select the Customer ID"));
 
-if ($form_action=="ask-add"){	
+if ($form_action=="ask-add"){
 	$begin_date = date("Y");
 	$end_date = date("-m-d H:i:s");
 	$comp_date=$begin_date.$end_date;
@@ -152,24 +152,24 @@ if ($form_action=="ask-add"){
 }
 
 $HD_Form -> AddEditElement (gettext("INVOICE DATE"),
-			   "date",		
-			   '$value',	
-			   "INPUT",	
-			   "size=40 READONLY maxlength=40  $comp_date",	
-			   "10",	
+			   "date",
+			   '$value',
+			   "INPUT",
+			   "size=40 READONLY maxlength=40  $comp_date",
+			   "10",
 			   gettext("Insert the current date"),
 			   "" , "", "",	"", "", "", "", "" );
 
 
-$HD_Form -> AddEditElement ( gettext("TITLE"),	
-		"title",	'$value',	
+$HD_Form -> AddEditElement ( gettext("TITLE"),
+		"title",	'$value',
 		"INPUT",
 		"size=30 maxlength=50",
 		"0",
-		gettext("Insert the title of invoice, if you need one"), 
+		gettext("Insert the title of invoice, if you need one"),
 		"" , "", "",	"", "", "", "", "" );
-			   
-			   
+
+
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 				"description",
 				'',
@@ -178,7 +178,7 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 				"",
 				gettext("Insert the description"),
 				"" , "", "", "", "" , "", "", "");
-			   
+
 
 $HD_Form -> FieldEditElement ('id_card, date,title, description');
 
@@ -211,8 +211,8 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_invoice_reference';
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = "A2B_invoice_edit.php?id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
 
 
 

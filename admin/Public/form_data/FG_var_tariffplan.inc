@@ -82,7 +82,7 @@ $HD_Form -> FG_ADDITION = true;
 
 
 $HD_Form -> AddEditElement (gettext("TARIFFNAME"),
-    "tariffname",
+	"tariffname",
 	'$value',
 	"INPUT",
 	"size=40 maxlength=30",
@@ -90,7 +90,6 @@ $HD_Form -> AddEditElement (gettext("TARIFFNAME"),
 	gettext("Insert the tariff name "),
 	"" , "", "",	"", "", "", "",	"");
 
-$def_value_trunkalgo = '';
 if ($form_action=="ask-add"){
 	$begin_date = date("Y");
 	$begin_date_plus = date("Y") + 10;
@@ -161,6 +160,8 @@ $HD_Form -> AddEditElement (gettext("CALLERID PREFIX"),
 	gettext("Insert the dnid prefix"),
 	"" , "", "",	"", "" , "", "", gettext("Set the CallerID rules to choose the ratecard 'calleridprefix', by default, matches all callerID. For instance, Set the calleridprefix to 900540540 to choose this ratecard when the CallerID is 900540540."));
 
+
+$HD_Form -> FieldEditElement ('tariffname, startingdate, expirationdate, id_trunk, description, dnidprefix, calleridprefix');
 $HD_Form -> AddEditElement (gettext("TRUNK SELECT ALGO"),
 	"trunk_algo",
 	'$value',
@@ -212,8 +213,8 @@ $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ". $HD_Form->FG
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT =  gettext("Setup those values to create the new")." ".$HD_Form->FG_INSTANCE_NAME;
 
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
 
 

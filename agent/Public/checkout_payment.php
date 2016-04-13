@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -95,22 +95,17 @@ $HD_Form->create_toppage($form_action);
 $payment_modules = new payment;
 ?>
 <script language="javascript">
-function checkamount()
-{
-     if (document.checkout_amount.amount == "") {
+function checkamount() {
+    if (document.checkout_amount.amount == "") {
         alert('Please enter some amount.');
-
         return false;
     }
-
     return true;
 }
-</script>
-<script language="javascript"><!--
+
 var selected;
 
-function selectRowEffect(object, buttonSelect)
-{
+function selectRowEffect(object, buttonSelect) {
     if (!selected) {
         if (document.getElementById) {
             selected = document.getElementById('defaultSelected');
@@ -131,19 +126,16 @@ function selectRowEffect(object, buttonSelect)
     }
 }
 
-function rowOverEffect(object)
-{
+function rowOverEffect(object) {
     if (object.className == 'moduleRow') object.className = 'moduleRowOver';
 }
 
-function rowOutEffect(object)
-{
+function rowOutEffect(object) {
     if (object.className == 'moduleRowOver') object.className = 'moduleRow';
 }
 //--></script>
 
 <?php
-
 echo $payment_modules->javascript_validation();
 ?>
 
@@ -160,7 +152,14 @@ $form_action_url = tep_href_link("checkout_confirmation.php", '', 'SSL');
 echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="checkamount()"');
 
 ?>
-
+    <?php
+        if ($HD_Form->FG_CSRF_STATUS == true) {
+    ?>
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+    <?php
+        }
+    ?>
     <input name="item_id" type=hidden value="<?php echo $item_id?>">
     <input name="item_type" type=hidden value="<?php echo $item_type?>">
 

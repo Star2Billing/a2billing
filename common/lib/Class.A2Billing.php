@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -32,8 +32,6 @@
  *
  *
 **/
-
-//include_once(FSROOT . "lib/Misc.php");
 
 define('A2B_CONFIG_DIR', '/etc/');
 define('AST_CONFIG_DIR', '/etc/asterisk/');
@@ -135,6 +133,8 @@ class A2Billing
     public $uniqueid;
     public $accountcode;
     public $dnid;
+    public $orig_dnid;
+    public $orig_ext;
     public $extension;
 
     // from apply_rules, if a prefix is removed we keep it to track exactly what the user introduce
@@ -207,6 +207,10 @@ class A2Billing
 
     public $callback_beep_to_enter_destination = False;
 
+    // custom CDR variables
+    public $CDR_CUSTOM_SQL = '';
+    public $CDR_CUSTOM_VAL = '';
+
     /**
     * CC_TESTING variables
     * for developer purpose, will replace some get_data inputs in order to test the application from shell
@@ -256,12 +260,10 @@ class A2Billing
     public function debug($level, $agi, $file, $line, $buffer_debug)
     {
         $file = basename($file);
-
         // VERBOSE
         if ($this->agiconfig['verbosity_level'] >= $level && $agi) {
             $agi->verbose('file:' . $file . ' - line:' . $line . ' - uniqueid:' . $this->uniqueid . ' - ' . $buffer_debug);
         }
-
         // LOG INTO FILE
         if ($this->agiconfig['logging_level'] >= $level) {
             $this->write_log($buffer_debug, 1, "[file:$file - line:$line - uniqueid:" . $this->uniqueid . "]:");
@@ -273,12 +275,9 @@ class A2Billing
     */
     public function write_log($output, $tobuffer = 1, $line_file_info = '')
     {
-        //$tobuffer = 0;
-
         if (strlen($this->log_file) > 1) {
             $string_log = "[" . date("d/m/Y H:i:s") . "]:" . $line_file_info . "[CallerID:" . $this->CallerID . "]:[CN:" . $this->cardnumber . "]:[$output]\n";
             if ($this->CC_TESTING) echo $string_log;
-
             $this->BUFFER .= $string_log;
             if (!$tobuffer || $this->CC_TESTING) {
                 error_log($this->BUFFER, 3, $this->log_file);
@@ -319,12 +318,6 @@ class A2Billing
             exit;
         }
 
-        /*  We don't need to do this twice.  load_conf_db() will do it
-        // If optconfig is specified, stuff vals and vars into 'a2billing' config array.
-        foreach ($optconfig as $var=>$val) {
-            $this->config["agi-conf$idconfig"][$var] = $val;
-        }*/
-
         // conf for the database connection
         if (!isset($this->config['database']['hostname'])) $this->config['database']['hostname'] = 'localhost';
         if (!isset($this->config['database']['port']))     $this->config['database']['port']     = '5432';
@@ -341,14 +334,11 @@ class A2Billing
     public function load_conf_db(&$agi, $config = NULL, $webui = 0, $idconfig = 1, $optconfig = array())
     {
         $this->idconfig = $idconfig;
-        // load config
         $config_table = new Table("cc_config", "config_key as cfgkey, config_value as cfgvalue, config_group_title as cfggname, config_valuetype as cfgtype");
         $this->DbConnect();
-
         $config_res = $config_table->Get_list($this->DBHandle, "");
         if (!$config_res) {
             echo 'Error : cannot load conf : load_conf_db';
-
             return false;
         }
 
@@ -592,6 +582,8 @@ class A2Billing
         if (!isset($this->config["agi-conf$idconfig"]['cheat_on_announcement_time'])) $this->config["agi-conf$idconfig"]['cheat_on_announcement_time'] = 0;
         if (!isset($this->config["agi-conf$idconfig"]['busy_timeout'])) $this->config["agi-conf$idconfig"]['busy_timeout'] = 1;
         if (!isset($this->config["agi-conf$idconfig"]['lcr_mode'])) $this->config["agi-conf$idconfig"]['lcr_mode'] = 0;
+        if (!isset($this->config["agi-conf$idconfig"]['default_accountcode'])) $this->config["agi-conf$idconfig"]['default_accountcode'] = '';
+        if (!isset($this->config["agi-conf$idconfig"]['default_accountcode_all'])) $this->config["agi-conf$idconfig"]['default_accountcode_all'] = 0;
 
         // Define the agiconfig property
         $this->agiconfig = $this->config["agi-conf$idconfig"];
@@ -615,7 +607,6 @@ class A2Billing
     {
         global $agi;
         static $busy = false;
-
         if ($this->agiconfig['debug'] != false) {
             if (!$busy) { // no conlogs inside conlog!!!
                 $busy = true;
@@ -632,7 +623,6 @@ class A2Billing
     {
         // MENU LANGUAGE
         if ($this->agiconfig['play_menulanguage'] == 1) {
-
             $list_prompt_menulang = explode(':', $this->agiconfig['conf_order_menulang']);
             $i = 1;
             foreach ($list_prompt_menulang as $lg_value) {
@@ -646,7 +636,6 @@ class A2Billing
             }
 
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RES Menu Language DTMF : " . $res_dtmf["result"]);
-
             $this->languageselected = $res_dtmf["result"];
 
             if ($this->languageselected > 0 && $this->languageselected <= sizeof($list_prompt_menulang)) {
@@ -657,13 +646,9 @@ class A2Billing
                 } else {
                     $language = 'en';
                 }
-
             }
-
             $this->current_language = $language;
-
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, " CURRENT LANGUAGE : " . $language);
-
 
             if ($this->agiconfig['asterisk_version'] == "1_2") {
                 $lg_var_set = 'LANGUAGE()';
@@ -690,24 +675,80 @@ class A2Billing
         }
     }
 
+    /*
+     * function sanitize_agi_data
+     */
+    public function sanitize_agi_data($input)
+    {
+        // Remove whitespaces (not a must though)
+        $input = trim($input);
+        $input = str_replace('--', '', $input);
+        $input = str_replace(';', '', $input);
+        $input = str_replace('/*', '', $input);
+        $input = str_replace('(', '', $input);
+        $input = str_replace('[', '', $input);
+        // Sql Injection
+        $input = str_ireplace('HAVING', '', $input);
+        $input = str_ireplace('UNION', '', $input);
+        $input = str_ireplace('SUBSTRING', '', $input);
+        $input = str_ireplace('INSERT', '', $input);
+        $input = str_ireplace('INTO', '', $input);
+        $input = str_ireplace('ASCII', '', $input);
+        $input = str_ireplace('SHA1', '', $input);
+        $input = str_ireplace('MD5', '', $input);
+        $input = str_ireplace('ROW_COUNT', '', $input);
+        $input = str_ireplace('CONCAT', '', $input);
+        $input = str_ireplace('WHERE', '', $input);
+        $input = str_ireplace('SELECT', '', $input);
+        $input = str_ireplace('UPDATE', '', $input);
+        $input = str_ireplace('DROP', '', $input);
+        $input = str_ireplace('DELETE', '', $input);
+        $input = str_ireplace('TRUE', '', $input);
+        $input = str_ireplace('FALSE', '', $input);
 
+        if (!(stripos($input, ' or 1') === FALSE)) {
+            return false;
+        }
+        if (!(stripos($input, ' or true') === FALSE)) {
+            return false;
+        }
+        if (strlen($input) >= 30) {
+            return false;
+        }
+        $input = addslashes($input);
+        return $input;
+    }
 
     /*
     * intialize evironement variables from the agi values
     */
     public function get_agi_request_parameter($agi)
     {
-        $this->CallerID    = $agi->request['agi_callerid'];
-        $this->channel     = $agi->request['agi_channel'];
-        $this->uniqueid    = $agi->request['agi_uniqueid'];
-        $this->accountcode = $agi->request['agi_accountcode'];
-        //$this->dnid      = $agi->request['agi_dnid'];
+        $A2B_CUSTOM1 = substr($agi->get_variable("A2B_CUSTOM1", true), 0, 20);
+        $A2B_CUSTOM2 = substr($agi->get_variable("A2B_CUSTOM2", true), 0, 20);
+        $A2B_CUSTOM1 = $this->sanitize_agi_data($A2B_CUSTOM1);
+        $A2B_CUSTOM2 = $this->sanitize_agi_data($A2B_CUSTOM2);
+
+        $this->CDR_CUSTOM_SQL = ", a2b_custom1, a2b_custom2";
+        $this->CDR_CUSTOM_VAL = ", '" . $A2B_CUSTOM1 . "', '" . $A2B_CUSTOM2 . "'";
+
+        $this->CallerID    = $this->sanitize_agi_data($agi->request['agi_callerid']);
+        $this->channel     = $this->sanitize_agi_data($agi->request['agi_channel']);
+        $this->uniqueid    = $this->sanitize_agi_data($agi->request['agi_uniqueid']);
+        $this->orig_dnid   = $this->sanitize_agi_data($agi->request['agi_dnid']);
+        $this->orig_ext    = $this->sanitize_agi_data($agi->request['agi_extension']);
         $extension         = str_replace("|", '', $agi->request['agi_extension']);
         $extension         = str_replace(",", '', $extension);
         $extension         = str_replace("(", '', $extension);
         $extension         = str_replace(")", '', $extension);
-        $this->dnid        = $agi->request['agi_extension'] ;
-
+        $this->dnid        = $this->sanitize_agi_data($agi->request['agi_extension']);
+        if ($this->agiconfig['default_accountcode_all'] && !empty($this->agiconfig['default_accountcode'])) {
+            $this->accountcode = $this->agiconfig['default_accountcode'];
+        } elseif (empty($agi->request['agi_accountcode']) && !empty($this->agiconfig['default_accountcode'])) {
+            $this->accountcode = $this->agiconfig['default_accountcode'];
+        } else {
+            $this->accountcode = $this->sanitize_agi_data($agi->request['agi_accountcode']);
+        }
         //Call function to find the cid number
         $this->isolate_cid();
 
@@ -829,6 +870,16 @@ class A2Billing
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[REDIAL : DTMF DESTINATION ::> " . $this->destination . "]");
         }
 
+        //REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
+        if (strlen($this->destination) <= 2 && is_numeric($this->destination) && $this->destination >= 0) {
+            $QUERY = "SELECT phone FROM cc_speeddial WHERE id_cc_card = '" . $this->id_card . "' AND speeddial = '" . $this->destination . "'";
+            $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
+            if (is_array($result)) {
+                $this->destination = $result[0][0];
+            }
+            $this->debug(INFO, $agi, __FILE__, __LINE__, "SPEEDIAL REPLACE DESTINATION ::> " . $this->destination);
+        }
+
         //Check if Account have restriction
         if ($this->restriction == 1 || $this->restriction == 2) {
 
@@ -860,14 +911,6 @@ class A2Billing
                     return -1;
                 }
             }
-        }
-
-        //REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
-        if (strlen($this->destination) <= 2 && is_numeric($this->destination) && $this->destination >= 0) {
-            $QUERY = "SELECT phone FROM cc_speeddial WHERE id_cc_card = '" . $this->id_card . "' AND speeddial = '" . $this->destination . "'";
-            $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
-            if (is_array($result)) $this->destination = $result[0][0];
-            $this->debug(INFO, $agi, __FILE__, __LINE__, "SPEEDIAL REPLACE DESTINATION ::> " . $this->destination);
         }
 
         // FOR TESTING : ENABLE THE DESTINATION NUMBER
@@ -1008,6 +1051,7 @@ class A2Billing
 
             // STRIP * FROM DESTINATION NUMBER
             $this->destination = str_replace('*', '', $this->destination);
+            $this->destination = str_replace('.', '', $this->destination);
 
             $this->save_redial_number($agi, $this->destination);
 
@@ -1188,11 +1232,8 @@ class A2Billing
 
             if ($answeredtime > 0) {
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_UPDATESYSTEM: (answeredtime=$answeredtime :: dialstatus=$dialstatus :: cost=$cost)]");
-                $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, " .
-                    " terminatecauseid, stoptime, sessionbill, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES " .
-                    "('" . $this->uniqueid . "', '" . $this->channel . "', '" . $this->id_card . "', '" . $this->hostname . "',";
-                $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-                $QUERY .= ", '$answeredtime', '" . $card_alias . "', '$terminatecauseid', now(), '0', '0', '0', '0', '$this->CallerID', '1' )";
+
+                $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, terminatecauseid, stoptime, sessionbill, id_tariffplan, id_ratecard, id_trunk, src, sipiax $this->CDR_CUSTOM_SQL) VALUES ('" . $this->uniqueid . "', '" . $this->channel . "', '" . $this->id_card . "', '" . $this->hostname . "', CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND, '$answeredtime', '" . $card_alias . "', '$terminatecauseid', now(), '0', '0', '0', '0', '$this->CallerID', '1' $this->CDR_CUSTOM_VAL)";
 
                 $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
 
@@ -1202,21 +1243,17 @@ class A2Billing
 
         if ($this->voicemail) {
 
-            if (($dialstatus == "CHANUNAVAIL") ||
-                ($dialstatus == "CONGESTION") ||
-                ($dialstatus == "NOANSWER")) {
+            if (($dialstatus == "CHANUNAVAIL") || ($dialstatus == "CONGESTION") || ($dialstatus == "NOANSWER")) {
                 // The following section will send the caller to VoiceMail
                 // with the unavailable priority.
                 $this->debug(INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL UNAVAILABLE - GOTO VOICEMAIL ($dest_username)");
-
                 $vm_parameters = $this->format_parameters($dest_username . '|u');
                 $agi->exec(VoiceMail, $vm_parameters);
             }
 
             if (($dialstatus == "BUSY")) {
                 // The following section will send the caller to VoiceMail with the busy priority.
-                $this->debug(INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL BUSY - GOTO VOICEMAIL ($dest_username)");
-
+                $this->debug(INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL BUSY - GO VOICEMAIL ($dest_username)");
                 $vm_parameters = $this->format_parameters($dest_username . '|b');
                 $agi->exec(VoiceMail, $vm_parameters);
             }
@@ -1346,10 +1383,8 @@ class A2Billing
                         }
 
                         $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, " .
-                            " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES " .
-                            "('" . $this->uniqueid . "', '" . $this->channel . "', '" . $this->id_card . "', '" . $this->hostname . "',";
-                        $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-                        $QUERY .= ", '$answeredtime', '" . $inst_listdestination[4] . "', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' )";
+                            " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax $this->CDR_CUSTOM_SQL) VALUES " .
+                            "('" . $this->uniqueid . "', '" . $this->channel . "', '" . $this->id_card . "', '" . $this->hostname . "', CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND, '$answeredtime', '" . $inst_listdestination[4] . "', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' $this->CDR_CUSTOM_VAL)";
 
                         $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
@@ -1612,11 +1647,7 @@ class A2Billing
                         //CALL2DID CDR is free
 
                         /* CDR A-LEG OF DID CALL */
-                        $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, " .
-                                " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES " .
-                                "('" . $this->uniqueid . "', '" . $this->channel . "', '" . $my_id_card . "', '" . $this->hostname . "',";
-                        $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-                        $QUERY .= ", '$answeredtime', '" . $inst_listdestination[10] . "', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' )";
+                        $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax $this->CDR_CUSTOM_SQL) VALUES ('" . $this->uniqueid . "', '" . $this->channel . "', '" . $my_id_card . "', '" . $this->hostname . "', CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND, '$answeredtime', '" . $inst_listdestination[10] . "', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' $this->CDR_CUSTOM_VAL)";
 
                         $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
@@ -1627,11 +1658,7 @@ class A2Billing
                         $cost = ($answeredtime/60) * abs($selling_rate) + abs($connection_charge);
 
                         /* CDR A-LEG OF DID CALL */
-                        $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, " .
-                                " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES " .
-                                "('" . $this->uniqueid . "', '" . $this->channel . "', '" . $my_id_card . "', '" . $this->hostname . "',";
-                        $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-                        $QUERY .= ", '$answeredtime', '". $listdestination[0][10] . "', '$terminatecauseid', now(), '$cost', '0', '0', '0', '0', '$this->CallerID', '3' )";
+                        $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax $this->CDR_CUSTOM_SQL) VALUES ('" . $this->uniqueid . "', '" . $this->channel . "', '" . $my_id_card . "', '" . $this->hostname . "', CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND, '$answeredtime', '". $listdestination[0][10] . "', '$terminatecauseid', now(), '$cost', '0', '0', '0', '0', '$this->CallerID', '3' $this->CDR_CUSTOM_VAL)";
 
                         $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
@@ -1723,11 +1750,7 @@ class A2Billing
                         //CALL2DID CDR is free
 
                         /* CDR A-LEG OF DID CALL */
-                        $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, " .
-                                " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES " .
-                                "('" . $this->uniqueid . "', '" . $this->channel . "', '" . $my_id_card . "', '" . $this->hostname . "',";
-                        $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-                        $QUERY .= ", '$answeredtime', '" . $inst_listdestination[10] . "', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' )";
+                        $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax $this->CDR_CUSTOM_SQL) VALUES ('" . $this->uniqueid . "', '" . $this->channel . "', '" . $my_id_card . "', '" . $this->hostname . "', CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND, '$answeredtime', '" . $inst_listdestination[10] . "', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' $this->CDR_CUSTOM_VAL)";
 
                         $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
@@ -1737,11 +1760,7 @@ class A2Billing
                         $cost = ($answeredtime/60) * abs($selling_rate) + abs($connection_charge);
 
                         /* CDR A-LEG OF DID CALL */
-                        $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, " .
-                                " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES " .
-                                "('" . $this->uniqueid . "', '" . $this->channel . "', '" . $my_id_card . "', '" . $this->hostname . "',";
-                        $QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-                        $QUERY .= ", '$answeredtime', '". $listdestination[0][10] . "', '$terminatecauseid', now(), '$cost', '0', '0', '0', '0', '$this->CallerID', '3' )";
+                        $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax $this->CDR_CUSTOM_SQL) VALUES " . "('" . $this->uniqueid . "', '" . $this->channel . "', '" . $my_id_card . "', '" . $this->hostname . "', CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND, '$answeredtime', '". $listdestination[0][10] . "', '$terminatecauseid', now(), '$cost', '0', '0', '0', '0', '$this->CallerID', '3' $this->CDR_CUSTOM_VAL)";
 
                         $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                         $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
@@ -1881,11 +1900,9 @@ class A2Billing
             $aleg_retail_cost += $aleg_retail_connect_charge;
             $aleg_retail_cost += ($aleg_retail_callduration / 60) * $aleg_retail_cost_min;
 
-            $QUERY_COLUMN = " uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, " .
-                            " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, " .
-                            " id_trunk, src, sipiax, buycost, dnid";
+            $QUERY_COLUMN = " uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax, buycost, dnid";
             $calltype = '7'; // DID-ALEG
-            $QUERY = "INSERT INTO cc_call ($QUERY_COLUMN) VALUES (" .
+            $QUERY = "INSERT INTO cc_call ($QUERY_COLUMN $this->CDR_CUSTOM_SQL) VALUES (" .
                         "'" . $this->uniqueid . "', " .
                         "'" . $this->channel . "'," .
                         "'" . $this->id_card . "'," .
@@ -1905,7 +1922,7 @@ class A2Billing
                         "'$calltype', " .
                         "'$aleg_carrier_cost', " .
                         "'" . $this->dnid . "'" .
-                        ")";
+                        "$this->CDR_CUSTOM_VAL)";
 
             $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
             $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
@@ -1922,12 +1939,10 @@ class A2Billing
             $terminatecauseid = 1; // ANSWERED
             $aleg_carrier_cost = 0;
 
-            $QUERY_COLUMN = " uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, " .
-                            " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, " .
-                            " id_trunk, src, sipiax, buycost, dnid";
+            $QUERY_COLUMN = " uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard,  id_trunk, src, sipiax, buycost, dnid";
 
             $calltype = '7'; // DID-ALEG
-            $QUERY = "INSERT INTO cc_call ($QUERY_COLUMN) VALUES (" .
+            $QUERY = "INSERT INTO cc_call ($QUERY_COLUMN $this->CDR_CUSTOM_SQL) VALUES (" .
                         "'" . $this->uniqueid . "', " .
                         "'" . $this->channel . "'," .
                         "'" . $this->id_card . "'," .
@@ -1947,7 +1962,7 @@ class A2Billing
                         "'$calltype', " .
                         "'$aleg_carrier_cost', " .
                         "'" . $this->dnid . "'" .
-                        ")";
+                        "$this->CDR_CUSTOM_VAL )";
 
             $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
             $this->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL ZERO - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
@@ -2498,14 +2513,12 @@ class A2Billing
 
         if (!is_array($result)) {
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CID_SANITIZE - CID: NO DATA]");
-
             return '';
         }
         for ($i = 0; $i < count($result); $i++) {
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CID_SANITIZE - CID COMPARING: " . substr($result[$i][0], strlen($this->CallerID) * -1) . " to " . $this->CallerID . "]");
             if (substr($result[$i][0], strlen($this->CallerID) * -1) == $this->CallerID) {
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CID_SANITIZE - CID: " . $result[$i][0] . "]");
-
                 return $result[$i][0];
             }
         }
@@ -2612,9 +2625,7 @@ class A2Billing
 
         $duration = time() - $now;
         ///create campaign cdr
-        $QUERY_CALL = "INSERT INTO cc_call (uniqueid, sessionid, card_id,calledstation, sipiax, sessionbill , sessiontime , stoptime ,starttime) VALUES ('" . $this->uniqueid . "', '" . $this->channel . "', '" .
-                $userid . "','" . $called . "',6, " . $cost . ", " . $duration . " , CURRENT_TIMESTAMP , ";
-        $QUERY_CALL .= "DATE_SUB(CURRENT_TIMESTAMP, INTERVAL $duration SECOND )";
+        $QUERY_CALL = "INSERT INTO cc_call (uniqueid, sessionid, card_id, calledstation, sipiax, sessionbill, sessiontime, stoptime, starttime $this->CDR_CUSTOM_SQL) VALUES ('" . $this->uniqueid . "', '" . $this->channel . "', '" . $userid . "','" . $called . "',6, " . $cost . ", " . $duration . " , CURRENT_TIMESTAMP , DATE_SUB(CURRENT_TIMESTAMP, INTERVAL $duration SECOND) $this->CDR_CUSTOM_VAL)";
 
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[INSERT CAMPAIGN CALL : " . $QUERY_CALL);
         $this->instance_table->SQLExec($this->DBHandle, $QUERY_CALL);
@@ -3598,7 +3609,6 @@ class A2Billing
     {
         $ADODB_CACHE_DIR = '/tmp';
         /* $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC; */
-        require_once 'adodb/adodb.inc.php';
 
         if ($this->config['database']['dbtype'] == "postgres") {
             $datasource = 'pgsql://' . $this->config['database']['user'] . ':' . $this->config['database']['password'] . '@' . $this->config['database']['hostname'] . '/' . $this->config['database']['dbname'];
@@ -3606,12 +3616,12 @@ class A2Billing
             $datasource = 'mysqli://' . $this->config['database']['user'] . ':' . $this->config['database']['password'] . '@' . $this->config['database']['hostname'] . '/' . $this->config['database']['dbname'];
         }
         $this->DBHandle = NewADOConnection($datasource);
-        if (!$this->DBHandle) die("Connection failed");
-
-        if ($this->config['database']['dbtype'] == "mysqli") {
+        if (!$this->DBHandle) {
+            die("Connection failed");
+        }
+        if ($this->config['database']['dbtype'] == "mysql") {
             $this->DBHandle->Execute('SET AUTOCOMMIT = 1');
         }
-
         return true;
     }
 
@@ -3645,7 +3655,7 @@ class A2Billing
                 $this->debug(FATAL, $agi, __FILE__, __LINE__, "[DB CONNECTION LOST] CDR NOT POSTED");
                 die("Reconnection failed");
             }
-            if ($this->config['database']['dbtype'] == "mysqli") {
+            if ($this->config['database']['dbtype'] == "mysql") {
                 $this->DBHandle->Execute('SET AUTOCOMMIT = 1');
             }
 

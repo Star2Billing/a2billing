@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -186,17 +186,14 @@ if (!isset($submit)) {
 ?>
 
 <SCRIPT LANGUAGE="javascript">
-<!-- Begin
 var win= null;
-function loadtmpl()
-{
-    //test si win est encore ouvert et close ou refresh
+function loadtmpl() {
+    //test if windows is still open and close on refresh
     win=MM_openBrWindow('A2B_entity_mailtemplate.php?popup_select=1','','scrollbars=yes,resizable=yes,width=700,height=500');
 }
-// End -->
-
 </script>
 <script language="JavaScript" src="javascript/card.js"></script>
+
 <div class="toggle_hide2show">
 <?php
     if ($_REQUEST['id']==null) {
@@ -220,26 +217,34 @@ function loadtmpl()
 }
 
 ?>
-<FORM action="<?php echo $_SERVER['PHP_SELF']?>" method="post" name="mass_mail">
-    <table class="editform_table1" cellspacing="2">
-<?php
-    if (isset($submit)) {
-?>
-        <TR>
-         <td align="center" colspan="2"><?php echo gettext("The e-mail has been sent to "); echo $total_customer; echo gettext(" customer(s)!")?></td>
-        </TR>
-    <?php if ($err_sent > 0) { ?>
-        <tr>
-         <td align="center" colspan="2"><br/><?php echo gettext("There is some error sending e-mail :");?>
+<FORM action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>" method="post" name="mass_mail">
+<table class="editform_table1" cellspacing="2">
+    <?php
+        if ($HD_Form->FG_CSRF_STATUS == true) {
+    ?>
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+    <?php
+        }
+    ?>
+    <?php
+        if (isset($submit)) {
+    ?>
+    <TR>
+      <td align="center" colspan="2"><?php echo gettext("The e-mail has been sent to "); echo $total_customer; echo gettext(" customer(s)!")?></td>
+    </TR>
+<?php if ($err_sent > 0) { ?>
+    <tr>
+      <td align="center" colspan="2"><br/><?php echo gettext("There is some error sending e-mail :");?>
 
-         <div class="scroll">
-<pre>
-<?php echo $error_msg; ?>
-</pre>
-</div>
+      <div class="scroll">
+        <pre>
+          <?php echo $error_msg; ?>
+        </pre>
+      </div>
 
-         </td>
-       </tr>
+      </td>
+    </tr>
     <?php
         }
 
@@ -262,79 +267,78 @@ function loadtmpl()
 <?php
     if (is_array($list_customer)) {
 ?>
-       <TR>
-            <TD width="%25" valign="middle" class="form_head"><?php echo gettext("TO");?></TD>
-            <TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
-            <?php
-                $link_to_customer = CUSTOMER_UI_URL;
-                if ($nb_customer==1) {
-                echo "<input type=\"hidden\" name=\"id\" value=".$_REQUEST['id'].">";
-            }
-                if (is_array($list_customer)) {
-                    for ($key=0; $key < $nb_customer && $key <= 100; $key++) {
-                        echo "<a href=A2B_entity_card.php?form_action=ask-edit&id=".$list_customer[$key]['id']." target=\"_blank\">".$list_customer[$key][1]."</a>";
-                        if ($key + 1 != $nb_customer) echo ", ";
-                            echo "<input type=\"hidden\" name=\"hd_email[]\" value=".$list_customer[$key][1].">";
-                        if ($key == 100) {
-                            echo "<br><a href=\"A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1\" target=\"_blank\">".gettext("Click on list customer to see them all")."</a>";
-                        }
+    <TR>
+        <TD width="%25" valign="middle" class="form_head"><?php echo gettext("TO");?></TD>
+        <TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
+        <?php
+            $link_to_customer = CUSTOMER_UI_URL;
+            if ($nb_customer==1) {
+            echo "<input type=\"hidden\" name=\"id\" value=".$_REQUEST['id'].">";
+        }
+            if (is_array($list_customer)) {
+                for ($key=0; $key < $nb_customer && $key <= 100; $key++) {
+                    echo "<a href=A2B_entity_card.php?form_action=ask-edit&id=".$list_customer[$key]['id']." target=\"_blank\">".$list_customer[$key][1]."</a>";
+                    if ($key + 1 != $nb_customer) echo ", ";
+                        echo "<input type=\"hidden\" name=\"hd_email[]\" value=".$list_customer[$key][1].">";
+                    if ($key == 100) {
+                        echo "<br><a href=\"A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1\" target=\"_blank\">".gettext("Click on list customer to see them all")."</a>";
                     }
-                }?><span class="liens"></span>&nbsp;<br>
-             </TD>
-       </TR>
+                }
+            }?><span class="liens"></span>&nbsp;<br>
+         </TD>
+    </TR>
 <?php
     }
 ?>
-        <TR>
-            <TD width="%25" valign="middle" class="form_head">&nbsp;</TD>
-            <TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
-                <input class="form_input_button" onClick="loadtmpl()"   style="vertical-align:top" TYPE="button" VALUE="<?php echo gettext(">LOAD TEMPLATE<");?>" />
-             </TD>
-        </TR>
-        <TR>
-            <TD width="%25" valign="middle" class="form_head"><?php echo gettext("EMAIL FROM");?></TD>
-            <TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
-                <INPUT class="form_input_text" id="from" name="from"  size="30" maxlength="80" value="<?php echo EMAIL_ADMIN; ?>"><span class="liens"></span>&nbsp;
-             </TD>
-        </TR>
-        <TR>
-            <TD width="%25" valign="middle" class="form_head"><?php echo gettext("FROM NAME");?></TD>
-            <TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
-                <INPUT class="form_input_text" id="fromname" name="fromname"  size="30" maxlength="80" value=""><span class="liens"></span>&nbsp;
-             </TD>
-        </TR>
-        <TR>
-            <TD width="%25" valign="middle" class="form_head"><?php echo gettext("SUBJECT");?></TD>
-            <TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
-                <INPUT class="form_input_text" name="subject" id="subject"  size="50" maxlength="120" value=""><span class="liens"></span>&nbsp;
-             </TD>
-        </TR>
-        <TR>
-            <TD width="%25" valign="middle" class="form_head"><?php echo gettext("MESSAGE");?></TD>
-            <TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
+    <TR>
+        <TD width="%25" valign="middle" class="form_head">&nbsp;</TD>
+        <TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
+            <input class="form_input_button" onClick="loadtmpl()"   style="vertical-align:top" TYPE="button" VALUE=" <?php echo gettext("LOAD TEMPLATE");?> " />
+         </TD>
+    </TR>
+    <TR>
+        <TD width="%25" valign="middle" class="form_head"><?php echo gettext("EMAIL FROM");?></TD>
+        <TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif">
+            <INPUT class="form_input_text" id="from" name="from"  size="30" maxlength="80" value="<?php echo EMAIL_ADMIN; ?>"><span class="liens"></span>&nbsp;
+         </TD>
+    </TR>
+    <TR>
+        <TD width="%25" valign="middle" class="form_head"><?php echo gettext("FROM NAME");?></TD>
+        <TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif">
+            <INPUT class="form_input_text" id="fromname" name="fromname"  size="30" maxlength="80" value=""><span class="liens"></span>&nbsp;
+         </TD>
+    </TR>
+    <TR>
+        <TD width="%25" valign="middle" class="form_head"><?php echo gettext("SUBJECT");?></TD>
+        <TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif">
+            <INPUT class="form_input_text" name="subject" id="subject"  size="50" maxlength="120" value=""><span class="liens"></span>&nbsp;
+         </TD>
+    </TR>
+    <TR>
+        <TD width="%25" valign="middle" class="form_head"><?php echo gettext("MESSAGE");?></TD>
+        <TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif">
+        <TEXTAREA id="msg_mail" class="form_input_textarea" name="message"  cols="80" rows="15""></textarea>
+            <span class="liens"></span>&nbsp; </TD>
+     </TR>
 
-                <textarea id="msg_mail" class="form_input_textarea" name="message"  cols="80" rows="15""></textarea>
-                    <span class="liens"></span>&nbsp; </TD>
-         </TR>
-
-        <tr>
-            <td>&nbsp;</td>
-                        <td align="right" >
-            <input class="form_input_button" name="submit"  TYPE="submit" VALUE="<?php echo gettext("EMAIL");?>"></td>
-        </tr>
-        <tr>
-         <td colspan="2"> <?php echo $tags_help; ?></td>
-        </tr>
-            <?php } else { ?>
-        <tr>
-             <td colspan="2" align="center"><?php echo gettext("No Record Found!");?></td>
-        </tr>
-        <?php }
-        }
-        ?>
-        </table>
-        <input type="hidden" name="total_customer" value="<?php echo $nb_customer?>">
-    </FORM>
+    <tr>
+        <td>&nbsp;</td>
+                    <td align="right" >
+        <input class="form_input_button" name="submit"  TYPE="submit" VALUE="<?php echo gettext("EMAIL");?>"></td>
+    </tr>
+    <tr>
+     <td colspan="2"> <?php echo $tags_help; ?></td>
+    </tr>
+        <?php } else { ?>
+    <tr>
+         <td colspan="2" align="center"><?php echo gettext("No Record Found!");?></td>
+    </tr>
+    <?php }
+    }
+    ?>
+    </table>
+    <input type="hidden" name="total_customer" value="<?php echo $nb_customer?>">
+</FORM>
 
 <?php
 

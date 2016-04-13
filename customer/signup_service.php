@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -41,6 +41,11 @@ if (!$A2B->config["signup"]['enable_signup']) {
     exit;
 }
 
+$HD_Form = new FormHandler();
+
+$HD_Form->setDBHandler(DbConnect());
+$HD_Form->init();
+
 //check subscriber
 $table_subscriber = new Table("cc_subscription_signup", "*");
 $clause_subscriber = "enable = 1";
@@ -51,23 +56,32 @@ $smarty->display('signup_header.tpl');
 
 ?>
 
-<BR/><BR/><BR/><BR/>
-
+<br/><br/>
+<br/><br/>
 <form id="myForm" method="post" name="myForm" action="signup.php">
+
+<?php
+    if ($HD_Form->FG_CSRF_STATUS == true) {
+?>
+    <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+    <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+<?php
+    }
+?>
 
 <div align="center">
 <table  style="width : 80%;" class="editform_table1">
    <tr>
-           <th colspan="2" background="templates/default/images/background_cells.gif">
-               <?php echo gettext("SELECT THE SERVICE THAT YOU WANT SUBSCRIBE") ?>
-           </th>
+       <th colspan="2" background="templates/default/images/background_cells.gif">
+           <?php echo gettext("SELECT THE SERVICE THAT YOU WANT SUBSCRIBE") ?>
+       </th>
    </tr>
    <tr height="20px">
         <td  colspan="2">
             &nbsp;
         </td>
     </tr>
-   <tr height="20px">
+    <tr height="20px">
         <td  class="form_head">
             &nbsp;<?php echo gettext("SERVICE") ?> :
         </td>
@@ -103,11 +117,12 @@ $smarty->display('signup_header.tpl');
         </td>
     </tr>
 
- </table>
- </div>
+</table>
+</div>
 </form>
 
-<BR/><BR/><BR/><BR/>
+<br/><br/>
+<br/><br/>
 
 <?php
 

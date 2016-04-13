@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,8 +27,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
 
@@ -58,7 +58,7 @@ $HD_Form -> AddViewElement(gettext("LINK TO PAYMENT"), "id_payment", "10%", "cen
 $HD_Form -> FieldViewElement ('cc_agent_commission.id, id_card, id_agent, date, amount, commission_type , description, id_payment');
 
 
-$HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO COMMISSION AGENTS CREATED!"); 
+$HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO COMMISSION AGENTS CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -72,30 +72,30 @@ if ($form_action=="ask-add" && !empty($id_card)) {
 }
 
 $HD_Form -> AddEditElement (gettext("CUSTOMER ID"),
-			   "id_card",		
-			   "$value",	
-			   "POPUPVALUE",	
-			   "size=30 maxlength=50 ".$id_val,	
-			   "4",	
+			   "id_card",
+			   "$value",
+			   "POPUPVALUE",
+			   "size=30 maxlength=50 ".$id_val,
+			   "4",
 			   gettext("Insert the Customer ID "),
-			    "" , "", "", "", "", 				
+			    "" , "", "", "", "",
 				"A2B_entity_card.php?popup_select=1&"
 				, ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
 				gettext("Select the Customer ID"));
 
 $HD_Form -> AddEditElement (gettext("AGENT ID"),
-			   "id_agent",		
-			   "$value",	
-			   "POPUPVALUE",	
-			   "size=30 maxlength=50 ".$id_val,	
-			   "4",	
+			   "id_agent",
+			   "$value",
+			   "POPUPVALUE",
+			   "size=30 maxlength=50 ".$id_val,
+			   "4",
 			   gettext("Insert the AGENT ID "),
-			    "" , "", "", "", "", 				
+			    "" , "", "", "", "",
 				"A2B_entity_agent.php?popup_select=1&"
 				, ", 'AgentSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
 				gettext("Select the Agent ID"));
-			   
-if ($form_action=="ask-add") {	
+
+if ($form_action=="ask-add") {
 	$begin_date = date("Y");
 	$end_date = date("-m-d H:i:s");
 	$comp_date=$begin_date.$end_date;
@@ -103,20 +103,20 @@ if ($form_action=="ask-add") {
 }
 
 $HD_Form -> AddEditElement (gettext("PAYMENT DATE"),
-			   "date",		
-			   '$value',	
-			   "INPUT",	
-			   "size=40 READONLY maxlength=40  $comp_date",	
-			   "10",	
+			   "date",
+			   '$value',
+			   "INPUT",
+			   "size=40 READONLY maxlength=40  $comp_date",
+			   "10",
 			   gettext("Insert the current date"),
 			   "" , "", "",	"", "", "", "", "" );
 
 $HD_Form -> AddEditElement (gettext("COMMISSION AMOUNT"),
-			   "amount",		
-			   '$value',	
-			   "INPUT",	
-			   "size=60 maxlength=10",	
-			   "12",	
+			   "amount",
+			   '$value',
+			   "INPUT",
+			   "size=60 maxlength=10",
+			   "12",
 			   gettext("Insert the commission amount"),
 			   "" , "", "",	"", "" , "", "", gettext("Enter the amount in the currency base : ").BASE_CURRENCY );
 
@@ -131,13 +131,13 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 				"" , "", "", "", "" , "", "", "");
 
 $HD_Form -> AddEditElement (gettext("PAYMENT ID"),
-			   "id_payment",		
-			   "$value",	
-			   "POPUPVALUE",	
-			   "size=30 maxlength=50 ".$id_val,	
-			   "4",	
+			   "id_payment",
+			   "$value",
+			   "POPUPVALUE",
+			   "size=30 maxlength=50 ".$id_val,
+			   "4",
 			   gettext("Insert the Payment ID "),
-			    "" , "", "", "", "", 				
+			    "" , "", "", "", "",
 				"A2B_entity_payment.php?popup_select=1&"
 				, ", 'PaymentSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
 				gettext("Select the Payment ID"));
@@ -167,8 +167,8 @@ $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue.");
 
 
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
 
 

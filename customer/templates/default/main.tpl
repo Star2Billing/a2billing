@@ -96,30 +96,6 @@
 	<div class="toggle_menu"><li><a href="A2B_notification.php?form_action=ask-edit"><strong>{php} echo gettext("NOTIFICATION");{/php}</strong></a></li></div>
 	{/if}
 
-	{if $ACXAUTODIALER>0 }
-	<div class="toggle_menu"><li>
-	<a href="javascript:;" class="toggle_menu" target="_self"> <div> <div id="menutitlebutton"> <img id="img10"
-	{if ($section == "10")}
-	src="templates/{$SKIN_NAME}/images/minus.gif"
-	{else}
-	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" ></div> <div id="menutitlesection"><strong>{php} echo gettext("AUTO DIALLER");{/php}</strong></div></div></a></li></div>
-		<div class="tohide"
-	{if ($section =="10")}
-		style="">
-	{else}
-	style="display:none;">
-	{/if}
-	<ul>
-		<li><ul>
-				<li><a href="A2B_entity_campaign.php?section=10">{php} echo gettext("Campaign's");{/php}</a></li>
-				<li><a href="A2B_entity_phonebook.php?section=10">{php} echo gettext("Phone Book");{/php}</a></li>
-				<li><a href="A2B_entity_phonenumber.php?section=10">{php} echo gettext("Phone Number");{/php}</a></li>
-				<li><a href="A2B_phonelist_import.php?section=10">{php} echo gettext("Import Phone List");{/php}</a></li>
-		</ul></li>
-	</ul>
-	</div>
-	{/if}
 
 </ul>
 

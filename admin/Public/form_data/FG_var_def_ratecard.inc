@@ -62,7 +62,9 @@ if (isset($posted) && !$popup_select) {
 
 	if (is_string ($tariffgroup) && strlen(trim($tariffgroup))>0) {
 
-		$HD_Form = new FormHandler("cc_callplan_lcr", "Rates");
+		// $HD_Form = new FormHandler("cc_callplan_lcr", "Rates");
+        $HD_Form -> FG_TABLE_NAME = "cc_callplan_lcr";
+        $HD_Form -> FG_INSTANCE_NAME = "Rates";
 		$HD_Form -> FG_TABLE_ID = 'id';
 		$use_lcr_callplan = true;
 		$HD_Form -> SQL_GROUP = " GROUP BY dialprefix ";
@@ -656,8 +658,8 @@ if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
 	$HD_Form -> FG_TABLE_CLAUSE.="dialprefix like '$filterprefix%'";
 }
 
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?atmenu=document&stitle=Document&wh=AC&id=";
 
 

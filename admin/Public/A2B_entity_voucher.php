@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -156,7 +156,6 @@ if ($form_action == "list") {
 
 /********************************* BATCH UPDATE ***********************************/
 if ($form_action == "list" && (!($popup_select>=1))	) {
-
     $instance_table_tariff = new Table("cc_tariffgroup", "id, tariffgroupname");
     $FG_TABLE_CLAUSE = "";
     $list_tariff = $instance_table_tariff -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
@@ -170,9 +169,17 @@ if ($form_action == "list" && (!($popup_select>=1))	) {
 
 <center>
 <b>&nbsp;<?php echo $HD_Form -> FG_NB_RECORD ?> <?php echo gettext("vouchers selected!"); ?>&nbsp;<?php echo gettext("Use the options below to batch update the selected vouchers.");?></b>
-       <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
+    <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
         <tbody>
-        <form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+        <form name="updateForm" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>" method="post">
+        <?php
+            if ($HD_Form->FG_CSRF_STATUS == true) {
+        ?>
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+        <?php
+            }
+        ?>
         <INPUT type="hidden" name="batchupdate" value="1">
         <tr>
           <td align="left" class="bgcolor_001" >
@@ -251,9 +258,9 @@ if ($form_action == "list" && (!($popup_select>=1))	) {
             </td>
         </tr>
         </form>
-        </table>
+    </table>
 </center>
-    </div>
+</div>
 </div>
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
 <?php

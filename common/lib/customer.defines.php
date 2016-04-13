@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -31,26 +31,35 @@
  *
 **/
 
-define ("PHP_QUICK_PROFILER", false);
-// Include PHP-Quick-Profiler
-require_once 'PhpQuickProfiler.php';
-$profiler = new PhpQuickProfiler(PhpQuickProfiler::getMicroTime());
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+/* prevent XSS */
+$_GET   = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+$_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+// $PHPSELF = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);
 
 define ("WRITELOG_QUERY",false);
 define ("FSROOT", substr(dirname(__FILE__),0,-3));
 define ("LIBDIR", FSROOT."lib/");
 
+// INCLUDE MISC
+include (FSROOT."lib/Misc.php");
+
+sanitize_post_get();
+
+define ("PHP_QUICK_PROFILER", false);
+// Include PHP-Quick-Profiler
+require_once 'PhpQuickProfiler.php';
+$profiler = new PhpQuickProfiler(PhpQuickProfiler::getMicroTime());
+
 include (FSROOT."lib/interface/constants.php");
 include_once (dirname(__FILE__)."/Class.A2Billing.php");
-require_once 'adodb/adodb.inc.php'; // AdoDB
 include_once (dirname(__FILE__)."/Class.Table.php");
 include_once (dirname(__FILE__)."/Class.Connection.php");
 include_once (dirname(__FILE__)."/Class.Realtime.php");
 
 // USE PHPMAILER
 include_once (FSROOT."lib/mail/class.phpmailer.php");
-// INCLUDE FILES
-include (FSROOT."lib/Misc.php");
 include (dirname(__FILE__)."/Class.NotificationsDAO.php");
 include (dirname(__FILE__)."/Class.Notification.php");
 include (dirname(__FILE__)."/Class.Mail.php");

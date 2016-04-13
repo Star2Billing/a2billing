@@ -5,3 +5,8 @@
 *devserver*
 *sublime*
 *~
+
+# PhpStorm
+.idea/
+*.iml
+/vendor/

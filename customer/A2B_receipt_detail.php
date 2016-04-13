@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -147,7 +147,7 @@ function amount_convert($amount)
                     <?php echo $item->getDescription(); ?>
                 </td>
                 <td align="right">
-                    <?php echo number_format(round(amount_convert($item->getPrice()),6),6); ?>
+                    <?php echo number_format(amount_convert($item->getPrice()),6); ?>
                 </td>
             </tr>
              <?php  $i++;} ?>
@@ -165,20 +165,28 @@ function amount_convert($amount)
     <tr>
       <td colspan="3">
         <table class="total">
-         <tbody>
-         <?php if ($nb_page>1) { ?>
-         <tr class="extotal">
-           <td class="one"></td>
-           <td class="two"><?php echo gettext("Total Page");" "+$page ?></td>
-           <td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(ceil(amount_convert(ceil($price*100)/100)*100)/100,2)." $display_curr"; ?></div></div></td>
-         </tr>
-         <?php } else { ?>
-         <?php } ?>
-         <tr class="inctotal">
-           <td class="one"></td>
-           <td class="two"><?php echo gettext("Total Receipt :") ?></td>
-           <td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(ceil(amount_convert(ceil($totalprice*100)/100)*100)/100,2)." $display_curr"; ?></div></div></td>
-         </tr>
+          <tbody>
+          <?php if ($nb_page>1) { ?>
+          <tr class="extotal">
+            <td class="one"></td>
+            <td class="two"><?php echo gettext("Total Page");" "+$page ?></td>
+            <td class="three">
+              <div class="inctotal inner">
+                <?php echo number_format(amount_convert($price),2)." $display_curr"; ?></div>
+              </div>
+            </td>
+          </tr>
+          <?php } else { ?>
+          <?php } ?>
+          <tr class="inctotal">
+            <td class="one"></td>
+            <td class="two"><?php echo gettext("Total Receipt :") ?></td>
+            <td class="three">
+              <div class="inctotal inner">
+                <?php echo number_format(amount_convert($totalprice),2)." $display_curr"; ?>
+              </div>
+            </td>
+          </tr>
         </tbody></table>
       </td>
     </tr>

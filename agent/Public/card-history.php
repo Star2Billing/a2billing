@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -318,7 +318,7 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
                    <td class="tableBody" style="padding: 2px;" align="center" width="<?php echo $FG_TABLE_COL[$i][2]?>" >
                         <strong>
                         <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT") {?>
-                        <a href="<?php  echo $_SERVER['PHP_SELF']."?stitle=$stitle&atmenu=$atmenu&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens="; if ($FG_SENS=="ASC") {echo"DESC";} else {echo"ASC";}
+                        <a href="<?php  echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?stitle=$stitle&atmenu=$atmenu&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens="; if ($FG_SENS=="ASC") {echo"DESC";} else {echo"ASC";}
                         echo "&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday";?>">
                         <font color="#FFFFFF"><?php  } ?>
                         <?php echo $FG_TABLE_COL[$i][0]?>

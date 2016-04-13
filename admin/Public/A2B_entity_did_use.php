@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -65,10 +65,19 @@ switch ($actionbtn) {
     case "release_did":
     echo $CC_help_release_did;
     ?>
-    <FORM action=<?php echo $_SERVER['PHP_SELF']?> id=form1 method=post name=form1>
+    <FORM action=<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?> id=form1 method=post name=form1>
         <INPUT type="hidden" name="did" value="<?php echo $did?>">
         <INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
-        <INPUT type="hidden" name="actionbtn" value="ask_release"><br><br>
+        <INPUT type="hidden" name="actionbtn" value="ask_release">
+        <?php
+            if ($HD_Form->FG_CSRF_STATUS == true) {
+        ?>
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+        <?php
+            }
+        ?>
+        <br><br>
         <br><br>
         <TABLE cellspacing="0" class="delform_table5">
             <tr>
@@ -105,12 +114,22 @@ switch ($actionbtn) {
 if (!isset($actionbtn) || $actionbtn=="ask_release") {
 
 echo $CC_help_list_did_use;
+
 if (!isset($inuse) || $inuse=="")$inuse=1;
 /*<!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->*/?>
     <center>
     <FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
-    <INPUT TYPE="hidden" NAME="posted" value=1>
-    <INPUT TYPE="hidden" NAME="current_page" value=0>
+        <INPUT TYPE="hidden" NAME="posted" value="1">
+        <INPUT TYPE="hidden" NAME="current_page" value="0">
+        <?php
+            if ($HD_Form->FG_CSRF_STATUS == true) {
+        ?>
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+        <?php
+            }
+        ?>
+
         <table class="bar-status" width="85%" border="0" cellspacing="1" cellpadding="2" align="center">
         <tbody>
         <tr>

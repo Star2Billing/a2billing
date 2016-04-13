@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -90,65 +90,74 @@ if (is_array($result)) {
 }
 
 ?>
-<FORM name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" METHOD="POST">
-<input name="mailtype" value="<?php echo $mailtype; ?>" type="hidden">
+<FORM name="theForm" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL) ?>" METHOD="POST">
+<INPUT name="mailtype" value="<?php echo $mailtype; ?>" type="hidden">
+
+<?php
+    if ($HD_Form->FG_CSRF_STATUS == true) {
+?>
+    <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+    <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+<?php
+    }
+?>
 
 <table cellspacing="2" class="addform_table1">
-     <TBODY>
-        <TR>
-            <TD width="%25" valign="middle" class="form_head"> <?php echo gettext('Language');?> </TD>
-            <TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" class="text">
-                <select NAME="languages" size="1" class="form_input_select" onChange="form.submit()">
+    <TBODY>
+    <TR>
+        <TD width="%25" valign="middle" class="form_head"> <?php echo gettext('Language');?> </TD>
+        <TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" class="text">
+            <select NAME="languages" size="1" class="form_input_select" onChange="form.submit()">
+            <?php
+                foreach ($languages_list as $key => $lang_value) {
+            ?>
+            <option value='<?php echo $lang_value[0];?>'
                 <?php
-                    foreach ($languages_list as $key => $lang_value) {
-                ?>
-                <option value='<?php echo $lang_value[0];?>'
-                    <?php
-                    if ($mail[0][4] != '') {
-                        if ($lang_value[0]==$mail[0][4]) {print "selected";}
-                    } else {
-                        if ($lang_value[0]==$languages) {print "selected";}
-                    }?>><?php echo $lang_value[1]; ?></option>
-                <?php }?>
-                </select>
-                <span class="liens">
-            </span>
-            </TD>
-        </TR>
-
-        <TR>
-            <TD width="%25" valign="middle" class="form_head"> <?php echo gettext('Subject');?> </TD>
-            <TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" class="text">
-            <INPUT class="form_input_text" name="subject"  size=30 maxlength=30 value="<?php echo $mail[0][2]?>">
+                if ($mail[0][4] != '') {
+                    if ($lang_value[0]==$mail[0][4]) {print "selected";}
+                } else {
+                    if ($lang_value[0]==$languages) {print "selected";}
+                }?>><?php echo $lang_value[1]; ?></option>
+            <?php }?>
+            </select>
             <span class="liens">
-            </span>
-            </TD>
-        </TR>
+        </span>
+        </TD>
+    </TR>
 
-        <TR>
-            <TD width="%25" valign="middle" class="form_head"> <?php echo gettext('Mail Text');?> </TD>
-            <TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" class="text">
-            <TEXTAREA class="form_input_textarea" name="mailtext" cols=60 rows=12><?php echo $mail[0][3]?></TEXTAREA>
-            <span class="liens">
-            </span>
-            </TD>
-        </TR>
-</table>
-      <TABLE cellspacing="0" class="editform_table8">
-        <tr>
-         <td colspan="2" class="editform_dotted_line">&nbsp; </td>
-        </tr>
+    <TR>
+        <TD width="%25" valign="middle" class="form_head"> <?php echo gettext('Subject');?> </TD>
+        <TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" class="text">
+        <INPUT class="form_input_text" name="subject"  size=30 maxlength=30 value="<?php echo $mail[0][2]?>">
+        <span class="liens">
+        </span>
+        </TD>
+    </TR>
 
-        <tr>
-            <td width="50%" class="text_azul"><span class="tableBodyRight"><?php echo gettext('Once you have completed the form above, click on the Translate button.');?></span></td>
-            <td width="50%" align="right" class="text">
-        <input class="form_input_button" TYPE="submit" name="translate_data" VALUE="translate">
-            </td>
-        </tr>
+    <TR>
+        <TD width="%25" valign="middle" class="form_head"> <?php echo gettext('Mail Text');?> </TD>
+        <TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" class="text">
+        <TEXTAREA class="form_input_textarea" name="mailtext" cols=60 rows=12><?php echo $mail[0][3]?></TEXTAREA>
+        <span class="liens">
+        </span>
+        </TD>
+    </TR>
+    </table>
+    <TABLE cellspacing="0" class="editform_table8">
+    <tr>
+     <td colspan="2" class="editform_dotted_line">&nbsp; </td>
+    </tr>
 
-      </TABLE>
-      <INPUT type="hidden" name="id" value="<?php echo $id?>">
-    </form>
+    <tr>
+        <td width="50%" class="text_azul"><span class="tableBodyRight"><?php echo gettext('Once you have completed the form above, click on the Translate button.');?></span></td>
+        <td width="50%" align="right" class="text">
+    <input class="form_input_button" TYPE="submit" name="translate_data" VALUE="translate">
+        </td>
+    </tr>
+
+    </TABLE>
+    <INPUT type="hidden" name="id" value="<?php echo $id?>">
+</form>
 
 <?php
 

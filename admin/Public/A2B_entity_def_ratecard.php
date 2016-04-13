@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -236,13 +236,10 @@ if (isset ($update_msg) && strlen($update_msg) > 0)
 if ($popup_select && empty($package) && !is_numeric($package) ) {
 ?>
 <SCRIPT LANGUAGE="javascript">
-<!-- Begin
-function sendValue(selvalue)
-{
+function sendValue(selvalue) {
     window.opener.document.<?php echo $popup_formname ?>.<?php echo $popup_fieldname ?>.value = selvalue;
     window.close();
 }
-// End -->
 </script>
 <?php
 
@@ -252,13 +249,11 @@ if ($popup_select && is_numeric($package)) {
 $HD_Form-> CV_FOLLOWPARAMETERS .= "&package=".$package;
 ?>
 <SCRIPT LANGUAGE="javascript">
-<!-- Begin
 function sendValue(selvalue)
 {
      // redirect browser to the grabbed value (hopefully a URL)
     window.opener.location.href= <?php echo '"A2B_package_manage_rates.php?id='.$package.'&addrate="'; ?>+selvalue;
 }
-// End -->
 </script>
 <?php
 }
@@ -297,11 +292,11 @@ if ($form_action == "list" && !$popup_select) {
 <div class="toggle_hide2show">
 <center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("BATCH UPDATE");?> </font></a></center>
     <div class="tohide" style="display:none;">
-
 <center>
+
 <b>&nbsp;<?php echo $HD_Form -> FG_NB_RECORD ?> <?php echo gettext("rates selected!"); ?>&nbsp;<?php echo gettext("Use the options below to batch update the selected rates.");?></b>
-       <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
-        <form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+<table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
+    <FORM name="updateForm" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>" method="post">
         <INPUT type="hidden" name="batchupdate" value="1">
         <INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
         <INPUT type="hidden" name="popup_select" value="<?php echo $popup_select?>">
@@ -310,7 +305,15 @@ if ($form_action == "list" && !$popup_select) {
         <INPUT type="hidden" name="form_action" value="<?php echo $form_action?>">
         <INPUT type="hidden" name="filterprefix" value="<?php echo $filterprefix?>">
         <INPUT type="hidden" name="filterfield" value="<?php echo $filterfield?>">
-		<tr>
+        <?php
+            if ($HD_Form->FG_CSRF_STATUS == true) {
+        ?>
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+        <?php
+            }
+        ?>
+        <tr>
           <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_is_disabled]" type="checkbox" <?php if ($check["upd_is_disabled"]=="on") echo "checked"?>>
 		  </td>
@@ -382,20 +385,19 @@ if ($form_action == "list" && !$popup_select) {
            foreach ($update_fields as $value) {
            ?>
           <td align="left" class="bgcolor_001">
-                                <input name="check[<?php echo $value;?>]" type="checkbox" <?php if ($check[$value]=="on") echo "checked"?>>
-                                <input name="mode[<?php echo $value;?>]" type="hidden" value="2">
-                  </td>
-                  <td align="left"  class="bgcolor_001">
-
-                                <font class="fontstyle_009"><?php echo ($index + 4).") ".gettext($update_fields_info[$index]);?> :</font>
-                                        <input class="form_input_text" name="<?php echo $value;?>" size="10" maxlength="10"  value="<?php if (isset(${$value})) echo ${$value}; else echo '0';?>" >
-                                <font class="version">
-                                <input type="radio" NAME="type[<?php echo $value;?>]" value="1" <?php if ((!isset($type[$value]))|| ($type[$value]==1) ) {?>checked<?php }?>> <?php echo gettext("Equal");?>
-                                <input type="radio" NAME="type[<?php echo $value;?>]" value="2" <?php if ($type[$value]==2) {?>checked<?php }?>> <?php echo gettext("Add");?>
-                                <input type="radio" NAME="type[<?php echo $value;?>]" value="3" <?php if ($type[$value]==3) {?>checked<?php }?>> <?php echo gettext("Subtract");?>
-                                </font>
-                        </td>
-               </tr>
+                <input name="check[<?php echo $value;?>]" type="checkbox" <?php if ($check[$value]=="on") echo "checked"?>>
+                <input name="mode[<?php echo $value;?>]" type="hidden" value="2">
+              </td>
+              <td align="left"  class="bgcolor_001">
+                  <font class="fontstyle_009"><?php echo ($index + 4).") ".gettext($update_fields_info[$index]);?> :</font>
+                            <input class="form_input_text" name="<?php echo $value;?>" size="10" maxlength="10"  value="<?php if (isset(${$value})) echo ${$value}; else echo '0';?>" >
+                  <font class="version">
+                    <input type="radio" NAME="type[<?php echo $value;?>]" value="1" <?php if ((!isset($type[$value]))|| ($type[$value]==1) ) {?>checked<?php }?>> <?php echo gettext("Equal");?>
+                    <input type="radio" NAME="type[<?php echo $value;?>]" value="2" <?php if ($type[$value]==2) {?>checked<?php }?>> <?php echo gettext("Add");?>
+                    <input type="radio" NAME="type[<?php echo $value;?>]" value="3" <?php if ($type[$value]==3) {?>checked<?php }?>> <?php echo gettext("Subtract");?>
+                  </font>
+                </td>
+            </tr>
             <?php $index=$index+1;
             }?>
         <tr>
@@ -411,27 +413,26 @@ if ($form_action == "list" && !$popup_select) {
         </tr>
 
         <tr>
-           <?php
-           $index=0;
-           foreach ($charges_abc as $value) {
-           ?>
+            <?php
+            $index=0;
+            foreach ($charges_abc as $value) {
+            ?>
           <td align="left" class="bgcolor_001">
-                                <input name="check[<?php echo $value;?>]" type="checkbox" <?php if ($check[$value]=="on") echo "checked"?>>
-                                <input name="mode[<?php echo $value;?>]" type="hidden" value="2">
-                  </td>
-                  <td align="left"  class="bgcolor_001">
-
-                                <font class="fontstyle_009"><?php echo ($index+16).") ".gettext($charges_abc_info[$index]);?> :</font>
-                                        <input class="form_input_text" name="<?php echo $value;?>" size="10" maxlength="10"  value="<?php if (isset(${$value})) echo ${$value}; else echo '0';?>" >
-                                <font class="version">
-                                <input type="radio" NAME="type[<?php echo $value;?>]" value="1" <?php if ((!isset($type[$value]))|| ($type[$value]==1) ) {?>checked<?php }?>> <?php echo gettext("Equal");?>
-                                <input type="radio" NAME="type[<?php echo $value;?>]" value="2" <?php if ($type[$value]==2) {?>checked<?php }?>> <?php echo gettext("Add");?>
-                                <input type="radio" NAME="type[<?php echo $value;?>]" value="3" <?php if ($type[$value]==3) {?>checked<?php }?>> <?php echo gettext("Subtract");?>
-                                </font>
-                        </td>
-               </tr>
-               <?php $index=$index+1;
-               }?>
+              <input name="check[<?php echo $value;?>]" type="checkbox" <?php if ($check[$value]=="on") echo "checked"?>>
+              <input name="mode[<?php echo $value;?>]" type="hidden" value="2">
+          </td>
+              <td align="left"  class="bgcolor_001">
+                <font class="fontstyle_009"><?php echo ($index+16).") ".gettext($charges_abc_info[$index]);?> :</font>
+                    <input class="form_input_text" name="<?php echo $value;?>" size="10" maxlength="10"  value="<?php if (isset(${$value})) echo ${$value}; else echo '0';?>" >
+                <font class="version">
+                <input type="radio" NAME="type[<?php echo $value;?>]" value="1" <?php if ((!isset($type[$value]))|| ($type[$value]==1) ) {?>checked<?php }?>> <?php echo gettext("Equal");?>
+                <input type="radio" NAME="type[<?php echo $value;?>]" value="2" <?php if ($type[$value]==2) {?>checked<?php }?>> <?php echo gettext("Add");?>
+                <input type="radio" NAME="type[<?php echo $value;?>]" value="3" <?php if ($type[$value]==3) {?>checked<?php }?>> <?php echo gettext("Subtract");?>
+                </font>
+              </td>
+              </tr>
+              <?php $index=$index+1;
+            }?>
         <tr>
             <td align="right" class="bgcolor_001">
             </td>
@@ -439,8 +440,8 @@ if ($form_action == "list" && !$popup_select) {
                 <input class="form_input_button"  value=" <?php echo gettext("BATCH UPDATE RATECARD");?> " type="submit">
             </td>
         </tr>
-        </form>
-        </table>
+    </form>
+</table>
 </center>
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
     </div>
@@ -479,13 +480,16 @@ if ($popup_select) {
 
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
 <div class="toggle_hide2show">
-<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("BATCH ASSIGNED");?> </font></a></center>
+<center>
+    <a href="#" target="_self" class="toggle_menu">
+    <img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16">
+    <font class="fontstyle_002"><?php echo gettext("BATCH ASSIGNED");?> </font></a></center>
     <div class="tohide" style="display:none;">
 <center>
 
 <b>&nbsp;<?php echo $HD_Form -> FG_NB_RECORD ?> <?php echo gettext("rates selected!"); ?>&nbsp;<?php echo gettext("Use the options below to batch update the selected rates.");?></b>
-       <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
-        <form name="assignForm" action="javascript:;" method="post">
+<table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
+    <FORM name="assignForm" action="javascript:;" method="post">
         <INPUT type="hidden" name="batchupdate" value="1">
         <INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
         <INPUT type="hidden" name="popup_select" value="<?php echo $popup_select?>">
@@ -495,6 +499,15 @@ if ($popup_select) {
         <INPUT type="hidden" name="filterprefix" value="<?php echo $filterprefix?>">
         <INPUT type="hidden" name="filterfield" value="<?php echo $filterfield?>">
         <INPUT type="hidden" name="addbatchrate" value="1">
+
+        <?php
+            if ($HD_Form->FG_CSRF_STATUS == true) {
+        ?>
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+        <?php
+            }
+        ?>
 
         <tr>
           <td align="left" class="bgcolor_001">
@@ -569,13 +582,12 @@ if ($popup_select) {
                 <input onclick="javascript:sendOpener();" class="form_input_button"  value=" <?php echo gettext("BATCH ASSIGNED");?> " type="submit">
             </td>
         </tr>
-        </form>
-        </table>
+    </form>
+</table>
 </center>
 
 <script language="javascript">
-function sendOpener()
-{
+function sendOpener() {
     if (document.assignForm.check[0].checked==true) {
         var id_trunk = document.assignForm.assign_id_trunk.options[document.assignForm.assign_id_trunk.selectedIndex].value;
     }

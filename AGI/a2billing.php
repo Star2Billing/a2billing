@@ -9,7 +9,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -39,14 +39,19 @@ if (function_exists('pcntl_signal')) {
 
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
-include(dirname(__FILE__) . "/lib/admin.defines.php");
+require_once __DIR__ . '/../vendor/autoload.php';
+
+include(dirname(__FILE__) . "/lib/Class.Table.php");
+include(dirname(__FILE__) . "/lib/Class.A2Billing.php");
 include(dirname(__FILE__) . "/lib/Class.RateEngine.php");
 include(dirname(__FILE__) . "/lib/phpagi/phpagi.php");
 include(dirname(__FILE__) . "/lib/phpagi/phpagi-asmanager.php");
+include(dirname(__FILE__) . "/lib/Misc.php");
+include(dirname(__FILE__) . "/lib/interface/constants.php");
 
 $charge_callback = 0;
 $G_startime = time();
-$agi_version = "A2Billing - v2.0.7";
+$agi_version = "A2Billing - v2.2.0";
 
 if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-v')) {
     echo "$agi_version\n";
@@ -412,8 +417,8 @@ if ($mode == 'standard') {
                 }
             }
 
-            $A2B->dnid = $agi->request['agi_dnid'];
-            $A2B->extension = $agi->request['agi_extension'];
+            $A2B->dnid = $A2B->orig_dnid;
+            $A2B->extension = $A2B->orig_ext;
 
             if ($A2B->agiconfig['ivr_voucher'] == 1) {
                 $res_dtmf = $agi->get_data('prepaid-refill_card_with_voucher', 5000, 1);
@@ -576,16 +581,18 @@ if ($mode == 'standard') {
 
                     $A2B->debug(INFO, $agi, __FILE__, __LINE__, "[ CALL OF THE SYSTEM - [DID=" . $A2B->destination . "]");
 
-                    $QUERY = "SELECT cc_did.id, cc_did_destination.id, billingtype, tariff, destination, voip_call, username, useralias, connection_charge, selling_rate, did, ".
-                            " aleg_carrier_connect_charge, aleg_carrier_cost_min, aleg_retail_connect_charge, aleg_retail_cost_min, ".
+                    $QUERY = "SELECT cc_did.id, cc_did_destination.id, billingtype, tariff, destination, voip_call, username, useralias, connection_charge, ".
+                            " selling_rate, did, aleg_carrier_connect_charge, aleg_carrier_cost_min, aleg_retail_connect_charge, aleg_retail_cost_min, ".
                             " aleg_carrier_initblock, aleg_carrier_increment, aleg_retail_initblock, aleg_retail_increment, ".
                             " aleg_timeinterval, ".
                             " aleg_carrier_connect_charge_offp, aleg_carrier_cost_min_offp, aleg_retail_connect_charge_offp, aleg_retail_cost_min_offp, ".
                             " aleg_carrier_initblock_offp, aleg_carrier_increment_offp, aleg_retail_initblock_offp, aleg_retail_increment_offp, ".
                             " cc_card.id ".
                             " FROM cc_did, cc_did_destination, cc_card ".
-                            " WHERE id_cc_did=cc_did.id AND cc_card.status=1 AND cc_card.id=id_cc_card and cc_did_destination.activated=1 AND cc_did.activated=1 AND did='" . $A2B->destination . "' ".
-                            " AND cc_did.startingdate <= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL ".
+                            " WHERE id_cc_did=cc_did.id AND cc_card.status=1 AND cc_card.id=id_cc_card and cc_did_destination.activated=1 ".
+                            " AND cc_did.activated=1 AND did='" . $A2B->destination . "' ".
+                            " AND cc_did.startingdate <= CURRENT_TIMESTAMP ".
+                            " AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL ".
                             " AND cc_did_destination.validated = 1 ";
                     if ($A2B->config["database"]['dbtype'] == "mysql") {
                         $QUERY .= " OR cc_did.expirationdate = '0000-00-00 00:00:00'";
@@ -625,22 +632,22 @@ if ($mode == 'standard') {
     $RateEngine->Reinit();
     $A2B->Reinit();
 
-    $mydnid = $agi->request['agi_extension'];
-    if ($A2B->CC_TESTING) $mydnid = '11111111';
+    $mydnid = $A2B->orig_ext;
 
     if (strlen($mydnid) > 0) {
         $A2B->debug(INFO, $agi, __FILE__, __LINE__, "[DID CALL - [CallerID=" . $A2B->CallerID . "]:[DID=" . $mydnid . "]");
 
-        $QUERY = "SELECT cc_did.id, cc_did_destination.id, billingtype, tariff, destination, voip_call, username, useralias, connection_charge, selling_rate, did, ".
-                    " aleg_carrier_connect_charge, aleg_carrier_cost_min, aleg_retail_connect_charge, aleg_retail_cost_min, ".
-                    " aleg_carrier_initblock, aleg_carrier_increment, aleg_retail_initblock, aleg_retail_increment, ".
-                    " aleg_timeinterval, ".
-                    " aleg_carrier_connect_charge_offp, aleg_carrier_cost_min_offp, aleg_retail_connect_charge_offp, aleg_retail_cost_min_offp, ".
-                    " aleg_carrier_initblock_offp, aleg_carrier_increment_offp, aleg_retail_initblock_offp, aleg_retail_increment_offp ".
-                    " FROM cc_did, cc_did_destination, cc_card ".
-                    " WHERE id_cc_did=cc_did.id and cc_card.status=1 and cc_card.id=id_cc_card and cc_did_destination.activated=1 and cc_did.activated=1 and did='$mydnid' ".
-                    " AND cc_did.startingdate<= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL ".
-                    " AND cc_did_destination.validated=1";
+        $QUERY = "SELECT cc_did.id, cc_did_destination.id, billingtype, tariff, destination, voip_call, username, useralias, connection_charge, ".
+            " selling_rate, did, aleg_carrier_connect_charge, aleg_carrier_cost_min, aleg_retail_connect_charge, aleg_retail_cost_min, ".
+            " aleg_carrier_initblock, aleg_carrier_increment, aleg_retail_initblock, aleg_retail_increment, ".
+            " aleg_timeinterval, ".
+            " aleg_carrier_connect_charge_offp, aleg_carrier_cost_min_offp, aleg_retail_connect_charge_offp, aleg_retail_cost_min_offp, ".
+            " aleg_carrier_initblock_offp, aleg_carrier_increment_offp, aleg_retail_initblock_offp, aleg_retail_increment_offp ".
+            " FROM cc_did, cc_did_destination, cc_card ".
+            " WHERE id_cc_did=cc_did.id AND cc_card.status=1 AND cc_card.id=id_cc_card AND cc_did_destination.activated=1 ".
+            " AND cc_did.activated=1 AND did='$mydnid' ".
+            " AND cc_did.startingdate<= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL ".
+            " AND cc_did_destination.validated=1";
         if ($A2B->config["database"]['dbtype'] != "postgres") {
             // MYSQL
             $QUERY .= " OR cc_did.expirationdate = '0000-00-00 00:00:00'";

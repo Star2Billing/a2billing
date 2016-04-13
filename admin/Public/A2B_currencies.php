@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -50,10 +50,11 @@ $HD_Form -> init();
 
 /********************************* BATCH UPDATE CURRENCY TABLE ***********************************/
 $A2B -> DBHandle = $HD_Form -> DBHandle;
+
 if ($updatecurrency == 1) {
-
+    // Check demo mode
     check_demo_mode();
-
+    // Update Currencies
     $instance_table = new Table();
     $A2B -> set_instance_table ($instance_table);
     $return = currencies_update_yahoo($A2B -> DBHandle, $A2B -> instance_table);
@@ -78,8 +79,16 @@ echo $CC_help_currency;
 ?>
 <div align="center">
 <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
-    <form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+    <FORM name="updateForm" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>" method="post">
     <INPUT type="hidden" name="updatecurrency" value="1">
+    <?php
+        if ($HD_Form->FG_CSRF_STATUS == true) {
+    ?>
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+        <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+    <?php
+        }
+    ?>
     <tr>
       <td align="center"  class="bgcolor_001">
         &nbsp;<?php echo gettext("THE CURRENCY LIST IS BASED FROM YAHOO FINANCE"); ?>&nbsp;:

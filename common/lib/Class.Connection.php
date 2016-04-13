@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Rachid <rachid.belaid@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -44,17 +44,15 @@ class Connection
         if (DB_TYPE == "postgres") {
             $datasource = 'pgsql://' . USER . ':' . PASS . '@' . HOST . '/' . DBNAME;
         } else {
-            $datasource = 'mysql://' . USER . ':' . PASS . '@' . HOST . '/' . DBNAME;
+            $datasource = 'mysqli://' . USER . ':' . PASS . '@' . HOST . '/' . DBNAME;
         }
 
         $DBHandle = NewADOConnection($datasource);
         if (!$DBHandle)
             die("Connection failed");
 
-        if (DB_TYPE == "mysqli") {
+        if (DB_TYPE == "mysql") {
             $DBHandle->Execute('SET AUTOCOMMIT=1');
-        }
-        if (DB_TYPE == "mysqli" || DB_TYPE == "mysql") {
             $DBHandle->Execute("SET NAMES 'UTF8'");
         }
 
@@ -66,7 +64,6 @@ class Connection
         if (empty (self :: $DBHandler)) {
             $connection = new Connection();
         }
-
         return self :: $DBHandler;
     }
 
@@ -77,7 +74,6 @@ class Connection
         } else {
             $connection = self :: $DBHandler;
         }
-
         if (DB_TYPE == "postgres") {
             if (empty (self :: $MytoPgklass)) {
                 self :: $MytoPgklass = new MytoPg(0);
@@ -86,8 +82,6 @@ class Connection
             // convert MySQLisms to be Postgres compatible
             self :: $MytoPgklass -> My_to_Pg($QUERY);
         }
-
         return $connection -> Execute($QUERY);
     }
-
 }

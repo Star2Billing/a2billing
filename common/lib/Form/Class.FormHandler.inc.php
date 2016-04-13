@@ -543,23 +543,44 @@ class FormHandler
 
 		$this -> set_regular_expression();
 
-		$this->_action = $action ? $action : $_SERVER['PHP_SELF'];
+		$this ->_action = $action ? $action : filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);
 
         // If anti CSRF protection is enabled
         if ($this->FG_CSRF_STATUS == true) {
             // Initializing anti csrf token (Generate a key, concat it with salt and hash it)
             $this -> FG_CSRF_TOKEN_KEY = $this->genCsrfTokenKey();
-            $this -> FG_CSRF_TOKEN     = $this->FG_CSRF_TOKEN_SALT.$this->FG_CSRF_TOKEN_KEY;
-            $this -> FG_CSRF_TOKEN     = hash('SHA256', $this->FG_CSRF_TOKEN);
+            $this -> FG_CSRF_TOKEN = $this->FG_CSRF_TOKEN_SALT.$this->FG_CSRF_TOKEN_KEY;
+            $this -> FG_CSRF_TOKEN = hash('SHA256', $this->FG_CSRF_TOKEN);
+            $this -> FG_FORM_UNIQID = uniqid();
+            // print $this -> FG_FORM_UNIQID;
+            // echo "<br/>------_POST-------<br/>";
+            // print_r($_POST);
+            // echo "<br/>-------_SESSION------<br/>";
+            // print_r($_SESSION);
 
-            $this -> FG_FORM_UNIQID                                   = uniqid();
-            $this -> FG_FORM_RECEIVED_UNIQID                          = $_POST[$this->FG_FORM_UNIQID_FIELD];
-            $this -> FG_CSRF_RECEIVED_TOKEN                           = $_SESSION[$this->FG_FORM_RECEIVED_UNIQID]['CSRF_TOKEN'];
-            $_SESSION['CSRF_TOKEN'][$this->FG_FORM_RECEIVED_UNIQID] = $this->FG_CSRF_TOKEN;
+            $this -> FG_FORM_RECEIVED_UNIQID = $_POST[$this->FG_FORM_UNIQID_FIELD];
+            $this -> FG_FORM_RECEIVED_TOKEN = $_POST[$this->FG_CSRF_FIELD];
+            $this -> FG_CSRF_RECEIVED_TOKEN = $_SESSION['CSRF_TOKEN'][$this->FG_FORM_RECEIVED_UNIQID];
+            $_SESSION['CSRF_TOKEN'][$this->FG_FORM_UNIQID] = $this->FG_CSRF_TOKEN;
+            // echo "<br/>------_SESSION::-------<br/>";
+            // print_r($_SESSION);
 
             if ($this->FG_DEBUG) {
+                echo 'FG_FORM_UNIQID : '.$this->FG_FORM_UNIQID.'<br />';
                 echo 'CSRF NEW TOKEN : '.$this->FG_CSRF_TOKEN.'<br />';
                 echo 'CSRF RECEIVED TOKEN : '.$this->FG_CSRF_RECEIVED_TOKEN.'<br />';
+            }
+            if (!empty($_POST)) {
+                // Check CSRF
+                if (!$this -> FG_CSRF_RECEIVED_TOKEN or
+                    ($this -> FG_CSRF_RECEIVED_TOKEN != $this -> FG_FORM_RECEIVED_TOKEN)){
+                    echo "CSRF Error!";
+                    exit();
+                } else {
+                    //Remove key from the session
+                    // echo "Remove key from the session";
+                    unset($_SESSION['CSRF_TOKEN'][$this->FG_FORM_RECEIVED_UNIQID]);
+                }
             }
         }
 
@@ -595,7 +616,6 @@ class FormHandler
 		if($this -> FG_ENABLE_LOG == 1) {
 			$this -> logger = new Logger();
 		}
-
 	}
 
 
@@ -651,8 +671,8 @@ class FormHandler
 		$ext_link ='';
 		if (is_numeric($processed['current_page']))$ext_link.="&current_page=".$processed['current_page'];
 		if (!empty($processed['order']) && !empty($processed['sens']))$ext_link.="&order=".$processed['order']."&sens=".$processed['sens'];
-		$this -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit".$ext_link."&id=";
-		$this -> FG_DELETION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-delete".$ext_link."&id=";
+		$this -> FG_EDITION_LINK	= filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?form_action=ask-edit".$ext_link."&id=";
+		$this -> FG_DELETION_LINK	= filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?form_action=ask-delete".$ext_link."&id=";
 
 		$this -> FG_DELETE_ALT = gettext("Delete this ").$this -> FG_INSTANCE_NAME;
 		$this -> FG_EDIT_ALT = gettext("Edit this ").$this -> FG_INSTANCE_NAME;
@@ -708,7 +728,7 @@ class FormHandler
 		return $this->_processed;
 	}
 
-	function cleanInput($input)
+	function sanitize_tag($input)
 	{
 		$search = array(
 		    '@<script[^>]*?>.*?</script>@si',   // Strip out javascript
@@ -736,7 +756,6 @@ class FormHandler
 	 * @ 6. $char_limit
 	 * @ 7. $lie_type ("lie", "list") , where lie is used for sql. ( TODO : any reason to keep lie instead of sql ?.)
 	 * @ 8. $lie_with (SQL query with the tag '%1' || a defined list: $tablelist["nbcode"] )
-
 	 * OLD
 	 * @ 8. $lie_with tablename
 	 * @ 9. $lie_fieldname
@@ -865,11 +884,9 @@ class FormHandler
 	 * @.8 $feed_selectfield - if the fieldtype = SELECT, [define a sql to feed it] OR [define a array to use]
 	 * @.9 $displayformat_selectfield - if the fieldtype = SELECT and fieldname of sql > 1 is useful to define the format to show the data (ie: "%1 : (%2)")
 	 * @.10 $config_radiobouttonfield - if the fieldtype = RADIOBUTTON : config format - valuename1 :value1, valuename2 :value2,...  (ie: "Yes :t, - No:f")
-
 	 * @.12 $check_emptyvalue - ("no" or "yes") if "no" we we check the regularexpression only if a value has been entered
 	 * @.13 $attach2table - yes
 	 * @.14 $attach2table_conf - "doc_tariff:call_tariff_id:call_tariff:webm_retention, id, country_id:id IN (select call_tariff_id from doc_tariff where document_id = %id) AND cttype='PHONE':document_id:%1 - (%3):2:country:label, id:%1:id='%1'"
-
 	 * @.END $comment - set a comment to display below the field
      */
 
@@ -1151,14 +1168,14 @@ class FormHandler
 			case "ask-add":
 			case "add":
 			   if(!$this->FG_ADDITION){
-			   		Header ("Location: ". $_SERVER['PHP_SELF']);
+			   		Header ("Location: ". filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL));
 			   		die();
 			   	}
 			   break;
 			case "ask-edit":
 			case "edit":
 				 if(!$this->FG_EDITION){
-			   		Header ("Location: ". $_SERVER['PHP_SELF']);
+			   		Header ("Location: ". filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL));
 			   		die();
 			   	}
 			   break;
@@ -1166,7 +1183,7 @@ class FormHandler
 			case "ask-delete":
 			case "delete":
 			   if(!$this->FG_DELETION){
-			   		Header ("Location: ". $_SERVER['PHP_SELF']);
+			   		Header ("Location: ". filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL));
 			   		die();
 			   }
 			   break;
@@ -1189,7 +1206,7 @@ class FormHandler
 			if(!empty($this->FG_GO_LINK_AFTER_ACTION_DELETE)){
 				Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_DELETE.$processed['id']);
 			}else{
-				Header ("Location: ". $_SERVER['PHP_SELF']);
+				Header ("Location: ". filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL));
 			}
 			die();
 		}
@@ -1214,7 +1231,7 @@ class FormHandler
                     case 'edit':
                     case 'delete':
                         if ($this->_processed[$this->FG_CSRF_RECEIVED_FIELD] != $this->FG_CSRF_RECEIVED_TOKEN) {
-                            Header ("Location: ". $_SERVER['PHP_SELF']);
+                            Header ("Location: ". filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL));
                             die();
                         }
                     break;
@@ -2000,9 +2017,18 @@ class FormHandler
 	<?php  if (!empty($this->FG_TOP_FILTER_NAME)) echo "<font size=\"1\">$this->FG_TOP_FILTER_NAME</font><br>"; ?>
 
 	<!-- ** ** ** ** ** Part for the select form  ** ** ** ** ** -->
-	<FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
-	<INPUT TYPE="hidden" NAME="posted" value=1>
-	<INPUT TYPE="hidden" NAME="current_page" value=0>
+	<FORM METHOD="POST" ACTION="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
+	<INPUT TYPE="hidden" NAME="posted" value="1">
+	<INPUT TYPE="hidden" NAME="current_page" value="0">
+    <?php
+        if ($this->FG_CSRF_STATUS == true) {
+    ?>
+        <INPUT type="hidden" name="<?php echo $this->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $this->FG_FORM_UNIQID; ?>" />
+        <INPUT type="hidden" name="<?php echo $this->FG_CSRF_FIELD ?>" value="<?php echo $this->FG_CSRF_TOKEN; ?>" />
+    <?php
+        }
+    ?>
+
 		<table class="form_selectform" cellspacing="1">
 
 			<tr>
@@ -2027,7 +2053,7 @@ class FormHandler
 						<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main;?>/button-search.gif" />
 						<?php
 						if(!empty($_SESSION['def_ratecard_tariffgroup'])) { ?>
-                    	- <a href="<?php echo $_SERVER['PHP_SELF']?>?cancelsearch_callplanlcr=true"><font color="red"><b><img src="<?php echo KICON_PATH; ?>/button_cancel.gif" height="16"> Cancel Search</b></font></a>&nbsp;
+                    	- <a href="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>?cancelsearch_callplanlcr=true"><font color="red"><b><img src="<?php echo KICON_PATH; ?>/button_cancel.gif" height="16"> Cancel Search</b></font></a>&nbsp;
                     <?php } ?>
 	  				</td>
 
@@ -2064,9 +2090,18 @@ class FormHandler
 	  <!-- ** ** ** ** ** Part for the select form  ** ** ** ** ** -->
 
 		<table class="form_selectform" >
-			<FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
-				<INPUT TYPE="hidden" NAME="posted" value=1>
-				<INPUT TYPE="hidden" NAME="current_page" value=0>
+			<FORM METHOD="POST" ACTION="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
+				<INPUT TYPE="hidden" NAME="posted" value="1">
+				<INPUT TYPE="hidden" NAME="current_page" value="0">
+
+                <?php
+                    if ($this->FG_CSRF_STATUS == true) {
+                ?>
+                    <INPUT type="hidden" name="<?php echo $this->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $this->FG_FORM_UNIQID; ?>" />
+                    <INPUT type="hidden" name="<?php echo $this->FG_CSRF_FIELD ?>" value="<?php echo $this->FG_CSRF_TOKEN; ?>" />
+                <?php
+                    }
+                ?>
 
 			<tr>
 				<td align="left" valign="top" class="form_selectform_td1">

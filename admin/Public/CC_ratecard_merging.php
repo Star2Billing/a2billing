@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -219,7 +219,16 @@ function removeSource()
 <br/>
 <div align="center">
         <table width="95%" border="0" cellspacing="2" align="center" class="editform_table1">
-              <form name="prefs" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+              <form name="prefs" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>" method="post">
+                <?php
+                    if ($HD_Form->FG_CSRF_STATUS == true) {
+                ?>
+                    <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+                    <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+                <?php
+                    }
+                ?>
+
                 <?php if ($posted) {?>
                 <tr>
                     <td align="center" colspan="2">

@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -62,7 +62,7 @@ if (!empty($action)) {
                 $count = $result[0][0];
                 $fields="id_agent,type,message,order_display,logo";
                 if(empty($logo))$logo=0;
-                $values="$id,$type,'".addslashes($_POST['message'])."',$count,$logo";
+                $values="$id,$type,$message,$count,$logo";
                 $return=$instance_table->Add_table($DBHandle, $values, $fields);
                 if($return)$result_param ="success";
                 else $result_param ="faild";
@@ -93,7 +93,7 @@ if (!empty($action)) {
                 $clause = "id = $id_msg";
                 $instance_table = new Table("cc_message_agent","*");
                 if(empty($logo))$logo=0;
-                $values="type = $type, message ='".addslashes($_POST['message'])."',logo = $logo";
+                $values="type = $type, message = '$message',logo = $logo";
                 $return=$instance_table -> Update_table($DBHandle, $values, $clause);
                 if($return)$result_param ="success";
                 else $result_param ="faild";
@@ -174,7 +174,7 @@ $message_types = Constants::getMsgTypeList();
 ?>
 
 <form action="<?php echo $PHP_SELF.'?id='.$id ?>" method="post" >
-     <input id="action" type="hidden" name="action" value="<?php echo $action;?>"/>
+    <input id="action" type="hidden" name="action" value="<?php echo $action;?>"/>
     <input id="id_msg" type="hidden" name="id_msg" value="<?php echo $id_msg;?>"/>
     <table class="epayment_conf_table">
         <tr>
@@ -223,7 +223,6 @@ if (!is_array($messages)) { ?>
 <?php
 foreach ($messages as $message) {
     ?>
-
     <div id="msg" class="<?php echo $message_types[$message['type']][2];?>" style="margin-top:0px;position:relative;<?php if($message['logo']==0)echo 'background-image:none;padding-left:10px;'; ?>" >
         <?php if ($message['order_display']>0) { ?>
             <img id="<?php echo $message['id']; ?>" onmouseover="this.style.cursor='pointer'" class="up" src="<?php echo Images_Path ?>/arrow_up.png"  border="0" style="position:absolute;right:60px;top:0;display:none"/>
@@ -249,7 +248,6 @@ $(function() {
 });
 
 $(document).ready(function () {
-
     $('.msg_info , .msg_success , .msg_warning , .msg_error').mouseover(function () {
         $(this).children(".up,.down,.delete,.edit").show();
          });

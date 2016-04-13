@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -88,11 +88,7 @@ getpost_ifset(array ('before', 'after'));
 
 $SQLcmd = '';
 
-if (isset ($dst) && ($dst > 0)) {
-    if (strlen($SQLcmd) > 0)
-        $SQLcmd .= " AND ";
-    $SQLcmd .= " calledstation='$dst' ";
-}
+$SQLcmd = do_field ( $SQLcmd, 'dst', 'calledstation' );
 
 if (isset ($customer) && ($customer > 0)) {
     if (strlen($SQLcmd) > 0)
@@ -207,14 +203,16 @@ for ($i=0 ; $i<count($data) ; $i++) {
         $at_least_one_data = true;
 
 }
-if (!$at_least_one_data)
+
+if (!$at_least_one_data) {
     $data[0] = 1;
+}
 
 /**************************************/
 
 $data = array_reverse($data);
 
-$graph = new PieGraph(475, 200, "auto");
+$graph = new PieGraph(800, 300, "auto");
 $graph->SetShadow();
 
 $graph->title->Set($title_graph);
@@ -222,7 +220,8 @@ $graph->title->SetFont(FF_FONT1, FS_BOLD);
 
 $p1 = new PiePlot3D($data);
 $p1->ExplodeSlice(2);
-$p1->SetCenter(0.35);
+// $p1->SetCenter(0.35);
+$p1->SetCenter(0.4, 0.4);
 //print_r($gDateLocale->GetShortMonth());
 //Array ( [0] => Jan [1] => Feb [2] => Mar [3] => Apr [4] => May [5] => Jun [6] => Jul [7] => Aug [8] => Sep [9] => Oct [10] => Nov [11] => Dec )
 //$p1->SetLegends($gDateLocale->GetShortMonth());

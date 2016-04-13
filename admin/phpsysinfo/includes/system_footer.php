@@ -29,7 +29,7 @@ $arrDirection = direction();
 
 if (! $hide_picklist) {
     echo "<center>\n";
-    $update_form = "<form method=\"POST\" action=\"" . htmlentities($_SERVER['PHP_SELF']) . "\">\n" . "\t" . $text['template'] . ":&nbsp;\n" . "\t<select name=\"template\">\n";
+    $update_form = "<form method=\"POST\" action=\"" . htmlentities(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)) . "\">\n" . "\t" . $text['template'] . ":&nbsp;\n" . "\t<select name=\"template\">\n";
 
     $resDir = opendir( APP_ROOT . '/templates/' );
     while ( false !== ( $strFile = readdir( $resDir ) ) ) {

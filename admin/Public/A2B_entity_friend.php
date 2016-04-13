@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  *
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
+ * @copyright   Copyright (C) 2004-2015 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -47,21 +47,23 @@ $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 /********************************* BATCH UPDATE ***********************************/
-getpost_ifset(array('upd_callerid', 'upd_context', 'batchupdate', 'check', 'type', 'mode'));
+getpost_ifset(array('upd_callerid', 'upd_context', 'batchupdate', 'check', 'type', 'mode', 'atmenu'));
+
 
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)) {
-    $SQL_REFILL="";
-    $HD_Form->prepare_list_subselection('list');
+    $SQL_REFILL = "";
+    $HD_Form -> prepare_list_subselection('list');
 
     // Array ( [upd_simultaccess] => on [upd_currency] => on )
-    $loop_pass=0;
+    $loop_pass = 0;
     $SQL_UPDATE = '';
-    foreach ($check as $ind_field => $ind_val) {
+    foreach($check as $ind_field => $ind_val) {
         //echo "<br>::> $ind_field -";
         $myfield = substr($ind_field,4);
-        if ($loop_pass!=0) $SQL_UPDATE.=',';
-
+        if ($loop_pass != 0) {
+            $SQL_UPDATE.=',';
+        }
         // Standard update mode
         if (!isset($mode["$ind_field"]) || $mode["$ind_field"]==1) {
             if (!isset($type["$ind_field"])) {
@@ -96,14 +98,12 @@ if ($batchupdate == 1 && is_array($check)) {
     if (!$HD_Form -> DBHandle -> Execute("begin")) {
         $update_msg = $update_msg_error;
     } else {
-
         if (!$HD_Form -> DBHandle -> Execute($SQL_UPDATE)) {
             $update_msg = $update_msg_error;
         }
         if (! $res = $HD_Form -> DBHandle -> Execute("commit")) {
             $update_msg = '<center><font color="green"><b>'.gettext('The batch update has been successfully perform!').'</b></font></center>';
         }
-
     };
 }
 
@@ -134,8 +134,11 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
     $instance_table_friend = new Table('cc_card');
     $instance_table_friend -> Update_table ($HD_Form -> DBHandle, $friend_param_update, "id='$id_cc_card'", $func_table = null);
 
-    if ( $form_action == "add_sip" )	$TABLE_BUDDY = 'cc_sip_buddies';
-    else 	$TABLE_BUDDY = 'cc_iax_buddies';
+    if ($form_action == "add_sip") {
+        $TABLE_BUDDY = 'cc_sip_buddies';
+    } else {
+        $TABLE_BUDDY = 'cc_iax_buddies';
+    }
 
     $instance_table_friend = new Table($TABLE_BUDDY,'*');
     $list_friend = $instance_table_friend -> Get_list ($HD_Form -> DBHandle, "id_cc_card='$id_cc_card'", null, null, null, null);
@@ -161,10 +164,10 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
     $HD_Form->_vars = array_merge((array) $_GET, (array) $_POST);
 }
 
-$HD_Form -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&atmenu=$atmenu&id=";
-$HD_Form -> FG_DELETION_LINK = $_SERVER['PHP_SELF']."?form_action=ask-delete&atmenu=$atmenu&id=";
+$HD_Form -> FG_EDITION_LINK = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?form_action=ask-edit&atmenu=$atmenu&id=";
+$HD_Form -> FG_DELETION_LINK = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)."?form_action=ask-delete&atmenu=$atmenu&id=";
 
-if ($id!="" || !is_null($id)) {
+if ($id != "" || !is_null($id)) {
     $HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
 }
 
@@ -176,9 +179,9 @@ if (!USE_REALTIME) {
     if ($form_action == "add" || $form_action == "edit" || $form_action == "delete") {
         if ($atmenu=='sip') {
             $key = "sip_changed";
-          } else {
-              $key = "iax_changed";
-          }
+        } else {
+            $key = "iax_changed";
+        }
         if ($_SESSION["user_type"]=="ADMIN") {$who= Notification::$ADMIN;$id=$_SESSION['admin_id'];} elseif ($_SESSION["user_type"]=="AGENT") {$who= Notification::$AGENT;$id=$_SESSION['agent_id'];} else {$who=Notification::$UNKNOWN;$id=-1;}
         NotificationsDAO::AddNotification($key,Notification::$HIGH,$who,$id);
     }
@@ -197,12 +200,24 @@ if ($form_action=='list') {
     if (!USE_REALTIME) {
     ?>
           <table width="<?php echo $HD_Form -> FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >
-            <TR><TD  align="center"> <?php echo gettext("Link to Generate on SIP/IAX Friends")?> &nbsp;:&nbsp;
-            </TD></TR>
-            <TR><TD  align="center">
-            <b><?php echo gettext("Realtime not active, you have to use the conf file for your system"); ?></b>
-            </TD></TR>
-            <TR><FORM NAME="sipfriend">
+            <TR>
+                <TD  align="center"> <?php echo gettext("Link to Generate on SIP/IAX Friends")?> &nbsp;:&nbsp;</TD>
+            </TR>
+            <TR>
+                <TD  align="center">
+                <b><?php echo gettext("Realtime not active, you have to use the conf file for your system"); ?></b>
+                </TD>
+            </TR>
+            <TR>
+            <FORM NAME="sipfriend">
+                <?php
+                    if ($HD_Form->FG_CSRF_STATUS == true) {
+                ?>
+                    <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+                    <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+                <?php
+                    }
+                ?>
                 <td height="31" style="padding-left: 5px; padding-right: 3px;" align="center" >
                 <b>
                 SIP : <input class="form_input_button"  TYPE="button" VALUE=" <?php echo gettext("GENERATE ADDITIONAL_A2BILLING_SIP.CONF"); ?> "
@@ -229,22 +244,29 @@ if ($form_action=='list') {
 <div align="center">
 <table width="40%" border="0" align="center" cellpadding="0" cellspacing="1">
     <tr>
-      <td  class="bgcolor_021">
-      <table width="100%" border="0" cellspacing="1" cellpadding="0">
-          <form name="form1" method="post" action="">
-          <tr>
-            <td bgcolor="#FFFFFF" class="fontstyle_006" width="100%">&nbsp;<?php echo gettext("CONFIGURATION TYPE")?> </td>
-            <td bgcolor="#FFFFFF" class="fontstyle_006" align="center">
-               <select name="atmenu" id="col_configtype" onChange="window.document.form1.elements['PMChange'].value='Change';window.document.form1.submit();">
-                 <option value="iax" <?php if($atmenu == "iax")echo "selected"?>><?php echo gettext("IAX")?></option>
-                 <option value="sip" <?php if($atmenu == "sip")echo "selected"?>><?php echo gettext("SIP")?></option>
-               </select>
-              <input name="PMChange" type="hidden" id="PMChange">
-
-            </td>
-          </tr>
-          </form>
-      </table></td>
+        <td  class="bgcolor_021">
+        <table width="100%" border="0" cellspacing="1" cellpadding="0">
+            <FORM name="form1" method="post" action="">
+            <?php
+              if ($HD_Form->FG_CSRF_STATUS == true) {
+            ?>
+                <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+                <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+            <?php
+                }
+            ?>
+            <tr>
+                <td bgcolor="#FFFFFF" class="fontstyle_006" width="100%">&nbsp;<?php echo gettext("CONFIGURATION TYPE")?> </td>
+                <td bgcolor="#FFFFFF" class="fontstyle_006" align="center">
+                   <select name="atmenu" id="col_configtype" onChange="window.document.form1.elements['PMChange'].value='Change';window.document.form1.submit();">
+                     <option value="iax" <?php if($atmenu == "iax")echo "selected"?>><?php echo gettext("IAX")?></option>
+                     <option value="sip" <?php if($atmenu == "sip")echo "selected"?>><?php echo gettext("SIP")?></option>
+                   </select>
+                  <input name="PMChange" type="hidden" id="PMChange">
+                </td>
+            </tr>
+            </FORM>
+        </table></td>
     </tr>
 </table>
 </div>
@@ -257,42 +279,49 @@ if ($form_action=='list') {
 
 <center>
 <b>&nbsp;<?php echo $HD_Form -> FG_NB_RECORD ?> <?php echo gettext("cards selected!"); ?>&nbsp;<?php echo gettext("Use the options below to batch update the selected cards.");?></b>
-       <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
-        <tbody>
-        <form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+    <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
+    <tbody>
+    <form name="updateForm" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)?>" method="post">
+        <?php
+            if ($HD_Form->FG_CSRF_STATUS == true) {
+        ?>
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_FORM_UNIQID_FIELD ?>" value="<?php echo $HD_Form->FG_FORM_UNIQID; ?>" />
+            <INPUT type="hidden" name="<?php echo $HD_Form->FG_CSRF_FIELD ?>" value="<?php echo $HD_Form->FG_CSRF_TOKEN; ?>" />
+        <?php
+            }
+        ?>
         <INPUT type="hidden" name="batchupdate" value="1">
         <tr>
-          <td align="left" class="bgcolor_001" >
-                  <input name="check[upd_callerid]" type="checkbox" <?php if ($check["upd_callerid"]=="on") echo "checked"?>>
-          </td>
-          <td align="left"  class="bgcolor_001">
+            <td align="left" class="bgcolor_001" >
+                <input name="check[upd_callerid]" type="checkbox" <?php if ($check["upd_callerid"]=="on") echo "checked"?>>
+            </td>
+            <td align="left"  class="bgcolor_001">
                 1)&nbsp;<?php echo gettext("CallerID"); ?>&nbsp;:
                 <input class="form_input_text"  name="upd_callerid" size="30" maxlength="40" value="<?php if (isset($upd_callerid)) echo $upd_callerid;?>">
                 <br/>
-          </td>
+            </td>
         </tr>
 
         <tr>
-          <td align="left" class="bgcolor_001" >
-                  <input name="check[upd_context]" type="checkbox" <?php if ($check["upd_context"]=="on") echo "checked"?>>
-          </td>
-          <td align="left"  class="bgcolor_001">
+            <td align="left" class="bgcolor_001" >
+                <input name="check[upd_context]" type="checkbox" <?php if ($check["upd_context"]=="on") echo "checked"?>>
+            </td>
+            <td align="left"  class="bgcolor_001">
                 2)&nbsp;<?php echo gettext("Context"); ?>&nbsp;:
                 <input class="form_input_text"  name="upd_context" size="30" maxlength="40" value="<?php if (isset($upd_context)) echo $upd_context;?>">
                 <br/>
-          </td>
+            </td>
         </tr>
-
         <tr>
             <td align="right" class="bgcolor_001"></td>
-             <td align="right"  class="bgcolor_001">
+            <td align="right"  class="bgcolor_001">
                 <input class="form_input_button"  value=" <?php echo gettext("BATCH UPDATE VOIP SETTINGS");?>  " type="submit">
             </td>
         </tr>
-        </form>
-        </table>
-</center>
-    </div>
+    </form>
+    </table>
+  </center>
+  </div>
 </div>
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
 
