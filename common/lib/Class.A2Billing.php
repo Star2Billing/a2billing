@@ -222,7 +222,13 @@ class A2Billing
 
     // List of dialstatus
     public $dialstatus_rev_list;
-
+    
+    // Interrupt digit, if not empty - someone entered something during playing balance
+    public $interrupt_digit = '';
+    
+    // Escape digits, @TODO: move to settings if will be needed
+    public $escape_digits = '0123456789ABCD#*';
+    
     /* CONSTRUCTOR */
     public function A2Billing()
     {
@@ -576,7 +582,7 @@ class A2Billing
         if (isset($this->config["agi-conf$idconfig"]['debugshell']) && $this->config["agi-conf$idconfig"]['debugshell'] == 1 && isset($agi)) $agi->nlinetoread = 0;
 
         if (!isset($this->config["agi-conf$idconfig"]['ivr_voucher'])) $this->config["agi-conf$idconfig"]['ivr_voucher'] = 0;
-        if (!isset($this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'])) $this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'] = 8;
+        if (!isset($this->config["agi-conf$idconfig"]['ivr_voucher_prefix'])) $this->config["agi-conf$idconfig"]['ivr_voucher_prefix'] = 8;
         if (!isset($this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'])) $this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'] = 0;
         if (!isset($this->config["agi-conf$idconfig"]['failover_lc_prefix'])) $this->config["agi-conf$idconfig"]['failover_lc_prefix'] = 0;
         if (!isset($this->config["agi-conf$idconfig"]['cheat_on_announcement_time'])) $this->config["agi-conf$idconfig"]['cheat_on_announcement_time'] = 0;
@@ -854,14 +860,22 @@ class A2Billing
             }
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[USE_DNID DESTINATION ::> " . $this->destination . "]");
         } else {
-            if ($this->callback_beep_to_enter_destination) {
-                $res_dtmf = $agi->get_data('beep', 6000, 20);
+            if ($this->is_interrupted()) {
+                $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CONTINUE GATHERING DTMF ::> " . $this->interrupt_digit . "]");
+                
+                $this->destination = $this->interrupt_digit;
+                $this->interrupt_digit = '';
+                $agi->fastpass_get_data($this->destination, null, 6000, 20);
             } else {
-                $res_dtmf = $agi->get_data($prompt_enter_dest, 6000, 20);
+                if ($this->callback_beep_to_enter_destination) {
+                    $res_dtmf = $agi->get_data('beep', 6000, 20);
+                } else {
+                    $res_dtmf = $agi->get_data($prompt_enter_dest, 6000, 20);
+                }
+                $this->destination = $res_dtmf["result"];
             }
-
-            $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : " . $res_dtmf["result"]);
-            $this->destination = $res_dtmf["result"];
+            
+            $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : " . $this->destination);
         }
 
         //REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
@@ -2043,7 +2057,7 @@ class A2Billing
     public function fct_say_balance($agi, $credit, $fromvoucher = 0)
     {
         global $currencies_list;
-
+        
         if (isset($this->agiconfig['agi_force_currency']) && strlen($this->agiconfig['agi_force_currency']) == 3) {
             $this->currency = $this->agiconfig['agi_force_currency'];
         }
@@ -2085,63 +2099,97 @@ class A2Billing
 
         // say 'you have x dollars and x cents'
         if ($fromvoucher != 1)
-            $agi->stream_file('prepaid-you-have', '#');
+            $interrupt = $agi->stream_file('prepaid-you-have', $this->escape_digits);
         else
-            $agi->stream_file('prepaid-account_refill', '#');
+            $interrupt = $agi->stream_file('prepaid-account_refill', $this->escape_digits);
 
+        if ($this->is_interrupted($interrupt))
+            return;
+            
         if ($units == 0 && $cents == 0) {
-            $agi->say_number(0);
+            $interrupt = $agi->say_number(0);
+            if ($this->is_interrupted($interrupt))
+                return;
+            
             if (($this->current_language == 'ru') && (strtolower($this->currency) == 'usd')) {
-                $agi->stream_file($units_audio, '#');
+                $interrupt = $agi->stream_file($units_audio, $this->escape_digits);
             } else {
-                $agi->stream_file($unit_audio, '#');
+                $interrupt = $agi->stream_file($unit_audio, $this->escape_digits);
             }
+            
+            if ($this->is_interrupted($interrupt))
+                return;
         } else {
             if ($units > 1) {
-                $agi->say_number($units);
+                $interrupt = $agi->say_number($units, $this->escape_digits);
+                if ($this->is_interrupted($interrupt))
+                    return;
 
                 if (($this->current_language == 'ru') && (strtolower($this->currency) == 'usd') && (($units % 10 == 0) || ($units % 10 == 2) || ($units % 10 == 3) || ($units % 10 == 4))) {
                     // test for the specific grammatical rules in Russian
-                    $agi->stream_file('dollar2', '#');
+                    $interrupt = $agi->stream_file('dollar2', $this->escape_digits);
                 } elseif (($this->current_language == 'ru') && (strtolower($this->currency) == 'usd') && ($units % 10 == 1)) {
                     // test for the specific grammatical rules in Russian
-                    $agi->stream_file($unit_audio, '#');
+                    $interrupt = $agi->stream_file($unit_audio, $this->escape_digits);
                 } else {
-                    $agi->stream_file($units_audio, '#');
+                    $interrupt = $agi->stream_file($units_audio, $this->escape_digits);
                 }
             } else {
-                $agi->say_number($units);
+                $interrupt = $agi->say_number($units);
+                if ($this->is_interrupted($interrupt))
+                    return;
 
                 if (($this->current_language == 'ru') && (strtolower($this->currency) == 'usd') && ($units == 0)) {
-                    $agi->stream_file($units_audio, '#');
+                    $interrupt = $agi->stream_file($units_audio, $this->escape_digits);
                 } else {
-                    $agi->stream_file($unit_audio, '#');
+                    $interrupt = $agi->stream_file($unit_audio, $this->escape_digits);
                 }
             }
 
+            if ($this->is_interrupted($interrupt))
+                return;
+            
             if ($units > 0 && $cents > 0) {
-                $agi->stream_file('vm-and', '#');
+                $interrupt = $agi->stream_file('vm-and', $this->escape_digits);
+                if ($this->is_interrupted($interrupt))
+                    return;
             }
             if ($cents > 0) {
-                $agi->say_number($cents);
+                $interrupt = $agi->say_number($cents);
+                if ($this->is_interrupted($interrupt))
+                    return;
+                
                 if ($cents > 1) {
                     if ((strtolower($this->currency) == 'usd') && ($this->current_language == 'ru') && (($cents % 10 == 2) || ($cents % 10 == 3) || ($cents % 10 == 4))) {
                         // test for the specific grammatical rules in RUssian
-                        $agi->stream_file('prepaid-cent2', '#');
+                        $interrupt = $agi->stream_file('prepaid-cent2', $this->escape_digits);
                     } elseif ((strtolower($this->currency) == 'usd') && ($this->current_language == 'ru') && ($cents % 10 == 1)) {
                         // test for the specific grammatical rules in RUssian
-                        $agi->stream_file($cent_audio, '#');
+                        $interrupt = $agi->stream_file($cent_audio, $this->escape_digits);
                     } else {
-                        $agi->stream_file($cents_audio, '#');
+                        $interrupt = $agi->stream_file($cents_audio, $this->escape_digits);
                     }
                 } else {
-                    $agi->stream_file($cent_audio, '#');
+                    $interrupt = $agi->stream_file($cent_audio, $this->escape_digits);
                 }
-
+                if ($this->is_interrupted($interrupt))
+                    return;
             }
         }
     }
-
+    
+    /**
+     * Function to check entered digit during playing audio
+     * 
+     * @param array|null $data data from "say number", "say digits", "stream file"
+     * @return boolean
+     */
+    protected function is_interrupted($data = null) {
+        if (is_array($data) && isset($data['result']) && !empty($data['result'])) {
+            $this->interrupt_digit = chr($data['result']);
+        }
+        return strlen($this->interrupt_digit) > 0;
+    }
 
     /**
     *  Function to play the initial rate
