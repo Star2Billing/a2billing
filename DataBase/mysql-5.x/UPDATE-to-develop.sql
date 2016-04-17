@@ -87,11 +87,17 @@ DELIMITER ;
 -- Reccuring service improvement, added new condition
 alter table cc_service add `condition5x` float NOT NULL DEFAULT '0';
 
--- Insert new config parameter
+-- Insert new config parameter allowed_groups
 insert into cc_config
 (config_title, config_key, config_description, config_valuetype, config_group_title)
 values
 ('Allowed card groups', 'allowed_groups', 'The list of allowed card groups to be authenticated. Just list groups IDs with commas, like "1,2,3,4". Allows all if empty', '0', 'agi-conf1');
+
+-- Insert new config parameter customer_history_log
+insert into cc_config
+(config_title, config_key, config_description, config_valuetype, config_value, config_listvalues, config_group_title)
+values
+('Log to customer history', 'customer_history_log', 'Enable logging to cusomter history', '1', '1', 'yes,no', 'agi-conf1');
 
 -- END Openvoip.co customization SQL changes
 

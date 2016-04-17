@@ -2204,6 +2204,40 @@ class A2Billing
         }
         return $result;
     }
+
+    /**
+     * Add record to the customer history log
+     * 
+     * @param string $message
+     */
+    public function add_customer_history($message) {
+        if (!empty($message) && is_array($this->agiconfig) && !empty($this->agiconfig['customer_history_log']) && !empty($this->instance_table) && !empty($this->DBHandle)) {
+            $id_card = 0;
+            if (!empty($this->id_card)) { // possibly we have a card id
+                $id_card = $this->id_card;
+            } else if (!empty($this->cardnumber) || !empty($this->username)) { // try to find possible customer by cardnumber or username
+                $username = !empty($this->cardnumber) ? $this->cardnumber : $this->username;
+                $sql = "select distinct id from cc_card where username = '$username' limit 1";
+                $result = $this->instance_table->SQLExec($this->DBHandle, $sql);
+                if (is_array($result) && count($result)) {
+                    $id_card = $result[0][0];
+                }
+            } else if (!empty($this->CallerID)) { // try to find possible customer by caller ID
+                $sql = "select distinct id_cc_card from cc_callerid where cid = '{$this->CallerID}' limit 1";
+                $result = $this->instance_table->SQLExec($this->DBHandle, $sql);
+                if (is_array($result) && count($result)) {
+                    $id_card = $result[0][0];
+                }
+            }
+            
+            // adding message
+            if ($id_card > 0) {
+                $description = "LOG [CID: {$this->CallerID}]: $message";
+                $sql = "insert into cc_card_history (id_cc_card, description) values ('$id_card', '$description')";
+                $result = $this->instance_table->SQLExec($this->DBHandle, $sql);
+            }
+        }
+    }
     
     /**
     *  Function to play the initial rate
@@ -3156,6 +3190,7 @@ class A2Billing
                 if (!is_array($result)) {
                     $prompt = "prepaid-auth-fail";
                     $this->debug(DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
+                    $this->add_customer_history('AUTH MANUAL FAILED');
                     continue;
                 } else {
                     // WE ARE GOING TO CHECK IF THE CALLERID IS CORRECT FOR THIS CARD
@@ -3328,6 +3363,7 @@ class A2Billing
             }
             
         } elseif ($res == -2) {
+            $this->add_customer_history('AUTH FAILED - ' . $prompt);
             $agi->stream_file($prompt, '#');
         } else {
             $res = -1;
@@ -3394,6 +3430,7 @@ class A2Billing
             if (!is_array($result)) {
                 $prompt = "prepaid-auth-fail";
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
+                $this->add_customer_history('AUTH MANUAL FAILED');
                 continue;
             }
 
@@ -3489,6 +3526,7 @@ class A2Billing
         if (($retries < 3) && $res == 0) {
             $this->callingcard_acct_start_inuse($agi, 1);
         } elseif ($res == -2) {
+            $this->add_customer_history('AUTH FAILED - ' . $prompt);
             $agi->stream_file($prompt, '#');
         } else {
             $res = -1;
