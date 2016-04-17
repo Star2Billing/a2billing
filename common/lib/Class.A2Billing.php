@@ -151,8 +151,8 @@ class A2Billing
     public $hostname = '';
     public $currency = 'usd';
 
-    public $groupe_mode = false;
-    public $groupe_id = '';
+    public $group_mode = false;
+    public $group_id = '';
     public $mode = '';
     public $timeout;
     public $newdestination;
@@ -2192,6 +2192,20 @@ class A2Billing
     }
 
     /**
+     * Check if card group is allowed in the AGI config (param "allowed_groups")
+     * 
+     * @param integer $group_id
+     * @return boolean
+     */
+    public function is_group_allowed($group_id) {
+        $result = true;
+        if (!empty($group_id) && is_array($this->agiconfig) && !empty($this->agiconfig['allowed_groups'])) {
+            $result = in_array($group_id, explode(',', preg_replace('/[^\d\,]/', '', $this->agiconfig['allowed_groups'])));
+        }
+        return $result;
+    }
+    
+    /**
     *  Function to play the initial rate
     *  format : "the cost of the call is 7 dollars and 50 cents per minutes"
     *
@@ -2701,7 +2715,7 @@ class A2Billing
                     " cc_card.language, cc_card.username, removeinterprefix, cc_card.redial, enableexpire, UNIX_TIMESTAMP(expirationdate), " .
                     " expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, " .
                     " cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, " .
-                    " cc_card.status, cc_card.voicemail_permitted, cc_card.voicemail_activated, cc_card.restriction, cc_country.countryprefix" .
+                    " cc_card.status, cc_card.voicemail_permitted, cc_card.voicemail_activated, cc_card.restriction, cc_country.countryprefix, cc_card.id_group " .
                     " FROM cc_callerid " .
                     " LEFT JOIN cc_card ON cc_callerid.id_cc_card = cc_card.id " .
                     " LEFT JOIN cc_tariffgroup ON cc_card.tariff = cc_tariffgroup.id " .
@@ -2820,6 +2834,7 @@ class A2Billing
                 $this->voicemail            = ($result[0][29] && $result[0][30]) ? 1 : 0;
                 $this->restriction          = $result[0][31];
                 $this->countryprefix        = $result[0][32];
+                $this->group_id             = $result[0][33];
 
                 if (strlen($language) == 2 && !($this->languageselected >= 1)) {
 
@@ -2932,7 +2947,7 @@ class A2Billing
                                 " redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), " .
                                 " UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, " .
                                 " cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, voicemail_activated, " .
-                                " cc_card.restriction, cc_country.countryprefix " .
+                                " cc_card.restriction, cc_country.countryprefix, cc_card.id_group " .
                                 " FROM cc_card " .
                                 " LEFT JOIN cc_tariffgroup ON tariff = cc_tariffgroup.id " .
                                 " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
@@ -2995,6 +3010,7 @@ class A2Billing
                     $this->voicemail            = ($result[0][25] && $result[0][26]) ? 1 : 0;
                     $this->restriction          = $result[0][27];
                     $this->countryprefix        = $result[0][28];
+                    $this->group_id             = $result[0][29];
 
                     if ($this->typepaid == 1) $this->credit = $this->credit + $this->creditlimit;
                 }
@@ -3128,7 +3144,7 @@ class A2Billing
                             " enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), " .
                             " UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, " .
                             " cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, " .
-                            " voicemail_activated, cc_card.restriction, cc_country.countryprefix " .
+                            " voicemail_activated, cc_card.restriction, cc_country.countryprefix, cc_card.id_group " .
                             " FROM cc_card LEFT JOIN cc_tariffgroup ON tariff = cc_tariffgroup.id " .
                             " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
                             " LEFT JOIN cc_provider ON cc_card.id = cc_provider.id_cc_card " .
@@ -3194,6 +3210,7 @@ class A2Billing
                 $this->voicemail            = ($result[0][26] && $result[0][27]) ? 1 : 0;
                 $this->restriction          = $result[0][28];
                 $this->countryprefix        = $result[0][29];
+                $this->group_id             = $result[0][30];
 
                 if ($this->typepaid == 1) $this->credit = $this->credit + $this->creditlimit;
 
@@ -3296,15 +3313,20 @@ class A2Billing
             $res = -2;
         }
 
+        if ($res == 0 && !$this->is_group_allowed($this->group_id)) {
+            $prompt = "prepaid-auth-fail";
+            $res = -2;
+        }
+        
         if (($retries < 3) && $res == 0) {
-
+            
             $this->callingcard_acct_start_inuse($agi, 1);
 
             if ($this->agiconfig['say_balance_after_auth'] == 1) {
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[A2Billing] SAY BALANCE : $this->credit \n");
                 $this->fct_say_balance($agi, $this->credit);
             }
-
+            
         } elseif ($res == -2) {
             $agi->stream_file($prompt, '#');
         } else {
@@ -3360,7 +3382,7 @@ class A2Billing
                         " enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), " .
                         " UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, " .
                         " cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, voicemail_activated, " .
-                        " cc_card.restriction, cc_country.countryprefix " .
+                        " cc_card.restriction, cc_country.countryprefix, cc_card.id_group " .
                         " FROM cc_card LEFT JOIN cc_tariffgroup ON tariff = cc_tariffgroup.id " .
                         " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
 						" LEFT JOIN cc_provider ON cc_card.id = cc_provider.id_cc_card " .
@@ -3404,6 +3426,7 @@ class A2Billing
             $this->voicemail            = ($result[0][26] && $result[0][27]) ? 1 : 0;
             $this->restriction          = $result[0][28];
             $this->countryprefix        = $result[0][29];
+            $this->group_id             = $result[0][30];
 
             if ($this->typepaid == 1) $this->credit = $this->credit + $this->creditlimit;
 
@@ -3457,6 +3480,12 @@ class A2Billing
             }
             break;
         }//end for
+        
+        if ($res == 0 && !$this->is_group_allowed($this->group_id)) {
+            $prompt = "prepaid-auth-fail";
+            $res = -2;
+        }
+
         if (($retries < 3) && $res == 0) {
             $this->callingcard_acct_start_inuse($agi, 1);
         } elseif ($res == -2) {
@@ -3476,7 +3505,7 @@ class A2Billing
         $QUERY = "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, creditlimit, language, removeinterprefix, redial, enableexpire, " .
                     " UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), " .
                     " cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, status, " .
-                    " voicemail_permitted, voicemail_activated, cc_card.restriction, cc_country.countryprefix " .
+                    " voicemail_permitted, voicemail_activated, cc_card.restriction, cc_country.countryprefix, cc_card.id_group " .
                     " FROM cc_card LEFT JOIN cc_tariffgroup ON tariff = cc_tariffgroup.id " .
                     " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
                     " LEFT JOIN cc_provider ON cc_card.id = cc_provider.id_cc_card " .
@@ -3520,6 +3549,7 @@ class A2Billing
         $this->voicemail            = ($result[0][23] && $result[0][24]) ? 1 : 0;
         $this->restriction          = $result[0][25];
         $this->countryprefix        = $result[0][26];
+        $this->group_id             = $result[0][27];
 
         if ($this->typepaid == 1)
             $this->credit = $this->credit + $this->creditlimit;
@@ -3559,10 +3589,10 @@ class A2Billing
                 // expire days since first use
                 $date_will_expire = $this->firstusedate + (60 * 60 * 24 * $this->expiredays);
                 if (intval($date_will_expire - time()) < 0) { // CARD EXPIRED :(
-                $error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' . gettext("Error : Card have expired!!!") . '</b></font><br>';
+                    $error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' . gettext("Error : Card have expired!!!") . '</b></font><br>';
 
-                return 0;
-            }
+                    return 0;
+                }
 
             } elseif ($this->enableexpire == 3 && $this->creationdate != '00000000000000' && strlen($this->creationdate) > 5 && ($this->expiredays > 0)) {
                 // expire days since creation
@@ -3575,6 +3605,9 @@ class A2Billing
             }
         }
 
+        if (!$this->is_group_allowed($this->group_id))
+            return 0;
+        
         return 1;
     }
 

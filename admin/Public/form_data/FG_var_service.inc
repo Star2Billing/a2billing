@@ -33,7 +33,7 @@
 
 
 
-getpost_ifset(array('id', 'name', 'amount', 'period', 'rule', 'daynumber', 'stopmode', 'maxnumbercycle', 'status', 'emailreport'));
+getpost_ifset(array('id', 'name', 'amount', 'period', 'rule', 'daynumber', 'stopmode', 'maxnumbercycle', 'status', 'emailreport', 'condition5x'));
 
 
 $HD_Form = new FormHandler("cc_service","Service");
@@ -73,6 +73,8 @@ $stopmode_list = array();
 $stopmode_list["0"]  = array( gettext("Never"), "0");
 $stopmode_list["1"]  = array( gettext("Account balance below zero"), "1");
 $stopmode_list["2"]  = array( gettext("Max number of cycle reach"), "2");
+$stopmode_list["50"]  = array( gettext("Account balance is greater than"), "50");
+$stopmode_list["51"]  = array( gettext("Account balance is less than"), "51");
 
 $operatemode_list = array();
 $operatemode_list["0"] = array(gettext("Allow be charged into negative balance"),"0");
@@ -177,6 +179,15 @@ $HD_Form -> AddEditElement ("MAX NUMBER OF CYCLES BY CARD",
 	gettext("Insert the max number of cycle"),
 	"" , "", "", "", "", "" , "NO-NULL", gettext("Set the maximum number of times that the service should be applied."));
 
+$HD_Form -> AddEditElement ("ACCOUNT BALANCE PARAMETER",
+	"condition5x",
+	'$value',
+	"INPUT",
+	"size=20 maxlength=20",
+	"12",
+	gettext("Insert the condition for stop mode"),
+	"" , "", "", "", "", "" , "NO-NULL", gettext("Set the stop mode condition for checking by account balance."));
+
 $HD_Form -> AddEditElement ("STATUS",
 	"status",
 	'$value',
@@ -190,10 +201,10 @@ $HD_Form -> AddEditElement (gettext("EMAIL TO SEND REPORT"),
 	"emailreport",
 	'$value',
 	"INPUT",
-	"size=30 maxlength=30",
+	"size=30 maxlength=70",
 	"1",
 	gettext("Insert the email to send the report"),
-	"" , "", "", "", "", "" , "NO-NULL", "");
+	"" , "", "", "", "", "" , "NO", "");
 
 $HD_Form -> AddEditElement (gettext("CALL PLAN"),
        "dialplan",
@@ -243,7 +254,7 @@ if ($numrow > 0) {
 		"", "", "%1 : (%2)", "", "", "cc_cardgroup_service:id_card_group:cc_card_group LEFT JOIN cc_cardgroup_service ON cc_card_group.id=cc_cardgroup_service.id_card_group:DISTINCT cc_card_group.name, cc_card_group.id: cc_cardgroup_service.id_service = %id:id_service:%2 - (%1)::::%1:id='%1'");
 }
 
-$HD_Form->FieldEditElement('name, amount, rule, daynumber, period, stopmode, maxnumbercycle, status, emailreport, dialplan, operate_mode, use_group');
+$HD_Form->FieldEditElement('name, amount, rule, daynumber, period, stopmode, maxnumbercycle, condition5x, status, emailreport, dialplan, operate_mode, use_group');
 
 if (DB_TYPE == "mysql") {
 	$HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS = "datecreate ";

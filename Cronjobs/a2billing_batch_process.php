@@ -98,7 +98,7 @@ $service_lastrun = "AND UNIX_TIMESTAMP(cc_service.datelastrun) < UNIX_TIMESTAMP(
 
 // CHECK THE SERVICES
 $QUERY = "SELECT DISTINCT id, name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, numberofrun, datecreate, " .
-        "UNIX_TIMESTAMP(datelastrun), emailreport, totalcredit, totalcardperform, dialplan, operate_mode, use_group " .
+        "UNIX_TIMESTAMP(datelastrun), emailreport, totalcredit, totalcardperform, dialplan, operate_mode, use_group, condition5x " .
         "FROM cc_service " .
         "WHERE status=1 $service_lastrun ORDER BY id DESC";
 if ($verbose_level >= 1)
@@ -139,6 +139,7 @@ foreach ($result as $myservice) {
     $dialplan		= $myservice[15];
     $operate_mode	= $myservice[16];
     $use_group		= $myservice[17];
+    $condition5x        = $myservice[18];
     $amount			= $myservice[2];
     $filter			= '';
     if ($verbose_level >= 1)
@@ -161,11 +162,17 @@ foreach ($result as $myservice) {
     if ($stopmode == 2) {
         $filter .= " -- NBSERVICE <= MAXNUMBERCYCLE  STOPMODE Max number of cycle reach
                 AND nbservice <= " . $myservice[7] ."\n";
-    }
-    if ($stopmode == 1) {
+    } else if ($stopmode == 1) {
         $filter .= " -- CREDIT <= 0 STOPMODE Account balance below zero
                         AND credit>0 \n";
+    } else if ($stopmode == 50) {
+        $filter .= " -- CREDIT > PARAM STOPMODE Account balance greater than parameter
+                        AND credit<$condition5x \n";
+    } else if ($stopmode == 51) {
+        $filter .= " -- CREDIT < PARAM STOPMODE Account balance less than parameter
+                        AND credit>$condition5x \n";
     }
+        
     // dialplan
     if ($dialplan > 0) {
         $filter .= " -- dialplan check

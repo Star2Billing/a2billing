@@ -61,10 +61,10 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = 
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/group_add.png" ;
 
 
-
+$HD_Form -> AddViewElement(gettext("ID"), "id", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "25%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "65%", "center", "SORT", "150");
-$HD_Form -> FieldViewElement ( 'name, description');
+$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "55%", "center", "SORT", "150");
+$HD_Form -> FieldViewElement ( 'id, name, description');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO CUSTOMER GROUP CREATED!");
