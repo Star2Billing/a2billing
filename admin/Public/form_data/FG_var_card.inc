@@ -326,7 +326,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
     }
     
     if (!empty($A2B->config["webui"]['lock_useralias'])) {
-        $useralias_locked = 'disabled="disabled"';
+        $useralias_locked = 'disabled="disabled readonly"';
     }
 
     $HD_Form -> AddEditElement (gettext("ACCOUNT NUMBER"),
