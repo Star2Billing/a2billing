@@ -87,17 +87,31 @@ DELIMITER ;
 -- Reccuring service improvement, added new condition
 alter table cc_service add `condition5x` float NOT NULL DEFAULT '0';
 
+-- Create cc_auth_failures_log for Auth fails report
+CREATE TABLE `cc_auth_failures_log` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `cid` varchar(100) DEFAULT NULL,
+  `reason` varchar(100) NOT NULL,
+  `dump` text NOT NULL,
+  `id_card` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cid` (`cid`),
+  KEY `created_at` (`created_at`),
+  KEY `reason` (`reason`),
+  FULLTEXT KEY `dump` (`dump`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
 -- Insert new config parameter allowed_groups
 insert into cc_config
 (config_title, config_key, config_description, config_valuetype, config_group_title)
 values
 ('Allowed card groups', 'allowed_groups', 'The list of allowed card groups to be authenticated. Just list groups IDs with commas, like "1,2,3,4". Allows all if empty', '0', 'agi-conf1');
 
--- Insert new config parameter customer_history_log
+-- Insert new config parameter lock_useralias
 insert into cc_config
 (config_title, config_key, config_description, config_valuetype, config_value, config_listvalues, config_group_title)
 values
-('Log to customer history', 'customer_history_log', 'Enable logging to cusomter history', '1', '1', 'yes,no', 'agi-conf1');
+('Lock useralias', 'lock_useralias', 'Disable WEBUI LOGIN field editing', '1', '0', 'yes,no', 'webui');
 
 -- END Openvoip.co customization SQL changes
-

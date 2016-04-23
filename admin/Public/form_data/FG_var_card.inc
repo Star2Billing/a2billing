@@ -313,6 +313,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
     $maxi   = '';
     $maxi2  = '';
     $maxi3  = '';
+    $useralias_locked = '';
 
     if (isset($form_action) && $form_action=="ask-add") {
         if (!is_numeric($cardnumberlenght_list))    $cardnumberlenght_list = LEN_CARDNUMBER;
@@ -322,6 +323,10 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
         $pass = MDP_NUMERIC(5).MDP_STRING(15);
         $maxi3 = "value='".$pass."'";
         $default_initbalance = "value='0'";
+    }
+    
+    if (!empty($A2B->config["webui"]['lock_useralias'])) {
+        $useralias_locked = 'disabled="disabled"';
     }
 
     $HD_Form -> AddEditElement (gettext("ACCOUNT NUMBER"),
@@ -338,7 +343,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
                    "useralias",
                    "",
                    "INPUT",
-                    "size=20 $maxi2 maxlength=40",
+                    "size=20 $maxi2 maxlength=40 $useralias_locked",
                    "4",
                    gettext("Insert the webui login"),
                    "" , "", "", "", "" , "", "", "");

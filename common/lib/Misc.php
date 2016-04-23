@@ -512,6 +512,11 @@ function display_2bill($var, $currency = BASE_CURRENCY)
     echo number_format($var, 3) . ' ' . strtoupper($currency);
 }
 
+function display_pre($var)
+{
+    echo '<pre>' . $var . '</pre>';
+}
+
 function remove_prefix($phonenumber)
 {
     if (substr($phonenumber, 0, 3) == "011") {

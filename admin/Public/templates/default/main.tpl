@@ -182,6 +182,7 @@
 					<li><a href="call-comp.php?section=5">{php} echo gettext("Compare Calls");{/php}</a></li>
 					<li><a href="call-daily-load.php?section=5">{php} echo gettext("Daily Traffic");{/php}</a></li>
 					<li><a href="call-last-month.php?section=5">{php} echo gettext("Monthly Traffic");{/php}</a></li>
+                                        <li><a href="call-auth-failures-report.php?section=5">{php} echo gettext("Auth fails");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>

@@ -2206,41 +2206,39 @@ class A2Billing
     }
 
     /**
-     * Add record to the customer history log
+     * Add auth failure log
      * 
-     * @param string $message
+     * @param string $reason Optional
      */
-    public function add_customer_history($agi, $message) {
-        $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[add_customer_history CALLED - id_card:{$this->id_card}, CallerID:{$this->CallerID}, message:$message]");
+    public function log_auth_failure($reason = '') {
+        $cid = !empty($this->CallerID) ? $this->DBHandle->escape($this->CallerID) : '';
+        $reason = !empty($reason) ? $this->DBHandle->escape($reason) : '';
+        $params = array();
+        foreach (array('cardnumber', 'CallerID', 'mode', 'useralias', 'username', 'id_card', 'idconfig', 'accountcode', 'dnid', 'cardholder_lastname', 'cardholder_firstname', 'cardholder_email') as $param)
+            $params[] = $param . ' = ' . $this->$param;
+        $dump = $this->DBHandle->escape(implode("\r\n", $params));
         
-        if (!empty($message) && is_array($this->agiconfig) && !empty($this->agiconfig['customer_history_log']) && !empty($this->instance_table) && !empty($this->DBHandle)) {
-            $id_card = 0;
-            if (!empty($this->id_card)) { // possibly we have a card id
-                $id_card = $this->id_card;
-            } else if (!empty($this->username)) { // try to find possible customer by username
-                $sql = "select distinct id from cc_card where username = '{$this->username}' limit 1";
-                $result = $this->instance_table->SQLExec($this->DBHandle, $sql);
-                if (is_array($result) && count($result)) {
-                    $id_card = $result[0][0];
-                }
-            } else if (!empty($this->CallerID)) { // try to find possible customer by caller ID
-                $sql = "select distinct id_cc_card from cc_callerid where cid = '{$this->CallerID}' limit 1";
-                $result = $this->instance_table->SQLExec($this->DBHandle, $sql);
-                if (is_array($result) && count($result)) {
-                    $id_card = $result[0][0];
-                }
+        // try to detect customer
+        $id_card = 0;
+        if (!empty($this->id_card)) { // possibly we have a card id
+            $id_card = $this->id_card;
+        } else if (!empty($this->username)) { // try to find possible customer by username
+            $sql = "select id from cc_card where username = '{$this->username}' limit 1";
+            $result = $this->instance_table->SQLExec($this->DBHandle, $sql);
+            if (is_array($result) && count($result)) {
+                $id_card = $result[0][0];
             }
-            
-            // adding message
-            if ($id_card > 0) {
-                $description = "LOG [CID: {$this->CallerID}]: $message";
-                $sql = "insert into cc_card_history (id_cc_card, description) values ('$id_card', '$description')";
-                $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[add_customer_history ADDING - id_card:{$id_card}, description:$description]");
-                $result = $this->instance_table->SQLExec($this->DBHandle, $sql);
-            } else {
-                $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[add_customer_history NOT ADDING]");
+        } else if (!empty($this->CallerID)) { // try to find possible customer by caller ID
+            $sql = "select id_cc_card from cc_callerid where cid = '{$this->CallerID}' limit 1";
+            $result = $this->instance_table->SQLExec($this->DBHandle, $sql);
+            if (is_array($result) && count($result)) {
+                $id_card = $result[0][0];
             }
         }
+        
+        // adding log
+        $sql = "insert into cc_auth_failures_log (cid, reason, dump, id_card) values ('$cid', '$reason', '$dump', '$id_card')";
+        $this->instance_table->SQLExec($this->DBHandle, $sql);
     }
     
     /**
@@ -3168,14 +3166,14 @@ class A2Billing
                 if (!isset($this->cardnumber) || strlen($this->cardnumber) == 0) {
                     $prompt = "prepaid-no-card-entered";
                     $this->debug(DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
-                    $this->add_customer_history($agi, "AUTH MANUAL FAILED - DTMF:{$this->cardnumber}, REASON:$prompt");
+                    $this->log_auth_failure($prompt);
                     continue;
                 }
 
                 if (strlen($this->cardnumber) > CARDNUMBER_LENGTH_MAX || strlen($this->cardnumber) < CARDNUMBER_LENGTH_MIN) {
                     $prompt = "prepaid-invalid-digits";
                     $this->debug(DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
-                    $this->add_customer_history($agi, "AUTH MANUAL FAILED - DTMF:{$this->cardnumber}, REASON:$prompt");
+                    $this->log_auth_failure($prompt);
                     continue;
                 }
                 $this->accountcode = $this->username = $this->cardnumber;
@@ -3196,7 +3194,7 @@ class A2Billing
                 if (!is_array($result)) {
                     $prompt = "prepaid-auth-fail";
                     $this->debug(DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
-                    $this->add_customer_history($agi, "AUTH MANUAL FAILED - DTMF:{$this->cardnumber}, REASON:$prompt");
+                    $this->log_auth_failure($prompt);
                     continue;
                 } else {
                     // WE ARE GOING TO CHECK IF THE CALLERID IS CORRECT FOR THIS CARD
@@ -3369,7 +3367,7 @@ class A2Billing
             }
             
         } elseif ($res == -2) {
-            $this->add_customer_history($agi, "AUTH FAILED - REASON:$prompt");
+            $this->log_auth_failure($prompt);
             $agi->stream_file($prompt, '#');
         } else {
             $res = -1;
@@ -3410,14 +3408,14 @@ class A2Billing
             if (!isset($this->cardnumber) || strlen($this->cardnumber) == 0) {
                 $prompt = "prepaid-no-card-entered";
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
-                $this->add_customer_history($agi, "AUTH MANUAL FAILED - DTMF:{$this->cardnumber}, REASON:$prompt");
+                $this->log_auth_failure($prompt);
                 continue;
             }
 
             if (strlen($this->cardnumber) > CARDNUMBER_LENGTH_MAX || strlen($this->cardnumber) < CARDNUMBER_LENGTH_MIN) {
                 $prompt = "prepaid-invalid-digits";
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
-                $this->add_customer_history($agi, "AUTH MANUAL FAILED - DTMF:{$this->cardnumber}, REASON:$prompt");
+                $this->log_auth_failure($prompt);
                 continue;
             }
             $this->accountcode = $this->username = $this->cardnumber;
@@ -3438,7 +3436,7 @@ class A2Billing
             if (!is_array($result)) {
                 $prompt = "prepaid-auth-fail";
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
-                $this->add_customer_history($agi, "AUTH MANUAL FAILED - DTMF:{$this->cardnumber}, REASON:$prompt");
+                $this->log_auth_failure($prompt);
                 continue;
             }
 
@@ -3534,7 +3532,7 @@ class A2Billing
         if (($retries < 3) && $res == 0) {
             $this->callingcard_acct_start_inuse($agi, 1);
         } elseif ($res == -2) {
-            $this->add_customer_history($agi, "AUTH FAILED - REASON:$prompt");
+            $this->log_auth_failure($prompt);
             $agi->stream_file($prompt, '#');
         } else {
             $res = -1;
