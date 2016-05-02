@@ -1,0 +1,4603 @@
+# A2Billing Agent Panel - PO File.
+# Copyright (C) 2004-2012 A2BILLING
+# This file is distributed under the same license as the PACKAGE package.
+# ARESKI <areski@gmail.com>.
+#
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-09-30 19:56+0200\n"
+"PO-Revision-Date: 2015-03-24 22:25+0800\n"
+"Last-Translator: ARNOLD\n"
+"Language-Team: ARESKI <areski@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"###Project-Id-Version: A2Billing Agent : 1.4\n"
+"Project-Id-Version: \n"
+"X-Generator: Poedit 1.7.3\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: zh_CN\n"
+
+#: lib/Class.Realtime.php:94 Public/A2B_entity_card_multi.php:201
+#: Public/A2B_entity_card_multi.php:242
+msgid "Could not open buddy file"
+msgstr "无法打开好友文档"
+
+#: lib/Class.Realtime.php:113 Public/CC_generate_friend_file.php:112
+#: Public/CC_generate_friend_file.php:125 Public/A2B_entity_card_multi.php:220
+#: Public/A2B_entity_card_multi.php:261
+msgid "Impossible to write to the file"
+msgstr "无法写入文件"
+
+#: lib/customer.smarty.php:100 lib/admin.smarty.php:65 lib/agent.smarty.php:66
+msgid "This option is not available on the Demo!"
+msgstr "此设置无法演示！"
+
+#: lib/epayment/methods/iridium.php:607 Public/checkout_success.php:68
+msgid "We are sorry your transaction is failed. Please try later or check your provided information."
+msgstr "我们很抱歉，您的交易失败。请稍后再试，或检查您提供的信息"
+
+#: lib/epayment/methods/iridium.php:611 Public/checkout_success.php:72
+msgid "We are sorry your transaction is denied. Please try later or check your provided information."
+msgstr "我们很抱歉，您的交易未定义。请稍后再试，或检查您提供的信息"
+
+#: lib/epayment/methods/iridium.php:620 Public/checkout_success.php:80
+msgid "Your transaction is in progress."
+msgstr "您的交易正在进行中"
+
+#: lib/epayment/methods/iridium.php:624 Public/checkout_success.php:84
+msgid "Your transaction was successful."
+msgstr "您的交易已成功"
+
+#: lib/agent.defines.php:126
+msgid "Please select a payment method for your order."
+msgstr "请选择您的订单付款方式"
+
+#: lib/agent.defines.php:128
+msgid "Credit Card"
+msgstr "信用卡"
+
+#: lib/agent.defines.php:129 lib/agent.defines.php:139
+msgid "Credit Card Test Info"
+msgstr "信用卡测试信息"
+
+#: lib/agent.defines.php:129 lib/agent.defines.php:139
+msgid "Expiry: Any"
+msgstr "到期：任何"
+
+#: lib/agent.defines.php:130
+msgid "Credit Card Type"
+msgstr "信用卡类型"
+
+#: lib/agent.defines.php:131
+msgid "Credit Card Owner"
+msgstr "信用卡拥有者"
+
+#: lib/agent.defines.php:132
+msgid "Credit Card Number"
+msgstr "信用卡号"
+
+#: lib/agent.defines.php:133
+msgid "Credit Card Expiry Date"
+msgstr "信用卡到期日"
+
+#: lib/agent.defines.php:134 lib/agent.defines.php:147
+msgid "* The owner's name of the credit card must be at least"
+msgstr "必须有信用卡持有者姓名"
+
+#: lib/agent.defines.php:134 lib/agent.defines.php:135
+#: lib/agent.defines.php:148
+msgid "characters"
+msgstr "字符"
+
+#: lib/agent.defines.php:135 lib/agent.defines.php:148
+msgid "* The credit card number must be at least"
+msgstr "必须有信用卡号"
+
+#: lib/agent.defines.php:136
+msgid "Credit Card Error!"
+msgstr "信用卡错误！"
+
+#: lib/agent.defines.php:140
+msgid "There has been an error processing your credit card"
+msgstr "在处理您的信用卡进程中出现错误"
+
+#: lib/agent.defines.php:141
+msgid "Please check your credit card details!"
+msgstr "请检查您的信用卡信息！"
+
+#: lib/agent.defines.php:142
+msgid "Credit Card Owner:"
+msgstr "信用卡持有者："
+
+#: lib/agent.defines.php:143
+msgid "Credit Card Number:"
+msgstr "信用卡号："
+
+#: lib/agent.defines.php:144
+msgid "Credit Card Expiry Date:"
+msgstr "信用卡到期日期："
+
+#: lib/agent.defines.php:145
+msgid "Credit Card Checknumber:"
+msgstr "信用卡支票号码："
+
+#: lib/agent.defines.php:146
+msgid "(located at the back of the credit card)"
+msgstr "(位于信用卡背面)"
+
+#: lib/agent.defines.php:147
+msgid "characters."
+msgstr "字符"
+
+#: lib/support/classes/ticket.php:78 lib/support/classes/ticket.php:236
+msgid "(AGENT)"
+msgstr "（代理）"
+
+#: lib/support/classes/ticket.php:216
+msgid "(ADMINISTRATOR) "
+msgstr "（管理员）"
+
+#: lib/support/classes/ticket.php:377 lib/interface/constants.php:350
+#: lib/interface/constants.php:408 lib/interface/constants.php:431
+msgid "NEW"
+msgstr "新的"
+
+#: lib/support/classes/ticket.php:380
+msgid "FIXED"
+msgstr "固定"
+
+#: lib/support/classes/ticket.php:383
+msgid "REOPEN"
+msgstr "重开"
+
+#: lib/support/classes/ticket.php:386
+msgid "CLOSED"
+msgstr "关闭"
+
+#: lib/support/classes/ticket.php:389
+msgid "INVALID"
+msgstr "无效"
+
+#: lib/Class.SOAP-function.php:829 lib/Form/Class.FormBO.php:283
+#: Public/A2B_entity_card_multi.php:145
+msgid "CREATION CARD REFILL"
+msgstr "创建卡片簿"
+
+#: lib/common.defines.php:86
+msgid "Address line 1:"
+msgstr "地址第一行："
+
+#: lib/common.defines.php:87
+msgid "Address line 2:"
+msgstr "地址第二行："
+
+#: lib/common.defines.php:88
+msgid "Address line 3:"
+msgstr "地址第三行："
+
+#: lib/common.defines.php:89
+msgid "Postcode:"
+msgstr "邮编："
+
+#: lib/common.defines.php:90
+msgid "Country:"
+msgstr "国家："
+
+#: lib/common.defines.php:91
+msgid "Telephone:"
+msgstr "电话："
+
+#: lib/common.defines.php:118
+msgid "This software has been created by Areski Belaid under AGPL licence. For futher information, feel free to contact me:"
+msgstr "该软件已被Areski Belaid在AGPL许可证中创建，若要获取更多信息，请联系我："
+
+#: lib/common.defines.php:124
+msgid "A2Billing Portal"
+msgstr "A2费用门户"
+
+#: lib/Form/Class.ViewHandler.inc.php:72
+msgid "Archiving All "
+msgstr "所有存档"
+
+#: lib/Form/Class.ViewHandler.inc.php:86
+msgid "Sort"
+msgstr "分类"
+
+#: lib/Form/Class.ViewHandler.inc.php:106
+msgid "Records"
+msgstr "记录"
+
+#: lib/Form/Class.ViewHandler.inc.php:136
+msgid "FILTER ON "
+msgstr "过滤"
+
+#: lib/Form/Class.ViewHandler.inc.php:153
+msgid "FILTER ON"
+msgstr "过滤"
+
+#: lib/Form/Class.ViewHandler.inc.php:166
+msgid "APPLY FILTER "
+msgstr "申请筛选"
+
+#: lib/Form/Class.ViewHandler.inc.php:196
+msgid "ACTION"
+msgstr "采取行动"
+
+#: lib/Form/Class.ViewHandler.inc.php:796
+msgid "DISPLAY"
+msgstr "显示"
+
+#: lib/Form/Class.ViewHandler.inc.php:825
+msgid "GO"
+msgstr "行动"
+
+#: lib/Form/Class.ViewHandler.inc.php:829 Public/call-log-customers.php:1325
+msgid "Export CSV"
+msgstr "导出CSV"
+
+#: lib/Form/Class.ViewHandler.inc.php:833 Public/call-log-customers.php:1334
+msgid "Export XML"
+msgstr "导出XML"
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:214
+#: lib/Form/Class.FormHandler.EditForm.inc.php:390
+#: lib/Form/Class.FormHandler.EditForm.inc.php:768
+#: lib/Form/Class.FormHandler.DelForm.inc.php:161
+#: lib/Form/Class.FormHandler.AddForm.inc.php:154
+#: Public/call-log-customers.php:1060 Public/card-history.php:375
+msgid "No data found !!!"
+msgstr "未发现数据！！！"
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:273
+msgid "LIST "
+msgstr "清单"
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:324
+#: lib/interface/constants.php:78 Public/A2B_entity_card.php:478
+#: Public/A2B_entity_card_multi.php:420
+msgid "No"
+msgstr "否"
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:344
+#: lib/Form/Class.FormHandler.EditForm.inc.php:499
+#: lib/Form/Class.FormHandler.EditForm.inc.php:621
+msgid "Add a new"
+msgstr "添加一个新的目标"
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:431
+#: lib/Form/Class.FormHandler.EditForm.inc.php:557
+msgid "LIST"
+msgstr "清单"
+
+#: lib/Form/Class.FormBO.php:18
+msgid "This did is in use by customer id:"
+msgstr "此进程根据客户ID所用而做"
+
+#: lib/Form/Class.FormBO.php:314
+msgid "DELETION CARD REFILL"
+msgstr "缺失续订卡"
+
+#: lib/Form/Class.FormBO.php:333
+msgid "CORRECT COMMISSION AFTER CARD DELETED!"
+msgstr "卡片删除后正确预定"
+
+#: lib/Form/Class.FormBO.php:359
+msgid "CREATION AGENT REFILL"
+msgstr "创建代理续订"
+
+#: lib/Form/Class.FormBO.php:429
+msgid "SUBSCRIPTION INVOICE REMINDER"
+msgstr "预定发票"
+
+#: lib/Form/Class.FormBO.php:691
+msgid "SUMMARY OF CALLS"
+msgstr "呼叫摘要"
+
+#: lib/Form/Class.FormBO.php:692
+msgid "Summary of the calls charged since the last billing"
+msgstr "自上次结算收取的通话摘要"
+
+#: lib/Form/Class.FormBO.php:709
+msgid "SUMMARY OF CHARGE"
+msgstr "收费摘要"
+
+#: lib/Form/Class.FormBO.php:711
+msgid "Summary of the charge charged since the last billing."
+msgstr "自上次结算收取的收费摘要"
+
+#: lib/Form/Class.FormBO.php:717 lib/Form/Class.FormBO.php:747
+msgid "CHARGE :"
+msgstr "收费："
+
+#: lib/Form/Class.FormBO.php:736
+msgid "BILLING CHARGES"
+msgstr "收费账单："
+
+#: lib/Form/Class.FormBO.php:737
+msgid "This invoice is for some charges unpaid since the last billing."
+msgstr "上次结算费用未收费的发票"
+
+#: lib/Form/Class.FormBO.php:769
+msgid "BILLING POSTPAID"
+msgstr "付费收费"
+
+#: lib/Form/Class.FormBO.php:770
+msgid "Invoice for POSTPAID"
+msgstr "发票后付费"
+
+#: lib/Form/Class.FormBO.php:832 lib/Form/Class.FormBO.php:834
+#: lib/Form/Class.FormBO.php:941 lib/Form/Class.FormBO.php:943
+#: Public/A2B_entity_card.php:276 Public/form_data/FG_var_payment.inc:61
+msgid "REFILL"
+msgstr "续订"
+
+#: lib/Form/Class.FormBO.php:836 lib/Form/Class.FormBO.php:945
+msgid "Invoice for refill"
+msgstr "续订发票"
+
+#: lib/Form/Class.FormBO.php:992
+msgid "AUTOMATICALY GENERATED COMMISSION!"
+msgstr "任务自动生成"
+
+#: lib/Form/Class.SearchHandler.inc.php:23
+#: lib/Form/Class.SearchHandler.inc.php:97
+msgid "From :"
+msgstr "来自："
+
+#: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:250
+#: Public/call-last-month.php:89 Public/call-log-customers.php:433
+#: Public/A2B_entity_paymentlog.php:102
+msgid "January"
+msgstr "一月"
+
+#: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:251
+#: Public/call-last-month.php:89 Public/call-log-customers.php:433
+#: Public/A2B_entity_paymentlog.php:102
+msgid "February"
+msgstr "二月"
+
+#: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:252
+#: Public/call-last-month.php:89 Public/call-log-customers.php:433
+#: Public/A2B_entity_paymentlog.php:102
+msgid "March"
+msgstr "三月"
+
+#: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:253
+#: Public/call-last-month.php:89 Public/call-log-customers.php:433
+#: Public/A2B_entity_paymentlog.php:102
+msgid "April"
+msgstr "四月"
+
+#: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:254
+#: Public/call-last-month.php:89 Public/call-log-customers.php:433
+#: Public/A2B_entity_paymentlog.php:102
+msgid "May"
+msgstr "五月"
+
+#: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:255
+#: Public/call-last-month.php:89 Public/call-log-customers.php:433
+#: Public/A2B_entity_paymentlog.php:102
+msgid "June"
+msgstr "六月"
+
+#: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:256
+#: Public/call-last-month.php:89 Public/call-log-customers.php:433
+#: Public/A2B_entity_paymentlog.php:102
+msgid "July"
+msgstr "七月"
+
+#: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:257
+#: Public/call-last-month.php:89 Public/call-log-customers.php:433
+#: Public/A2B_entity_paymentlog.php:102
+msgid "August"
+msgstr "八月"
+
+#: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:258
+#: Public/call-last-month.php:89 Public/call-log-customers.php:433
+#: Public/A2B_entity_paymentlog.php:102
+msgid "September"
+msgstr "九月"
+
+#: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:259
+#: Public/call-last-month.php:89 Public/call-log-customers.php:433
+#: Public/A2B_entity_paymentlog.php:102
+msgid "October"
+msgstr "十月"
+
+#: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:260
+#: Public/call-last-month.php:89 Public/call-log-customers.php:433
+#: Public/A2B_entity_paymentlog.php:102
+msgid "November"
+msgstr "十一月"
+
+#: lib/Form/Class.SearchHandler.inc.php:34 lib/interface/constants.php:261
+#: Public/call-last-month.php:89 Public/call-log-customers.php:433
+#: Public/A2B_entity_paymentlog.php:102
+msgid "December"
+msgstr "十二月"
+
+#: lib/Form/Class.SearchHandler.inc.php:55
+#: lib/Form/Class.SearchHandler.inc.php:127
+msgid "To :"
+msgstr "至："
+
+#: lib/Form/Class.SearchHandler.inc.php:203 Public/call-last-month.php:127
+#: Public/call-log-customers.php:577 Public/call-log-customers.php:629
+#: Public/call-log-customers.php:682
+msgid "Exact"
+msgstr "精确"
+
+#: lib/Form/Class.SearchHandler.inc.php:204 Public/call-last-month.php:128
+#: Public/call-log-customers.php:586 Public/call-log-customers.php:638
+#: Public/call-log-customers.php:691
+msgid "Begins with"
+msgstr "开始于"
+
+#: lib/Form/Class.SearchHandler.inc.php:205 Public/call-last-month.php:129
+#: Public/call-log-customers.php:595 Public/call-log-customers.php:647
+#: Public/call-log-customers.php:700
+msgid "Contains"
+msgstr "包含"
+
+#: lib/Form/Class.SearchHandler.inc.php:206 Public/call-last-month.php:130
+#: Public/call-log-customers.php:604 Public/call-log-customers.php:656
+#: Public/call-log-customers.php:709
+msgid "Ends with"
+msgstr "结束于"
+
+#: lib/Form/Class.SearchHandler.inc.php:314
+msgid "There is"
+msgstr "有"
+
+#: lib/Form/Class.SearchHandler.inc.php:314
+msgid "selected, use the option below if you are willing to make a batch updated of the selected cards."
+msgstr "选择，如果你愿意从以下选项中更新请使用下面的选项"
+
+#: lib/Form/Class.SearchHandler.inc.php:342
+#: Public/templates/default/main.tpl:128
+msgid "RATECARD"
+msgstr "比率卡"
+
+#: lib/Form/Class.SearchHandler.inc.php:361
+msgid "BUYRATE"
+msgstr "买比率"
+
+#: lib/Form/Class.SearchHandler.inc.php:364
+#: lib/Form/Class.SearchHandler.inc.php:379
+#: lib/Form/Class.SearchHandler.inc.php:395
+#: lib/Form/Class.SearchHandler.inc.php:411
+#: lib/Form/Class.SearchHandler.inc.php:427
+#: lib/Form/Class.SearchHandler.inc.php:443
+#: lib/Form/Class.SearchHandler.inc.php:459
+#: lib/Form/Class.SearchHandler.inc.php:475
+#: lib/Form/Class.SearchHandler.inc.php:491
+msgid "Equal"
+msgstr "等于"
+
+#: lib/Form/Class.SearchHandler.inc.php:365
+#: lib/Form/Class.SearchHandler.inc.php:380
+#: lib/Form/Class.SearchHandler.inc.php:396
+#: lib/Form/Class.SearchHandler.inc.php:412
+#: lib/Form/Class.SearchHandler.inc.php:428
+#: lib/Form/Class.SearchHandler.inc.php:444
+#: lib/Form/Class.SearchHandler.inc.php:460
+#: lib/Form/Class.SearchHandler.inc.php:476
+#: lib/Form/Class.SearchHandler.inc.php:493
+msgid "Add"
+msgstr "添加"
+
+#: lib/Form/Class.SearchHandler.inc.php:366
+#: lib/Form/Class.SearchHandler.inc.php:381
+#: lib/Form/Class.SearchHandler.inc.php:397
+#: lib/Form/Class.SearchHandler.inc.php:413
+#: lib/Form/Class.SearchHandler.inc.php:429
+#: lib/Form/Class.SearchHandler.inc.php:445
+#: lib/Form/Class.SearchHandler.inc.php:461
+#: lib/Form/Class.SearchHandler.inc.php:477
+#: lib/Form/Class.SearchHandler.inc.php:494
+msgid "Substract"
+msgstr "减去"
+
+#: lib/Form/Class.SearchHandler.inc.php:376
+msgid "BUYRATEINITBLOCK"
+msgstr "在组块中买比率"
+
+#: lib/Form/Class.SearchHandler.inc.php:392
+msgid "BUYRATEINCREMENT"
+msgstr "增加购买比率的量"
+
+#: lib/Form/Class.SearchHandler.inc.php:408
+#: Public/form_data/FG_var_def_ratecard.inc:120
+msgid "RATE INITIAL"
+msgstr "初始比值"
+
+#: lib/Form/Class.SearchHandler.inc.php:424
+msgid "MIN DURATION"
+msgstr "期限"
+
+#: lib/Form/Class.SearchHandler.inc.php:440
+msgid "BILLINGBLOCK"
+msgstr "账单期限"
+
+#: lib/Form/Class.SearchHandler.inc.php:456
+msgid "CONNECTCHARGE"
+msgstr "收费"
+
+#: lib/Form/Class.SearchHandler.inc.php:472
+msgid "DISCONNECTCHARGE"
+msgstr "停止收费"
+
+#: lib/Form/Class.SearchHandler.inc.php:488
+msgid "DISCONNECT CHARGE THRESHOLD"
+msgstr "停止收费标准"
+
+#: lib/Form/Class.SearchHandler.inc.php:503
+msgid " BATCH UPDATE RATECARD "
+msgstr "批量更新价目表"
+
+#: lib/Form/Class.FormHandler.DelForm.inc.php:46
+#: Public/checkout_success.php:54
+msgid "Message"
+msgstr "信息"
+
+#: lib/Form/Class.FormHandler.DelForm.inc.php:53
+msgid "You have "
+msgstr "你有"
+
+#: lib/Form/Class.FormHandler.DelForm.inc.php:208
+msgid "Remove this "
+msgstr "删除"
+
+#: lib/Form/Class.FormHandler.inc.php:545
+msgid "No data found!"
+msgstr "未发现数据！"
+
+#: lib/Form/Class.FormHandler.inc.php:546
+msgid "DIRECTORY"
+msgstr "目录"
+
+#: lib/Form/Class.FormHandler.inc.php:547
+msgid "list"
+msgstr "清单"
+
+#: lib/Form/Class.FormHandler.inc.php:548
+#: lib/Form/Class.FormHandler.inc.php:630
+msgid "Define criteria to make a precise search"
+msgstr "定义精确搜索的标准"
+
+#: lib/Form/Class.FormHandler.inc.php:549
+msgid "You can browse through our"
+msgstr "您可以通过浏览我们"
+
+#: lib/Form/Class.FormHandler.inc.php:549
+msgid "and modify their different properties"
+msgstr "并修改它们不同的属性"
+
+#: lib/Form/Class.FormHandler.inc.php:550
+msgid "Delete this record"
+msgstr "删除记录"
+
+#: lib/Form/Class.FormHandler.inc.php:551
+msgid "Edit this record"
+msgstr "编辑记录"
+
+#: lib/Form/Class.FormHandler.inc.php:552
+msgid "The document has been created correctly. Now, you can define the different tariff that you want to associate."
+msgstr "该文件已正确创建。现在，您可以定义您想要关联的不同关税"
+
+#: lib/Form/Class.FormHandler.inc.php:553 Public/form_data/FG_var_card.inc:945
+#: Public/form_data/FG_var_moneysituation.inc:77
+msgid "You can modify, through the following form, the different properties of your"
+msgstr "您可以通过以下不同性质的方式进行修改"
+
+#: lib/Form/Class.FormHandler.inc.php:554 Public/form_data/FG_var_card.inc:946
+#: Public/form_data/FG_var_def_ratecard.inc:129
+#: Public/form_data/FG_var_moneysituation.inc:78
+#: Public/form_data/FG_var_friend.inc:926
+#: Public/form_data/FG_var_ticket.inc:172
+#: Public/form_data/FG_var_ticket_agent.inc:90
+#: Public/form_data/FG_var_callerid.inc:121
+msgid "If you really want remove this"
+msgstr "如果你真的要删除目标"
+
+#: lib/Form/Class.FormHandler.inc.php:554
+msgid "Click on the delete button."
+msgstr "点击删除按钮"
+
+#: lib/Form/Class.FormHandler.inc.php:555
+msgid "One"
+msgstr "一"
+
+#: lib/Form/Class.FormHandler.inc.php:555
+msgid "has been deleted!"
+msgstr "已被删除！"
+
+#: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_card.inc:947
+#: Public/form_data/FG_var_def_ratecard.inc:130
+#: Public/form_data/FG_var_moneysituation.inc:79
+#: Public/form_data/FG_var_friend.inc:927
+#: Public/form_data/FG_var_ticket.inc:173
+#: Public/form_data/FG_var_ticket_agent.inc:91
+#: Public/form_data/FG_var_callerid.inc:122
+msgid "you can add easily a new"
+msgstr "您可以轻松的添加一个新的目标"
+
+#: lib/Form/Class.FormHandler.inc.php:557 Public/form_data/FG_var_card.inc:947
+#: Public/form_data/FG_var_def_ratecard.inc:130
+#: Public/form_data/FG_var_moneysituation.inc:79
+#: Public/form_data/FG_var_friend.inc:927
+#: Public/form_data/FG_var_ticket.inc:173
+#: Public/form_data/FG_var_ticket_agent.inc:91
+#: Public/form_data/FG_var_callerid.inc:122
+msgid "Fill the following fields and confirm by clicking on the button add."
+msgstr "填写以下字段，并通过点击按钮添加确认"
+
+#: lib/Form/Class.FormHandler.inc.php:558
+msgid "Add a"
+msgstr "添加一个目标"
+
+#: lib/Form/Class.FormHandler.inc.php:558
+msgid "now."
+msgstr "现在"
+
+#: lib/Form/Class.FormHandler.inc.php:559
+#: lib/Form/Class.FormHandler.inc.php:560 Public/form_data/FG_var_card.inc:951
+#: Public/form_data/FG_var_def_ratecard.inc:134
+#: Public/form_data/FG_var_friend.inc:931
+#: Public/form_data/FG_var_ticket.inc:177
+#: Public/form_data/FG_var_ticket_agent.inc:95
+#: Public/form_data/FG_var_callerid.inc:132
+msgid "Your new"
+msgstr "新的目标"
+
+#: lib/Form/Class.FormHandler.inc.php:559
+msgid "has been inserted.<br>"
+msgstr "已输入"
+
+#: lib/Form/Class.FormHandler.inc.php:560
+msgid "hasn't been inserted."
+msgstr "未被输入"
+
+#: lib/Form/Class.FormHandler.inc.php:561
+msgid "You cannot choose more than one !"
+msgstr "您无法选择超过一个目标！"
+
+#: lib/Form/Class.FormHandler.inc.php:563
+msgid "Are you sure to delete all records connected to this instance."
+msgstr "您确定要删除连接到该实例的所有记录"
+
+#: lib/Form/Class.FormHandler.inc.php:565
+#: lib/Form/Class.FormHandler.inc.php:567
+msgid "CONFIRM DATA"
+msgstr "确认数据"
+
+#: lib/Form/Class.FormHandler.inc.php:566
+msgid "DELETE"
+msgstr "删除"
+
+#: lib/Form/Class.FormHandler.inc.php:619
+#: lib/Form/Class.FormHandler.inc.php:837
+msgid "Delete this "
+msgstr "删除此目标"
+
+#: lib/Form/Class.FormHandler.inc.php:620
+#: lib/Form/Class.FormHandler.inc.php:831
+msgid "Edit this "
+msgstr "编辑此目标"
+
+#: lib/Form/Class.FormHandler.inc.php:651
+msgid "INSERTED"
+msgstr "载入"
+
+#: lib/Form/Class.FormHandler.inc.php:652
+msgid "ENABLE"
+msgstr "导致"
+
+#: lib/Form/Class.FormHandler.inc.php:653
+msgid "DISABLE"
+msgstr "不可能"
+
+#: lib/Form/Class.FormHandler.inc.php:654
+msgid "FREE"
+msgstr "自由"
+
+#: lib/Form/Class.FormHandler.inc.php:806
+#: lib/Form/Class.FormHandler.inc.php:808
+msgid "You can browse through our "
+msgstr "Vous pouvez parcourir notre"
+
+#: lib/Form/Class.FormHandler.inc.php:806
+#: lib/Form/Class.FormHandler.inc.php:808
+msgid " and modify their different properties<br>"
+msgstr "并修改其不同的属性"
+
+#: lib/Form/Class.FormHandler.inc.php:976
+msgid "(at least 3 characters)"
+msgstr "（至少3个字符）"
+
+#: lib/Form/Class.FormHandler.inc.php:980
+msgid "(must match email structure. Example : name@domain.com)"
+msgstr "（电子邮件结果必须与实例匹配，如：name@domain.com）"
+
+#: lib/Form/Class.FormHandler.inc.php:984
+msgid "(at least 5 successive characters appear at the end of this string)"
+msgstr "（至少连续5个字符出现在该字符串的结尾）"
+
+#: lib/Form/Class.FormHandler.inc.php:988
+msgid "(at least 4 characters)"
+msgstr "(至少四个字符)"
+
+#: lib/Form/Class.FormHandler.inc.php:992
+msgid "(number format)"
+msgstr "（数字格式）"
+
+#: lib/Form/Class.FormHandler.inc.php:1000
+msgid "(only number with more that 8 digits)"
+msgstr "（仅适用于更多的8位数）"
+
+#: lib/Form/Class.FormHandler.inc.php:1004
+msgid "(at least 8 digits using . or - or the space key)"
+msgstr "（至少8位数字使用.或 - 或空格键）"
+
+#: lib/Form/Class.FormHandler.inc.php:1008
+msgid "network adress format"
+msgstr "网络地址格式"
+
+#: lib/Form/Class.FormHandler.inc.php:1012
+msgid "at least 1 character"
+msgstr "至少一个字符"
+
+#: lib/Form/Class.FormHandler.inc.php:1020
+msgid "(AT LEAST 2 CARACTERS)"
+msgstr "（至少两个特征）"
+
+#: lib/Form/Class.FormHandler.inc.php:1024
+msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
+msgstr "（数字格式/不带小数点，十进制使用“.\")"
+
+#: lib/Form/Class.FormHandler.inc.php:1040
+msgid "You must write something."
+msgstr "您必须在此处填写内容"
+
+#: lib/Form/Class.FormHandler.inc.php:1044
+msgid "8 characters alphanumeric"
+msgstr "8个字符的字母数字"
+
+#: lib/Form/Class.FormHandler.inc.php:1051
+msgid "(at least 6 Alphanumeric characters)"
+msgstr "(至少6个字母数字字符"
+
+#: lib/Form/Class.FormHandler.inc.php:1059
+#, php-format
+msgid "(PERCENT FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal and don't use '%' character. e.g.: 12.4 )"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:1738
+msgid "error deletion"
+msgstr "错误删除"
+
+#: lib/Form/Class.FormHandler.inc.php:1865
+msgid "ERROR_DUPLICATION"
+msgstr "错误复制"
+
+#: lib/Form/Class.FormHandler.inc.php:1951
+msgid "Done"
+msgstr "完成"
+
+#: lib/Form/Class.FormHandler.inc.php:1991
+msgid "Export Call Plan with LCR"
+msgstr "LCR出口呼叫计划"
+
+#: lib/Form/Class.FormHandler.inc.php:1997
+msgid "Choose a call plan"
+msgstr "选择一个呼叫方案"
+
+#: lib/Form/Class.FormHandler.inc.php:2043
+msgid "THE CURRENT RATECARD"
+msgstr "按照目前的速度"
+
+#: lib/Form/Class.FormHandler.inc.php:2054
+msgid "R A T E C A R D"
+msgstr "比率卡"
+
+#: lib/Form/Class.FormHandler.inc.php:2060
+msgid "Choose a ratecard"
+msgstr "选择一个比率卡"
+
+#: lib/Form/Class.FormHandler.AddForm.inc.php:207
+msgid "Create a new "
+msgstr "创建一个新的目标"
+
+#: lib/Misc.php:580 lib/Class.Notification.php:150
+msgid "UNKNOWN"
+msgstr "未知"
+
+#: lib/Misc.php:793
+msgid "First"
+msgstr "首先"
+
+#: lib/Misc.php:794
+msgid "Prev"
+msgstr "上一页"
+
+#: lib/Misc.php:795 Public/call-log-customers.php:1083
+msgid "Next"
+msgstr "接下来"
+
+#: lib/Misc.php:796
+msgid "Last"
+msgstr "最后"
+
+#: lib/Misc.php:887
+msgid "File size is greater than allowed limit."
+msgstr "文件大小超过允许的极限"
+
+#: lib/Misc.php:890
+msgid "You did not upload anything!"
+msgstr "您还未上传任何文件！"
+
+#: lib/Misc.php:892
+msgid "Failed to upload the file, The file you uploaded may not exist on disk."
+msgstr "没有上传的文件，你上传的文件可能无法在磁盘上存在"
+
+#: lib/Misc.php:895
+msgid "file type is not allowed"
+msgstr "文件类型受限"
+
+#: lib/Misc.php:1215
+msgid "Can't find our base_currency in cc_currencies."
+msgstr "无法在CC货币中找到您的基础货币"
+
+#: lib/Misc.php:1215 lib/Misc.php:1238 lib/Misc.php:1242 lib/Misc.php:1252
+msgid "Currency update ABORTED."
+msgstr "货币更新终止"
+
+#: lib/Misc.php:1238
+msgid "The CSV file doesn't contain all the currencies we requested."
+msgstr "CSV文件不包含所有我们所要求的货币"
+
+#: lib/Misc.php:1242
+msgid "At least one of the entries in the CSV file isn't a number."
+msgstr "至少一个CSV文件中的条目不是一个数字"
+
+#: lib/Misc.php:1252
+msgid "Our base_currency seems to be worthless."
+msgstr "我们的基础货币似乎贬值了"
+
+#: lib/Misc.php:1290
+msgid "Success! All currencies are now updated."
+msgstr "成功！所有的货币已成功更新"
+
+#: lib/Misc.php:1580
+msgid "GO TO CUSTOMER ACCOUNT"
+msgstr "去客户账户"
+
+#: lib/interface/constants.php:18
+msgid "INFO"
+msgstr "帮助"
+
+#: lib/interface/constants.php:19
+msgid "SUCCESS"
+msgstr "成功"
+
+#: lib/interface/constants.php:20
+msgid "WARNING"
+msgstr "警告"
+
+#: lib/interface/constants.php:21 lib/interface/constants.php:88
+msgid "ERROR"
+msgstr "错误"
+
+#: lib/interface/constants.php:29 lib/interface/constants.php:46
+msgid "ENGLISH"
+msgstr "英文"
+
+#: lib/interface/constants.php:30 lib/interface/constants.php:47
+msgid "SPANISH"
+msgstr "西班牙文"
+
+#: lib/interface/constants.php:31 lib/interface/constants.php:48
+msgid "FRENCH"
+msgstr "法文"
+
+#: lib/interface/constants.php:32 lib/interface/constants.php:49
+msgid "RUSSIAN"
+msgstr "俄语"
+
+#: lib/interface/constants.php:33 lib/interface/constants.php:50
+msgid "BRAZILIAN"
+msgstr "巴西"
+
+#: lib/interface/constants.php:58
+msgid "NONE RESTRICTION USED"
+msgstr "无限制中使用"
+
+#: lib/interface/constants.php:59
+msgid "CAN'T CALL RESTRICTED NUMBERS"
+msgstr "不能拨打限制的电话号码"
+
+#: lib/interface/constants.php:60
+msgid "CAN ONLY CALL RESTRICTED NUMBERS"
+msgstr "只能调用限制的电话号码"
+
+#: lib/interface/constants.php:67 Public/call-last-month.php:59
+#: Public/call-log-customers.php:359 Public/templates/default/main.tpl:46
+msgid "CUSTOMERS"
+msgstr "客户"
+
+#: lib/interface/constants.php:68
+msgid "AGENTS"
+msgstr "代理"
+
+#: lib/interface/constants.php:69
+msgid "CUSTOMERS AND AGENTS"
+msgstr "客户和代理"
+
+#: lib/interface/constants.php:77 Public/A2B_entity_card.php:478
+#: Public/A2B_entity_card_multi.php:420
+msgid "Yes"
+msgstr "是"
+
+#: lib/interface/constants.php:86
+msgid "PENDING"
+msgstr "等候中"
+
+#: lib/interface/constants.php:87
+msgid "SENT"
+msgstr "发送"
+
+#: lib/interface/constants.php:107
+msgid "Inactive"
+msgstr "待用"
+
+#: lib/interface/constants.php:108
+msgid "Active"
+msgstr "积极"
+
+#: lib/interface/constants.php:139
+msgid "Fix per month + dialoutrate"
+msgstr "修复每月+拨号率"
+
+#: lib/interface/constants.php:140
+msgid "Fix per month"
+msgstr "每月修复"
+
+#: lib/interface/constants.php:141
+msgid "Only dialout rate"
+msgstr "仅仅拨号率"
+
+#: lib/interface/constants.php:142 lib/interface/constants.php:153
+msgid "Free"
+msgstr "Gratuit"
+
+#: lib/interface/constants.php:150
+msgid "Fix+Dial"
+msgstr "修复+拨号"
+
+#: lib/interface/constants.php:151
+msgid "Fix"
+msgstr "修复"
+
+#: lib/interface/constants.php:152
+msgid "Dial"
+msgstr "拨号"
+
+#: lib/interface/constants.php:161 lib/interface/constants.php:469
+#: Public/A2B_entity_card.php:409 Public/A2B_entity_card_multi.php:361
+msgid "INDIVIDUAL ACCESS"
+msgstr "单独访问"
+
+#: lib/interface/constants.php:162 lib/interface/constants.php:468
+#: Public/A2B_entity_card.php:410 Public/form_data/FG_var_card.inc:612
+#: Public/A2B_entity_card_multi.php:362
+msgid "SIMULTANEOUS ACCESS"
+msgstr "同时访问"
+
+#: lib/interface/constants.php:170 Public/A2B_entity_card_multi.php:378
+msgid "PREPAID CARD"
+msgstr "预付卡"
+
+#: lib/interface/constants.php:171
+msgid "POSTPAID CARD"
+msgstr "后付费卡"
+
+#: lib/interface/constants.php:186 Public/A2B_entity_card_multi.php:390
+msgid "NO EXPIRATION"
+msgstr "未到期"
+
+#: lib/interface/constants.php:187 lib/interface/constants.php:485
+#: Public/A2B_entity_card.php:438 Public/A2B_entity_card_multi.php:391
+msgid "EXPIRE DATE"
+msgstr "失效日期"
+
+#: lib/interface/constants.php:188 lib/interface/constants.php:486
+#: Public/A2B_entity_card.php:439 Public/A2B_entity_card_multi.php:392
+msgid "EXPIRE DAYS SINCE FIRST USE"
+msgstr "截止日期以来第一次使用"
+
+#: lib/interface/constants.php:189 lib/interface/constants.php:487
+#: Public/A2B_entity_card.php:440 Public/A2B_entity_card_multi.php:393
+msgid "EXPIRE DAYS SINCE CREATION"
+msgstr "从创建到截止日期"
+
+#: lib/interface/constants.php:197 lib/interface/constants.php:213
+msgid "OPEN"
+msgstr "打开"
+
+#: lib/interface/constants.php:198 lib/interface/constants.php:214
+msgid "CLOSE"
+msgstr "关闭"
+
+#: lib/interface/constants.php:223 lib/interface/constants.php:242
+#: lib/interface/constants.php:269
+msgid "UNPAID"
+msgstr "未付"
+
+#: lib/interface/constants.php:224 lib/interface/constants.php:241
+#: lib/interface/constants.php:272
+msgid "PAID"
+msgstr "已支付"
+
+#: lib/interface/constants.php:239
+msgid "FIRSTUSE"
+msgstr "第一次使用"
+
+#: lib/interface/constants.php:240
+msgid "BILLED"
+msgstr "计费"
+
+#: lib/interface/constants.php:270
+msgid "SENT-UNPAID"
+msgstr "发送未付"
+
+#: lib/interface/constants.php:271
+msgid "SENT-PAID"
+msgstr "发送已付"
+
+#: lib/interface/constants.php:281
+msgid "New"
+msgstr "新的目标"
+
+#: lib/interface/constants.php:282
+msgid "Proceed"
+msgstr "继续"
+
+#: lib/interface/constants.php:283
+msgid "In Process"
+msgstr "在进程中"
+
+#: lib/interface/constants.php:291
+msgid "Failed"
+msgstr "失败"
+
+#: lib/interface/constants.php:292
+msgid "Successful"
+msgstr "成功的"
+
+#: lib/interface/constants.php:293
+msgid "Not Sent"
+msgstr "未发送"
+
+#: lib/interface/constants.php:301
+msgid "Unlimited calls"
+msgstr "无限制通话"
+
+#: lib/interface/constants.php:302
+msgid "Number of Free calls"
+msgstr "免费通话的次数"
+
+#: lib/interface/constants.php:303
+msgid "Free seconds"
+msgstr "免费秒"
+
+#: lib/interface/constants.php:311
+msgid "Monthly"
+msgstr "每月一次"
+
+#: lib/interface/constants.php:312
+msgid "Weekly"
+msgstr "每周"
+
+#: lib/interface/constants.php:320
+msgid "LCR : According to the buyer price"
+msgstr "LCR：通过买方价格"
+
+#: lib/interface/constants.php:321
+msgid "LCD : According to the seller price"
+msgstr "LCD : 通过卖方价格"
+
+#: lib/interface/constants.php:329
+msgid "LCR : buyer price"
+msgstr "LCR : 买方价格"
+
+#: lib/interface/constants.php:330
+msgid "LCD : seller price"
+msgstr "LCD :卖方价格"
+
+#: lib/interface/constants.php:338
+msgid "NONE"
+msgstr "无目标"
+
+#: lib/interface/constants.php:339 lib/Class.Notification.php:115
+msgid "LOW"
+msgstr "低级"
+
+#: lib/interface/constants.php:340 lib/Class.Notification.php:112
+msgid "MEDIUM"
+msgstr "中级"
+
+#: lib/interface/constants.php:341 lib/Class.Notification.php:110
+msgid "HIGH"
+msgstr "高级"
+
+#: lib/interface/constants.php:349 Public/form_data/FG_var_ticket.inc:76
+msgid "VIEWED"
+msgstr "查看"
+
+#: lib/interface/constants.php:358
+msgid "NOT USED"
+msgstr "未使用"
+
+#: lib/interface/constants.php:359
+msgid "USED"
+msgstr "已使用"
+
+#: lib/interface/constants.php:374
+msgid "ANSWER"
+msgstr "答案"
+
+#: lib/interface/constants.php:375
+msgid "BUSY"
+msgstr "繁忙"
+
+#: lib/interface/constants.php:376
+msgid "NOANSWER"
+msgstr "无答案"
+
+#: lib/interface/constants.php:377 lib/interface/constants.php:429
+#: lib/interface/constants.php:459
+msgid "CANCEL"
+msgstr "取消"
+
+#: lib/interface/constants.php:378
+msgid "CONGESTION"
+msgstr "过剩"
+
+#: lib/interface/constants.php:379
+msgid "CHANUNAVAIL"
+msgstr ""
+
+#: lib/interface/constants.php:380
+msgid "DONTCALL"
+msgstr "禁止呼叫"
+
+#: lib/interface/constants.php:381
+msgid "TORTURE"
+msgstr "刑法"
+
+#: lib/interface/constants.php:382
+msgid "INVALIDARGS"
+msgstr ""
+
+#: lib/interface/constants.php:406 lib/interface/constants.php:445
+msgid "ACTIVE"
+msgstr "积极"
+
+#: lib/interface/constants.php:407 lib/interface/constants.php:429
+#: lib/interface/constants.php:446 lib/interface/constants.php:459
+#: lib/interface/constants.php:543
+msgid "CANCELLED"
+msgstr "已取消"
+
+#: lib/interface/constants.php:409 lib/interface/constants.php:432
+msgid "WAITING-MAILCONFIRMATION"
+msgstr "等待确认电子邮件"
+
+#: lib/interface/constants.php:410 lib/interface/constants.php:433
+msgid "RESERVED"
+msgstr "保留"
+
+#: lib/interface/constants.php:411 lib/interface/constants.php:434
+msgid "EXPIRED"
+msgstr "过期"
+
+#: lib/interface/constants.php:412 lib/interface/constants.php:435
+msgid "SUSPENDED FOR UNDERPAYMENT"
+msgstr "暂停付工资"
+
+#: lib/interface/constants.php:413 lib/interface/constants.php:436
+msgid "SUSPENDED FOR LITIGATION"
+msgstr "暂停诉讼"
+
+#: lib/interface/constants.php:414
+msgid "WAITING SUBSCRIPTION PAYMENT"
+msgstr "订阅付款逾期"
+
+#: lib/interface/constants.php:430 lib/interface/constants.php:460
+#: Public/form_data/FG_var_callerid.inc:59
+#: Public/form_data/FG_var_callerid.inc:84 Public/A2B_card_info.php:459
+#: Public/A2B_card_info.php:909
+msgid "ACTIVATED"
+msgstr "已激活"
+
+#: lib/interface/constants.php:432 lib/interface/constants.php:540
+msgid "WAITING"
+msgstr "正在等待"
+
+#: lib/interface/constants.php:433
+msgid "RESERV"
+msgstr "保留"
+
+#: lib/interface/constants.php:435
+msgid "SUS-PAY"
+msgstr "SUS 支付"
+
+#: lib/interface/constants.php:436
+msgid "SUS-LIT"
+msgstr "SUS 点燃"
+
+#: lib/interface/constants.php:437
+msgid "WAITING-SUBSCRIPTION-PAYMENT"
+msgstr "等待付费"
+
+#: lib/interface/constants.php:437
+msgid "WAIT-PAY"
+msgstr "等待支付"
+
+#: lib/interface/constants.php:484 Public/A2B_entity_card.php:437
+msgid "NO EXPIRY"
+msgstr "未过期"
+
+#: lib/interface/constants.php:495
+msgid "SQL"
+msgstr ""
+
+#: lib/interface/constants.php:496
+msgid "SHELL SCRIPT"
+msgstr "脚本"
+
+#: lib/interface/constants.php:504
+msgid "TEXT2SPEECH"
+msgstr "第二节演讲"
+
+#: lib/interface/constants.php:505
+msgid "UNIXTIME"
+msgstr ""
+
+#: lib/interface/constants.php:506
+msgid "NUMBER"
+msgstr "数"
+
+#: lib/interface/constants.php:507
+msgid "DIGIT"
+msgstr "数字"
+
+#: lib/interface/constants.php:515 Public/A2B_refill_info_agent.php:84
+#: Public/form_data/FG_var_moneysituation_details.inc:49
+#: Public/form_data/FG_var_remittance_request.inc:57
+#: Public/form_data/FG_var_commission.inc:52
+#: Public/form_data/FG_var_paymentlog.inc:169
+#: Public/A2B_payment_info_agent.php:83 Public/A2B_refill_info.php:90
+#: Public/A2B_agent_remittance_req.php:180 Public/A2B_payment_info.php:89
+#: Public/A2B_agent_remittance_conf.php:182
+msgid "AMOUNT"
+msgstr "数量"
+
+#: lib/interface/constants.php:516
+msgid "CORRECTION"
+msgstr "更正"
+
+#: lib/interface/constants.php:517
+msgid "EXTRA FEE"
+msgstr "额外收费"
+
+#: lib/interface/constants.php:518
+msgid "AGENT REFUND"
+msgstr "退款代理人"
+
+#: lib/interface/constants.php:526
+msgid "TO BALANCE"
+msgstr "平衡"
+
+#: lib/interface/constants.php:527
+msgid "TO BANK"
+msgstr "去银行"
+
+#: lib/interface/constants.php:541
+msgid "ACCEPTED"
+msgstr "公认"
+
+#: lib/interface/constants.php:542
+msgid "REFUSED"
+msgstr "拒绝"
+
+#: lib/interface/constants.php:565 Public/A2B_entity_card_multi.php:446
+msgid "NO DISCOUNT"
+msgstr "没有折扣"
+
+#: lib/Class.A2Billing.php:386
+msgid "Invalid card number lenght defined in configuration."
+msgstr "在配置中定义无效卡号长度"
+
+#: lib/Class.A2Billing.php:3376
+msgid "Error : Authentication Failed !!!"
+msgstr "错误：验证失败！！！"
+
+#: lib/Class.A2Billing.php:3417
+msgid "Error : Not enough credit to call !!!"
+msgstr "错误：没有足够的信贷调用！！！"
+
+#: lib/Class.A2Billing.php:3424
+msgid "Error : Card is not active!!!"
+msgstr "错误：卡未激活！！！"
+
+#: lib/Class.A2Billing.php:3431
+msgid "Error : Card is actually in use!!!"
+msgstr "错误：卡正在使用中！！！"
+
+#: lib/Class.A2Billing.php:3441 lib/Class.A2Billing.php:3450
+#: lib/Class.A2Billing.php:3459
+msgid "Error : Card have expired!!!"
+msgstr "错误：卡已经过期！！！"
+
+#: lib/Class.Notification.php:79
+msgid "New SIP & IAX added : Friends conf have to be generated"
+msgstr "新的 SIP & IAX 补充道：friend conf必须生成"
+
+#: lib/Class.Notification.php:80
+msgid "New SIP added : Sip Friends conf have to be generated"
+msgstr "添加新 SIP： Sip friend conf 必须生成"
+
+#: lib/Class.Notification.php:81
+msgid "New IAX added : IAX Friends conf have to be generated"
+msgstr "新添加的 IAX： IAX friend conf 必须生成"
+
+#: lib/Class.Notification.php:82
+msgid "New Ticket added by agent"
+msgstr "新的票已由代理添加"
+
+#: lib/Class.Notification.php:83
+msgid "New Ticket added by customer"
+msgstr "新的票已由客户添加"
+
+#: lib/Class.Notification.php:84
+msgid "DID Destination edited by customer"
+msgstr "客户已编辑目标"
+
+#: lib/Class.Notification.php:85
+msgid "New Remittance request added"
+msgstr "新的汇款申请已添加"
+
+#: lib/Class.Notification.php:86
+msgid "Added new sign-up"
+msgstr "添加新的注册"
+
+#: lib/Class.Notification.php:146
+msgid "BATCH"
+msgstr "批量"
+
+#: lib/Class.Notification.php:148
+msgid "SOAP-SERVER"
+msgstr ""
+
+#: lib/agent.help.php:36
+msgid "For further information please consult"
+msgstr "欲了解更多信息请咨询"
+
+#: lib/agent.help.php:36
+msgid "the online documention"
+msgstr "在线文档"
+
+#: lib/agent.help.php:58
+msgid "Agent list who have access to the Agent interface."
+msgstr "有权访问代理界面的代理列表"
+
+#: lib/agent.help.php:60
+msgid "Personal information."
+msgstr "个人信息"
+
+#: lib/agent.help.php:60
+msgid "You can update your personal information here."
+msgstr "您可以在在此处更新您的个人信息"
+
+#: lib/agent.help.php:62
+msgid "Voip Config will create a SIP or IAX entry on the Asterisk server, so that a customer can set up a SIP or IAX client to connect directly to the asterisk server without the need to enter an account and pin each time a call is made. When done, click on the CONFIRM DATA button, then click reload to apply the changes on the Asterisk server.</br>"
+msgstr "VoIP的配置将创建的Asterisk服务器上的SIP或IAX项，使客户可以建立一个SIP或IAX客户端直接连接到星号服务器，而不需要每次输入帐号和密码的电话。完成后，点击确认数据按钮，然后单击重新加载应用的Asterisk服务器上的变化。</ BR>"
+
+#: lib/agent.help.php:63
+msgid "The customer must then enter the URL/IP address of the asterisk server into the SIP/IAX client and use the account number and secret as the username and password."
+msgstr "客户必须再输入星号服务器的URL/ IP地址到SIP/ IAX客户机和使用的帐户号码和秘密作为用户名和密码"
+
+#: lib/agent.help.php:65
+msgid "Click reload to commit changes to Asterisk"
+msgstr "点击重装提交更改为星号"
+
+#: lib/agent.help.php:67
+msgid "Generate a specific crypted URL and to configure signup with a customer group and call plan."
+msgstr "生成一个特定的加密的URL并配置注册与客户群和呼叫计划"
+
+#: lib/agent.help.php:69
+msgid "On this page you will be able to change your password, You have to enter the New Password and Confirm it."
+msgstr "在这个页面，您就可以改变您的密码，您必须输入新密码并确认"
+
+#: lib/agent.help.php:71
+msgid "On this page you will be able to create a remittance Remittance Request according to the commission accrued on your account.If the commission accrued is higher than a predefined threshold then it will be possible to ask a transfer on your balance or by a funds transfer."
+msgstr "在此页上，您可以在您的账户上根据您积累的资金创建一个汇款请求，如果积累的资金高于规定值，将可能要求转让您的余额或者资金转账"
+
+#: lib/agent.help.php:73
+msgid "On this page you will be able to change your Secret used to crypt your generated signup URL, You have to enter the New Secret and Confirm it."
+msgstr "在这个页面，你就可以改变您的隐私用于隐藏您产生注册的网址，您必须输入新的秘密，并确认它"
+
+#: lib/agent.help.php:75
+msgid "Customers are listed below by card number. Each row corresponds to one customer, along with information such as their call plan, credit remaining, etc.</br>"
+msgstr "下面列出了客户的信用卡号码。每一行对应一个客户，以及他们的通话计划，信用剩余，等等。<br>"
+
+#: lib/agent.help.php:76
+msgid "The SIP and IAX buttons create SIP and IAX entries to allow direct VoIP connections to the Asterisk server without further authentication."
+msgstr "SIP 和 IAX 按钮创建 SIP 和 IAX 条目，允许直接 VoIP 连接到星号服务器无需进一步验证。"
+
+#: lib/agent.help.php:78
+msgid "Payment history - The section below allows you to add payments against a customer. Note that this does not change the balance on the card. Click refill under customer list to top-up a card."
+msgstr "付款历史记录-下面一节允许您添加一个客户的付款。请注意这不会更改卡上的余额。单击客户列表下方进行充值卡充值。"
+
+#: lib/agent.help.php:80
+msgid "This screen shows refills and payments made against each account, along with the current credit on each card. The initial amount of credit applied to the card is not included. The amount owing is calculated by subtracting payments from refills"
+msgstr "该界面显示对每个账户，以及当前每张信用卡的续订和支付，不包含信用卡中的信贷数额，数额计算是通过续订金额减去支付金额计算"
+
+#: lib/agent.help.php:82
+msgid "Agents Refill history - The section below allows you to see your refill"
+msgstr "代理续订历史-下面的部分可以看到您的续订情况"
+
+#: lib/agent.help.php:84
+msgid "Agent Payment history - The section below allows you to browse your payments"
+msgstr "代理付款历史 - 下面的部分允许您浏览您的付款"
+
+#: lib/agent.help.php:86
+msgid "You can see here, all tickets created. You can also add a new ticket for one customer."
+msgstr "您可以在这里看到已被创建的所有票据，您还可以为客户添加一个新的票据"
+
+#: lib/agent.help.php:88
+msgid "This shows a list of all signup key create for this agent, this key is used to identify the default paramater for the subscription on the signup page"
+msgstr "这显示了该代理创建的所有注册密钥的列表，该密匙适用来为注册页面上的订阅标记默认参数的"
+
+#: lib/agent.help.php:90
+msgid "Set the caller ID so that the customer calling in is authenticated on the basis of the callerID rather than with the account number"
+msgstr "设置来电显示以便于客户来电显示未来电显示而不是电话号码"
+
+#: Public/A2B_refill_info_agent.php:71 Public/A2B_refill_info.php:71
+msgid "REFILL INFO"
+msgstr "续订信息"
+
+#: Public/A2B_refill_info_agent.php:76
+#: Public/form_data/FG_var_logrefill_agent.inc:54
+#: Public/form_data/FG_var_commission.inc:50
+#: Public/form_data/FG_var_payment_agent.inc:53
+#: Public/form_data/FG_var_signup_agent.inc:53
+#: Public/A2B_payment_info_agent.php:75
+msgid "AGENT"
+msgstr "代理"
+
+#: Public/A2B_refill_info_agent.php:92 Public/A2B_payment_info_agent.php:91
+#: Public/A2B_card_info.php:152 Public/A2B_refill_info.php:98
+#: Public/A2B_payment_info.php:97
+msgid "CREATION DATE"
+msgstr "创建时间："
+
+#: Public/A2B_refill_info_agent.php:100
+#: Public/form_data/FG_var_logrefill_agent.inc:58
+#: Public/form_data/FG_var_logrefill.inc:56 Public/A2B_refill_info.php:106
+msgid "REFILL TYPE"
+msgstr "续订类型"
+
+#: Public/A2B_refill_info_agent.php:110 Public/A2B_payment_info_agent.php:109
+#: Public/A2B_refill_info.php:116 Public/A2B_payment_info.php:115
+msgid "DESCRIPTION "
+msgstr "描述"
+
+#: Public/A2B_refill_info_agent.php:122
+msgid "REFILLS AGENT LIST"
+msgstr "续订代理列表"
+
+#: Public/export_csv.php:63
+msgid "ERROR CSV EXPORT"
+msgstr "导出CSV错误"
+
+#: Public/call-last-month.php:65 Public/call-log-customers.php:367
+msgid "Enter the customer ID"
+msgstr "输入客户ＩＤ"
+
+#: Public/call-last-month.php:71 Public/call-log-customers.php:381
+msgid "Rate"
+msgstr "比率"
+
+#: Public/call-last-month.php:81 Public/A2B_entity_paymentlog.php:94
+msgid "SELECT MONTH"
+msgstr "选择月份"
+
+#: Public/call-last-month.php:86 Public/call-log-customers.php:417
+#: Public/A2B_entity_paymentlog.php:100 Public/A2B_entity_paymentlog.php:150
+msgid "From"
+msgstr "来自"
+
+#: Public/call-last-month.php:107
+msgid "Number of months to compare"
+msgstr "比较月份数"
+
+#: Public/call-last-month.php:109 Public/call-last-month.php:110
+#: Public/call-last-month.php:111 Public/call-last-month.php:112
+#: Public/call-last-month.php:113 Public/call-last-month.php:114
+msgid "months"
+msgstr "月份"
+
+#: Public/call-last-month.php:122
+msgid "CALLEDNUMBER"
+msgstr "呼叫号码"
+
+#: Public/call-last-month.php:152
+msgid "TRAFFIC"
+msgstr "交通"
+
+#: Public/call-last-month.php:153 Public/call-last-month.php:159
+msgid "Stat Graph"
+msgstr "统计图"
+
+#: Public/call-last-month.php:158 Public/call-log-customers.php:1217
+#: Public/A2B_card_info.php:831
+msgid "SELL"
+msgstr "出售"
+
+#: Public/call-log-customers.php:55
+msgid "ERROR: Cannot download file "
+msgstr "错误：无法下载文件"
+
+#: Public/call-log-customers.php:94
+msgid "STANDARD"
+msgstr "标准"
+
+#: Public/call-log-customers.php:95
+msgid "SIP/IAX"
+msgstr "SIP/IAX"
+
+#: Public/call-log-customers.php:96
+msgid "DIDCALL"
+msgstr ""
+
+#: Public/call-log-customers.php:97
+msgid "DID_VOIP"
+msgstr ""
+
+#: Public/call-log-customers.php:98 Public/A2B_card_info.php:184
+msgid "CALLBACK"
+msgstr "回拨"
+
+#: Public/call-log-customers.php:99
+msgid "PREDICT"
+msgstr "预测"
+
+#: Public/call-log-customers.php:100
+msgid "AUTO DIALER"
+msgstr "自动拨号器"
+
+#: Public/call-log-customers.php:101
+msgid "DID-ALEG"
+msgstr ""
+
+#: Public/call-log-customers.php:109 Public/card-history.php:68
+msgid "Date"
+msgstr "日期"
+
+#: Public/call-log-customers.php:111
+msgid "CallerID"
+msgstr "呼叫者ID"
+
+#: Public/call-log-customers.php:113 Public/call-log-customers.php:665
+msgid "DNID"
+msgstr ""
+
+#: Public/call-log-customers.php:114
+msgid "Phone Number"
+msgstr "电话号码"
+
+#: Public/call-log-customers.php:115 Public/graph_stat.php:55
+#: Public/graph_statbar.php:56
+msgid "Destination"
+msgstr "目标"
+
+#: Public/call-log-customers.php:116
+msgid "Sell Rate"
+msgstr "出售比率"
+
+#: Public/call-log-customers.php:117 Public/graph_stat.php:56
+#: Public/graph_statbar.php:57
+msgid "Duration"
+msgstr "期限"
+
+#: Public/call-log-customers.php:118
+msgid "Account"
+msgstr "账户"
+
+#: Public/call-log-customers.php:119
+msgid "Terminate Cause"
+msgstr "终止原因"
+
+#: Public/call-log-customers.php:119
+msgid "TC"
+msgstr ""
+
+#: Public/call-log-customers.php:120
+msgid "CallType"
+msgstr "呼叫类型"
+
+#: Public/call-log-customers.php:121
+msgid "Sell"
+msgstr "出售"
+
+#: Public/call-log-customers.php:144
+msgid " - Call Logs - "
+msgstr "- 通话记录 -"
+
+#: Public/call-log-customers.php:376
+msgid "CallPlan"
+msgstr "呼叫计划"
+
+#: Public/call-log-customers.php:405 Public/call-log-customers.php:1193
+#: Public/form_data/FG_var_moneysituation_details.inc:48
+#: Public/form_data/FG_var_moneysituation_details.inc:63
+#: Public/form_data/FG_var_remittance_request.inc:56
+#: Public/form_data/FG_var_paymentlog.inc:130
+msgid "DATE"
+msgstr "日期"
+
+#: Public/call-log-customers.php:459 Public/call-log-customers.php:531
+msgid "Time :"
+msgstr "时间："
+
+#: Public/call-log-customers.php:491 Public/A2B_entity_paymentlog.php:121
+#: Public/A2B_entity_paymentlog.php:179
+msgid "To"
+msgstr "至"
+
+#: Public/call-log-customers.php:561
+msgid "PHONENUMBER"
+msgstr "电话号码"
+
+#: Public/call-log-customers.php:612 Public/form_data/FG_var_card.inc:890
+#: Public/form_data/FG_var_friend.inc:80
+#: Public/form_data/FG_var_friend.inc:187
+#: Public/form_data/FG_var_callerid.inc:56
+#: Public/form_data/FG_var_callerid.inc:75
+msgid "CALLERID"
+msgstr "呼叫者ID"
+
+#: Public/call-log-customers.php:719
+msgid "CALL TYPE"
+msgstr "呼叫类型"
+
+#: Public/call-log-customers.php:733
+msgid "ALL CALLS"
+msgstr "所有通话"
+
+#: Public/call-log-customers.php:759
+msgid "OPTIONS"
+msgstr "设置"
+
+#: Public/call-log-customers.php:768
+msgid "SHOW CALLS"
+msgstr "显示呼叫"
+
+#: Public/call-log-customers.php:780
+msgid "ANSWERED"
+msgstr "回答"
+
+#: Public/call-log-customers.php:789
+msgid "ALL"
+msgstr "所有"
+
+#: Public/call-log-customers.php:798
+msgid "NOT COMPLETED"
+msgstr "未完成"
+
+#: Public/call-log-customers.php:807
+msgid "CONGESTIONED"
+msgstr ""
+
+#: Public/call-log-customers.php:816
+msgid "BUSIED"
+msgstr "繁忙"
+
+#: Public/call-log-customers.php:825
+msgid "NOT ANSWERED"
+msgstr "未回答"
+
+#: Public/call-log-customers.php:834
+msgid "CHANNEL UNAVAILABLE"
+msgstr "CANAL INDISPONIBLE"
+
+#: Public/call-log-customers.php:843
+msgid "CANCELED"
+msgstr "已取消"
+
+#: Public/call-log-customers.php:851
+msgid "RESULT"
+msgstr "结果"
+
+#: Public/call-log-customers.php:856
+msgid "mins"
+msgstr "分钟"
+
+#: Public/call-log-customers.php:865
+msgid "secs"
+msgstr "秒"
+
+#: Public/call-log-customers.php:876 Public/form_data/FG_var_card.inc:155
+#: Public/form_data/FG_var_card.inc:572 Public/A2B_card_info.php:345
+msgid "CURRENCY"
+msgstr "通货"
+
+#: Public/call-log-customers.php:921
+msgid "Number of call"
+msgstr "呼叫数"
+
+#: Public/call-log-customers.php:1078
+msgid "Previous"
+msgstr "以前"
+
+#: Public/call-log-customers.php:1105
+msgid "TOTAL COSTS"
+msgstr "总成本"
+
+#: Public/call-log-customers.php:1112
+msgid "TOTAL BUYCOSTS"
+msgstr "总购价"
+
+#: Public/call-log-customers.php:1121
+msgid "DIFFERENCE"
+msgstr "不同的"
+
+#: Public/call-log-customers.php:1190
+msgid "TRAFFIC SUMMARY"
+msgstr "流量摘要"
+
+#: Public/call-log-customers.php:1195 Public/A2B_card_info.php:822
+msgid "DURATION"
+msgstr "期限"
+
+#: Public/call-log-customers.php:1196
+msgid "DUR"
+msgstr ""
+
+#: Public/call-log-customers.php:1199
+msgid "GRAPHIC"
+msgstr "图解的"
+
+#: Public/call-log-customers.php:1202
+msgid "CALLS"
+msgstr "呼叫"
+
+#: Public/call-log-customers.php:1206
+msgid "AVERAGE LENGTH OF CALL"
+msgstr "平均通话长度"
+
+#: Public/call-log-customers.php:1208
+msgid "ALOC"
+msgstr ""
+
+#: Public/call-log-customers.php:1212
+msgid "ANSWER SEIZE RATIO"
+msgstr "拦截呼叫率"
+
+#: Public/call-log-customers.php:1214
+msgid "ASR"
+msgstr ""
+
+#: Public/call-log-customers.php:1299
+msgid "TOTAL"
+msgstr "总额"
+
+#: Public/call-log-customers.php:1341
+msgid "No calls in your selection"
+msgstr "您未选择任何通话"
+
+#: Public/A2B_entity_password.php:71
+msgid "No value in New Password entered"
+msgstr "新密码未输入"
+
+#: Public/A2B_entity_password.php:77
+msgid "No Value in Confirm New Password entered"
+msgstr "再次确认新密码未输入"
+
+#: Public/A2B_entity_password.php:83
+msgid "Password length should be greater than or equal to 5"
+msgstr "密码长度应该大于或等于5"
+
+#: Public/A2B_entity_password.php:89
+msgid "Value mismatch, New Password should be equal to Confirm New Password"
+msgstr "错误，新密码与再次确认密码不符"
+
+#: Public/A2B_entity_password.php:106
+msgid "Your password is updated successfully."
+msgstr "您的密码已成功设置"
+
+#: Public/A2B_entity_password.php:112
+msgid "Your old password is wrong."
+msgstr "您的旧密码错误"
+
+#: Public/A2B_entity_password.php:123
+msgid "Change Password"
+msgstr "更改密码"
+
+#: Public/A2B_entity_password.php:126
+msgid "Do not use \" or = characters in your password"
+msgstr "请不要在您的密码中使用\"或=字符"
+
+#: Public/A2B_entity_password.php:129
+msgid "Old Password"
+msgstr "旧密码"
+
+#: Public/A2B_entity_password.php:133
+msgid "New Password"
+msgstr "新密码"
+
+#: Public/A2B_entity_password.php:137
+msgid "Confirm Password"
+msgstr "确认密码"
+
+#: Public/A2B_entity_password.php:144 Public/A2B_entity_secret.php:110
+msgid "Save"
+msgstr "保存"
+
+#: Public/A2B_entity_card.php:130
+msgid "Could not perform the batch update!"
+msgstr "无法进行批量更新！"
+
+#: Public/A2B_entity_card.php:132
+msgid "The batch update has been successfully perform!"
+msgstr "已成功进行批量更新！"
+
+#: Public/A2B_entity_card.php:176
+msgid "Refill executed "
+msgstr "执行续订"
+
+#: Public/A2B_entity_card.php:191
+msgid "GENERATED COMMISSION OF AN CUSTOMER REFILLED BY AN AGENT!"
+msgstr "代理对客户发生的交办的事务进行补充！"
+
+#: Public/A2B_entity_card.php:222
+msgid "You don't have enough credit to do this refill. You have "
+msgstr "您没有足够的信贷进行续订，您有"
+
+#: Public/A2B_entity_card.php:226
+msgid "Impossible to refill this card "
+msgstr "无法填充此卡"
+
+#: Public/A2B_entity_card.php:286
+msgid "CARD ID"
+msgstr "ＩＤ卡"
+
+#: Public/A2B_entity_card.php:288
+msgid "or"
+msgstr "或者"
+
+#: Public/A2B_entity_card.php:291
+msgid "CARDNUMBER"
+msgstr "卡号"
+
+#: Public/A2B_entity_card.php:299 Public/form_data/FG_var_card.inc:248
+#: Public/form_data/FG_var_moneysituation.inc:47
+msgid "CREDIT"
+msgstr "贷款"
+
+#: Public/A2B_entity_card.php:307
+#: Public/form_data/FG_var_logrefill_agent.inc:57
+#: Public/form_data/FG_var_logrefill.inc:55
+#: Public/form_data/FG_var_commission.inc:54
+#: Public/form_data/FG_var_payment.inc:59
+#: Public/form_data/FG_var_payment_agent.inc:57
+#: Public/form_data/FG_var_ticket.inc:151 Public/A2B_card_info.php:683
+#: Public/A2B_card_info.php:756
+msgid "DESCRIPTION"
+msgstr "描述"
+
+#: Public/A2B_entity_card.php:317
+msgid "ADD CREDIT"
+msgstr "添加信贷"
+
+#: Public/A2B_entity_card.php:331
+msgid "SEARCH CARDS"
+msgstr "搜索卡"
+
+#: Public/A2B_entity_card.php:331
+msgid "search activated"
+msgstr "搜索激活"
+
+#: Public/A2B_entity_card.php:354
+msgid "BATCH UPDATE"
+msgstr "批量更新"
+
+#: Public/A2B_entity_card.php:358
+msgid "cards selected!"
+msgstr "卡片选择！"
+
+#: Public/A2B_entity_card.php:358
+msgid "Use the options below to batch update the selected cards."
+msgstr "选择以下选项进行卡片批量更新"
+
+#: Public/A2B_entity_card.php:368
+msgid "In use"
+msgstr "使用中"
+
+#: Public/A2B_entity_card.php:380 Public/form_data/FG_var_paymentlog.inc:100
+msgid "Status"
+msgstr "状态"
+
+#: Public/A2B_entity_card.php:394
+msgid "Language"
+msgstr "语言"
+
+#: Public/A2B_entity_card.php:407
+msgid "Access"
+msgstr "访问"
+
+#: Public/A2B_entity_card.php:419 Public/A2B_entity_card_multi.php:367
+msgid "Currency"
+msgstr "通货"
+
+#: Public/A2B_entity_card.php:435 Public/A2B_entity_card_multi.php:388
+msgid "Enable expire"
+msgstr "启用到期"
+
+#: Public/A2B_entity_card.php:456
+msgid "Expiry date"
+msgstr "到期日"
+
+#: Public/A2B_entity_card.php:457 Public/A2B_entity_card_multi.php:405
+msgid "(Format YYYY-MM-DD HH:MM:SS)"
+msgstr "(格式AAAA-MM-JJ HH:MM:SS)"
+
+#: Public/A2B_entity_card.php:465
+msgid "Expiration days"
+msgstr "到期日"
+
+#: Public/A2B_entity_card.php:475 Public/A2B_entity_card_multi.php:419
+msgid "Run service"
+msgstr "运行服务"
+
+#: Public/A2B_entity_card.php:486
+msgid "BATCH UPDATE CARD"
+msgstr "批量更新卡"
+
+#: Public/A2B_entity_card.php:502 Public/A2B_entity_friend.php:145
+msgid "Changes detected on SIP/IAX Friends"
+msgstr "在SIP/IAX好友中进行变化检测"
+
+#: Public/A2B_entity_card.php:507
+msgid "GENERATE ADDITIONAL_A2BILLING_SIP.CONF"
+msgstr ""
+
+#: Public/A2B_entity_card.php:511
+msgid "GENERATE ADDITIONAL_A2BILLING_IAX.CONF"
+msgstr ""
+
+#: Public/A2B_entity_card.php:542
+msgid "Change the Card Number Length"
+msgstr "更改卡号长度"
+
+#: Public/A2B_entity_card.php:551 Public/A2B_entity_card_multi.php:329
+msgid "Digits"
+msgstr "数字"
+
+#: Public/A2B_support.php:91
+msgid "Ticket added successfully"
+msgstr "票据添加成功"
+
+#: Public/A2B_support.php:114
+msgid "Create a NEW Support Ticket"
+msgstr "添加一个可支持的新票据"
+
+#: Public/A2B_support.php:121
+msgid "Title"
+msgstr "标题"
+
+#: Public/A2B_support.php:129
+msgid "Priority"
+msgstr "优先"
+
+#: Public/A2B_support.php:142
+msgid "Component"
+msgstr "部件"
+
+#: Public/A2B_support.php:164 Public/card-history.php:69
+msgid "Description"
+msgstr "描述"
+
+#: Public/A2B_support.php:172
+msgid "CREATE"
+msgstr "创建"
+
+#: Public/agentinfo.php:88 Public/form_data/FG_var_card.inc:402
+#: Public/form_data/FG_var_agent.inc:55 Public/A2B_card_info.php:227
+msgid "LAST NAME"
+msgstr "姓氏"
+
+#: Public/agentinfo.php:89 Public/form_data/FG_var_card.inc:411
+#: Public/form_data/FG_var_agent.inc:64 Public/A2B_card_info.php:236
+msgid "FIRST NAME"
+msgstr "名字"
+
+#: Public/agentinfo.php:90 Public/form_data/FG_var_card.inc:160
+#: Public/form_data/FG_var_card.inc:242 Public/form_data/FG_var_card.inc:421
+#: Public/form_data/FG_var_agent.inc:118 Public/A2B_card_info.php:294
+msgid "EMAIL"
+msgstr "电子邮件"
+
+#: Public/agentinfo.php:91 Public/form_data/FG_var_agent.inc:127
+#: Public/A2B_card_info.php:303 Public/A2B_card_info.php:504
+msgid "PHONE"
+msgstr "电话"
+
+#: Public/agentinfo.php:92 Public/form_data/FG_var_agent.inc:136
+#: Public/A2B_card_info.php:311
+msgid "FAX"
+msgstr "传真"
+
+#: Public/agentinfo.php:95 Public/form_data/FG_var_card.inc:431
+#: Public/form_data/FG_var_agent.inc:73 Public/A2B_card_info.php:246
+#: Public/A2B_agent_remittance_conf.php:178
+msgid "ADDRESS"
+msgstr "地址"
+
+#: Public/agentinfo.php:96 Public/A2B_card_info.php:256
+msgid "ZIP CODE"
+msgstr "邮政编码"
+
+#: Public/agentinfo.php:97 Public/form_data/FG_var_card.inc:441
+#: Public/form_data/FG_var_agent.inc:82 Public/A2B_card_info.php:265
+msgid "CITY"
+msgstr "城市"
+
+#: Public/agentinfo.php:98 Public/form_data/FG_var_agent.inc:91
+#: Public/A2B_card_info.php:275
+msgid "STATE"
+msgstr "省份"
+
+#: Public/agentinfo.php:99 Public/form_data/FG_var_card.inc:460
+#: Public/form_data/FG_var_agent.inc:100 Public/A2B_card_info.php:285
+msgid "COUNTRY"
+msgstr "国家"
+
+#: Public/agentinfo.php:109
+msgid "EDIT PERSONAL INFORMATION"
+msgstr "编辑个人信息"
+
+#: Public/agentinfo.php:123
+msgid "AGENT ID"
+msgstr "代理ID"
+
+#: Public/agentinfo.php:127 Public/A2B_agent_remittance_req.php:139
+#: Public/A2B_agent_remittance_conf.php:128
+msgid "BALANCE REMAINING"
+msgstr "资金金额"
+
+#: Public/agentinfo.php:135 Public/A2B_agent_remittance_req.php:154
+#: Public/A2B_agent_remittance_conf.php:143
+msgid "REMITTANCE IN PROGRESS"
+msgstr "正在汇款"
+
+#: Public/agentinfo.php:141 Public/form_data/FG_var_moneysituation.inc:48
+#: Public/A2B_agent_remittance_req.php:150
+#: Public/A2B_agent_remittance_conf.php:139
+msgid "COMMISSION ACCRUED"
+msgstr "积累资金"
+
+#: Public/agentinfo.php:151
+msgid "REMITTANCE REQUEST"
+msgstr "汇款申请"
+
+#: Public/agentinfo.php:166
+msgid "Click below to buy credit : "
+msgstr "点击以下链接购买信用："
+
+#: Public/form_data/FG_var_logrefill_agent.inc:53
+#: Public/form_data/FG_var_card.inc:136
+#: Public/form_data/FG_var_def_ratecard.inc:69
+#: Public/form_data/FG_var_remittance_request.inc:55
+#: Public/form_data/FG_var_logrefill.inc:52
+#: Public/form_data/FG_var_commission.inc:48
+#: Public/form_data/FG_var_payment.inc:55
+#: Public/form_data/FG_var_payment_agent.inc:52
+#: Public/form_data/FG_var_moneysituation.inc:42
+#: Public/form_data/FG_var_paymentlog.inc:119
+#: Public/form_data/FG_var_ticket.inc:69
+#: Public/form_data/FG_var_ticket_agent.inc:63 Public/A2B_card_info.php:674
+#: Public/A2B_card_info.php:747
+msgid "ID"
+msgstr "ID"
+
+#: Public/form_data/FG_var_logrefill_agent.inc:55
+#: Public/form_data/FG_var_card.inc:140 Public/form_data/FG_var_card.inc:244
+#: Public/form_data/FG_var_payment_agent.inc:54
+msgid "LOGIN"
+msgstr "注册"
+
+#: Public/form_data/FG_var_logrefill_agent.inc:56
+#: Public/form_data/FG_var_logrefill.inc:54 Public/A2B_card_info.php:750
+msgid "REFILL DATE"
+msgstr "续订日期"
+
+#: Public/form_data/FG_var_logrefill_agent.inc:59
+#: Public/form_data/FG_var_logrefill.inc:57 Public/A2B_card_info.php:753
+msgid "REFILL AMOUNT"
+msgstr "充值量"
+
+#: Public/form_data/FG_var_logrefill_agent.inc:64
+#: Public/form_data/FG_var_logrefill.inc:61
+#: Public/form_data/FG_var_commission.inc:60
+#: Public/form_data/FG_var_payment.inc:66
+#: Public/form_data/FG_var_payment_agent.inc:63
+#: Public/form_data/FG_var_friend.inc:98
+#: Public/form_data/FG_var_signup_agent.inc:62
+#: Public/form_data/FG_var_callerid.inc:64
+msgid "THERE IS NO "
+msgstr "没有"
+
+#: Public/form_data/FG_var_card.inc:65
+msgid "You are going as well to remove all the SIP/IAX accounts & CallerIDs attached to this card! Please confirm that you really want to remove this card ? "
+msgstr "您将删除此卡上所有的SIP/IAX账号和来电显示！您确定要删除此卡吗？"
+
+#: Public/form_data/FG_var_card.inc:68
+msgid "You are going to remove a card that have SIP/IAX accounts and/or CallerIDs attached to it ! Please confirm that you really want to remove this card ? "
+msgstr "您将删除其上面所有的SIP/IAX账号和来电显示！您确定要删除此卡吗？"
+
+#: Public/form_data/FG_var_card.inc:74
+msgid "Generate Customers"
+msgstr "生成客户"
+
+#: Public/form_data/FG_var_card.inc:82
+msgid "Add Customer"
+msgstr "添加客户"
+
+#: Public/form_data/FG_var_card.inc:142 Public/form_data/FG_var_card.inc:243
+#: Public/form_data/FG_var_logrefill.inc:83
+#: Public/form_data/FG_var_payment.inc:90
+#: Public/form_data/FG_var_moneysituation.inc:45
+#: Public/A2B_agent_remittance_conf.php:174
+msgid "LASTNAME"
+msgstr "姓"
+
+#: Public/form_data/FG_var_card.inc:143
+#: Public/form_data/FG_var_signup_agent.inc:55
+msgid "GROUP"
+msgstr "组"
+
+#: Public/form_data/FG_var_card.inc:144 Public/form_data/FG_var_card.inc:367
+#: Public/A2B_card_info.php:337
+msgid "BALANCE"
+msgstr "平衡"
+
+#: Public/form_data/FG_var_card.inc:144
+msgid "BA"
+msgstr ""
+
+#: Public/form_data/FG_var_card.inc:148 Public/form_data/FG_var_card.inc:391
+msgid "SERIA"
+msgstr ""
+
+#: Public/form_data/FG_var_card.inc:149 Public/A2B_card_info.php:110
+msgid "SERIAL NUMBER"
+msgstr "编号"
+
+#: Public/form_data/FG_var_card.inc:150
+msgid "Call Plan"
+msgstr "呼叫目标 "
+
+#: Public/form_data/FG_var_card.inc:152 Public/form_data/FG_var_card.inc:581
+#: Public/form_data/FG_var_remittance_request.inc:59
+#: Public/form_data/FG_var_paymentlog.inc:150
+#: Public/form_data/FG_var_ticket.inc:77
+#: Public/form_data/FG_var_ticket_agent.inc:69
+#: Public/A2B_entity_paymentlog.php:210 Public/A2B_card_info.php:92
+#: Public/A2B_card_info.php:142
+msgid "STATUS"
+msgstr "状态"
+
+#: Public/form_data/FG_var_card.inc:153
+msgid "LG"
+msgstr ""
+
+#: Public/form_data/FG_var_card.inc:154
+msgid "USE"
+msgstr "使用"
+
+#: Public/form_data/FG_var_card.inc:155
+msgid "CUR"
+msgstr ""
+
+#: Public/form_data/FG_var_card.inc:156 Public/A2B_entity_friend.php:177
+#: Public/A2B_entity_card_multi.php:424
+msgid "SIP"
+msgstr "SIP"
+
+#: Public/form_data/FG_var_card.inc:157 Public/A2B_entity_friend.php:176
+#: Public/A2B_entity_card_multi.php:424
+msgid "IAX"
+msgstr "IAX"
+
+#: Public/form_data/FG_var_card.inc:158
+msgid "ACD"
+msgstr ""
+
+#: Public/form_data/FG_var_card.inc:159
+#: Public/form_data/FG_var_logrefill.inc:84
+#: Public/form_data/FG_var_payment.inc:91
+#: Public/form_data/FG_var_moneysituation.inc:44
+#: Public/A2B_agent_remittance_conf.php:170
+msgid "FIRSTNAME"
+msgstr "名字"
+
+#: Public/form_data/FG_var_card.inc:161
+msgid "DISC"
+msgstr ""
+
+#: Public/form_data/FG_var_card.inc:162 Public/A2B_card_info.php:456
+msgid "CID"
+msgstr "CID"
+
+#: Public/form_data/FG_var_card.inc:210
+msgid "NO CARDS HAVE BEEN CREATED!"
+msgstr "为创建卡！"
+
+#: Public/form_data/FG_var_card.inc:241 Public/form_data/FG_var_card.inc:335
+#: Public/form_data/FG_var_logrefill.inc:82
+#: Public/form_data/FG_var_payment.inc:89
+#: Public/form_data/FG_var_ticket.inc:71
+#: Public/form_data/FG_var_callerid.inc:57 Public/A2B_card_info.php:102
+#: Public/A2B_refill_info.php:76 Public/A2B_payment_info.php:75
+msgid "ACCOUNT NUMBER"
+msgstr "账号"
+
+#: Public/form_data/FG_var_card.inc:245
+msgid "MACADDRESS"
+msgstr "MAC地址"
+
+#: Public/form_data/FG_var_card.inc:246
+msgid "CUSTOMER ID"
+msgstr "客户ID"
+
+#: Public/form_data/FG_var_card.inc:247
+msgid "SERIAL"
+msgstr "依次"
+
+#: Public/form_data/FG_var_card.inc:249
+msgid "INUSE"
+msgstr ""
+
+#: Public/form_data/FG_var_card.inc:252
+msgid "SELECT SERIA"
+msgstr "选择 SERIA"
+
+#: Public/form_data/FG_var_card.inc:253
+msgid "SELECT LANGUAGE"
+msgstr "选择语言"
+
+#: Public/form_data/FG_var_card.inc:254
+msgid "SELECT TARIFF"
+msgstr "选择税率"
+
+#: Public/form_data/FG_var_card.inc:255
+msgid "SELECT STATUS"
+msgstr "选择状态"
+
+#: Public/form_data/FG_var_card.inc:256
+msgid "SELECT ACCESS"
+msgstr "选择存取"
+
+#: Public/form_data/FG_var_card.inc:257
+msgid "SELECT GROUP"
+msgstr "选择组别"
+
+#: Public/form_data/FG_var_card.inc:258
+msgid "SELECT CURRENCY"
+msgstr "选择货币"
+
+#: Public/form_data/FG_var_card.inc:296
+msgid "SIP buddy"
+msgstr ""
+
+#: Public/form_data/FG_var_card.inc:303
+msgid "IAX buddy"
+msgstr ""
+
+#: Public/form_data/FG_var_card.inc:341
+msgid "Insert the account number"
+msgstr "载入账号"
+
+#: Public/form_data/FG_var_card.inc:342
+msgid "Customer Information"
+msgstr "客户信息"
+
+#: Public/form_data/FG_var_card.inc:345
+msgid "WEBUI LOGIN"
+msgstr "登陆ui"
+
+#: Public/form_data/FG_var_card.inc:351
+msgid "Insert the webui login"
+msgstr "在UI登陆"
+
+#: Public/form_data/FG_var_card.inc:355
+msgid "WEBUI PASSWORD"
+msgstr "UI密码"
+
+#: Public/form_data/FG_var_card.inc:361
+msgid "Insert the password"
+msgstr "输入密码"
+
+#: Public/form_data/FG_var_card.inc:362
+msgid "Password for customer to access to the web interface and view the balance."
+msgstr "输入客户密码以便进入网站浏览并查看金额"
+
+#: Public/form_data/FG_var_card.inc:373
+msgid "Insert the number of credit"
+msgstr "输入信贷数"
+
+#: Public/form_data/FG_var_card.inc:374 Public/form_data/FG_var_card.inc:640
+msgid "currency : "
+msgstr "货币："
+
+#: Public/form_data/FG_var_card.inc:380
+msgid "CUSTOMER GROUP"
+msgstr "客户组别"
+
+#: Public/form_data/FG_var_card.inc:399 Public/form_data/FG_var_card.inc:542
+#: Public/form_data/FG_var_card.inc:641 Public/form_data/FG_var_card.inc:692
+msgid "NOT DEFINED"
+msgstr "未定义"
+
+#: Public/form_data/FG_var_card.inc:408
+msgid "Insert the lastname of the customers"
+msgstr "输入客户的姓氏"
+
+#: Public/form_data/FG_var_card.inc:409
+msgid "Personal Information"
+msgstr "个人信息"
+
+#: Public/form_data/FG_var_card.inc:417
+msgid "Insert the firstname of the customers"
+msgstr "输入客户的名字"
+
+#: Public/form_data/FG_var_card.inc:427 Public/form_data/FG_var_agent.inc:124
+msgid "Insert the email"
+msgstr "输入电子邮箱"
+
+#: Public/form_data/FG_var_card.inc:437
+msgid "Insert the address of the customers"
+msgstr "输入客户的地址"
+
+#: Public/form_data/FG_var_card.inc:447 Public/form_data/FG_var_agent.inc:88
+msgid "Insert the city"
+msgstr "输入城市"
+
+#: Public/form_data/FG_var_card.inc:451
+msgid "STATE/PROVINCE"
+msgstr "州/省"
+
+#: Public/form_data/FG_var_card.inc:457 Public/form_data/FG_var_agent.inc:97
+msgid "Insert the state"
+msgstr "输入省份"
+
+#: Public/form_data/FG_var_card.inc:470
+msgid "ZIP/POSTAL CODE"
+msgstr "邮编/邮政编码"
+
+#: Public/form_data/FG_var_card.inc:476
+msgid "Insert the zipcode"
+msgstr "输入邮政编码"
+
+#: Public/form_data/FG_var_card.inc:480
+msgid "PHONE NUMBER"
+msgstr "电话号码"
+
+#: Public/form_data/FG_var_card.inc:486
+msgid "Insert the phone number of the customers"
+msgstr "输入客户的电话号码"
+
+#: Public/form_data/FG_var_card.inc:490
+msgid "FAX NUMBER"
+msgstr "传真号码"
+
+#: Public/form_data/FG_var_card.inc:496
+msgid "Insert the fax number of the customers"
+msgstr "输入客户的传真号码"
+
+#: Public/form_data/FG_var_card.inc:499 Public/A2B_card_info.php:388
+msgid "COMPANY NAME"
+msgstr "公司名称"
+
+#: Public/form_data/FG_var_card.inc:505
+msgid "Insert Company name of this customer"
+msgstr "输入此客户的公司名称"
+
+#: Public/form_data/FG_var_card.inc:509 Public/A2B_card_info.php:396
+msgid "COMPANY WEBSITE"
+msgstr "公司网址"
+
+#: Public/form_data/FG_var_card.inc:515
+msgid "Insert the company website of this customer"
+msgstr "输入此客户的公司网址"
+
+#: Public/form_data/FG_var_card.inc:521
+#: Public/form_data/FG_var_signup_agent.inc:54
+msgid "CALL PLAN"
+msgstr "呼叫目标 "
+
+#: Public/form_data/FG_var_card.inc:534
+msgid "DIDGROUP"
+msgstr ""
+
+#: Public/form_data/FG_var_card.inc:554 Public/form_data/FG_var_friend.inc:878
+msgid "TIMEZONE"
+msgstr "时区"
+
+#: Public/form_data/FG_var_card.inc:562 Public/form_data/FG_var_friend.inc:287
+#: Public/A2B_card_info.php:134
+msgid "LANGUAGE"
+msgstr "语言"
+
+#: Public/form_data/FG_var_card.inc:577
+msgid "Currency used at the customer end."
+msgstr "用于客户端的货币"
+
+#: Public/form_data/FG_var_card.inc:590 Public/A2B_card_info.php:192
+#: Public/A2B_card_info.php:195
+msgid "LOCK"
+msgstr "锁"
+
+#: Public/form_data/FG_var_card.inc:596
+msgid "Choose if you want to enable the lock on this account"
+msgstr "选择是否要锁定账户"
+
+#: Public/form_data/FG_var_card.inc:597
+msgid "Enable lock for this account."
+msgstr "锁定账户"
+
+#: Public/form_data/FG_var_card.inc:603 Public/A2B_card_info.php:200
+msgid "LOCK PIN"
+msgstr "PIN锁"
+
+#: Public/form_data/FG_var_card.inc:610
+msgid "Code required to make the call if the lock is active."
+msgstr "解锁代码"
+
+#: Public/form_data/FG_var_card.inc:622
+msgid "RUN SERVICE"
+msgstr "运行服务"
+
+#: Public/form_data/FG_var_card.inc:628
+msgid "Choose if you want to enable the service recurring on this account"
+msgstr "选择是否启动此账户的常用服务"
+
+#: Public/form_data/FG_var_card.inc:629
+msgid "Apply recurring service to this account."
+msgstr "适用于此帐户的定期服务"
+
+#: Public/form_data/FG_var_card.inc:632
+msgid "CREDIT LIMIT NOTIFICATION"
+msgstr "信贷限制通知"
+
+# Kapi
+#: Public/form_data/FG_var_card.inc:640
+msgid "Low credit limit to alert the customer"
+msgstr "提醒客户信用额较低"
+
+#: Public/form_data/FG_var_card.inc:644
+msgid "PERMITTED NOTIFICATIONS BY MAIL"
+msgstr "允许邮件通知"
+
+#: Public/form_data/FG_var_card.inc:650
+msgid "Choose if you want to enable the notification by email for this account"
+msgstr "选择是否通过此卡的电子邮件进行启用通知"
+
+#: Public/form_data/FG_var_card.inc:651
+msgid "Enable the notification by mail for this account."
+msgstr "启用此账户的电子邮件通知"
+
+#: Public/form_data/FG_var_card.inc:654
+msgid "EMAIL NOTIFICATION"
+msgstr "电子邮件通知"
+
+#: Public/form_data/FG_var_card.inc:660
+msgid "Insert the email to notify this customer"
+msgstr "输入通知客户的电子邮箱"
+
+#: Public/form_data/FG_var_card.inc:665
+msgid "PERMITTED VOICEMAIL"
+msgstr "允许语音信箱"
+
+#: Public/form_data/FG_var_card.inc:671
+msgid "Choose if you want to enable the voicemail functionality for this account"
+msgstr "选择是否要启用此帐户的语音邮件功能"
+
+#: Public/form_data/FG_var_card.inc:672
+msgid "Enable the voicemail functionality for this account."
+msgstr "启用此帐户的语音邮件功能"
+
+#: Public/form_data/FG_var_card.inc:674
+msgid "ACTIVE VOICEMAIL SERVICE"
+msgstr "激活语音信箱功能"
+
+#: Public/form_data/FG_var_card.inc:680
+msgid "Customer can choose to enable the voicemail for this account"
+msgstr "客户可以为此账户选择启用语音邮件"
+
+#: Public/form_data/FG_var_card.inc:681
+msgid "Customer can enable the voicemail for this account."
+msgstr "客户可以为此账户启用语音邮件"
+
+#: Public/form_data/FG_var_card.inc:684
+msgid "CAMPAIGN"
+msgstr "活动"
+
+#: Public/form_data/FG_var_card.inc:695 Public/A2B_card_info.php:168
+msgid "FIRST USE DATE"
+msgstr "首次使用日期"
+
+#: Public/form_data/FG_var_card.inc:705
+msgid "ENABLE EXPIRY"
+msgstr "主动过期"
+
+#: Public/form_data/FG_var_card.inc:712
+msgid "Select method of expiry for the account."
+msgstr "选择账户到期的方法"
+
+#: Public/form_data/FG_var_card.inc:725
+msgid "EXPIRY DATE"
+msgstr "到期日"
+
+#: Public/form_data/FG_var_card.inc:731
+msgid "Insert the expiration date"
+msgstr "输入截止日期"
+
+#: Public/form_data/FG_var_card.inc:732
+msgid "please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"
+msgstr "请遵照AAAA-MMM-JJ HH:MM:SS的格式， 比如 '2009-12-31 00:00:00'"
+
+#: Public/form_data/FG_var_card.inc:736
+msgid "EXPIRY DAYS"
+msgstr "到期日"
+
+#: Public/form_data/FG_var_card.inc:742
+msgid "Insert the number of days after which the account will expire"
+msgstr "输入账户到期的天数"
+
+#: Public/form_data/FG_var_card.inc:743
+msgid "The number of days after which the account will expire."
+msgstr "账户到期的天数"
+
+#: Public/form_data/FG_var_card.inc:746
+msgid "CREATE SIP CONFIG"
+msgstr ""
+
+#: Public/form_data/FG_var_card.inc:752
+msgid "Choose if you want to enable the sip account"
+msgstr "选择是否启用sip账户"
+
+#: Public/form_data/FG_var_card.inc:753
+msgid "Create the SIP config automatically"
+msgstr "自动创建SIP配置"
+
+#: Public/form_data/FG_var_card.inc:756
+msgid "CREATE IAX CONFIG"
+msgstr "创建sip配置"
+
+#: Public/form_data/FG_var_card.inc:762
+msgid "Choose if you want to enable the iax account"
+msgstr "选择是否启用iax账户"
+
+#: Public/form_data/FG_var_card.inc:763
+msgid "Create the IAX config automatically"
+msgstr "自动创建iax配置"
+
+#: Public/form_data/FG_var_card.inc:765
+msgid "MAC ADDRESS"
+msgstr "MAC地址"
+
+#: Public/form_data/FG_var_card.inc:771
+msgid "Insert the MAC address customers' device"
+msgstr "输入客户设备的MAC地址"
+
+#: Public/form_data/FG_var_card.inc:772
+msgid "FORMAT: 00-08-74-4C-7F-1D"
+msgstr "格式: 00-08-74-4C-7F-1D"
+
+#: Public/form_data/FG_var_card.inc:775
+msgid "IN USE"
+msgstr "使用中"
+
+#: Public/form_data/FG_var_card.inc:782
+msgid "Updated to show the number of concurrent calls in use by this customer. If there are no currently no calls, and the system shows that there are, manually reset this field back to zero."
+msgstr "更新以显示该客户使用并呼叫的数量。如果没有当前呼叫，而系统显示有，手动重置该字段回零"
+
+#: Public/form_data/FG_var_card.inc:784 Public/form_data/FG_var_card.inc:792
+#: Public/A2B_card_info.php:361
+msgid "AUTOREFILL"
+msgstr "自动填充"
+
+#: Public/form_data/FG_var_card.inc:790
+msgid "Choose if you want to enable the autorefill on this account"
+msgstr "选择是否启用此账户的自动填充功能"
+
+#: Public/form_data/FG_var_card.inc:791
+msgid "Define if you want to authorize the autorefill to apply on this accout"
+msgstr "定义是否授权此账户的自动填充功能"
+
+#: Public/form_data/FG_var_card.inc:794
+msgid "INITIAL BALANCE"
+msgstr "初始金额"
+
+#: Public/form_data/FG_var_card.inc:800
+msgid "Insert the amount of the initial balance"
+msgstr "输入初始金额"
+
+#: Public/form_data/FG_var_card.inc:801
+msgid "The initial balance is used by autorefill to reset the current balance to this amount"
+msgstr "最初的平衡用于自动填充到当前余额的数值"
+
+#: Public/form_data/FG_var_card.inc:805 Public/A2B_card_info.php:369
+msgid "INVOICE DAY"
+msgstr "发票日"
+
+#: Public/form_data/FG_var_card.inc:812
+msgid "Define the day of the month when the system will generate the customer invoice."
+msgstr "定义月份的一天，系统会生成客户发票"
+
+#: Public/form_data/FG_var_card.inc:813
+msgid "Invoice Status"
+msgstr "发票状态"
+
+#: Public/form_data/FG_var_card.inc:816 Public/checkout_confirmation.php:148
+msgid "VAT"
+msgstr "增值税"
+
+#: Public/form_data/FG_var_card.inc:822
+msgid "Insert the number for the VAT"
+msgstr "输入增值税数额"
+
+#: Public/form_data/FG_var_card.inc:823
+#, c-format
+msgid "VAT to add on the invoice of this customer. it should be a decimal value '21' this will be for 21% of VAT!"
+msgstr ""
+
+#: Public/form_data/FG_var_card.inc:826
+msgid "VAT REGISTRATION NUMBER "
+msgstr "注册增值税号码"
+
+#: Public/form_data/FG_var_card.inc:832
+msgid "Insert the VAT registration number of this customer"
+msgstr "输入此客户的注册增值税号码"
+
+#: Public/form_data/FG_var_card.inc:836
+msgid "DISCOUNT"
+msgstr "折扣"
+
+#: Public/form_data/FG_var_card.inc:846 Public/A2B_card_info.php:416
+msgid "TRAFFIC PER MONTH"
+msgstr "每月交通"
+
+#: Public/form_data/FG_var_card.inc:852
+msgid "Insert the traffic per month for this customer"
+msgstr "输入客户的没有交通情况"
+
+#: Public/form_data/FG_var_card.inc:854 Public/form_data/FG_var_card.inc:856
+msgid "TARGET TRAFFIC"
+msgstr "交通意图"
+
+#: Public/form_data/FG_var_card.inc:862
+msgid "Insert the target traffic description"
+msgstr "输入交通意图说明"
+
+#: Public/form_data/FG_var_card.inc:866
+msgid "RESTRICTION"
+msgstr "限制"
+
+#: Public/form_data/FG_var_card.inc:874 Public/form_data/FG_var_card.inc:876
+msgid "RESTRICTED NUMBERS"
+msgstr "限制号码"
+
+#: Public/form_data/FG_var_card.inc:882
+msgid "Insert numbers that restrict the customer"
+msgstr "输入限制客户数"
+
+#: Public/form_data/FG_var_card.inc:901
+msgid "CALLERID / CUSTOMER HISTORY"
+msgstr "来电显示/客户历史"
+
+#: Public/form_data/FG_var_card.inc:905
+msgid "CUSTOMER HISTORY"
+msgstr "客户历史"
+
+#: Public/form_data/FG_var_card.inc:946
+#: Public/form_data/FG_var_def_ratecard.inc:129
+#: Public/form_data/FG_var_moneysituation.inc:78
+#: Public/form_data/FG_var_friend.inc:926
+#: Public/form_data/FG_var_ticket.inc:172
+#: Public/form_data/FG_var_ticket_agent.inc:90
+#: Public/form_data/FG_var_callerid.inc:121
+msgid "click on the delete button."
+msgstr "点击删除按钮"
+
+#: Public/form_data/FG_var_card.inc:951
+#: Public/form_data/FG_var_def_ratecard.inc:134
+#: Public/form_data/FG_var_ticket.inc:177
+#: Public/form_data/FG_var_ticket_agent.inc:95
+#: Public/form_data/FG_var_callerid.inc:132
+msgid "has been inserted."
+msgstr "已载入"
+
+#: Public/form_data/FG_var_card.inc:955
+#: Public/form_data/FG_var_moneysituation.inc:99
+#: Public/form_data/FG_var_friend.inc:935
+msgid "Once you have completed the form above, click on the CONTINUE button."
+msgstr "当你完成上面的表格，请点击继续按钮"
+
+#: Public/form_data/FG_var_agent.inc:41
+msgid "Agent"
+msgstr "代理"
+
+#: Public/form_data/FG_var_agent.inc:61
+msgid "Insert the lastname"
+msgstr "输入姓氏"
+
+#: Public/form_data/FG_var_agent.inc:70
+msgid "Insert the firstname"
+msgstr "输入名字"
+
+#: Public/form_data/FG_var_agent.inc:79
+msgid "Insert the address"
+msgstr "输入地址"
+
+#: Public/form_data/FG_var_agent.inc:106
+msgid "Insert the country"
+msgstr "输入国家"
+
+#: Public/form_data/FG_var_agent.inc:109
+msgid "ZIPCODE"
+msgstr "邮政编码"
+
+#: Public/form_data/FG_var_agent.inc:115
+msgid "Insert the zip code"
+msgstr "输入邮政编码"
+
+#: Public/form_data/FG_var_agent.inc:133
+msgid "Insert the telephone number"
+msgstr "输入电话号码"
+
+#: Public/form_data/FG_var_agent.inc:142
+msgid "Insert the fax number"
+msgstr "输入传真号"
+
+#: Public/form_data/FG_var_agent.inc:146
+msgid "COMPANY"
+msgstr "公司"
+
+#: Public/form_data/FG_var_agent.inc:152
+msgid "Insert the company"
+msgstr "输入公司"
+
+#: Public/form_data/FG_var_agent.inc:161
+msgid "Modify your informations"
+msgstr "修改您的信息"
+
+#: Public/form_data/FG_var_agent.inc:163
+#: Public/form_data/FG_var_paymentlog.inc:210
+#: Public/form_data/FG_var_ticket.inc:180
+#: Public/form_data/FG_var_ticket_agent.inc:98
+msgid "Click 'Confirm Data' to continue"
+msgstr "点击“确认数据”以继续"
+
+#: Public/form_data/FG_var_def_ratecard.inc:70 Public/A2B_card_info.php:819
+#: Public/A2B_card_info.php:906
+msgid "DESTINATION"
+msgstr "目标"
+
+#: Public/form_data/FG_var_def_ratecard.inc:71
+#: Public/form_data/FG_var_def_ratecard.inc:119
+msgid "PREFIX"
+msgstr "词头"
+
+#: Public/form_data/FG_var_def_ratecard.inc:72
+msgid "SR"
+msgstr ""
+
+#: Public/form_data/FG_var_def_ratecard.inc:73
+msgid "START-DATE"
+msgstr "初始日"
+
+#: Public/form_data/FG_var_def_ratecard.inc:74
+msgid "STOP-DATE"
+msgstr "截止日"
+
+#: Public/form_data/FG_var_def_ratecard.inc:75
+msgid "CC"
+msgstr ""
+
+#: Public/form_data/FG_var_def_ratecard.inc:105
+msgid "NO"
+msgstr "不"
+
+#: Public/form_data/FG_var_def_ratecard.inc:105
+msgid "HAVE BEEN CREATED."
+msgstr "已创建"
+
+#: Public/form_data/FG_var_def_ratecard.inc:113
+msgid "Define the criteria to search"
+msgstr "定义精确搜索的标准"
+
+#: Public/form_data/FG_var_def_ratecard.inc:115
+msgid "START DATE"
+msgstr "初始日"
+
+#: Public/form_data/FG_var_def_ratecard.inc:128
+msgid "Rates must be entered in the currency base : "
+msgstr "价格必须在基础货币中输入："
+
+#: Public/form_data/FG_var_def_ratecard.inc:138
+msgid "Click 'Confirm Data' to continue."
+msgstr "点击“确认数据”以继续"
+
+#: Public/form_data/FG_var_moneysituation_details.inc:64
+msgid "AMOUNT INCL VAT"
+msgstr "金额含增值税"
+
+#: Public/form_data/FG_var_moneysituation_details.inc:68
+#: Public/form_data/FG_var_moneysituation.inc:56
+#: Public/form_data/FG_var_ticket.inc:86
+#: Public/form_data/FG_var_ticket_agent.inc:78
+msgid "THERE IS NO"
+msgstr "此处没有"
+
+#: Public/form_data/FG_var_moneysituation_details.inc:68
+#: Public/form_data/FG_var_moneysituation.inc:56
+#: Public/form_data/FG_var_ticket.inc:86
+#: Public/form_data/FG_var_ticket_agent.inc:78
+msgid "CREATED!"
+msgstr "已创建！"
+
+#: Public/form_data/FG_var_remittance_request.inc:50
+msgid "CANCEL THIS REQUEST"
+msgstr "取消这一要求"
+
+#: Public/form_data/FG_var_remittance_request.inc:58
+#: Public/form_data/FG_var_friend.inc:355
+msgid "TYPE"
+msgstr "类型"
+
+#: Public/form_data/FG_var_remittance_request.inc:64
+msgid "THERE ARE NO REMITTANCE REQUEST CREATED!"
+msgstr "未创建汇款请求！"
+
+#: Public/form_data/FG_var_logrefill.inc:53
+#: Public/form_data/FG_var_commission.inc:49
+#: Public/form_data/FG_var_payment.inc:56
+msgid "ACCOUNT"
+msgstr "账户"
+
+#: Public/form_data/FG_var_commission.inc:51
+#: Public/form_data/FG_var_payment.inc:57
+#: Public/form_data/FG_var_payment_agent.inc:55 Public/A2B_card_info.php:677
+msgid "PAYMENT DATE"
+msgstr "付款日期"
+
+#: Public/form_data/FG_var_commission.inc:53
+msgid "PAID STATUS"
+msgstr "支付状态"
+
+#: Public/form_data/FG_var_commission.inc:55
+msgid "LINK TO PAYMENT"
+msgstr "付款链接"
+
+#: Public/form_data/FG_var_payment.inc:58
+#: Public/form_data/FG_var_payment_agent.inc:56 Public/A2B_card_info.php:680
+msgid "PAYMENT AMOUNT"
+msgstr "支付金额"
+
+#: Public/form_data/FG_var_payment.inc:60
+#: Public/form_data/FG_var_payment_agent.inc:58
+#: Public/A2B_payment_info_agent.php:99 Public/A2B_payment_info.php:105
+msgid "PAYMENT TYPE"
+msgstr "付款类型"
+
+#: Public/form_data/FG_var_moneysituation.inc:43
+msgid "CardNumber"
+msgstr "卡号"
+
+#: Public/form_data/FG_var_moneysituation.inc:49
+msgid "INVOICE"
+msgstr "发票"
+
+#: Public/form_data/FG_var_moneysituation.inc:50
+msgid "PAYMENT"
+msgstr "付款"
+
+#: Public/form_data/FG_var_moneysituation.inc:51
+msgid "TO PAY"
+msgstr "支付"
+
+#: Public/form_data/FG_var_moneysituation.inc:94
+#: Public/form_data/FG_var_callerid.inc:131
+msgid "Add a "
+msgstr "添加一个目标"
+
+#: Public/form_data/FG_var_moneysituation.inc:95
+msgid "Your new "
+msgstr "您的新的目标"
+
+#: Public/form_data/FG_var_friend.inc:76
+msgid "CARDHOLDER"
+msgstr "持卡人"
+
+#: Public/form_data/FG_var_friend.inc:77
+#: Public/form_data/FG_var_friend.inc:385 Public/A2B_card_info.php:565
+#: Public/A2B_card_info.php:612
+msgid "USERNAME"
+msgstr "用户名"
+
+#: Public/form_data/FG_var_friend.inc:78
+#: Public/form_data/FG_var_friend.inc:167
+msgid "ACCOUNTCODE"
+msgstr "账户代码"
+
+#: Public/form_data/FG_var_friend.inc:79
+#: Public/form_data/FG_var_friend.inc:217 Public/A2B_card_info.php:568
+#: Public/A2B_card_info.php:615
+msgid "SECRET"
+msgstr "秘密"
+
+#: Public/form_data/FG_var_friend.inc:81
+#: Public/form_data/FG_var_friend.inc:267
+msgid "CONTEXT"
+msgstr "景况"
+
+#: Public/form_data/FG_var_friend.inc:82
+#: Public/form_data/FG_var_friend.inc:277
+msgid "DEFAULTIP"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:87
+msgid "Add SIP Friend"
+msgstr "添加sip好友"
+
+#: Public/form_data/FG_var_friend.inc:89
+msgid "Add IAX Friend"
+msgstr "添加iax好友"
+
+#: Public/form_data/FG_var_friend.inc:144
+#: Public/form_data/FG_var_paymentlog.inc:180
+#: Public/form_data/FG_var_callerid.inc:93
+msgid "ID CARD"
+msgstr "ID卡"
+
+#: Public/form_data/FG_var_friend.inc:150
+#: Public/form_data/FG_var_paymentlog.inc:186
+#: Public/form_data/FG_var_callerid.inc:99
+msgid "Insert the Id CardNumber"
+msgstr "输入ID卡号"
+
+#: Public/form_data/FG_var_friend.inc:154
+msgid "Insert the card ID."
+msgstr "输入卡的ＩＤ"
+
+#: Public/form_data/FG_var_friend.inc:157 Public/A2B_card_info.php:507
+msgid "NAME"
+msgstr "名字"
+
+#: Public/form_data/FG_var_friend.inc:163
+msgid "Insert the name"
+msgstr "输入名称"
+
+#: Public/form_data/FG_var_friend.inc:173
+msgid "Insert the accountcode"
+msgstr "输入账户代码"
+
+#: Public/form_data/FG_var_friend.inc:177
+msgid "REGEXTEN"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:183
+msgid "Insert the regexten"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:193
+msgid "Insert the callerid"
+msgstr "输入呼叫者ID"
+
+#: Public/form_data/FG_var_friend.inc:197
+msgid "CID NUMBER"
+msgstr "ＣＩＤ号码"
+
+#: Public/form_data/FG_var_friend.inc:203
+msgid "Insert the cid number"
+msgstr "输入ＣＩＤ号码"
+
+#: Public/form_data/FG_var_friend.inc:207
+msgid "AMAFLAGS"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:213
+msgid "Insert the amaflags"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:223
+msgid "Insert the secret"
+msgstr "输入秘密"
+
+#: Public/form_data/FG_var_friend.inc:227
+msgid "QUALIFY"
+msgstr "修饰"
+
+#: Public/form_data/FG_var_friend.inc:233
+msgid "Insert the qualify"
+msgstr "输入修饰"
+
+#: Public/form_data/FG_var_friend.inc:237
+msgid "DISALLOW"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:243
+msgid "Insert the disallow"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:244
+msgid "need to disallow=all before we can use allow. ( default : all )"
+msgstr "需要禁止=我们可以使用允许之前 （默认：全部）"
+
+#: Public/form_data/FG_var_friend.inc:247
+msgid "ALLOW"
+msgstr "允许"
+
+#: Public/form_data/FG_var_friend.inc:253
+msgid "Insert the allow"
+msgstr "输入允许"
+
+#: Public/form_data/FG_var_friend.inc:254
+msgid "Set allow codecs separated by a comma, e.g. gsm,alaw,ulaw ( default : ulaw,alaw,gsm,g729)"
+msgstr "设置允许编解码用逗号分隔，例如GSM，ＡＬＡＷ，ULAW（默认：ULAW，ＡＬＡＷ，GSM，G729）"
+
+#: Public/form_data/FG_var_friend.inc:257
+msgid "HOST"
+msgstr "主人"
+
+#: Public/form_data/FG_var_friend.inc:263
+msgid "Insert the host"
+msgstr "输入主人"
+
+#: Public/form_data/FG_var_friend.inc:264
+msgid "Use dynamic or set an IP ( default : dynamic )"
+msgstr "使用动态或设置IP（默认值：动态）"
+
+#: Public/form_data/FG_var_friend.inc:273
+msgid "Insert the context"
+msgstr "载入上下文"
+
+#: Public/form_data/FG_var_friend.inc:274
+msgid "set the context for this user (default : a2billing )"
+msgstr "设置背景为这个用户（默认：a2billing）"
+
+#: Public/form_data/FG_var_friend.inc:283
+msgid "Insert the defaultip"
+msgstr "输入默认ＩＰ"
+
+#: Public/form_data/FG_var_friend.inc:293
+msgid "Insert the language"
+msgstr "输入语言"
+
+#: Public/form_data/FG_var_friend.inc:297
+msgid "PORT"
+msgstr "端口"
+
+#: Public/form_data/FG_var_friend.inc:303
+msgid "Insert the port"
+msgstr "输入端口"
+
+#: Public/form_data/FG_var_friend.inc:307
+msgid "REGSECONDS"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:313
+msgid "Insert the regseconds"
+msgstr "输入ｒｅｇｓｅｃｏｎｄｓ"
+
+#: Public/form_data/FG_var_friend.inc:317
+msgid "IPADDR"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:323
+msgid "Insert the ipaddr"
+msgstr "输入ｉｐａｄｄｒ"
+
+#: Public/form_data/FG_var_friend.inc:326
+msgid "MOHSUGGEST"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:332
+msgid "Insert the mohsuggest"
+msgstr "输入ｍｏｈｓｕｇｇｅｓｔ"
+
+#: Public/form_data/FG_var_friend.inc:336
+msgid "AUTH"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:342
+msgid "Insert the auth"
+msgstr "输入ＡＵＴＨ"
+
+#: Public/form_data/FG_var_friend.inc:346
+msgid "SETVAR"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:352
+msgid "Insert the setvar"
+msgstr "输入ＳＥＴＶＡＲ"
+
+#: Public/form_data/FG_var_friend.inc:361
+msgid "Insert the type"
+msgstr "输入类型"
+
+#: Public/form_data/FG_var_friend.inc:362
+msgid "type = friend | peer | user ( default : friend )"
+msgstr "类型=朋友|同行|用户（默认：朋友）"
+
+#: Public/form_data/FG_var_friend.inc:364
+msgid "DENY"
+msgstr "否认"
+
+#: Public/form_data/FG_var_friend.inc:370
+msgid "Insert the deny"
+msgstr "输入否认"
+
+#: Public/form_data/FG_var_friend.inc:373
+msgid "PERMIT"
+msgstr "凭照"
+
+#: Public/form_data/FG_var_friend.inc:379
+msgid "Insert the permit"
+msgstr "输入凭照"
+
+#: Public/form_data/FG_var_friend.inc:391
+msgid "Insert the username"
+msgstr "输入使用者姓名"
+
+#: Public/form_data/FG_var_friend.inc:394
+msgid "MD5SECRET"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:400
+msgid "Insert the md5secret"
+msgstr "输入MD5SECRET"
+
+#: Public/form_data/FG_var_friend.inc:404
+msgid "NAT"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:410
+msgid "Insert the nat"
+msgstr "输入ｎａｔ"
+
+#: Public/form_data/FG_var_friend.inc:411
+msgid "nat = yes | no | never | route ( default : yes )"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:414
+msgid "DTMFMODE"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:420
+msgid "Insert the dtmfmode"
+msgstr "输入DTMFMODE"
+
+#: Public/form_data/FG_var_friend.inc:421
+msgid "dtmfmode = RFC2833 | INFO | INBAND | AUTO ( default : RFC2833 )"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:425
+msgid "CANREINVITE"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:431
+msgid "Insert the canreinvite"
+msgstr "输入CANREINVITE"
+
+#: Public/form_data/FG_var_friend.inc:432
+msgid "canreinvite : yes | no ( default : yes )"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:437
+msgid "CALLGROUP"
+msgstr "呼叫组别"
+
+#: Public/form_data/FG_var_friend.inc:443
+msgid "Insert the callgroup"
+msgstr "输入呼叫组别"
+
+#: Public/form_data/FG_var_friend.inc:449
+msgid "FROMUSER"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:455
+msgid "Insert the fromuser"
+msgstr "输入FROMUSER"
+
+#: Public/form_data/FG_var_friend.inc:459
+msgid "FROMDOMAIN"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:465
+msgid "Insert the fromdomain"
+msgstr "输入FROMDOMAIN"
+
+#: Public/form_data/FG_var_friend.inc:469
+msgid "INSECURE"
+msgstr "不安全"
+
+#: Public/form_data/FG_var_friend.inc:475
+msgid "Insert the insecure"
+msgstr "输入不安全"
+
+#: Public/form_data/FG_var_friend.inc:479
+msgid "MAILBOX"
+msgstr "邮箱"
+
+#: Public/form_data/FG_var_friend.inc:485
+msgid "Insert the mailbox"
+msgstr "输入邮箱"
+
+#: Public/form_data/FG_var_friend.inc:490
+msgid "MASK"
+msgstr "面具"
+
+#: Public/form_data/FG_var_friend.inc:496
+msgid "Insert the mask"
+msgstr "输入面具"
+
+#: Public/form_data/FG_var_friend.inc:500
+msgid "PICKUPGROUP"
+msgstr "搜罗组别"
+
+#: Public/form_data/FG_var_friend.inc:506
+msgid "Insert the pickupgroup"
+msgstr "输入搜罗组别"
+
+#: Public/form_data/FG_var_friend.inc:510
+msgid "RESTRICTCID"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:516
+msgid "Insert the restrictcid"
+msgstr "输入RESTRICTCID"
+
+#: Public/form_data/FG_var_friend.inc:520
+msgid "RTPTIMEOUT"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:526
+msgid "Insert the rtptimeout"
+msgstr "输入RTPTIMEOUT"
+
+#: Public/form_data/FG_var_friend.inc:530
+msgid "RTPHOLDTIMEOUT"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:536
+msgid "Insert the rtpholdtimeout"
+msgstr "输入RTPHOLDTIMEOUT"
+
+#: Public/form_data/FG_var_friend.inc:540
+msgid "MUSICONHOLD"
+msgstr "MUSIQUE D'ATTENTE"
+
+#: Public/form_data/FG_var_friend.inc:546
+msgid "Insert the musiconhold"
+msgstr "输入MUSICONHOLD"
+
+#: Public/form_data/FG_var_friend.inc:550
+msgid "CANCALLFORWARD"
+msgstr "取消跟随"
+
+#: Public/form_data/FG_var_friend.inc:556
+msgid "Insert the cancallforward"
+msgstr "输入取消跟随"
+
+#: Public/form_data/FG_var_friend.inc:557
+msgid "cancallforward = yes | no ( default : yes )"
+msgstr "可以呼叫转移= 是 | 否（默认值：是）"
+
+#: Public/form_data/FG_var_friend.inc:560
+msgid "DEFAULTUSER"
+msgstr "默认使用者"
+
+#: Public/form_data/FG_var_friend.inc:570
+msgid "SUBSCRIBEMWI"
+msgstr "订阅ＭＷＩ"
+
+#: Public/form_data/FG_var_friend.inc:580
+msgid "VMEXTEN"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:590
+msgid "CALLINGPRES"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:600
+msgid "USEREQPHONE"
+msgstr "使用者电话"
+
+#: Public/form_data/FG_var_friend.inc:610
+msgid "INCOMINGLIMIT"
+msgstr "来电限制"
+
+#: Public/form_data/FG_var_friend.inc:620
+msgid "SUBSCRIBECONTEXT"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:630
+msgid "MUSICCLASS"
+msgstr "音乐课"
+
+#: Public/form_data/FG_var_friend.inc:640
+msgid "ALLOWTRANSFER"
+msgstr "允许传输"
+
+#: Public/form_data/FG_var_friend.inc:650
+msgid "AUTOFRAMING"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:660
+msgid "MAXCALLBITRATE"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:670
+msgid "OUTBOUNDPROXY"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:680
+msgid "REGSERVER"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:690
+msgid "RTPKEEPALIVE"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:701
+msgid "TRUNK"
+msgstr "主干"
+
+#: Public/form_data/FG_var_friend.inc:707
+msgid "Define the iax trunking"
+msgstr "定义ＩＡＸ主干"
+
+#: Public/form_data/FG_var_friend.inc:708
+msgid "iax trunking = yes | no ( default : yes )"
+msgstr "IAX主干= 是| 否（默认值：是）"
+
+#: Public/form_data/FG_var_friend.inc:711
+msgid "DBSECRET"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:721
+msgid "REGCONTEXT"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:731
+msgid "SOURCEADDRESS"
+msgstr "源地址"
+
+#: Public/form_data/FG_var_friend.inc:740
+msgid "MOHINTERPRET"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:750
+msgid "INKEYS"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:760
+msgid "OUTKEY"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:769
+msgid "SENDANI"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:778
+msgid "FULLNAME"
+msgstr "全名"
+
+#: Public/form_data/FG_var_friend.inc:788
+msgid "MAXAUTHREQ"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:798
+msgid "ENCRYPTION"
+msgstr "加密"
+
+#: Public/form_data/FG_var_friend.inc:808
+msgid "TRANSFER"
+msgstr "传递"
+
+#: Public/form_data/FG_var_friend.inc:818
+msgid "JITTERBUFFER"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:828
+msgid "FORCEJITTERBUFFER"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:838
+msgid "CODECPRIORITY"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:848
+msgid "QUALIFYSMOOTHING"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:858
+msgid "QUALIFYFREQOK"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:868
+msgid "QUALIFYFREQNOTOK"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:888
+msgid "ADSI"
+msgstr ""
+
+#: Public/form_data/FG_var_friend.inc:931
+msgid "has been inserted. <br>"
+msgstr "已被载入＜英＞"
+
+#: Public/form_data/FG_var_signup_agent.inc:47
+msgid "Add Signup KEY"
+msgstr "添加注册钥匙"
+
+#: Public/form_data/FG_var_signup_agent.inc:52
+msgid "KEY"
+msgstr "钥匙"
+
+#: Public/form_data/FG_var_paymentlog.inc:97
+msgid "Id"
+msgstr "Id"
+
+#: Public/form_data/FG_var_paymentlog.inc:98
+msgid "Created At"
+msgstr "创建ＡＴ"
+
+#: Public/form_data/FG_var_paymentlog.inc:99
+#: Public/checkout_confirmation.php:134
+msgid "Payment Method"
+msgstr "付款方式"
+
+#: Public/form_data/FG_var_paymentlog.inc:101
+msgid "Owner"
+msgstr "拥有者"
+
+#: Public/form_data/FG_var_paymentlog.inc:102
+#: Public/checkout_confirmation.php:138
+msgid "Amount"
+msgstr "数量"
+
+#: Public/form_data/FG_var_paymentlog.inc:103
+msgid "CardID"
+msgstr "卡ＩＤ"
+
+#: Public/form_data/FG_var_paymentlog.inc:104
+msgid "Cardnumber"
+msgstr "卡号"
+
+#: Public/form_data/FG_var_paymentlog.inc:109
+msgid "THERE ARE NO "
+msgstr "没有"
+
+#: Public/form_data/FG_var_paymentlog.inc:125
+msgid "Insert the Id "
+msgstr "输入ID"
+
+#: Public/form_data/FG_var_paymentlog.inc:127
+msgid "Select the ID"
+msgstr "选择ID"
+
+#: Public/form_data/FG_var_paymentlog.inc:136
+msgid "Insert the creation date"
+msgstr "输入创建日期"
+
+#: Public/form_data/FG_var_paymentlog.inc:140
+msgid "PAYMENT METHOD"
+msgstr "付款方式"
+
+#: Public/form_data/FG_var_paymentlog.inc:146
+msgid "Insert the payment method"
+msgstr "输入付款方式"
+
+#: Public/form_data/FG_var_paymentlog.inc:147
+msgid "Enter the payment method "
+msgstr "输入付款方式"
+
+#: Public/form_data/FG_var_paymentlog.inc:159
+msgid "OWNER"
+msgstr "拥有者"
+
+#: Public/form_data/FG_var_paymentlog.inc:165
+msgid "Insert the owner"
+msgstr "载入拥有着"
+
+#: Public/form_data/FG_var_paymentlog.inc:166
+msgid "Enter the owner"
+msgstr "输入拥有者"
+
+#: Public/form_data/FG_var_paymentlog.inc:175
+msgid "Insert the amount"
+msgstr "载入数量"
+
+#: Public/form_data/FG_var_paymentlog.inc:176
+msgid "Enter the amount "
+msgstr "输入数量"
+
+#: Public/form_data/FG_var_paymentlog.inc:190
+msgid "Select the Card Number ID"
+msgstr "选择卡号ＩＤ"
+
+#: Public/form_data/FG_var_ticket.inc:70
+msgid "CUSTOMER"
+msgstr "客户"
+
+#: Public/form_data/FG_var_ticket.inc:72
+#: Public/form_data/FG_var_ticket.inc:124
+#: Public/form_data/FG_var_ticket_agent.inc:64
+msgid "TITLE"
+msgstr "标题"
+
+#: Public/form_data/FG_var_ticket.inc:73
+#: Public/form_data/FG_var_ticket_agent.inc:65
+msgid "CREATIONDATE"
+msgstr "创建日期"
+
+#: Public/form_data/FG_var_ticket.inc:74
+#: Public/form_data/FG_var_ticket.inc:132
+#: Public/form_data/FG_var_ticket_agent.inc:66
+msgid "COMPONENT"
+msgstr "部件"
+
+#: Public/form_data/FG_var_ticket.inc:75
+#: Public/form_data/FG_var_ticket.inc:142
+#: Public/form_data/FG_var_ticket_agent.inc:67
+msgid "PRIORITY"
+msgstr "优先"
+
+#: Public/form_data/FG_var_ticket.inc:111
+msgid "CREATOR"
+msgstr "创建者"
+
+#: Public/form_data/FG_var_ticket.inc:117
+msgid "Insert the Customer ID"
+msgstr "载入客户ID"
+
+#: Public/form_data/FG_var_ticket.inc:121
+msgid "Set the Customer ID"
+msgstr "设置客户ID"
+
+#: Public/form_data/FG_var_ticket.inc:130
+msgid "Insert the Title of ticket "
+msgstr "输入票据标题"
+
+#: Public/form_data/FG_var_ticket.inc:157
+msgid "Insert the description"
+msgstr "输入描述"
+
+#: Public/form_data/FG_var_ticket_agent.inc:68
+msgid "TO SEE?"
+msgstr "前往观看？"
+
+#: Public/form_data/FG_var_callerid.inc:49
+msgid "Add CallerID"
+msgstr "添加来电显示"
+
+#: Public/form_data/FG_var_callerid.inc:58
+msgid "CUSTOMER NAME"
+msgstr "客户名字"
+
+#: Public/form_data/FG_var_callerid.inc:64
+msgid " CREATED!"
+msgstr "已创建！"
+
+#: Public/form_data/FG_var_callerid.inc:81
+msgid "Insert the CallerID"
+msgstr "输入来电显示"
+
+#: Public/form_data/FG_var_callerid.inc:90
+msgid "Choose if you want to activate this card"
+msgstr "如果您想激活请选择"
+
+#: Public/form_data/FG_var_callerid.inc:103
+msgid "Define the card number ID to use."
+msgstr "定义要使用的卡号ID"
+
+#: Public/form_data/FG_var_callerid.inc:120
+msgid "Modify via the form below, the properties of the callerID"
+msgstr "通过下面的表格，将主叫号码的属性修改"
+
+#: Public/form_data/FG_var_callerid.inc:136
+msgid "Click Confirm Data to apply your changes"
+msgstr "点击确认数据应用更改"
+
+#: Public/A2B_payment_info_agent.php:70 Public/A2B_payment_info.php:70
+msgid "PAYMENT INFO"
+msgstr "付款信息"
+
+#: Public/A2B_payment_info_agent.php:118 Public/A2B_payment_info.php:124
+msgid "LINK REFILL"
+msgstr "续订链接"
+
+#: Public/A2B_payment_info_agent.php:121 Public/A2B_payment_info.php:127
+msgid "Link to the refill"
+msgstr "续订链接"
+
+#: Public/A2B_payment_info_agent.php:131
+msgid "PAYMENTS AGENT LIST"
+msgstr "付款代理列表"
+
+#: Public/A2B_ticket_view.php:50
+msgid "Ticket updated successfully"
+msgstr "票据已成功更新"
+
+#: Public/A2B_ticket_view.php:56
+msgid "Ticket ID not found"
+msgstr "未找到票的ＩＤ"
+
+#: Public/A2B_ticket_view.php:91
+msgid "TICKET: "
+msgstr "票据："
+
+#: Public/A2B_ticket_view.php:101
+msgid "BY : "
+msgstr "来自："
+
+#: Public/A2B_ticket_view.php:107
+msgid "PRIORITY : "
+msgstr "优先："
+
+#: Public/A2B_ticket_view.php:110
+msgid "DATE : "
+msgstr "日期："
+
+#: Public/A2B_ticket_view.php:115
+msgid "COMPONENT : "
+msgstr "部件："
+
+#: Public/A2B_ticket_view.php:122
+msgid "DESCRIPTION : "
+msgstr "描述："
+
+#: Public/A2B_ticket_view.php:155
+msgid "STATUS : "
+msgstr "状态："
+
+#: Public/A2B_ticket_view.php:174
+msgid "COMMENT : "
+msgstr "评论："
+
+#: Public/checkout_confirmation.php:95
+msgid "No Transaction ID found"
+msgstr "未发现交易ＩＤ"
+
+#: Public/checkout_confirmation.php:127
+msgid "Please confirm your order"
+msgstr "请确认您的订单"
+
+#: Public/checkout_confirmation.php:158
+msgid "Total Amount Incl. VAT"
+msgstr "总金额已包含．增值税"
+
+#: Public/checkout_confirmation.php:175
+msgid "Please click button to confirm your order"
+msgstr "请点击按钮确认您的订单"
+
+#: Public/A2B_signup_agent.php:92
+msgid "Create signup url for a specific agent, customer group and Call Plan."
+msgstr "创建注册网址为特定的代理，客户群和呼叫计划"
+
+#: Public/A2B_signup_agent.php:99
+msgid "Choose the Call Plan to use"
+msgstr "选择要使用的呼叫计划"
+
+#: Public/A2B_signup_agent.php:101 Public/A2B_entity_card_multi.php:344
+msgid "Choose a Call Plan"
+msgstr "选择一个呼叫方案"
+
+#: Public/A2B_signup_agent.php:111
+msgid "Choose the Customer group to use"
+msgstr "选择要使用的客户组别"
+
+#: Public/A2B_signup_agent.php:113
+msgid "Choose a Customer Group"
+msgstr "选择一个客户组别"
+
+#: Public/A2B_signup_agent.php:134
+msgid "RETURN TO URL KEY LIST"
+msgstr "返回密匙列表"
+
+#: Public/A2B_signup_agent.php:139
+msgid "ADD URL KEY"
+msgstr "添加密匙"
+
+#: Public/A2B_signup_agent.php:157
+msgid "URL"
+msgstr ""
+
+#: Public/A2B_signup_agent.php:157
+msgid "Link to the URL"
+msgstr ""
+
+#: Public/A2B_entity_paymentlog.php:145
+msgid "SELECT DAY"
+msgstr "选择日"
+
+#: Public/A2B_entity_friend.php:173
+msgid "CONFIGURATION TYPE"
+msgstr "配置类型"
+
+#: Public/card-history.php:87 Public/templates/default/main.tpl:58
+msgid "Card History"
+msgstr "卡历史"
+
+#: Public/card-history.php:176
+msgid "SELECT BY MONTH"
+msgstr "选择月份"
+
+#: Public/card-history.php:182 Public/card-history.php:231
+msgid "FROM"
+msgstr "来自"
+
+#: Public/card-history.php:185 Public/card-history.php:205
+#: Public/card-history.php:243 Public/card-history.php:270
+msgid "JANUARY"
+msgstr "一月"
+
+#: Public/card-history.php:185 Public/card-history.php:205
+#: Public/card-history.php:243 Public/card-history.php:270
+msgid "FEBRUARY"
+msgstr "二月"
+
+#: Public/card-history.php:185 Public/card-history.php:205
+#: Public/card-history.php:243 Public/card-history.php:270
+msgid "MARCH"
+msgstr "三月"
+
+#: Public/card-history.php:185 Public/card-history.php:205
+#: Public/card-history.php:243 Public/card-history.php:270
+msgid "APRIL"
+msgstr "四月"
+
+#: Public/card-history.php:185 Public/card-history.php:205
+#: Public/card-history.php:243 Public/card-history.php:270
+msgid "MAY"
+msgstr "五月"
+
+#: Public/card-history.php:185 Public/card-history.php:205
+#: Public/card-history.php:243 Public/card-history.php:270
+msgid "JUNE"
+msgstr "六月"
+
+#: Public/card-history.php:185 Public/card-history.php:205
+#: Public/card-history.php:243 Public/card-history.php:270
+msgid "JULY"
+msgstr "七月"
+
+#: Public/card-history.php:185 Public/card-history.php:205
+#: Public/card-history.php:243 Public/card-history.php:270
+msgid "AUGUST"
+msgstr "八月"
+
+#: Public/card-history.php:185 Public/card-history.php:205
+#: Public/card-history.php:243 Public/card-history.php:270
+msgid "SEPTEMBER"
+msgstr "九月"
+
+#: Public/card-history.php:185 Public/card-history.php:205
+#: Public/card-history.php:243 Public/card-history.php:270
+msgid "OCTOBER"
+msgstr "十月"
+
+#: Public/card-history.php:185 Public/card-history.php:205
+#: Public/card-history.php:243 Public/card-history.php:270
+msgid "NOVEMBER"
+msgstr "十一月"
+
+#: Public/card-history.php:185 Public/card-history.php:205
+#: Public/card-history.php:243 Public/card-history.php:270
+msgid "DECEMBER"
+msgstr "十二月"
+
+#: Public/card-history.php:201 Public/card-history.php:258
+msgid "TO"
+msgstr "至"
+
+#: Public/card-history.php:226
+msgid "SELECT BY DAY"
+msgstr ""
+
+#: Public/card-history.php:291
+msgid "Search"
+msgstr "搜素"
+
+#: Public/PP_error.php:54
+msgid "ERROR : ACCESS REFUSED"
+msgstr "错误: 访问拒绝"
+
+#: Public/PP_error.php:55
+msgid "Sorry a problem occur on our system, please try later!"
+msgstr "遗憾的一个问题出现在我们的系统，请稍后再试！"
+
+#: Public/PP_error.php:56
+msgid "There is an error on this page!"
+msgstr "错误页面！"
+
+#: Public/PP_error.php:57
+msgid "Sorry, you don't have access to this page !"
+msgstr "对不起，您没有访问此页面！"
+
+#: Public/PP_error.php:58
+msgid "Invalid User Id !"
+msgstr "用户ID无效！"
+
+#: Public/PP_error.php:59
+msgid "No such card number found. Please check your card number!"
+msgstr "未找到此卡号，请检查您的卡号！"
+
+#: Public/PP_error.php:69
+msgid "ERROR PAGE"
+msgstr "错误页面"
+
+#: Public/PP_error.php:86
+msgid "GO TO LOGIN PAGE"
+msgstr "至登陆页面"
+
+#: Public/checkout_success.php:62
+msgid "Thank you for your purchase"
+msgstr "感谢您选购"
+
+#: Public/checkout_success.php:76
+msgid "We are sorry your transaction is pending."
+msgstr "很抱歉，您的交易正在等待"
+
+#: Public/A2B_entity_signup_agent.php:53
+msgid "click outside box to close"
+msgstr "点击外箱关闭"
+
+#: Public/A2B_entity_agent.php:75
+msgid "Your personal information is updated successfully."
+msgstr "您的个人信息已经成功更新"
+
+#: Public/graph_stat.php:53 Public/graph_statbar.php:54
+msgid "Calldate"
+msgstr "通话时间"
+
+#: Public/graph_stat.php:54 Public/graph_statbar.php:55
+msgid "CalledNumber"
+msgstr "呼叫号码"
+
+#: Public/graph_stat.php:57 Public/graph_statbar.php:58
+msgid "CardUsed"
+msgstr "卡使用"
+
+#: Public/graph_stat.php:58 Public/graph_statbar.php:59
+msgid "terminatecauseid"
+msgstr "终止原因"
+
+#: Public/graph_stat.php:59 Public/graph_statbar.php:60
+msgid "IAX/SIP"
+msgstr "IAX/SIP"
+
+#: Public/graph_stat.php:60 Public/graph_statbar.php:61
+msgid "InitialRate"
+msgstr "初始速率"
+
+#: Public/graph_stat.php:61 Public/graph_statbar.php:62
+msgid "Cost"
+msgstr "费用"
+
+#: Public/graph_stat.php:254
+msgid "Statistic : Number of call by Hours"
+msgstr "统计：一定时间内呼叫数"
+
+#: Public/graph_stat.php:255 Public/graph_statbar.php:230
+msgid "Statistic : Minutes by Hours"
+msgstr "统计：一定时间内的分钟数"
+
+#: Public/graph_stat.php:256
+msgid "Statistic : Profits by Hours"
+msgstr "统计：一定时间内的利润"
+
+#: Public/graph_stat.php:257
+msgid "Statistic : Sells by Hours"
+msgstr "统计：一定时间内的销售"
+
+#: Public/graph_stat.php:258
+msgid "Statistic : Buys by Hours"
+msgstr "统计：一定时间内的购买"
+
+#: Public/checkout_process.php:264
+msgid "No Such Customer exists."
+msgstr "此客户不存在"
+
+#: Public/checkout_payment.php:303
+msgid "Please enter the order amount"
+msgstr "请输入订单金额"
+
+#: Public/checkout_payment.php:310
+msgid "Total Amount"
+msgstr "总金额"
+
+#: Public/graph_statbar.php:229
+msgid "Statistic : Load by hours"
+msgstr "统计：一定时间内的负载"
+
+#: Public/A2B_card_info.php:87
+msgid "ACCOUNT INFO"
+msgstr "账户信息"
+
+#: Public/A2B_card_info.php:118
+msgid "WEB ALIAS"
+msgstr "网络别号"
+
+#: Public/A2B_card_info.php:126
+msgid "WEB PASSWORD"
+msgstr "网络密码"
+
+#: Public/A2B_card_info.php:160
+msgid "EXPIRATION DATE"
+msgstr "截止日期"
+
+#: Public/A2B_card_info.php:176
+msgid "LAST USE DATE"
+msgstr "最后使用日期"
+
+#: Public/A2B_card_info.php:195
+msgid "UNLOCK"
+msgstr "解锁"
+
+#: Public/A2B_card_info.php:208
+msgid "LOCK DATE"
+msgstr "上锁日期"
+
+#: Public/A2B_card_info.php:221
+msgid "CUSTOMER INFO"
+msgstr "客户信息"
+
+#: Public/A2B_card_info.php:332
+msgid "ACCOUNT STATUS"
+msgstr "账户状态"
+
+#: Public/A2B_card_info.php:353
+msgid "CREDIT LIMIT"
+msgstr "信贷限制"
+
+#: Public/A2B_card_info.php:382
+msgid "COMPANY INFO"
+msgstr "公司信息"
+
+#: Public/A2B_card_info.php:406
+msgid "VAT REGISTRATION NUMBER"
+msgstr "注册增值税号码"
+
+#: Public/A2B_card_info.php:425
+msgid "TARGET TRAFIC"
+msgstr "交通目标"
+
+#: Public/A2B_card_info.php:451
+msgid "CALLER-ID LIST "
+msgstr "来电显示清单"
+
+#: Public/A2B_card_info.php:499
+msgid "SPEED-DIAL LIST "
+msgstr "快速拨号清单"
+
+#: Public/A2B_card_info.php:510
+msgid "SPEEDDIAL"
+msgstr "快速拨号"
+
+#: Public/A2B_card_info.php:560
+msgid "SIP-BUDDIES"
+msgstr ""
+
+#: Public/A2B_card_info.php:607
+msgid "IAX-BUDDIES"
+msgstr ""
+
+#: Public/A2B_card_info.php:648 Public/A2B_card_info.php:950
+msgid "CUSTOMERS LIST"
+msgstr "客户清单"
+
+#: Public/A2B_card_info.php:664
+msgid "Recent Payments"
+msgstr "近期付款"
+
+#: Public/A2B_card_info.php:737
+msgid "Recent Refills"
+msgstr "最近续订"
+
+#: Public/A2B_card_info.php:803
+msgid "Recent Calls"
+msgstr "最近的通话"
+
+#: Public/A2B_card_info.php:813
+msgid "CALL DATE"
+msgstr "呼叫日期"
+
+#: Public/A2B_card_info.php:816
+msgid "CALLED NUMBER"
+msgstr "来电号码"
+
+#: Public/A2B_card_info.php:825
+msgid "TERMINATE CAUSE"
+msgstr "终止原因"
+
+#: Public/A2B_card_info.php:828
+msgid "BUY"
+msgstr "购买"
+
+#: Public/A2B_card_info.php:834
+msgid "LINK TO THE RATE"
+msgstr "链接到的速率"
+
+#: Public/A2B_card_info.php:872
+msgid "Link to the used rate"
+msgstr "链接使用率"
+
+#: Public/A2B_card_info.php:893
+msgid "DIDs & DID Destination"
+msgstr ""
+
+#: Public/A2B_card_info.php:903
+msgid "DID"
+msgstr ""
+
+#: Public/A2B_card_info.php:912
+msgid "VOIP"
+msgstr ""
+
+#: Public/CC_generate_friend_file.php:69
+msgid "Cannot connect to the asterisk manager!<br>Please check your manager configuration."
+msgstr "无法连接到管理员！请检查您的管理器配置"
+
+#: Public/CC_generate_friend_file.php:101
+msgid "There is no "
+msgstr "此处没有"
+
+#: Public/CC_generate_friend_file.php:107
+msgid "Could not open the user configuration file :"
+msgstr "无法打开用户配置文件："
+
+#: Public/CC_generate_friend_file.php:156
+msgid "The sipfriend file has been generated : "
+msgstr "该sip好友文件已生成："
+
+#: Public/CC_generate_friend_file.php:158
+msgid "The iaxfriend file has been generated : "
+msgstr "该iax好友文件已生成："
+
+#: Public/CC_generate_friend_file.php:165
+msgid "Click here to reload your asterisk server"
+msgstr "点击这里刷新你的Asterisk服务器"
+
+#: Public/CC_generate_friend_file.php:171
+msgid "Asterisk has been reloaded."
+msgstr "Asterisk已重新加载"
+
+#: Public/A2B_entity_moneysituation.php:175
+msgid "NB TOTAL INVOICE"
+msgstr "NB总发票"
+
+#: Public/A2B_entity_moneysituation.php:176
+msgid "NB INVOICE WITH ENOUGH PAYMENT "
+msgstr "NB足够付款的发票"
+
+#: Public/A2B_entity_moneysituation.php:177
+msgid "NB INVOICE WITH PAID STATUS"
+msgstr "NB带薪状态发票"
+
+#: Public/A2B_entity_moneysituation.php:178
+msgid "NB INVOICE WITH UNPAID STATUS"
+msgstr "NB无薪状态发票"
+
+#: Public/templates/default/main.tpl:12
+msgid "HOME"
+msgstr "家庭"
+
+#: Public/templates/default/main.tpl:22
+msgid "MY ACCOUNT"
+msgstr "我的账户"
+
+#: Public/templates/default/main.tpl:31
+msgid "Account information"
+msgstr "账户信息"
+
+#: Public/templates/default/main.tpl:32 Public/templates/default/index.tpl:61
+msgid "Password"
+msgstr "密码"
+
+#: Public/templates/default/main.tpl:33
+msgid "Historic Remittance"
+msgstr "汇款历史"
+
+#: Public/templates/default/main.tpl:55
+msgid "List Customers"
+msgstr "客户清单"
+
+#: Public/templates/default/main.tpl:56
+msgid "Caller-ID"
+msgstr "来电显示"
+
+#: Public/templates/default/main.tpl:61
+msgid "VOIP Config"
+msgstr "VOIP配置"
+
+#: Public/templates/default/main.tpl:76
+msgid "SIGNUP"
+msgstr "报名"
+
+#: Public/templates/default/main.tpl:85
+msgid "Signup Url List"
+msgstr "Url报名列表"
+
+#: Public/templates/default/main.tpl:86
+msgid "Add New Signup Url"
+msgstr "添加新的Url报名"
+
+#: Public/templates/default/main.tpl:100
+msgid "BILLING"
+msgstr "广告"
+
+#: Public/templates/default/main.tpl:109
+msgid "Account balance"
+msgstr "账户余额"
+
+#: Public/templates/default/main.tpl:110
+msgid "Own Refills"
+msgstr "个人续订"
+
+#: Public/templates/default/main.tpl:111
+msgid "Own Payments"
+msgstr "个人支付"
+
+#: Public/templates/default/main.tpl:112
+msgid "Customer's Refills"
+msgstr "客户续订"
+
+#: Public/templates/default/main.tpl:113
+msgid "Customer's Payment"
+msgstr "客户支付"
+
+#: Public/templates/default/main.tpl:114
+msgid "Payment Log"
+msgstr "付款日志"
+
+#: Public/templates/default/main.tpl:115
+msgid "Commission"
+msgstr "佣金"
+
+#: Public/templates/default/main.tpl:137
+msgid "Browse Rates"
+msgstr "浏览价格"
+
+#: Public/templates/default/main.tpl:150
+msgid "CALL REPORT"
+msgstr "呼叫报告"
+
+#: Public/templates/default/main.tpl:159
+msgid "CDR Report"
+msgstr "CDR报告"
+
+#: Public/templates/default/main.tpl:160
+msgid "Monthly Traffic"
+msgstr "每月流量"
+
+#: Public/templates/default/main.tpl:173
+msgid "SUPPORT"
+msgstr "支持"
+
+#: Public/templates/default/main.tpl:182
+msgid "Customer Tickets"
+msgstr "客户票据"
+
+#: Public/templates/default/main.tpl:183
+msgid "View and Create Tickets"
+msgstr "查看和创建票据"
+
+#: Public/templates/default/main.tpl:194
+msgid "LOGOUT"
+msgstr "注销"
+
+#: Public/templates/default/index.tpl:49
+msgid "AUTHENTICATION"
+msgstr "认证"
+
+#: Public/templates/default/index.tpl:57
+msgid "User"
+msgstr "使用者"
+
+#: Public/templates/default/index.tpl:90
+msgid "AUTHENTICATION REFUSED, please check your user/password!"
+msgstr "认证被拒绝了，请检查您的用户名/密码！"
+
+#: Public/templates/default/index.tpl:92
+msgid "INACTIVE ACCOUNT, Please activate your account!"
+msgstr "未激活帐户：您的帐号需要激活！"
+
+#: Public/templates/default/index.tpl:94
+msgid "BLOCKED ACCOUNT, Please contact the administrator!"
+msgstr "封锁账号：请联系管理员！"
+
+#: Public/A2B_refill_info.php:128
+msgid "REFILLS LIST"
+msgstr "续订列表"
+
+#: Public/A2B_entity_secret.php:76
+msgid "Your secret is updated successfully."
+msgstr "您的秘密已成功更新"
+
+#: Public/A2B_entity_secret.php:82
+msgid "Your secret is not updated Correctly."
+msgstr "您的秘密未成功更新"
+
+#: Public/A2B_entity_secret.php:93
+msgid "Change Secret"
+msgstr "更改机密"
+
+#: Public/A2B_entity_secret.php:99
+msgid "Old Secret"
+msgstr "旧机密"
+
+#: Public/A2B_entity_secret.php:103
+msgid "New Secret"
+msgstr "新机密"
+
+#: Public/A2B_entity_card_multi.php:73
+msgid "- Choose a GROUP for the customers!"
+msgstr "未客户选择一个组别"
+
+#: Public/A2B_entity_card_multi.php:79
+msgid "- Choose a CALL PLAN for the customers!"
+msgstr "未客户选择一个呼叫方案"
+
+#: Public/A2B_entity_card_multi.php:85
+msgid "- Choose an EXPIRATIONS DAYS  equal or higher than 0 for the customers!"
+msgstr "未客户选择一个大于等于零的到期日"
+
+#: Public/A2B_entity_card_multi.php:91
+msgid "- EXPIRATION DAY inserted is invalid, it must respect the date format YYYY-MM-DD HH:MM:SS (time is optional) !"
+msgstr "- 输入的到期日是无效的，它必须尊重日期格式YYYY-MM-DD HH：MM：SS（时间可选）"
+
+#: Public/A2B_entity_card_multi.php:98
+msgid "- Choose the number of customers that you want generate!"
+msgstr "- 选择要生成的客户数量！"
+
+#: Public/A2B_entity_card_multi.php:322
+msgid "Length of card number :"
+msgstr "卡号长度："
+
+#: Public/A2B_entity_card_multi.php:336
+msgid "Number of customers to create"
+msgstr "要创建的客户数目"
+
+#: Public/A2B_entity_card_multi.php:338
+msgid "(max 100)"
+msgstr "（最大 100）"
+
+#: Public/A2B_entity_card_multi.php:342
+msgid "Call plan"
+msgstr "呼叫目标 "
+
+#: Public/A2B_entity_card_multi.php:355
+msgid "Initial amount of credit"
+msgstr "信贷的初始金额"
+
+#: Public/A2B_entity_card_multi.php:359
+msgid "Simultaneous access"
+msgstr "同时访问"
+
+#: Public/A2B_entity_card_multi.php:376
+msgid "Card type"
+msgstr "信用卡类型"
+
+#: Public/A2B_entity_card_multi.php:379
+msgid "POSTPAY CARD"
+msgstr ""
+
+#: Public/A2B_entity_card_multi.php:384
+msgid "Credit Limit of postpay"
+msgstr ""
+
+#: Public/A2B_entity_card_multi.php:405
+msgid "Expiry Date"
+msgstr "到期日"
+
+#: Public/A2B_entity_card_multi.php:412
+msgid "Expiry days"
+msgstr "到期日"
+
+#: Public/A2B_entity_card_multi.php:424
+msgid "Create SIP/IAX Friends"
+msgstr "创建SIP/IAX好友"
+
+#: Public/A2B_entity_card_multi.php:428
+msgid "Tag"
+msgstr "标签"
+
+#: Public/A2B_entity_card_multi.php:432
+msgid "Customer group"
+msgstr "客户组别"
+
+#: Public/A2B_entity_card_multi.php:434
+msgid "Choose a group"
+msgstr "选择一个组别"
+
+#: Public/A2B_entity_card_multi.php:444
+msgid "Discount"
+msgstr "折扣"
+
+#: Public/A2B_agent_remittance_req.php:104
+msgid "The amount entered is not a number"
+msgstr "输入的不是一个数字"
+
+#: Public/A2B_agent_remittance_req.php:110
+msgid "The amount entered is higher than the commission accrued"
+msgstr "输入的金额高于应计佣金"
+
+#: Public/A2B_agent_remittance_req.php:116
+msgid "The amount entered is lower than the thresold to do a remittance request"
+msgstr "输入的金额过低而不能进行汇款请求"
+
+#: Public/A2B_agent_remittance_req.php:122
+msgid "The amount entered must be positive"
+msgstr "输入的金额必须为证"
+
+#: Public/A2B_agent_remittance_req.php:143
+#: Public/A2B_agent_remittance_conf.php:132
+msgid "THRESHOLD REMITTANCE REQUEST"
+msgstr "汇款申请"
+
+#: Public/A2B_agent_remittance_req.php:156
+msgid "REMITTANCE"
+msgstr "汇款"
+
+#: Public/A2B_agent_remittance_req.php:156
+msgid "AVAILABLE"
+msgstr "可得到的"
+
+#: Public/A2B_agent_remittance_req.php:156
+msgid "UNAVAILABLE"
+msgstr "不可得"
+
+#: Public/A2B_agent_remittance_req.php:171
+msgid "Remittance Request"
+msgstr "汇款申请"
+
+#: Public/A2B_agent_remittance_req.php:176
+msgid "You have to use an amount higher than"
+msgstr "您必须使用高于...的数量"
+
+#: Public/A2B_agent_remittance_req.php:184
+msgid "REMITTANCE TYPE"
+msgstr "汇款类型"
+
+#: Public/A2B_agent_remittance_req.php:191
+#: Public/A2B_agent_remittance_conf.php:228
+msgid "Confirm"
+msgstr "确认"
+
+#: Public/A2B_agent_remittance_req.php:195
+msgid "Remittance Request is not available"
+msgstr "汇款请求不可用"
+
+#: Public/A2B_agent_remittance_req.php:209
+#: Public/A2B_agent_remittance_conf.php:244
+msgid "One remittance request is already in progress for"
+msgstr "汇款请求正在进行中"
+
+#: Public/A2B_payment_info.php:137
+msgid "PAYMENTS LIST"
+msgstr "付款清单"
+
+#: Public/A2B_agent_remittance_conf.php:100
+msgid "Invalid amount, is higher than the threshold to authorize a remittance"
+msgstr ""
+
+#: Public/A2B_agent_remittance_conf.php:103
+msgid "Invalid amount, is higher than your commission Accrued"
+msgstr "无效量，高于应计佣金"
+
+#: Public/A2B_agent_remittance_conf.php:167
+msgid "Remittance Request Confirmation"
+msgstr "汇款请求确认"
+
+#: Public/A2B_agent_remittance_conf.php:182
+msgid "AMOUNT (rounded for currency)"
+msgstr "金额（四舍五入的货币）"
+
+#: Public/A2B_agent_remittance_conf.php:187
+msgid "AMOUNT IN "
+msgstr "数量"
+
+#: Public/A2B_agent_remittance_conf.php:192
+msgid "TRANSACTION TYPE"
+msgstr "交易类型"
+
+#: Public/A2B_agent_remittance_conf.php:193
+msgid "withdraw to your bank account"
+msgstr "撤回到您的银行帐户"
+
+#: Public/A2B_agent_remittance_conf.php:193
+msgid "withdraw to your balance"
+msgstr ""
+
+#: Public/A2B_agent_remittance_conf.php:197
+msgid "BANK INFO"
+msgstr "银行信息"
+
+#: Public/A2B_agent_remittance_conf.php:208
+msgid "Request sent with success"
+msgstr "请求发送成功"
+
+#: Public/A2B_agent_remittance_conf.php:210
+msgid "Request failed"
+msgstr "请求失败"
+
+#: Public/A2B_agent_remittance_conf.php:219
+msgid "Back to home page"
+msgstr "返回首页"
+
+#~ msgid "PROFIT"
+#~ msgstr "PROFIT"
+
+#~ msgid "ADD CREDIT TO THE SELECTED CARD"
+#~ msgstr "AJOUTER CREDIT A LA CARTE SELECTIONNE"
+
+#~ msgid "<acronym title=\"CARDALIAS\">ALIAS</acronym>"
+#~ msgstr "<acronym title=\"CARDALIAS\">ALIAS</acronym>"
+
+#~ msgid "Customer Paid Status"
+#~ msgstr "Client Etat PayÃ©"
+
+#~ msgid "Insert the credit limit"
+#~ msgstr "Saisir la limite de crÃ©dit"
+
+#~ msgid "Credit limit is only used for the postpaid account."
+#~ msgstr "La limite de crÃ©dit est utilisÃ© seulement pour les comptes &agrave paiement diffÃ©rÃ©."
+
+#, fuzzy
+#~ msgid "Add Refill"
+#~ msgstr "Mes Recharges"
+
+#, fuzzy
+#~ msgid "ID CUSTOMER"
+#~ msgstr "CLIENTS"
+
+#, fuzzy
+#~ msgid "Select the Customer ID"
+#~ msgstr "Definir l'ID Client"
+
+#, fuzzy
+#~ msgid "Insert the current date"
+#~ msgstr "Saisir la date de crÃ©ation"
+
+#, fuzzy
+#~ msgid "Insert the credit amount"
+#~ msgstr "Saisir la limite de crÃ©dit"
+
+#, fuzzy
+#~ msgid "Enter the amount in the currency base : "
+#~ msgstr "Les Tarifs doivent &ecirc;tre entrÃ© dans la base de donnÃ©es des devises : "
+
+#, fuzzy
+#~ msgid "You can modify, through the following form, the different properties of your "
+#~ msgstr "Vous pouvez modifier, &agrave la forme suivante, les diffÃ©rents param&egrave;tres de votre"
+
+#, fuzzy
+#~ msgid "If you really want remove this "
+#~ msgstr "Si vous souhaitez vraiment supprimer ce"
+
+#, fuzzy
+#~ msgid "you can add easily a new "
+#~ msgstr "Vous pouvez ajouter facilement un nouveau"
+
+#~ msgid "RATE CARD"
+#~ msgstr "GRILLE TARIFAIRE"
+
+#~ msgid "Source"
+#~ msgstr "Source"
+
+#~ msgid "Dnid"
+#~ msgstr "Dnid"
+
+#~ msgid "SOURCE"
+#~ msgstr "SOURCE"
+
+#~ msgid "No Message Unknown"
+#~ msgstr "Aucun Message Inconnu"
+
+#~ msgid "1 Customer"
+#~ msgstr "1 Client"
+
+#~ msgid "10 Customers"
+#~ msgstr "10 Clients"
+
+#~ msgid "50 Customers"
+#~ msgstr "50 Clients"
+
+#~ msgid "100 Customers"
+#~ msgstr "100 Clients"
+
+#~ msgid "200 Customers"
+#~ msgstr "200 Clients"
+
+#~ msgid "500 Customers"
+#~ msgstr "500 Clients"
+
+#~ msgid "5000 Customers"
+#~ msgstr "5000 Clients"
+
+#~ msgid "Other variant"
+#~ msgstr "Autre nombre"
+
+#~ msgid "TARIFF"
+#~ msgstr "TARIF"
+
+#~ msgid "Equals"
+#~ msgstr "Egal"
+
+#~ msgid "Subtract"
+#~ msgstr "Soustraire"
+
+#~ msgid "ACCESS"
+#~ msgstr "ACCES"
+
+#~ msgid "LIMIT CREDIT OF POSTPAY"
+#~ msgstr "LIMTE E CREDIT DU PAIEMENT DIFFERE"
+
+#~ msgid "ENABLE EXPIRE"
+#~ msgstr "ACTIVER EXPIRATION"
+
+#~ msgid "EXPIRATION DAYS"
+#~ msgstr "JOURS AVANT EXPIRATION"
+
+#~ msgid "DTMF"
+#~ msgstr "DTMF"
+
+#~ msgid "Click here to consider it like viewed"
+#~ msgstr "Cliquez ici pour le considÃ©rer comme vu"
+
+#~ msgid "CARD TYPE"
+#~ msgstr "TYPE CARTE"
+
+#~ msgid "HOLDER"
+#~ msgstr "TITULAIRE"
+
+#~ msgid "Free minutes"
+#~ msgstr "Minutes Gratuites"
+
+#~ msgid "This option will enable LCR/LCD - This query is processor intensive and may affect the quality of calls in progress."
+#~ msgstr "Cette option activera CMR/CMA - Ceci utilise intensivement le processeur et peut affecter la qualitÃ© des appel en cours."
+
+#~ msgid "Rate Card"
+#~ msgstr "Grille Tarifaire"
+
+#~ msgid "Please, you must first select a Call Plan !"
+#~ msgstr "Vous devez d'abord sÃ©lectionner un Plan de NumÃ©rotation !"
+
+#~ msgid "Please, you must first select a Group !"
+#~ msgstr "Vous devez d'abord sÃ©lectionner un Groupe !"
+
+#~ msgid "SEARCH RATES"
+#~ msgstr "RECHERCHER TARIFS"
+
+#~ msgid "Start Date"
+#~ msgstr "Date DÃ©but"
