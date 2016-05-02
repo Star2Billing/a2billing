@@ -48,8 +48,8 @@ function SetLocalLanguage()
             $charEncoding = "UTF-8";
             break;
         case "chinese":
-            $languageEncoding = "zh_TW.UTF-8";
-            $slectedLanguage = "zh_TW";
+            $languageEncoding = "zh_CN.UTF-8";
+            $slectedLanguage = "zh_CN";
             $charEncoding = "UTF-8";
             break;
         case "english":
