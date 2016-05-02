@@ -162,63 +162,60 @@ if ($posted == 1) {
 }
 
 $date_clause = '';
-if (DB_TYPE == "postgres") {
-    $UNIX_TIMESTAMP = "";
-} else {
-    $UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
-}
 
 normalize_day_of_month($fromstatsday_sday, $fromstatsmonth_sday, 1);
 normalize_day_of_month($tostatsday_sday, $tostatsmonth_sday, 1);
 // Date Clause
 if ($fromday && isset ( $fromstatsday_sday ) && isset ( $fromstatsmonth_sday )) {
     if ($fromtime) {
-        $date_clause .= " AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsday_hour:$fromstatsday_min')";
+        $date_clause .= " AND t1.starttime >= '$fromstatsmonth_sday-$fromstatsday_sday $fromstatsday_hour:$fromstatsday_min'";
     } else {
-        $date_clause .= " AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
+        $date_clause .= " AND t1.starttime >= '$fromstatsmonth_sday-$fromstatsday_sday'";
     }
 }
 if ($today && isset ( $tostatsday_sday ) && isset ( $tostatsmonth_sday )) {
     if ($totime) {
-        $date_clause .= " AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-" . sprintf ( "%02d", intval ( $tostatsday_sday )/*+1*/) . " $tostatsday_hour:$tostatsday_min:59')";
+        $date_clause .= " AND t1.starttime <= '$tostatsmonth_sday-".sprintf("%02d", intval($tostatsday_sday ))." $tostatsday_hour:$tostatsday_min:59'";
     } else {
-        $date_clause .= " AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-" . sprintf ( "%02d", intval ( $tostatsday_sday )/*+1*/) . " 23:59:59')";
+        $date_clause .= " AND t1.starttime <= '$tostatsmonth_sday-".sprintf("%02d", intval($tostatsday_sday ))." 23:59:59'";
     }
 }
 
-if (strpos ( $SQLcmd, 'WHERE' ) > 0) {
+if ( strpos($SQLcmd, 'WHERE' ) > 0) {
     $FG_TABLE_CLAUSE = substr ( $SQLcmd, 6 ) . $date_clause;
-} elseif (strpos ( $date_clause, 'AND' ) > 0) {
+} elseif (strpos($date_clause, 'AND' ) > 0) {
     $FG_TABLE_CLAUSE = substr ( $date_clause, 5 );
 }
 
 if (! isset ( $FG_TABLE_CLAUSE ) || strlen ( $FG_TABLE_CLAUSE ) == 0) {
     $cc_yearmonth = sprintf ( "%04d-%02d-%02d", date ( "Y" ), date ( "n" ), date ( "d" ) );
-    $FG_TABLE_CLAUSE = " $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$cc_yearmonth')";
+    $FG_TABLE_CLAUSE = " t1.starttime >= '$cc_yearmonth'";
 }
 
 if (isset ( $customer ) && ($customer > 0)) {
-    if (strlen ( $FG_TABLE_CLAUSE ) > 0)
+    if (strlen ( $FG_TABLE_CLAUSE ) > 0) {
         $FG_TABLE_CLAUSE .= " AND ";
+    }
     $FG_TABLE_CLAUSE .= "t1.card_id='$customer'";
 } else {
     if (isset ( $entercustomer ) && ($entercustomer > 0)) {
-        if (strlen ( $FG_TABLE_CLAUSE ) > 0)
+        if (strlen ( $FG_TABLE_CLAUSE ) > 0) {
             $FG_TABLE_CLAUSE .= " AND ";
+        }
         $FG_TABLE_CLAUSE .= "t1.card_id='$entercustomer'";
     }
 }
 
-    if (isset ( $entertariffgroup ) && $entertariffgroup > 0) {
-        if (strlen ( $FG_TABLE_CLAUSE ) > 0)
-            $FG_TABLE_CLAUSE .= " AND ";
-        $FG_TABLE_CLAUSE .= "t1.id_tariffgroup = '$entertariffgroup'";
-    }
-    if (isset ( $enterratecard ) && $enterratecard > 0) {
-        if (strlen ( $FG_TABLE_CLAUSE ) > 0)
-            $FG_TABLE_CLAUSE .= " AND ";
-        $FG_TABLE_CLAUSE .= "t1.id_ratecard = '$enterratecard'";
-    }
+if (isset ( $entertariffgroup ) && $entertariffgroup > 0) {
+    if (strlen ( $FG_TABLE_CLAUSE ) > 0)
+        $FG_TABLE_CLAUSE .= " AND ";
+    $FG_TABLE_CLAUSE .= "t1.id_tariffgroup = '$entertariffgroup'";
+}
+if (isset ( $enterratecard ) && $enterratecard > 0) {
+    if (strlen ( $FG_TABLE_CLAUSE ) > 0)
+        $FG_TABLE_CLAUSE .= " AND ";
+    $FG_TABLE_CLAUSE .= "t1.id_ratecard = '$enterratecard'";
+}
 
 if (isset ( $choose_calltype ) && ($choose_calltype != - 1)) {
     if (strlen ( $FG_TABLE_CLAUSE ) > 0)
