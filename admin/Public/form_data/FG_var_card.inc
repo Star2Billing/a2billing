@@ -324,9 +324,9 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
         $maxi3 = "value='".$pass."'";
         $default_initbalance = "value='0'";
     }
-    
+
     if (!empty($A2B->config["webui"]['lock_useralias'])) {
-        $useralias_locked = 'disabled="disabled readonly"';
+        $useralias_locked = 'readonly="readonly"';
     }
 
     $HD_Form -> AddEditElement (gettext("ACCOUNT NUMBER"),
