@@ -136,6 +136,7 @@ class A2Billing
     public $orig_dnid;
     public $orig_ext;
     public $extension;
+    public $dnid_obj=false;
 
     // from apply_rules, if a prefix is removed we keep it to track exactly what the user introduce
 
@@ -2484,6 +2485,11 @@ class A2Billing
                 " FROM cc_callerid " .
                 " JOIN cc_card ON cc_callerid.id_cc_card = cc_card.id " .
                 " WHERE (cc_callerid.activated = 1 OR cc_callerid.activated = 't') AND cc_card.username = '" . $this->username . "' ";
+            // if dnid found in cc_did and we know group, set it as well
+            if ( $this->dnid_obj && isset($this->dnid_obj['id_cc_didgroup']) && $this->dnid_obj['id_cc_didgroup'] > 0 ) {
+                $QUERY .= " AND cc_didgroup = '" . $this->dnid_obj['id_cc_didgroup'] . "' ";
+            }
+
             $QUERY .= "ORDER BY 1";
             $result1 = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, print_r($result1, true));
@@ -2642,6 +2648,20 @@ class A2Billing
         $language = 'en';
         $callerID_enable = $this->agiconfig['cid_enable'];
 
+        // pick and store DNID data
+        if ($this->dnid_obj==false) {
+            $QUERY = 'SELECT * from cc_did WHERE did="'.$this->orig_dnid.'"';
+            file_put_contents('/tmp/a.log', print_r($QUERY,1), FILE_APPEND | LOCK_EX);
+            $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
+            //if (is_array($result)) {
+            if (is_array($result) && count($result) == 1 && isset($result[0]) && is_array($result[0]) ) {
+                file_put_contents('/tmp/a.log', print_r($result,1), FILE_APPEND | LOCK_EX);
+                $this->dnid_obj=$result[0];
+            } else {
+                $this->dnid_obj=false;
+            }
+        }
+
         // -%-%-%-%-%-%- FIRST TRY WITH THE CALLERID AUTHENTICATION -%-%-%-%-%-%-
         if ($callerID_enable == 1 && is_numeric($this->CallerID) && $this->CallerID > 0) {
 
@@ -2659,6 +2679,9 @@ class A2Billing
                     " LEFT JOIN cc_tariffgroup ON cc_card.tariff = cc_tariffgroup.id " .
                     " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
                     " WHERE cc_callerid.cid = '" . $this->CallerID . "'";
+
+            if (  $this->dnid_obj && isset($this->dnid_obj['id_cc_didgroup']) && $this->dnid_obj['id_cc_didgroup'] > 0 )
+                $QUERY .= " AND ( cc_callerid.id_didgroup = '".$this->dnid_obj['id_cc_didgroup']."' OR cc_callerid.id_didgroup = -1 )";
             $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, print_r($result, true));
 
@@ -2711,6 +2734,12 @@ class A2Billing
                     //CREATE A CARD AND AN INSTANCE IN CC_CALLERID
                     $QUERY_FIELS = 'cid, id_cc_card';
                     $QUERY_VALUES = "'" . $this->CallerID . "','$result'";
+
+                    // if dnid found in cc_did and we know group, set it as well
+                    if ( $this->dnid_obj && isset($this->dnid_obj['id_cc_didgroup']) && $this->dnid_obj['id_cc_didgroup'] > 0 ) {
+                        $QUERY_FIELS .= ', id_didgroup';
+                        $QUERY_VALUES .= ",'".$this->dnid_obj['id_cc_didgroup']."'";
+                    }
 
                     $result = $this->instance_table->Add_table($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_callerid');
                     if (!$result) {
@@ -2913,6 +2942,12 @@ class A2Billing
                             $QUERY = " SELECT cid, id_cc_card, activated FROM cc_callerid " .
                                 " WHERE cc_callerid.cid = '" . $this->CallerID .
                                 "' AND cc_callerid.id_cc_card = '" . $result[0][22] . "'";
+                            
+                            // if dnid found in cc_did and we know group, set it as well
+                            if ( $this->dnid_obj && isset($this->dnid_obj['id_cc_didgroup']) && $this->dnid_obj['id_cc_didgroup'] > 0 ) {
+                                $QUERY .= " AND cc_didgroup = '" . $this->dnid_obj['id_cc_didgroup'] . "'";
+                            }
+
                             $result_check_cid = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
                             $this->debug(DEBUG, $agi, __FILE__, __LINE__, $result_check_cid);
 
@@ -3117,6 +3152,12 @@ class A2Billing
                         $QUERY = " SELECT cid, id_cc_card, activated FROM cc_callerid " .
                             " WHERE cc_callerid.cid = '" . $this->CallerID .
                             "' AND cc_callerid.id_cc_card = '" . $result[0][23] . "'";
+
+                        // if dnid found in cc_did and we know group, set it as well
+                        if ( $this->dnid_obj && isset($this->dnid_obj['id_cc_didgroup']) && $this->dnid_obj['id_cc_didgroup'] > 0 ) {
+                            $QUERY .= " AND cc_didgroup = '" . $this->dnid_obj['id_cc_didgroup'] . "'";
+                        }
+
                         $result_check_cid = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
                         $this->debug(DEBUG, $agi, __FILE__, __LINE__, print_r($result_check_cid, true));
 
@@ -3222,6 +3263,9 @@ class A2Billing
                 if ($this->agiconfig['cid_enable'] == 1 && $this->agiconfig['cid_auto_assign_card_to_cid'] == 1 && is_numeric($this->CallerID) && $this->CallerID > 0 && $this->ask_other_cardnumber != 1 && $this->update_callerid != 1) {
 
                     $QUERY = "SELECT count(*) FROM cc_callerid WHERE id_cc_card = '$the_card_id'";
+                    if ( $this->dnid_obj && isset($this->dnid_obj['id_cc_didgroup']) && $this->dnid_obj['id_cc_didgroup'] > 0 ) {
+                         $QUERY .= " AND id_didgroup = '".$this->dnid_obj['id_cc_didgroup']."'";
+                    }
                     $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 1);
 
                     // CHECK IF THE AMOUNT OF CALLERID IS LESS THAN THE LIMIT
@@ -3229,6 +3273,12 @@ class A2Billing
 
                         $QUERY_FIELS = 'cid, id_cc_card';
                         $QUERY_VALUES = "'" . $this->CallerID . "','$the_card_id'";
+
+                        // if dnid found in cc_did and we know group, set it as well
+                        if ( $this->dnid_obj && isset($this->dnid_obj['id_cc_didgroup']) && $this->dnid_obj['id_cc_didgroup'] > 0 ) {
+                            $QUERY_FIELS .= ', id_didgroup';
+                            $QUERY_VALUES .= ",'".$this->dnid_obj['id_cc_didgroup']."'";
+                        }
 
                         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CREATE AN INSTANCE IN CC_CALLERID -  QUERY_VALUES:$QUERY_VALUES, QUERY_FIELS:$QUERY_FIELS]");
                         $result = $this->instance_table->Add_table($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_callerid');
@@ -3250,6 +3300,11 @@ class A2Billing
                 if ($this->update_callerid == 1 && strlen($this->CallerID) > 1 && $this->ask_other_cardnumber == 1) {
                     $this->ask_other_cardnumber = 0;
                     $QUERY = "UPDATE cc_callerid SET id_cc_card = '$the_card_id' WHERE cid = '" . $this->CallerID . "'";
+
+                    if ( $this->dnid_obj && isset($this->dnid_obj['id_cc_didgroup']) && $this->dnid_obj['id_cc_didgroup'] > 0 ) {
+                        $QUERY .= " AND id_didgroup='".$this->dnid_obj['id_cc_didgroup']."'";
+                    }
+
                     $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[QUERY UPDATE : $QUERY]");
                     $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY, 0);
                 }

@@ -43,8 +43,12 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_LINK2 = "A2B_entity_callerid.php?form_action=as
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT2 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG2 = gettext("Add CallerID");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG2 = Images_Path ."/page_white_add.png" ;
 
+$HD_Form -> FG_OTHER_BUTTON1 = true;
+$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . '/info.png';
+$HD_Form -> FG_OTHER_BUTTON1_LINK = "A2B_card_info.php?id=|col_orig2|";
+
 $HD_Form -> FG_OTHER_BUTTON3 = true;
-$HD_Form -> FG_OTHER_BUTTON3_LINK = "A2B_entity_logrefill.php?form_action=ask-add&card_id=|col_orig1|";
+$HD_Form -> FG_OTHER_BUTTON3_LINK = "A2B_entity_logrefill.php?form_action=ask-add&card_id=|col_orig2|";
 $HD_Form -> FG_OTHER_BUTTON3_IMG = Images_Path . "/brick_add.png";
 $HD_Form -> FG_OTHER_BUTTON3_ALT = gettext('ADD REFILL');
 
@@ -53,12 +57,13 @@ $cnts = new Constants();
 $actived_list = $cnts->getActivationTrueFalseList();
 $yesno = $cnts->getYesNoList();
 
-$HD_Form -> AddViewElement(gettext("CALLERID"), "cid", "20%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CALLERID"), "cid", "15%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("DIDGROUP"), "id_didgroup", "15%", "center", "sort", "", "lie_link", "cc_didgroup", "didgroupname, id", "id='%id'", "%1", "", "A2B_entity_didgroup.php"); 
 $HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "id_cc_card", "25%", "center", "sort", "", "lie_link", "cc_card", "username, id", "id='%id'", "%1", "", "A2B_entity_card.php");
 $HD_Form -> AddViewElement(gettext("CUSTOMER NAME"), "id_cc_card", "25%", "center", "sort", "", "lie_link", "cc_card", "lastname, id, firstname", "id='%id'", "%1 %3", "", "A2B_entity_card.php");
-$HD_Form -> AddViewElement(gettext("ACTIVATED"), "activated", "15%", "center", "sort", "", "list", $actived_list);
+$HD_Form -> AddViewElement(gettext("ACTIVATED"), "activated", "10%", "center", "sort", "", "list", $actived_list);
 
-$HD_Form -> FieldViewElement ('cid, id_cc_card, id_cc_card, cc_callerid.activated, cc_callerid.id');
+$HD_Form -> FieldViewElement ('cid, id_didgroup, id_cc_card, id_cc_card, cc_callerid.activated, cc_callerid.id');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ").strtoupper($HD_Form->FG_INSTANCE_NAME).gettext(" CREATED!");
@@ -102,8 +107,17 @@ $HD_Form -> AddEditElement (gettext("ID CARD"),
 				, ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
 				gettext("Define the card number ID to use."));
 
+$HD_Form -> AddEditElement (gettext("DIDGROUP"),
+                           "id_didgroup",
+                           '$value',
+                           "SELECT",
+                           "", "", "",
+                           "sql",
+                           "cc_didgroup",
+                           "didgroupname, id",
+                           "", "", "%1","", "");
 
-$HD_Form -> FieldEditElement ('cid, activated, id_cc_card');
+$HD_Form -> FieldEditElement ('cid, activated, id_cc_card', 'id_didgroup');
 
 
 // Set the filter variables
@@ -123,11 +137,9 @@ $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form
 
 
 $HD_Form -> FG_OTHER_BUTTON2 = true;
-$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_payment.php?stitle=Payment_add&form_action=ask-add&card_id=|col_orig1|";
+$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_payment.php?stitle=Payment_add&form_action=ask-add&card_id=|col_orig2|";
 $HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/money.png";
 $HD_Form -> FG_OTHER_BUTTON2_ALT = gettext('ADD PAYMENT');
-
-
 
 $HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add a ".$HD_Form->FG_INSTANCE_NAME." now.");
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
