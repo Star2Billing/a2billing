@@ -96,12 +96,13 @@ if ($popup_select) {
 	$HD_Form -> AddViewElement(gettext("ID"), "id_trunk", "7%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("LABEL"), "trunkcode", "15%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("PROVIDER"), "id_provider" ,"10%", "center", "sort", "15", "lie", "cc_provider", "provider_name", "id='%id'", "%1");
+	$HD_Form -> AddViewElement(gettext("TOLL FREE"), "tollfree", "5%", "center", "sort", "", "list", Constants::getYesNoList());
 
-	$HD_Form -> FieldViewElement ('id_trunk, trunkcode, id_provider');
+	$HD_Form -> FieldViewElement ('id_trunk, trunkcode, id_provider, tollfree');
 } else {
 	$HD_Form -> AddViewElement(gettext("LABEL"), "trunkcode", "14%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("ADD_PREFIX"), "trunkprefix", "6%", "center", "sort");
-	$HD_Form -> AddViewElement(gettext("REMOVE_PREFIX"), "removeprefix", "6%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("REMOVE_PREFIX"), "removeprefix", "2%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("TECH"), "providertech", "6%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("IP/HOST"), "providerip" , "14%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("PROVIDER"), "id_provider" ,"9%", "center", "sort", "15", "lie", "cc_provider", "provider_name", "id='%id'", "%1");
@@ -110,13 +111,14 @@ if ($popup_select) {
 	$HD_Form -> AddViewElement(gettext("MAXUSE"), "maxuse" , "5%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("Minutes/day"), "minutes_per_day" , "5%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("Minutes/day used"), "id_trunk" , "5%", "center", "", "", "", "", "", "", "", "display_minute_used");
-        $HD_Form -> AddViewElement(gettext("Whole Minutes/day used"), "id_trunk" , "5%", "center", "", "", "", "", "", "", "", "display_wholeminute_used");
+	$HD_Form -> AddViewElement(gettext("Whole Minutes/day used"), "id_trunk" , "5%", "center", "", "", "", "", "", "", "", "display_wholeminute_used");
 	$HD_Form -> AddViewElement(gettext("Priority"), "priority" , "5%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("Calls/day"), "calls_per_day" , "5%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("Calls/day used"), "id_trunk" , "5%", "center", "", "", "", "", "", "", "", "display_calls_used");
-        $HD_Form -> AddViewElement(gettext("TIMEZONE"), "trunk_GMT", "%1", "center", "SORT", "30", "", "", "", "", "", "display_timezone");
-        
-	$HD_Form -> FieldViewElement ('trunkcode, trunkprefix, removeprefix, providertech, providerip, id_provider, secondusedreal, status, maxuse, minutes_per_day, id_trunk, id_trunk, priority, calls_per_day, id_trunk, trunk_GMT');
+    $HD_Form -> AddViewElement(gettext("TIMEZONE"), "trunk_GMT", "1%", "center", "SORT", "30", "", "", "", "", "", "display_timezone");
+	$HD_Form -> AddViewElement(gettext("TOLL FREE"), "tollfree", "1%", "center", "sort", "", "list", Constants::getYesNoList());
+
+	$HD_Form -> FieldViewElement ('trunkcode, trunkprefix, removeprefix, providertech, providerip, id_provider, secondusedreal, status, maxuse, minutes_per_day, id_trunk, id_trunk, priority, calls_per_day, id_trunk, trunk_GMT, tollfree');
 }
 
 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
@@ -291,7 +293,7 @@ $HD_Form -> AddEditElement (gettext("Minutes/day"),
 	"12",
 	"",
 	"" , "", "", "", "", "", "", gettext("Number of maximum minutes to the gateway per day, to disable - set to 0 (zero)") . (is_array($counters) ? ". <b>" . sprintf(gettext("Minutes today: %s"), sprintf("%02d", intval($counters['seconds'] / 60)) . ":" . sprintf("%02d", intval($counters['seconds'] % 60))) . sprintf(", Whole minutes today: %ld", $counters['minutes']) . '</b>' : ''));
-    
+
 $HD_Form -> AddEditElement (gettext("Attempts"),
 	"attempt_count",
 	"",
@@ -354,8 +356,17 @@ $HD_Form -> AddEditElement (gettext("Timezone"),
 	"",
 	"",
 	"list" , "", "", "", $timezone_list, "%1" , "", gettext("Trunk timezone"));
-    
-$HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk, inuse, maxuse, if_max_use, status, minutes_per_day, attempt_count, attempt_condition, attempt_statuses, priority, attempt_delay, calls_per_day, trunk_GMT');
+
+$HD_Form -> AddEditElement (gettext("TOLL FREE"),
+	"tollfree",
+	'0',
+	"RADIOBUTTON",
+	"",
+	"",
+	gettext("Choose if this provider is toll free"),
+	"" , "", "", "Yes:1, - No:0", "", "" , "", gettext("Define if you want to apply toll free logic"));
+
+$HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk, inuse, maxuse, if_max_use, status, minutes_per_day, attempt_count, attempt_condition, attempt_statuses, priority, attempt_delay, calls_per_day, trunk_GMT, tollfree');
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the trunk below.");
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");

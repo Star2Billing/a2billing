@@ -21,6 +21,7 @@ alter table `cc_trunk`
     add column `attempt_delay` int(11) DEFAULT '0' after `priority`,
     add column `calls_per_day` int(11) DEFAULT '0' after `attempt_delay`,
     add column `trunk_GMT` int(11) DEFAULT '0' after `calls_per_day`,
+    add column `tollfree` int(11)   NOT NULL DEFAULT '0' after `trunk_GMT`,
     change `removeprefix` `removeprefix` varchar (2048)  NULL;
 
 CREATE TABLE `cc_trunk_counter` (
@@ -34,8 +35,7 @@ CREATE TABLE `cc_trunk_counter` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 alter table `cc_provider`
-    add column `id_cc_card` int(11)   NOT NULL DEFAULT '0' after `description`
-    add column `tollfree` int(11)   NOT NULL DEFAULT '0' after `id_cc_card`;
+    add column `id_cc_card` int(11)   NOT NULL DEFAULT '0' after `description`;
 
 alter table `cc_ratecard`
     add column `is_disabled` int(1) unsigned   NOT NULL DEFAULT '0' after `destination`;
