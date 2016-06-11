@@ -50,9 +50,10 @@ if ($popup_select)
 	$HD_Form -> AddViewElement(gettext("ID"), "id", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("PROVIDER NAME"), "provider_name", "25%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "20%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "30%", "center", "sort", "30");
+$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "20%", "center", "sort", "30");
 $HD_Form -> AddViewElement(gettext("CARDHOLDER"), "id_cc_card", "17%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");
-$HD_Form -> FieldViewElement (($popup_select ? 'id,' : '') . 'provider_name, creationdate, description, id_cc_card');
+$HD_Form -> AddViewElement(gettext("TOLL FREE"), "tollfree", "10%", "center", "sort", "", "list", Constants::getYesNoList());
+$HD_Form -> FieldViewElement (($popup_select ? 'id,' : '') . 'provider_name, creationdate, description, id_cc_card, tollfree');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO PROVIDERS CREATED!");
@@ -110,8 +111,18 @@ $HD_Form -> AddEditElement (gettext("ID CARD"),
         "A2B_entity_card.php?popup_select=1&"
         , ", 'CardNumberSelection','width=590,height=350,top=20,left=100,scrollbars=1'",
         gettext("Insert the card ID."));
-        
-$HD_Form -> FieldEditElement ('provider_name, description, id_cc_card');
+
+$HD_Form -> AddEditElement (gettext("TOLL FREE"),
+		"tollfree",
+		'0',
+		"RADIOBUTTON",
+		"",
+		"",
+		gettext("Choose if this provider is toll free"),
+		"" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Define if you want to apply toll free logic"),
+		'', '', gettext("TOLL FREE"));
+
+$HD_Form -> FieldEditElement ('provider_name, description, id_cc_card, tollfree');
 
 
 
