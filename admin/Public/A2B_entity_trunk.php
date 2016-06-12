@@ -46,8 +46,19 @@ if (!has_rights(ACX_TRUNK)) {
 getpost_ifset(array (
     'popup_select',
     'popup_formname',
-    'popup_fieldname'
+    'popup_fieldname',
+    'counters_clear'
 ));
+
+if ($counters_clear && !empty($id)) {
+    eraseTrunkCounters($id);
+    $_SESSION['trunk_counters_erased'] = true;
+    Header("Location: A2B_entity_trunk.php?form_action=ask-edit&id=" . $id);
+    die;
+} else if (isset($_SESSION['trunk_counters_erased'])) {
+    unset($_SESSION['trunk_counters_erased']);
+    echo '<script>alert("' . gettext("Trunk counters has been erased...") . '")</script>';
+}
 
 $HD_Form->setDBHandler(DbConnect());
 
@@ -99,6 +110,17 @@ if ($form_action == "list") {
 
 // #### TOP SECTION PAGE
 $HD_Form->create_toppage($form_action);
+
+// display clear trunk counters controls
+if ($form_action=='ask-edit' && !empty($id)) {
+    ?>
+    <div align="right" style="padding-right: 35px;">
+        <a href="?form_action=ask-edit&id=<?php echo $id; ?>&counters_clear=1" onclick="return confirm('<?php echo gettext("Trunk counters will be erased, are you sure?"); ?>')">
+            <?php echo gettext("Clear trunk counters"); ?>
+        </a>
+    </div>
+    <?php
+}
 
 $HD_Form->create_form($form_action, $list, $id = null);
 

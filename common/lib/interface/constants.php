@@ -415,7 +415,7 @@ class constants
 
         return $dialstatus_list;
     }
-    
+
     public static function getCardStatus_List()
     {
         $cardstatus_list = array();
@@ -621,10 +621,11 @@ class constants
         $list["4"] = array( gettext("Trunks list : priority - random"), "4");
         $list["5"] = array( gettext("Trunks list : minutes per day"), "5");
         $list["6"] = array( gettext("Trunks list : calls per day"), "6");
+        $list["7"] = array( gettext("Trunks list : ACD (ratio desc)"), "7");
 
         return $list;
     }
-    
+
     public static function getTimezones_List() {
         if (empty ($handle))
             $handle = DbConnect();
@@ -632,10 +633,10 @@ class constants
         static $instance_table = null;
         if ($instance_table === null)
             $instance_table = new Table();
-        
+
         $QUERY = "select * from cc_timezone order by gmtoffset asc";
         $result = $instance_table->SQLExec($handle, $QUERY);
-        
+
         $list = array();
         if (is_array($result) && count($result) > 0) {
             foreach ($result as $row) {
@@ -645,5 +646,5 @@ class constants
 
         return $list;
     }
-    
+
 }
