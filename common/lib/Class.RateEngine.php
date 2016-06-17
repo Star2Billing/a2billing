@@ -1325,7 +1325,7 @@ class RateEngine
             $minutes_per_day_reached = false;
             $trunk_on_pause = false;
             $calls_per_day_reached = false;
-            if (!is_null($counters)) {
+            if (!empty($counters) && is_array($counters)) {
                 if ($minutes_per_day > 0)
                     $minutes_per_day_reached = ($counters['minutes'] > $minutes_per_day);
                 if ($attempt_delay > 0)

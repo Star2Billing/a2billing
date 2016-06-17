@@ -42,12 +42,14 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 require_once __DIR__ . '/../vendor/autoload.php';
 
 include(dirname(__FILE__) . "/lib/Class.Table.php");
+include(dirname(__FILE__) . "/lib/Class.Connection.php");
 include(dirname(__FILE__) . "/lib/Class.A2Billing.php");
 include(dirname(__FILE__) . "/lib/Class.RateEngine.php");
 include(dirname(__FILE__) . "/lib/phpagi/phpagi.php");
 include(dirname(__FILE__) . "/lib/phpagi/phpagi-asmanager.php");
 include(dirname(__FILE__) . "/lib/Misc.php");
 include(dirname(__FILE__) . "/lib/interface/constants.php");
+include(dirname(__FILE__) . "/lib/common.defines.php");
 
 $charge_callback = 0;
 $G_startime = time();
@@ -992,7 +994,7 @@ if ($mode == 'standard') {
                     $addparameter   = $RateEngine->ratecard_obj[0][42 + $usetrunk_failover];
 
                     $destination = $A2B->destination;
-                    
+
                     // applying prefix rule(s)
                     $destination = $A2B->removePrefix($removeprefix, $destination);
                     $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[UPDATED DESTINATION: $destination]");
@@ -1339,7 +1341,7 @@ if ($mode == 'standard') {
                         $addparameter   = $RateEngine->ratecard_obj[0][42 + $usetrunk_failover];
 
                         $destination = $A2B->destination;
-                        
+
                         // applying prefix rule(s)
                         $destination = $A2B->removePrefix($removeprefix, $destination);
                         $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[UPDATED DESTINATION: $destination]");

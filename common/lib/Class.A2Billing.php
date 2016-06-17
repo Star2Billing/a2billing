@@ -222,13 +222,13 @@ class A2Billing
 
     // List of dialstatus
     public $dialstatus_rev_list;
-    
+
     // Interrupt digit, if not empty - someone entered something during playing balance
     public $interrupt_digit = '';
-    
+
     // Escape digits, @TODO: move to settings if will be needed
     public $escape_digits = '0123456789ABCD#*';
-    
+
     /* CONSTRUCTOR */
     public function A2Billing()
     {
@@ -862,7 +862,7 @@ class A2Billing
         } else {
             if ($this->is_interrupted()) {
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[CONTINUE GATHERING DTMF ::> " . $this->interrupt_digit . "]");
-                
+
                 $this->destination = $this->interrupt_digit;
                 $this->interrupt_digit = '';
                 $agi->fastpass_get_data($this->destination, null, 6000, 20);
@@ -874,7 +874,7 @@ class A2Billing
                 }
                 $this->destination = $res_dtmf["result"];
             }
-            
+
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : " . $this->destination);
         }
 
@@ -2057,7 +2057,7 @@ class A2Billing
     public function fct_say_balance($agi, $credit, $fromvoucher = 0)
     {
         global $currencies_list;
-        
+
         if (isset($this->agiconfig['agi_force_currency']) && strlen($this->agiconfig['agi_force_currency']) == 3) {
             $this->currency = $this->agiconfig['agi_force_currency'];
         }
@@ -2105,18 +2105,18 @@ class A2Billing
 
         if ($this->is_interrupted($interrupt))
             return;
-            
+
         if ($units == 0 && $cents == 0) {
             $interrupt = $agi->say_number(0);
             if ($this->is_interrupted($interrupt))
                 return;
-            
+
             if (($this->current_language == 'ru') && (strtolower($this->currency) == 'usd')) {
                 $interrupt = $agi->stream_file($units_audio, $this->escape_digits);
             } else {
                 $interrupt = $agi->stream_file($unit_audio, $this->escape_digits);
             }
-            
+
             if ($this->is_interrupted($interrupt))
                 return;
         } else {
@@ -2148,7 +2148,7 @@ class A2Billing
 
             if ($this->is_interrupted($interrupt))
                 return;
-            
+
             if ($units > 0 && $cents > 0) {
                 $interrupt = $agi->stream_file('vm-and', $this->escape_digits);
                 if ($this->is_interrupted($interrupt))
@@ -2158,7 +2158,7 @@ class A2Billing
                 $interrupt = $agi->say_number($cents);
                 if ($this->is_interrupted($interrupt))
                     return;
-                
+
                 if ($cents > 1) {
                     if ((strtolower($this->currency) == 'usd') && ($this->current_language == 'ru') && (($cents % 10 == 2) || ($cents % 10 == 3) || ($cents % 10 == 4))) {
                         // test for the specific grammatical rules in RUssian
@@ -2177,10 +2177,10 @@ class A2Billing
             }
         }
     }
-    
+
     /**
      * Function to check entered digit during playing audio
-     * 
+     *
      * @param array|null $data data from "say number", "say digits", "stream file"
      * @return boolean
      */
@@ -2193,7 +2193,7 @@ class A2Billing
 
     /**
      * Check if card group is allowed in the AGI config (param "allowed_groups")
-     * 
+     *
      * @param integer $group_id
      * @return boolean
      */
@@ -2207,7 +2207,7 @@ class A2Billing
 
     /**
      * Add auth failure log
-     * 
+     *
      * @param string $reason Optional
      */
     public function log_auth_failure($reason = '') {
@@ -2217,7 +2217,7 @@ class A2Billing
         foreach (array('cardnumber', 'CallerID', 'mode', 'useralias', 'username', 'id_card', 'idconfig', 'accountcode', 'dnid', 'cardholder_lastname', 'cardholder_firstname', 'cardholder_email') as $param)
             $params[] = $param . ' = ' . $this->$param;
         $dump = $this->DBHandle->escape(implode("\r\n", $params));
-        
+
         // try to detect customer
         $id_card = 0;
         if (!empty($this->id_card)) { // possibly we have a card id
@@ -2235,12 +2235,12 @@ class A2Billing
                 $id_card = $result[0][0];
             }
         }
-        
+
         // adding log
         $sql = "insert into cc_auth_failures_log (cid, reason, dump, id_card) values ('$cid', '$reason', '$dump', '$id_card')";
         $this->instance_table->SQLExec($this->DBHandle, $sql);
     }
-    
+
     /**
     *  Function to play the initial rate
     *  format : "the cost of the call is 7 dollars and 50 cents per minutes"
@@ -2757,7 +2757,7 @@ class A2Billing
                     " LEFT JOIN cc_tariffgroup ON cc_card.tariff = cc_tariffgroup.id " .
                     " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
                     " LEFT JOIN cc_provider ON cc_card.id = cc_provider.id_cc_card " .
-				    " WHERE cc_callerid.cid = '" . $this->CallerID . "' AND cc_provider.id IS NULL";					
+				    " WHERE cc_callerid.cid = '" . $this->CallerID . "' AND cc_provider.id IS NULL";
             $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, print_r($result, true));
 
@@ -3353,19 +3353,20 @@ class A2Billing
         }
 
         if ($res == 0 && !$this->is_group_allowed($this->group_id)) {
+            $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[GROUP IS NOT ALLOWED] group_id=" . $this->group_id);
             $prompt = "prepaid-auth-fail";
             $res = -2;
         }
-        
+
         if (($retries < 3) && $res == 0) {
-            
+
             $this->callingcard_acct_start_inuse($agi, 1);
 
             if ($this->agiconfig['say_balance_after_auth'] == 1) {
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[A2Billing] SAY BALANCE : $this->credit \n");
                 $this->fct_say_balance($agi, $this->credit);
             }
-            
+
         } elseif ($res == -2) {
             $this->log_auth_failure($prompt);
             $agi->stream_file($prompt, '#');
@@ -3428,7 +3429,7 @@ class A2Billing
                         " FROM cc_card LEFT JOIN cc_tariffgroup ON tariff = cc_tariffgroup.id " .
                         " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
 						" LEFT JOIN cc_provider ON cc_card.id = cc_provider.id_cc_card " .
-						" WHERE username = '" . $this->cardnumber . "' AND cc_provider.id IS NULL";						
+						" WHERE username = '" . $this->cardnumber . "' AND cc_provider.id IS NULL";
 
             $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, print_r($result, true));
@@ -3523,8 +3524,9 @@ class A2Billing
             }
             break;
         }//end for
-        
+
         if ($res == 0 && !$this->is_group_allowed($this->group_id)) {
+            $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[GROUP IS NOT ALLOWED] group_id=" . $this->group_id);
             $prompt = "prepaid-auth-fail";
             $res = -2;
         }
@@ -3554,7 +3556,7 @@ class A2Billing
                     " LEFT JOIN cc_country ON cc_card.country = cc_country.countrycode " .
                     " LEFT JOIN cc_provider ON cc_card.id = cc_provider.id_cc_card " .
 					" WHERE username = '". $this->cardnumber . "' AND cc_provider.id IS NULL";
-					
+
         $result = $this->instance_table->SQLExec($this->DBHandle, $QUERY);
 
         if (!is_array($result)) {
@@ -3649,9 +3651,11 @@ class A2Billing
             }
         }
 
-        if (!$this->is_group_allowed($this->group_id))
+        if (!$this->is_group_allowed($this->group_id)) {
+            $error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' . gettext("Error : Group is not allowed") . '</b></font><br>';
             return 0;
-        
+        }
+
         return 1;
     }
 
@@ -4068,11 +4072,11 @@ class A2Billing
 
         return $output;
     }
-    
+
     public function agicnf($key, $default = null) {
         return is_array($this->agiconfig) && isset($this->agiconfig[$key]) ? $this->agiconfig[$key] : $default;
     }
-    
+
     /**
      * Smart prefix removing function
      *
