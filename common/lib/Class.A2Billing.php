@@ -854,7 +854,7 @@ class A2Billing
                 $this->destination = $this->extension;
             }
             $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[USE_DNID DESTINATION ::> " . $this->destination . "]");
-		// we accept if destination was enetered earlier in balance prompt
+        // we accept if destination was enetered earlier in balance prompt
         } elseif ( strlen ($this->early_destination)>0 && $this->early_destination!='#' ) {
             $this->destination = $this->early_destination; // use it
             $this->early_destination=''; // 'consume' to prevent looping
@@ -2092,97 +2092,89 @@ class A2Billing
 
         // say 'you have x dollars and x cents'
         if ($fromvoucher != 1)
-            $say[]='prepaid-you-have';
+            $say[] = 'prepaid-you-have';
         else
-            $say[]='prepaid-account_refill';
+            $say[] = 'prepaid-account_refill';
 
         if ($units == 0 && $cents == 0) {
-			$say[]=0;
+            $say[] = 0;
             if (($this->current_language == 'ru') && (strtolower($this->currency) == 'usd')) {
-			$say[]=$units_audio;
-            } else {				
-                $say[]=$unit_audio;
+                $say[] = $units_audio;
+            } else {
+                $say[] = $unit_audio;
             }
         } else {
             if ($units > 1) {
-                $say[]=intval($units);
+                $say[] = intval($units);
 
                 if (($this->current_language == 'ru') && (strtolower($this->currency) == 'usd') && (($units % 10 == 0) || ($units % 10 == 2) || ($units % 10 == 3) || ($units % 10 == 4))) {
                     // test for the specific grammatical rules in Russian
-                    $say[]='dollar2';
+                    $say[] = 'dollar2';
                 } elseif (($this->current_language == 'ru') && (strtolower($this->currency) == 'usd') && ($units % 10 == 1)) {
                     // test for the specific grammatical rules in Russian
-                    $say[]=$unit_audio;
+                    $say[] = $unit_audio;
                 } else {
-					$say[]=$units_audio;
+                    $say[] = $units_audio;
                 }
             } else {
-                $say[]=intval($units);
+                $say[] = intval($units);
 
                 if (($this->current_language == 'ru') && (strtolower($this->currency) == 'usd') && ($units == 0)) {
-
-					$say[]=$units_audio;
+                    $say[] = $units_audio;
                 } else {
-					$say[]=$unit_audio;
+                    $say[] = $unit_audio;
                 }
             }
 
             if ($units > 0 && $cents > 0) {
-
-				$say[]='vm-and';
+                $say[] = 'vm-and';
             }
             if ($cents > 0) {
-                $say[]=intval($cents);
+                $say[] = intval($cents);
                 if ($cents > 1) {
                     if ((strtolower($this->currency) == 'usd') && ($this->current_language == 'ru') && (($cents % 10 == 2) || ($cents % 10 == 3) || ($cents % 10 == 4))) {
                         // test for the specific grammatical rules in RUssian
 
-                        $say[]='prepaid-cent2';
+                        $say[] = 'prepaid-cent2';
                     } elseif ((strtolower($this->currency) == 'usd') && ($this->current_language == 'ru') && ($cents % 10 == 1)) {
                         // test for the specific grammatical rules in RUssian
-                        $say[]=$cent_audio;
+                        $say[] = $cent_audio;
                     } else {
-                        $say[]=$cents_audio;
+                        $say[] = $cents_audio;
                     }
                 } else {
-                    $say[]=$cent_audio;
+                    $say[] = $cent_audio;
                 }
 
             }
         }
 
-		// now we will play audios of the balance prompt expecting input
+        // now we will play audios of the balance prompt expecting input
         $entered='';
-
         // now start saying and get ready to be interrupted
         foreach ( $say as $item) {
             if ( is_integer($item) ) {
-
                 $res=$agi->say_number($item, '1234567890*#');
-
                 if ($res['result']>0) {
                     $entered.=chr($res['result']);
                     break;
                 }
-
             } else {
-
                 $res=$agi->stream_file($item, '1234567890*#');
-
                 if ($res['result']>0) {
                     $entered.=chr($res['result']);
                     break;
                 }
             }
-        } // foreach ends
+        }
 
         // if say balance was interupted, let customer to enter remaing digits
-		// it is essential that silence/1 file exists
-        if (strlen($entered)>0) { 
+        // it is essential that silence/1 file exists
+        if (strlen($entered)>0) {
             $res=$agi->get_data('silence/1', 6000, 20);
             $entered.=$res['result'];
         }
-        
+
         return ($entered);
     }
 
@@ -3314,7 +3306,7 @@ class A2Billing
             $this->callingcard_acct_start_inuse($agi, 1);
             if ($this->agiconfig['say_balance_after_auth'] == 1) {
                 $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[A2Billing] SAY BALANCE : $this->credit \n");
-                $this->early_destination=$this->fct_say_balance($agi, $this->credit);
+                $this->early_destination = $this->fct_say_balance($agi, $this->credit);
             }
         } elseif ($res == -2) {
             $agi->stream_file($prompt, '#');
