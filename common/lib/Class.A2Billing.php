@@ -3853,6 +3853,10 @@ class A2Billing
     {
         $dialstr = $this->format_parameters($dialstr);
 
+        // set asterisk cdr information
+        $agi->set_variable('CDR(accountcode)', $this->accountcode);
+        $agi->set_variable('CDR(userfield)', $this->destination);
+
         // Run dial command
         $res_dial = $agi->exec("DIAL $dialstr");
 
