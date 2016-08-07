@@ -786,15 +786,19 @@ function generate_unique_value($table, $len, $field)
 /*
  * function gen_card_with_alias
  */
-function gen_card_with_alias($table = "cc_card", $api = 0, $length_cardnumber = LEN_CARDNUMBER, $DBHandle = null)
+function gen_card_with_alias($table = "cc_card", $api = 0, $length_cardnumber = LEN_CARDNUMBER, $DBHandle = null, &$useralias_next = null)
 {
     if (!isset($DBHandle)) {
         $DBHandle = DbConnect();
     }
 
+    $useralias_next_length = strlen($useralias_next);
+    $useralias_next_value = intval($useralias_next);
+
     for ($k = 0; $k <= 200; $k++) {
         $card_gen = MDP($length_cardnumber);
-        $alias_gen = MDP(LEN_ALIASNUMBER);
+        $alias_gen = $useralias_next_length ? $useralias_next : MDP(LEN_ALIASNUMBER);
+
         if ($k == 200) {
             if ($api) {
                 global $mail_content, $email_alarm, $logfile;
@@ -814,8 +818,14 @@ function gen_card_with_alias($table = "cc_card", $api = 0, $length_cardnumber = 
         if ($resmax)
             $numrow = $resmax->RecordCount();
 
+        if ($useralias_next_length) {
+            $useralias_next_value++;
+            $useralias_next = sprintf('%0' . $useralias_next_length . 'd', $useralias_next_value);
+        }
+
         if ($numrow != 0)
             continue;
+
         $arr_val[0] = $card_gen;
         $arr_val[1] = $alias_gen;
 

@@ -1989,7 +1989,7 @@ class A2Billing
         // set destination and timeout
         // say 'you have x minutes and x seconds'
         $minutes = intval($timeout / 60);
-        $seconds = $timeout % 60;
+        $seconds = $timeout % 60; $seconds = 0;
 
         $this->debug(DEBUG, $agi, __FILE__, __LINE__, "TIMEOUT::> " . $this->timeout . " : minutes=$minutes - seconds=$seconds");
         if (!($minutes > 0) && !($seconds > 10)) {
@@ -2070,9 +2070,9 @@ class A2Billing
         }
 
         $credit_cur = $credit / $mycur;
-        list($units, $cents) = preg_split('/[.]/', sprintf('%01.2f', $credit_cur));
+        list($units, $cents) = preg_split('/[.]/', $this->round_customer_balance($credit_cur));
 
-        $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[BEFORE: $credit_cur SPRINTF : " . sprintf('%01.2f', $credit_cur) . "]");
+        $this->debug(DEBUG, $agi, __FILE__, __LINE__, "[BEFORE: $credit_cur AFTER: " . $this->round_customer_balance($credit_cur) . "]");
 
         if (isset($this->agiconfig['currency_association_internal'][strtolower($this->currency)])) {
             $units_audio = $this->agiconfig['currency_association_internal'][strtolower($this->currency)];
@@ -2203,6 +2203,20 @@ class A2Billing
             $result = in_array($group_id, explode(',', preg_replace('/[^\d\,]/', '', $this->agiconfig['allowed_groups'])));
         }
         return $result;
+    }
+
+    /**
+     * Round balance for customer based on global setting (param "customer_balance_precision")
+     *
+     * @param float $balance
+     * @return string
+     */
+    public function round_customer_balance($balance) {
+        $precision = isset($this->config['global']['customer_balance_precision']) ? intval($this->config['global']['customer_balance_precision']) : 2;
+        if ($precision <= 0) {
+            $balance = floor($balance);
+        }
+        return number_format($balance, $precision, '.', '');
     }
 
     /**

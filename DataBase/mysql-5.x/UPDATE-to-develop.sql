@@ -115,4 +115,10 @@ insert into cc_config
 values
 ('Lock useralias', 'lock_useralias', 'Disable WEBUI LOGIN field editing', '1', '0', 'yes,no', 'webui');
 
+-- Insert new config parameter customer_balance_precision
+insert into cc_config
+(config_title, config_key, config_value, config_description, config_valuetype, config_group_title)
+values
+('Customer balance precision', 'customer_balance_precision', '2', 'Only for displaying / saying', 0, 'global');
+
 -- END Openvoip.co customization SQL changes

@@ -45,7 +45,7 @@ if (!has_rights(ACX_CUSTOMER)) {
 
 getpost_ifset(array('nb_to_create', 'creditlimit', 'cardnum', 'addcredit', 'choose_tariff', 'gen_id', 'cardnum', 'choose_simultaccess',
     'choose_currency', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays', 'runservice', 'sip', 'iax',
-    'cardnumberlenght_list', 'tag', 'id_group', 'discount', 'id_seria', 'id_didgroup', 'vat', 'id_country'));
+    'cardnumberlenght_list', 'tag', 'id_group', 'discount', 'id_seria', 'id_didgroup', 'vat', 'id_country', 'useralias_next'));
 
 $HD_Form->FG_FILTER_SEARCH_FORM = false;
 $HD_Form->FG_EDITION = false;
@@ -108,6 +108,13 @@ if ($action == "generate") {
             $msg_error .= "<br/>";
         $msg_error .= gettext("- Choose the number of customers that you want generate!");
     }
+    if (!empty($useralias_next) && !is_numeric($useralias_next)) {
+        $nb_error++;
+        $number_error = true;
+        if (!empty ($msg_error))
+            $msg_error .= "<br/>";
+        $msg_error .= gettext("- User alias should be a number!");
+    }
 }
 $nbcard = $nb_to_create;
 if ($nbcard > 0 && $action == "generate" && $nb_error == 0) {
@@ -144,7 +151,7 @@ if ($nbcard > 0 && $action == "generate" && $nb_error == 0) {
     $instance_refill_table = new Table("cc_logrefill", $field_insert_refill);
 
     for ($k = 0; $k < $nbcard; $k++) {
-        $arr_card_alias = gen_card_with_alias("cc_card", 0, $cardnumberlenght_list);
+        $arr_card_alias = gen_card_with_alias("cc_card", 0, $cardnumberlenght_list, null, $useralias_next);
         $accountnumber = $arr_card_alias[0];
         $useralias = $arr_card_alias[1];
         if (!is_numeric($addcredit))
@@ -416,6 +423,10 @@ $list_country = $instance_table_country->Get_list($HD_Form->DBHandle, $FG_TABLE_
     <?php if ($country_error) { ?>
         <img style="vertical-align:middle;" src="<?php echo Images_Path;?>/exclamation.png" />
     <?php } ?>
+
+    <br/>
+    <strong>21)</strong>
+    <?php echo gettext("Start user alias with");?> : <input class="form_input_text"  name="useralias_next" size="20" maxlength="100" <?php if(!empty($useralias_next)) echo "value='$useralias_next'"; ?> >
 
     </td>
 </tr>
