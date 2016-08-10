@@ -235,6 +235,7 @@ $HD_Form -> AddSearchElement_C1(gettext("EMAIL"), 'email','emailtype');
 $HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
 $HD_Form -> AddSearchElement_C1(gettext("FIRSTNAME"),'firstname','firstnametype');
 $HD_Form -> AddSearchElement_C1(gettext("LOGIN"),'useralias','useraliastype');
+$HD_Form -> AddSearchElement_C2(gettext("LOGIN NUMERIC"),'useralias1','useralias1type','useralias2','useralias2type','useralias');
 $HD_Form -> AddSearchElement_C1(gettext("MACADDRESS"),'mac_addr','macaddresstype');
 $HD_Form -> AddSearchElement_C1(gettext("COMPANY NAME"),'company_name','companynametype');
 $HD_Form -> AddSearchElement_C2(gettext("CUSTOMER ID"),'id1','id1type','id2','id2type','id');
