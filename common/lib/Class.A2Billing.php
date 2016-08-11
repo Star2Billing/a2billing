@@ -1001,7 +1001,7 @@ class A2Billing
                         }
                         if (($minutes > 0) || ($seconds == 0)) {
                             if ($minutes == 1) {
-                                if ((strtolower($this->current_language) == 'ru')) {
+                                if ((stripos($this->current_language, 'ru') === 0)) {
                                     $agi->stream_file('digits/1f', '#');
                                 } else {
                                     $agi->say_number($minutes);
@@ -1009,7 +1009,7 @@ class A2Billing
                                 $agi->stream_file('prepaid-minute', '#');
                             } else {
                                 $agi->say_number($minutes);
-                                if ((strtolower($this->current_language) == 'ru') && (($minutes % 10 == 2) || ($minutes % 10 == 3) || ($minutes % 10 == 4))) {
+                                if ((stripos($this->current_language, 'ru') === 0) && (($minutes % 10 == 2) || ($minutes % 10 == 3) || ($minutes % 10 == 4))) {
                                     // test for the specific grammatical rules in RUssian
                                     $agi->stream_file('prepaid-minute2', '#');
                                 } else {
@@ -1020,7 +1020,7 @@ class A2Billing
                         if ($seconds > 0) {
                                 if ($minutes > 0) $agi->stream_file('vm-and', '#');
                                 if ($seconds == 1) {
-                                        if ((strtolower($this->current_language) == 'ru')) {
+                                        if ((stripos($this->current_language, 'ru') === 0)) {
                                                 $agi->stream_file('digits/1f', '#');
                                         } else {
                                                 $agi->say_number($seconds);
@@ -1028,7 +1028,7 @@ class A2Billing
                                         $agi->stream_file('prepaid-second', '#');
                                 } else {
                                         $agi->say_number($seconds);
-                                        if ((strtolower($this->current_language) == 'ru') && (($seconds % 10 == 2) || ($seconds % 10 == 3) || ($seconds % 10 == 4))) {
+                                        if ((stripos($this->current_language, 'ru') === 0) && (($seconds % 10 == 2) || ($seconds % 10 == 3) || ($seconds % 10 == 4))) {
                                                 // test for the specific grammatical rules in RUssian
                                                 $agi->stream_file('prepaid-second2', '#');
                                         } else {
@@ -2006,7 +2006,7 @@ class A2Billing
             $agi->stream_file('prepaid-you-have', '#');
             if ($minutes > 0) {
                 if ($minutes == 1) {
-                    if ((strtolower($this->current_language) == 'ru')) {
+                    if ((stripos($this->current_language, 'ru') === 0)) {
                     $agi->stream_file('digits/1f', '#');
                     } else {
                         $agi->say_number($minutes);
@@ -2014,7 +2014,7 @@ class A2Billing
                     $agi->stream_file('prepaid-minute', '#');
                 } else {
                     $agi->say_number($minutes);
-                    if ((strtolower($this->current_language) == 'ru') && (($minutes % 10 == 2) || ($minutes % 10 == 3) || ($minutes % 10 == 4))) {
+                    if ((stripos($this->current_language, 'ru') === 0) && (($minutes % 10 == 2) || ($minutes % 10 == 3) || ($minutes % 10 == 4))) {
                         // test for the specific grammatical rules in RUssian
                         $agi->stream_file('prepaid-minute2', '#');
                     } else {
@@ -2027,7 +2027,7 @@ class A2Billing
                     $agi->stream_file('vm-and', '#');
                 }
                 if ($seconds == 1) {
-                    if ((strtolower($this->current_language) == 'ru')) {
+                    if ((stripos($this->current_language, 'ru') === 0)) {
                         $agi->stream_file('digits/1f', '#');
                     } else {
                         $agi->say_number($seconds);
@@ -2035,7 +2035,7 @@ class A2Billing
                     }
                 } else {
                     $agi->say_number($seconds);
-                    if ((strtolower($this->current_language) == 'ru') && (($seconds % 10 == 2) || ($seconds % 10 == 3) || ($seconds % 10 == 4))) {
+                    if ((stripos($this->current_language, 'ru') === 0) && (($seconds % 10 == 2) || ($seconds % 10 == 3) || ($seconds % 10 == 4))) {
                         // test for the specific grammatical rules in RUssian
                         $agi->stream_file('prepaid-second2', '#');
                     } else {
@@ -2111,7 +2111,7 @@ class A2Billing
             if ($this->is_interrupted($interrupt))
                 return;
 
-            if (($this->current_language == 'ru') && (strtolower($this->currency) == 'usd')) {
+            if ((stripos($this->current_language, 'ru') === 0) && (strtolower($this->currency) == 'usd')) {
                 $interrupt = $agi->stream_file($units_audio, $this->escape_digits);
             } else {
                 $interrupt = $agi->stream_file($unit_audio, $this->escape_digits);
@@ -2125,10 +2125,10 @@ class A2Billing
                 if ($this->is_interrupted($interrupt))
                     return;
 
-                if (($this->current_language == 'ru') && (strtolower($this->currency) == 'usd') && (($units % 10 == 0) || ($units % 10 == 2) || ($units % 10 == 3) || ($units % 10 == 4))) {
+                if ((stripos($this->current_language, 'ru') === 0) && (strtolower($this->currency) == 'usd') && (($units % 10 == 0) || ($units % 10 == 2) || ($units % 10 == 3) || ($units % 10 == 4))) {
                     // test for the specific grammatical rules in Russian
                     $interrupt = $agi->stream_file('dollar2', $this->escape_digits);
-                } elseif (($this->current_language == 'ru') && (strtolower($this->currency) == 'usd') && ($units % 10 == 1)) {
+                } elseif ((stripos($this->current_language, 'ru') === 0) && (strtolower($this->currency) == 'usd') && ($units % 10 == 1)) {
                     // test for the specific grammatical rules in Russian
                     $interrupt = $agi->stream_file($unit_audio, $this->escape_digits);
                 } else {
@@ -2139,7 +2139,7 @@ class A2Billing
                 if ($this->is_interrupted($interrupt))
                     return;
 
-                if (($this->current_language == 'ru') && (strtolower($this->currency) == 'usd') && ($units == 0)) {
+                if ((stripos($this->current_language, 'ru') === 0) && (strtolower($this->currency) == 'usd') && ($units == 0)) {
                     $interrupt = $agi->stream_file($units_audio, $this->escape_digits);
                 } else {
                     $interrupt = $agi->stream_file($unit_audio, $this->escape_digits);
@@ -2160,10 +2160,10 @@ class A2Billing
                     return;
 
                 if ($cents > 1) {
-                    if ((strtolower($this->currency) == 'usd') && ($this->current_language == 'ru') && (($cents % 10 == 2) || ($cents % 10 == 3) || ($cents % 10 == 4))) {
+                    if ((strtolower($this->currency) == 'usd') && (stripos($this->current_language, 'ru') === 0) && (($cents % 10 == 2) || ($cents % 10 == 3) || ($cents % 10 == 4))) {
                         // test for the specific grammatical rules in RUssian
                         $interrupt = $agi->stream_file('prepaid-cent2', $this->escape_digits);
-                    } elseif ((strtolower($this->currency) == 'usd') && ($this->current_language == 'ru') && ($cents % 10 == 1)) {
+                    } elseif ((strtolower($this->currency) == 'usd') && (stripos($this->current_language, 'ru') === 0) && ($cents % 10 == 1)) {
                         // test for the specific grammatical rules in RUssian
                         $interrupt = $agi->stream_file($cent_audio, $this->escape_digits);
                     } else {
@@ -2305,10 +2305,10 @@ class A2Billing
             if ($units >= 1) {
                 $agi->say_number($units);
 
-                if (($this->current_language == 'ru') && (strtolower($this->currency) == 'usd') && (($units % 10 == 2) || ($units % 10 == 3) || ($units % 10 == 4))) {
+                if ((stripos($this->current_language, 'ru') === 0) && (strtolower($this->currency) == 'usd') && (($units % 10 == 2) || ($units % 10 == 3) || ($units % 10 == 4))) {
                     // test for the specific grammatical rules in RUssian
                     $agi->stream_file('dollar2', '#');
-                } elseif (($this->current_language == 'ru') && (strtolower($this->currency) == 'usd') && ($units%10 == 1)) {
+                } elseif ((stripos($this->current_language, 'ru') === 0) && (strtolower($this->currency) == 'usd') && ($units%10 == 1)) {
                     // test for the specific grammatical rules in RUssian
                     $agi->stream_file($unit_audio, '#');
                 } else {
@@ -2331,10 +2331,10 @@ class A2Billing
                     $agi->say_number($point);
                 }
                 if ($cents > 1) {
-                    if ((strtolower($this->currency) == 'usd') && ($this->current_language == 'ru') && (($cents % 10 == 2) || ($cents%10 == 3) || ($cents % 10 == 4))) {
+                    if ((strtolower($this->currency) == 'usd') && (stripos($this->current_language, 'ru') === 0) && (($cents % 10 == 2) || ($cents%10 == 3) || ($cents % 10 == 4))) {
                         // test for the specific grammatical rules in RUssian
                         $agi->stream_file('prepaid-cent2', '#');
-                    } elseif ((strtolower($this->currency) == 'usd') && ($this->current_language == 'ru') && ($cents % 10 == 1)) {
+                    } elseif ((strtolower($this->currency) == 'usd') && (stripos($this->current_language, 'ru') === 0) && ($cents % 10 == 1)) {
                         // test for the specific grammatical rules in RUssian
                         $agi->stream_file($cent_audio, '#');
                     } else {
