@@ -1313,7 +1313,7 @@ class RateEngine
             $maxuse              = $t['maxuse'];
             $ifmaxuse            = $t['if_max_use'];
             $minutes_per_day     = intval($t['minutes_per_day']);
-            $attempt_statuses    = strtolower(preg_replace("/\s/", '', $t['attempt_statuses']));
+            $attempt_statuses    = strtolower(preg_replace('/\s/', '', $t['attempt_statuses']));
             $attempt_condition   = $t['attempt_condition'];
             $attempt_count       = $t['attempt_count'];
             $attempt_delay       = $t['attempt_delay'];

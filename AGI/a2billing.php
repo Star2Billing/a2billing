@@ -49,7 +49,6 @@ include(dirname(__FILE__) . "/lib/phpagi/phpagi.php");
 include(dirname(__FILE__) . "/lib/phpagi/phpagi-asmanager.php");
 include(dirname(__FILE__) . "/lib/Misc.php");
 include(dirname(__FILE__) . "/lib/interface/constants.php");
-include(dirname(__FILE__) . "/lib/common.defines.php");
 
 $charge_callback = 0;
 $G_startime = time();
@@ -124,11 +123,7 @@ $A2B->debug(INFO, $agi, __FILE__, __LINE__, "MODE : $mode");
 $A2B->CC_TESTING = isset($A2B->agiconfig['debugshell']) && $A2B->agiconfig['debugshell'];
 //$A2B->CC_TESTING = true;
 
-define("DB_TYPE", isset($A2B->config["database"]['dbtype']) ? $A2B->config["database"]['dbtype'] : null);
-define("SMTP_SERVER", isset($A2B->config['global']['smtp_server']) ? $A2B->config['global']['smtp_server'] : null);
-define("SMTP_HOST", isset($A2B->config['global']['smtp_host']) ? $A2B->config['global']['smtp_host'] : null);
-define("SMTP_USERNAME", isset($A2B->config['global']['smtp_username']) ? $A2B->config['global']['smtp_username'] : null);
-define("SMTP_PASSWORD", isset($A2B->config['global']['smtp_password']) ? $A2B->config['global']['smtp_password'] : null);
+include(dirname(__FILE__) . "/lib/common.defines.php");
 
 // Print header
 $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "AGI Request:\n" . print_r($agi->request, true));
