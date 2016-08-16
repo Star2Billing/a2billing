@@ -16,4 +16,4 @@ mv -f $cdr_log $cdr_log_tmp || {
 
 truncate -s 0 $cdr_log
 
-php $SCRIPT_DIR/cdr_format.php | ssh cdranalyst@nms "cat >> /home/cdranalyst/cdrs/cdr-$(date +%F)"
+php $SCRIPT_DIR/cdr_format.php $cdr_log_tmp | ssh cdranalyst@nms "cat >> /home/cdranalyst/cdrs/cdr-$(date +%F)"

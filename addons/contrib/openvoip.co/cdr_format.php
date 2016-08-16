@@ -38,7 +38,7 @@ Dialed number - 23 symbols! for 011 - remove 011, for all - add carrier id (3 sy
 CarrierID+ITUT Number - 23 symbols!
 */
 
-$cdr_file = $argc >= 1 ? $argv[1] : "";
+$cdr_file = $argc >= 2 ? $argv[1] : "";
 if (!file_exists($cdr_file))
     exit(1);
 
