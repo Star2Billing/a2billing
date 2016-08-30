@@ -79,7 +79,7 @@ $HD_Form -> AddViewElement(gettext("CREATION DATE"), "datecreate", "12%", "cente
 
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('name, periode, type, maxvalue, minvalue, status, id_trunk, datecreate');
+$HD_Form -> FieldViewElement ('name, periode, type, `maxvalue`, minvalue, status, id_trunk, datecreate');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("There are no Alarms Created");
@@ -130,7 +130,7 @@ $HD_Form -> AddEditElement (gettext("TYPE"),
 	"list" , "", "", "", $type_list, "%1", "", gettext("ALOC (average length of call) ; ASR (answer seize ratio) ; CIC (Consecutive Incomplete Calls)"));
 
 $HD_Form -> AddEditElement (gettext("MAX VALUE"),
-	"maxvalue",
+	"`maxvalue`",
 	"$value",
 	"INPUT",
 	"",
@@ -175,7 +175,7 @@ $HD_Form -> AddEditElement (gettext("EMAIL TO SEND ALARM"),
 
 
 
-$HD_Form -> FieldEditElement ('name, periode, type, maxvalue, minvalue, id_trunk, status, emailreport');
+$HD_Form -> FieldEditElement ('name, periode, type, `maxvalue`, minvalue, id_trunk, status, emailreport');
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your ".$HD_Form->FG_INSTANCE_NAME);
