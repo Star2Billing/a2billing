@@ -123,5 +123,5 @@ function process_cdr($csv, $next_csv) {
     $callerId = $csv[1];
     
     // output data
-    printf("%-6s %-6s %-10s %-8s %1s %-23s %-23s %s\n", $from, $to, $datetime->format('m-d-Y'), $duration, $flag, $number, $itut, $callerId);
+    printf("%-6s %-6s %-10s %-8s %1s %-23s %-23s %s\r\n", $from, $to, $datetime->format('m-d-Y'), $duration, $flag, $number, $itut, $callerId);
 }
