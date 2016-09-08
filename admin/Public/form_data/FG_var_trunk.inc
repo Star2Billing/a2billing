@@ -169,7 +169,7 @@ if (isset($form_action) && $form_action=="ask-add") {
     $def_value_maxuse = "value='-1'";
     $def_value_minutes = "value='0'";
     $def_value_attempts = "value='0'";
-    $def_value_statuses = "value='CHANUNAVAIL,CONGESTION'";
+    $def_value_statuses = "value=''";
     $def_value_priority = "value='0'";
     $def_value_attempt_delay = "value='0'";
     $def_value_calls = "value='0'";
@@ -319,7 +319,7 @@ $HD_Form -> AddEditElement (gettext("Attempt dial status(es) list"),
 	"size=100 $def_value_statuses maxlength=255",
 	"",
 	"",
-	"" , "", "", "", "", "", "", gettext("The list of dialstatuses (comma (,) as separator). Use any of: ANSWER,BUSY,NOANSWER,CONGESTION,CHANUNAVAIL,DONTCALL,TORTURE,INVALIDARGS"));
+	"" , "", "", "", "", "", "", gettext("The list of dialstatuses (comma (,) as separator). Use any of: ANSWER,BUSY,NOANSWER,CONGESTION,CHANUNAVAIL,DONTCALL,TORTURE,INVALIDARGS,CANCEL. If empty - does nothing..."));
 
 $HD_Form -> AddEditElement (gettext("Priority"),
 	"priority",

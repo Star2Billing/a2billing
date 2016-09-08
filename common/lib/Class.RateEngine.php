@@ -1313,7 +1313,7 @@ class RateEngine
             $maxuse              = $t['maxuse'];
             $ifmaxuse            = $t['if_max_use'];
             $minutes_per_day     = intval($t['minutes_per_day']);
-            $attempt_statuses    = strtolower(preg_replace('/\s/', '', $t['attempt_statuses']));
+            $attempt_statuses    = preg_split('/\,/', trim(strtolower(preg_replace('/\s/', '', $t['attempt_statuses']))), null, PREG_SPLIT_NO_EMPTY);
             $attempt_condition   = $t['attempt_condition'];
             $attempt_count       = $t['attempt_count'];
             $attempt_delay       = $t['attempt_delay'];
@@ -1423,13 +1423,12 @@ class RateEngine
                     $dialstatus = $agi->get_variable("DIALSTATUS");
                     $this->dialstatus = $dialstatus['data'];
 
-                    $cond_dialstatus = strtolower($this->dialstatus);
-                    $cond_result = preg_match("/$cond_dialstatus(\,|$)/", $attempt_statuses);
-                    if ($cond_result === false)
-                        $cond_result = 0;
+                    if (!count($attempt_statuses))
+                        break;
 
                     // check if we need to make one more attempt to this trunk
-                } while ($this->dialstatus != "CANCEL" && $attempts_made <= $attempt_count && (($attempt_condition == 0 && $cond_result > 0) || ($attempt_condition == 1 && $cond_result == 0)));
+                    $cond_result = in_array(strtolower($this->dialstatus), $attempt_statuses);
+                } while ($attempts_made <= $attempt_count && (($attempt_condition == 0 && $cond_result) || ($attempt_condition == 1 && !$cond_result)));
 
                 // Count this call on the trunk
                 $this->trunk_start_inuse($agi, $A2B, 0);
@@ -1486,7 +1485,7 @@ class RateEngine
             } else if ($minutes_per_day_reached) {
                 $A2B->debug(WARN, $agi, __FILE__, __LINE__, "This trunk cannot be used because minutes limit exceeded. Now use next trunk\n");
             } else if ($trunk_on_pause) {
-                $A2B->debug(WARN, $agi, __FILE__, __LINE__, "!!!This trunk cannot be used because on pause. Now use next trunk\n");
+                $A2B->debug(WARN, $agi, __FILE__, __LINE__, "This trunk cannot be used because on pause. Now use next trunk\n");
             } else if ($calls_per_day_reached) {
                 $A2B->debug(WARN, $agi, __FILE__, __LINE__, "This trunk cannot be used because calls per day limit exceeded. Now use next trunk\n");
             } else {
@@ -1632,7 +1631,7 @@ class RateEngine
             $QUERY = "select minutes_per_day, attempt_statuses, attempt_condition, attempt_count, attempt_delay, calls_per_day from cc_trunk where id_trunk = '$this->usedtrunk' limit 1";
             $result = $A2B->instance_table->SQLExec($A2B->DBHandle, $QUERY);
             $minutes_per_day     = intval($result[0][0]);
-            $attempt_statuses    = strtolower(preg_replace("/\s/", '', $result[0][1]));
+            $attempt_statuses    = preg_split('/\,/', trim(strtolower(preg_replace('/\s/', '', $result[0][1]))), null, PREG_SPLIT_NO_EMPTY);
             $attempt_condition   = $result[0][2];
             $attempt_count       = $result[0][3];
             $attempt_delay       = $result[0][4];
@@ -1675,13 +1674,12 @@ class RateEngine
                     $dialstatus = $agi->get_variable("DIALSTATUS");
                     $this->dialstatus = $dialstatus['data'];
 
-                    $cond_dialstatus = strtolower($this->dialstatus);
-                    $cond_result = preg_match("/$cond_dialstatus(\,|$)/", $attempt_statuses);
-                    if ($cond_result === false)
-                        $cond_result = 0;
+                    if (!count($attempt_statuses))
+                        break;
 
-                    // check if we need to make one more attempt
-                } while ($this->dialstatus != "CANCEL" && $attempts_made <= $attempt_count && (($attempt_condition == 0 && $cond_result > 0) || ($attempt_condition == 1 && $cond_result == 0)));
+                    // check if we need to make one more attempt to this trunk
+                    $cond_result = in_array(strtolower($this->dialstatus), $attempt_statuses);
+                } while ($attempts_made <= $attempt_count && (($attempt_condition == 0 && $cond_result) || ($attempt_condition == 1 && !$cond_result)));
 
                 // Count this call on the trunk
                 $this->trunk_start_inuse($agi, $A2B, 0);
@@ -1737,7 +1735,7 @@ class RateEngine
                     $maxuse              = $result[0][7];
                     $ifmaxuse            = $result[0][8];
                     $minutes_per_day     = intval($result[0][9]);
-                    $attempt_statuses    = strtolower(preg_replace("/\s/", '', $result[0][10]));
+                    $attempt_statuses    = preg_split('/\,/', trim(strtolower(preg_replace('/\s/', '', $result[0][10]))), null, PREG_SPLIT_NO_EMPTY);
                     $attempt_condition   = $result[0][11];
                     $attempt_count       = $result[0][12];
                     $attempt_delay       = $result[0][13];
@@ -1868,13 +1866,12 @@ class RateEngine
                         $dialstatus = $agi->get_variable("DIALSTATUS");
                         $this->dialstatus = $dialstatus['data'];
 
-                        $cond_dialstatus = strtolower($this->dialstatus);
-                        $cond_result = preg_match("/$cond_dialstatus(\,|$)/", $attempt_statuses);
-                        if ($cond_result === false)
-                            $cond_result = 0;
+                        if (!count($attempt_statuses))
+                            break;
 
-                    // check if we need to make one more attempt
-                    } while ($this->dialstatus != "CANCEL" && $attempts_made <= $attempt_count && (($attempt_condition == 0 && $cond_result > 0) || ($attempt_condition == 1 && $cond_result == 0)));
+                        // check if we need to make one more attempt to this trunk
+                        $cond_result = in_array(strtolower($this->dialstatus), $attempt_statuses);
+                    } while ($attempts_made <= $attempt_count && (($attempt_condition == 0 && $cond_result) || ($attempt_condition == 1 && !$cond_result)));
 
                     // Count this call on the trunk
                     $this->trunk_start_inuse($agi, $A2B, 0);
