@@ -24,7 +24,7 @@ INPUT:
 16. uniqueid: Unique Channel Identifier (32 characters)
 
 OUTPUT:
-FromT1 ToT1   Date       CallTime Duration   Dialed number           CarrierID+ITUT Number   Caller ID  		 
+FromT1 ToT1   Date       CallTime Duration   Dialed number           CarrierID+ITUT Number   Caller ID
 048-20 036-03 12-31-2015 23:57:05 00:07:53 A 01173472630592          01573472630592          3108294615
 
 MAPPING:
@@ -56,7 +56,7 @@ do {
     $csv2 = get_csv($handle);
     if ($csv1 === false)
         break;
-    
+
     process_cdr($csv1, $csv2);
 } while (1);
 fclose($handle);
@@ -68,7 +68,7 @@ function get_csv($handle) {
         $csv = str_getcsv($line);
         if (!is_array($csv) || count($csv) < 17)
             continue;
-        if ($csv[7] != 'Dial')
+        if ($csv[7] != 'Dial') // need only Dial app cdrs
             continue;
         $result = $csv;
         break;
@@ -79,7 +79,7 @@ function get_csv($handle) {
 function process_cdr($csv, $next_csv) {
     if (!$csv)
         return;
-    
+
     // detect from
     $from = '';
     if ($csv[0] == '4528339244') {
@@ -87,23 +87,23 @@ function process_cdr($csv, $next_csv) {
     } elseif ($csv[0] == '0744553513') {
         $from = '092-00';
     }
-    
+
     // detect to, cdr format
     $carrier = '';
     $trunk = '';
     $to = '';
-    if (preg_match('/SIP\/carrier\_(\d+)\_(\d+)\//', $csv[6], $matches) || preg_match('/SIP\/\d+\@carrier\_(\d+)\_(\d+)/', $csv[6], $matches)) {
+    if (preg_match('/[A-Z0-9]+\/carrier\_(\d+)\_(\d+)/', $csv[6], $matches) || preg_match('/[A-Z0-9]+\/\d+\@carrier\_(\d+)\_(\d+)/', $csv[6], $matches)) {
         $carrier = $matches[1];
         $trunk = $matches[2];
         $to = sprintf('%03d-%02d', $carrier, $trunk);
     }
-    
+
     // detect date
     $datetime = DateTime::createFromFormat('Y-m-d H:i:s', $csv[9]);
-    
+
     // detect duration
     $duration = gmdate("H:i:s", $csv[13]);
-    
+
     // detect answer flag
     $flag = '';
     if ($csv[14] == 'ANSWERED') {
@@ -111,17 +111,17 @@ function process_cdr($csv, $next_csv) {
     } elseif ($next_csv && $csv[16] == $next_csv[16]) {
         $flag = 'R'; // retry, next one is the result
     }
-    
+
     // detect dialed number
     $number = $csv[2];
     $number = sprintf('%03d', $carrier) . preg_replace('/^011/', '', $number);
-    
+
     // detect CarrierID+ITUT Number
     $itut = $csv[1];
-    
+
     // detect caller ID
     $callerId = $csv[1];
-    
+
     // output data
-    printf("%-6s %-6s %-10s %-8s %1s %-23s %-23s %s\r\n", $from, $to, $datetime->format('m-d-Y'), $duration, $flag, $number, $itut, $callerId);
+    printf("%-6s %-6s %-10s %-8s %-8s %1s %-23s %-23s %s\n", $from, $to, $datetime->format('m-d-Y'), $datetime->format('H:i:s'), $duration, $flag, $number, $itut, $callerId);
 }
