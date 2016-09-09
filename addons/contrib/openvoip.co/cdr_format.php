@@ -90,12 +90,10 @@ function process_cdr($csv, $next_csv) {
 
     // detect to, cdr format
     $carrier = '';
-    $trunk = '';
     $to = '';
     if (preg_match('/[A-Z0-9]+\/carrier\_(\d+)\_(\d+)/', $csv[6], $matches) || preg_match('/[A-Z0-9]+\/\d+\@carrier\_(\d+)\_(\d+)/', $csv[6], $matches)) {
         $carrier = $matches[1];
-        $trunk = $matches[2];
-        $to = sprintf('%03d-%02d', $carrier, $trunk);
+        $to = sprintf('%03d-%02d', $carrier, $matches[2]);
     }
 
     // detect date
@@ -113,15 +111,8 @@ function process_cdr($csv, $next_csv) {
     }
 
     // detect dialed number
-    $number = $csv[2];
-    $number = sprintf('%03d', $carrier) . preg_replace('/^011/', '', $number);
-
-    // detect CarrierID+ITUT Number
-    $itut = $csv[1];
-
-    // detect caller ID
-    $callerId = $csv[1];
+    $number = sprintf('%03d', $carrier) . preg_replace('/^011/', '', $csv[2]);
 
     // output data
-    printf("%-6s %-6s %-10s %-8s %-8s %1s %-23s %-23s %s\r\n", $from, $to, $datetime->format('m-d-Y'), $datetime->format('H:i:s'), $duration, $flag, $number, $itut, $callerId);
+    printf("%-6s %-6s %-10s %-8s %-8s %1s %-23s %-23s %-23s %s\r\n", $from, $to, $datetime->format('m-d-Y'), $datetime->format('H:i:s'), $duration, $flag, $csv[2], $number, $csv[1], $csv[16]);
 }
