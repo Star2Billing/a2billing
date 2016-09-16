@@ -590,6 +590,7 @@ class A2Billing
         if (!isset($this->config["agi-conf$idconfig"]['lcr_mode'])) $this->config["agi-conf$idconfig"]['lcr_mode'] = 0;
         if (!isset($this->config["agi-conf$idconfig"]['default_accountcode'])) $this->config["agi-conf$idconfig"]['default_accountcode'] = '';
         if (!isset($this->config["agi-conf$idconfig"]['default_accountcode_all'])) $this->config["agi-conf$idconfig"]['default_accountcode_all'] = 0;
+        if (!isset($this->config["agi-conf$idconfig"]['force_rerouting'])) $this->config["agi-conf$idconfig"]['force_rerouting'] = 0;
 
         // Define the agiconfig property
         $this->agiconfig = $this->config["agi-conf$idconfig"];

@@ -121,4 +121,10 @@ insert into cc_config
 values
 ('Customer balance precision', 'customer_balance_precision', '2', 'Only for displaying / saying', 0, 'global');
 
+-- Insert new config parameter force_rerouting
+insert into cc_config
+(config_title, config_key, config_description, config_valuetype, config_value, config_listvalues, config_group_title)
+values
+  ('Force rerouting', 'force_rerouting', 'If enabled the billing will stop rerouting only on ANSWER', '1', '0', 'yes,no', 'agi-conf1');
+
 -- END Openvoip.co customization SQL changes
