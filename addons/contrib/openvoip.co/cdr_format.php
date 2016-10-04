@@ -39,32 +39,48 @@ CarrierID+ITUT Number - 23 symbols!
 */
 
 $cdr_file = $argc >= 2 ? $argv[1] : "";
+if (empty($cdr_file) && isset($_REQUEST['file']))
+    $cdr_file = $_REQUEST['file'];
+
 if (!file_exists($cdr_file))
     exit(1);
 
-$handle = fopen($cdr_file, 'r');
-if (!$handle)
+$cdr_position_file = __DIR__ . '/.cdr_position';
+$cdr_position = intval(file_exists($cdr_position_file) ? file_get_contents($cdr_position_file) : 0);
+
+$file = new SplFileObject($cdr_file);
+if (!$file->isReadable())
     exit(1);
 
-$csv2 = null;
-do {
-    if (empty($csv2)) {
-        $csv1 = get_csv($handle);
-    } else {
-        $csv1 = $csv2;
-    }
-    $csv2 = get_csv($handle);
-    if ($csv1 === false)
-        break;
+try {
+    $csv2 = null;
+    $file->seek($cdr_position);
+    while (!$file->eof()) {
+        if (empty($csv2)) {
+            $csv1 = get_csv();
+        } else {
+            $csv1 = $csv2;
+        }
+        $csv2 = get_csv();
+        if ($csv1 === false)
+            break;
 
-    process_cdr($csv1, $csv2);
-} while (1);
-fclose($handle);
+        process_cdr($csv1, $csv2);
+    };
 
+    // save position for next run
+    $cdr_position = $file->key() - 1;
+    file_put_contents($cdr_position_file, ($cdr_position < 0 ? 0 : $cdr_position));
+} catch (\Exception $e) {
+    echo $e->getMessage();
+    exit(1);
+}
 
-function get_csv($handle) {
+function get_csv() {
+    global $file;
     $result = false;
-    while(($line = fgets($handle)) !== false) {
+    while (!$file->eof()) {
+        $line = $file->fgets();
         $csv = str_getcsv($line);
         if (!is_array($csv) || count($csv) < 17)
             continue;
