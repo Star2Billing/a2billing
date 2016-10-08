@@ -93,13 +93,17 @@ class CdrParser {
             self::print_ln('Passed arguments:');
             self::print_ln($this->args);
             self::print_ln(self::DEL);
-            self::print_ln('Config params:');
-            self::print_ln($this->params);
+            self::print_ln('INI params:');
+            self::print_ln($this->params_ini);
         }
 
         // mark cdr only
-        if ($unique_id = $this->get_arg('cdr_mark'))
-            return $this->set_last_cdr($cdr = $this->get_cdr($unique_id));
+        if ($unique_id = $this->get_arg('cdr_mark')) {
+            if ($this->is_test())
+                self::print_ln(self::DEL, 'Marking CDR as last:');
+            $this->set_last_cdr($this->get_cdr($unique_id));
+            return;
+        }
 
         // process cdrs
         $cdrs = $this->get_cdrs();
@@ -150,6 +154,8 @@ class CdrParser {
         }
 
         // set marker
+        if ($this->is_test())
+            self::print_ln(self::DEL, 'Saving last CDR:');
         $this->set_last_cdr($cdr);
     }
 
@@ -173,7 +179,7 @@ class CdrParser {
 
     protected function get_last_cdr() {
         if (!file_exists($this->cdr_marker))
-            return !empty($this->cdr_marker) ? unserialize($this->cdr_marker) : false;
+            return false;
 
         $serialized_cdr = file_get_contents($this->cdr_marker);
         return !empty($serialized_cdr) ? unserialize($serialized_cdr) : false;
@@ -184,7 +190,7 @@ class CdrParser {
             return;
 
         if ($this->is_test()) {
-            self::print_ln(self::DEL, 'Saving last CDR:', serialize($cdr));
+            echo serialize($cdr);
         } else {
             file_put_contents($this->cdr_marker, serialize($cdr));
         }
