@@ -99,9 +99,10 @@ class CdrParser {
 
         // mark cdr only
         if ($unique_id = $this->get_arg('cdr_mark')) {
-            if ($this->is_test())
+            $cdr = $this->get_cdr($unique_id);
+            if ($cdr && $this->is_test())
                 self::print_ln(self::DEL, 'Marking CDR as last:');
-            $this->set_last_cdr($this->get_cdr($unique_id));
+            $this->set_last_cdr();
             return;
         }
 
@@ -154,7 +155,7 @@ class CdrParser {
         }
 
         // set marker
-        if ($this->is_test())
+        if ($cdr && $this->is_test())
             self::print_ln(self::DEL, 'Saving last CDR:');
         $this->set_last_cdr($cdr);
     }
