@@ -47,6 +47,7 @@ CarrierID+ITUT Number - 23 symbols!
 class CdrParser {
     const A2B_CONFIG = '/etc/a2billing.conf';
     const DEL = "\n-----------------------------------------------------";
+    const MAX_CALL_DURATION = 3600; // seconds
 
     protected $args = array(); // app console args
     protected $params_ini = array(); // INI params from A2B_CONFIG
@@ -102,7 +103,7 @@ class CdrParser {
             $cdr = $this->get_cdr($unique_id);
             if ($cdr && $this->is_test())
                 self::print_ln(self::DEL, 'Marking CDR as last:');
-            $this->set_last_cdr();
+            $this->set_last_cdr($cdr);
             return;
         }
 
@@ -161,6 +162,7 @@ class CdrParser {
     }
 
     protected function is_retry($cdrs, $i) {
+        $result = false;
         $current_cdr = $cdrs[$i];
 
         // all cdrs is cdrs + active calls
@@ -168,14 +170,32 @@ class CdrParser {
         if (!$all_cdrs)
             $all_cdrs = array_merge($cdrs, $this->active_channels);
 
+        // prepare time limit
+        $until_time = \DateTime::createFromFormat('Y-m-d H:i:s', $current_cdr['calldate']);
+        $until_time->add(new DateInterval('PT' . self::MAX_CALL_DURATION . 'S'));
+
         // check if we have a retry in the following CDRs and active calls
-        for ($j = $i + 1; $j < count($all_cdrs); $j++) {
+        // we go forward on self::MAX_CALL_DURATION seconds only!
+        $j = $i + 1;
+        for ($j; $j < count($all_cdrs); $j++) {
             $cdr = $all_cdrs[$j];
             if ($current_cdr['channel'] === $cdr['channel'] && $current_cdr['dst'] === $cdr['dst']) {
-                return true;
+                $result = true;
+                break;
             }
+            $cdr_time = \DateTime::createFromFormat('Y-m-d H:i:s', $cdr['calldate']);
+            if ($cdr_time > $until_time)
+                break;
         }
-        return false;
+
+        if ($this->is_test())
+            self::print_ln(
+                self::DEL,
+                'RETRY RESULT: ' . ($result ? 'TRUE' : 'FALSE'),
+                'Checked cdr(s): ' . ($j - $i)
+            );
+
+        return $result;
     }
 
     protected function get_last_cdr() {
@@ -307,10 +327,10 @@ class CdrParser {
     }
 
     protected static function parse_args() {
-        $shortargs = 'h::';
+        $shortargs = 'h';
         $longargs = array(
-            'help::',
-            'test::',
+            'help',
+            'test',
             'cdr_db:',
             'cdr_table:',
             'cdr_marker:',
@@ -399,6 +419,7 @@ class CdrParser {
 
             // we need channel and number
             $result[] = array(
+                'calldate' => date('Y-m-d H:i:s'),
                 'channel' => $parts[0],
                 'dst' => $parts[2]
             );

@@ -1,16 +1,22 @@
 #!/bin/bash
 
 SCRIPT_DIR=$( cd $(dirname $0) ; pwd -P );
-cdr_log=/var/log/asterisk/cdr-csv/Master.csv
+SUFFIX=""
+ARGS="$@"
 
-[ ! -f $cdr_log ] && {
-    echo "No cdrs in $cdr_log"
-    exit 1
-}
+# get cmd options
+eval set -- `getopt -o s: --quiet -- "$@"`
+while true; do
+    case $1 in
+        -s)
+            SUFFIX="$2"
+            shift 2 ;;
+        --)
+            shift ;;
+        *)
+            break ;;
+    esac
+done
 
-[ "$(stat -c%s $cdr_log)" == "0" ] && {
-    echo "Empty cdr file $cdr_log"
-    exit 1
-}
-
-php $SCRIPT_DIR/cdr_format.php $cdr_log | ssh cdranalyst@nms "cat >> /home/cdranalyst/cdrs/A$(date +%m%d%Y)$1.txt"
+# run parser and redirect output to NMS server
+php $SCRIPT_DIR/cdr_format_mysql.php $ARGS | ssh cdranalyst@nms "cat >> /home/cdranalyst/cdrs/A$(date +%m%d%Y)$SUFFIX.txt"
