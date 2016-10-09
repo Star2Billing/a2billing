@@ -49,12 +49,26 @@ class CdrParser {
     const DEL = "\n-----------------------------------------------------";
     const MAX_CALL_DURATION = 3600; // seconds
 
+    protected static $columns = array( // cdr table legit columns
+        'calldate',
+        'clid',
+        'src',
+        'dst',
+        'channel',
+        'dstchannel',
+        'duration',
+        'billsec',
+        'disposition',
+        'accountcode',
+        'uniqueid'
+    );
     protected $args = array(); // app console args
     protected $params_ini = array(); // INI params from A2B_CONFIG
     protected $params_a2b = array(); // A2B params from database
     protected $cdr_db = null;
     protected $cdr_table = null;
     protected $cdr_marker = null;
+    protected $marker_file = null;
     protected $cdr_batch = null;
     protected $active_channels = null;
 
@@ -66,7 +80,8 @@ class CdrParser {
 
         $this->cdr_db = $this->get_arg('cdr_db', 'asteriskcdrdb');
         $this->cdr_table = $this->get_arg('cdr_table', 'cdr');
-        $this->cdr_marker = $this->get_arg('cdr_marker', __DIR__ . '/.cdr_marker');
+        $this->cdr_marker = $this->get_arg('cdr_marker');
+        $this->marker_file = __DIR__ . '/.cdr_marker';
         $this->cdr_batch = $this->get_arg('cdr_batch', 10000);
         $this->active_channels = $this->get_active_channels();
     }
@@ -80,9 +95,8 @@ class CdrParser {
                 '--test          - test only, no real actions, just output to console',
                 '--cdr_db        - CDR database name, default "asteriskcdrdb"',
                 '--cdr_table     - CDR table name, default "cdr"',
-                '--cdr_marker    - CDR latest processed unique ID marker file path, default "./.cdr_marker"',
                 '--cdr_batch     - CDR parsing batch limit, default 10000',
-                '--cdr_mark      - create CDR mark by passing cdr unique ID, it will be marked as the last processed cdr',
+                '--cdr_marker    - latest processed CDR hash',
                 '--asterisk_path - path to asterisk binary, default is /usr/sbin/asterisk'
             );
             return;
@@ -96,15 +110,6 @@ class CdrParser {
             self::print_ln(self::DEL);
             self::print_ln('INI params:');
             self::print_ln($this->params_ini);
-        }
-
-        // mark cdr only
-        if ($unique_id = $this->get_arg('cdr_mark')) {
-            $cdr = $this->get_cdr($unique_id);
-            if ($cdr && $this->is_test())
-                self::print_ln(self::DEL, 'Marking CDR as last:');
-            $this->set_last_cdr($cdr);
-            return;
         }
 
         // process cdrs
@@ -156,9 +161,32 @@ class CdrParser {
         }
 
         // set marker
-        if ($cdr && $this->is_test())
-            self::print_ln(self::DEL, 'Saving last CDR:');
-        $this->set_last_cdr($cdr);
+        $this->set_marker($cdr['uniqueid']);
+    }
+
+    protected function get_marker() {
+        if (!empty($this->cdr_marker))
+            return $this->cdr_marker;
+
+        if (file_exists($this->marker_file))
+            return file_get_contents($this->marker_file);
+
+        return '';
+    }
+
+    protected function set_marker($marker) {
+        if (empty($marker))
+            return;
+
+        if ($this->is_test()) {
+            self::print_ln(
+                self::DEL,
+                'Setting cdr marker:',
+                $marker
+            );
+        } else {
+            file_put_contents($this->marker_file, $marker);
+        }
     }
 
     protected function is_retry($cdrs, $i) {
@@ -198,34 +226,21 @@ class CdrParser {
         return $result;
     }
 
-    protected function get_last_cdr() {
-        if (!file_exists($this->cdr_marker))
-            return false;
-
-        $serialized_cdr = file_get_contents($this->cdr_marker);
-        return !empty($serialized_cdr) ? unserialize($serialized_cdr) : false;
-    }
-
-    protected function set_last_cdr($cdr) {
-        if (!is_array($cdr))
-            return;
-
-        if ($this->is_test()) {
-            echo serialize($cdr);
-        } else {
-            file_put_contents($this->cdr_marker, serialize($cdr));
-        }
-    }
-
     protected function get_cdrs() {
-        $sql = 'select * from ' . $this->cdr_db . '.' . $this->cdr_table . ' where lastapp = \'Dial\'';
+        $cdr_marker = $this->get_marker();
+        $last_cdr = null;
+        $columns = implode(', ', self::$columns);
+        $sql = 'select ' . $columns . ' from ' . $this->cdr_db . '.' . $this->cdr_table . ' where lastapp = \'Dial\'';
 
-        $last_cdr = $this->get_last_cdr();
-        if (is_array($last_cdr))
-            $sql .= ' and calldate >= \'' . $this->escape($last_cdr['calldate']) . '\'';
+        if (!empty($cdr_marker)) { // find last processed cdr
+            $data = $this->query('select ' . $columns . ' from ' . $this->cdr_db . '.' . $this->cdr_table . ' where uniqueid = \'' . $this->escape($cdr_marker) . '\' order by calldate desc limit 1');
+            if (!empty($data[0])) {
+                $last_cdr = $data[0];
+                $sql .= ' and calldate >= \'' . $this->escape($last_cdr['calldate']) . '\'';
+            }
+        }
 
         $sql .= ' order by calldate asc limit ' . $this->cdr_batch;
-
         if ($this->is_test())
             self::print_ln(self::DEL, 'CDRs SQL:', $sql);
 
@@ -335,7 +350,6 @@ class CdrParser {
             'cdr_table:',
             'cdr_marker:',
             'cdr_batch:',
-            'cdr_mark:',
             'asterisk_path:'
         );
         return getopt($shortargs, $longargs);
@@ -378,20 +392,7 @@ class CdrParser {
         if (!is_array($a) || !is_array($b))
             return false;
 
-        $columns = array(
-            'calldate',
-            'clid',
-            'src',
-            'dst',
-            'channel',
-            'dstchannel',
-            'duration',
-            'billsec',
-            'disposition',
-            'accountcode',
-            'uniqueid'
-        );
-        foreach ($columns as $column) {
+        foreach (self::$columns as $column) {
             if (!array_key_exists($column, $a) || !array_key_exists($column, $b))
                 return false;
             if ($a[$column] != $b[$column])
