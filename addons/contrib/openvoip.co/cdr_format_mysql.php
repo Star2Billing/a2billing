@@ -81,7 +81,7 @@ class CdrParser {
         $this->cdr_db = $this->get_arg('cdr_db', 'asteriskcdrdb');
         $this->cdr_table = $this->get_arg('cdr_table', 'cdr');
         $this->cdr_marker = $this->get_arg('cdr_marker');
-        $this->marker_file = __DIR__ . '/.cdr_marker';
+        $this->marker_file = $this->get_arg('marker_file', __DIR__ . '/.cdr_marker');
         $this->cdr_batch = $this->get_arg('cdr_batch', 10000);
         $this->active_channels = $this->get_active_channels();
     }
@@ -96,7 +96,8 @@ class CdrParser {
                 '--cdr_db        - CDR database name, default "asteriskcdrdb"',
                 '--cdr_table     - CDR table name, default "cdr"',
                 '--cdr_batch     - CDR parsing batch limit, default 10000',
-                '--cdr_marker    - latest processed CDR hash',
+                '--cdr_marker    - latest processed CDR uniqueid',
+                '--marker_file   - CDR latest processed CDR uniqueid',
                 '--asterisk_path - path to asterisk binary, default is /usr/sbin/asterisk'
             );
             return;
@@ -349,6 +350,7 @@ class CdrParser {
             'cdr_db:',
             'cdr_table:',
             'cdr_marker:',
+            'marker_file:',
             'cdr_batch:',
             'asterisk_path:'
         );
