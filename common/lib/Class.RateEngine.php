@@ -1482,6 +1482,8 @@ class RateEngine
                     $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[USEDRATECARD=" . $this->usedratecard . "]");
                     return true;
                 }
+                // force reset CDR and save it keeping custom variables
+                $agi->exec("ResetCDR", "wv");
             } else { // Default interruption logic
                 if ($this->dialstatus === "BUSY") {
                     $this->real_answeredtime = $this->answeredtime = 0;

@@ -231,7 +231,7 @@ class CdrParser {
         $cdr_marker = $this->get_marker();
         $last_cdr = null;
         $columns = implode(', ', self::$columns);
-        $sql = 'select ' . $columns . ' from ' . $this->cdr_db . '.' . $this->cdr_table . ' where lastapp = \'Dial\'';
+        $sql = 'select ' . $columns . ' from ' . $this->cdr_db . '.' . $this->cdr_table . ' where lastapp in (\'Dial\', \'ResetCDR\')';
 
         if (!empty($cdr_marker)) { // find last processed cdr
             $data = $this->query('select ' . $columns . ' from ' . $this->cdr_db . '.' . $this->cdr_table . ' where uniqueid = \'' . $this->escape($cdr_marker) . '\' order by calldate desc limit 1');
@@ -263,7 +263,7 @@ class CdrParser {
     }
 
     protected function get_cdr($unique_id) {
-        $sql = 'select * from ' . $this->cdr_db . '.' . $this->cdr_table . ' where lastapp = \'Dial\' and uniqueid = \'' . $this->escape($unique_id) . '\'';
+        $sql = 'select * from ' . $this->cdr_db . '.' . $this->cdr_table . ' where lastapp in (\'Dial\', \'ResetCDR\') and uniqueid = \'' . $this->escape($unique_id) . '\'';
 
         if ($this->is_test())
             self::print_ln(self::DEL, 'CDR SQL:', $sql);
