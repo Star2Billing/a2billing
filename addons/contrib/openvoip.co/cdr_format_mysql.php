@@ -44,12 +44,15 @@ Dialed number - 23 symbols! for 011 - remove 011, for all - add carrier id (3 sy
 CarrierID+ITUT Number - 23 symbols!
 */
 
+require_once __DIR__ . "../../../../common/lib/phpagi/phpagi.php";
+require_once __DIR__ . "../../../../common/lib/phpagi/phpagi-asmanager.php";
+
 class CdrParser {
     const A2B_CONFIG = '/etc/a2billing.conf';
     const DEL = "\n-----------------------------------------------------";
     const MAX_CALL_DURATION = 3600; // seconds
 
-    protected static $columns = array( // cdr table legit columns
+    protected $columns = array( // cdr table legit columns
         'calldate',
         'clid',
         'src',
@@ -60,30 +63,36 @@ class CdrParser {
         'billsec',
         'disposition',
         'accountcode',
-        'uniqueid'
+        'uniqueid',
+        'lastapp'
     );
     protected $args = array(); // app console args
     protected $params_ini = array(); // INI params from A2B_CONFIG
     protected $params_a2b = array(); // A2B params from database
     protected $cdr_db = null;
     protected $cdr_table = null;
-    protected $cdr_marker = null;
-    protected $marker_file = null;
+    protected $cdr_id_column = null;
+    protected $cdr_processed_column = null;
     protected $cdr_batch = null;
     protected $active_channels = null;
+    protected $asterisk_hosts = null;
 
     public function __construct() {
         $this->args = self::parse_args();
         $this->params_ini = self::parse_ini_config();
         $this->init_db();
-        //$this->params_a2b = $this->parse_a2b_config();
+        $this->params_a2b = $this->parse_a2b_config();
 
         $this->cdr_db = $this->get_arg('cdr_db', 'asteriskcdrdb');
         $this->cdr_table = $this->get_arg('cdr_table', 'cdr');
-        $this->cdr_marker = $this->get_arg('cdr_marker');
-        $this->marker_file = $this->get_arg('marker_file', __DIR__ . '/.cdr_marker');
-        $this->cdr_batch = $this->get_arg('cdr_batch', 10000);
+        $this->cdr_batch = intval($this->get_arg('cdr_batch', 10000));
         $this->active_channels = $this->get_active_channels();
+        $this->cdr_id_column = $this->get_arg('cdr_id_column', 'id');
+        $this->cdr_processed_column = $this->get_arg('cdr_processed_column', 'processed');
+
+        // add dynamic columns
+        $this->columns[] = $this->cdr_id_column;
+        $this->columns[] = $this->cdr_processed_column;
     }
 
     public function run() {
@@ -91,14 +100,14 @@ class CdrParser {
             self::print_ln(
                 'Usage: php cdr_format_mysql.php [options]',
                 'Options are:',
-                '-h or --help    - show this help',
-                '--test          - test only, no real actions, just output to console',
-                '--cdr_db        - CDR database name, default "asteriskcdrdb"',
-                '--cdr_table     - CDR table name, default "cdr"',
-                '--cdr_batch     - CDR parsing batch limit, default 10000',
-                '--cdr_marker    - latest processed CDR uniqueid',
-                '--marker_file   - CDR latest processed CDR uniqueid',
-                '--asterisk_path - path to asterisk binary, default is /usr/sbin/asterisk'
+                '-h or --help           - show this help',
+                '--test                 - test only, no real actions, just output to console',
+                '--cdr_db               - CDR database name, default "asteriskcdrdb"',
+                '--cdr_table            - CDR table name, default "cdr"',
+                '--cdr_batch            - CDR parsing batch limit, default 10000',
+                '--cdr_id_column        - CDR db table ID column, must be "bigint UNSIGNED NOT NULL Auto_increment"',
+                '--cdr_processed_column - CDR db table column that is used to mark processed cdrs, must "int(1) UNSIGNED DEFAULT 0 NULL"',
+                '--asterisk_hosts       - comma separated list of all asterisk hosts in cluster, like "host1,192.168.0.2"'
             );
             return;
         }
@@ -115,9 +124,15 @@ class CdrParser {
 
         // process cdrs
         $cdrs = $this->get_cdrs();
-        $cdr = null;
+        $cdr_ids = array();
         for ($i = 0; $i < count($cdrs); ++$i) {
             $cdr = $cdrs[$i];
+            $cdr_ids[] = $cdr[$this->cdr_id_column];
+
+            // we need to parse only following
+            if (!in_array($cdr['lastapp'], array('Dial', 'ResetCDR')))
+                continue;
+
             if ($this->is_test())
                 self::print_ln(self::DEL, 'Processing cdr #' . $i . ':', $cdr);
 
@@ -162,32 +177,7 @@ class CdrParser {
         }
 
         // set marker
-        $this->set_marker($cdr['uniqueid']);
-    }
-
-    protected function get_marker() {
-        if (!empty($this->cdr_marker))
-            return $this->cdr_marker;
-
-        if (file_exists($this->marker_file))
-            return file_get_contents($this->marker_file);
-
-        return '';
-    }
-
-    protected function set_marker($marker) {
-        if (empty($marker))
-            return;
-
-        if ($this->is_test()) {
-            self::print_ln(
-                self::DEL,
-                'Setting cdr marker:',
-                $marker
-            );
-        } else {
-            file_put_contents($this->marker_file, $marker);
-        }
+        $this->mark_cdrs_processed($cdr_ids);
     }
 
     protected function is_retry($cdrs, $i) {
@@ -228,33 +218,14 @@ class CdrParser {
     }
 
     protected function get_cdrs() {
-        $cdr_marker = $this->get_marker();
-        $last_cdr = null;
-        $columns = implode(', ', self::$columns);
-        $sql = 'select ' . $columns . ' from ' . $this->cdr_db . '.' . $this->cdr_table . ' where lastapp in (\'Dial\', \'ResetCDR\')';
+        $columns = implode(', ', $this->columns);
+        $sql = "select $columns from {$this->cdr_db}.{$this->cdr_table}
+        where {$this->cdr_processed_column} = 0 order by calldate asc limit {$this->cdr_batch}";
 
-        if (!empty($cdr_marker)) { // find last processed cdr
-            $data = $this->query('select ' . $columns . ' from ' . $this->cdr_db . '.' . $this->cdr_table . ' where uniqueid = \'' . $this->escape($cdr_marker) . '\' order by calldate desc limit 1');
-            if (!empty($data[0])) {
-                $last_cdr = $data[0];
-                $sql .= ' and calldate >= \'' . $this->escape($last_cdr['calldate']) . '\'';
-            }
-        }
-
-        $sql .= ' order by calldate asc limit ' . $this->cdr_batch;
         if ($this->is_test())
             self::print_ln(self::DEL, 'CDRs SQL:', $sql);
 
         $cdrs = $this->query($sql);
-
-        // start from the next cdr
-        if (is_array($last_cdr)) {
-            while (count($cdrs)) {
-                $cdr = array_shift($cdrs);
-                if (self::is_cdrs_equal($cdr, $last_cdr))
-                    break;
-            }
-        }
 
         if ($this->is_test())
             self::print_ln(self::DEL, 'CDRs count: ' . count($cdrs));
@@ -262,18 +233,23 @@ class CdrParser {
         return $cdrs;
     }
 
-    protected function get_cdr($unique_id) {
-        $sql = 'select * from ' . $this->cdr_db . '.' . $this->cdr_table . ' where lastapp in (\'Dial\', \'ResetCDR\') and uniqueid = \'' . $this->escape($unique_id) . '\'';
+    protected function mark_cdrs_processed($cdr_ids) {
+        if (!is_array($cdr_ids) || !count($cdr_ids))
+            return;
 
-        if ($this->is_test())
-            self::print_ln(self::DEL, 'CDR SQL:', $sql);
+        $cdrs_chunks = array_chunk($cdr_ids, 500);
+        foreach ($cdrs_chunks as $cdr_ids) {
+            $cdr_ids_sql = join(', ', $cdr_ids);
+            $sql = "update {$this->cdr_db}.{$this->cdr_table}
+            set {$this->cdr_processed_column} = 1
+            where {$this->cdr_id_column} in ($cdr_ids_sql)";
 
-        $cdrs = $this->query($sql);
-
-        if ($this->is_test())
-            self::print_ln(self::DEL, 'CDR FOUND:', $cdrs);
-
-        return count($cdrs) == 1 ? $cdrs[0] : false;
+            if ($this->is_test()) {
+                self::print_ln(self::DEL, 'CDRs mark SQL: ' . $sql);
+            } else {
+                $this->query($sql);
+            }
+        }
     }
 
     protected function get_a2b_param($key, $default_value = null) {
@@ -349,10 +325,10 @@ class CdrParser {
             'test',
             'cdr_db:',
             'cdr_table:',
-            'cdr_marker:',
-            'marker_file:',
+            'cdr_processed_column:',
+            'cdr_id_column:',
             'cdr_batch:',
-            'asterisk_path:'
+            'asterisk_hosts:'
         );
         return getopt($shortargs, $longargs);
     }
@@ -390,42 +366,60 @@ class CdrParser {
         self::_print_ln(func_get_args());
     }
 
-    protected static function is_cdrs_equal($a, $b) {
-        if (!is_array($a) || !is_array($b))
-            return false;
-
-        foreach (self::$columns as $column) {
-            if (!array_key_exists($column, $a) || !array_key_exists($column, $b))
-                return false;
-            if ($a[$column] != $b[$column])
-                return false;
-        }
-        return true;
-    }
-
     protected function get_active_channels() {
         $result = array();
-        $asterisk_path = $this->get_arg('asterisk_path', '/usr/sbin/asterisk');
-        if (!file_exists($asterisk_path))
+        $asm = new AGI_AsteriskManager();
+        $hosts = $this->get_arg('asterisk_hosts', $this->get_a2b_param('global.manager_host', '127.0.0.1'));
+        $hosts = explode(',', $hosts);
+        $username = $this->get_a2b_param('global.manager_username', '');
+        $secret = $this->get_a2b_param('global.manager_secret', '');
+
+        if (!is_array($hosts) || !count($hosts)) {
+            if ($this->is_test())
+                self::print_ln('No asterisk hosts found!');
+
             return $result;
+        }
 
-        $status = 0;
-        $output = array();
-        exec($asterisk_path . " -rx 'core show channels concise' 2>/dev/null", $output, $status);
+        // search calls on all hosts
+        foreach ($hosts as $host) {
+            if (!$asm->connect($host, $username, $secret)) {
+                if ($this->is_test())
+                    self::print_ln('Cannot connect to asterisk host "' . $host . '"!');
+                continue;
+            }
 
-        // parse asterisk cmd output, format:
-        // Channel!Context!Exten!Priority!Stats!Application!Data!CallerID!Accountcode!Amaflags!Duration!Bridged
-        foreach ($output as $line) {
-            $parts = explode('!', $line);
-            if (!is_array($parts) || count($parts) < 3)
+            $response = $asm->send_request('COMMAND', array(
+                'command' => 'core show channels concise',
+                'actionid' => md5(rand())
+            ));
+
+            if (!isset($response['data']))
                 continue;
 
-            // we need channel and number
-            $result[] = array(
-                'calldate' => date('Y-m-d H:i:s'),
-                'channel' => $parts[0],
-                'dst' => $parts[2]
-            );
+            if ($this->is_test())
+                self::print_ln('Got asterisk response:', $response['data']);
+
+            $lines = preg_split('/\r\n/', $response['data']);
+            if (!is_array($lines))
+                continue;
+
+            foreach ($lines as $line) {
+                if (strpos($line, '!')) {
+                    $parts = explode('!', $line);
+                    if (!is_array($parts) || count($parts) < 3)
+                        continue;
+
+                    // we need channel and number
+                    $result[] = array(
+                        'calldate' => date('Y-m-d H:i:s'),
+                        'channel' => $parts[0],
+                        'dst' => $parts[2]
+                    );
+                }
+            }
+
+            $asm->disconnect();
         }
 
         if ($this->is_test())
