@@ -404,7 +404,7 @@ class CdrParser {
             if ($this->is_test())
                 self::print_ln('Got asterisk response:', $response['data']);
 
-            $lines = preg_split('/\r\n|n/', $response['data']);
+            $lines = preg_split('/\r\n|\n/', $response['data']);
             if (!is_array($lines)) {
                 if ($this->is_test())
                     self::print_ln('Cannot parse lines: ', $lines);
