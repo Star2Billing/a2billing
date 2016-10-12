@@ -394,15 +394,23 @@ class CdrParser {
                 'actionid' => md5(rand())
             ));
 
-            if (!isset($response['data']))
+            if (empty($response['data'])) {
+                if ($this->is_test())
+                    self::print_ln('Got no response from asterisk: ' . $host);
+
                 continue;
+            }
 
             if ($this->is_test())
                 self::print_ln('Got asterisk response:', $response['data']);
 
-            $lines = preg_split('/\r\n/', $response['data']);
-            if (!is_array($lines))
+            $lines = preg_split('/\r\n|n/', $response['data']);
+            if (!is_array($lines)) {
+                if ($this->is_test())
+                    self::print_ln('Cannot parse lines: ', $lines);
+
                 continue;
+            }
 
             foreach ($lines as $line) {
                 if (strpos($line, '!')) {
