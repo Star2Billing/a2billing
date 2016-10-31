@@ -742,6 +742,7 @@ class A2Billing
         $extension         = str_replace(",", '', $extension);
         $extension         = str_replace("(", '', $extension);
         $extension         = str_replace(")", '', $extension);
+        $extension         = str_replace("-", '', $extension);
         $this->dnid        = $this->sanitize_agi_data($agi->request['agi_extension']);
         if ($this->agiconfig['default_accountcode_all'] && !empty($this->agiconfig['default_accountcode'])) {
             $this->accountcode = $this->agiconfig['default_accountcode'];
