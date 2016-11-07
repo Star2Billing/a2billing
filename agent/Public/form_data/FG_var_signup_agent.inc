@@ -31,7 +31,11 @@
  *
 **/
 
-
+if (! has_rights (ACX_ACCESS)) {
+    Header ("HTTP/1.0 401 Unauthorized");
+    Header ("Location: PP_error.php?c=accessdenied");
+    die();
+}
 
 getpost_ifset(array('id', 'id_agent', 'id_tariff_group', 'code','id_group'));
 
@@ -57,8 +61,6 @@ $HD_Form -> AddViewElement(gettext("GROUP"), "id_group", "20%", "center", "sort"
 $HD_Form -> FieldViewElement ('code, id_agent, id_tariffgroup ,id_group');
 
 
-
-
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
@@ -67,6 +69,5 @@ $HD_Form -> FG_OTHER_BUTTON1 = true;
 $HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">URL</font>';
 $HD_Form -> FG_OTHER_BUTTON1_IMG = '';
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:elegantBOX('".$A2B->config['signup']['urlcustomerinterface']."signup.php?key=|col0|',400);";
-
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL);

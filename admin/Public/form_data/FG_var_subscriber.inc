@@ -31,6 +31,11 @@
  *
 **/
 
+if (! has_rights (ACX_ADMINISTRATOR)) {
+    Header ("HTTP/1.0 401 Unauthorized");
+    Header ("Location: PP_error.php?c=accessdenied");
+    die();
+}
 
 
 getpost_ifset(array('id', 'id_cc_card', 'id_subscription_fee', 'datestart', 'datestop', 'product_name'));

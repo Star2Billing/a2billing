@@ -31,12 +31,18 @@
  *
 **/
 
+if (! has_rights (ACX_ADMINISTRATOR)) {
+    Header ("HTTP/1.0 401 Unauthorized");
+    Header ("Location: PP_error.php?c=accessdenied");
+    die();
+}
+
 getpost_ifset(array('id', 'id_card', 'date'));
 
 if (!isset($form_action) || $form_action=="list") {
-	$HD_Form = new FormHandler("cc_billing_customer LEFT JOIN cc_card ON cc_card.id=id_card  ","Billing");
+    $HD_Form = new FormHandler("cc_billing_customer LEFT JOIN cc_card ON cc_card.id=id_card  ","Billing");
 } else {
-	$HD_Form = new FormHandler("cc_billing_customer","Billing");
+    $HD_Form = new FormHandler("cc_billing_customer","Billing");
 }
 
 $HD_Form -> FG_TABLE_ID = 'cc_billing_customer.id';
@@ -63,26 +69,26 @@ $HD_Form -> FG_ADDITION = true;
 $HD_Form -> FG_DELETION = true;
 
 $HD_Form -> AddEditElement (gettext("ID CUSTOMER"),
-	"id_card",
-	"$value", "POPUPVALUE", "size=30 maxlength=50",
-	"4",	gettext("Insert the Customer ID"),
-	"" , "", "", "", "",
-	"A2B_entity_card.php?popup_select=1&", ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
-	gettext("Select the Customer ID"));
+    "id_card",
+    "$value", "POPUPVALUE", "size=30 maxlength=50",
+    "4",    gettext("Insert the Customer ID"),
+    "" , "", "", "", "",
+    "A2B_entity_card.php?popup_select=1&", ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
+    gettext("Select the Customer ID"));
 
 if ($form_action=="ask-add"){
-	$comp_date = date("Y-m-d");
-	$comp_date="value='$comp_date'";
+    $comp_date = date("Y-m-d");
+    $comp_date="value='$comp_date'";
 }
 
 $HD_Form -> AddEditElement (gettext("BILLING DATE"),
-	"date",
-	'$value',
-	"INPUT",
-	"size=40 maxlength=40 $comp_date",
-	"8",
-	gettext("Insert the current date (YYYY-MM-DD)"),
-	"" , "", "",	"", "", "", "", "" );
+    "date",
+    '$value',
+    "INPUT",
+    "size=40 maxlength=40 $comp_date",
+    "8",
+    gettext("Insert the current date (YYYY-MM-DD)"),
+    "" , "", "",    "", "", "", "", "" );
 
 $HD_Form -> FieldEditElement ('id_card, date');
 
@@ -92,8 +98,8 @@ $HD_Form -> FG_FILTERFIELDNAME = 'Account number';
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
 
 if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
-	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-	$HD_Form -> FG_TABLE_CLAUSE.="username like '$filterprefix%'";
+    if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
+    $HD_Form -> FG_TABLE_CLAUSE.="username like '$filterprefix%'";
 }
 
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this ".$HD_Form->FG_INSTANCE_NAME.", click on the delete button.");

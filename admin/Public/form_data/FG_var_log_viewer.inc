@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,10 +27,15 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
+if (! has_rights (ACX_ADMINISTRATOR)) {
+    Header ("HTTP/1.0 401 Unauthorized");
+    Header ("Location: PP_error.php?c=accessdenied");
+    die();
+}
 
 
 getpost_ifset(array('id', 'loglevel', 'enteradmin', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'stitle', 'atmenu', 'current_page', 'order', 'sens','popup_select'));
@@ -53,7 +58,7 @@ if ($Period=="Month"){
 		$condition_ary[] = "UNIX_TIMESTAMP(csl.creationdate) <= UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')";
 	}
 }else{
-	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
+	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday))
 	{
 		$condition_ary[] = "UNIX_TIMESTAMP(csl.creationdate) >= UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
 	}
@@ -66,7 +71,7 @@ if ($Period=="Month"){
 if($enteradmin != "")
 {
 	$condition_ary[] = "csl.iduser = '$enteradmin'";
-}	
+}
 if($loglevel != "" && $loglevel > 0)
 {
 	$condition_ary[] = " csl.loglevel = '$loglevel'";

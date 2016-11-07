@@ -31,6 +31,11 @@
  *
 **/
 
+if (! has_rights (ACX_ADMINISTRATOR)) {
+    Header ("HTTP/1.0 401 Unauthorized");
+    Header ("Location: PP_error.php?c=accessdenied");
+    die();
+}
 
 getpost_ifset(array('id', 'calledstation', 'id_cc_card'));
 
@@ -58,62 +63,62 @@ $HD_Form -> FG_EDITION = false;
 $HD_Form -> FG_DELETION = true;
 
 $HD_Form -> AddEditElement (gettext("CALL ID"),
-			   "id",
-			   '$value',
-			   "INPUT",
-			   "size=10 maxlength=10",
-			   "18",
-			   "",
-			   "" , "", "",	"", "" , "", "", "");
+         "id",
+         '$value',
+         "INPUT",
+         "size=10 maxlength=10",
+         "18",
+         "",
+         "" , "", "", "", "" , "", "", "");
 
 $HD_Form -> AddEditElement (gettext("ID CARD"),
-			   "card_id",
-			   "$value",
-			   "POPUPVALUE",
-			   "size=30 maxlength=50",
-			   "4",
-			   gettext("Insert the Id CardNumber"),
-			    "" , "", "", "", "",
-				"A2B_entity_card.php?popup_select=1&"
-				, ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
-				gettext("Define the card number ID to use."));
+         "card_id",
+         "$value",
+         "POPUPVALUE",
+         "size=30 maxlength=50",
+         "4",
+         gettext("Insert the Id CardNumber"),
+          "" , "", "", "", "",
+        "A2B_entity_card.php?popup_select=1&"
+        , ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
+        gettext("Define the card number ID to use."));
 
 $HD_Form -> AddEditElement (gettext("CALLED NUMBER"),
-			   "calledstation",
-			   '$value',
-			   "INPUT",
-			   "size=40 maxlength=30",
-			   "18",
-			   "",
-			   "" , "", "",	"", "" , "", "", "");
+         "calledstation",
+         '$value',
+         "INPUT",
+         "size=40 maxlength=30",
+         "18",
+         "",
+         "" , "", "", "", "" , "", "", "");
 
 
 $HD_Form -> AddEditElement (gettext("Source"),
-			   "src",
-			   '$value',
-			   "INPUT",
-			   "size=40 maxlength=30",
-			   "18",
-			   "",
-			   "" , "", "",	"", "" , "", "", "");
+         "src",
+         '$value',
+         "INPUT",
+         "size=40 maxlength=30",
+         "18",
+         "",
+         "" , "", "", "", "" , "", "", "");
 
 $HD_Form -> AddEditElement (gettext("Dnid"),
-			   "dnid",
-			   '$value',
-			   "INPUT",
-			   "size=40 maxlength=30",
-			   "18",
-			   "",
-			   "" , "", "",	"", "" , "", "", "");
+         "dnid",
+         '$value',
+         "INPUT",
+         "size=40 maxlength=30",
+         "18",
+         "",
+         "" , "", "", "", "" , "", "", "");
 
 $HD_Form -> AddEditElement (gettext("Duration"),
-			   "sessiontime",
-			   '$value',
-			   "INPUT",
-			   "size=40 maxlength=30",
-			   "18",
-			   "",
-			   "" , "", "",	"", "" , "", "", "");
+         "sessiontime",
+         '$value',
+         "INPUT",
+         "size=40 maxlength=30",
+         "18",
+         "",
+         "" , "", "", "", "" , "", "", "");
 
 
 
@@ -125,9 +130,9 @@ $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'id';
 $HD_Form -> FG_FILTERFIELDNAME = 'call ID';
 
-if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
-	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-	$HD_Form -> FG_TABLE_CLAUSE.="id like '$filterprefix%'";
+if (isset($filterprefix) && (strlen($filterprefix)>0)){
+  if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
+  $HD_Form -> FG_TABLE_CLAUSE.="id like '$filterprefix%'";
 }
 
 
@@ -146,6 +151,3 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = 'call-log-customers.php?nodisplay=1&posted=1';
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE;
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE;
-
-
-

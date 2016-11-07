@@ -31,6 +31,11 @@
  *
 **/
 
+if (! has_rights (ACX_ADMINISTRATOR)) {
+    Header ("HTTP/1.0 401 Unauthorized");
+    Header ("Location: PP_error.php?c=accessdenied");
+    die();
+}
 
 getpost_ifset(array('id', 'config_title', 'config_key', 'config_value', 'config_description', 'config_group_title', 'groupselect', 'filterKey', 'rbKey', 'filterDescription', 'rbDesc', 'filterValue', 'rbValue', 'posted','agi_conf'));
 

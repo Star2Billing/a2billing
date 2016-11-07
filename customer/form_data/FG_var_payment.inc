@@ -31,6 +31,13 @@
  *
 **/
 
+if (! has_rights (ACX_ACCESS)) {
+    Header ("HTTP/1.0 401 Unauthorized");
+    Header ("Location: PP_error.php?c=accessdenied");
+    die();
+}
+
+
 getpost_ifset(array('id', 'card_id', 'date', 'payment','description','added_refill'));
 
 $HD_Form = new FormHandler("cc_logpayment", gettext("payment"));

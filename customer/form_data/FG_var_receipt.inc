@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,15 +27,19 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
 
-
+if (! has_rights (ACX_ACCESS)) {
+    Header ("HTTP/1.0 401 Unauthorized");
+    Header ("Location: PP_error.php?c=accessdenied");
+    die();
+}
 
 getpost_ifset(array('id', 'id_card', 'date','title','description'));
-   
- 
+
+
 if (!isset($form_action) || $form_action=="list") {
 	$list_sql = "cc_receipt LEFT JOIN cc_card ON cc_card.id=id_card " .
 	            "LEFT JOIN ( SELECT st1.id_receipt, SUM(st1.price) as total_price FROM cc_receipt_item AS st1 GROUP BY st1.id_receipt ) ".
@@ -55,7 +59,7 @@ $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 $HD_Form -> FG_FK_WARNONLY = true;
 $HD_Form -> FG_FK_TABLENAMES = array("cc_receipt_item");
 $HD_Form -> FG_FK_EDITION_CLAUSE = array(" id_receipt ");
- 
+
 $HD_Form -> FG_INFO = true;
 $HD_Form -> FG_INFO_LINK = "A2B_receipt_view.php?id=";
 $HD_Form -> FG_INFO_ALT = "VIEW";
@@ -70,7 +74,7 @@ $HD_Form -> AddViewElement(gettext("AMOUNT INCL VAT"), "price", "10%", "center",
 $HD_Form -> FieldViewElement ("cc_receipt.id, username, cc_receipt.date,title,total_price");
 
 
-$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO RECEIPT CREATED!"); 
+$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO RECEIPT CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;

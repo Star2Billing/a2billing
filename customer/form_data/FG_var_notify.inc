@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2012 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2012 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,9 +27,15 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
 **/
+
+if (! has_rights (ACX_ACCESS)) {
+    Header ("HTTP/1.0 401 Unauthorized");
+    Header ("Location: PP_error.php?c=accessdenied");
+    die();
+}
 
 
 
@@ -56,7 +62,7 @@ if ($numrow == 0) exit();
 $customer_info =$resmax -> fetchRow();
 
 
-	
+
 $currencies_list = get_currencies();
 
 if (!isset($currencies_list[strtoupper($customer_info [1])][2]) || !is_numeric($currencies_list[strtoupper($customer_info [1])][2])) $mycur = 1;
@@ -73,11 +79,11 @@ $limits_notify = array();
 $idx =0;
 foreach ($values as $val) {
 $val_display = $val / $mycur;
-	$val_display = round($val_display,2);	
+	$val_display = round($val_display,2);
 	$limits_notify [$idx] = array($val_display,$val);
 	$idx++;
 }
-	
+
 
 $HD_Form -> AddEditElement (gettext("LIMIT CREDIT NOTIFICATION"),
 			   "credit_notification",
