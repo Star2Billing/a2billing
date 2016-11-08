@@ -42,7 +42,7 @@ if (!has_rights(ACX_SIMULATOR)) {
     die();
 }
 
-$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status, id, tariff FROM cc_card WHERE username = '" . $_SESSION["pr_login"] . "' AND uipass = '" . $_SESSION["pr_password"] . "'";
+$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status, id, tariff, currency FROM cc_card WHERE username = '" . $_SESSION["pr_login"] . "' AND uipass = '" . $_SESSION["pr_password"] . "'";
 
 $DBHandle_max = DbConnect();
 $numrow = 0;
@@ -65,6 +65,17 @@ getpost_ifset(array('posted', 'tariffplan', 'balance', 'id_cc_card', 'called'));
 $id_cc_card = $customer_info[15];
 $tariffplan = $customer_info[16];
 $balance = $customer_info[1];
+$currency = $customer_info[17];
+$QUERY = "SELECT value from cc_currencies where currency='$currency'";
+$DBHandle_max = DbConnect();
+$numrow = 0;
+$resmax = $DBHandle_max->Execute($QUERY);
+if ($resmax)
+    $numrow = $resmax->RecordCount();
+
+if ($numrow == 0)
+    exit ();
+$currency_value = $resmax->fetchRow()[0];
 
 $FG_DEBUG = 0;
 $DBHandle = DbConnect();
@@ -226,7 +237,7 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
                 <td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
                         <b><?php echo $arr_ratecard[10];?></b>				</td>
                 <td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
-                        <i><?php echo $RateEngine->ratecard_obj[$j][12] ;?></i>
+                        <i><?php echo round($RateEngine->ratecard_obj[$j][12]/$currency_value,4) ;?></i> <?php echo $currency; ?>
                 </td>
             </tr>
 
