@@ -30,9 +30,22 @@
 -- Update Version
 UPDATE cc_version SET version = '2.3.0';
 
+-- transaction_key
 UPDATE cc_config SET config_value = concat(
     lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0),
     lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0),
     lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0),
     lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0)
 ) WHERE id=75;
+
+-- SELECT * FROM cc_config WHERE id=75;
+
+-- api_security_key
+UPDATE cc_config SET config_value = concat(
+    lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0),
+    lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0),
+    lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0),
+    lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0)
+) WHERE id=103;
+
+-- SELECT * FROM cc_config WHERE id=103;
