@@ -157,7 +157,7 @@ echo $CC_help_simulator_rateengine;
     </TR>
     <FORM NAME="theFormFilter" action="<?php echo $PHP_SELF?>">
     <tr>
-        <td height="31" class="bgcolor_009" style="padding-left: 5px; padding-right: 3px;">
+        <td height="31" class="bgcolor_009" style="padding-left: 5px;">
                 <br>
                 <font class="fontstyle_008"><?php echo gettext("Enter the number you wish to call");?>&nbsp;:</font>
                 <INPUT type="text" name="called" value="<?php echo $called;?>" class="form_input_text">
@@ -170,7 +170,7 @@ echo $CC_help_simulator_rateengine;
                 <br><br>
 
         </td>
-        <td height="31" class="bgcolor_009" style="padding-left: 5px; padding-right: 3px;">
+        <td height="31" class="bgcolor_009" style="padding-left: 5px;">
             <span class="bar-search">
             <input type="submit" class="form_input_button" value="<?php echo gettext("SEARCH");?>">
             </span></td>
@@ -196,48 +196,53 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 
         <?php if (count($RateEngine->ratecard_obj)>1) { ?>
         <TR>
-          <td height="15" class="bgcolor_010" style="padding-left: 5px; padding-right: 3px;" colspan="2">
-                    <b><?php echo gettext("We found several destinations:");?></b></td>
+            <td height="15" class="bgcolor_010" style="padding-left: 5px;" colspan="2">
+                <b><?php echo gettext("We found several destinations:");?></b>
+            </td>
         </TR>
         <?php } ?>
-        <?php
 
+        <?php
         for ($j=0;$j<count($RateEngine->ratecard_obj);$j++) {
 
-            $result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, "SELECT destination FROM cc_prefix where prefix='".$RateEngine->ratecard_obj[$j][5]."'");
-            if (is_array($result))	$destination = $result[0][0];
-
+            $result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle,
+                "SELECT destination FROM cc_prefix where prefix='".$RateEngine->ratecard_obj[$j][5]."'");
+            if (is_array($result)){
+                $destination = $result[0][0];
+            }
         ?>
             <TR>
-              <td height="15" bgcolor="" style="padding-left: 5px; padding-right: 3px;" colspan="2">
+              <td height="15" bgcolor="" style="padding-left: 5px;" colspan="2">
 
             </td>
             </TR>
             <TR>
-              <td height="15" class="bgcolor_011" style="padding-left: 5px; padding-right: 3px;" colspan="2">
+                <td height="15" class="bgcolor_011" style="padding-left: 5px;" colspan="2">
                     <b><?php echo gettext("DESTINATION");?>&nbsp;:#<?php echo $j+1;?></b>
-            </td>
+                </td>
             </TR>
             <tr>
-                <td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
-                        <font color="blue"><b><?php echo gettext("CallTime available");?></b></font>				</td>
-                <td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
-                        <font color="blue"><i><?php echo display_minute($RateEngine->ratecard_obj[$j]['timeout']);?> <?php echo gettext("Minutes");?> </i></font>
+                <td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px;">
+                    <b><?php echo gettext("CallTime available");?></b>
+                </td>
+                <td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px;">
+                    <?php echo display_minute($RateEngine->ratecard_obj[$j]['timeout']);?> <?php echo gettext("Minutes");?>
                 </td>
             </tr>
 
             <tr>
-                <td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[0]?>" style="padding-left: 5px; padding-right: 3px;"><b><?php echo $arr_ratecard[3];?></b></td>
-                <td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[0]?>" style="padding-left: 5px; padding-right: 3px;">
-                        <i><?php echo $destination;?></i>
+                <td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[0]?>" style="padding-left: 5px;"><b><?php echo $arr_ratecard[3];?></b></td>
+                <td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[0]?>" style="padding-left: 5px;">
+                    <?php echo $destination;?>
                 </td>
             </tr>
 
             <tr>
-                <td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
-                        <b><?php echo $arr_ratecard[10];?></b>				</td>
-                <td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
-                        <i><?php echo round($RateEngine->ratecard_obj[$j][12]/$currency_value,4) ;?></i> <?php echo $currency; ?>
+                <td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px;">
+                    <b><?php echo $arr_ratecard[10];?></b>
+                </td>
+                <td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px;">
+                    <?php echo round($RateEngine->ratecard_obj[$j][12]/$currency_value,4) ;?> <?php echo $currency; ?>
                 </td>
             </tr>
 

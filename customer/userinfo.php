@@ -46,11 +46,7 @@ if (!has_rights(ACX_ACCESS)) {
 
 $inst_table = new Table();
 
-$QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status, " .
-"freetimetocall, label, packagetype, billingtype, startday, id_cc_package_offer, cc_card.id, currency,cc_card.useralias,UNIX_TIMESTAMP(cc_card.creationdate) creationdate  FROM cc_card " .
-"LEFT JOIN cc_tariffgroup ON cc_tariffgroup.id=cc_card.tariff LEFT JOIN cc_package_offer ON cc_package_offer.id=cc_tariffgroup.id_cc_package_offer " .
-"LEFT JOIN cc_card_group ON cc_card_group.id=cc_card.id_group WHERE username = '" . $_SESSION["pr_login"] .
-"' AND uipass = '" . $_SESSION["pr_password"] . "'";
+$QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status, freetimetocall, label, packagetype, billingtype, startday, id_cc_package_offer, cc_card.id, currency,cc_card.useralias,UNIX_TIMESTAMP(cc_card.creationdate) creationdate  FROM cc_card LEFT JOIN cc_tariffgroup ON cc_tariffgroup.id=cc_card.tariff LEFT JOIN cc_package_offer ON cc_package_offer.id=cc_tariffgroup.id_cc_package_offer LEFT JOIN cc_card_group ON cc_card_group.id=cc_card.id_group WHERE username = '" . $_SESSION["pr_login"] . "' AND uipass = '" . $_SESSION["pr_password"] . "'";
 
 $DBHandle = DbConnect();
 
@@ -62,6 +58,7 @@ if (!$customer_res || !is_array($customer_res)) {
 }
 
 $customer_info = $customer_res[0];
+
 if ($customer_info[14] != "1" && $customer_info[14] != "8") {
     Header("HTTP/1.0 401 Unauthorized");
     Header("Location: PP_error.php?c=accessdenied");
@@ -80,8 +77,9 @@ if (!isset ($currencies_list[strtoupper($customer_info[22])][2]) || !is_numeric(
 } else {
     $mycur = $currencies_list[strtoupper($customer_info[22])][2];
     $display_currency = strtoupper($customer_info[22]);
-    if (strtoupper($customer_info[22]) != strtoupper(BASE_CURRENCY))
+    if (strtoupper($customer_info[22]) != strtoupper(BASE_CURRENCY)) {
         $two_currency = true;
+    }
 }
 
 $credit_cur = $customer_info[1] / $mycur;
