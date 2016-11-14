@@ -49,3 +49,8 @@ UPDATE cc_config SET config_value = concat(
 ) WHERE id=103;
 
 -- SELECT * FROM cc_config WHERE id=103;
+
+-- Fix cc_ratecard where destination is not the same type as dialprefix, also, prefix should not auto_increment
+ALTER TABLE `cc_ratecard` CHANGE `dialprefix` `dialprefix` BIGINT(20) NOT NULL; 
+ALTER TABLE `cc_ratecard` CHANGE `destination` `destination` BIGINT(20) NOT NULL; 
+ALTER TABLE `cc_prefix` CHANGE `prefix` `prefix` BIGINT(20) NOT NULL; 
