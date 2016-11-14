@@ -49,3 +49,6 @@ UPDATE cc_config SET config_value = concat(
 ) WHERE id=103;
 
 -- SELECT * FROM cc_config WHERE id=103;
+
+-- Fix cc_ratecard where destination is not the same type as dialprefix
+ALTER TABLE `cc_ratecard` CHANGE `destination` `destination` CHAR(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT ''; 
