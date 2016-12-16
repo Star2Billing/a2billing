@@ -37,9 +37,11 @@ include 'lib/customer.smarty.php';
 
 $smarty->display('header.tpl');
 session_destroy();
-getpost_ifset(array('c'));
 
-if (!isset($c))	$c="0";
+getpost_ifset(array('c'));
+if (!isset($c)){
+    $c = "0";
+}
 
 $error["0"] = gettext("ERROR : ACCESS REFUSED");
 $error["syst"] = gettext("Sorry a problem occur on our system, please try later!");

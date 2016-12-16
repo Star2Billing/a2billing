@@ -197,13 +197,13 @@ function amount_convert($amount)
         </tbody></table>
       </td>
     </tr>
+
     <?php
         $price = 0;
         foreach ($receipt_items as $item) {
-             $price = $price + $item->getPrice();
-         }
-
-         ?>
+            $price = $price + $item->getPrice();
+        }
+    ?>
 
     <tr>
       <td colspan="3">
@@ -255,8 +255,8 @@ function amount_convert($amount)
            <strong><?php echo gettext("Client number"); ?></strong>
             <div><?php echo $_SESSION['pr_login'] ?></div>
           </td>
-                 </tr>
-      </tbody></table>
+        </tr></tbody>
+      </table>
     </td>
   </tr>
   </thead>
@@ -302,15 +302,15 @@ function amount_convert($amount)
         $price_with_vat = 0;
         $vat_array = array();
         foreach ($invoice_items as $item) {
-             $price_without_vat = $price_without_vat + $item->getPrice();
+            $price_without_vat = $price_without_vat + $item->getPrice();
             $price_with_vat = $price_with_vat + ($item->getPrice()*(1+($item->getVAT()/100)));
             if (array_key_exists("".$item->getVAT(),$vat_array)) {
                 $vat_array[$item->getVAT()] = $vat_array[$item->getVAT()] + $item->getPrice()*($item->getVAT()/100) ;
             } else {
                 $vat_array[$item->getVAT()] =  $item->getPrice()*($item->getVAT()/100) ;
             }
-         }
-         ?>
+        }
+    ?>
     <tr>
       <td colspan="3">
         <table class="total">
@@ -320,12 +320,14 @@ function amount_convert($amount)
            <td class="three"><?php echo number_format(ceil(amount_convert(ceil($price_without_vat*100)/100)*100)/100,2)." $display_curr"; ?></td>
          </tr>
 
-         <?php foreach ($vat_array as $key => $val) { ?>
-                 <tr class="vat">
-                   <td class="one"></td>
-                   <td class="two"><?php echo gettext("VAT $key%:") ?></td>
-                   <td class="three"><?php echo number_format(round(amount_convert($val),2),2)." $display_curr"; ?></td>
-                 </tr>
+         <?php
+            foreach ($vat_array as $key => $val) {
+          ?>
+             <tr class="vat">
+               <td class="one"></td>
+               <td class="two"><?php echo gettext("VAT $key%:") ?></td>
+               <td class="three"><?php echo number_format(round(amount_convert($val),2),2)." $display_curr"; ?></td>
+             </tr>
          <?php } ?>
          <tr class="inctotal">
            <td class="one"></td>
