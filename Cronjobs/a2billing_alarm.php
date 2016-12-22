@@ -86,7 +86,7 @@ if (!$A2B->DbConnect()) {
 $instance_table = new Table();
 
 // CHECK THE ALARMS
-$QUERY = "SELECT id, name, periode, type, maxvalue, minvalue, id_trunk, status, numberofrun, datecreate, datelastrun, emailreport " .
+$QUERY = "SELECT id, name, periode, type, `maxvalue`, minvalue, id_trunk, status, numberofrun, datecreate, datelastrun, emailreport " .
         "FROM cc_alarm WHERE status=1";
 
 $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY);
