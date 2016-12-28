@@ -201,6 +201,13 @@ class SOAP_A2Billing
                  array('in' => array('security_key' => 'string', 'card_id' => 'integer', 'value' => 'string', 'description' => 'string', 'refill_type' => 'integer'),
                        'out' => array('result' => 'boolean', 'message' => 'string')
                        );
+        
+        $this->__dispatch_map['Get_Customers'] =
+        array('in' => array('security_key' => 'string', 'status' => 'string', 'group' => 'string', 'offset' => 'integer', 'items_number' => 'integer'),
+            	'out' => array('result' => 'array', 'message' => 'string')
+        );
+        
+        
     }
 
     /*
@@ -1533,6 +1540,34 @@ class SOAP_A2Billing
         }
 
         return array(true, 'Add_Credit SUCCESS');
+    }
+    
+    
+    /*
+     *      Get all data of cards - Retourné tout les donnés du cartes  
+    */
+    public function Get_Customers($security_key, $status, $group , $offset, $items_number)
+    {
+    	if (!$this->Check_SecurityKey ($security_key)) {
+    		return array("ERROR", "INVALID KEY");
+    	}
+    
+    	$QUERY = "
+		select 
+		cid.cid , 
+		cd.*  
+		from cc_card  cd , cc_callerid cid
+		where cid.id_cc_card = cd.id 
+		AND cd.status != ".$status." 
+		AND   id_group = ".$group." 
+    	ORDER BY cid.cid  DESC
+    	LIMIT $offset, $items_number";
+    	$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
+    	if (!is_array($result)) {
+    		return array(false, "SQL ERROR Get_Customers");
+    	}
+    
+    	return array(serialize($result), 'Get_Customers SUCCESS');
     }
 
 // end Class
