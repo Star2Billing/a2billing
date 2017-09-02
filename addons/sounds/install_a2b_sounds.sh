@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ ${#@} == 0 ]; then
+    echo -e "\n*** Now is possible to pass only wanted languages \n*** for installing as arguments to script. Example:"
+	echo -e "\t$0 en es\n"
+fi
 
 # Identify Linux Distribution type
 if [ -f /etc/debian_version ] ; then
@@ -27,80 +31,28 @@ esac
 
 #Install audiofiles
 
-lang=en
-echo 
-echo Install A2Billing Audio files : "$lang"
-echo ---------------------------------------------------
-echo creating relevant folders : $ast_sound/$lang
-echo creating relevant folders : $ast_sound/$lang/digits
-
-mkdir -p $ast_sound/$lang
-mkdir -p $ast_sound/$lang/digits
-echo Copy $lang files in the right folder ...
-
-cp ./$lang/* $ast_sound/$lang/
-cp ./global/* $ast_sound/$lang/
+if ((0 < $#)) ; then
+    LANGUAGES="$*"
+else # for full retro compatibility
+    LANGUAGES='en es fr br ru'
+fi
 
 
-lang=es
-echo 
-echo Install A2Billing Audio files : "$lang"
-echo ---------------------------------------------------
-echo creating relevant folders : $ast_sound/$lang
-echo creating relevant folders : $ast_sound/$lang/digits
+for lang in $LANGUAGES
+do
+    if ! [ -d "$lang" ] ; then
+        echo "*** The folder containing A2Billing Audio files for $lang language is missing." >&2
+    else
+        echo
+        echo "Install A2Billing Audio files : $lang"
+        echo ---------------------------------------------------
+        echo "creating relevant folders : $ast_sound/$lang"
+        echo "creating relevant folders : $ast_sound/$lang/digits"
 
-mkdir -p $ast_sound/$lang
-mkdir -p $ast_sound/$lang/digits
-echo Copy $lang files in the right folder ...
+        mkdir -p $ast_sound/"$lang"/digits
+        echo "Copy '$lang' files in the right folder ..."
 
-cp ./$lang/* $ast_sound/$lang/
-cp ./global/* $ast_sound/$lang/
-
-
-lang=fr
-echo 
-echo Install A2Billing Audio files : "$lang"
-echo ---------------------------------------------------
-echo creating relevant folders : $ast_sound/$lang
-echo creating relevant folders : $ast_sound/$lang/digits
-
-mkdir -p $ast_sound/$lang
-mkdir -p $ast_sound/$lang/digits
-echo Copy $lang files in the right folder ...
-
-cp ./$lang/* $ast_sound/$lang/
-cp ./global/* $ast_sound/$lang/
-
-
-
-lang=br
-echo 
-echo Install A2Billing Audio files : "$lang"
-echo ---------------------------------------------------
-echo creating relevant folders : $ast_sound/$lang
-echo creating relevant folders : $ast_sound/$lang/digits
-
-mkdir -p $ast_sound/$lang
-mkdir -p $ast_sound/$lang/digits
-echo Copy $lang files in the right folder ...
-
-cp ./$lang/* $ast_sound/$lang/
-cp ./global/* $ast_sound/$lang/
-
-
-
-lang=ru
-echo 
-echo Install A2Billing Audio files : "$lang"
-echo ---------------------------------------------------
-echo creating relevant folders : $ast_sound/$lang
-echo creating relevant folders : $ast_sound/$lang/digits
-
-mkdir -p $ast_sound/$lang
-mkdir -p $ast_sound/$lang/digits
-echo Copy $lang files in the right folder ...
-
-cp ./$lang/* $ast_sound/$lang/
-echo Copy $lang digits files in the right folder ...
-cp ./$lang/digits/* $ast_sound/$lang/digits/
-
+        /bin/cp -Rf $lang $ast_sound/ && \
+        /bin/cp -f global/*_"$lang"* $ast_sound/$lang/ 
+    fi
+done
