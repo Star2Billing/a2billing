@@ -1,452 +1,452 @@
 
 
----------------------------  GLOBAL --------------------------
-prepaid-menulang 								press 1 for English, pulsa 2 para el español, Pressez 3 pour Français
-
-
-
-
-===========================================  ENGLISH ===========================================
-
-prepaid-welcome 								welcome to  the calling card system...
-prepaid-final									goodbye
-
--------- Authentication --------
-prepaid-enter-card-num   						please, enter your 10 digits card number skipping any ponctuations, follow by the pound key
-prepaid-enter-pin-number		   				please, enter your complete PIN number
-prepaid-no-card-entered							no card number has been entered
-prepaid-invalid-digits							invalid digits
-prepaid-auth-fail								sorry, your authentication failed
-prepaid-zero-balance							sorry, you have zero credit
-prepaid-card-expired							sorry, your card is expired
-prepaid-no-enough-credit						sorry, you dont have enough credit to call this number
-prepaid-no-enough-credit-stop					sorry, you dont have enough credit
-prepaid-card-in-use								this card number is already used!
-
--------- Call User --------
-prepaid-sipiax-press9							If you want to call a SIP or IAX Friend, please press 9 now...
-prepaid-sipiax-enternumber						Please enter the number of the IAX, SIP Friend you want to call and then press the pound key...
-prepaid-sipiax-num-nomatch						Sorry, there is none SIP or IAX friend that match with this number!
-
--------- Call Destination --------
-prepaid-enter-dest								Please, enter the number you wish to call and then press the pound key...
-prepaid-dest-unreachable						The number, you have dial, is currently unavailable...
-prepaid-isbusy									the number is currently busy
-prepaid-noanswer								the number is not answering
-prepaid-callfollowme							The person you are trying to reach did not answer. Please wait as the called party has the feature 
-												call follow me activated and we will route your call to the called party
--------- Time to call and Balance --------
-prepaid-you-have								you have
-prepaid-minute									minute
-prepaid-minutes									minutes
-prepaid-second									second
-prepaid-seconds									seconds
-prepaid-dollar									dollar
-prepaid-dollars									dollars
-prepaid-euro									euro
-prepaid-euros									euros
-prepaid-cents									cents
-prepaid-pound									pound
-prepaid-pounds									pounds
-prepaid-pence									pence
-vm-and											and
-
------- Voucher -------
-prepaid-account_refill							your account has been refill of 
-prepaid-refill_card_with_voucher				if you want to refill your card with a voucher, please type 8 now
-prepaid-voucher_does_not_exist					the voucher does not exist
-prepaid-voucher_enter_number					please enter the voucher number and press the pound key
-
------- Callback -------
-prepaid-callback_intro							Your call is now being connected, Please hold
-
------- Function Say Rate initial -------
-prepaid-cost-call 								the cost of the call is 
-prepaid-per-minutes								per minutes
-
------- CallerID update ---------
-prepaid-enter-cid								Please, enter your CallerID
-
------- Monitoring ----------
-prepaid-no-dialcode								Please, Enter your dial code
-prepaid-enter-dialcode							This dial code does not exist
-
------- Locking & Information ----------
-prepaid-press4-info                             Press 4 to get information about your account
-prepaid-press5-lock                             Press 5 to lock your account
-
-prepaid-enter-pin-lock                          Please enter your locking code
-prepaid-no-pin-lock                             Your locking Code is incorrect
-prepaid-enter-code-lock-account                 Please, Enter the code you want to use to lock your account
-prepaid-your-locking-is                         Your locking code is
-prepaid-locking-accepted                        Your locking code has been accepted
-
-prepaid-press1-listen-lastcall                  Press 1 to listen the time and duration of the last call
-prepaid-press2-listen-accountlocked             Press 2 to time and date when the account last has been locked
-prepaid-press3-listen-firstuse                  Press 3 to date of when the account was first in use
-prepaid-pressdisconnect                         Press * to disconnect
-
-prepaid-lastcall                                Your last call was made
-prepaid-no-call                                 No call has been made
-prepaid-call-duration                           The duration of the call was
-prepaid-account-has-locked                      Your Account has been locked the
-prepaid-account-nolocked                        Your account is not locked
-prepaid-account-firstused                       Your Account has been used for the first time the
-
-prepaid-press9-listen-exit-infomenu             Press 9 to exit information menu
-prepaid-press9-listen-exit-lockmenu             Press 9 to exit lock menu
-
--------- Speed Dial --------
-prepaid-press9-new-speeddial   					Press 9 to add a new speed dial
-prepaid-enter-speeddial   						Please enter the speed dial number
-prepaid-press1-change-speeddial					If you want to change it press 1 or an other key to enter an other speed dial number.
-prepaid-phonenumber-to-speeddial				Please enter the phone number followed by the pound key
-prepaid-the-phonenumber							The phone number
-prepaid-assigned-speeddial						Will be assigned to the speed dial number
-prepaid-press1-add-speeddial					If you want to proceed please press 1 or press an other key to cancel ?
-prepaid-speeddial-saved							The speed dial number has been successfully saved.
-prepaid-is-used-for                             is used for
-prepaid-point                                   point
-
--------- CallBack CID Prompt  --------
-prepaid-the-number-u-dialed-is  				The number you dialed is
-prepaid-re-enter-press1-confirm				    To re-enter the destination, press 1, to confirm, press 2
-
-
-
-===========================================  FRENCH ===========================================
-
-prepaid-welcome 								Bienvenue dans notre système de carte pré-payé....
-prepaid-final									Au revoir
-
--------- Authentication --------
-prepaid-enter-card-num		   					Entrez le numéro de votre carte, suivit de la touche dièse
-prepaid-enter-pin-number		   				Entrez votre numero d'identification...
-prepaid-no-card-entered							Aucun numéro de carte n'a été introduit...
-prepaid-invalid-digits							numéros incorrects...
-prepaid-auth-fail								désolé, votre authentification a échoué... 
-prepaid-zero-balance							désolé, votre crédit est nul...
-prepaid-card-expired							désolé, votre carte a expiré...
-prepaid-no-enough-credit						désolé, vous n'avez pas assez de crédit pour appeller ce numéro.
-prepaid-no-enough-credit-stop					désolé, vous n'avez pas assez de crédit...
-prepaid-card-in-use								Cette carte est déjà en cours d'utilisation
-
--------- Call User -------- (missing audio)
-prepaid-sipiax-press9							If you want to call a SIP or IAX Friend, please press 9 now...
-prepaid-sipiax-enternumber						Please enter the number of the IAX, SIP Friend you want to call and then press the pound key...
-prepaid-sipiax-num-nomatch						Sorry, there is none SIP or IAX friend that match with this number!
-
-
--------- Call Destination --------
-prepaid-enter-dest								Composez le numéro que vous souhaitez appeler suivit de la touche dièse.
-prepaid-dest-unreachable						Le numero que vous avez composé n'est pas disponible... 
-prepaid-isbusy									Ce numéro est occupé.
-prepaid-noanswer								Ce numéro ne répond pas.
-prepaid-callfollowme							La personne que vous essayez de contacter n est pas disponible,
-												restez en ligne pendant que notre service fait suivre votre appel
-
--------- Time to call and Balance --------
-prepaid-you-have								vous avez
-prepaid-minute									minute
-prepaid-minutes									minutes
-prepaid-second									seconde
-prepaid-seconds									secondes
-dollar											dollar
-dollars											dollars
-euro											euro
-euros											euros
-prepaid-cents									centimes
-vm-and											et
-
------- Voucher -------
-prepaid-account_refill							Votre compte a été rechargé de 
-prepaid-refill_card_with_voucher				si vous désirez recharger votre carte avec un voucher, pressez la touche 8
-prepaid-voucher_does_not_exist					Ce voucher n'existe pas
-prepaid-voucher_enter_number					Veuillez composer le numéro du voucher suivit de la touche dièse
-
------- Callback ------- (missing ?)
-prepaid-callback_intro							Votre appel sera maintenant connecté, veuillez pantienter
-
------- Function Say Rate initial -------
-prepaid-cost-call 								le cout de l appel est de 
-prepaid-per-minutes								par minutes
-
------- CallerID update -------
-prepaid-enter-cid								Entrez votre callerID
-
------- Monitoring ----------
-prepaid-no-dialcode								Entrez votre code
-prepaid-enter-dialcode							Votre code n'existe pas
-
-
-===========================================  SPANISH ===========================================
-
-prepaid-welcome                                 Bienvenido al sistema de tarjeta de llamada
-prepaid-final                                   Adiós
-
--------- Authentication --------
-prepaid-enter-card-num                          Introduzca los diez números de su tarjeta seguido de almohadilla
-prepaid-enter-pin-number						Introduzca su código PIN
-prepaid-no-card-entered                       	No se ha introducido ningún número de tarjeta
-prepaid-invalid-digits							Números incorrectos
-prepaid-auth-fail								No se ha podido verificar su número de tarjeta
-prepaid-zero-balance							Lo sentimos, no tiene crédito en su tarjeta
-prepaid-card-expired							Lo sentimos, su tarjeta ha caducado
-prepaid-no-enough-credit                        Lo sentimos, no tiene suficientes créditos para esta llamada
-prepaid-no-enough-credit-stop                   Lo sentimos, no tiene suficientes créditos
-prepaid-card-in-use		                       	¡Su tarjeta está siendo utilizada en este momento!
-
-
--------- Call User --------
-prepaid-sipiax-press9                           Si quiere llamar a un  SIP Friend o I A X Friend, marque 9
-prepaid-sipiax-enternumber                      Introduzca el número del  SIP Friend o I A X Friend que quiere llamar y marque almohadilla
-prepaid-sipiax-num-nomatch						Lo sentimos, no hay ningún  SIP Friend o I A X Friend con ese número
-
-
--------- Call Destination --------
-prepaid-enter-dest								Introduzca el número que desea llamar seguido de almohadilla												
-prepaid-dest-unreachable                        El número marcado no está disponible
-prepaid-isbusy									El número marcado está comunicando
-prepaid-noanswer								El número marcado no contesta
-prepaid-callfollowme							la persona a la que ustede llamo no se encuentra disponible, 
-												porfavor espere on momento el servicio sigueme enrutara su llamada
-
--------- Time to call and Balance --------
-prepaid-you-have								tiene
-prepaid-minute                          		minuto
-prepaid-minutes                         		minutos
-prepaid-second                          		segundo
-prepaid-seconds                         		segundos
-dollar											dólar
-dollars											dólares
-euro                                          	euro
-euros                                 			euros
-prepaid-cents                                   céntimos
-vm-and                                          y
-
------- Voucher -------
-prepaid-account_refill							your account has been refill of 
-prepaid-refill_card_with_voucher				if you want to refill your card with a voucher, please type 8 now
-prepaid-voucher_does_not_exist					the voucher does not exist
-prepaid-voucher_enter_number					please enter the voucher number and press the pound key
-
------- Callback -------
-prepaid-callback_intro							Your call is now being connected, Please hold
-
------- Function Say Rate initial -------
-prepaid-cost-call 								El coste de la llamade es de
-prepaid-per-minutes								por minutos
-
------- CallerID update ---------
-prepaid-enter-cid								Introduzca tu callerID
-
------- Monitoring ----------
-prepaid-no-dialcode								Por favor, introduzca su código
-prepaid-enter-dialcode							Este código no existe
-
-
-===========================================  PORTUGUES / BRAZILIAN ===========================================
-
-prepaid-welcome                        			Bem vindo ao sistema de cartão de chamda
-prepaid-final                            		Até logo
-
-
--------- Authentication --------
-prepaid-enter-card-num                    		Entre com os dez numéros do seu cartão e em seguida pressione quadrado
-prepaid-enter-pin-number                    	Entre com seu código PIN
-prepaid-no-card-entered                    		Não foi colocado nenhum número de cartão
-prepaid-invalid-digits                    		Números incorretos
-prepaid-auth-fail                        		Desculpe sua autenticação falhou
-prepaid-zero-balance                    		Desculpe, não há crédito no seu cartão
-prepaid-card-expired                    		Desculpe, seu cartão expirou
-prepaid-no-enough-credit                    	Desculpe, não há credito suficente para esta ligação
-prepaid-no-enough-credit-stop                	Desculpe, não há crédito suficiente
-prepaid-card-in-use                        		Seu cartão já está sendo usado neste momento!
-
--------- Call User -------- (Missing)
-prepaid-sipiax-press9                    		Se você quer ligar para um SIP Friend ou IAX Friend, tecle 9
-prepaid-sipiax-enternumber                		Por favor, entre com o número do SIP Friend ou IAX Friend que deseja ligar e em seguida pressione quadrado
-prepaid-sipiax-num-nomatch                		Desculpe, não há nenhum SIP Friend ou IAX Friend com este número
-
-
--------- Call Destination -------- ( 1 is missing )
-prepaid-enter-dest                        		Por favor, entre com o número que deseja ligar e em seguida pressione quadrado
-prepaid-dest-unreachable                    	O número discado está atualmente indisponível
-prepaid-isbusy                            		O número está ocupado nomento
-prepaid-noanswer                        		O número não responde
-prepaid-callfollowme							The person you are trying to reach did not answer. Please wait as the called party has the feature 
-												call follow me activated and we will route your call to the called party
--------- Time to call and Balance --------
-prepaid-you-have                        		você tem
-prepaid-minute                            		minuto
-prepaid-minutes                        			minutos
-prepaid-second                            		segundo
-prepaid-seconds                        			segundos
-prepaid-dollar                            		dólar
-prepaid-dollars                        			dólares
-prepaid-euro                            		euro
-prepaid-euros                            		euros
-prepaid-real                            		real
-prepaid-reais                            		reais
-prepaid-cents                            		centavos
-vm-and                                			e
-
------- Voucher -------
-prepaid-account_refill                    		sua conta teve um reenchimento de
-prepaid-refill_card_with_voucher            	se você quer reencher seu cartão com um voucher, por favor pressione 8 agora
-prepaid-voucher_does_not_exist            		o voucher não existe 
-prepaid-voucher_enter_number                	por favor entre com o número do voucher e em seguida pressione quadrado
-
------- Callback -------
-prepaid-callback_intro                    		Sua ligação está agora sendo conectada, Por favor aguarde
-
------- Function Say Rate initial -------
-prepaid-cost-call                        		O custo da chamda é de
-prepaid-per-minutes                        		por minuto
-
------- CallerID update ---------
-prepaid-enter-cid								Entre com seu CallerID
-
-
------- Monitoring ----------
-prepaid-no-dialcode								Please, Enter your dial code
-prepaid-enter-dialcode							This dial code does not exist
-
-
-
-===========================================  GREEK ===========================================
-
-prepaid-welcome                                 Καλωσορίσατε στο σύστημα καρτών προπληρωμένου χρόνου ομιλίας...
-prepaid-final									Αντίο!
-
--------- Authentication --------
-prepaid-enter-card-num   						Παρακαλώ εισάγετε τον δεκαψήφιο αριθμό της κάρτας σας, παραλείποντας τυχόν σημεία στίξης, ακολουθούμενο με το πλήκτρο της δίεσης.
-prepaid-enter-pin-number		   		    	παρακαλώ εισάγετε το πλήρες ΠΙΝ σας
-prepaid-no-card-entered							δεν έχετε εισάγει έναν αριθμό κάρτας
-prepaid-invalid-digits						    εσφαλμένα ψηφία
-prepaid-auth-fail								λυπάμαι, η ταυτοποίηση σας ήταν ανεπιτυχής
-prepaid-zero-balance							λυπάμαι, έχετε μηδέν μονάδες
-prepaid-card-expired						    Λυπάμαι, η κάρτα σας έχει λήξη
-prepaid-no-enough-credit				    	λυπάμαι, δεν έχετε αρκετές μονάδες για να καλέσετε αυτόν τον αριθμό
-prepaid-no-enough-credit-stop		    		λυπάμαι, δεν έχετε αρκετές μονάδες
-prepaid-card-in-use							    αυτός ο αριθμός κάρτας ήδη χρησιμοποιείτε!
-    
--------- Call User --------
-prepaid-sipiax-press9							Αν θέλετε να καλέσετε έναν φιλικό αριθμό IAX ή SIP, πατήστε το εννέα τώρα...
-prepaid-sipiax-enternumber			    		Παρακαλώ εισάγετε τον φιλικό αριθμό IAX, SIP  που επιθυμείτε να καλέσετε ακολουθούμενο από το πλήκτρο της δίεσης...
-prepaid-sipiax-num-nomatch			    		Λυπάμαι, δεν βρέθηκε φιλικό αριθμό IAX, SIP που να ταιριάζει με αυτόν τον αριθμό!
-
--------- Call Destination --------
-prepaid-enter-dest							    Παρακαλώ εισάγετε τον αριθμό που επιθυμείτε να καλέσετε βάζοντας μπροστά το μηδέν μηδέν και τον κωδικό της χώρας ακολουθούμενο από το πλήκτρο της δίεσης...
-prepaid-dest-unreachable				    	Ο αριθμός που καλέσατε είναι προσωρινά μη διαθέσιμος...
-prepaid-isbusy									ο αριθμός είναι κατελυμένος
-prepaid-noanswer								Ο αριθμός δεν απαντά
-prepaid-callfollowme						    Το άτομο που αναζητάτε δεν απάντησε. Παρακαλώ περιμένετε καθώς το άτομο που καλέσατε έχει ενεργοποιημένη την δυνατότητα ακολούθα με, και θα δρομολογήσουμε την κλήση σας σε αυτόν
-
--------- Time to call and Balance --------
-prepaid-you-have								έχετε
-prepaid-minute									λεπτό
-prepaid-minutes								    λεπτά
-prepaid-second									δευτερόλεπτο
-prepaid-seconds								    δευτερόλεπτα
-prepaid-dollar									δολάριο
-prepaid-dollars									δολάρια
-prepaid-euro									ευρώ
-prepaid-euros								    ευρώ
-prepaid-cents								    Λεπτά
-prepaid-pound									λύρα
-prepaid-pounds									λύρες
-prepaid-pence									πέννες
-vm-and											και
-
------- Voucher -------
-prepaid-account_refill						    ο λογαριασμός σας έχει πιστωθεί με
-prepaid-refill_card_with_voucher	    	    εάν επιθυμείτε να ανανεώστε την κάρτα σας με ένα κουπόνι, πατήστε το οχτώ τώρα
-prepaid-voucher_does_not_exist		    	    αυτό το κουπόνι δεν υπάρχει
-prepaid-voucher_enter_number			    	παρακαλώ εισάγετε τον αριθμού του κουπονιού ακολουθούμενο με το πλήκτρο της δίεσης.
-
------- Callback -------
-prepaid-callback_intro						    Παρακαλώ περιμένετε, η κλήση σας συνδέετε
-
------- Function Say Rate initial -------
-prepaid-cost-call 								Το κόστος της κλήσης είναι
-prepaid-per-minutes								Ανά λεπτό
-
------- CallerID update ---------
-prepaid-enter-cid								Παρακαλώ, εισάγετε το αναγνωριστικό κλήσης σας
-
------- Monitoring ----------
-prepaid-no-dialcode							    Αυτός ο κωδικός κλήσης δεν υπάρχει
-prepaid-enter-dialcode					    	Παρακαλώ, εισάγετε τον κωδικό κλήσης σας
-
------- Locking & Information ----------
-prepaid-press4-info                             Πατήστε το τέσσερα για να ακούσετε πληροφορίες για τον λογαριασμός σας
-prepaid-press5-lock                             Πατήστε το πέντε για να κλειδώσετε τον λογαριασμός σας
-
-prepaid-enter-pin-lock                          Παρακαλώ, εισάγετε τον κωδικό κλειδώματοςPlease enter your locking code
-prepaid-no-pin-lock                             Ο κωδικός κλειδώματος σας είναι λανθασμένος
-prepaid-enter-code-lock-account                 Παρακαλώ, εισάγετε τον κωδικό που θέλετε να χρησιμοποιήσετε για να κλειδώστε τον λογαριασμό σας
-prepaid-your-locking-is                         Ο κωδικός κλειδώματος σας είναι
-prepaid-locking-accepted                        Έγινε αποδεκτός ο κωδικός κλειδώματος
-
-prepaid-press1-listen-lastcall                  Πατήστε το ένα για να ακούσετε την ώρα και την διάρκεια της τελευταίας σας κλήσης
-prepaid-press2-listen-accountlocked             Πατήστε το δυο για να ακούσετε την ώρα και την ημερομηνία της τελευταίας φοράς που κλειδώθηκε ο λογαριασμός σας
-prepaid-press3-listen-firstuse                  Πατήστε το τρία για να ακούσετε την ημερομηνία που πρώτο χρησιμοποιήθηκε ο λογαριασμός σας
-prepaid-pressdisconnect                         Πατήστε το αστεράκι για να αποσυνδεθείτε
-
-prepaid-lastcall                                Η τελευταία σας κλήση έγινε
-prepaid-no-call                                 Δεν έχουν πραγματοποιηθεί κλήσης
-prepaid-call-duration                           Η διάρκεια της κλήσης ήταν
-prepaid-account-has-locked                      Ο λογαριασμός σας είναι κλειδωμένος
-prepaid-account-nolocked                        Ο λογαριασμός σας δεν είναι κλειδωμένος
-prepaid-account-firstused                       Ο λογαριασμός σας χρησιμοποιήθηκε για πρώτη φορά την
-
-prepaid-press9-listen-exit-infomenu             Πατήστε το εννέα για να βγείτε από το μενού πληροφοριών 
-prepaid-press9-listen-exit-lockmenu             Πατήστε το εννέα για να βγείτε από το μενού κλειδώματος
-
--------- Speed Dial --------
-prepaid-press9-new-speeddial   			        Πατήστε το εννέα για να προσθέστε μια νέα ταχεία κλήση
-prepaid-enter-speeddial                         Παρακαλώ εισάγετε τον αριθμό της ταχείας κλήσης
-prepaid-press1-change-speeddial					Εάν θέλετε να το αλλάξετε πατήστε το ένα ή οποιοδήποτε άλλο πλήκτρο για να εισάγετε κάποιο άλλο αριθμό ταχείας κλήσης.
-prepaid-phonenumber-to-speeddial				Παρακαλώ εισάγετε τον αριθμό τηλεφώνου και μετά πατήστε το πλήκτρο της δίεσης.
-prepaid-the-phonenumber							Ο αριθμός τηλεφώνου
-prepaid-assigned-speeddial						Θα οριστεί στην θέση ταχείας κλήσης
-prepaid-press1-add-speeddial					Εάν θέλετε να συνεχίσετε παρακαλώ πατήστε το ένα ή οποιοδήποτε άλλο πλήκτρο για να ακυρώσετε
-prepaid-speeddial-saved							Ο αριθμός της ταχείας κλήσης αποθηκεύτηκε με επιτυχία.
-prepaid-is-used-for                             Χρησιμοποιείτε για
-prepaid-point                                   Κόμμα
-
-
-
-===========================================  EXTRA ===========================================
-
-
----------------------------  Recorded by Allison ------------------------
+-------------------------- GLOBAL --------------------------
+prepaid-menulang                                | press 1 for English, pulsa 2 para el español, Pressez 3 pour Français
+
+
+
+
+========================================== ENGLISH ==========================================
+
+prepaid-welcome                                 | welcome to the calling card system...
+prepaid-final                                   | goodbye
+
+------ Authentication ------
+prepaid-enter-card-num                          | please, enter your 10 digits card number skipping any ponctuations, follow by the pound key
+prepaid-enter-pin-number                        | please, enter your complete PIN number
+prepaid-no-card-entered                         | no card number has been entered
+prepaid-invalid-digits                          | invalid digits
+prepaid-auth-fail                               | sorry, your authentication failed
+prepaid-zero-balance                            | sorry, you have zero credit
+prepaid-card-expired                            | sorry, your card is expired
+prepaid-no-enough-credit                        | sorry, you dont have enough credit to call this number
+prepaid-no-enough-credit-stop                   | sorry, you dont have enough credit
+prepaid-card-in-use                             | this card number is already used!
+
+------ Call User ------
+prepaid-sipiax-press9                           | If you want to call a SIP or IAX Friend, please press 9 now...
+prepaid-sipiax-enternumber                      | Please enter the number of the IAX, SIP Friend you want to call and then press the pound key...
+prepaid-sipiax-num-nomatch                      | Sorry, there is none SIP or IAX friend that match with this number!
+
+------ Call Destination ------
+prepaid-enter-dest                              | Please, enter the number you wish to call and then press the pound key...
+prepaid-dest-unreachable                        | The number, you have dial, is currently unavailable...
+prepaid-isbusy                                  | the number is currently busy
+prepaid-noanswer                                | the number is not answering
+prepaid-callfollowme                            | The person you are trying to reach did not answer. Please wait as the called party has the feature call follow me activated and we will route your call to the called party
+
+------ Time to call and Balance ------
+prepaid-you-have                                | you have
+prepaid-minute                                  | minute
+prepaid-minutes                                 | minutes
+prepaid-second                                  | second
+prepaid-seconds                                 | seconds
+prepaid-dollar                                  | dollar
+prepaid-dollars                                 | dollars
+prepaid-euro                                    | euro
+prepaid-euros                                   | euros
+prepaid-cents                                   | cents
+prepaid-pound                                   | pound
+prepaid-pounds                                  | pounds
+prepaid-pence                                   | pence
+vm-and                                          | and
+
+------ Voucher ------
+prepaid-account_refill                          | your account has been refill of
+prepaid-refill_card_with_voucher                | if you want to refill your card with a voucher, please type 8 now
+prepaid-voucher_does_not_exist                  | the voucher does not exist
+prepaid-voucher_enter_number                    | please enter the voucher number and press the pound key
+
+------ Callback ------
+prepaid-callback_intro                          | Your call is now being connected, Please hold
+
+------ Function Say Rate initial ------
+prepaid-cost-call                               | the cost of the call is
+prepaid-per-minutes                             | per minutes
+
+------ CallerID update ------
+prepaid-enter-cid                               | Please, enter your CallerID
+
+------ Monitoring ------
+prepaid-no-dialcode                             | Please, Enter your dial code
+prepaid-enter-dialcode                          | This dial code does not exist
+
+------ Locking & Information ------
+prepaid-press4-info                             | Press 4 to get information about your account
+prepaid-press5-lock                             | Press 5 to lock your account
+
+prepaid-enter-pin-lock                          | Please enter your locking code
+prepaid-no-pin-lock                             | Your locking Code is incorrect
+prepaid-enter-code-lock-account                 | Please, Enter the code you want to use to lock your account
+prepaid-your-locking-is                         | Your locking code is
+prepaid-locking-accepted                        | Your locking code has been accepted
+
+prepaid-press1-listen-lastcall                  | Press 1 to listen the time and duration of the last call
+prepaid-press2-listen-accountlocked             | Press 2 to time and date when the account last has been locked
+prepaid-press3-listen-firstuse                  | Press 3 to date of when the account was first in use
+prepaid-pressdisconnect                         | Press * to disconnect
+
+prepaid-lastcall                                | Your last call was made
+prepaid-no-call                                 | No call has been made
+prepaid-call-duration                           | The duration of the call was
+prepaid-account-has-locked                      | Your Account has been locked the
+prepaid-account-nolocked                        | Your account is not locked
+prepaid-account-firstused                       | Your Account has been used for the first time the
+
+prepaid-press9-listen-exit-infomenu             | Press 9 to exit information menu
+prepaid-press9-listen-exit-lockmenu             | Press 9 to exit lock menu
+
+------ Speed Dial ------
+prepaid-press9-new-speeddial                    | Press 9 to add a new speed dial
+prepaid-enter-speeddial                         | Please enter the speed dial number
+prepaid-press1-change-speeddial                 | If you want to change it press 1 or an other key to enter an other speed dial number.
+prepaid-phonenumber-to-speeddial                | Please enter the phone number followed by the pound key
+prepaid-the-phonenumber                         | The phone number
+prepaid-assigned-speeddial                      | Will be assigned to the speed dial number
+prepaid-press1-add-speeddial                    | If you want to proceed please press 1 or press an other key to cancel ?
+prepaid-speeddial-saved                         | The speed dial number has been successfully saved.
+prepaid-is-used-for                             | is used for
+prepaid-point                                   | point
+
+------ CallBack CID Prompt ------
+prepaid-the-number-u-dialed-is                  | The number you dialed is
+prepaid-re-enter-press1-confirm                 | To re-enter the destination, press 1, to confirm, press 2
+
+
+
+========================================== FRENCH ==========================================
+
+prepaid-welcome                                 | Bienvenue dans notre système de carte pré-payé....
+prepaid-final                                   | Au revoir
+
+------ Authentication ------
+prepaid-enter-card-num                          | Entrez le numéro de votre carte, suivit de la touche dièse
+prepaid-enter-pin-number                        | Entrez votre numero d'identification...
+prepaid-no-card-entered                         | Aucun numéro de carte n'a été introduit...
+prepaid-invalid-digits                          | numéros incorrects...
+prepaid-auth-fail                               | désolé, votre authentification a échoué...
+prepaid-zero-balance                            | désolé, votre crédit est nul...
+prepaid-card-expired                            | désolé, votre carte a expiré...
+prepaid-no-enough-credit                        | désolé, vous n'avez pas assez de crédit pour appeller ce numéro.
+prepaid-no-enough-credit-stop                   | désolé, vous n'avez pas assez de crédit...
+prepaid-card-in-use                             | Cette carte est déjà en cours d'utilisation
+
+------ Call User -------- (missing audio)
+prepaid-sipiax-press9                           | If you want to call a SIP or IAX Friend, please press 9 now...
+prepaid-sipiax-enternumber                      | Please enter the number of the IAX, SIP Friend you want to call and then press the pound key...
+prepaid-sipiax-num-nomatch                      | Sorry, there is none SIP or IAX friend that match with this number!
+
+
+------ Call Destination ------
+prepaid-enter-dest                              | Composez le numéro que vous souhaitez appeler suivit de la touche dièse.
+prepaid-dest-unreachable                        | Le numero que vous avez composé n'est pas disponible...
+prepaid-isbusy                                  | Ce numéro est occupé.
+prepaid-noanswer                                | Ce numéro ne répond pas.
+prepaid-callfollowme                            | La personne que vous essayez de contacter n est pas disponible, restez en ligne pendant que notre service fait suivre votre appel
+
+
+------ Time to call and Balance ------
+prepaid-you-have                                | vous avez
+prepaid-minute                                  | minute
+prepaid-minutes                                 | minutes
+prepaid-second                                  | seconde
+prepaid-seconds                                 | secondes
+dollar                                          | dollar
+dollars                                         | dollars
+euro                                            | euro
+euros                                           | euros
+prepaid-cents                                   | centimes
+vm-and                                          | et
+
+------ Voucher ------
+prepaid-account_refill                          | Votre compte a été rechargé de
+prepaid-refill_card_with_voucher                | si vous désirez recharger votre carte avec un voucher, pressez la touche 8
+prepaid-voucher_does_not_exist                  | Ce voucher n'existe pas
+prepaid-voucher_enter_number                    | Veuillez composer le numéro du voucher suivit de la touche dièse
+
+------ Callback -------- (missing ?)
+prepaid-callback_intro                          | Votre appel sera maintenant connecté, veuillez pantienter
+
+------ Function Say Rate initial ------
+prepaid-cost-call                               | le cout de l appel est de
+prepaid-per-minutes                             | par minutes
+
+------ CallerID update ------
+prepaid-enter-cid                               | Entrez votre callerID
+
+------ Monitoring ------
+prepaid-no-dialcode                             | Entrez votre code
+prepaid-enter-dialcode                          | Votre code n'existe pas
+
+
+========================================== SPANISH ==========================================
+
+prepaid-welcome                                 | Bienvenido al sistema de tarjeta de llamada
+prepaid-final                                   | Adiós
+
+------ Authentication ------
+prepaid-enter-card-num                          | Introduzca los diez números de su tarjeta seguido de almohadilla
+prepaid-enter-pin-number                        | Introduzca su código PIN
+prepaid-no-card-entered                         | No se ha introducido ningún número de tarjeta
+prepaid-invalid-digits                          | Números incorrectos
+prepaid-auth-fail                               | No se ha podido verificar su número de tarjeta
+prepaid-zero-balance                            | Lo sentimos, no tiene crédito en su tarjeta
+prepaid-card-expired                            | Lo sentimos, su tarjeta ha caducado
+prepaid-no-enough-credit                        | Lo sentimos, no tiene suficientes créditos para esta llamada
+prepaid-no-enough-credit-stop                   | Lo sentimos, no tiene suficientes créditos
+prepaid-card-in-use                             | ¡Su tarjeta está siendo utilizada en este momento!
+
+
+------ Call User ------
+prepaid-sipiax-press9                           | Si quiere llamar a un SIP Friend o I A X Friend, marque 9
+prepaid-sipiax-enternumber                      | Introduzca el número del SIP Friend o I A X Friend que quiere llamar y marque almohadilla
+prepaid-sipiax-num-nomatch                      | Lo sentimos, no hay ningún SIP Friend o I A X Friend con ese número
+
+
+------ Call Destination ------
+prepaid-enter-dest                              | Introduzca el número que desea llamar seguido de almohadilla
+prepaid-dest-unreachable                        | El número marcado no está disponible
+prepaid-isbusy                                  | El número marcado está comunicando
+prepaid-noanswer                                | El número marcado no contesta
+prepaid-callfollowme                            | la persona a la que ustede llamo no se encuentra disponible, porfavor espere on momento el servicio sigueme enrutara su llamada
+
+
+------ Time to call and Balance ------
+prepaid-you-have                                | tiene
+prepaid-minute                                  | minuto
+prepaid-minutes                                 | minutos
+prepaid-second                                  | segundo
+prepaid-seconds                                 | segundos
+dollar                                          | dólar
+dollars                                         | dólares
+euro                                            | euro
+euros                                           | euros
+prepaid-cents                                   | céntimos
+vm-and                                          | y
+
+------ Voucher ------
+prepaid-account_refill                          | your account has been refill of
+prepaid-refill_card_with_voucher                | if you want to refill your card with a voucher, please type 8 now
+prepaid-voucher_does_not_exist                  | the voucher does not exist
+prepaid-voucher_enter_number                    | please enter the voucher number and press the pound key
+
+------ Callback ------
+prepaid-callback_intro                          | Your call is now being connected, Please hold
+
+------ Function Say Rate initial ------
+prepaid-cost-call                               | El coste de la llamade es de
+prepaid-per-minutes                             | por minutos
+
+------ CallerID update ------
+prepaid-enter-cid                               | Introduzca tu callerID
+
+------ Monitoring ------
+prepaid-no-dialcode                             | Por favor, introduzca su código
+prepaid-enter-dialcode                          | Este código no existe
+
+
+========================================== PORTUGUES / BRAZILIAN ==========================================
+
+prepaid-welcome                                 | Bem vindo ao sistema de cartão de chamda
+prepaid-final                                   | Até logo
+
+
+------ Authentication ------
+prepaid-enter-card-num                          | Entre com os dez numéros do seu cartão e em seguida pressione quadrado
+prepaid-enter-pin-number                        | Entre com seu código PIN
+prepaid-no-card-entered                         | Não foi colocado nenhum número de cartão
+prepaid-invalid-digits                          | Números incorretos
+prepaid-auth-fail                               | Desculpe sua autenticação falhou
+prepaid-zero-balance                            | Desculpe, não há crédito no seu cartão
+prepaid-card-expired                            | Desculpe, seu cartão expirou
+prepaid-no-enough-credit                        | Desculpe, não há credito suficente para esta ligação
+prepaid-no-enough-credit-stop                   | Desculpe, não há crédito suficiente
+prepaid-card-in-use                             | Seu cartão já está sendo usado neste momento!
+
+------ Call User -------- (Missing)
+prepaid-sipiax-press9                           | Se você quer ligar para um SIP Friend ou IAX Friend, tecle 9
+prepaid-sipiax-enternumber                      | Por favor, entre com o número do SIP Friend ou IAX Friend que deseja ligar e em seguida pressione quadrado
+prepaid-sipiax-num-nomatch                      | Desculpe, não há nenhum SIP Friend ou IAX Friend com este número
+
+
+------ Call Destination -------- ( 1 is missing )
+prepaid-enter-dest                              | Por favor, entre com o número que deseja ligar e em seguida pressione quadrado
+prepaid-dest-unreachable                        | O número discado está atualmente indisponível
+prepaid-isbusy                                  | O número está ocupado nomento
+prepaid-noanswer                                | O número não responde
+prepaid-callfollowme                            | The person you are trying to reach did not answer. Please wait as the called party has the feature call follow me activated and we will route your call to the called party
+
+------ Time to call and Balance ------
+prepaid-you-have                                | você tem
+prepaid-minute                                  | minuto
+prepaid-minutes                                 | minutos
+prepaid-second                                  | segundo
+prepaid-seconds                                 | segundos
+prepaid-dollar                                  | dólar
+prepaid-dollars                                 | dólares
+prepaid-euro                                    | euro
+prepaid-euros                                   | euros
+prepaid-real                                    | real
+prepaid-reais                                   | reais
+prepaid-cents                                   | centavos
+vm-and                                          | e
+
+------ Voucher ------
+prepaid-account_refill                          | sua conta teve um reenchimento de
+prepaid-refill_card_with_voucher                | se você quer reencher seu cartão com um voucher, por favor pressione 8 agora
+prepaid-voucher_does_not_exist                  | o voucher não existe
+prepaid-voucher_enter_number                    | por favor entre com o número do voucher e em seguida pressione quadrado
+
+------ Callback ------
+prepaid-callback_intro                          | Sua ligação está agora sendo conectada, Por favor aguarde
+
+------ Function Say Rate initial ------
+prepaid-cost-call                               | O custo da chamda é de
+prepaid-per-minutes                             | por minuto
+
+------ CallerID update ------
+prepaid-enter-cid                               | Entre com seu CallerID
+
+
+------ Monitoring ------
+prepaid-no-dialcode                             | Please, Enter your dial code
+prepaid-enter-dialcode                          | This dial code does not exist
+
+
+
+========================================== GREEK ==========================================
+
+prepaid-welcome                                 | Καλωσορίσατε στο σύστημα καρτών προπληρωμένου χρόνου ομιλίας...
+prepaid-final                                   | Αντίο!
+
+------ Authentication ------
+prepaid-enter-card-num                          | Παρακαλώ εισάγετε τον δεκαψήφιο αριθμό της κάρτας σας, παραλείποντας τυχόν σημεία στίξης, ακολουθούμενο με το πλήκτρο της δίεσης.
+prepaid-enter-pin-number                        | παρακαλώ εισάγετε το πλήρες ΠΙΝ σας
+prepaid-no-card-entered                         | δεν έχετε εισάγει έναν αριθμό κάρτας
+prepaid-invalid-digits                          | εσφαλμένα ψηφία
+prepaid-auth-fail                               | λυπάμαι, η ταυτοποίηση σας ήταν ανεπιτυχής
+prepaid-zero-balance                            | λυπάμαι, έχετε μηδέν μονάδες
+prepaid-card-expired                            | Λυπάμαι, η κάρτα σας έχει λήξη
+prepaid-no-enough-credit                        | λυπάμαι, δεν έχετε αρκετές μονάδες για να καλέσετε αυτόν τον αριθμό
+prepaid-no-enough-credit-stop                   | λυπάμαι, δεν έχετε αρκετές μονάδες
+prepaid-card-in-use                             | αυτός ο αριθμός κάρτας ήδη χρησιμοποιείτε!
+
+------ Call User ------
+prepaid-sipiax-press9                           | Αν θέλετε να καλέσετε έναν φιλικό αριθμό IAX ή SIP, πατήστε το εννέα τώρα...
+prepaid-sipiax-enternumber                      | Παρακαλώ εισάγετε τον φιλικό αριθμό IAX, SIP που επιθυμείτε να καλέσετε ακολουθούμενο από το πλήκτρο της δίεσης...
+prepaid-sipiax-num-nomatch                      | Λυπάμαι, δεν βρέθηκε φιλικό αριθμό IAX, SIP που να ταιριάζει με αυτόν τον αριθμό!
+
+------ Call Destination ------
+prepaid-enter-dest                              | Παρακαλώ εισάγετε τον αριθμό που επιθυμείτε να καλέσετε βάζοντας μπροστά το μηδέν μηδέν και τον κωδικό της χώρας ακολουθούμενο από το πλήκτρο της δίεσης...
+prepaid-dest-unreachable                        | Ο αριθμός που καλέσατε είναι προσωρινά μη διαθέσιμος...
+prepaid-isbusy                                  | ο αριθμός είναι κατελυμένος
+prepaid-noanswer                                | Ο αριθμός δεν απαντά
+prepaid-callfollowme                            | Το άτομο που αναζητάτε δεν απάντησε. Παρακαλώ περιμένετε καθώς το άτομο που καλέσατε έχει ενεργοποιημένη την δυνατότητα ακολούθα με, και θα δρομολογήσουμε την κλήση σας σε αυτόν
+
+------ Time to call and Balance ------
+prepaid-you-have                                | έχετε
+prepaid-minute                                  | λεπτό
+prepaid-minutes                                 | λεπτά
+prepaid-second                                  | δευτερόλεπτο
+prepaid-seconds                                 | δευτερόλεπτα
+prepaid-dollar                                  | δολάριο
+prepaid-dollars                                 | δολάρια
+prepaid-euro                                    | ευρώ
+prepaid-euros                                   | ευρώ
+prepaid-cents                                   | Λεπτά
+prepaid-pound                                   | λύρα
+prepaid-pounds                                  | λύρες
+prepaid-pence                                   | πέννες
+vm-and                                          | και
+
+------ Voucher ------
+prepaid-account_refill                          | ο λογαριασμός σας έχει πιστωθεί με
+prepaid-refill_card_with_voucher                | εάν επιθυμείτε να ανανεώστε την κάρτα σας με ένα κουπόνι, πατήστε το οχτώ τώρα
+prepaid-voucher_does_not_exist                  | αυτό το κουπόνι δεν υπάρχει
+prepaid-voucher_enter_number                    | παρακαλώ εισάγετε τον αριθμού του κουπονιού ακολουθούμενο με το πλήκτρο της δίεσης.
+
+------ Callback ------
+prepaid-callback_intro                          | Παρακαλώ περιμένετε, η κλήση σας συνδέετε
+
+------ Function Say Rate initial ------
+prepaid-cost-call                               | Το κόστος της κλήσης είναι
+prepaid-per-minutes                             | Ανά λεπτό
+
+------ CallerID update ------
+prepaid-enter-cid                               | Παρακαλώ, εισάγετε το αναγνωριστικό κλήσης σας
+
+------ Monitoring ------
+prepaid-no-dialcode                             | Αυτός ο κωδικός κλήσης δεν υπάρχει
+prepaid-enter-dialcode                          | Παρακαλώ, εισάγετε τον κωδικό κλήσης σας
+
+------ Locking & Information ------
+prepaid-press4-info                             | Πατήστε το τέσσερα για να ακούσετε πληροφορίες για τον λογαριασμός σας
+prepaid-press5-lock                             | Πατήστε το πέντε για να κλειδώσετε τον λογαριασμός σας
+
+prepaid-enter-pin-lock                          | Παρακαλώ, εισάγετε τον κωδικό κλειδώματοςPlease enter your locking code
+prepaid-no-pin-lock                             | Ο κωδικός κλειδώματος σας είναι λανθασμένος
+prepaid-enter-code-lock-account                 | Παρακαλώ, εισάγετε τον κωδικό που θέλετε να χρησιμοποιήσετε για να κλειδώστε τον λογαριασμό σας
+prepaid-your-locking-is                         | Ο κωδικός κλειδώματος σας είναι
+prepaid-locking-accepted                        | Έγινε αποδεκτός ο κωδικός κλειδώματος
+
+prepaid-press1-listen-lastcall                  | Πατήστε το ένα για να ακούσετε την ώρα και την διάρκεια της τελευταίας σας κλήσης
+prepaid-press2-listen-accountlocked             | Πατήστε το δυο για να ακούσετε την ώρα και την ημερομηνία της τελευταίας φοράς που κλειδώθηκε ο λογαριασμός σας
+prepaid-press3-listen-firstuse                  | Πατήστε το τρία για να ακούσετε την ημερομηνία που πρώτο χρησιμοποιήθηκε ο λογαριασμός σας
+prepaid-pressdisconnect                         | Πατήστε το αστεράκι για να αποσυνδεθείτε
+
+prepaid-lastcall                                | Η τελευταία σας κλήση έγινε
+prepaid-no-call                                 | Δεν έχουν πραγματοποιηθεί κλήσης
+prepaid-call-duration                           | Η διάρκεια της κλήσης ήταν
+prepaid-account-has-locked                      | Ο λογαριασμός σας είναι κλειδωμένος
+prepaid-account-nolocked                        | Ο λογαριασμός σας δεν είναι κλειδωμένος
+prepaid-account-firstused                       | Ο λογαριασμός σας χρησιμοποιήθηκε για πρώτη φορά την
+
+prepaid-press9-listen-exit-infomenu             | Πατήστε το εννέα για να βγείτε από το μενού πληροφοριών
+prepaid-press9-listen-exit-lockmenu             | Πατήστε το εννέα για να βγείτε από το μενού κλειδώματος
+
+------ Speed Dial ------
+prepaid-press9-new-speeddial                    | Πατήστε το εννέα για να προσθέστε μια νέα ταχεία κλήση
+prepaid-enter-speeddial                         | Παρακαλώ εισάγετε τον αριθμό της ταχείας κλήσης
+prepaid-press1-change-speeddial                 | Εάν θέλετε να το αλλάξετε πατήστε το ένα ή οποιοδήποτε άλλο πλήκτρο για να εισάγετε κάποιο άλλο αριθμό ταχείας κλήσης.
+prepaid-phonenumber-to-speeddial                | Παρακαλώ εισάγετε τον αριθμό τηλεφώνου και μετά πατήστε το πλήκτρο της δίεσης.
+prepaid-the-phonenumber                         | Ο αριθμός τηλεφώνου
+prepaid-assigned-speeddial                      | Θα οριστεί στην θέση ταχείας κλήσης
+prepaid-press1-add-speeddial                    | Εάν θέλετε να συνεχίσετε παρακαλώ πατήστε το ένα ή οποιοδήποτε άλλο πλήκτρο για να ακυρώσετε
+prepaid-speeddial-saved                         | Ο αριθμός της ταχείας κλήσης αποθηκεύτηκε με επιτυχία.
+prepaid-is-used-for                             | Χρησιμοποιείτε για
+prepaid-point                                   | Κόμμα
+
+
+
+========================================== EXTRA ==========================================
+
+
+-------------------------- Recorded by Allison --------------------------
 English :
-	prepaid-enter-pin-number.wav
-	prepaid-invalid-digits.wav
-	prepaid-no-card-entered.wav
-	prepaid-you-have.wav
-	
+prepaid-enter-pin-number.wav
+prepaid-invalid-digits.wav
+prepaid-no-card-entered.wav
+prepaid-you-have.wav
 
 
----------------------------  MOST COMMON CURRENCIES  ------------------------
-US Dollar 
-Euro 
+
+-------------------------- MOST COMMON CURRENCIES --------------------------
+US Dollar
+Euro
 Canadian Dollar
 British Pound
-Australian Dollar 
-Hong Kong Dollar 
-Japanese Yen 
-New Zealand Dollar 
-Singapore Dollar 
+Australian Dollar
+Hong Kong Dollar
+Japanese Yen
+New Zealand Dollar
+Singapore Dollar
 Taiwan Dollar
-Polish Zloty 
-Swedish Krona  
-Danish Krone 
-Swiss Franc 
-Colombian Peso 
-Mexican Peso 
+Polish Zloty
+Swedish Krona
+Danish Krone
+Swiss Franc
+Colombian Peso
+Mexican Peso
 Chilean Peso
 
 
