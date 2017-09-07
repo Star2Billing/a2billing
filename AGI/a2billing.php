@@ -136,7 +136,17 @@ $A2B->debug(DEBUG, $agi, __FILE__, __LINE__, "[INFO : $agi_version]");
 $A2B->get_agi_request_parameter($agi);
 
 if (!$A2B->DbConnect()) {
-    $agi->stream_file('prepaid-final', '#');
+    $failover = isset($A2B->config["failover"]["destination"]) ? $A2B->config["failover"]["destination"] : false;
+    if ($mode == 'standard' && $failover && strpos($failover, "%number%") !== false) {
+        $A2B->agiconfig["logging_level"] = INFO;
+        $A2B->agiconfig["verbosity_level"] = INFO;
+        $A2B->debug(WARN, $agi, __FILE__, __LINE__, "No database connection, using failover!");
+        $dialstr = str_replace("%number%", $A2B->dnid, $failover);
+        $A2B->debug(INFO, $agi, __FILE__, __LINE__, "DIAL $dialstr");
+        $A2B->run_dial($agi, $dialstr);
+    } else {
+        $agi->stream_file('prepaid-final', '#');
+    }
     exit;
 }
 

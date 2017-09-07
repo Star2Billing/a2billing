@@ -336,8 +336,13 @@ class A2Billing
     {
         $this->idconfig = $idconfig;
         $config_table = new Table("cc_config", "config_key as cfgkey, config_value as cfgvalue, config_group_title as cfggname, config_valuetype as cfgtype");
-        $this->DbConnect();
-        $config_res = $config_table->Get_list($this->DBHandle, "");
+        $result = $this->DbConnect();
+        if ($result) {
+            $config_res = $config_table->Get_list($this->DBHandle, "");
+        } else {
+            echo "Error: cannot connect to database : load_conf_db";
+            return false;
+        }
         if (!$config_res) {
             echo 'Error : cannot load conf : load_conf_db';
             return false;
@@ -3659,7 +3664,8 @@ class A2Billing
         }
         $this->DBHandle = NewADOConnection($datasource);
         if (!$this->DBHandle) {
-            die("Connection failed");
+            echo "Connection failed";
+            return false;
         }
         if ($this->config['database']['dbtype'] == "mysql") {
             $this->DBHandle->Execute('SET AUTOCOMMIT = 1');
