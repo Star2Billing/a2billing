@@ -14,7 +14,7 @@ Class payment {
     public $modules, $selected_module;
 
     // class constructor
-    public function payment($module = '')
+    public function __construct($module = '')
     {
       global $payment, $language, $PHP_SELF;
       $instance_sub_table = new Table("cc_payment_methods", "payment_filename");
