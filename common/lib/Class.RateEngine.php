@@ -60,7 +60,7 @@ class RateEngine
     public $dialstatus_rev_list;
 
     /* CONSTRUCTOR */
-    public function RateEngine()
+    public function __construct()
     {
         $this->dialstatus_rev_list = Constants::getDialStatus_Revert_List();
     }
