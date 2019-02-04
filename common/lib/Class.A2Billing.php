@@ -225,7 +225,7 @@ class A2Billing
     public $dialstatus_rev_list;
 
     /* CONSTRUCTOR */
-    public function A2Billing()
+    public function __construct()
     {
         // $this->agiconfig['debug'] = true;
         // $this->DBHandle = $DBHandle;
