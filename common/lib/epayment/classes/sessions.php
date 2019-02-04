@@ -35,7 +35,7 @@
 
     public $vars;
 
-    function php3session()
+    function __construct()
     {
       $this->mod_name = $this->save_handler;
       $this->vars = array();
