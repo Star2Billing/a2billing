@@ -4,7 +4,7 @@
   {
     public $info, $totals, $products, $customer, $delivery, $content_type;
 
-    public function order($order_amount = '')
+    public function __construct($order_amount = '')
     {
       $this->info = array();
       $this->totals = array();
