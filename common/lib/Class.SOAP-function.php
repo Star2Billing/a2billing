@@ -17,7 +17,7 @@ class SOAP_A2Billing
     public $DBHandle;
 
     //Construct
-    public function SOAP_A2Billing()
+    public function __construct()
     {
         $this->instance_table = new Table();
 
