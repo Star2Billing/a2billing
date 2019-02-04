@@ -65,7 +65,7 @@ class Callback
 {
     public $__dispatch_map = array ();
 
-    public function Callback()
+    public function __construct()
     {
 
         // Define the signature of the dispatch map on the Web servicesmethod
