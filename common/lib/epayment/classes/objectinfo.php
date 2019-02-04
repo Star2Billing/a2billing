@@ -14,7 +14,7 @@
 class objectinfo
 {
     // class constructor
-    public function objectInfo($object_array)
+    public function __construct($object_array)
     {
         reset($object_array);
         while (list ($key, $value) = each($object_array)) {
