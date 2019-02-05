@@ -8,7 +8,7 @@
     public $currencies;
 
 // class constructor
-    public function currencies()
+    public function __construct()
     {
       $this->currencies = array();
       $currenciesTable= new Table("cc_currencies"," * ");

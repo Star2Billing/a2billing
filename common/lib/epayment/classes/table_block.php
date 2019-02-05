@@ -20,7 +20,7 @@
     public $table_row_parameters = '';
     public $table_data_parameters = '';
 
-    public function tableBlock($contents)
+    public function __construct($contents)
     {
       $tableBox_string = '';
 

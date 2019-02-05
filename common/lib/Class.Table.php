@@ -56,7 +56,7 @@ class Query_trace
     private static $m_pInstance;
 
     /* CONSTRUCTOR */
-    public function Query_trace()
+    public function __construct()
     {
 
     }
@@ -97,7 +97,7 @@ class Table
     public $query_handler         = null;
 
     /* CONSTRUCTOR */
-    public function Table($table = null, $liste_fields = null, $fk_Tables = null, $fk_Fields = null, $id_Value = null, $fk_del_upd = true, $table_count = null)
+    public function __construct($table = null, $liste_fields = null, $fk_Tables = [], $fk_Fields = [], $id_Value = null, $fk_del_upd = true, $table_count = null)
     {
         $this->writelog = defined('WRITELOG_QUERY') ? WRITELOG_QUERY : false;
         $this->table = $table;

@@ -529,7 +529,7 @@ class FormHandler
 	//	@ $tablename + $instance_name
 	// ----------------------------------------------
 
-	function FormHandler ($tablename=null, $instance_name=null, $action=null, $tablename_count=null)
+	function __construct ($tablename=null, $instance_name=null, $action=null, $tablename_count=null)
 	{
 		Console::log('Construct FormHandler');
 		Console::logMemory($this, 'FormHandler Class : Line '.__LINE__);

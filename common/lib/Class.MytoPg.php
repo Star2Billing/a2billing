@@ -36,13 +36,13 @@ class MytoPg
         // The 2nd pass matches functions which consume the following () too
         ,'(\s*)(CONCAT|REPLACE|ADDDATE|DATE_ADD|SUBDATE|DATE_SUB|SUBSTRING|TIMEDIFF|TIME_TO_SEC|DATETIME|TIMESTAMP|YEAR|MONTH|DAY|DATE_FORMAT|DATE_PART)(\s*)\('
         );
-    public function MytoPg ($debug = null)
+    public function __construct($debug = null)
     {
         $this -> DEBUG = $debug;
     }
 
 
-    public function My_to_Pg (&$q)
+    public function My_to_Pg(&$q)
     {
         $dbg = $this -> DEBUG;
         $count = 0;
@@ -291,7 +291,7 @@ class MytoPg
     //  quote: the position of the matching close quote after $p
     //  split: an array of the string split on character $p
     // quoted: 1 if the position $p is within a quoted string
-    public function Parse_helper ($mode, &$str, $p, $dbg, &$d)
+    public function Parse_helper($mode, &$str, $p, $dbg, &$d)
     {
         $lastpos = 0;
         $brackets = 0;
@@ -395,7 +395,7 @@ class MytoPg
     }
 
     // If a date participle looks like an immediate constant, cast it appropriately
-    public function Cast_date_part ($part)
+    public function Cast_date_part($part)
     {
         if (preg_match('/([[:space:]]*)[\'"]now[\'"]([[:space:]]*)/i', $part, $parm)) {
             $part = "$parm[1]now()$parm[2]";
