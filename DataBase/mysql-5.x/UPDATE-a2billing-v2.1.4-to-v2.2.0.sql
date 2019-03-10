@@ -27,5 +27,13 @@
 *
 **/
 
+
+
+
+
+ALTER TABLE cc_callerid ADD COLUMN `id_didgroup` bigint(20) NOT NULL DEFAULT '-1'
+ALTER TABLE cc_callerid DROP INDEX cons_cc_callerid_cid;
+ALTER TABLE cc_callerid ADD UNIQUE INDEX cons_cc_callerid_cid ( `cid`,`id_didgroup` ) USING BTREE;
+
 -- Update Version
 UPDATE cc_version SET version = '2.2.0';
