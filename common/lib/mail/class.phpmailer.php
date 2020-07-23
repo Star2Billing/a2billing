@@ -1676,7 +1676,7 @@ class phpmailer
         //$encoded = preg_replace('/([\000-\011\013\014\016-\037\075\077\137\177-\377])/e',
         //      "'='.sprintf('%02X', ord('\\1'))", $encoded);
     $encoded = preg_replace_callback('/([\000-\011\013\014\016-\037\075\077\137\177-\377])/', function ($m) {
-		return "'='.sprintf('%02X', ord($m[1]))";
+		return '='.sprintf('%02X', ord($m[1]));
 		}, $encoded);     
         
         break;
