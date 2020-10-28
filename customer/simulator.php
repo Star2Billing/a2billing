@@ -102,7 +102,7 @@ if ($called && $id_cc_card) {
         if ($FG_DEBUG == 1)
             echo "cardnumber = " . $result[0][0] . " - balance=$balance<br>";
 
-        if ($A2B->callingcard_ivr_authenticate_light($error_msg)) {
+        if ($A2B->callingcard_ivr_authenticate_light($error_msg, 0)) {
             if ($FG_DEBUG == 1)
                 $RateEngine->debug_st = 1;
 
