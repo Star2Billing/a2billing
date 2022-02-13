@@ -1,0 +1,17 @@
+web-admin:
+  build: .
+
+web-customer:
+  build: .
+
+  links:
+    - redis
+
+  redis:
+    - "3000"
+    - "8000"
+
+redis:
+  image: redis
+  volumes:
+    - /var/redis/data:/data
