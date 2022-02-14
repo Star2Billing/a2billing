@@ -5,7 +5,7 @@ FROM php:7.4-apache
 #COPY my-apache-site.conf /etc/apache2/sites-available/my-apache-site.conf
 #RUN apt-get install libapache2-mod-php5 php5 php5-common
 #RUN apt-get install php5-cli php5-mysql mysql-server apache2 php5-gd
-RUN apt-get install openssh-server subversion
+#RUN apt-get install openssh-server subversion
 #RUN apt-get install php5-mcrypt
 RUN apt-get install asterisk
 
