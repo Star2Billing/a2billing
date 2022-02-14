@@ -15,6 +15,6 @@ COPY ./composer.json /app/package-lock.json
 COPY . .
 FROM nginx
 COPY ./a2billing.conf /etc/nginx/conf.d/default.conf
-COPY ./a2billing/admin/index.php /var/www/html/admin
-COPY ./a2billing/customer/index.php /var/www/html/customere
+COPY ./a2billing/admin/index /var/www/html/admin
+COPY ./a2billing/customer/index /var/www/html/customere
 
