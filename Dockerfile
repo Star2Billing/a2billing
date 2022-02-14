@@ -11,7 +11,10 @@ RUN a2enmod rewrite
 COPY src /var/www/
 COPY ./composer.json /app/package.json
 COPY ./composer.json /app/package-lock.json
+COPY src /var/www/
+RUN chown -R www-data:www-data /var/www
 
+CMD ["start-apache"]
 WORKDIR /app
 FROM nginx:alpine
 COPY ./a2billing.conf /etc/nginx/nginx.conf
