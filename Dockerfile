@@ -6,17 +6,13 @@ RUN apt-get install openssh-server subversion
 RUN apt-get install php5-mcrypt
 RUN apt-get install asterisk
 
-RUN docker-php-ext-install mysqli
-WORKDIR /app
-#Copy some overview page that links to the next devices
+COPY start-apache /usr/local/bin
+RUN a2enmod rewrite
+COPY src /var/www/
 COPY ./composer.json /app/package.json
 COPY ./composer.json /app/package-lock.json
 
-COPY . .
+WORKDIR /app
 FROM nginx:alpine
 COPY ./a2billing.conf /etc/nginx/nginx.conf
-#COPY ./a2billing/admin/index /var/www/html/admin
-#COPY ./a2billing/customer/index /var/www/html/customere
-
-
-COPY ./customer /usr/share/nginx/html
+#RUN docker-php-ext-install mysqli
