@@ -13,8 +13,10 @@ COPY ./composer.json /app/package.json
 COPY ./composer.json /app/package-lock.json
 
 COPY . .
-FROM nginx
+FROM nginx:alpine
 COPY ./a2billing.conf /etc/nginx/nginx.conf
 #COPY ./a2billing/admin/index /var/www/html/admin
 #COPY ./a2billing/customer/index /var/www/html/customere
 
+
+COPY ./customer /usr/share/nginx/html
