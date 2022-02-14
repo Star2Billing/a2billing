@@ -18,7 +18,7 @@ COPY src /var/www/
 #RUN chown -R www-data:www-data /var/www
 
 #CMD ["start-apache"]
-WORKDIR /app
-FROM nginx:alpine
-COPY ./a2billing.conf /etc/nginx/nginx.conf
+#WORKDIR /app
+#FROM nginx:alpine
+#COPY ./a2billing.conf /etc/nginx/nginx.conf
 #RUN docker-php-ext-install mysqli
