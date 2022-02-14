@@ -8,7 +8,7 @@ RUN apt-get install asterisk
 
 RUN docker-php-ext-install mysqli
 WORKDIR /app
-Copy some overview page that links to the next devices
+#Copy some overview page that links to the next devices
 COPY ./composer.json /app/package.json
 COPY ./composer.json /app/package-lock.json
 
