@@ -1,0 +1,31 @@
+version: '3.9'
+services:
+    
+    astrick:
+        container_name: astriks
+        image: andrius/asterisk
+        ports:
+            - 5038:5038
+    db:
+        container_name: db
+        image: mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: ENTER
+            MYSQL_DATABASE: mya2billing
+            MYSQL_USER: a2billinguser
+            MYSQL_PASSWORD: a2billing
+        ports:
+            - 9906:3306
+
+    php-apache:
+        container_name: customer
+        build:  .         
+        depends_on:
+            - db
+            - asterisk
+        volumes:
+            - ./src:/var/www
+            - ./customer:/var/www/customer
+        ports:
+            - 80:80        
