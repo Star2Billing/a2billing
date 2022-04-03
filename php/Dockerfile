@@ -7,10 +7,11 @@ COPY ./customer /var/www/a2billing/customer
 COPY ./agent    /var/www/a2billing/agent
 COPY ./admin    /var/www/a2billing/admin
 COPY ./commen   /var/www/a2billing/commen
-RUN chown -R www-data:www-data /var/www
+#RUN chown -R www-data:www-data /var/www
 COPY ./addons/asterisk-conf/extentions_a2billing_1_6.conf  /etc/apache2/sites-available/extentions_a2billing_1_6.conf
 COPY ./addons/asterisk-conf/extentions_a2billing_1_8.conf  /etc/apache2/sites-available/extentions_a2billing_1_8.conf
 COPY ./addons/asterisk-conf/extentions_a2billing.conf  /etc/apache2/sites-available/extentions_a2billing.conf
+
 
 
  
